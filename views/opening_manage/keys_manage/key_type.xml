@@ -6,7 +6,11 @@
 			<field name="arch" type="xml">
 				<tree limit="15">
 					<field name="name" string="钥匙类型"/>
-					<field name="remark" string="备注"/>
+					<field name="remarks" string="备注"/>
+					<!--<field name="operation" string="操作" >-->
+					<!--</field>-->
+					<!--<button name="operation" string="修改"/>-->
+					<!--<button name="delete" string="删除"/>-->
 				</tree>
 			</field>
 		</record>
@@ -18,8 +22,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="name"/>
-							<field name="remark"/>
+							<field name="name" string="钥匙类型"/>
+							<field name="remarks" string="备注"/>
 						</group>
 					</div>
 				</form>
