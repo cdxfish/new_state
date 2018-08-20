@@ -5,7 +5,19 @@
 			<field name="model">fuenc.station.borrow.record</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
-					<field name="name" string="名称"/>
+					<field name="key_no"/>
+					<field name="line"/>
+					<field name="type"/>
+					<field name="station"/>
+					<field name="name"/>
+					<field name="position"/>
+					<field name="state"/>
+					<field name="borrow_time"/>
+					<field name="borrow_operate_member"/>
+					<field name="borrow_member"/>
+					<field name="return_time"/>
+					<field name="return_operate_member"/>
+					<field name="return_member"/>
 				</tree>
 			</field>
 		</record>
@@ -17,7 +29,19 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="name" string="名称"/>
+							<field name="key_no"/>
+							<field name="line"/>
+							<field name="type"/>
+							<field name="station"/>
+							<field name="name"/>
+							<field name="position"/>
+							<field name="state"/>
+							<field name="borrow_time"/>
+							<field name="borrow_operate_member"/>
+							<field name="borrow_member"/>
+							<field name="return_time"/>
+							<field name="return_operate_member"/>
+							<field name="return_member"/>
 						</group>
 					</div>
 				</form>

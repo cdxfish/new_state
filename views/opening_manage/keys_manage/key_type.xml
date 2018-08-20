@@ -18,8 +18,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="name" string="钥匙类型"/>
-							<field name="remark" string="备注"/>
+							<field name="name"/>
+							<field name="remark"/>
 						</group>
 					</div>
 				</form>
