@@ -5,7 +5,8 @@
 			<field name="model">fuenc.station.key.type</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
-					<field name="name" string="名称"/>
+					<field name="name" string="钥匙类型"/>
+					<field name="remark" string="备注"/>
 				</tree>
 			</field>
 		</record>
@@ -17,7 +18,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="name" string="名称"/>
+							<field name="name" string="钥匙类型"/>
+							<field name="remark" string="备注"/>
 						</group>
 					</div>
 				</form>

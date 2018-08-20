@@ -26,9 +26,9 @@
 	'data': [
 		# 'security/ir.model.access.csv',
 		'views/menu.xml',
-		'views/opening_manage/key_manage/key_manage.xml',
-		'views/opening_manage/key_manage/key_type.xml',
-		'views/opening_manage/key_manage/borrow_record.xml',
+		'views/opening_manage/keys_manage/key_manage.xml',
+		'views/opening_manage/keys_manage/key_type.xml',
+		'views/opening_manage/keys_manage/borrow_record.xml',
 	
 	],
 	# only loaded in demonstration mode
