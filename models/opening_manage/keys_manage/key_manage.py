@@ -7,3 +7,4 @@ class KeyManage(models.Model):
     _name = 'fuenc.station.key.manage'
 
     name = fields.Char(string='名字')
+    remarks = fields.Text(string=u'备注')
