@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		
+		<record id="home_index_act_window" model="ir.actions.client">
+			<field name="name">站务首页</field>
+			<field name="tag"></field>
+		</record>
+		<record id="log_manage_act_window" model="ir.actions.act_window">
+			<field name="name">钥匙管理</field>
+			<field name="res_model">logger.logger</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="funenc_station" icon="&#xe621;" name="站务管理" sequence="1"
+		/>
+		<!--<menuitem id="home_index" icon="&#xe621;" name="站务首页" sequence="1"-->
+		          <!--parent="funenc_station"/>-->
+		<!--<menuitem id="product_manage" icon="&#xe621;" name="生产管理" sequence="2"-->
+		          <!--parent="funenc_station"/>-->
+		
+		<menuitem id="opening_manage" icon="&#xe621;" name="运作管理" sequence="3"
+		          parent="funenc_station"/>
+		<menuitem id="keys_manage"  name="钥匙管理" sequence="1"
+		          parent="opening_manage"/>
+		<menuitem id="keys_index" action="keys_index_act_window" name="钥匙管理" sequence="1"
+		          parent="keys_manage"/>
+		<menuitem id="keys_types" action="keys_types_act_window" name="钥匙类型" sequence="2"
+		          parent="keys_manage"/>
+		<menuitem id="borrow_records" action="borrow_records_act_window" name="借用记录" sequence="3"
+		          parent="keys_manage"/>
+		
+		<!--<menuitem id="total_manage" icon="&#xe621;" name="综合管理" sequence="4"-->
+		          <!--parent="funenc_station"/>-->
+		<!--<menuitem id="users_manage" icon="&#xe621;" name="人员管理" sequence="5"-->
+		          <!--parent="funenc_station"/>-->
+		<!--<menuitem id="others_manage" icon="&#xe621;" name="系统及其他" sequence="6"-->
+		          <!--parent="funenc_station"/>-->
+		
+	</data>
+</odoo>

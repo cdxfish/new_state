@@ -1,0 +1,28 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="fuenc_station_key_manage_list">
+			<field name="name">fuenc_station_key_manage_list</field>
+			<field name="model">fuenc.station.key.manage</field>
+			<field name="arch" type="xml">
+				<tree limit="15">
+					<field name="name" string="名称"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="fuenc_station_key_manage_form">
+			<field name="name">fuenc_station_key_manage_form</field>
+			<field name="model">fuenc.station.key.manage</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="name" string="名称"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+	
+	</data>
+</odoo>
