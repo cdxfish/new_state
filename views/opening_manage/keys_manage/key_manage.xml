@@ -5,7 +5,15 @@
 			<field name="model">fuenc.station.key.manage</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
-					<field name="name" string="名称"/>
+					<field name="id" string="序号"/>
+					<field name="line_id"/>
+					<field name="ascription_site_id"/>
+					<field name="key_type_id"/>
+					<field name="master_number"/>
+					<field name="copy_number"/>
+					<field name="key_total"/>
+					<field name="borrow_number"/>
+					<field name="destroy_number"/>
 				</tree>
 			</field>
 		</record>
@@ -17,12 +25,14 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="line_id" string="选择线路"/>
-							<field name="ascription_site_id" string="归属站点"/>
-							<field name="key_type_id" string="钥匙类型"/>
-							<field name="key_no" string="钥匙编号" placeholder="可批量,编号之间隔行"/>
-							<field name="name" string="名称"/>
-							<field name="key_position" string="对应位置"/>
+							<field name="line_id"/>
+							<field name="ascription_site_id"/>
+							<field name="key_type_id"/>
+							<field name="master_number"/>
+							<field name="copy_number"/>
+							<field name="key_total"/>
+							<field name="borrow_number"/>
+							<field name="destroy_number"/>
 						</group>
 					</div>
 				</form>

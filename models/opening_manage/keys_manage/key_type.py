@@ -7,7 +7,7 @@ class KeyType(models.Model):
 	_name = 'fuenc.station.key.type'
 	_rec_name = "name"
 	
-	name = fields.Char(string='名字', required=True)
+	name = fields.Char(string='名字')
 	remarks = fields.Text(string='备注')
 	operation = fields.Char(string='操作', default='操作')
 	

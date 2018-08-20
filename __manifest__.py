@@ -28,6 +28,7 @@
 		'views/menu.xml',
 		'views/opening_manage/keys_manage/key_manage.xml',
 		'views/opening_manage/keys_manage/key_type.xml',
+		'views/opening_manage/keys_manage/key_detail.xml',
 		'views/opening_manage/keys_manage/borrow_record.xml',
 	
 	],
