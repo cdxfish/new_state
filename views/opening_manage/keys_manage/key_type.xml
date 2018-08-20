@@ -12,6 +12,7 @@
 					 <button name="operation" string="修改"/>
 					<button name="delete" string="删除"/>
 
+					<field name="remark" string="备注"/>
 				</tree>
 			</field>
 		</record>
@@ -24,7 +25,11 @@
 					<div class="container-fluid">
 						<group>
 							<field name="name" string="钥匙类型"/>
+<<<<<<< HEAD
 							<field name="remarks" string="备注"/>
+=======
+							<field name="remark" string="备注"/>
+>>>>>>> 7daaf8c9dcd89e76e629ab4c80f00e624338a555
 						</group>
 					</div>
 				</form>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 7daaf8c9dcd89e76e629ab4c80f00e624338a555
 		<!--<record id="home_index_act_window" model="ir.actions.client">-->
 		<!--<field name="name">站务首页</field>-->
 		<!--<field name="tag"></field>-->
@@ -28,7 +32,11 @@
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="product_manage" icon="&#xe621;" name="生产管理" sequence="2"-->
 		<!--parent="funenc_station"/>-->
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 7daaf8c9dcd89e76e629ab4c80f00e624338a555
 		<menuitem id="opening_manage" icon="&#xe621;" name="运作管理" sequence="3"
 		          parent="funenc_station"/>
 		<menuitem id="keys_manage" name="钥匙管理" sequence="1"
@@ -46,6 +54,10 @@
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="others_manage" icon="&#xe621;" name="系统及其他" sequence="6"-->
 		<!--parent="funenc_station"/>-->
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 7daaf8c9dcd89e76e629ab4c80f00e624338a555
 	</data>
 </odoo>
