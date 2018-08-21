@@ -1,16 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
+		<record model="ir.actions.server" id="create_key_type_button">
+			<field name="name">创建钥匙类型</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_fuenc_station_key_type"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_fuenc_station_key_type"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">钥匙类型</field>
+			<field name="code">
+				action = model.create_key_type()
+			</field>
+		</record>
+		
 		<record model="ir.ui.view" id="fuenc_station_key_type_list">
 			<field name="name">fuenc_station_key_type_list</field>
 			<field name="model">fuenc.station.key.type</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree create="0" class="noOpen" limit="15">
 					<field name="name" string="钥匙类型"/>
 					<field name="remarks" string="备注"/>
-					<!--<field name="operation" string="操作" >-->
-					<!--</field>-->
-					<!--<button name="operation" string="修改"/>-->
-					<!--<button name="delete" string="删除"/>-->
+					<widget string="操作" name="treebtns" template="key_widget_type_edit_delete"/>
 				</tree>
 			</field>
 		</record>

@@ -20,12 +20,13 @@
 	'version': '0.1',
 	
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'web', 'layui_theme'],
+	'depends': ['base', 'web', 'layui_theme', 'cdtct_dingtalk'],
 	
 	# always loaded
 	'data': [
 		# 'security/ir.model.access.csv',
 		'views/menu.xml',
+		'views/assets.xml',
 		'views/opening_manage/keys_manage/key_manage.xml',
 		'views/opening_manage/keys_manage/key_type.xml',
 		'views/opening_manage/keys_manage/key_detail.xml',
@@ -33,8 +34,14 @@
 	
 	],
 	# only loaded in demonstration mode
-	'demo': [
-		'demo/demo.xml',
+	# 'demo': [
+	# 	'demo/demo.xml',
+	# ],
+	'qweb': [
+		'static/xml/templates.xml',
+		'static/xml/tree_btns.xml',
 	],
+	'installable': True,
+	'auto_install': False,
 	'application': True
 }

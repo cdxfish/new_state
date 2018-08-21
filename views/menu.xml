@@ -27,14 +27,14 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		
-		<menuitem id="funenc_station" icon="&#xe621;" name="站务管理" sequence="1"
+		<menuitem id="funenc_station" icon="&#xe628;" name="站务管理" sequence="1"
 		/>
 		<!--<menuitem id="home_index" icon="&#xe621;" name="站务首页" sequence="1"-->
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="product_manage" icon="&#xe621;" name="生产管理" sequence="2"-->
 		<!--parent="funenc_station"/>-->
 		
-		<menuitem id="opening_manage" icon="&#xe621;" name="运作管理" sequence="3"
+		<menuitem id="opening_manage" name="运作管理" sequence="3"
 		          parent="funenc_station"/>
 		<menuitem id="keys_manage" name="钥匙管理" sequence="1"
 		          parent="opening_manage"/>

@@ -1,16 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 	<data>
 		<record model="ir.ui.view" id="fuenc_station_key_detail_list">
 			<field name="name">fuenc_station_key_detail_list</field>
 			<field name="model">fuenc.station.key.detail</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree create="1" limit="15">
 					<field name="line_id" string="选择线路"/>
 					<field name="ascription_site_id" string="归属站点"/>
 					<field name="key_type_id" string="钥匙类型"/>
 					<field name="key_no" string="钥匙编号" placeholder="可批量,编号之间隔行"/>
 					<field name="name" string="名称"/>
 					<field name="key_position" string="对应位置"/>
+					<widget string="操作" name="treebtns" template="key_widget_detail_test"/>
 				</tree>
 			</field>
 		</record>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <!--测试按钮-->
+    <t t-name="key_widget_detail_test">
+        <div>
+            <button type="object" name="get_data_test"  class="btn btn-default">
+                测试按钮
+            </button>
+        </div>
+    </t>
+	<!--钥匙类型修改与删除按钮-->
+    <t t-name="key_widget_type_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="key_type_edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_type_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
+</templates>

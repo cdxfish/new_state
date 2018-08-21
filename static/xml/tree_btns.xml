@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="week_mine_btns">
+        <div>
+            <button type="object" name="get_week_process" js_func="1" class="process btn btn-default">
+                流程
+            </button>
+        </div>
+    </t>
+    <t t-name="week_shangbao_btns">
+        <div>
+            <button t-if="widget.record.data.week_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object" name="week_commit" class="week-commit btn btn-default">
+                上报
+            </button>
+            <button t-if="widget.record.data.week_btns.indexOf('发起会签') >= 0" type="object" name="week_sign" class="btn btn-default">
+                发起会签
+            </button>
+        </div>
+    </t>
+
+    <t t-name="week_huiqian_btns">
+        <div>
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定同意么？" type="object" name="week_allow" class="btn btn-default">
+                同意
+            </button>
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定不同意么？" type="object" name="week_not_allow" class="btn btn-default">
+                不同意
+            </button>
+        </div>
+    </t>
+
+    <t t-name="week_shenpi_btns">
+        <div>
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定通过么？" type="object" name="week_allow" class="btn btn-default">
+                通过
+            </button>
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定驳回么？" type="object" name="week_not_allow" class="btn btn-default">
+                驳回
+            </button>
+        </div>
+    </t>
+
+    <t t-name="week_fabu_btns">
+        <div>
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您发布同意么？" type="object" name="test" class="btn btn-default">
+                发布
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_commit_btn">
+        <div>
+            <button confirm="您确定要送审么？" type="object" name="power_commit" class="btn btn-success">
+                送审
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_approval_btns">
+        <div>
+            <button confirm="您确定通过么？" type="object" name="power_pass" class="btn btn-primary">
+                通过
+            </button>
+            <button confirm="您确定驳回么？" type="object" name="power_reject" class="btn btn-danger">
+                驳回
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_release_btn">
+        <div>
+            <button confirm="您确定发布么？" type="object" name="power_release" class="btn btn-success">
+                发布
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_sign_btn">
+        <div>
+            <button confirm="您确定签收么？" type="object" name="power_sign" class="btn btn-success">
+                签收
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_confirm_btn">
+        <div>
+            <button confirm="您要确认么？" type="object" name="power_confirm" class="btn btn-success">
+                确认
+            </button>
+        </div>
+    </t>
+
+    <t t-name="power_enforce_btn">
+        <div>
+            <button confirm="您确定执行么？" type="object" name="power_enforce" class="btn btn-success">
+                执行
+            </button>
+            <button confirm="您确定通过么？" type="object" name="power_reject" class="btn btn-danger">
+                驳回
+            </button>
+            <button confirm="您确定签名么？" type="object" name="power_signature" class="btn btn-info">
+                签名
+            </button>
+        </div>
+    </t>
+
+    <t t-name="month_commit_btns">
+        <div>
+        </div>
+    </t>
+
+    <t t-name="start_cooperate_btns">
+        <div>
+            <button confirm="您确定要发送配合么？" type="object" name="start_cooperate" class="btn btn-default">
+                发送配合
+            </button>
+        </div>
+    </t>
+
+    <t t-name="month_report_btns">
+        <div>
+            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign" class="btn btn-default">
+                发起会签
+            </button>
+            <button t-if="widget.record.data.month_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object" name="month_report" class="btn btn-default">
+                上报
+            </button>
+            <button t-if="widget.record.data.month_btns.indexOf('发布') >= 0" confirm="您发布同意么？" type="object" name="month_publish" class="btn btn-default">
+                发布
+            </button>
+        </div>
+    </t>
+
+    <t t-name="month_sign_btns">
+        <div>
+            <button t-if="widget.record.data.month_btns.indexOf('同意') >= 0" confirm="您确定同意么？" type="object" name="month_sign_allow" class="btn btn-default">
+                同意
+            </button>
+            <button t-if="widget.record.data.month_btns.indexOf('不同意') >= 0" confirm="您确定不同意么？" type="object" name="month_sign_not_allow" class="btn btn-default">
+                不同意
+            </button>
+        </div>
+    </t>
+
+    <t t-name="month_approve_btns">
+        <div>
+            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign" class="btn btn-default">
+                发起会签
+            </button>
+            <button t-if="widget.record.data.month_btns.indexOf('通过') >= 0" confirm="您确定通过么？" type="object" name="month_approve_allow" class="btn btn-default">
+                通过
+            </button>
+            <button t-if="widget.record.data.month_btns.indexOf('驳回') >= 0" confirm="您确定驳回么？" type="object" name="month_approve_not_allow" class="btn btn-default">
+                驳回
+            </button>
+        </div>
+    </t>
+
+    <t t-name="handle_cooperate_btns">
+        <div>
+            <button confirm="您确定接受配合么？" type="object" name="allow_click" class="btn btn-default">
+                接受配合
+            </button>
+            <button confirm="您确定驳回么？" type="object" name="not_allow_click" class="btn btn-default">
+                驳回
+            </button>
+        </div>
+    </t>
+
+    <t t-name="month_summary_btns">
+        <div>
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发起会签') >= 0" confirm="您确定发起会签么？" type="object" name="month_summary_sign" class="btn btn-default">
+                发起会签
+            </button>
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('同意') >= 0" confirm="您确定同意么？" type="object" name="month_summary_sign_allow" class="btn btn-default">
+                同意
+            </button>
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('不同意') >= 0" confirm="您确定不同意么？" type="object" name="month_summary_sign_not_allow" class="btn btn-default">
+                不同意
+            </button>
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发布') >= 0" confirm="您确定发布么？" type="object" name="month_summary_publish" class="btn btn-default">
+                发布
+            </button>
+        </div>
+    </t>
+
+</templates>

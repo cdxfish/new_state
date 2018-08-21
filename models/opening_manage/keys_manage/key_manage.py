@@ -14,3 +14,17 @@ class KeyManage(models.Model):
 	key_total = fields.Integer(string='钥匙总量')
 	borrow_number = fields.Integer(string='借出数量')
 	destroy_number = fields.Integer(string='损耗数量')
+	
+	# 创建钥匙
+	@api.model
+	def create_key(self):
+		return {
+			'name': '钥匙创建',
+			'type': 'ir.actions.act_window',
+			'view_type': 'form',
+			'view_mode': 'form',
+			'res_model': 'fuenc.station.key.detail',
+			'context': self.env.context,
+			# 'flags': {'initial_mode': 'edit'},
+			'target': 'new',
+		}

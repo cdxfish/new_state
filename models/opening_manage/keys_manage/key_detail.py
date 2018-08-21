@@ -27,3 +27,6 @@ class KeyDetail(models.Model):
 		
 		# 这里有问题
 		return super(KeyDetail, self).create(vals)
+	
+	def get_data_test(self):
+		print('ok')
