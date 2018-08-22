@@ -2,6 +2,7 @@
 # Created by yong at 2018/8/20
 from odoo import models, fields, api
 import datetime
+import odoo.exceptions as msg
 
 class BorrowRecord(models.Model):
     _name = 'fuenc.station.borrow.record'
@@ -21,12 +22,22 @@ class BorrowRecord(models.Model):
     return_member = fields.Many2one('res.users',
                                      string='归还人')
     state = fields.Selection(selection=[('yes','借出'),('no','归还')],default='yes',string='状态')
-
+    del_ids = fields.Integer(string='删除id')
     @api.model
     def create(self, vals):
+        if vals.get('key_no'):
+            key_no = vals.get('key_no')
+            key = self.env['fuenc.station.key.detail'].search([('key_no','=',key_no)])
+            if key.is_borrow == 1:
+                raise msg.Warning('钥匙正在借用')
+            else:
+                key.write({'is_borrow':1})
+
         vals['borrow_time'] = datetime.datetime.now()
         vals['state'] = 'yes'
         vals['borrow_operate_member'] = self.env.user.id
+        if vals.get('return_member'):
+            vals['del_ids']= 1
         return super(BorrowRecord, self).create(vals)
 
     @api.onchange('key_no')
@@ -47,9 +58,21 @@ class BorrowRecord(models.Model):
     def write(self, vals):
         if not self:
             return
-        vals['state'] = 'no'
-        vals['return_time'] = datetime.datetime.now()
-        vals['return_member'] = self.env.user.id
-        vals['return_member'] = self.env.user.id
+
 
         return super(BorrowRecord, self).write(vals)
+    def submit(self):
+
+        borrow_record = self.env['fuenc.station.borrow.record'].search(
+            [('key_no', '=',self.key_no.key_no), ('state', '=','yes')])
+
+        borrow_record.write({'state': 'no','return_member':self.return_member.id,
+                             'return_time':datetime.datetime.now(),
+                             'return_operate_member':self.env.user.id
+
+                             })
+
+        self.env['fuenc.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
+
+
+

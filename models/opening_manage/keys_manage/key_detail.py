@@ -15,6 +15,7 @@ class KeyDetail(models.Model):
 	key_position = fields.Char(string='对应位置')
 	state_now = fields.Char(string='当前状态')
 	is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况')
+	is_borrow = fields.Integer(string='是否在借用',default =2)
 	
 	# borrow_user_id = fields.Many2one('res.users',string='借用人')
 	
