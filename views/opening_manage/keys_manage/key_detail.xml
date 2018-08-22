@@ -28,7 +28,7 @@
 							<field name="line_id" string="选择线路"/>
 							<field name="ascription_site_id" string="归属站点"/>
 							<field name="key_type_id" string="钥匙类型"/>
-							<field name="key_no" string="钥匙编号" placeholder="可批量,编号之间隔行"/>
+							<field name="key_no" string="钥匙编号" placeholder="多个编号之间换行"/>
 							<field name="name" string="钥匙名称"/>
 							<field name="key_position" string="对应位置"/>
 						</group>
