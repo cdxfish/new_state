@@ -12,6 +12,7 @@ class KeyDetail(models.Model):
 	key_type_id = fields.Many2one('fuenc.station.key.type', string='钥匙类型')
 	key_no = fields.Text(string='钥匙编号')
 	key_position = fields.Char(string='对应位置')
+	state_now = fields.Char(string='当前状态')
 	is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况')
 	
 	# borrow_user_id = fields.Many2one('res.users',string='借用人')

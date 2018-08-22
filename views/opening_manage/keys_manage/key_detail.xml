@@ -5,13 +5,14 @@
 			<field name="name">fuenc_station_key_detail_list</field>
 			<field name="model">fuenc.station.key.detail</field>
 			<field name="arch" type="xml">
-				<tree create="1" limit="15">
-					<field name="line_id" string="选择线路"/>
-					<field name="ascription_site_id" string="归属站点"/>
+				<tree create="0" limit="15">
+					<field name="key_no" string="钥匙编号"/>
 					<field name="key_type_id" string="钥匙类型"/>
-					<field name="key_no" string="钥匙编号" />
+					<field name="ascription_site_id" string="归属站点"/>
 					<field name="name" string="钥匙名称"/>
 					<field name="key_position" string="对应位置"/>
+					<field name="is_main" string="主备情况"/>
+					<field name="state_now" string="当前状态"/>
 					<widget string="操作" name="treebtns" template="key_widget_detail_test"/>
 				</tree>
 			</field>
@@ -32,6 +33,9 @@
 							<field name="key_position" string="对应位置"/>
 						</group>
 					</div>
+					<group>
+						<field name="is_main" string="主备情况" widget="radio"/>
+					</group>
 				</form>
 			</field>
 		</record>
