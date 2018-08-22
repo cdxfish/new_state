@@ -13,6 +13,7 @@ KEY_STATES = [
 
 class KeyDetail(models.Model):
 	_name = 'fuenc.station.key.detail'
+	_rec_name = 'key_no'
 	
 	name = fields.Char(string='钥匙名称')
 	remark = fields.Text(string='操作说明')
@@ -23,6 +24,7 @@ class KeyDetail(models.Model):
 	key_position = fields.Char(string='对应位置')
 	state_now = fields.Selection(selection=KEY_STATES, string='当前状态', default='normal')
 	is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况')
+	is_borrow = fields.Integer(string='是否在借用',default =2)
 	
 	# borrow_user_id = fields.Many2one('res.users',string='借用人')
 	
@@ -30,11 +32,13 @@ class KeyDetail(models.Model):
 	def create(self, vals):
 		key_nos = vals.get('key_no', '').split('\n')
 		if vals.get('key_no'):
+
 			for i, key_no in enumerate(key_nos):
 				vals['key_no'] = key_no
 				if i != 0:
 					self.env['fuenc.station.key.detail'].create(vals)
 		vals['key_no'] = key_nos[0]
+
 		return super(KeyDetail, self).create(vals)
 	
 	@api.model
