@@ -100,6 +100,22 @@ odoo.define("treebtns", function (require) {
 					}
 			);
 		},
+		promptClick: function (e) {
+			var self = this;
+			e.stopPropagation();
+			layer.prompt({
+				formType: 0,
+				value: '',
+				title: '请输入操作内容！'
+			}, function (value, index) {
+				if (value) {
+					self.trigger_button(e,value);
+					layui.layer.closeAll();
+				}
+			});
+			
+			
+		},
 		
 		start: function () {
 			this._super();
@@ -107,11 +123,11 @@ odoo.define("treebtns", function (require) {
 			
 			var serverbtns = [];
 			var confirmBtns = [];
-			this.$("button").each(function (index, item) {
+			self.$("button").each(function (index, item) {
 				if (!$(item).attr("js_func")) {
 					if ($(item).attr("confirm")) {
 						confirmBtns.push(item);
-					} else {
+					}else {
 						serverbtns.push(item);
 					}
 				}

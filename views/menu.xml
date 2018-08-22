@@ -21,6 +21,11 @@
 			<field name="res_model">fuenc.station.key.type</field>
 			<field name="view_mode">tree,form</field>
 		</record>
+		<record id="change_record_act_window" model="ir.actions.act_window">
+			<field name="name">变更记录</field>
+			<field name="res_model">fuenc.station.change.record</field>
+			<field name="view_mode">tree,form</field>
+		</record>
 		<record id="borrow_record_act_window" model="ir.actions.act_window">
 			<field name="name">借用记录</field>
 			<field name="res_model">fuenc.station.borrow.record</field>
@@ -44,7 +49,9 @@
 		          parent="keys_manage"/>
 		<menuitem id="keys_types" action="key_type_act_window" name="钥匙类型" sequence="3"
 		          parent="keys_manage"/>
-		<menuitem id="borrow_records" action="borrow_record_act_window" name="借用记录" sequence="4"
+		<menuitem id="change_records" action="change_record_act_window" name="变更记录" sequence="4"
+		          parent="keys_manage"/>
+		<menuitem id="borrow_records" action="borrow_record_act_window" name="借用记录" sequence="5"
 		          parent="keys_manage"/>
 		
 		<!--<menuitem id="total_manage" icon="&#xe621;" name="综合管理" sequence="4"-->

@@ -15,4 +15,26 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_type_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
         </div>
     </t>
+	<!--钥匙详情操作按钮-->
+    <t t-name="key_widget_detail_operate_btn">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_start"
+            t-if="widget.record.data.state_now == 'fixed'"
+            >启用</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_fixed"
+            t-if="widget.record.data.state_now == 'normal'"
+            >锁定</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_destroyed"
+            t-if="widget.record.data.state_now != 'destroyed'"
+            >报废</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_error"
+            t-if="widget.record.data.state_now != 'error'"
+            >破损</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_recovery"
+            t-if="widget.record.data.state_now == 'destroyed' || widget.record.data.state_now == 'error'"
+            >恢复</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除该钥匙吗？" >删除</button>
+        </div>
+    </t>
 </templates>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="fuenc_station_change_record_list">
+			<field name="name">fuenc_station_change_record_list</field>
+			<field name="model">fuenc.station.change.record</field>
+			<field name="arch" type="xml">
+				<tree create="0" limit="15">
+					<field name="key_no"/>
+					<field name="type"/>
+					<field name="station"/>
+					<field name="name"/>
+					<field name="position"/>
+					<field name="is_main"/>
+					<field name="operate_type"/>
+					<field name="operate_member"/>
+					<field name="remarks"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="fuenc_station_change_record_form">
+			<field name="name">fuenc_station_change_record_form</field>
+			<field name="model">fuenc.station.change.record</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="key_no"/>
+							<field name="type"/>
+							<field name="station"/>
+							<field name="name"/>
+							<field name="position"/>
+							<field name="is_main"/>
+							<field name="operate_type"/>
+							<field name="operate_member"/>
+							<field name="remarks"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+	
+	</data>
+</odoo>
