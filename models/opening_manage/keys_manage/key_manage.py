@@ -32,13 +32,15 @@ class KeyManage(models.Model):
 	# 借用钥匙
 	@api.model
 	def borrow_key(self):
+		context = dict(self.env.context)
+		view_form = self.env.ref('fuenc_station.borrow_record_form_1').id
+		context['borrow_member'] = self.env.user.id
 		return {
 			'name': '钥匙借用',
 			'type': 'ir.actions.act_window',
-			'view_type': 'form',
-			'view_mode': 'form',
+			"views": [[view_form, "form"]],
 			'res_model': 'fuenc.station.borrow.record',
-			'context': self.env.context,
+			'context': context,
 			# 'flags': {'initial_mode': 'edit'},
 			'target': 'new',
 		}
@@ -46,13 +48,14 @@ class KeyManage(models.Model):
 	# 归还钥匙
 	@api.model
 	def return_key(self):
+		context = dict(self.env.context)
+		view_form = self.env.ref('fuenc_station.fuenc_station_borrow_record_form').id
 		return {
 			'name': '钥匙归还',
 			'type': 'ir.actions.act_window',
-			'view_type': 'form',
-			'view_mode': 'form',
+			"views": [[view_form, "form"]],
 			'res_model': 'fuenc.station.borrow.record',
-			'context': self.env.context,
+			'context': context,
 			# 'flags': {'initial_mode': 'edit'},
 			'target': 'new',
 		}

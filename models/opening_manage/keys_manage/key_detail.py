@@ -5,6 +5,7 @@ from odoo import models, fields, api
 
 class KeyDetail(models.Model):
 	_name = 'fuenc.station.key.detail'
+	_rec_name = 'key_no'
 	
 	name = fields.Char(string='钥匙名称')
 	line_id = fields.Char(string='选择线路')
@@ -19,13 +20,16 @@ class KeyDetail(models.Model):
 	
 	@api.model
 	def create(self, vals):
+		key_nos = vals.get('key_no', '').split('\n')
 		if vals.get('key_no'):
-			key_nos = vals.get('key_no').split('\n')
-			for key_no in key_nos:
-				if key_no:
-					vals['key_no'] = key_no
-					record = super(KeyDetail, self).create(vals)
-		return record
+
+			for i, key_no in enumerate(key_nos):
+				vals['key_no'] = key_no
+				if i != 0:
+					self.env['fuenc.station.key.detail'].create(vals)
+		vals['key_no'] = key_nos[0]
+
+		return super(KeyDetail, self).create(vals)
 	
 	@api.model
 	def get_data_test(self):
