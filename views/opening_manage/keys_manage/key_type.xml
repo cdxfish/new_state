@@ -5,9 +5,9 @@
 			<field name="name">创建钥匙类型</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_fuenc_station_key_type"/>
+			<field name="model_id" ref="model_funenc_xa_station_key_type"/>
 			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_fuenc_station_key_type"/>
+			<field name="binding_model_id" ref="model_funenc_xa_station_key_type"/>
 			<field name="binding_type">action_button</field>
 			<field name="binding_action">钥匙类型</field>
 			<field name="code">
@@ -15,9 +15,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_key_type_list">
-			<field name="name">fuenc_station_key_type_list</field>
-			<field name="model">fuenc.station.key.type</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_type_list">
+			<field name="name">funenc_xa_station_key_type_list</field>
+			<field name="model">funenc.xa.station.key.type</field>
 			<field name="arch" type="xml">
 				<tree create="0" class="noOpen" limit="15">
 					<field name="name" string="钥匙类型"/>
@@ -27,9 +27,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_key_type_form">
-			<field name="name">fuenc_station_key_type_form</field>
-			<field name="model">fuenc.station.key.type</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_type_form">
+			<field name="name">funenc_xa_station_key_type_form</field>
+			<field name="model">funenc.xa.station.key.type</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">

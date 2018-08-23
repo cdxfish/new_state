@@ -8,27 +8,27 @@
 		<!--</record>-->
 		<record id="key_manage_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙管理</field>
-			<field name="res_model">fuenc.station.key.manage</field>
+			<field name="res_model">funenc.xa.station.key.manage</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		<record id="key_detail_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙详情</field>
-			<field name="res_model">fuenc.station.key.detail</field>
+			<field name="res_model">funenc.xa.station.key.detail</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		<record id="key_type_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙类型</field>
-			<field name="res_model">fuenc.station.key.type</field>
+			<field name="res_model">funenc.xa.station.key.type</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		<record id="change_record_act_window" model="ir.actions.act_window">
 			<field name="name">变更记录</field>
-			<field name="res_model">fuenc.station.change.record</field>
+			<field name="res_model">funenc.xa.station.change.record</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		<record id="borrow_record_act_window" model="ir.actions.act_window">
 			<field name="name">借用记录</field>
-			<field name="res_model">fuenc.station.borrow.record</field>
+			<field name="res_model">funenc.xa.station.borrow.record</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		

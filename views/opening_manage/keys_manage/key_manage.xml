@@ -5,9 +5,9 @@
 			<field name="name">创建钥匙</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="binding_model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="binding_type">action_button</field>
 			<field name="binding_action">钥匙管理</field>
 			<field name="code">
@@ -18,9 +18,9 @@
 			<field name="name">借用钥匙</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="binding_model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="binding_type">action_button</field>
 			<field name="binding_action">钥匙管理</field>
 			<field name="code">
@@ -31,9 +31,9 @@
 			<field name="name">归还钥匙</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="binding_model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="binding_type">action_button</field>
 			<field name="binding_action">钥匙管理</field>
 			<field name="code">
@@ -44,18 +44,18 @@
 			<field name="name">借用记录</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_fuenc_station_key_manage"/>
+			<field name="binding_model_id" ref="model_funenc_xa_station_key_manage"/>
 			<field name="binding_type">action_button</field>
 			<field name="binding_action">钥匙管理</field>
 			<field name="code">
 				action = model.borrow_record()
 			</field>
 		</record>
-		<record model="ir.ui.view" id="fuenc_station_key_manage_list">
-			<field name="name">fuenc_station_key_manage_list</field>
-			<field name="model">fuenc.station.key.manage</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_manage_list">
+			<field name="name">funenc_xa_station_key_manage_list</field>
+			<field name="model">funenc.xa.station.key.manage</field>
 			<field name="arch" type="xml">
 				<tree create="0" limit="15">
 					<field name="id" string="序号"/>
@@ -71,9 +71,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_key_manage_form">
-			<field name="name">fuenc_station_key_manage_form</field>
-			<field name="model">fuenc.station.key.manage</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_manage_form">
+			<field name="name">funenc_xa_station_key_manage_form</field>
+			<field name="model">funenc.xa.station.key.manage</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">

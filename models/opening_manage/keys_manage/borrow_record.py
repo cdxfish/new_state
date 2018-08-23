@@ -4,12 +4,13 @@ from odoo import models, fields, api
 import datetime
 import odoo.exceptions as msg
 
-class BorrowRecord(models.Model):
-    _name = 'fuenc.station.borrow.record'
 
-    key_no = fields.Many2one('fuenc.station.key.detail',string='钥匙编号')
+class BorrowRecord(models.Model):
+    _name = 'funenc.xa.station.borrow.record'
+
+    key_no = fields.Many2one('funenc.xa.station.key.detail',string='钥匙编号')
     line = fields.Char(related='key_no.line_id',string='线路')
-    type = fields.Many2one('fuenc.station.key.type', string='钥匙类型',related='key_no.key_type_id')
+    type = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型',related='key_no.key_type_id')
     station = fields.Char(related='key_no.ascription_site_id',string='归属站点')
     name = fields.Char(related='key_no.name',string='钥匙名称')
     position = fields.Char(related='key_no.key_position',string='对应位置')
@@ -27,7 +28,7 @@ class BorrowRecord(models.Model):
     def create(self, vals):
         if vals.get('key_no'):
             key_no = vals.get('key_no')
-            key = self.env['fuenc.station.key.detail'].search([('key_no','=',key_no)])
+            key = self.env['funenc.xa.station.key.detail'].search([('key_no','=',key_no)])
             if key.is_borrow == 1:
                 raise msg.Warning('钥匙正在借用')
             else:
@@ -46,7 +47,7 @@ class BorrowRecord(models.Model):
         if not self.key_no:
             return
 
-        borrow_record = self.env['fuenc.station.borrow.record'].search(
+        borrow_record = self.env['funenc.xa.station.borrow.record'].search(
             [('key_no', '=',self.key_no.key_no), ('state', '=','yes')])
         res['value'] = {'borrow_member': borrow_record.borrow_member.id,
                           'borrow_time':borrow_record.borrow_time
@@ -63,7 +64,7 @@ class BorrowRecord(models.Model):
         return super(BorrowRecord, self).write(vals)
     def submit(self):
 
-        borrow_record = self.env['fuenc.station.borrow.record'].search(
+        borrow_record = self.env['funenc.xa.station.borrow.record'].search(
             [('key_no', '=',self.key_no.key_no), ('state', '=','yes')])
 
         borrow_record.write({'state': 'no','return_member':self.return_member.id,
@@ -72,7 +73,7 @@ class BorrowRecord(models.Model):
 
                              })
 
-        self.env['fuenc.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
+        self.env['funenc.xa.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
 
 
 

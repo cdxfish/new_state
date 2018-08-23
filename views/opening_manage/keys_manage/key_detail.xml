@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 	<data>
-		<record model="ir.ui.view" id="fuenc_station_key_detail_list">
-			<field name="name">fuenc_station_key_detail_list</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_list">
+			<field name="name">funenc_xa_station_key_detail_list</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<tree create="0" class="noOpen" limit="15">
 					<field name="key_no" string="钥匙编号"/>
@@ -18,9 +18,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_key_detail_form">
-			<field name="name">fuenc_station_key_detail_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_form">
+			<field name="name">funenc_xa_station_key_detail_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">
@@ -40,9 +40,9 @@
 			</field>
 		</record>
 		<!--操作说明-->
-		<record model="ir.ui.view" id="fuenc_station_key_detail_operate_remark_form_start">
-			<field name="name">fuenc_station_key_detail_operate_remark_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_operate_remark_form_start">
+			<field name="name">funenc_xa_station_key_detail_operate_remark_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>
@@ -60,9 +60,9 @@
 				</form>
 			</field>
 		</record>
-		<record model="ir.ui.view" id="fuenc_station_key_detail_operate_remark_form_fixed">
-			<field name="name">fuenc_station_key_detail_operate_remark_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_operate_remark_form_fixed">
+			<field name="name">funenc_xa_station_key_detail_operate_remark_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>
@@ -80,9 +80,9 @@
 				</form>
 			</field>
 		</record>
-		<record model="ir.ui.view" id="fuenc_station_key_detail_operate_remark_form_destroyed">
-			<field name="name">fuenc_station_key_detail_operate_remark_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_operate_remark_form_destroyed">
+			<field name="name">funenc_xa_station_key_detail_operate_remark_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>
@@ -100,9 +100,9 @@
 				</form>
 			</field>
 		</record>
-		<record model="ir.ui.view" id="fuenc_station_key_detail_operate_remark_form_error">
-			<field name="name">fuenc_station_key_detail_operate_remark_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_operate_remark_form_error">
+			<field name="name">funenc_xa_station_key_detail_operate_remark_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>
@@ -120,9 +120,9 @@
 				</form>
 			</field>
 		</record>
-		<record model="ir.ui.view" id="fuenc_station_key_detail_operate_remark_form_recovery">
-			<field name="name">fuenc_station_key_detail_operate_remark_form</field>
-			<field name="model">fuenc.station.key.detail</field>
+		<record model="ir.ui.view" id="funenc_xa_station_key_detail_operate_remark_form_recovery">
+			<field name="name">funenc_xa_station_key_detail_operate_remark_form</field>
+			<field name="model">funenc.xa.station.key.detail</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>

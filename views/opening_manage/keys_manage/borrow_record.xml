@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
-		<record model="ir.ui.view" id="fuenc_station_borrow_record_list">
-			<field name="name">fuenc_station_borrow_record_list</field>
-			<field name="model">fuenc.station.borrow.record</field>
+		<record model="ir.ui.view" id="funenc_xa_station_borrow_record_list">
+			<field name="name">funenc_xa_station_borrow_record_list</field>
+			<field name="model">funenc.xa.station.borrow.record</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
 					<field name="key_no"/>
@@ -23,9 +23,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_borrow_record_form">
-			<field name="name">fuenc_station_borrow_record_form</field>
-			<field name="model">fuenc.station.borrow.record</field>
+		<record model="ir.ui.view" id="funenc_xa_station_borrow_record_form">
+			<field name="name">funenc_xa_station_borrow_record_form</field>
+			<field name="model">funenc.xa.station.borrow.record</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">
@@ -49,9 +49,9 @@
 			</field>
 		</record>
 
-		<record model="ir.ui.view" id="fuenc_station.borrow_record_form_1">
-			<field name="name">fuenc_station_borrow_record_form</field>
-			<field name="model">fuenc.station.borrow.record</field>
+		<record model="ir.ui.view" id="funenc_xa_station.borrow_record_form_1">
+			<field name="name">funenc_xa_station_borrow_record_form</field>
+			<field name="model">funenc.xa.station.borrow.record</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
-		<record model="ir.ui.view" id="fuenc_station_change_record_list">
-			<field name="name">fuenc_station_change_record_list</field>
-			<field name="model">fuenc.station.change.record</field>
+		<record model="ir.ui.view" id="funenc_xa_station_change_record_list">
+			<field name="name">funenc_xa_station_change_record_list</field>
+			<field name="model">funenc.xa.station.change.record</field>
 			<field name="arch" type="xml">
 				<tree create="0" limit="15">
 					<field name="key_no"/>
@@ -19,9 +19,9 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="fuenc_station_change_record_form">
-			<field name="name">fuenc_station_change_record_form</field>
-			<field name="model">fuenc.station.change.record</field>
+		<record model="ir.ui.view" id="funenc_xa_station_change_record_form">
+			<field name="name">funenc_xa_station_change_record_form</field>
+			<field name="model">funenc.xa.station.change.record</field>
 			<field name="arch" type="xml">
 				<form>
 					<div class="container-fluid">

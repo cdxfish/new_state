@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class KeyType(models.Model):
-	_name = 'fuenc.station.key.type'
+	_name = 'funenc.xa.station.key.type'
 	_rec_name = "name"
 	
 	name = fields.Char(string='钥匙类型', required=True)
@@ -18,7 +18,7 @@ class KeyType(models.Model):
 			'type': 'ir.actions.act_window',
 			'view_type': 'form',
 			'view_mode': 'form',
-			'res_model': 'fuenc.station.key.type',
+			'res_model': 'funenc.xa.station.key.type',
 			'context': self.env.context,
 			# 'flags': {'initial_mode': 'edit'},
 			'target': 'new',
@@ -30,7 +30,7 @@ class KeyType(models.Model):
 			'type': 'ir.actions.act_window',
 			'view_type': 'form',
 			'view_mode': 'form',
-			'res_model': 'fuenc.station.key.type',
+			'res_model': 'funenc.xa.station.key.type',
 			'context': self.env.context,
 			'flags': {'initial_mode': 'edit'},
 			'res_id': self.id,
@@ -38,4 +38,4 @@ class KeyType(models.Model):
 		}
 	
 	def key_type_delete(self):
-		self.env['fuenc.station.key.type'].search([('id', '=', self.id)]).unlink()
+		self.env['funenc.xa.station.key.type'].search([('id', '=', self.id)]).unlink()

@@ -15,7 +15,7 @@ OPERATE_TYPE = [
 
 
 class ChangeRecord(models.Model):
-	_name = 'fuenc.station.change.record'
+	_name = 'funenc.xa.station.change.record'
 	
 	key_no = fields.Char(string='钥匙编号')
 	type = fields.Char(string='钥匙类型')

@@ -12,19 +12,19 @@ KEY_STATES = [
 
 
 class KeyDetail(models.Model):
-	_name = 'fuenc.station.key.detail'
+	_name = 'funenc.xa.station.key.detail'
 	_rec_name = 'key_no'
 	
 	name = fields.Char(string='钥匙名称')
 	remark = fields.Text(string='操作说明')
 	line_id = fields.Char(string='选择线路')
 	ascription_site_id = fields.Char(string='归属站点')
-	key_type_id = fields.Many2one('fuenc.station.key.type', string='钥匙类型')
-	key_no = fields.Char(string='钥匙编号')
+	key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型')
+	key_no = fields.Text(string='钥匙编号')
 	key_position = fields.Char(string='对应位置')
 	state_now = fields.Selection(selection=KEY_STATES, string='当前状态', default='normal')
 	is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况')
-	is_borrow = fields.Integer(string='是否在借用',default =2)
+	is_borrow = fields.Integer(string='是否在借用', default=2)
 	
 	# borrow_user_id = fields.Many2one('res.users',string='借用人')
 	
@@ -32,13 +32,13 @@ class KeyDetail(models.Model):
 	def create(self, vals):
 		key_nos = vals.get('key_no', '').split('\n')
 		if vals.get('key_no'):
-
+			
 			for i, key_no in enumerate(key_nos):
 				vals['key_no'] = key_no
 				if i != 0:
-					self.env['fuenc.station.key.detail'].create(vals)
+					self.env['funenc.xa.station.key.detail'].create(vals)
 		vals['key_no'] = key_nos[0]
-
+		
 		return super(KeyDetail, self).create(vals)
 	
 	@api.model
@@ -51,7 +51,7 @@ class KeyDetail(models.Model):
 			'type': 'ir.actions.act_window',
 			'view_type': 'form',
 			'view_mode': 'form',
-			'res_model': 'fuenc.station.key.detail',
+			'res_model': 'funenc.xa.station.key.detail',
 			'context': self.env.context,
 			'flags': {'initial_mode': 'edit'},
 			'res_id': self.id,
@@ -59,18 +59,18 @@ class KeyDetail(models.Model):
 		}
 	
 	def key_detail_delete(self):
-		self.env['fuenc.station.key.detail'].search([('id', '=', self.id)]).unlink()
+		self.env['funenc.xa.station.key.detail'].search([('id', '=', self.id)]).unlink()
 	
 	# 启用
 	@api.multi
 	def key_detail_state_change_start(self):
 		self.state_now = 'normal'
-		# view_tree = self.env.ref('fuenc_station.fuenc_station_borrow_record_list').id
-		view_form = self.env.ref('fuenc_station.fuenc_station_key_detail_operate_remark_form_start').id
+		# view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
+		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_start').id
 		return {
 			'name': '操作说明',
 			"type": "ir.actions.act_window",
-			"res_model": "fuenc.station.key.detail",
+			"res_model": "funenc.xa.station.key.detail",
 			"res_id": self.id,
 			"views": [[view_form, "form"]],
 			# "domain": [()],
@@ -80,11 +80,11 @@ class KeyDetail(models.Model):
 	@api.multi
 	def key_detail_state_change_fixed(self):
 		self.state_now = 'fixed'
-		view_form = self.env.ref('fuenc_station.fuenc_station_key_detail_operate_remark_form_fixed').id
+		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_fixed').id
 		return {
 			'name': '操作说明',
 			"type": "ir.actions.act_window",
-			"res_model": "fuenc.station.key.detail",
+			"res_model": "funenc.xa.station.key.detail",
 			"res_id": self.id,
 			"views": [[view_form, "form"]],
 			# "domain": [()],
@@ -94,11 +94,11 @@ class KeyDetail(models.Model):
 	@api.multi
 	def key_detail_state_change_destroyed(self):
 		self.state_now = 'destroyed'
-		view_form = self.env.ref('fuenc_station.fuenc_station_key_detail_operate_remark_form_destroyed').id
+		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_destroyed').id
 		return {
 			'name': '操作说明',
 			"type": "ir.actions.act_window",
-			"res_model": "fuenc.station.key.detail",
+			"res_model": "funenc.xa.station.key.detail",
 			"res_id": self.id,
 			"views": [[view_form, "form"]],
 			# "domain": [()],
@@ -109,11 +109,11 @@ class KeyDetail(models.Model):
 	def key_detail_state_change_recovery(self):
 		self.state_now = 'normal'
 		view_form = self.env.ref(
-			'fuenc_station.fuenc_station_key_detail_operate_remark_form_recovery').id
+			'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_recovery').id
 		return {
 			'name': '操作说明',
 			"type": "ir.actions.act_window",
-			"res_model": "fuenc.station.key.detail",
+			"res_model": "funenc.xa.station.key.detail",
 			"res_id": self.id,
 			"views": [[view_form, "form"]],
 			# "domain": [()],
@@ -124,11 +124,11 @@ class KeyDetail(models.Model):
 	def key_detail_state_change_error(self):
 		self.state_now = 'error'
 		view_form = self.env.ref(
-			'fuenc_station.fuenc_station_key_detail_operate_remark_form_error').id
+			'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_error').id
 		return {
 			'name': '操作说明',
 			"type": "ir.actions.act_window",
-			"res_model": "fuenc.station.key.detail",
+			"res_model": "funenc.xa.station.key.detail",
 			"res_id": self.id,
 			"views": [[view_form, "form"]],
 			# "domain": [()],
@@ -147,7 +147,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
-		self.env['fuenc.station.change.record'].create(values)
+		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_fixed(self):
 		values = {
@@ -161,7 +161,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
-		self.env['fuenc.station.change.record'].create(values)
+		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_error(self):
 		values = {
@@ -175,7 +175,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
-		self.env['fuenc.station.change.record'].create(values)
+		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_destroyed(self):
 		values = {
@@ -189,7 +189,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
-		self.env['fuenc.station.change.record'].create(values)
+		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_recovery(self):
 		values = {
@@ -203,4 +203,4 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
-		self.env['fuenc.station.change.record'].create(values)
+		self.env['funenc.xa.station.change.record'].create(values)
