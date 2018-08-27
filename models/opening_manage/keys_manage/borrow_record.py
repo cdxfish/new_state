@@ -16,19 +16,20 @@ class BorrowRecord(models.Model):
     position = fields.Char(related='key_no.key_position',string='对应位置')
     borrow_time = fields.Datetime(string='借用时间')
     borrow_operate_member = fields.Many2one('res.users',string='借用操作人')
-    borrow_member = fields.Many2one('res.users',
-                                     string='借用人')
+    borrow_member = fields.Many2one('res.users',string='借用人')
     return_time = fields.Datetime(string='归还时间')
     return_operate_member = fields.Many2one('res.users',string='归还操作人')
     return_member = fields.Many2one('res.users',
                                      string='归还人')
     state = fields.Selection(selection=[('yes','借出'),('no','归还')],default='yes',string='状态')
     del_ids = fields.Integer(string='删除id')
+
+
     @api.model
     def create(self, vals):
-        if vals.get('key_no'):
+        if vals.get('key_no') and ( not vals.get('return_member') ):
             key_no = vals.get('key_no')
-            key = self.env['funenc.xa.station.key.detail'].search([('key_no','=',key_no)])
+            key = self.env['funenc.xa.station.key.detail'].search([('id','=',key_no)])
             if key.is_borrow == 1:
                 raise msg.Warning('钥匙正在借用')
             else:
@@ -60,20 +61,21 @@ class BorrowRecord(models.Model):
         if not self:
             return
 
-
         return super(BorrowRecord, self).write(vals)
     def submit(self):
 
         borrow_record = self.env['funenc.xa.station.borrow.record'].search(
-            [('key_no', '=',self.key_no.key_no), ('state', '=','yes')])
+            [('key_no', '=',self.key_no.id), ('state', '=','yes'), ('del_ids', '=', False)])
 
         borrow_record.write({'state': 'no','return_member':self.return_member.id,
                              'return_time':datetime.datetime.now(),
                              'return_operate_member':self.env.user.id
 
                              })
-
+        borrow_record.key_no.write({'is_borrow':2})
         self.env['funenc.xa.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
+
+
 
 
 

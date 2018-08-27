@@ -20,11 +20,13 @@
 	'version': '0.1',
 	
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'web', 'cdtct_dingtalk'],
+	'depends': ['base', 'web', 'cdtct_dingtalk', 'layui_theme'],
 	
 	# always loaded
 	'data': [
 		# 'security/ir.model.access.csv',
+		'security/fuenc_exam_group.xml',
+        'views/depot_manage/person_account_mgmt.xml',
 		'views/menu.xml',
 		'views/assets.xml',
 		'views/opening_manage/keys_manage/key_manage.xml',
@@ -32,6 +34,8 @@
 		'views/opening_manage/keys_manage/key_detail.xml',
 		'views/opening_manage/keys_manage/change_record.xml',
 		'views/opening_manage/keys_manage/borrow_record.xml',
+		'views/integrated_management/station_detail.xml'
+
 	
 	],
 	# only loaded in demonstration mode

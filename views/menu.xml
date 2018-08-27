@@ -31,9 +31,16 @@
 			<field name="res_model">funenc.xa.station.borrow.record</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-		
+
+		<record id="station_detail_act_window" model="ir.actions.act_window">
+			<field name="name">车站详情</field>
+			<field name="res_model">funenc_xa_station.station_detail</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
 		<menuitem id="funenc_station" icon="&#xe628;" name="站务管理" sequence="1"
 		/>
+
 		<!--<menuitem id="home_index" icon="&#xe621;" name="站务首页" sequence="1"-->
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="product_manage" icon="&#xe621;" name="生产管理" sequence="2"-->
@@ -60,6 +67,70 @@
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="others_manage" icon="&#xe621;" name="系统及其他" sequence="6"-->
 		<!--parent="funenc_station"/>-->
-	
+
+		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="4"
+		          parent="funenc_station"
+		/>
+
+		<menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="4"
+		          parent="keys_manage"
+		          action="station_detail_act_window"
+		/>
+
+		 <!--线别设置-->
+        <record id="train_rec_check_boxes" model="ir.actions.act_window">
+            <field name="name">线别设置</field>
+            <field name="res_model">train_line.train_line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+		 <!--人员账号管理-->
+        <record id="person_account_rec_mgmt" model="ir.actions.act_window">
+            <field name="name">人员账号管理</field>
+            <field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
+            <!--<field name="domain">[('id', '=', 1)]</field>-->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('person_account_tree_mgmt')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('person_account_form_mgmt')})]"/>
+        </record>
+
+		<!--系统配置-->
+        <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="2" icon="&#xe614;" />
+
+		<menuitem id="plan_menu_line_manage_1" name="线路管理" parent="plan_menu_system_conf_1" />
+
+		<menuitem id="train_menu_check_boxes_1" name="线路设置" parent="plan_menu_line_manage_1"  action="train_rec_check_boxes"/>
+
+        <menuitem id="plan_menu_username_manage_1" name="人员账号管理" parent="plan_menu_system_conf_1" />
+		<menuitem id="train_menu_username_1" name="账号设置" parent="plan_menu_username_manage_1"  action="person_account_rec_mgmt"/>
+		<menuitem id="train_menu_role_group_1" name="角色组" parent="plan_menu_username_manage_1"  action="train_rec_check_boxes"/>
+
+
+		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_7" name="消防逃生" sequence="7"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+		 <!--<menuitem id="station_detail_8" name="客流情况" sequence="8"-->
+		          <!--parent="integrated_management_station_detail"/>-->
+
+
+
 	</data>
 </odoo>

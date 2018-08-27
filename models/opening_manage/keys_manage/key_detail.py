@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Created by yong at 2018/8/20
 from odoo import models, fields, api
+import odoo.exceptions as msg
 
 KEY_STATES = [
 	('normal', '正常'),
@@ -30,14 +31,17 @@ class KeyDetail(models.Model):
 	
 	@api.model
 	def create(self, vals):
-		key_nos = vals.get('key_no', '').split('\n')
-		if vals.get('key_no'):
-			
-			for i, key_no in enumerate(key_nos):
-				vals['key_no'] = key_no
-				if i != 0:
+		key_nos = vals.get('key_no','').split('\n')
+		new_key_nos = []
+		[new_key_nos.append(key_no) for key_no in  key_nos if key_no not in new_key_nos] # 去重并保持排序不变
+		for i, new_key_no in enumerate(new_key_nos):
+
+			vals['key_no'] = new_key_no
+			if i != 0:
+				if key_nos[0] != new_key_no:
 					self.env['funenc.xa.station.key.detail'].create(vals)
-		vals['key_no'] = key_nos[0]
+
+		vals['key_no'] = new_key_nos[0]
 		
 		return super(KeyDetail, self).create(vals)
 	

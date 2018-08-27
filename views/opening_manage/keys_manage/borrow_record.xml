@@ -31,7 +31,7 @@
 					<div class="container-fluid">
 						<group>
 							<field name="key_no" string="钥匙编号" domain="[('is_borrow','=',1)]"/>
-							<field name="return_member" string="归还人" />
+							<field name="return_member" string="归还人" attrs="{'required':True}"/>
 							<field name="line" string="选择线路"/>
 							<field name="type" string="钥匙类型"/>
 							<field name="station" string="归属站点"/>
@@ -58,8 +58,8 @@
 						<group>
 							<field name="line" string="选择线路"/>
 							<field name="station" string="归属站点"/>
-							<field name="borrow_member" string="借用人"/>
-							<field name="key_no" string="钥匙编号"/>
+							<field name="key_no" string="钥匙编号" domain="[('is_borrow','=',2)]"/>
+							<field name="borrow_member" string="借用人" attrs="{'required':True}"/>
 							<field name="type" string="钥匙类型" readonly="1"/>
 							<field name="name" string="钥匙名称" readonly="1"/>
 							<field name="position" string="对应位置" readonly="1"/>

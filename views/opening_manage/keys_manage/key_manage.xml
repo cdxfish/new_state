@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
+
+		<record model="ir.actions.server" id="create_station_detail_3">
+			<field name="name">创建按钮11111</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_station_detail"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_station_detail"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">车站基本信息</field>
+			<field name="code">
+				action = model.create_station_detail()
+			</field>
+		</record>
+
 		<record model="ir.actions.server" id="create_key_button">
 			<field name="name">创建钥匙</field>
 			<field name="state">code</field>

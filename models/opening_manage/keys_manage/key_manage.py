@@ -36,7 +36,7 @@ class KeyManage(models.Model):
 		view_form = self.env.ref('funenc_xa_station.borrow_record_form_1').id
 		context['borrow_member'] = self.env.user.id
 		return {
-			'name': '钥匙借用',
+			'name': '钥匙借用111',
 			'type': 'ir.actions.act_window',
 			"views": [[view_form, "form"]],
 			'res_model': 'funenc.xa.station.borrow.record',

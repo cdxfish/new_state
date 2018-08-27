@@ -7,7 +7,19 @@
 
 
         <record model="res.groups" id="system_fuenc_tester">
-            <field name="name">西安站务管理_测试\开发</field>
+            <field name="name">西安站务管理_测试、开发、部门级</field>
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+            <field name="category_id" ref="module_category_fuenc"/>
+        </record>
+
+         <record model="res.groups" id="system_fuenc_site">
+            <field name="name">西安站务管理_站点级</field>
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+            <field name="category_id" ref="module_category_fuenc"/>
+        </record>
+
+         <record model="res.groups" id="system_fuenc_centrality">
+            <field name="name">西安站务管理_中心级</field>
             <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
