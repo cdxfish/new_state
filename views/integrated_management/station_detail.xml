@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+		<record model="ir.ui.view" id="funenc_xa_station_station_detail_list">
+			<field name="name">funenc_xa_station_station_detail_list</field>
+			<field name="model">funenc_xa_station.station_detail</field>
+			<field name="arch" type="xml">
+				<tree create="0" class="noOpen" limit="15">
+					<field name="station_nature" string="车站性质"/>
+					<field name="station_position" string="车站位置"/>
+					<!--<widget string="操作" name="treebtns" template="key_widget_type_edit_delete"/>-->
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="funenc_xa_station_station_detailform">
+			<field name="name">funenc_xa_station_station_detailform</field>
+			<field name="model">funenc_xa_station.station_detail</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="station_nature" string="车站性质"/>
+							<field name="station_position" string="车站位置"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+	
+	</data>
+</odoo>

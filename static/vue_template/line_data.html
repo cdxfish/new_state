@@ -1,0 +1,89 @@
+<div class="context">
+  <el-tabs v-model="subLine" type="card" @tab-click="handleClick">
+    <el-tab-pane label="一号线" name="first">
+      <div>
+        <el-row class="de_top" :gutter="20">
+          <el-col :span="2"></el-col>
+          <el-col :span="10">
+            <div class="grid-content">
+              <el-radio-group v-model="dianDirection" @change='changeDirectin'>
+                <el-radio label="up" border class="up_line_sel"> 上行</el-radio>
+                <el-radio label="down" border class="down_line_sel">下行</el-radio>
+                <el-radio label="updown" border class="updown_line_sel">上下行</el-radio>
+              </el-radio-group>
+            </div>
+          </el-col>
+          <el-col :span="14">
+            <div class="grid-content">
+              <el-radio-group v-model="dianStatue" @change='changeDianStatue'>
+                <el-radio label="无电" border class="wudian">无电</el-radio>
+                <el-radio label="带电" border class='youdian'>带电</el-radio>
+                <el-radio label="停电" border class='tingdian'>停电</el-radio>
+                <el-radio label="停电挂地线" border class='didian'>停电挂地线</el-radio>
+                <el-radio label="反复停送电" border class='fandian'>反复停送电</el-radio>
+              </el-radio-group>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="line_con">
+          <div class="duan" v-for="item in  line " :key="item.index">
+            <div v-bind:class="{ ' end_line': !item.up.bian, 'wudian': item.up.statue=='无电'||iswudian,'youdian': item.up.statue=='带电'||isyoudian,'tingdian': item.up.statue=='停电'||istingdian,'didian': item.up.statue=='停电挂地线'||isdidian,'fandian': item.up.statue=='反复停送电'||isfandian}"
+              class="line_up">
+              <a class="end_line_name" v-if="!item.up.bian"> {{item.up.name}}</a>
+            </div>
+            <div class="linefx" v-if="item.id ==0 ||item.id ==line.length-1 ">上行</div>
+            <div v-bind:class="{ 'up_line_sel': item.up.up_line_statue}" class="linefx_show" v-if="item.id!=0&&item.id !=line.length-1"></div>
+            <div class="qujian_con" v-bind:class="{ active: isActive_line, 'qujian_con_sel': item.line_statue}">
+
+              <div slot="reference" class="duxian" v-if="item.type == '站间渡线'" @click="changeStatus(item,item.up.name, item.down.name,item.id-1)">
+                <div v-if="item.up.same_name" class="duxianup" v-bind:class="{  'wudian': item.up.statue=='无电'||iswudian,'youdian': item.up.statue=='带电'||isyoudian,'tingdian': item.up.statue=='停电'||istingdian,'didian': item.up.statue=='停电挂地线'||isdidian,'fandian': item.up.statue=='反复停送电'||isfandian }">{{item.up.same_name}}</div>
+                <div v-if="item.down.same_name" class="duxiandown" v-bind:class="{ 'wudian': item.down.statue=='无电'||iswudian,'youdian': item.down.statue=='带电'||isyoudian,'tingdian': item.down.statue=='停电'||istingdian,'didian': item.down.statue=='停电挂地线'||isdidian,'fandian': item.down.statue=='反复停送电'||isfandian }">{{item.down.same_name}}</div>
+              </div>
+              <el-popover ref="popover1" placement="top-start" title="单击站名操作" windexth="200" trigger="hover" content="可设置为作业区域起点或终点。">
+                <div slot="reference" class="chezhang" v-if="item.type == '车站'" @click="changeStatus(item,item.up.name, item.down.name, item.id)">{{item.name}}</div>
+              </el-popover>
+              <el-popover ref="popover1" placement="top-start" title="单击区间区域操作" width="200" trigger="hover" content="可设置为作业区域起点或终点。">
+                <div slot="reference" class="qujian" v-if="item.type == '站间区域'" @click="changeStatus(item,item.up.name, item.down.name,item.id)">
+                  <div v-if=0>
+                    {{item.name}}
+                  </div>
+                  <div class="qujianimg" v-if="1">
+                    <img :src="'data:image/png;base64,' + item.qujianimg" alt="img" v-if="item.qujianimg">
+                  </div>
+                </div>
+              </el-popover>
+            </div>
+            <div class="linefx" v-if="item.id == 0 || item.id == line.length-1">下行</div>
+            <div v-bind:class="{ 'down_line_sel': item.down.down_line_statue}" class="linefx_show" v-if="item.id !=0 && item.id !=line.length-1"></div>
+            <div v-bind:class="{ 'end_line': !item.down.bian, 'wudian': item.down.statue=='无电'||iswudian,'youdian': item.down.statue=='带电'||isyoudian,'tingdian': item.down.statue=='停电'||istingdian,'didian': item.down.statue=='停电挂地线'||isdidian,'fandian': item.down.statue=='反复停送电'||isfandian }"
+              class="line_down">
+              <a class="end_line_name" v-if="! item.down.bian">{{item.down.name}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </el-tab-pane>
+    <el-tab-pane label="二号线" name="second">
+    </el-tab-pane>
+    <el-tab-pane label="三号线" name="third">三号线
+    </el-tab-pane>
+    <el-tab-pane label="四号线" name="fourth">四号线</el-tab-pane>
+    <el-tab-pane label="西咸车辆段" name="five">西咸车辆段</el-tab-pane>
+    <el-tab-pane label="灞河车辆段" name="six">
+      <div class="context">
+        <div class="add_line_tab">
+          <el-button type="warning">编辑线路</el-button>
+        </div>
+        灞河车辆段
+      </div>
+    </el-tab-pane>
+  </el-tabs>
+
+  <el-popover placement="top" width="160" v-model="shoustartstation">
+    <p>这是一段内容这是一段内容确定删除吗？</p>
+    <div style="text-align: right; margin: 0">
+      <el-button size="mini" type="text" @click="shoustartstation = false">取消</el-button>
+      <el-button type="primary" size="mini" @click="shoustartstation = false">确定</el-button>
+    </div>
+  </el-popover>
+</div>
