@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="add_station_certificate_tree" model="ir.ui.view">
+            <field name="name">车站证件</field>
+            <field name="model">station.certificate</field>
+            <field name="arch" type="xml">
+                <tree class="noOpen">
+                    <field name="id" string="序号"></field>
+                    <field name="name"></field>
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="certificate_time"></field>
+                    <widget string="证件详情" name="treebtns" template="details_certificate"/>
+                    <field name="certificate_number"></field>
+                    <field name="station_agent"></field>
+                    <field name="station_agent_phone"></field>
+                    <widget string="证件详情" name="treebtns" template="add_certificate"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="add_station_certificate_search" model="ir.ui.view">
+            <field name="name">车站证件</field>
+            <field name="model">station.certificate</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="id" string="序号"></field>
+                    <field name="name"></field>
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="certificate_time"></field>
+                    <field name="certificate_number"></field>
+                    <field name="station_agent"></field>
+                    <field name="station_agent_phone"></field>
+                </search>
+            </field>
+        </record>
+
+        <record id="add_station_certificate_form" model="ir.ui.view">
+            <field name="name">车站证件</field>
+            <field name="model">station.certificate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_right">
+                                <field name="line_road"></field>
+                                <field name="name"></field>
+                                <field name="certificate_number"></field>
+                            </group>
+                            <group name="group_left">
+                                <field name="station_site"></field>
+                                <field name="certificate_time"></field>
+                            </group>
+                            <group name="group_bottom">
+                                <field name="certificate_details"></field>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+          <record id="add_station_certificate_form_load" model="ir.ui.view">
+            <field name="name">车站证件</field>
+            <field name="model">station.certificate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="group_bottom" string="点击按钮下载">
+                            <field name="certificate_details"></field>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="station_certificate_act_id_1" model="ir.actions.act_window">
+            <field name="name">新增车站证件</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">station.certificate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="add_station_certificate_form"/>
+        </record>
+        <record id="certificate_act_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="add_station_certificate_tree"/>
+            <field name="act_window_id" ref="station_certificate_act_id_1"/>
+        </record>
+        <record id="certificate_act_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="add_station_certificate_form"/>
+            <field name="act_window_id" ref="station_certificate_act_id_1"/>
+        </record>
+    </data>
+</odoo>

@@ -129,6 +129,18 @@
 
 		 <!--<menuitem id="station_detail_8" name="客流情况" sequence="8"-->
 		          <!--parent="integrated_management_station_detail"/>-->
+		<menuitem id="synthesize_operation_menu_id" name="综合管理" parent="funenc_station" sequence="4"></menuitem>
+		<menuitem id="operation_menu_id" name="规章制度" parent="synthesize_operation_menu_id" sequence="1"></menuitem>
+    	<menuitem id="operation_menu_son_id" name="新增规章" parent="operation_menu_id" action="operation_act_id"></menuitem>
+
+		<menuitem id="kind_menu_form_parent" name="规章制度预设管理" parent="synthesize_operation_menu_id" sequence="2"></menuitem>
+        <menuitem id="kind_form_son" parent="kind_menu_form_parent" name="新增专业分类" action='kind_act_id'></menuitem>
+        <menuitem id="add_class_form_son" parent="kind_menu_form_parent" name="新增级别分类" action='add_class_act_id'></menuitem>
+
+		<menuitem name="档案资料" id="add_station_certificate_menu_parent" parent="synthesize_operation_menu_id"></menuitem>
+        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件" parent="add_station_certificate_menu_parent"></menuitem>
+		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件" parent="add_station_certificate_menu_parent"></menuitem>
+
 
 
 

@@ -34,7 +34,11 @@
 		'views/opening_manage/keys_manage/key_detail.xml',
 		'views/opening_manage/keys_manage/change_record.xml',
 		'views/opening_manage/keys_manage/borrow_record.xml',
-		'views/integrated_management/station_detail.xml'
+		'views/integrated_management/station_detail.xml',
+		'views/add_management/add_kind.xml',
+		'views/add_management/views.xml',
+		'views/add_certificate/add_station_certificate.xml',
+		'views/add_certificate/add_per_certificate.xml',
 
 	
 	],
@@ -45,6 +49,9 @@
 	'qweb': [
 		'static/xml/templates.xml',
 		'static/xml/tree_btns.xml',
+		'static/xml/add_management.xml',
+		'static/xml/add_certificate.xml',
+		'static/xml/add_major_class.xml',
 	],
 	'installable': True,
 	'auto_install': False,
