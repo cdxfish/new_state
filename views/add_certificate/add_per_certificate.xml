@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="person_certificate_tree" model="ir.ui.view">
+            <field name="name">人员证件</field>
+            <field name="model">person.certificate</field>
+            <field name="arch" type="xml">
+                <tree class="noOpen">
+                    <field name="id" string="序号"></field>
+                    <field name="name"></field>
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="person_name"></field>
+                    <field name="work_number"></field>
+                    <field name="phone"></field>
+                    <field name="site"></field>
+                    <field name="licence_issuing_authority"></field>
+                    <field name="get_certificate_time"></field>
+                    <field name="period_of_validity"></field>
+                    <field name="certificate_money"></field>
+                    <field name="one_recheck_time"></field>
+                    <field name="one_recheck_money"></field>
+                    <field name="two_recheck_time"></field>
+                    <field name="two_recheck_money"></field>
+                    <widget string="证件详情" name="treebtns" template="person_dateils"/>
+                    <widget string="操作" name="treebtns" template="person_certificate"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="person_certificate_search" model="ir.ui.view">
+            <field name="name">人员证件</field>
+            <field name="model">person.certificate</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="id" string="序号"></field>
+                    <field name="name"></field>
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="person_name"></field>
+                    <field name="work_number"></field>
+                    <field name="phone"></field>
+                    <field name="site"></field>
+                    <field name="licence_issuing_authority"></field>
+                    <field name="get_certificate_time"></field>
+                    <field name="period_of_validity"></field>
+                    <field name="certificate_money"></field>
+                    <field name="one_recheck_time"></field>
+                    <field name="one_recheck_money"></field>
+                    <field name="two_recheck_time"></field>
+                    <field name="two_recheck_money"></field>
+                </search>
+            </field>
+        </record>
+
+        <record id="person_certificate_form" model="ir.ui.view">
+            <field name="name">人员证件</field>
+            <field name="model">person.certificate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_right">
+                                <field name="line_road"></field>
+                                <field name="work_number" string="员工工号"></field>
+                                <field name="book_number"></field>
+                                <field name="period_of_validity"></field>
+                                <field name="one_recheck_time"></field>
+                                <field name="two_recheck_time"></field>
+                            </group>
+
+                            <group name="group_left">
+                                <field name="station_site"></field>
+                                <field name="gender"></field>
+                                <field name="licence_issuing_authority"></field>
+                                <field name="train_time"></field>
+                                <field name="one_recheck_money"></field>
+                            </group>
+
+                            <group name="group_left">
+                                <field name="person_name" string="员工姓名"></field>
+                                <field name="name"></field>
+                                <field name="get_certificate_time"></field>
+                                <field name="certificate_money"></field>
+                                <field name="two_recheck_money"></field>
+                            </group>
+                            <group name="group_bottom">
+                                <field name="book_details"></field>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+         <record id="person_certificate_form_load" model="ir.ui.view">
+            <field name="name">人员证件</field>
+            <field name="model">person.certificate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="点击下载">
+                                <field name="book_details"></field>
+                                <field name="file_name" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="person_certificate_act" model="ir.actions.act_window">
+            <field name="name">新增人员证件</field>
+            <field name="res_model">person.certificate</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        <!--<record id="person_certificate_act_111111" model="ir.actions.act_window">-->
+            <!--<field name="name">新增人员证件</field>-->
+            <!--<field name="res_model">person.certificate</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+                <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.person_certificate_form_load')}),-->
+                <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.person_certificate_form')})-->
+                  <!--]-->
+                 <!--"/>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

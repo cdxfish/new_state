@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+	<!--修改与删除按钮和删除-->
+    <t t-name="add_certificate">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="station_cer_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="station_cer_delete" confirm="您确定要删除该条记录吗？" >删除</button>
+            <button type="object" name="station_load" class="layui-btn layui-btn-sm" >下载</button>
+        </div>
+    </t>
+    <!--文件的显示按钮-->
+    <t t-name="details_certificate">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="station_details" >查看详情</button>
+        </div>
+    </t>
+    	<!--修改与删除按钮和删除-->
+    <t t-name="person_certificate">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="person_cer_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="person_cer_delete" confirm="您确定要删除该条记录吗？" >删除</button>
+            <button type="object" name="book_details_load" class="layui-btn layui-btn-sm" >下载</button>
+        </div>
+    </t>
+    <!--文件的显示按钮-->
+    <t t-name="person_dateils">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="person_details" >查看详情</button>
+        </div>
+    </t>
+</templates>
