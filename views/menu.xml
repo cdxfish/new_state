@@ -6,11 +6,11 @@
 		<!--<field name="name">站务首页</field>-->
 		<!--<field name="tag"></field>-->
 		<!--</record>-->
-		<record id="key_manage_act_window" model="ir.actions.act_window">
-			<field name="name">钥匙管理</field>
-			<field name="res_model">funenc.xa.station.key.manage</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+		<!--<record id="key_manage_act_window" model="ir.actions.act_window">-->
+			<!--<field name="name">钥匙管理</field>-->
+			<!--<field name="res_model">funenc.xa.station.key.manage</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+		<!--</record>-->
 		<record id="key_detail_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙详情</field>
 			<field name="res_model">funenc.xa.station.key.detail</field>
@@ -38,6 +38,11 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
+		<record model="ir.actions.client" id="key_manage_act_window_1">
+          <field name="name">钥匙管理</field>
+          <field name="tag">key_statistic</field>
+        </record>
+
 		<menuitem id="funenc_station" icon="&#xe628;" name="站务管理" sequence="1"
 		/>
 
@@ -50,7 +55,7 @@
 		          parent="funenc_station"/>
 		<menuitem id="keys_manage" name="钥匙管理" sequence="1"
 		          parent="opening_manage"/>
-		<menuitem id="keys_index" action="key_manage_act_window" name="钥匙管理" sequence="1"
+		<menuitem id="keys_index" action="key_manage_act_window_1" name="钥匙管理" sequence="1"
 		          parent="keys_manage"/>
 		<menuitem id="keys_detail" action="key_detail_act_window" name="钥匙详情" sequence="2"
 		          parent="keys_manage"/>

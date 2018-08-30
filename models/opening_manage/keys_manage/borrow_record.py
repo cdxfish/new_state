@@ -9,9 +9,9 @@ class BorrowRecord(models.Model):
     _name = 'funenc.xa.station.borrow.record'
 
     key_no = fields.Many2one('funenc.xa.station.key.detail',string='钥匙编号')
-    line = fields.Char(related='key_no.line_id',string='线路')
+    line = fields.Many2one(related='key_no.line_id',string='线路')
     type = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型',related='key_no.key_type_id')
-    station = fields.Char(related='key_no.ascription_site_id',string='归属站点')
+    station = fields.Many2one(related='key_no.ascription_site_id',string='归属站点')
     name = fields.Char(related='key_no.name',string='钥匙名称')
     position = fields.Char(related='key_no.key_position',string='对应位置')
     borrow_time = fields.Datetime(string='借用时间')
@@ -75,7 +75,70 @@ class BorrowRecord(models.Model):
         borrow_record.key_no.write({'is_borrow':2})
         self.env['funenc.xa.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
 
+    def _compute_count(self):
+        '''
+         统计钥匙数量
+        :return:
+        '''
+        pass
 
+        # 创建钥匙
+        @api.model
+        def create_key(self):
+            return {
+                'name': '钥匙创建',
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'funenc.xa.station.key.detail',
+                'context': self.env.context,
+                # 'flags': {'initial_mode': 'edit'},
+                'target': 'new',
+            }
+
+        # 借用钥匙
+        @api.model
+        def borrow_key(self):
+            context = dict(self.env.context)
+            view_form = self.env.ref('funenc_xa_station.borrow_record_form_1').id
+            context['borrow_member'] = self.env.user.id
+            return {
+                'name': '钥匙借用',
+                'type': 'ir.actions.act_window',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc.xa.station.borrow.record',
+                'context': context,
+                # 'flags': {'initial_mode': 'edit'},
+                'target': 'new',
+            }
+
+        # 归还钥匙
+        @api.model
+        def return_key(self):
+            context = dict(self.env.context)
+            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_form').id
+            return {
+                'name': '钥匙归还',
+                'type': 'ir.actions.act_window',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc.xa.station.borrow.record',
+                'context': context,
+                # 'flags': {'initial_mode': 'edit'},
+                'target': 'new',
+            }
+
+        # 借用记录
+        @api.model
+        def borrow_record(self):
+            view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
+            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_form').id
+            return {
+                'name': '借用记录',
+                "type": "ir.actions.act_window",
+                "res_model": "funenc.xa.station.borrow.record",
+                "views": [[view_tree, "tree"], [view_form, "form"]],
+                # "domain": [()],
+            }
 
 
 
