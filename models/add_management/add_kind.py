@@ -46,6 +46,19 @@ class Add_class(models.Model):
     class_kind = fields.Char(string='级别类型')
     note = fields.Char(string='备注')
 
+    @api.model
+    def add_class_type(self):
+        return {
+            'name': '新增专业类型',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'add_class.add_class',
+            'context': self.env.context,
+            # 'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
     def class_edit(self):
         return {
             'class_kind': '级别类型',

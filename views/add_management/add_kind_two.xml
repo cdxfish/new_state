@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="add_class_key_button">
+			<field name="name">新增专业分类</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_add_class_add_class"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_add_class_add_class"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">新增级别分类</field>
+			<field name="code">
+				action = model.add_class_type()
+			</field>
+		</record>
+
+        <record id="add_class_tree_id" model="ir.ui.view">
+            <field name="name">新增级别分类</field>
+            <field name="model">add_class.add_class</field>
+            <field name="arch" type="xml">
+                <tree class="noOpen" create="0">
+                    <field name="class_kind"></field>
+                    <field name="note"></field>
+                    <widget string="操作" name="treebtns" template="add_class_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="add_class_form_id" model="ir.ui.view">
+            <field name="name"></field>
+            <field name="model">add_class.add_class</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="class_kind"></field>
+                            <field name="note"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="add_class_act_id" model="ir.actions.act_window">
+              <field name="name">新增级别分类</field>
+              <field name="type">ir.actions.act_window</field>
+              <field name="res_model">add_class.add_class</field>
+              <field name="view_mode">tree,kanban,form</field>
+              <!--<field name="view_id" ref="add_class_form_id"/>-->
+        </record>
+          <record id="add_class_act_tree" model="ir.actions.act_window.view">
+              <field eval="1" name="sequence"/>
+              <field name="view_mode">tree</field>
+              <field name="view_id" ref="add_class_tree_id"/>
+              <field name="act_window_id" ref="add_class_act_id"/>
+          </record>
+          <record id="add_class_act_form" model="ir.actions.act_window.view">
+              <field eval="2" name="sequence"/>
+              <field name="view_mode">form</field>
+              <field name="view_id" ref="add_class_form_id"/>
+              <field name="act_window_id" ref="add_class_act_id"/>
+          </record>
+    </data>
+</odoo>

@@ -25,6 +25,22 @@ class AddPersonCertificate(models.Model):
     gender = fields.Char(string='员工性别')
     train_time = fields.Char(string='培训时间')
     url = fields.Char(string='url')
+    load_file_test = fields.One2many('ir.attachment','res_id', string='图片上传')
+
+
+    @api.model
+    def person_certificate_type(self):
+        return {
+            'name': '新增专业类型',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'person.certificate',
+            'context': self.env.context,
+            # 'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
 
     def person_cer_edit(self):
         return {
@@ -42,26 +58,20 @@ class AddPersonCertificate(models.Model):
     def person_cer_delete(self):
         self.env['person.certificate'].search([('id', '=', self.id)]).unlink()
 
-    @api.model
-    def create(self, params):
-        file_binary = params['book_details']
-        url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
-            file_binary, 'pics')
-        params['url'] = url
-        params['file_name'] = key
-        return super(AddPersonCertificate, self).create(params)
-
-    def person_details(self):
-        url = self.url
-        url = 'http://' + url
-        return {
-            "type": "ir.actions.act_url",
-            "url": url,
-            "target": "new"
-        }
-
     def book_details_load(self):
         view_form = self.env.ref('funenc_xa_station.person_certificate_form_load').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'person.certificate',
+            'res_id': self.id,
+            'flags': {'initial_mode': 'readonly'},
+            'target': 'new',
+        }
+
+    def person_details(self):
+        view_form = self.env.ref('funenc_xa_station.person_certificate_details').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',

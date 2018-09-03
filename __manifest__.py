@@ -36,6 +36,7 @@
 		'views/opening_manage/keys_manage/borrow_record.xml',
 		'views/integrated_management/station_detail.xml',
 		'views/add_management/add_kind.xml',
+		'views/add_management/add_kind_two.xml',
 		'views/add_management/views.xml',
 		'views/add_certificate/add_station_certificate.xml',
 		'views/add_certificate/add_per_certificate.xml',

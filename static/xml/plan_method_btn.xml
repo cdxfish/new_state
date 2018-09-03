@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-extend="ListView.buttons">
+		<t t-jquery=".o_list_button_add" t-operation="replace">
+			<t t-if="widget.model.getParent().modelName == 'funenc_driver.funenc_plan_methods'">
+				<button class="btn btn-primary btn-sm add_plan_method" type="button">
+					Create
+				</button>
+			</t>
+			<t t-else="">
+				<button type="button" class="btn btn-primary btn-sm o_list_button_add" accesskey="c">
+					Create
+				</button>
+			</t>
+		</t>
+	</t>
+	<t t-extend="ImportView.import_button">
+		<t t-jquery="button" t-operation="replace">
+			<span>
+			</span>
+		</t>
+	</t>
+	<t t-name="layui_window_tab">
+		<div t-if="widget.tabs.length > 0" class="layui-tab layui-tab-brief" t-att-lay-filter="widget.tab_id" lay-allowclose="false">
+			<ul class="layui-tab-title">
+				<li t-foreach="widget.tabs" t-as="tab">
+					<t t-esc="tab.title" />
+				</li>
+			</ul>
+			<div class="layui-tab-content" style="display:none">
+			</div>
+		</div>
+		<div t-else="">
+			请设置option
+		</div>
+	</t>
+</templates>
