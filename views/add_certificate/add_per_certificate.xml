@@ -20,8 +20,11 @@
         <record id="person_certificate_tree" model="ir.ui.view">
             <field name="name">人员证件管理</field>
             <field name="model">person.certificate</field>
+        <record id="person_certificate_tree" model="ir.ui.view">
+            <field name="name">人员证件</field>
+            <field name="model">person.certificate</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen">
+                <tree class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="name"></field>
                     <field name="line_road"></field>
@@ -46,6 +49,7 @@
 
         <record id="person_certificate_search" model="ir.ui.view">
             <field name="name">人员证件管理</field>
+            <field name="name">人员证件</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <search>
@@ -71,6 +75,7 @@
 
         <record id="person_certificate_form" model="ir.ui.view">
             <field name="name">人员证件管理</field>
+            <field name="name">人员证件</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <form>
@@ -107,6 +112,8 @@
                                         <field name="datas_fname" />
                                      </tree>
                                 </field>
+                                <field name="book_details"></field>
+                                <field name="file_name" invisible="1"/>
                             </group>
                         </group>
                     </sheet>
@@ -117,6 +124,7 @@
 
          <record id="person_certificate_form_load" model="ir.ui.view">
             <field name="name">人员证件管理</field>
+            <field name="name">人员证件</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <form>
@@ -142,11 +150,15 @@
                 <form>
                     <sheet>
                         <group>
-                        <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
-                                     <tree>
-                                        <field name="datas_fname" />
-                                     </tree>
-                                </field>
+                            <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="点击下载">
+                            <field name="book_details"></field>
+                            <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>
                 </form>
@@ -158,6 +170,19 @@
             <field name="res_model">person.certificate</field>
             <field name="view_mode">tree,kanban,form</field>
         </record>
+            <field name="name">新增人员证件</field>
+            <field name="res_model">person.certificate</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        <!--<record id="person_certificate_act_111111" model="ir.actions.act_window">-->
+            <!--<field name="name">新增人员证件</field>-->
+            <!--<field name="res_model">person.certificate</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+                <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.person_certificate_form_load')}),-->
+                <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.person_certificate_form')})-->
+                  <!--]-->
+                 <!--"/>-->
+        <!--</record>-->
 
     </data>
 </odoo>

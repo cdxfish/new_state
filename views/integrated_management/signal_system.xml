@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+       <record model="ir.ui.view" id="funenc_xa_station_signal_system_list">
+            <field name="name">funenc_xa_station_signal_system_list</field>
+            <field name="model">funenc_xa_station.signal_system</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="signal_machine_ids" string="信号机位置编号"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_signal_system_form">
+            <field name="name">funenc_xa_station_signal_system_form</field>
+            <field name="model">funenc_xa_station.signal_system</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="form-group">
+
+
+                        <div class="text-center ">
+                            <h1> 信号机位置编号 </h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="signal_machine_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="signal_machine_no" string="编号"/>
+                                    <field name="purpose" string="用途"/>
+                                    <field name="position_distance" string="位置里程"/>
+                                    <field name="type" string="类型"/>
+                                    <field name="excursus" string="附记"/>
+                                </tree>
+                            </field>
+                        </div>
+
+
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

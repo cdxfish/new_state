@@ -2,19 +2,6 @@
 <odoo>
 	<data>
 
-		<record model="ir.actions.server" id="create_station_detail_3">
-			<field name="name">创建按钮11111</field>
-			<field name="state">code</field>
-			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_funenc_xa_station_station_detail"/>
-			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_funenc_xa_station_station_detail"/>
-			<field name="binding_type">action_button</field>
-			<field name="binding_action">车站基本信息</field>
-			<field name="code">
-				action = model.create_station_detail()
-			</field>
-		</record>
 
 		<record model="ir.actions.server" id="create_key_button">
 			<field name="name">创建钥匙</field>
@@ -68,44 +55,45 @@
 				action = model.borrow_record()
 			</field>
 		</record>
-		<record model="ir.ui.view" id="funenc_xa_station_key_manage_list">
-			<field name="name">funenc_xa_station_key_manage_list</field>
-			<field name="model">funenc.xa.station.key.manage</field>
-			<field name="arch" type="xml">
-				<tree create="0" limit="15">
-					<field name="id" string="序号"/>
-					<field name="line_id"/>
-					<field name="ascription_site_id"/>
-					<field name="key_type_id"/>
-					<field name="master_number"/>
-					<field name="copy_number"/>
-					<field name="key_total"/>
-					<field name="borrow_number"/>
-					<field name="destroy_number"/>
-				</tree>
-			</field>
-		</record>
-		
-		<record model="ir.ui.view" id="funenc_xa_station_key_manage_form">
-			<field name="name">funenc_xa_station_key_manage_form</field>
-			<field name="model">funenc.xa.station.key.manage</field>
-			<field name="arch" type="xml">
-				<form>
-					<div class="container-fluid">
-						<group>
-							<field name="line_id"/>
-							<field name="ascription_site_id"/>
-							<field name="key_type_id"/>
-							<field name="master_number"/>
-							<field name="copy_number"/>
-							<field name="key_total"/>
-							<field name="borrow_number"/>
-							<field name="destroy_number"/>
-						</group>
-					</div>
-				</form>
-			</field>
-		</record>
+		<!--<record model="ir.ui.view" id="funenc_xa_station_key_manage_list">-->
+			<!--<field name="name">funenc_xa_station_key_manage_list</field>-->
+			<!--<field name="model">funenc.xa.station.key.manage</field>-->
+			<!--<field name="arch" type="xml">-->
+				<!--<tree create="0" limit="15">-->
+					<!--<field name="id" string="序号"/>-->
+					<!--<field name="line_id"/>-->
+					<!--<field name="key_type_id" />-->
+					<!--<field name="ascription_site_id"/>-->
+					<!--<field name="master_number"/>-->
+					<!--<field name="copy_number"/>-->
+					<!--<field name="key_total"/>-->
+					<!--<field name="borrow_number"/>-->
+					<!--<field name="destroy_number"/>-->
+				<!--</tree>-->
+			<!--</field>-->
+		<!--</record>-->
+		<!---->
+		<!--<record model="ir.ui.view" id="funenc_xa_station_key_manage_form">-->
+			<!--<field name="name">funenc_xa_station_key_manage_form</field>-->
+			<!--<field name="model">funenc.xa.station.key.manage</field>-->
+			<!--<field name="arch" type="xml">-->
+				<!--<form>-->
+					<!--<div class="container-fluid">-->
+						<!--<group>-->
+							<!--<field name="line_id"/>-->
+							<!--<field name="ascription_site_id"/>-->
+							<!--<field name="key_type_id" />-->
+							<!--<field name="key_type_id"/>-->
+							<!--<field name="master_number"/>-->
+							<!--<field name="copy_number"/>-->
+							<!--<field name="key_total"/>-->
+							<!--<field name="borrow_number"/>-->
+							<!--<field name="destroy_number"/>-->
+						<!--</group>-->
+					<!--</div>-->
+				<!--</form>-->
+			<!--</field>-->
+		<!--</record>-->
 	
 	</data>
 </odoo>

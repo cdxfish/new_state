@@ -14,7 +14,7 @@
 				action = model.create_key_type()
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="funenc_xa_station_key_type_list">
 			<field name="name">funenc_xa_station_key_type_list</field>
 			<field name="model">funenc.xa.station.key.type</field>

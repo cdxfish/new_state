@@ -15,18 +15,19 @@ KEY_STATES = [
 class KeyDetail(models.Model):
 	_name = 'funenc.xa.station.key.detail'
 	_rec_name = 'key_no'
+	_description = '钥匙详情'
 	
-	name = fields.Char(string='钥匙名称')
+	name = fields.Char(string='钥匙名称', required=True)
 	remark = fields.Text(string='操作说明')
-	line_id = fields.Char(string='选择线路')
-	ascription_site_id = fields.Char(string='归属站点')
+	line_id = fields.Many2one('train_line.train_line',string='选择线路', required=True)
+	ascription_site_id = fields.Many2one('train_station.train_station',string='归属站点', required=True)
 	key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型')
-	key_no = fields.Text(string='钥匙编号')
+	key_no = fields.Text(string='钥匙编号', required=True)
 	key_position = fields.Char(string='对应位置')
 	state_now = fields.Selection(selection=KEY_STATES, string='当前状态', default='normal')
 	is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况')
 	is_borrow = fields.Integer(string='是否在借用', default=2)
-	
+
 	# borrow_user_id = fields.Many2one('res.users',string='借用人')
 	
 	@api.model
@@ -44,6 +45,13 @@ class KeyDetail(models.Model):
 		vals['key_no'] = new_key_nos[0]
 		
 		return super(KeyDetail, self).create(vals)
+
+
+	@api.multi
+	def write(self, vals):
+		# if self.self.env.context.get('state_now'):
+		# 	vals['state_now'] = self.env.context.get('state_now')
+		return super(KeyDetail,self).write(vals)
 	
 	@api.model
 	def get_data_test(self):
@@ -68,7 +76,8 @@ class KeyDetail(models.Model):
 	# 启用
 	@api.multi
 	def key_detail_state_change_start(self):
-		self.state_now = 'normal'
+		context = {}
+		context['state_now'] = 'normal'
 		# view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
 		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_start').id
 		return {
@@ -79,11 +88,14 @@ class KeyDetail(models.Model):
 			"views": [[view_form, "form"]],
 			# "domain": [()],
 			'target': 'new',
+			'context': context,
+			'value': {'state_now': 'normal'}
 		}
 	
 	@api.multi
 	def key_detail_state_change_fixed(self):
-		self.state_now = 'fixed'
+		context = {}
+		context['search_default_state_now'] = 'fixed'
 		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_fixed').id
 		return {
 			'name': '操作说明',
@@ -93,11 +105,11 @@ class KeyDetail(models.Model):
 			"views": [[view_form, "form"]],
 			# "domain": [()],
 			'target': 'new',
+			'context': context
 		}
 	
 	@api.multi
 	def key_detail_state_change_destroyed(self):
-		self.state_now = 'destroyed'
 		view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_destroyed').id
 		return {
 			'name': '操作说明',
@@ -107,11 +119,14 @@ class KeyDetail(models.Model):
 			"views": [[view_form, "form"]],
 			# "domain": [()],
 			'target': 'new',
+			'context': {'state_now':'destroyed'},
+			'value': {'state_now':'destroyed'}
 		}
 	
 	@api.multi
 	def key_detail_state_change_recovery(self):
-		self.state_now = 'normal'
+		context = {}
+		context['state_now'] = 'normal'
 		view_form = self.env.ref(
 			'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_recovery').id
 		return {
@@ -122,11 +137,13 @@ class KeyDetail(models.Model):
 			"views": [[view_form, "form"]],
 			# "domain": [()],
 			'target': 'new',
+			'context' : context
 		}
 	
 	@api.multi
 	def key_detail_state_change_error(self):
-		self.state_now = 'error'
+		context = {}
+		context['state_now'] = 'error'
 		view_form = self.env.ref(
 			'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_error').id
 		return {
@@ -137,6 +154,7 @@ class KeyDetail(models.Model):
 			"views": [[view_form, "form"]],
 			# "domain": [()],
 			'target': 'new',
+			'context': context
 		}
 	
 	def test_btn_start(self):
@@ -151,6 +169,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
+		self.state_now = self.env.context.get('state_now', 'normal')
 		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_fixed(self):
@@ -165,6 +184,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
+		self.state_now = self.env.context.get('state_now', 'normal')
 		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_error(self):
@@ -179,6 +199,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
+		self.state_now = self.env.context.get('state_now', 'normal')
 		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_destroyed(self):
@@ -193,6 +214,7 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
+		self.state_now = self.env.context.get('state_now', 'normal')
 		self.env['funenc.xa.station.change.record'].create(values)
 	
 	def test_btn_recovery(self):
@@ -207,4 +229,28 @@ class KeyDetail(models.Model):
 			'operate_member': self._uid,
 			'remarks': self.remark,
 		}
+		self.state_now = self.env.context.get('state_now', 'normal')
 		self.env['funenc.xa.station.change.record'].create(values)
+
+	def key_detail_save(self):
+
+		# values = {
+		# 	'key_no': self.key_no,
+		# 	'key_type_id': self.key_type_id.id,
+		# 	'ascription_site_id': self.ascription_site_id.id,
+		# 	'name': self.name,
+		# 	'key_position': self.key_position,
+		# 	'is_main': self.is_main,
+		# 	'remarks': self.remark,
+		# 	'line_id': self.line_id.id
+		# }
+		#
+		# self.create(values)
+
+		return {
+			    'name': '钥匙',
+				"type": "ir.actions.client",
+				"tag": "key_statistic",
+			    "target": "current",
+
+				}

@@ -6,11 +6,11 @@
 		<!--<field name="name">站务首页</field>-->
 		<!--<field name="tag"></field>-->
 		<!--</record>-->
-		<record id="key_manage_act_window" model="ir.actions.act_window">
-			<field name="name">钥匙管理</field>
-			<field name="res_model">funenc.xa.station.key.manage</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+		<!--<record id="key_manage_act_window" model="ir.actions.act_window">-->
+			<!--<field name="name">钥匙管理</field>-->
+			<!--<field name="res_model">funenc.xa.station.key.manage</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+		<!--</record>-->
 		<record id="key_detail_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙详情</field>
 			<field name="res_model">funenc.xa.station.key.detail</field>
@@ -32,11 +32,73 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<record id="station_detail_act_window" model="ir.actions.act_window">
-			<field name="name">车站详情</field>
-			<field name="res_model">funenc_xa_station.station_detail</field>
+		<record id="station_detail_ground_traffic" model="ir.actions.act_window">
+			<field name="name">地面交通</field>
+			<field name="res_model">funenc_xa_station.ground_traffic</field>
 			<field name="view_mode">tree,form</field>
 		</record>
+
+		<record id="funenc_station_civil_engineering" model="ir.actions.act_window">
+			<field name="name">土建结构</field>
+			<field name="res_model">funenc_xa_station.civil_engineering</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="funenc_station_signal_system" model="ir.actions.act_window">
+			<field name="name">信号系统</field>
+			<field name="res_model">funenc_xa_station.signal_system</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="funenc_station_line_turnout" model="ir.actions.act_window">
+			<field name="name">线路、道岔</field>
+			<field name="res_model">funenc_xa_station.line_turnout</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="funenc_station_station_staffing" model="ir.actions.act_window">
+			<field name="name">人员配置</field>
+			<field name="res_model">funenc_xa_station.station_staffing</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="funenc_station_station_exit" model="ir.actions.act_window">
+			<field name="name">消防逃生图</field>
+			<field name="res_model">funenc_xa_station.station_exit</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+
+		<record id="station_detail_act_window" model="ir.actions.act_window">
+			<field name="name">车站基本信息</field>
+			<field name="res_model">funenc_xa_station.station_detail</field>
+			<field name="view_mode">tree,form</field>
+			<field name="top_widget">multi_action_tab</field>
+            <field name="top_widget_key">driver_manage_tab_1</field>
+            <field name="top_widget_options">
+                {'tabs': [{'title': '测试',
+                'action':  {
+                    'type': 'ir.actions.act_window',
+                    "name": "测试",
+                    'views': [[False, 'list'], [False, 'form']],
+                    'view_mode': 'tree,form',
+                    "res_model": "funenc_xa_station.station_detail"
+                }},
+                {'title': 'tab2', 'domains': [['login', '=', 'admin']]},
+                {'title': 'tab3', 'domains': [['login', '=', 'demo']]}]}
+            </field>
+
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_station_detail_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_station_detail_form')})]">
+            </field>
+		</record>
+
+		<record model="ir.actions.client" id="key_manage_act_window_1">
+          <field name="name">钥匙管理</field>
+          <field name="tag">key_statistic</field>
+        </record>
 
 		<menuitem id="funenc_station" icon="&#xe628;" name="站务管理" sequence="1"
 		/>
@@ -50,7 +112,7 @@
 		          parent="funenc_station"/>
 		<menuitem id="keys_manage" name="钥匙管理" sequence="1"
 		          parent="opening_manage"/>
-		<menuitem id="keys_index" action="key_manage_act_window" name="钥匙管理" sequence="1"
+		<menuitem id="keys_index" action="key_manage_act_window_1" name="钥匙管理" sequence="1"
 		          parent="keys_manage"/>
 		<menuitem id="keys_detail" action="key_detail_act_window" name="钥匙详情" sequence="2"
 		          parent="keys_manage"/>
@@ -70,11 +132,6 @@
 
 		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="4"
 		          parent="funenc_station"
-		/>
-
-		<menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="4"
-		          parent="keys_manage"
-		          action="station_detail_act_window"
 		/>
 
 		 <!--线别设置-->
@@ -105,27 +162,46 @@
 		<menuitem id="train_menu_username_1" name="账号设置" parent="plan_menu_username_manage_1"  action="person_account_rec_mgmt"/>
 		<menuitem id="train_menu_role_group_1" name="角色组" parent="plan_menu_username_manage_1"  action="train_rec_check_boxes"/>
 
+        <menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="4"
+		          parent="funenc_station_integrated_management"
+		          action="station_detail_act_window"
+		/>
 
 		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
 		          <!--parent="integrated_management_station_detail"/>-->
 
-		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
+				   parent="funenc_station_integrated_management"
+				   action="station_detail_ground_traffic"
 
-		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 />
 
-		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 <menuitem id="station_detail_3" name="土建结构" sequence="3"
+		           parent="funenc_station_integrated_management"
+				   action="funenc_station_civil_engineering"
 
-		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 />
 
-		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 <menuitem id="station_detail_4" name="线路、道岔" sequence="4"
+		           parent="funenc_station_integrated_management"
+				   action="funenc_station_line_turnout"
+		 />
 
-		 <!--<menuitem id="station_detail_7" name="消防逃生" sequence="7"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 <menuitem id="station_detail_5" name="信号系统" sequence="5"
+		           parent="funenc_station_integrated_management"
+				   action="funenc_station_signal_system"
+
+		 />
+
+		 <menuitem id="station_detail_6" name="人员配置" sequence="6"
+		           parent="funenc_station_integrated_management"
+				   action="funenc_station_station_staffing"
+		 />
+
+		 <menuitem id="station_detail_7" name="消防逃生图" sequence="7"
+				   parent="funenc_station_integrated_management"
+		           action="funenc_station_station_exit"
+		 />
 
 		 <!--<menuitem id="station_detail_8" name="客流情况" sequence="8"-->
 		          <!--parent="integrated_management_station_detail"/>-->
@@ -134,12 +210,19 @@
     	<menuitem id="operation_menu_son_id" name="新增规章" parent="operation_menu_id" action="operation_act_id"></menuitem>
 
 		<menuitem id="kind_menu_form_parent" name="规章制度预设管理" parent="synthesize_operation_menu_id" sequence="2"></menuitem>
+<<<<<<< HEAD
         <menuitem id="kind_form_son" parent="kind_menu_form_parent" name="规章制度" action='kind_act_id'></menuitem>
         <menuitem id="add_class_form_son" parent="kind_menu_form_parent" name="新增专业分类" action='add_class_act_id'></menuitem>
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent" parent="synthesize_operation_menu_id"></menuitem>
         <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件管理" parent="add_station_certificate_menu_parent"></menuitem>
 		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件管理" parent="add_station_certificate_menu_parent"></menuitem>
+        <menuitem id="kind_form_son" parent="kind_menu_form_parent" name="新增专业分类" action='kind_act_id'></menuitem>
+        <menuitem id="add_class_form_son" parent="kind_menu_form_parent" name="新增级别分类" action='add_class_act_id'></menuitem>
+
+		<menuitem name="档案资料" id="add_station_certificate_menu_parent" parent="synthesize_operation_menu_id"></menuitem>
+        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件" parent="add_station_certificate_menu_parent"></menuitem>
+		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件" parent="add_station_certificate_menu_parent"></menuitem>
 
 
 

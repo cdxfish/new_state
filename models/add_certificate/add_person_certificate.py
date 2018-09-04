@@ -20,6 +20,7 @@ class AddPersonCertificate(models.Model):
     two_recheck_time = fields.Datetime(string='二次复审时间')
     one_recheck_money = fields.Integer(string='初次复审的费用')
     two_recheck_money = fields.Integer(string='二次复审的费用')
+    book_details = fields.Binary(string='上传证件照片')
     file_name = fields.Char(string="File Name")
     gender = fields.Char(string='员工性别')
     train_time = fields.Char(string='培训时间')
@@ -70,6 +71,26 @@ class AddPersonCertificate(models.Model):
 
     def person_details(self):
         view_form = self.env.ref('funenc_xa_station.person_certificate_details').id
+    @api.model
+    def create(self, params):
+        file_binary = params['book_details']
+        url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
+            file_binary, 'pics')
+        params['url'] = url
+        params['file_name'] = key
+        return super(AddPersonCertificate, self).create(params)
+
+    def person_details(self):
+        url = self.url
+        url = 'http://' + url
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "new"
+        }
+
+    def book_details_load(self):
+        view_form = self.env.ref('funenc_xa_station.person_certificate_form_load').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',

@@ -24,8 +24,10 @@
         <record id="add_operation_tree" model="ir.ui.view">
             <field name="name">专业分类</field>
             <field name="model">xian_metro.xian_metro</field>
+            <field name="name">新增规章</field>
+            <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
-                <tree class="noOpen" create="0">
+                <tree class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="profession_kind"></field>
                     <field name="rank_kind"></field>
@@ -43,6 +45,7 @@
 
         <record id="add_operation_search" model="ir.ui.view">
             <field name="name">专业分类</field>
+            <field name="name">新增规章</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
                 <search>
@@ -61,6 +64,7 @@
 
         <record id="add_operation_form" model="ir.ui.view">
             <field name="name">专业分类</field>
+            <field name="name">新增规章制度</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
                 <form>
@@ -87,6 +91,7 @@
         </record>
         <record id="add_operation_form_test" model="ir.ui.view">
             <field name="name">专业分类</field>
+            <field name="name">新增规章制度</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
                 <form>
@@ -101,6 +106,7 @@
         </record>
         <record id="operation_act_id" model="ir.actions.act_window">
             <field name="name">专业分类</field>
+            <field name="name">新增规章制度</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">xian_metro.xian_metro</field>
             <field name="view_type">form</field>

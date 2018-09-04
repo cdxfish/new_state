@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="funenc_xa_station_station_staffing_list">
+			<field name="name">funenc_xa_station_station_staffing_list</field>
+			<field name="model">funenc_xa_station.station_staffing</field>
+			<field name="arch" type="xml">
+				<tree >
+					<field name="staff_no" string="工号"/>
+					<field name="line_id" string="所属线路"/>
+					<field name="site_id" string="出口所属车站信息"/>
+                    <field name="staff_phone" string="电话"/>
+					<field name="staff_position" string="岗位"/>
+					<field name="certificate_situation" string="证书情况"/>
+                    <field name="staff_property" string="人员属性"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_station_staffing_form">
+			<field name="name">funenc_xa_station_station_staffing_form</field>
+			<field name="model">funenc_xa_station.station_staffing</field>
+			<field name="arch" type="xml">
+				<form>
+                    <group>
+                        <field name="staff_no" string="工号"/>
+                        <field name="line_id" string="所属线路"/>
+                        <field name="site_id" string="出口所属车站信息"/>
+                        <field name="staff_phone" string="电话"/>
+                        <field name="staff_position" string="岗位"/>
+                        <field name="certificate_situation" string="证书情况"/>
+                        <field name="staff_property" string="人员属性"/>
+                    </group>
+				</form>
+			</field>
+		</record>
+
+    </data>
+</odoo>

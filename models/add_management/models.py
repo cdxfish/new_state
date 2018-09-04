@@ -58,6 +58,10 @@ class xian_metro(models.Model):
                 file_binary, 'pdf')
             params['url'] = url
             params['file_name'] = key
+        url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
+            file_binary, 'pdf')
+        params['url'] = url
+        params['file_name'] = key
         return super(xian_metro, self).create(params)
 
     def view_details(self):
@@ -69,6 +73,12 @@ class xian_metro(models.Model):
                 "url": url,
                 "target": "new"
             }
+        url = 'http://' + url
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "new"
+        }
 
     def file_kind_load(self):
         view_form = self.env.ref('funenc_xa_station.add_operation_form_test').id

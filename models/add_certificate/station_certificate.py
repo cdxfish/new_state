@@ -29,6 +29,17 @@ class AddStationCertificate(models.Model):
         }
 
     def station_cer_edit(self):
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'station.certificate',
+            'context': self.env.context,
+            'target': 'new',
+        }
+
+    def station_cer_edit(self):
         self.new_ = {'name': '证件名称', 'type': 'ir.actions.act_window', 'view_type': 'form', 'view_mode': 'form',
                      'res_model': 'station.certificate', 'context': self.env.context, 'flags': {'initial_mode': 'edit'},
                      'res_id': self.id, 'target': 'new', }
@@ -48,6 +59,30 @@ class AddStationCertificate(models.Model):
             'flags': {'initial_mode': 'readonly'},
             'target': 'new',
         }
+
+    def station_cer_delete(self):
+        self.env['station.certificate'].search([('id', '=', self.id)]).unlink()
+
+    @api.model
+    def create(self, params):
+        file_binary = params['certificate_details']
+        if file_binary:
+            url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
+                file_binary, 'pics')
+            params['url'] = url
+            params['file_name'] = key
+        return super(AddStationCertificate, self).create(params)
+
+    def station_details(self):
+        url = self.url
+        if url:
+            url = 'http://' + url
+            return {
+                "type": "ir.actions.act_url",
+                "url": url,
+                "target": "new"
+            }
+
     def station_load(self):
         view_form = self.env.ref('funenc_xa_station.add_station_certificate_form_load').id
         return {

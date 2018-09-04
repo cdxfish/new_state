@@ -18,8 +18,11 @@
         <record id="add_station_certificate_tree" model="ir.ui.view">
             <field name="name">车站证件管理</field>
             <field name="model">station.certificate</field>
+        <record id="add_station_certificate_tree" model="ir.ui.view">
+            <field name="name">车站证件</field>
+            <field name="model">station.certificate</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen">
+                <tree class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="name"></field>
                     <field name="line_road"></field>
@@ -36,6 +39,7 @@
 
         <record id="add_station_certificate_search" model="ir.ui.view">
             <field name="name">车站证件管理</field>
+            <field name="name">车站证件</field>
             <field name="model">station.certificate</field>
             <field name="arch" type="xml">
                 <search>
@@ -53,6 +57,7 @@
 
         <record id="add_station_certificate_form" model="ir.ui.view">
             <field name="name">车站证件管理</field>
+            <field name="name">车站证件</field>
             <field name="model">station.certificate</field>
             <field name="arch" type="xml">
                 <form>
@@ -102,6 +107,7 @@
 
           <record id="add_station_certificate_form_load" model="ir.ui.view">
             <field name="name">车站证件管理</field>
+            <field name="name">车站证件</field>
             <field name="model">station.certificate</field>
             <field name="arch" type="xml">
                 <form>
@@ -114,6 +120,9 @@
                                      </tree>
                                     </field>
                                 </div>
+                        <group name="group_bottom" string="点击按钮下载">
+                            <field name="certificate_details"></field>
+                            <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>
                 </form>
@@ -122,6 +131,7 @@
 
         <record id="station_certificate_act_id_1" model="ir.actions.act_window">
             <field name="name">新增规章</field>
+            <field name="name">新增车站证件</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">station.certificate</field>
             <field name="view_type">form</field>
@@ -140,6 +150,7 @@
                 {'title': '人员证件管理', 'domains': [['id', '=', '1']]},
                 {'title': ' ', 'domains': [['id', '=', '1']]}]}
             </field>
+            <field name="view_id" ref="add_station_certificate_form"/>
         </record>
         <record id="certificate_act_tree" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>

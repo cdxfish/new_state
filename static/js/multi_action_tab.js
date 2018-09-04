@@ -9,7 +9,7 @@ odoo.define("multi_action_tab", function (require) {
   var widgetRegistry = require('web.widget_registry');
   var pyeval = require('web.pyeval');
 
-  var g_tab_id = 1001
+  var g_tab_id = 12345
 
   var multi_action_tab = Widget.extend({
     action_manager: undefined,

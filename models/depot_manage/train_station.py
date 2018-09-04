@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class TrainStation(models.Model):
@@ -32,3 +32,15 @@ class TrainStation(models.Model):
         relation="station_deparment_rel",
         string='维护部门', ondelete='cascade')
     index = fields.Integer(string='顺序index')
+
+    # @api.model
+    # def create(self, vals):
+    #
+    #     train_id = super(TrainStation, self).create(vals)
+    #     key_manage_values = {}
+    #     key_manage_values['line_id'] = train_id.line_id.id
+    #     key_manage_values['ascription_site_id'] = train_id.id
+    #     self.env['funenc.xa.station.key.manage'].create(key_manage_values)
+    #
+    #     return train_id
+

@@ -8,6 +8,8 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/department_tree_list.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/widget.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/multi_action_tab.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/key_statistic.js"/>
+
             </xpath>
         </template>
     </data>

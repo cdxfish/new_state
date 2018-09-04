@@ -9,6 +9,11 @@ class KeyType(models.Model):
 	
 	name = fields.Char(string='钥匙类型', required=True)
 	remarks = fields.Text(string='备注')
+
+	@api.multi
+	def write(self, vals):
+
+		return
 	
 	# 创建钥匙类型
 	@api.model
