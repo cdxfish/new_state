@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="main_information_tree" model="ir.ui.view">
+            <field name="name">main_information_tree</field>
+            <field name="model">main.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="staff_basic_information"></field>
+                    <field name="staff_business_information"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="person_information_form">
+            <field name="name">person_information_form</field>
+            <field name="model">main.information</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="text-center ">
+                        <h1>员工基础信息</h1>
+                    </div>
+                    <div class="text-center ">
+                    <field name="staff_basic_information">
+                        <tree>
+                            <field name="staff_number"></field>
+                            <field name="name"></field>
+                            <field name="gender"></field>
+                            <field name="nation"></field>
+                            <field name="birth"></field>
+                            <field name="idcar"></field>
+                            <field name="phone"></field>
+                            <field name="politics_status"></field>
+                            <field name="shoe_size"></field>
+                            <field name="native_place"></field>
+                            <field name="native_sition"></field>
+                            <field name="new_site"></field>
+                            <field name="emergency_contact"></field>
+                            <field name="emergency_contact_phone"></field>
+                            <field name="First_degree_major"></field>
+                            <field name="first_degree"></field>
+                            <field name="school_of_graduation"></field>
+                            <field name="major"></field>
+                            <field name="second_degree_major"></field>
+                            <field name="second_degree"></field>
+                            <field name="second_school_of_graduation"></field>
+                            <field name="second_major"></field>
+                        </tree>
+                    </field>
+                    </div>
+                    <div class="text-center ">
+                        <h1>员工企业信息</h1>
+                    </div>
+                    <div class="text-center ">
+                        <field name="staff_business_information">
+                            <tree>
+                                <field name="department"></field>
+                                <field name="department_load"></field>
+                                <field name="team_or_group_station"></field>
+                                <field name="post"></field>
+                                <field name="begin_time"></field>
+                                <field name="become_a_regular_worker_time"></field>
+                                <field name="join_work_time"></field>
+                                <field name="staff_source"></field>
+                            </tree>
+                        </field>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="person_information_act" model="ir.actions.act_window">
+            <field name="name">人员信息详情</field>
+			<field name="res_model">main.information</field>
+			<field name="view_mode">form</field>
+        </record>
+        <menuitem name="模型" action="person_information_act" id="person_information_menu"></menuitem>
+    </data>
+</odoo>

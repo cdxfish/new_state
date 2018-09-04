@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="per_management_tree" model="ir.ui.view">
+            <field name="name">per_management_tree</field>
+            <field name="model">main.information</field>
+            <field name="arch" type="xml">
+                <tree class="noOpen" create="0">
+                    <field name="staff_number"></field>
+                    <field name="name"></field>
+                    <field name="gender"></field>
+                    <field name="nation"></field>
+                    <field name="politics_status"></field>
+                    <field name="department"></field>
+                    <field name="post"></field>
+                    <field name="phone"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="per_management_act">
+            <field name="name">人员证件管理</field>
+            <field name="res_model">main.information</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="per_management_tree"/>
+        </record>
+
+        <menuitem name="个人信息详情"  action="per_management_act" id="per_management_menu"></menuitem>
+    </data>
+</odoo>

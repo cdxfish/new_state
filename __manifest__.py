@@ -40,6 +40,8 @@
 		'views/add_management/views.xml',
 		'views/add_certificate/add_station_certificate.xml',
 		'views/add_certificate/add_per_certificate.xml',
+		'views/person_management/person_information.xml',
+		'views/person_management/per_management.xml',
 
 	
 	],
@@ -53,6 +55,8 @@
 		'static/xml/add_management.xml',
 		'static/xml/add_certificate.xml',
 		'static/xml/add_major_class.xml',
+		'static/xml/plan_method_btn.xml',
+
 	],
 	'installable': True,
 	'auto_install': False,

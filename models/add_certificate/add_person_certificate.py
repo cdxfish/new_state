@@ -20,13 +20,11 @@ class AddPersonCertificate(models.Model):
     two_recheck_time = fields.Datetime(string='二次复审时间')
     one_recheck_money = fields.Integer(string='初次复审的费用')
     two_recheck_money = fields.Integer(string='二次复审的费用')
-    book_details = fields.Binary(string='上传证件照片')
     file_name = fields.Char(string="File Name")
     gender = fields.Char(string='员工性别')
     train_time = fields.Char(string='培训时间')
     url = fields.Char(string='url')
     load_file_test = fields.One2many('ir.attachment','res_id', string='图片上传')
-
 
     @api.model
     def person_certificate_type(self):

@@ -101,7 +101,6 @@
                                 <field name="two_recheck_money"></field>
                             </group>
                             <group name="group_bottom">
-                                <field name="book_details"></field>
                                 <field name="file_name" invisible="1"/>
                                 <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
                                      <tree>
@@ -159,15 +158,6 @@
             <field name="res_model">person.certificate</field>
             <field name="view_mode">tree,kanban,form</field>
         </record>
-        <!--<record id="person_certificate_act_111111" model="ir.actions.act_window">-->
-            <!--<field name="name">新增人员证件</field>-->
-            <!--<field name="res_model">person.certificate</field>-->
-            <!--<field name="view_ids" eval="[(5, 0, 0),-->
-                <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.person_certificate_form_load')}),-->
-                <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.person_certificate_form')})-->
-                  <!--]-->
-                 <!--"/>-->
-        <!--</record>-->
 
     </data>
 </odoo>
