@@ -20,14 +20,13 @@
 	'version': '0.1',
 	
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'web', 'cdtct_dingtalk', 'layui_theme'],
+	'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme'],
 	
 	# always loaded
 	'data': [
 		# 'security/ir.model.access.csv',
 		'security/fuenc_exam_group.xml',
         'views/depot_manage/person_account_mgmt.xml',
-		'views/menu.xml',
 		'views/assets.xml',
 		'views/opening_manage/keys_manage/key_manage.xml',
 		'views/opening_manage/keys_manage/key_type.xml',
@@ -35,10 +34,18 @@
 		'views/opening_manage/keys_manage/change_record.xml',
 		'views/opening_manage/keys_manage/borrow_record.xml',
 		'views/integrated_management/station_detail.xml',
+        'views/integrated_management/ground_traffic.xml',
+		'views/integrated_management/civil_engineering.xml',
+        'views/integrated_management/line_turnout.xml',
+        'views/integrated_management/signal_system.xml',
+		'views/integrated_management/station_staffing.xml',
+        'views/integrated_management/station_exit.xml',
+
 		'views/add_management/add_kind.xml',
 		'views/add_management/views.xml',
 		'views/add_certificate/add_station_certificate.xml',
 		'views/add_certificate/add_per_certificate.xml',
+        'views/menu.xml',
 
 	
 	],
@@ -52,6 +59,8 @@
 		'static/xml/add_management.xml',
 		'static/xml/add_certificate.xml',
 		'static/xml/add_major_class.xml',
+		'static/xml/plan_method_btn.xml',
+        'static/xml/integrated_management.xml',
 	],
 	'installable': True,
 	'auto_install': False,

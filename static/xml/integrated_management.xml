@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <!--钥匙类型修改与删除按钮-->
+    <t t-name="station_exit_widget_type_edit_see">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="station_exit_see" >查看详情</button>
+        </div>
+    </t>
+
+</templates>

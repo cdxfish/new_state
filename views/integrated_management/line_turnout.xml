@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="funenc_xa_station_line_turnout_list">
+            <field name="name">funenc_xa_station_line_turnout_list</field>
+            <field name="model">funenc_xa_station.line_turnout</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="line_map_ids" string="车站线路平面图"/>
+                    <field name="turnout_ids" string="道岔"/>
+                    <field name="liaison_station_ids" string="联络站基本信息"/>
+                    <field name="operating_line_ids" string="作业线路"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_line_turnout_form">
+            <field name="name">funenc_xa_station_line_turnout_form</field>
+            <field name="model">funenc_xa_station.line_turnout</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="form-group">
+
+                        <div class="text-center ">
+                            <h1>车站线路平面图</h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="line_map_ids">
+                                <tree >
+                                    <field name="name" string="名称"/>
+                                    <field name="image" string="图片" widget="image" options="{&quot;size&quot;: [200, 200]}"/>
+                                </tree>
+                                <form>
+                                    <field name="name" string="名称"/>
+                                    <field name="image" string="图片" widget="image"/>
+                                </form>
+                            </field>
+                        </div>
+
+                        <div class="text-center ">
+                            <h1>道岔</h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="turnout_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="turnout_no" string="道岔编号"/>
+                                    <field name="turnout_no_1" string="道岔辙岔号"/>
+                                    <field name="chain_mode" string="联锁方式"/>
+                                    <field name="key_Safekeeping" string="钥匙保管地点"/>
+                                    <field name="operation_staff" string="操纵人员"/>
+                                    <field name="allow_speed" string="侧向允许通过速度km/h"/>
+                                    <field name="position_distance" string="位置里程"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                        <div class="text-center ">
+                            <h1>联络站基本信息</h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="liaison_station_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="service_channel" string="联络通道"/>
+                                    <field name="position_distance" string="位置/里程"/>
+                                    <field name="interval" string="区间"/>
+                                    <field name="remarks" string="备注"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                        <div class="text-center ">
+                            <h1>作业线路</h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="operating_line_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="position" string="位置"/>
+                                    <field name="equipment" string="设备"/>
+                                    <field name="departure_point" string="设计起点里程"/>
+                                    <field name="destination" string="终点"/>
+                                    <field name="length" string="长度"/>
+                                    <field name="line_id" string="线别"/>
+                                    <field name="purpose" string="用途"/>
+                                </tree>
+                            </field>
+                        </div>
+
+
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
