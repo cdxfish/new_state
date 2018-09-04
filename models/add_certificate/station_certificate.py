@@ -25,7 +25,6 @@ class AddStationCertificate(models.Model):
             'view_mode': 'form',
             'res_model': 'station.certificate',
             'context': self.env.context,
-            # 'flags': {'initial_mode': 'edit'},
             'target': 'new',
         }
 
