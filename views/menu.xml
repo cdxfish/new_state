@@ -210,7 +210,6 @@
     	<menuitem id="operation_menu_son_id" name="新增规章" parent="operation_menu_id" action="operation_act_id"></menuitem>
 
 		<menuitem id="kind_menu_form_parent" name="规章制度预设管理" parent="synthesize_operation_menu_id" sequence="2"></menuitem>
-<<<<<<< HEAD
         <menuitem id="kind_form_son" parent="kind_menu_form_parent" name="规章制度" action='kind_act_id'></menuitem>
         <menuitem id="add_class_form_son" parent="kind_menu_form_parent" name="新增专业分类" action='add_class_act_id'></menuitem>
 
