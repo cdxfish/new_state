@@ -4,7 +4,7 @@
     <data>
 
         <record model="ir.actions.server" id="add_class_key_button">
-			<field name="name">新增专业分类</field>
+			<field name="name">新增级别分类</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
 			<field name="model_id" ref="model_add_class_add_class"/>
@@ -49,7 +49,7 @@
               <field name="type">ir.actions.act_window</field>
               <field name="res_model">add_class.add_class</field>
               <field name="view_mode">tree,kanban,form</field>
-              <!--<field name="view_id" ref="add_class_form_id"/>-->
+              <field name="view_id" ref="add_class_form_id"/>
         </record>
           <record id="add_class_act_tree" model="ir.actions.act_window.view">
               <field eval="1" name="sequence"/>
