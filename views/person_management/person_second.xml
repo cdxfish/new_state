@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+        <record id="second_tree" model="ir.ui.view">
+            <field name="name">second_tee</field>
+            <field name="model">person_management.person_second</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="person_number"></field>
+                    <field name="name"></field>
+                    <field name="line_road"></field>
+                    <field name="station"></field>
+                    <field name="per_site"></field>
+                    <field name="second_line"></field>
+                    <field name="second_station"></field>
+                    <field name="second_time"></field>
+                    <field name="operator"></field>
+                    <field name="operat_time"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="second_form" model="ir.ui.view">
+            <field name="name">second_form</field>
+            <field name="model">person_management.person_second</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_road"></field>
+                            <field name="station"></field>
+                            <field name="name"></field>
+                            <field name="person_number"></field>
+                            <field name="per_site"></field>
+                            <field name="second_line"></field>
+                            <field name="second_station"></field>
+                            <field name="second_time"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="second_act" model="ir.actions.act_window">
+            <field name="name">新增借调</field>
+            <field name="res_model">person_management.person_second</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="second_menu" parent="person_namegement_menu_main" action="second_act" name="人员借调"></menuitem>
+    </data>
+</odoo>

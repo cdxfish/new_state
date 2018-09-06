@@ -52,6 +52,7 @@
                     <div class="text-center ">
                         <h1>员工企业信息</h1>
                     </div>
+
                     <div class="text-center ">
                         <field name="staff_business_information">
                             <tree>
@@ -66,6 +67,95 @@
                             </tree>
                         </field>
                     </div>
+                    <notebook>
+                    <page string="持证信息">
+                         <div class="text-center ">
+                            <h1>持证信息</h1>
+                         </div>
+                    <div class="text-center ">
+                        <field name="certificate_info">
+                            <tree>
+                                <field name="id" string="序号"></field>
+                                <field name="name"></field>
+                                <field name="line_road"></field>
+                                <field name="station_site"></field>
+                                <field name="person_name"></field>
+                                <field name="work_number"></field>
+                                <field name="phone"></field>
+                                <field name="site"></field>
+                                <field name="licence_issuing_authority"></field>
+                                <field name="get_certificate_time"></field>
+                                <field name="period_of_validity"></field>
+                                <field name="certificate_money"></field>
+                                <field name="one_recheck_time"></field>
+                                <field name="one_recheck_money"></field>
+                                <field name="two_recheck_time"></field>
+                                <field name="two_recheck_money"></field>
+                                <widget string="证件详情" name="treebtns" template="person_dateils"/>
+                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                            </tree>
+                        </field>
+                    </div>
+                    </page>
+                    <page string="转岗记录">
+                        <div class="text-center ">
+                            <h1>持证信息</h1>
+                         </div>
+                    <div class="text-center ">
+                        <field name="transfer_info">
+                            <tree>
+                                <field name="department"></field>
+                                <field name="line_gauze"></field>
+                                <field name="station"></field>
+                                <field name="site_post"></field>
+                                <field name="site_time"></field>
+                                <field name="site_file"></field>
+                                <widget string="证件详情" name="treebtns" template="person_dateils"/>
+                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                            </tree>
+                        </field>
+                        </div>
+                   </page>
+
+                    <page string="考评记录">
+                        <div class="text-center ">
+                            <h1>考评记录</h1>
+                         </div>
+                    <div class="text-center ">
+                        <field name="check_info">
+                            <tree>
+                                <field name="grade"></field>
+                                <field name="grade_standard"></field>
+                                <field name="problem_kind"></field>
+                                <field name="check_kind"></field>
+                                <field name="check_project"></field>
+                                <field name="incident_desfcription"></field>
+                                <field name="check_person"></field>
+                                <field name="check_time"></field>
+                            </tree>
+                        </field>
+                        </div>
+                   </page>
+
+                    <page string="奖励记录">
+                        <div class="text-center ">
+                            <h1>奖励记录</h1>
+                         </div>
+                    <div class="text-center ">
+                        <field name="award_info">
+                            <tree>
+                                <field name="award_money"></field>
+                                <field name="award_standard_kind"></field>
+                                <field name="examination_item"></field>
+                                <field name="incident_description"></field>
+                                <field name="check_person"></field>
+                                <field name="check_time"></field>
+                            </tree>
+                        </field>
+                        </div>
+                   </page>
+                    </notebook>
+
                 </form>
             </field>
         </record>
@@ -75,6 +165,7 @@
 			<field name="res_model">main.information</field>
 			<field name="view_mode">form</field>
         </record>
-        <menuitem name="模型" action="person_information_act" id="person_information_menu"></menuitem>
+        <menuitem name="人员管理系统" id="person_namegement_menu_main" parent="funenc_station"></menuitem>
+        <menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_namegement_menu_main"></menuitem>
     </data>
 </odoo>

@@ -1,3 +1,6 @@
+# !user/bin/env python3
+# -*- coding: utf-8 -*-
+
 from odoo import api, models, fields
 
 
@@ -13,7 +16,14 @@ class MainModel(models.Model):
     department = fields.Many2one(related='staff_business_information.department', string='分部')
     post = fields.Char(related='staff_business_information.post',strin9g='岗位')
     phone = fields.Char(related='staff_basic_information.phone',string='联系电话')
-
+    #持证信息
+    certificate_info = fields.One2many('person.certificate','name',string='持证信息')
+    #转岗信息
+    transfer_info = fields.One2many('persom_namagement.jobt_ranfer','site_file',string='转岗信息')
+    #考评记录
+    check_info = fields.One2many('person_management.check_info','relevance',string='考评记录')
+    #奖励制度
+    award_info = fields.One2many('person_management.award_info','relevance',string='关联字段')
 
 class PersonManagement(models.Model):
     _name = 'person.management.sys'

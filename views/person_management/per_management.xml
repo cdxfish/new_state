@@ -26,6 +26,6 @@
             <field name="view_id" ref="per_management_tree"/>
         </record>
 
-        <menuitem name="个人信息详情"  action="per_management_act" id="per_management_menu"></menuitem>
+        <menuitem name="人员管理系统-人员信息"  action="per_management_act" id="per_management_menu" parent="person_namegement_menu_main"> </menuitem>
     </data>
 </odoo>

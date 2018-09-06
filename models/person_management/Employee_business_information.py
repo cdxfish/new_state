@@ -12,3 +12,5 @@ class EmployeeBusinessInformation(models.Model):
     become_a_regular_worker_time = fields.Date(string='转正时间')
     join_work_time = fields.Date(string='参加工作时间')
     staff_source = fields.Char(string='员工来源')
+    load_line = fields.Char(string='线路')
+    station_site = fields.Char(string='车站')

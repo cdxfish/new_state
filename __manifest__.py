@@ -41,13 +41,13 @@
 		'views/add_certificate/add_per_certificate.xml',
 		'views/person_management/person_information.xml',
 		'views/person_management/per_management.xml',
+		'views/person_management/person_second.xml',
         'views/integrated_management/ground_traffic.xml',
 		'views/integrated_management/civil_engineering.xml',
         'views/integrated_management/line_turnout.xml',
         'views/integrated_management/signal_system.xml',
 		'views/integrated_management/station_staffing.xml',
         'views/integrated_management/station_exit.xml',
-
 		'views/add_management/add_kind.xml',
 		'views/add_management/views.xml',
 		'views/add_certificate/add_station_certificate.xml',
@@ -67,7 +67,6 @@
 		'static/xml/add_certificate.xml',
 		'static/xml/add_major_class.xml',
 		'static/xml/plan_method_btn.xml',
-
         'static/xml/integrated_management.xml',
 	],
 	'installable': True,
