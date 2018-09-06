@@ -8,9 +8,10 @@ class UserExtend(models.Model):
     人员权限管理
     '''
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_users'
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='所属线路') # 即最下层部门的父级部门
 
-    enabled = fields.Boolean('是否启用', default=True)
-    train_line = fields.Many2many(comodel_name="train_line.train_line")
+
+
 
     @api.model
     def change_groups(self):

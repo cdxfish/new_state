@@ -2,69 +2,69 @@
 <odoo>
     <data>
         <!--人员账号管理tree-->
-        <record model="ir.ui.view" id="person_account_tree_mgmt">
-            <field name="name">person.account.tree.mgmt</field>
-            <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-            <field name="arch" type="xml">
-                <tree create="0" edit="0" delete="1" js_class="department_tree_list"
-                      options="{&quot;data_model&quot;: &quot;cdtct_dingtalk.cdtct_dingtalk_users&quot;, &quot;data_load_func&quot;: &quot;load_department&quot;, &quot;search_key&quot;: &quot;id&quot;}">
-                    <field name="jobnumber" string="账号"/>
-                    <field name="name" string="姓名"/>
-                    <field name="departments" string="所属部门" widget="many2many_tags"/>
-                    <field name="mobile" string="电话"/>
-                    <field name="train_line" string="所属线路" widget="many2many_tags"/>
-                    <!--<field name="role_group" string="角色组" widget="many2many_tags"/>-->
-                </tree>
-            </field>
-        </record>
+        <!--<record model="ir.ui.view" id="person_account_tree_mgmt">-->
+            <!--<field name="name">person.account.tree.mgmt</field>-->
+            <!--<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree create="0" edit="0" delete="1" js_class="department_tree_list"-->
+                      <!--options="{&quot;data_model&quot;: &quot;cdtct_dingtalk.cdtct_dingtalk_users&quot;, &quot;data_load_func&quot;: &quot;load_department&quot;, &quot;search_key&quot;: &quot;id&quot;}">-->
+                    <!--<field name="jobnumber" string="账号"/>-->
+                    <!--<field name="name" string="姓名"/>-->
+                    <!--<field name="departments" string="所属部门" widget="many2many_tags"/>-->
+                    <!--<field name="mobile" string="电话"/>-->
+                    <!--<field name="train_line" string="所属线路" widget="many2many_tags"/>-->
+                    <!--&lt;!&ndash;<field name="role_group" string="角色组" widget="many2many_tags"/>&ndash;&gt;-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <!--人员账号管理form-->
-        <record model="ir.ui.view" id="person_account_form_mgmt">
-            <field name="name">person.account.form.mgmt</field>
-            <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-            <field name="arch" type="xml">
-                <form create="0" edit="1" delete="1">
-                    <sheet>
-                        <group string="基本信息：">
-                            <field name="jobnumber" string="账号"/>
-                            <field name="name" string="姓名"/>
-                            <field name="departments" string="所属部门"/>
-                            <field name="mobile" string="电话"/>
-                            <field name="train_line" string="所属线路" widget="many2many_tags"
-                                   options='{"no_quick_create": True, "no_create": True}' />
-                            <!--<field name="role_group" string="角色组"/>-->
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+        <!--&lt;!&ndash;人员账号管理form&ndash;&gt;-->
+        <!--<record model="ir.ui.view" id="person_account_form_mgmt">-->
+            <!--<field name="name">person.account.form.mgmt</field>-->
+            <!--<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form create="0" edit="1" delete="1">-->
+                    <!--<sheet>-->
+                        <!--<group string="基本信息：">-->
+                            <!--<field name="jobnumber" string="账号"/>-->
+                            <!--<field name="name" string="姓名"/>-->
+                            <!--<field name="departments" string="所属部门"/>-->
+                            <!--<field name="mobile" string="电话"/>-->
+                            <!--<field name="train_line" string="所属线路" widget="many2many_tags"-->
+                                   <!--options='{"no_quick_create": True, "no_create": True}' />-->
+                            <!--&lt;!&ndash;<field name="role_group" string="角色组"/>&ndash;&gt;-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <record model="ir.actions.server" id="mutils_change_groups">
-            <field name="name">批量更改角色组</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
-            <field name="binding_type">action</field>
-            <field name="code">
-                action = model.change_groups()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="mutils_change_groups">-->
+            <!--<field name="name">批量更改角色组</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>-->
+            <!--<field name="binding_type">action</field>-->
+            <!--<field name="code">-->
+                <!--action = model.change_groups()-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <record model="ir.ui.view" id="person_account_filter_mgmt" >
-              <field name="name">person.account.filter.mgmt</field>
-              <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-              <field name="arch" type="xml">
-                  <search>
-                      <field name="enabled" />
-                      <filter name="enabled" string="未启用"
-                              domain="[('enabled','=',False)]"/>
-                      <filter name="no_enabled" string="启用"
-                              domain="[('enabled','!=',False)]"/>
-                  </search>
-              </field>
-        </record>
+        <!--<record model="ir.ui.view" id="person_account_filter_mgmt" >-->
+              <!--<field name="name">person.account.filter.mgmt</field>-->
+              <!--<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+              <!--<field name="arch" type="xml">-->
+                  <!--<search>-->
+                      <!--<field name="enabled" />-->
+                      <!--<filter name="enabled" string="未启用"-->
+                              <!--domain="[('enabled','=',False)]"/>-->
+                      <!--<filter name="no_enabled" string="启用"-->
+                              <!--domain="[('enabled','!=',False)]"/>-->
+                  <!--</search>-->
+              <!--</field>-->
+        <!--</record>-->
 
     </data>
 </odoo>
