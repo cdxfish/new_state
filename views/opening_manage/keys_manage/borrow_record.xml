@@ -30,7 +30,7 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="key_no" string="钥匙编号" domain="[('is_borrow','=',1)]"/>
+							<field name="key_no" string="钥匙编号" domain="[('is_borrow','=',1)]" options="{'no_open': True, 'no_create': True}"/>
 							<field name="return_member" string="归还人" attrs="{'required':True}"/>
 							<field name="line" string="选择线路"/>
 							<field name="type" string="钥匙类型"/>
