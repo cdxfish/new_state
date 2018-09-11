@@ -2,14 +2,30 @@
 <odoo>
 	<data>
 
+
+        <record model="ir.actions.server" id="create_arrange_order">
+			<field name="name">新增班次</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_arrange_order"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_arrange_order"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">排班设置</field>
+			<field name="code">
+				action = model.create_arrange_order()
+			</field>
+		</record>
+
         <record model="ir.ui.view" id="funenc_xa_station_arrange_order_list">
 			<field name="name">funenc_xa_station_arrange_order_list</field>
 			<field name="model">funenc_xa_station.arrange_order</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree limit="15" create="0" class="noOpen">
 					<field name="name" string="班次名字"/>
 					<field name="time" string="班次时间"/>
 					<field name="work_time" string="工作时长"/>
+                    <widget string="操作" name="treebtns" template="arrange_order_widget_edit_delete"/>
                 </tree>
 			</field>
 		</record>

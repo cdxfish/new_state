@@ -14,7 +14,7 @@
 					<field name="key_position" string="对应位置"/>
 					<field name="is_main" string="主备情况"/>
 					<field name="state_now" string="当前状态"/>
-					<widget string="操作" name="treebtns" template="key_widget_detail_operate_btn"/>
+					<widget string="操作" name="treebtns" template="arrange_order_widget_edit_delete"/>
 				</tree>
 			</field>
 		</record>
