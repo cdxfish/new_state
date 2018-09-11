@@ -25,7 +25,7 @@ class AddPersonCertificate(models.Model):
     train_time = fields.Char(string='培训时间')
     url = fields.Char(string='url')
     load_file_test = fields.One2many('ir.attachment','res_id', string='图片上传')
-    relevance = fields.Many2one('main.information', string='关联字段没有实际意义')
+    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义')
 
     @api.model
     def person_certificate_type(self):

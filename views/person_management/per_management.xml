@@ -19,16 +19,16 @@
 
         <record id="per_management_tree" model="ir.ui.view">
             <field name="name">per_management_tree</field>
-            <field name="model">main.information</field>
+            <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
                 <tree class="noOpen">
-                    <field name="staff_number"></field>
+                    <field name="jobnumber"></field>
                     <field name="name"></field>
                     <field name="gender"></field>
                     <field name="nation"></field>
                     <field name="politics_status"></field>
                     <field name="department"></field>
-                    <field name="post"></field>
+                    <field name="position"></field>
                     <field name="phone"></field>
                     <widget string="操作" name="treebtns" template="person_info_management"/>
                 </tree>
@@ -37,7 +37,7 @@
 
         <record model="ir.actions.act_window" id="per_management_act">
             <field name="name">人员管理系统-人员信息</field>
-            <field name="res_model">main.information</field>
+            <field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_id" ref="per_management_tree"/>
         </record>

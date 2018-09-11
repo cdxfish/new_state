@@ -42,7 +42,7 @@ class ImportManagement(models.Model):
             cols = sheet_data.ncols
             one_sheet_content = []
 
-            keys = ('staff_number', 'name', 'gender','department_load','department','team_or_group_station','post',
+            keys = ('jobnumber', 'name', 'gender','department_load','department','team_or_group_station','position',
                     'nation','idcar', 'birth','join_work_time', 'begin_time', 'become_a_regular_worker_time','phone',
                     'First_degree_major','first_degree','school_of_graduation','major','second_degree_major',
                     'second_degree','second_school_of_graduation','second_major','politics_status','native_place',
@@ -82,17 +82,7 @@ class ImportManagement(models.Model):
                     # {'department': item['department']}
                 # )
                 # print('====')
-                self.env['main.information'].sudo().create({'staff_number':item['staff_number']
-                                                            ,'name':item['name']
-                                                            ,'gender':item['gender']
-                                                            ,'nation':item['nation']
-                                                            ,'politics_status':item['politics_status']
-                                                            ,'department':item['department']
-                                                            ,'post':item['post']
-                                                            ,'phone':item['phone']
-                                                            ,'staff_basic_information':[(0,0,item)]
-                                                            ,'staff_business_information':[(0,0, item)]
-                                                             })
+                self.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().create(item)
 
         except ConnectionError as err:
             print(err)

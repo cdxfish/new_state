@@ -3,26 +3,42 @@
 <odoo>
     <data>
         <record model="ir.actions.server" id="main_information_button">
-            <field name="name">批量导入</field>
+            <field name="name">选择文件</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_main_information"/>
+            <field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_main_information"/>
+            <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
                 action = model.import_file_management()
+
             </field>
+        </record>
+
+            <record model="ir.actions.server" id="import_information_button">
+            <field name="name">批量导入</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">人员信息详情</field>
+            <field name="code">
+                action = model.import_xls_bill()
+            </field>
+
 
         </record>
             <record model="ir.actions.server" id="main_information_button01">
             <field name="name">同步人员</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_main_information"/>
+            <field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_main_information"/>
+            <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
@@ -30,112 +46,342 @@
             </field>
         </record>
 
-        <record id="main_information_tree" model="ir.ui.view">
-            <field name="name">main_information_tree</field>
-            <field name="model">main.information</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="staff_basic_information"></field>
-                    <field name="staff_business_information"></field>
-                </tree>
-            </field>
-        </record>
+        <!--<record id="main_information_tree" model="ir.ui.view">-->
+            <!--<field name="name">main_information_tree</field>-->
+            <!--<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="staff_basic_information"></field>-->
+                    <!--<field name="staff_business_information"></field>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.ui.view" id="person_information_form">
             <field name="name">person_information_form</field>
-            <field name="model">main.information</field>
+            <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
                 <form edit="0">
                     <div>
                         <h1>员工基础信息</h1>
                     </div>
                     <div class="text-center ">
-                    <field name="staff_basic_information">
-                        <tree>
-                            <field name="staff_number"></field>
-                            <field name="name"></field>
-                            <field name="gender"></field>
-                            <field name="nation"></field>
-                            <field name="birth"></field>
-                            <field name="idcar"></field>
-                            <field name="phone"></field>
-                            <field name="politics_status"></field>
-                            <field name="shoe_size"></field>
-                            <field name="native_place"></field>
-                            <field name="native_sition"></field>
-                            <field name="new_site"></field>
-                            <field name="emergency_contact"></field>
-                            <field name="emergency_contact_phone"></field>
-                            <field name="First_degree_major"></field>
-                            <field name="first_degree"></field>
-                            <field name="school_of_graduation"></field>
-                            <field name="major"></field>
-                            <field name="second_degree_major"></field>
-                            <field name="second_degree"></field>
-                            <field name="second_school_of_graduation"></field>
-                            <field name="second_major"></field>
-                        </tree>
+                    <!--<field name="staff_basic_information">-->
+                        <!--<tree>-->
+                            <!--<field name="jobnumber"></field>-->
+                            <!--<field name="name"></field>-->
+                            <!--<field name="gender"></field>-->
+                            <!--<field name="nation"></field>-->
+                            <!--<field name="birth"></field>-->
+                            <!--<field name="idcar"></field>-->
+                            <!--<field name="phone"></field>-->
+                            <!--<field name="politics_status"></field>-->
+                            <!--<field name="shoe_size"></field>-->
+                            <!--<field name="native_place"></field>-->
+                            <!--<field name="native_sition"></field>-->
+                            <!--<field name="new_site"></field>-->
+                            <!--<field name="emergency_contact"></field>-->
+                            <!--<field name="emergency_contact_phone"></field>-->
+                            <!--<field name="First_degree_major"></field>-->
+                            <!--<field name="first_degree"></field>-->
+                            <!--<field name="school_of_graduation"></field>-->
+                            <!--<field name="major"></field>-->
+                            <!--<field name="second_degree_major"></field>-->
+                            <!--<field name="second_degree"></field>-->
+                            <!--<field name="second_school_of_graduation"></field>-->
+                            <!--<field name="second_major"></field>-->
+                        <!--</tree>-->
                         <form>
                             <sheet>
                                 <group>
-                                    <field name="staff_number"></field>
-                                    <field name="name"></field>
-                                    <field name="gender"></field>
-                                    <field name="nation"></field>
-                                    <field name="birth"></field>
-                                    <field name="idcar"></field>
-                                    <field name="phone"></field>
-                                    <field name="politics_status"></field>
-                                    <field name="shoe_size"></field>
-                                    <field name="native_place"></field>
-                                    <field name="native_sition"></field>
-                                    <field name="new_site"></field>
-                                    <field name="emergency_contact"></field>
-                                    <field name="emergency_contact_phone"></field>
-                                    <field name="First_degree_major"></field>
-                                    <field name="first_degree"></field>
-                                    <field name="school_of_graduation"></field>
-                                    <field name="major"></field>
-                                    <field name="second_degree_major"></field>
-                                    <field name="second_degree"></field>
-                                    <field name="second_school_of_graduation"></field>
-                                    <field name="second_major"></field>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="jobnumber" string="工号"/>
+                                                     <field name="jobnumber"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="name" string="姓名"/>
+                                                     <field name="name"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="gender" string="性别"/>
+                                                     <field name="gender"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="nation" string="民族"/>
+                                                     <field name="nation"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                  <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="birth" string="出生日期"/>
+                                                     <field name="birth"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="idcar" string="生份证"/>
+                                                     <field name="idcar"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="phone" string="电话号码"/>
+                                                     <field name="phone"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="politics_status" string="政治面貌"/>
+                                                     <field name="politics_status"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                    <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="shoe_size" string="鞋码"/>
+                                                     <field name="shoe_size"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="native_place" string="籍贯"/>
+                                                     <field name="native_place"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="phone" string="电话号码"/>
+                                                     <field name="phone"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="native_sition" string="户籍地址"/>
+                                                     <field name="native_sition"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                   <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="new_site" string="现居地址"/>
+                                                     <field name="new_site"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="native_place" string="籍贯"/>
+                                                     <field name="native_place"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="emergency_contact" string="紧急联系人"/>
+                                                     <field name="emergency_contact"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="emergency_contact_phone" string="紧急联系人电话"/>
+                                                     <field name="emergency_contact_phone"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                   <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="First_degree_major" string="第一学历"/>
+                                                     <field name="First_degree_major"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="first_degree" string="第一学位"/>
+                                                     <field name="first_degree"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="school_of_graduation" string="毕业院校"/>
+                                                     <field name="school_of_graduation"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="major" string="专业"/>
+                                                     <field name="major"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                     <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="second_degree_major" string="第二学历"/>
+                                                     <field name="second_degree_major"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="second_degree" string="第二学位"/>
+                                                     <field name="second_degree"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="second_school_of_graduation" string="毕业院校"/>
+                                                     <field name="second_school_of_graduation"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="second_major" string="专业"/>
+                                                     <field name="second_major"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <!--<field name="jobnumber"></field>-->
+                                    <!--<field name="name"></field>-->
+                                    <!--<field name="gender"></field>-->
+                                    <!--<field name="nation"></field>-->
+                                    <!--<field name="birth"></field>-->
+                                    <!--<field name="idcar"></field>-->
+                                    <!--<field name="phone"></field>-->
+                                    <!--<field name="politics_status"></field>-->
+                                    <!--<field name="shoe_size"></field>-->
+                                    <!--<field name="native_place"></field>-->
+                                    <!--<field name="native_sition"></field>-->
+                                    <!--<field name="new_site"></field>-->
+                                    <!--<field name="emergency_contact"></field>-->
+                                    <!--<field name="emergency_contact_phone"></field>-->
+                                    <!--<field name="First_degree_major"></field>-->
+                                    <!--<field name="first_degree"></field>-->
+                                    <!--<field name="school_of_graduation"></field>-->
+                                    <!--<field name="major"></field>-->
+                                    <!--<field name="second_degree_major"></field>-->
+                                    <!--<field name="second_degree"></field>-->
+                                    <!--<field name="second_school_of_graduation"></field>-->
+                                    <!--<field name="second_major"></field>-->
                                 </group>
                             </sheet>
                         </form>
-                    </field>
+                    <!--</field>-->
                     </div>
                     <div>
                         <h1>员工企业信息</h1>
                     </div>
 
                     <div class="text-center ">
-                        <field name="staff_business_information">
-                            <tree>
-                                <field name="department"></field>
-                                <field name="department_load"></field>
-                                <field name="team_or_group_station"></field>
-                                <field name="post"></field>
-                                <field name="begin_time"></field>
-                                <field name="become_a_regular_worker_time"></field>
-                                <field name="join_work_time"></field>
-                                <field name="staff_source"></field>
-                            </tree>
+                        <!--<field name="staff_business_information">-->
+                            <!--<tree>-->
+                                <!--<field name="department"></field>-->
+                                <!--<field name="department_load"></field>-->
+                                <!--<field name="team_or_group_station"></field>-->
+                                <!--<field name="position"></field>-->
+                                <!--<field name="begin_time"></field>-->
+                                <!--<field name="become_a_regular_worker_time"></field>-->
+                                <!--<field name="join_work_time"></field>-->
+                                <!--<field name="staff_source"></field>-->
+                            <!--</tree>-->
                             <form>
                                 <sheet>
                                     <group>
-                                        <field name="department"></field>
-                                        <field name="department_load"></field>
-                                        <field name="team_or_group_station"></field>
-                                        <field name="post"></field>
-                                        <field name="begin_time"></field>
-                                        <field name="become_a_regular_worker_time"></field>
-                                        <field name="join_work_time"></field>
-                                        <field name="staff_source"></field>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="department" string="所属部门"/>
+                                                     <field name="department"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="department_load" string="所属线网"/>
+                                                     <field name="department_load"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="team_or_group_station" string="班组车站"/>
+                                                     <field name="team_or_group_station"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="position" string="岗位"/>
+                                                     <field name="position"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    <!--</div>-->
+
+                                    <!--<div class="container-fluid">-->
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="begin_time" string="入司时间"/>
+                                                     <field name="begin_time"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="become_a_regular_worker_time" string="转正时间"/>
+                                                     <field name="become_a_regular_worker_time"/>
+                                                  </div>
+                                               </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="join_work_time" string="参加工作时间"/>
+                                                     <field name="join_work_time"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="staff_source" string="员工来源"/>
+                                                     <field name="staff_source"/>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                        <!--<field name="department"></field>-->
+                                        <!--<field name="department_load"></field>-->
+                                        <!--<field name="team_or_group_station"></field>-->
+                                        <!--<field name="position"></field>-->
+                                        <!--<field name="begin_time"></field>-->
+                                        <!--<field name="become_a_regular_worker_time"></field>-->
+                                        <!--<field name="join_work_time"></field>-->
+                                        <!--<field name="staff_source"></field>-->
                                     </group>
                                 </sheet>
                             </form>
-                        </field>
+                        <!--</field>-->
                     </div>
                     <notebook>
                     <page string="持证信息">
@@ -298,7 +544,7 @@
 
         <record id="person_information_act" model="ir.actions.act_window">
             <field name="name">人员信息详情</field>
-			<field name="res_model">main.information</field>
+			<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
 			<field name="view_mode">form</field>
         </record>
         <!--<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station.funenc_station"></menuitem>-->
