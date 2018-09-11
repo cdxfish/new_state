@@ -1,0 +1,100 @@
+<div id="funenc_xa_department_users">
+
+    <el-row :gutter="10">
+		<el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+			<div class="grid-content bg-purple">
+				<el-card class="box-card">
+					<div slot="header" class="clearfix">
+						<span style="font-size: 20px;font-weight: 700;">企业组织架构</span>
+						<!--<el-button style="float: right; padding: 3px 0" type="text" >相关人员</el-button>-->
+					</div>
+					<div class="text item">
+						<el-tree
+								:data="departmentList"
+								show-checkbox
+								node-key="id"
+								ref="tree"
+								highlight-current
+								:default-expanded-keys="[]"
+								:default-checked-keys="[]"
+								:props="defaultProps"
+								@node-click="click_node"
+						>
+						</el-tree>
+					</div>
+				</el-card>
+			</div>
+		</el-col>
+		<el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18">
+			<div class="grid-content bg-purple-light">
+				<el-card class="box-card">
+					<div slot="header" class="clearfix">
+						<h4>部门相关人员</h4>
+					</div>
+					<div class="text item">
+						<el-table
+								size="mini"
+								border
+								tooltip-effect="dark"
+								:data="tableData"
+								style="width: 100%"
+								>
+							<el-table-column
+									prop="jobnumber"
+									label="工号">
+							</el-table-column>
+							<el-table-column
+									prop="name"
+									label="姓名">
+							</el-table-column>
+							<el-table-column
+									prop="sex"
+									label="性别">
+							</el-table-column>
+							<el-table-column
+									prop="job"
+									label="名族">
+							</el-table-column>
+							<el-table-column
+									prop="zz"
+									label="政治面貌">
+							</el-table-column>
+							<el-table-column
+									prop="line_name"
+									label="线路">
+							</el-table-column>
+							<el-table-column
+									prop="workPlace"
+									label="分部">
+							</el-table-column>
+							<el-table-column
+									prop="department_name"
+									label="车站">
+							</el-table-column>
+							<el-table-column
+									prop="position"
+									label="岗位">
+							</el-table-column>
+							<el-table-column
+									prop="tel"
+									label="手机号码">
+							</el-table-column>
+						</el-table>
+						<div class=" block" style="margin:10px 0;">
+							<!--<el-pagination-->
+									<!--@size-change="handleSizeChange"-->
+									<!--@current-change="handleCurrentChange"-->
+									<!--:current-page="page.offset"-->
+									<!--:page-sizes="[10, 20, 50, 100]"-->
+									<!--:page-size="page.limit"-->
+									<!--layout="total, sizes, prev, pager, next, jumper"-->
+									<!--:total="page.total">-->
+							<!--</el-pagination>-->
+						</div>
+					</div>
+				</el-card>
+			</div>
+		</el-col>
+	</el-row>
+
+</div>
