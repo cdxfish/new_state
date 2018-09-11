@@ -17,6 +17,7 @@
                     <field name="second_time"></field>
                     <field name="operator"></field>
                     <field name="operat_time"></field>
+                    <widget string="操作" name="treebtns" template="second_details"/>
                 </tree>
             </field>
         </record>
@@ -48,6 +49,6 @@
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
-        <menuitem id="second_menu" parent="person_namegement_menu_main" action="second_act" name="人员借调"></menuitem>
+        <!--<menuitem id="second_menu"  action="second_act" name="人员借调" parent="person_management_menu_" sequence="3"></menuitem>-->
     </data>
 </odoo>

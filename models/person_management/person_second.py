@@ -15,4 +15,23 @@ class PersonSecond(models.Model):
     second_station = fields.Char(string='借调车站')
     second_time = fields.Char(string='借调时间')
     operator = fields.Char(string='操作人')
-    operat_time = fields.Char(string='状态')
+    operat_time = fields.Selection([('one','正常'),(('zero','已过期'))],string='状态')
+
+    def second_delect(self):
+        self.env['person_management.person_second'].search([('id', '=', self.id)]).unlink()
+
+    def second_modification(self):
+        return {
+            'name': '人员借调',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'person_management.person_second',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': self.id,
+            'target': 'new',
+        }
+
+    def person_details(self):
+        pass

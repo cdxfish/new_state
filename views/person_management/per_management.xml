@@ -2,11 +2,26 @@
 
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="per_management_button">
+            <field name="name">导入文件</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_import_management"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_import_management"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">import_file_act</field>
+            <field name="code">
+                action = model.import_xls_bill()
+            </field>
+        </record>
+
         <record id="per_management_tree" model="ir.ui.view">
             <field name="name">per_management_tree</field>
             <field name="model">main.information</field>
             <field name="arch" type="xml">
-                <tree class="noOpen" create="0">
+                <tree class="noOpen">
                     <field name="staff_number"></field>
                     <field name="name"></field>
                     <field name="gender"></field>
@@ -15,17 +30,19 @@
                     <field name="department"></field>
                     <field name="post"></field>
                     <field name="phone"></field>
+                    <widget string="操作" name="treebtns" template="person_info_management"/>
                 </tree>
             </field>
         </record>
 
         <record model="ir.actions.act_window" id="per_management_act">
-            <field name="name">人员证件管理</field>
+            <field name="name">人员管理系统-人员信息</field>
             <field name="res_model">main.information</field>
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_id" ref="per_management_tree"/>
         </record>
 
-        <menuitem name="人员管理系统-人员信息"  action="per_management_act" id="per_management_menu" parent="person_namegement_menu_main"> </menuitem>
+        <!--<menuitem name="人员管理系统-人员信息"  action="per_management_act" id="per_management_menu" parent="person_management_menu_"-->
+        <!--sequence="1"> </menuitem>-->
     </data>
 </odoo>

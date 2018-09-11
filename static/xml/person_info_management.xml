@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <!--人员信心详情显示按钮-->
+    <t t-name="person_info_management">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="person_info" >查看详情</button>
+        </div>
+    </t>
+
+        <!--人员信心详情显示按钮-->
+    <t t-name="person_certificate_management">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="cer" >查看详情</button>
+        </div>
+    </t>
+    <t t-name="person_certificate_operation">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="person_info" >查看详情</button>
+        </div>
+    </t>
+    <t t-name="create_cerficate_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn" type="object" name="person_cer_edit" >新建证件</button>
+        </div>
+    </t>
+
+    <t t-name="second_details">
+        <div class="layui-btn-group">
+            <button class="layui-btn" type="object" name="second_modification" >修改</button>
+            <button class="layui-btn" type="object" name="second_delect" confirm="您确定要删除该条记录吗？">删除</button>
+            <button class="layui-btn" type="object" name="person_details" >人员详情</button>
+        </div>
+    </t>
+</templates>

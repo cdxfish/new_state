@@ -11,5 +11,6 @@ class JobTransfer(models.Model):
     station = fields.Char(string='车站')
     site_post = fields.Char(string='定岗/转岗岗位')
     site_time = fields.Date(string='定岗/转岗时间')
-    site_file = fields.Many2one('main.information',string='定岗转岗文件号')
+    site_file = fields.Char(string='定岗转岗文件号')
+    relevance = fields.Many2one('main.information',string='关联字段没有实际意义')
 

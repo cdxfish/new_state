@@ -139,7 +139,7 @@
             <field name="name">人员证件管理</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
-                <form>
+                <form edit="0">
                     <sheet>
                         <group>
                             <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">

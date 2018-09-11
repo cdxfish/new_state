@@ -3,23 +3,23 @@
         <data>
 
                 <record  model="ir.actions.server"  id="station_certificate_button">
-<field  name="name">新增证件</field>
-<field  name="state">code</field>
-<field  name="type">ir.actions.server</field>
-<field  name="model_id"  ref="model_station_certificate"/>
-<field  name="condition">True</field>
-<field  name="binding_model_id"  ref="model_station_certificate"/>
-<field  name="binding_type">action_button</field>
-<field  name="binding_action">新增规章</field>
-<field  name="code">
-action  =  model.station_certificate_type()
-</field>
-</record>
+                    <field  name="name">新增证件</field>
+                    <field  name="state">code</field>
+                    <field  name="type">ir.actions.server</field>
+                    <field  name="model_id"  ref="model_station_certificate"/>
+                    <field  name="condition">True</field>
+                    <field  name="binding_model_id"  ref="model_station_certificate"/>
+                    <field  name="binding_type">action_button</field>
+                    <field  name="binding_action">新增规章</field>
+                    <field  name="code">
+                    action  =  model.station_certificate_type()
+                    </field>
+                    </record>
                 <record  id="add_station_certificate_tree"  model="ir.ui.view">
                         <field  name="name">车站证件管理</field>
                         <field  name="model">station.certificate</field>
                         <field  name="arch"  type="xml">
-                                <tree  create="0"  class="noOpen">
+                                <tree  create="0" class="noOpen">
                                         <field  name="id"  string="序号"></field>
                                         <field  name="name"></field>
                                         <field  name="line_road"></field>
@@ -67,10 +67,6 @@ action  =  model.station_certificate_type()
                                 <field name="station_site"></field>
                                 <field name="certificate_time"></field>
                             </group>
-                            <group name="group_bottom">
-                                <field name="certificate_details"></field>
-                                <field name="file_name" invisible="1"/>
-                            </group>
                                 <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
                                      <tree>
                                         <field name="datas_fname" />
@@ -86,7 +82,7 @@ action  =  model.station_certificate_type()
             <field name="name">车站证件管理</field>
             <field name="model">station.certificate</field>
             <field name="arch" type="xml">
-                <form>
+                <form edit="0">
                     <sheet>
                         <group>
                                 <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">

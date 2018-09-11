@@ -4,3 +4,4 @@ from . import job_transfer
 from . import check_info
 from . import award_info
 from . import person_second
+from . import import_per_management

@@ -2,6 +2,34 @@
 
 <odoo>
     <data>
+        <record model="ir.actions.server" id="main_information_button">
+            <field name="name">批量导入</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_main_information"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_main_information"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">人员信息详情</field>
+            <field name="code">
+                action = model.import_file_management()
+            </field>
+
+        </record>
+            <record model="ir.actions.server" id="main_information_button01">
+            <field name="name">同步人员</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_main_information"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_main_information"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">人员信息详情</field>
+            <field name="code">
+                action = model.synchronization_information()
+            </field>
+        </record>
+
         <record id="main_information_tree" model="ir.ui.view">
             <field name="name">main_information_tree</field>
             <field name="model">main.information</field>
@@ -17,8 +45,8 @@
             <field name="name">person_information_form</field>
             <field name="model">main.information</field>
             <field name="arch" type="xml">
-                <form>
-                    <div class="text-center ">
+                <form edit="0">
+                    <div>
                         <h1>员工基础信息</h1>
                     </div>
                     <div class="text-center ">
@@ -47,9 +75,37 @@
                             <field name="second_school_of_graduation"></field>
                             <field name="second_major"></field>
                         </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="staff_number"></field>
+                                    <field name="name"></field>
+                                    <field name="gender"></field>
+                                    <field name="nation"></field>
+                                    <field name="birth"></field>
+                                    <field name="idcar"></field>
+                                    <field name="phone"></field>
+                                    <field name="politics_status"></field>
+                                    <field name="shoe_size"></field>
+                                    <field name="native_place"></field>
+                                    <field name="native_sition"></field>
+                                    <field name="new_site"></field>
+                                    <field name="emergency_contact"></field>
+                                    <field name="emergency_contact_phone"></field>
+                                    <field name="First_degree_major"></field>
+                                    <field name="first_degree"></field>
+                                    <field name="school_of_graduation"></field>
+                                    <field name="major"></field>
+                                    <field name="second_degree_major"></field>
+                                    <field name="second_degree"></field>
+                                    <field name="second_school_of_graduation"></field>
+                                    <field name="second_major"></field>
+                                </group>
+                            </sheet>
+                        </form>
                     </field>
                     </div>
-                    <div class="text-center ">
+                    <div>
                         <h1>员工企业信息</h1>
                     </div>
 
@@ -65,13 +121,25 @@
                                 <field name="join_work_time"></field>
                                 <field name="staff_source"></field>
                             </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="department"></field>
+                                        <field name="department_load"></field>
+                                        <field name="team_or_group_station"></field>
+                                        <field name="post"></field>
+                                        <field name="begin_time"></field>
+                                        <field name="become_a_regular_worker_time"></field>
+                                        <field name="join_work_time"></field>
+                                        <field name="staff_source"></field>
+                                    </group>
+                                </sheet>
+                            </form>
                         </field>
                     </div>
                     <notebook>
                     <page string="持证信息">
-                         <div class="text-center ">
-                            <h1>持证信息</h1>
-                         </div>
+                            <widget string="操作" name="treebtns" template="create_cerficate_button"/>
                     <div class="text-center ">
                         <field name="certificate_info">
                             <tree>
@@ -99,7 +167,7 @@
                     </page>
                     <page string="转岗记录">
                         <div class="text-center ">
-                            <h1>持证信息</h1>
+                            <h1>转岗信息</h1>
                          </div>
                     <div class="text-center ">
                         <field name="transfer_info">
@@ -113,6 +181,18 @@
                                 <widget string="证件详情" name="treebtns" template="person_dateils"/>
                                 <widget string="操作" name="treebtns" template="person_certificate"/>
                             </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="department"></field>
+                                        <field name="line_gauze"></field>
+                                        <field name="station"></field>
+                                        <field name="site_post"></field>
+                                        <field name="site_time"></field>
+                                        <field name="site_file"></field>
+                                    </group>
+                                </sheet>
+                            </form>
                         </field>
                         </div>
                    </page>
@@ -133,6 +213,21 @@
                                 <field name="check_person"></field>
                                 <field name="check_time"></field>
                             </tree>
+
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="grade"></field>
+                                        <field name="grade_standard"></field>
+                                        <field name="problem_kind"></field>
+                                        <field name="check_kind"></field>
+                                        <field name="check_project"></field>
+                                        <field name="incident_desfcription"></field>
+                                        <field name="check_person"></field>
+                                        <field name="check_time"></field>
+                                    </group>
+                                </sheet>
+                            </form>
                         </field>
                         </div>
                    </page>
@@ -151,6 +246,18 @@
                                 <field name="check_person"></field>
                                 <field name="check_time"></field>
                             </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="award_money"></field>
+                                        <field name="award_standard_kind"></field>
+                                        <field name="examination_item"></field>
+                                        <field name="incident_description"></field>
+                                        <field name="check_person"></field>
+                                        <field name="check_time"></field>
+                                    </group>
+                                </sheet>
+                            </form>
                         </field>
                         </div>
                    </page>
@@ -160,12 +267,42 @@
             </field>
         </record>
 
+        <record id="person_information_increase" model="ir.ui.view">
+            <field name="">person_information_increase</field>
+            <field name="model">person.certificate</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="id" string="序号"></field>
+                        <field name="name"></field>
+                        <field name="line_road"></field>
+                        <field name="station_site"></field>
+                        <field name="person_name"></field>
+                        <field name="work_number"></field>
+                        <field name="phone"></field>
+                        <field name="site"></field>
+                        <field name="licence_issuing_authority"></field>
+                        <field name="get_certificate_time"></field>
+                        <field name="period_of_validity"></field>
+                        <field name="certificate_money"></field>
+                        <field name="one_recheck_time"></field>
+                        <field name="one_recheck_money"></field>
+                        <field name="two_recheck_time"></field>
+                        <field name="two_recheck_money"></field>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
         <record id="person_information_act" model="ir.actions.act_window">
             <field name="name">人员信息详情</field>
 			<field name="res_model">main.information</field>
 			<field name="view_mode">form</field>
         </record>
-        <menuitem name="人员管理系统" id="person_namegement_menu_main" parent="funenc_station"></menuitem>
-        <menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_namegement_menu_main"></menuitem>
+        <!--<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station.funenc_station"></menuitem>-->
+        <!--<menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_management_menu_"-->
+                  <!--sequence="2"></menuitem>-->
     </data>
 </odoo>
