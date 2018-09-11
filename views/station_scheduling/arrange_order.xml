@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+        <record model="ir.ui.view" id="funenc_xa_station_arrange_order_list">
+			<field name="name">funenc_xa_station_arrange_order_list</field>
+			<field name="model">funenc_xa_station.arrange_order</field>
+			<field name="arch" type="xml">
+				<tree limit="15">
+					<field name="name" string="班次名字"/>
+					<field name="time" string="班次时间"/>
+					<field name="work_time" string="工作时长"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_arrange_order_form">
+			<field name="name">funenc_xa_station_arrange_order_form</field>
+			<field name="model">funenc_xa_station.arrange_order</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="name" string="班次名字"/>
+                            <field name="start_work_time" string="上班时间" options="{'fmt_type':'time'}"/>
+                            <field name="end_work_time" string="下班时间" options="{'fmt_type':'time'}"/>
+                            <field name="end_time_select" string="下班日期" widget="radio"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+    </data>
+</odoo>

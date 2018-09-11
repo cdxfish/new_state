@@ -53,6 +53,7 @@
 		'views/add_management/views.xml',
 		'views/add_certificate/add_station_certificate.xml',
 		'views/add_certificate/add_per_certificate.xml',
+		'views/station_scheduling/arrange_order.xml',
         'views/menu.xml',
 
 	

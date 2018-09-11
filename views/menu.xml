@@ -68,6 +68,12 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
+		<record id="xa_scheduling_settings" model="ir.actions.act_window">
+			<field name="name">排班设置</field>
+			<field name="res_model">funenc_xa_station.arrange_order</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
 
 
 		<record id="station_detail_act_window" model="ir.actions.act_window">
@@ -202,6 +208,16 @@
 				   parent="funenc_station_integrated_management"
 		           action="funenc_station_station_exit"
 		 />
+
+		<menuitem id="station_scheduling_settings" name="排班设置"
+				  parent="funenc_station_integrated_management"
+		/>
+
+		<menuitem id="station_scheduling_settings_1" name="排班设置"
+				  parent="station_scheduling_settings"
+				  action="xa_scheduling_settings"
+		/>
+
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
 				  action="operation_act_id"></menuitem>
 

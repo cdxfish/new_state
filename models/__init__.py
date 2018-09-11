@@ -6,3 +6,4 @@ from . import add_management
 from . import add_certificate
 from . import person_management
 from . import integrated_management
+from . import station_scheduling
