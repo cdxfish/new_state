@@ -11,6 +11,7 @@ class arrange_order(models.Model):
     '''
 
     _name = 'funenc_xa_station.arrange_order'
+    _inherit = 'fuenc_station.station_base'
     _description = u'班次管理'
 
     name = fields.Char(string='班次名称', required= True)
@@ -19,7 +20,6 @@ class arrange_order(models.Model):
     start_work_time = fields.Datetime(string='上班时间', required= True)
     end_work_time = fields.Datetime(string='下班时间', required= True)
     end_time_select = fields.Selection(string='下班日期',selection=[('same_day','当日'),('next_day','次日')],default='same_day')
-
 
     @api.constrains('start_work_time','end_work_time')
     def compute_work_time(self):
@@ -31,7 +31,6 @@ class arrange_order(models.Model):
             end_time_select = '次日'
         else:
             end_time_select = '当日'
-        # format(float((end_work_time - start_work_time).seconds) / float((60 * 60)), '.2f')
         work_time = round( (end_work_time - start_work_time).seconds / (60 * 60), 2)
         self.work_time = str(work_time) + 'h'
         self.time = '{}-{} ({})'.format(self.start_work_time[11:-3], self.end_work_time[11:-3], end_time_select)
@@ -62,7 +61,7 @@ class arrange_order(models.Model):
         }
 
     def arrange_order_delete(self):
-
+        # 还差在使用不能删除的判断
         self.env['funenc_xa_station.arrange_order'].search([('id', '=', self.id)]).unlink()
 
 

@@ -2,15 +2,8 @@
 
 from odoo import models, fields, api
 
-# class fuenc_station(models.Model):
-#     _name = 'fuenc_station.fuenc_station'
+class fuenc_station(models.Model):
+    _name = 'fuenc_station.station_base'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点')
 
