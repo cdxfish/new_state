@@ -5,8 +5,8 @@ class AddPersonCertificate(models.Model):
     _name = 'person.certificate'
 
     name = fields.Char(string='证件名称')
-    line_road = fields.Many2one('train_line.train_line',string='线路')
-    station_site = fields.Many2one('train_station.train_station',string='站点')
+    line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
+    station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     person_name = fields.Char(string='姓名')
     work_number = fields.Char(string='工号')
     phone = fields.Integer(string='电话')
@@ -20,7 +20,6 @@ class AddPersonCertificate(models.Model):
     two_recheck_time = fields.Datetime(string='二次复审时间')
     one_recheck_money = fields.Integer(string='初次复审的费用')
     two_recheck_money = fields.Integer(string='二次复审的费用')
-    file_name = fields.Char(string="File Name")
     gender = fields.Char(string='员工性别')
     train_time = fields.Char(string='培训时间')
     url = fields.Char(string='url')
@@ -29,15 +28,15 @@ class AddPersonCertificate(models.Model):
 
     @api.model
     def person_certificate_type(self):
+        view_form = self.env.ref('funenc_xa_station.person_certificate_form').id
         return {
             'name': '新增专业类型',
             'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
             'res_model': 'person.certificate',
+            "views": [[view_form, "form"]],
             'context': self.env.context,
             # 'flags': {'initial_mode': 'edit'},
-            'target': 'new',
+            # 'target': 'new',
         }
 
 

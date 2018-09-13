@@ -55,6 +55,7 @@
 		'views/add_certificate/add_per_certificate.xml',
 		'views/station_scheduling/arrange_order.xml',
 		'views/station_scheduling/class_group.xml',
+		'views/check_evaluate/check_evaluate.xml',
         'views/menu.xml',
 
 	
@@ -72,6 +73,7 @@
 		'static/xml/plan_method_btn.xml',
         'static/xml/integrated_management.xml',
         'static/xml/person_info_management.xml',
+        'static/xml/check_evaluate.xml',
 	],
 	'installable': True,
 	'auto_install': False,

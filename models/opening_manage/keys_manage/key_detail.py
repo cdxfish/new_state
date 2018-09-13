@@ -19,8 +19,8 @@ class KeyDetail(models.Model):
 	
 	name = fields.Char(string='钥匙名称', required=True)
 	remark = fields.Text(string='操作说明')
-	line_id = fields.Many2one('train_line.train_line',string='选择线路', required=True)
-	ascription_site_id = fields.Many2one('train_station.train_station',string='归属站点', required=True)
+	line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='选择线路', required=True)
+	ascription_site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='归属站点', required=True)
 	key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型')
 	key_no = fields.Text(string='钥匙编号', required=True)
 	key_position = fields.Char(string='对应位置')

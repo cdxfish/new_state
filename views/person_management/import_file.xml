@@ -31,7 +31,7 @@
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
-        <menuitem name="import_file_act"  action="import_file_act_manage" id="imporsfsafsafdfs"> </menuitem>
+        <!--<menuitem name="import_file_act"  action="import_file_act_manage" id="imporsfsafsafdfs"> </menuitem>-->
 
     </data>
 </odoo>

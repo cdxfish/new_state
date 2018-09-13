@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="check_evaluate_server_1">
+            <field name="name">新增指标</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">考评指标库</field>
+            <field name="code">
+                action = model.new_add_standard()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="check_evaluate_server_2">
+            <field name="name">模块下载</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">考评指标库</field>
+            <field name="code">
+                action = model.person_certificate_type()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="check_evaluate_server_3">
+            <field name="name">批量导入</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">考评指标库</field>
+            <field name="code">
+                action = model.person_certificate_type()
+            </field>
+        </record>
+
+        <record id="check_evaluate_tree" model="ir.ui.view">
+            <field name="name">check_evaluate_tree</field>
+            <field name="model">funenc_xa_station.check_standard</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="check_standard"></field>
+                    <field name="problem_kind"></field>
+                    <field name="check_project"></field>
+                    <field name="check_parment"></field>
+                    <field name="loca_per_score"></field>
+                    <field name="relate_per_score"></field>
+                    <field name="station_per_score"></field>
+                    <field name="technology_score"></field>
+                    <field name="technology_serve"></field>
+                    <field name="duty_partment"></field>
+                    <field name="management_score"></field>
+                    <field name="technology_serve_director"></field>
+                    <field name="duty_director"></field>
+                    <field name="comment"></field>
+                    <widget  string="操作"  name="treebtns"  template="check_evaluate_button"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="check_evaluate_from" model="ir.ui.view">
+            <field name="name">check_evaluate_tree</field>
+            <field name="model">funenc_xa_station.check_standard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="check_standard"></field>
+                            <field name="problem_kind"></field>
+                            <field name="check_project"></field>
+                            <field name="check_parment"></field>
+                            <field name="loca_per_score"></field>
+                            <field name="relate_per_score"></field>
+                            <field name="station_per_score"></field>
+                            <field name="technology_score"></field>
+                            <field name="technology_serve"></field>
+                            <field name="duty_partment"></field>
+                            <field name="management_score"></field>
+                            <field name="technology_serve_director"></field>
+                            <field name="duty_director"></field>
+                            <field name="comment"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="check_evaluate_act" model="ir.actions.act_window">
+            <field name="name">check_evaluate_act</field>
+            <field name="res_model">funenc_xa_station.check_standard</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="check_evaluate_menu" name="考评指标库" action="check_evaluate_act"></menuitem>
+    </data>
+</odoo>

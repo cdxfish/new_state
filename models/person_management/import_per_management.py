@@ -74,6 +74,7 @@ class ImportManagement(models.Model):
                 one_sheet_content.append(one_dict)
 
             print(one_sheet_content)
+            lpl = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([]).mapped('jobnumber')
 
         try:
             for i, item in enumerate(one_sheet_content):
@@ -82,7 +83,11 @@ class ImportManagement(models.Model):
                     # {'department': item['department']}
                 # )
                 # print('====')
-                self.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().create(item)
+                if str(item['jobnumber']) in lpl:
+
+                    self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber', '=', item['jobnumber'])])\
+                        .sudo().write(item)
+                    # 'insert into cdtct_dingtalk_cdtct_dingtalk_users （id）values (1),(2),(3)'
 
         except ConnectionError as err:
             print(err)
