@@ -38,11 +38,19 @@
         </div>
     </t>
 
-    <!--钥匙类型修改与删除按钮-->
+    <!--班次删除编辑-->
     <t t-name="arrange_order_widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="arrange_order_edit" >编辑</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="arrange_order_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
+
+    <!--班组删除编辑-->
+    <t t-name="class_group_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="class_group_edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="class_group_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
         </div>
     </t>
 </templates>

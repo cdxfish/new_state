@@ -74,6 +74,13 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
+		<record id="xa_scheduling_class_group_settings" model="ir.actions.act_window">
+			<field name="name">班组设置</field>
+			<field name="res_model">funenc_xa_station.class_group</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
 
 
 		<record id="station_detail_act_window" model="ir.actions.act_window">
@@ -216,6 +223,11 @@
 		<menuitem id="station_scheduling_settings_1" name="排班设置"
 				  parent="station_scheduling_settings"
 				  action="xa_scheduling_settings"
+		/>
+
+		<menuitem id="station_scheduling_class_group" name="班组设置"
+				  parent="station_scheduling_settings"
+				  action="xa_scheduling_class_group_settings"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"

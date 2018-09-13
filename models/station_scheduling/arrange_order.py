@@ -29,11 +29,17 @@ class arrange_order(models.Model):
         # seconds
         if (end_work_time- start_work_time).days < 0:
             end_time_select = '次日'
+            self.end_time_select = 'next_day'
         else:
             end_time_select = '当日'
+            self.end_time_select = 'same_day'
         work_time = round( (end_work_time - start_work_time).seconds / (60 * 60), 2)
         self.work_time = str(work_time) + 'h'
         self.time = '{}-{} ({})'.format(self.start_work_time[11:-3], self.end_work_time[11:-3], end_time_select)
+
+
+
+
 
     def create_arrange_order(self):
         return {

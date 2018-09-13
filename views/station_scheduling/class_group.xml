@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+        <record model="ir.actions.server" id="create_arrange_order">
+			<field name="name">新增班组</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_class_group"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_class_group"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">班组设置</field>
+			<field name="code">
+				action = model.create_class_group()
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_class_group_list">
+			<field name="name">funenc_xa_station_class_group_list</field>
+			<field name="model">funenc_xa_station.class_group</field>
+			<field name="arch" type="xml">
+				<tree limit="15" create="0" class="noOpen">
+					<field name="name" string="班组名称"/>
+					<field name="group_user_ids" string="班组人员" widget="many2many_tags"/>
+                    <widget string="操作" name="treebtns" template="class_group_widget_edit_delete"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_class_group_form">
+			<field name="name">funenc_xa_station_class_group_form</field>
+			<field name="model">funenc_xa_station.class_group</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="name" string="班组名称"/>                  <!--groups="funenc_xa_group.system_fuenc_tester"-->
+							<field name="group_user_ids" string="班组人员" widget="many2many_tags" options="{'no_create':True}" domain="[('id','in',context.get('unselected_user_ids'))]"/>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+    </data>
+</odoo>

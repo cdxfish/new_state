@@ -54,6 +54,7 @@
 		'views/add_certificate/add_station_certificate.xml',
 		'views/add_certificate/add_per_certificate.xml',
 		'views/station_scheduling/arrange_order.xml',
+		'views/station_scheduling/class_group.xml',
         'views/menu.xml',
 
 	
