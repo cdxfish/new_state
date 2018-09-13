@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="person_number"></field>
-                    <field name="name"></field>
-                    <field name="line_road"></field>
-                    <field name="station"></field>
+                    <field name="user_id" string="名字"></field>
+                    <field name="line_road" />
+                    <field name="station" />
                     <field name="per_site"></field>
                     <field name="second_line"></field>
                     <field name="second_station"></field>
@@ -30,15 +30,15 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_road"></field>
-                            <field name="station"></field>
-                            <field name="name"></field>
-                            <field name="person_number"></field>
-                            <field name="per_site"></field>
-                            <field name="second_line"></field>
-                            <field name="second_station"></field>
-                            <field name="second_time"></field>
-                            <field name="second_end_time"></field>
+                            <field name="line_road" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                            <field name="station" options="{'no_create':True,'no_open':True}" />
+                            <field name="user_id" string="名字"  options="{'no_create':True,'no_open':True}"/>
+                            <field name="person_number" readonly="1"/>
+                            <field name="per_site" readonly="1"/>
+                            <field name="second_line" />
+                            <field name="second_station" />
+                            <field name="second_time" />
+                            <field name="second_end_time" />
                         </group>
                     </sheet>
                 </form>
