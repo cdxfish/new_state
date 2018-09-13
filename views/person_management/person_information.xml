@@ -61,7 +61,7 @@
             <field name="name">person_information_form</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
-                <form edit="0">
+                <form>
                     <div>
                         <h1>员工基础信息</h1>
                     </div>
@@ -99,13 +99,13 @@
                                                <div class="col-md-3">
                                                   <div class="field-margin">
                                                      <label for="jobnumber" string="工号"/>
-                                                     <field name="jobnumber"/>
+                                                     <field name="jobnumber" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
                                                   <div class="field-margin">
                                                      <label for="name" string="姓名"/>
-                                                     <field name="name"/>
+                                                     <field name="name" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
@@ -318,25 +318,25 @@
                                                <div class="col-md-3">
                                                   <div class="field-margin">
                                                      <label for="department" string="所属部门"/>
-                                                     <field name="department"/>
+                                                     <field name="department" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
                                                   <div class="field-margin">
                                                      <label for="department_load" string="所属线网"/>
-                                                     <field name="department_load"/>
+                                                     <field name="department_load" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
                                                   <div class="field-margin">
-                                                     <label for="team_or_group_station" string="班组车站"/>
-                                                     <field name="team_or_group_station"/>
+                                                     <label for="team_or_group_station"/>
+                                                     <field name="team_or_group_station" attrs="{'readonly':1}"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
                                                   <div class="field-margin">
-                                                     <label for="position" string="岗位"/>
-                                                     <field name="position"/>
+                                                     <label for="position"/>
+                                                     <field name="position" attrs="{'readonly':1}"/>
                                                   </div>
                                               </div>
                                         </div>

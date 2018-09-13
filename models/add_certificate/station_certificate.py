@@ -5,17 +5,17 @@ class AddStationCertificate(models.Model):
     _name = 'station.certificate'
 
     name = fields.Char(string='证件名称')
-    line_road = fields.Many2one('train_line.train_line',string='线路')
-    station_site = fields.Many2one('train_station.train_station',string='站点')
+    line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
+    station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     certificate_time = fields.Char(string='证件有效期')
     file_name = fields.Char(string="File Name")
     certificate_number = fields.Integer(string='证件号码')
     station_agent = fields.Char(string='站长')
     station_agent_phone = fields.Integer(string='站长电话')
     url = fields.Char(string='url')
-    load_file_test = fields.One2many('ir.attachment','res_id', string='图片上传')
+    station_file= fields.One2many('ir.attachment','res_id', string='图片上传')
 
-    @api.model
+    # @api.model
     def station_certificate_type(self):
         return {
             'name': '新增专业类型',
@@ -24,7 +24,7 @@ class AddStationCertificate(models.Model):
             'view_mode': 'form',
             'res_model': 'station.certificate',
             'context': self.env.context,
-            'target': 'new',
+            'res_id':self.id,
         }
 
     def station_cer_edit(self):

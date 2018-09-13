@@ -15,6 +15,7 @@
                     <field name="second_line"></field>
                     <field name="second_station"></field>
                     <field name="second_time"></field>
+                    <field name="second_end_time"></field>
                     <field name="operator"></field>
                     <field name="operat_time"></field>
                     <widget string="操作" name="treebtns" template="second_details"/>
@@ -37,6 +38,7 @@
                             <field name="second_line"></field>
                             <field name="second_station"></field>
                             <field name="second_time"></field>
+                            <field name="second_end_time"></field>
                         </group>
                     </sheet>
                 </form>

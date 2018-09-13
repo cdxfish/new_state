@@ -4,7 +4,7 @@
     <data>
 
         <record model="ir.actions.server" id="person_certificate_button">
-            <field name="name">新增证件</field>
+            <field name="name">人员证件</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_person_certificate"/>
@@ -22,7 +22,7 @@
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <tree create="0" class="noOpen">
-                    <field name="id" string="序号"></field>
+                    <!--<field name="id" string="序号"></field>-->
                     <field name="name"></field>
                     <field name="line_road"></field>
                     <field name="station_site"></field>
@@ -49,7 +49,6 @@
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="id" string="序号"></field>
                     <field name="name"></field>
                     <field name="line_road"></field>
                     <field name="station_site"></field>
@@ -75,39 +74,143 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group name="group_top">
-                            <group name="group_right">
-                                <field name="line_road"></field>
-                                <field name="work_number" string="员工工号"></field>
-                                <field name="book_number"></field>
-                                <field name="period_of_validity"></field>
-                                <field name="one_recheck_time"></field>
-                                <field name="two_recheck_time"></field>
-                            </group>
+                        <group>
+                            <div class="container-fluid">
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="line_road" string="线路"/>
+                                         <field name="line_road"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="station_site" string="站点"/>
+                                         <field name="station_site"/>
+                                      </div>
+                                   </div>
+                                </div>
 
-                            <group name="group_left">
-                                <field name="station_site"></field>
-                                <field name="gender"></field>
-                                <field name="licence_issuing_authority"></field>
-                                <field name="train_time"></field>
-                                <field name="one_recheck_money"></field>
-                            </group>
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="person_name" string="员工姓名"/>
+                                         <field name="person_name"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="work_number" string="员工工号"/>
+                                         <field name="work_number"/>
+                                      </div>
+                                   </div>
+                                </div>
 
-                            <group name="group_left">
-                                <field name="person_name" string="员工姓名"></field>
-                                <field name="name"></field>
-                                <field name="get_certificate_time"></field>
-                                <field name="certificate_money"></field>
-                                <field name="two_recheck_money"></field>
-                            </group>
-                            <group name="group_bottom">
-                                <field name="file_name" invisible="1"/>
-                                <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
-                                </field>
-                            </group>
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="gender" string="员工性别"/>
+                                         <field name="gender"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="name" string="证书名称"/>
+                                         <field name="name"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="book_number" string="证书编号"/>
+                                         <field name="book_number"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="licence_issuing_authority" string="发证机关"/>
+                                         <field name="licence_issuing_authority"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="certificate_money" string="初领日期"/>
+                                         <field name="certificate_money"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="period_of_validity" string="有效期"/>
+                                         <field name="period_of_validity"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="train_time" string="培训时间"/>
+                                         <field name="train_time"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="certificate_money" string="取证费用"/>
+                                         <field name="certificate_money"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="one_recheck_time" string="初次复审时间"/>
+                                         <field name="one_recheck_time"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="one_recheck_money" string="初次复审费用"/>
+                                         <field name="one_recheck_money"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="two_recheck_time" string="二次复审时间"/>
+                                         <field name="two_recheck_time"/>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <div class="field-margin">
+                                         <label for="two_recheck_money" string="二次复审费用"/>
+                                         <field name="two_recheck_money"/>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="field-margin">
+                                         <label for="certificate_money" string="上传证件照片"/>
+                                         <div class="x_panel form_sec">
+                                            <field name="load_file_test" widget="one2many_binary">
+                                                <tree>
+                                                    <field name="datas_fname"/>
+                                                </tree>
+                                            </field>
+                                        </div>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
                         </group>
                     </sheet>
                 </form>
@@ -154,10 +257,11 @@
         </record>
 
         <record id="person_certificate_act" model="ir.actions.act_window">
-            <field name="name">人员证件管理</field>
-            <field name="res_model">person.certificate</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
-
+              <field name="name">编辑信息</field>
+              <field name="type">ir.actions.act_window</field>
+              <field name="res_model">person.certificate</field>
+              <field name="view_mode">tree,kanban,form</field>
+              <!--<field name="view_id" ref="person_certificate_tree"/>-->
+          </record>
     </data>
 </odoo>

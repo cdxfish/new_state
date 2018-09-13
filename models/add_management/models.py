@@ -13,7 +13,7 @@ class xian_metro(models.Model):
     rules_id = fields.Char(string='规章编号')
     rules_name = fields.Char(string='规章名称')
     load_line = fields.Selection([('one', '一号线'), ('two', '二号线'), ('three', '三号线')], string='线路', default='one')
-    station_id = fields.Many2one('train_station.train_station',string='站点')
+    station_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     details = fields.Binary(string='内容')
     file_name = fields.Char(string="File Name")
     operation_peison = fields.Char(string='操作人')

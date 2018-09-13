@@ -3,7 +3,7 @@
         <data>
 
                 <record  model="ir.actions.server"  id="station_certificate_button">
-                    <field  name="name">新增证件</field>
+                    <field  name="name">车站证件</field>
                     <field  name="state">code</field>
                     <field  name="type">ir.actions.server</field>
                     <field  name="model_id"  ref="model_station_certificate"/>
@@ -19,18 +19,18 @@
                         <field  name="name">车站证件管理</field>
                         <field  name="model">station.certificate</field>
                         <field  name="arch"  type="xml">
-                                <tree  create="0" class="noOpen">
-                                        <field  name="id"  string="序号"></field>
-                                        <field  name="name"></field>
-                                        <field  name="line_road"></field>
-                                        <field  name="station_site"></field>
-                                        <field  name="certificate_time"></field>
-                                        <widget  string="证件详情"  name="treebtns"  template="details_certificate"/>
-                                        <field  name="certificate_number"></field>
-                                        <field  name="station_agent"></field>
-                                        <field  name="station_agent_phone"></field>
-                                        <widget  string="证件详情"  name="treebtns"  template="add_certificate"/>
-                                </tree>
+                            <tree  create="0" class="noOpen">
+                                <field  name="id"  string="序号"></field>
+                                <field  name="name"></field>
+                                <field  name="line_road"></field>
+                                <field  name="station_site"></field>
+                                <field  name="certificate_time"></field>
+                                <widget  string="证件详情"  name="treebtns"  template="details_certificate"/>
+                                <field  name="certificate_number"></field>
+                                <field  name="station_agent"></field>
+                                <field  name="station_agent_phone"></field>
+                                <widget  string="证件详情"  name="treebtns"  template="add_certificate"/>
+                            </tree>
                         </field>
                 </record>
 
@@ -38,16 +38,16 @@
                         <field  name="name">车站证件管理</field>
                         <field  name="model">station.certificate</field>
                         <field  name="arch"  type="xml">
-                                <search>
-                                        <field  name="id"  string="序号"></field>
-                                        <field  name="name"></field>
-                                        <field  name="line_road"></field>
-                                        <field  name="station_site"></field>
-                                        <field  name="certificate_time"></field>
-                                        <field  name="certificate_number"></field>
-                                        <field  name="station_agent"></field>
-                                        <field  name="station_agent_phone"></field>
-                                </search>
+                            <search>
+                                <field  name="id"  string="序号"></field>
+                                <field  name="name"></field>
+                                <field  name="line_road"></field>
+                                <field  name="station_site"></field>
+                                <field  name="certificate_time"></field>
+                                <field  name="certificate_number"></field>
+                                <field  name="station_agent"></field>
+                                <field  name="station_agent_phone"></field>
+                            </search>
                         </field>
                 </record>
 
@@ -55,28 +55,24 @@
                         <field  name="name">车站证件管理</field>
                         <field  name="model">station.certificate</field>
                         <field  name="arch"  type="xml">
-                                <form>
-                                        <sheet>
-                                                <group  name="group_top">
-                                                        <group  name="group_right">
-                                                                <field  name="line_road"></field>
-                                                                <field  name="name"></field>
-                                                                <field  name="certificate_number"></field>
-                                                        </group>
-                                                        <group  name="gr oup_left">
-                                <field name="station_site"></field>
-                                <field name="certificate_time"></field>
-                            </group>
-                                <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
-                                     <tree>
-                                        <field name="datas_fname" />
-                                     </tree>
-                                </field>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                            <form>
+                                <sheet>
+                                    <group  name="group_top">
+                                        <field  name="line_road"></field>
+                                        <field  name="name"></field>
+                                        <field  name="certificate_number"></field>
+                                        <field name="station_site"></field>
+                                        <field name="certificate_time"></field>
+                                        <field name="station_file" widget="one2many_image_read_widget" string="上传证件照片">
+                                         <tree>
+                                            <field name="datas_fname" />
+                                         </tree>
+                                        </field>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                </record>
 
         <record id="add_station_certificate_details" model="ir.ui.view">
             <field name="name">车站证件管理</field>
@@ -85,11 +81,11 @@
                 <form edit="0">
                     <sheet>
                         <group>
-                                <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
-                                     <tree>
-                                        <field name="datas_fname" />
-                                     </tree>
-                                </field>
+                            <field name="station_file" widget="one2many_image_read_widget" string="上传证件照片">
+                                 <tree>
+                                    <field name="datas_fname" />
+                                 </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>
@@ -104,7 +100,7 @@
                     <sheet>
                         <group name="group_bottom" string="点击对应的文件名进入下载">
                                 <div class="x_panel form_sec">
-                                    <field name="load_file_test" widget="one2many_binary">
+                                    <field name="station_file" widget="one2many_binary">
                                      <tree>
                                         <field name="datas_fname" />
                                      </tree>
