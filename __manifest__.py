@@ -24,7 +24,7 @@
 	
 	# always loaded
 	'data': [
-		# 'security/ir.model.access.csv',
+		'security/ir.model.access.csv',
 		'security/fuenc_exam_group.xml',
         'views/depot_manage/person_account_mgmt.xml',
 		'views/assets.xml',
