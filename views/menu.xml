@@ -69,7 +69,7 @@
 		</record>
 
 		<record id="xa_scheduling_settings" model="ir.actions.act_window">
-			<field name="name">排班设置</field>
+			<field name="name">排班设置111</field>
 			<field name="res_model">funenc_xa_station.arrange_order</field>
 			<field name="view_mode">tree,form</field>
 		</record>
@@ -220,7 +220,7 @@
 				  parent="funenc_station_integrated_management"
 		/>
 
-		<menuitem id="station_scheduling_settings_1" name="排班设置"
+		<menuitem id="station_scheduling_settings_1" name="排班设置111"
 				  parent="station_scheduling_settings"
 				  action="xa_scheduling_settings"
 		/>
