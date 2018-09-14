@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="award_standard_server_1">
+            <field name="name">新增指标</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励标准</field>
+            <field name="code">
+                action = model.new_add_standard()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="award_standard_server_2">
+            <field name="name">模板下载</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励标准</field>
+            <field name="code">
+                action = model.new_add_standard()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="award_standard_server_3">
+            <field name="name">批量导入</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励标准</field>
+            <field name="code">
+                action = model.new_add_standard()
+            </field>
+        </record>
+
+        <record id="award_standard_tree" model="ir.ui.view">
+            <field name="name">award_standard</field>
+            <field name="model" >funenc_xa_station.award_standard</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="award_standard_kind"></field>
+                    <field name="award_project"></field>
+                    <field name="check_project"></field>
+                    <field name="award_standard"></field>
+                    <field name="support_file"></field>
+                    <field name="comment"></field>
+                    <widget  string="操作"  name="treebtns"  template="award_standard_button"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="award_standard_form" model="ir.ui.view">
+            <field name="name">award_standard</field>
+            <field name="model" >funenc_xa_station.award_standard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="award_standard_kind"></field>
+                            <field name="award_project"></field>
+                            <field name="check_project"></field>
+                            <field name="award_standard"></field>
+                            <field name="support_file"></field>
+                            <field name="comment"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="award_standard_act" model="ir.actions.act_window">
+            <field name="name">award_standard_act</field>
+            <field name="res_model">funenc_xa_station.award_standard</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <!--<menuitem id="award_standard_menu" action="award_standard_act" name="奖励标准"></menuitem>-->
+    </data>
+</odoo>

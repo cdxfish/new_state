@@ -266,6 +266,21 @@
                                                   </div>
                                               </div>
                                         </div>
+
+                                        <div class="row">
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="certificate_status" string="证书状态"/>
+                                                     <field name="certificate_status"/>
+                                                  </div>
+                                               </div>
+                                               <div class="col-md-3">
+                                                  <div class="field-margin">
+                                                     <label for="email" string="邮箱"/>
+                                                     <field name="email"/>
+                                                  </div>
+                                               </div>
+                                        </div>
                                     </div>
                                     <!--<field name="jobnumber"></field>-->
                                     <!--<field name="name"></field>-->

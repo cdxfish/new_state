@@ -255,6 +255,26 @@
 		<menuitem id="second_menu"  action="second_act" name="人员借调" parent="person_management_menu_" sequence="3"></menuitem>
 
 
+		<menuitem id="check_evaluate_menu_parent"  name="考评指标库"
+				  parent="funenc_station_integrated_management" ></menuitem>
+		<menuitem id="check_evaluate_menu" name="考评指标" action="check_evaluate_act"
+				  parent="check_evaluate_menu_parent"></menuitem>
+		<menuitem id="award_standard_menu" action="award_standard_act" name="奖励标准"
+				  parent="check_evaluate_menu_parent"></menuitem>
+
+		<menuitem id="check_management_menu_parent"  name="考评管理"
+		  parent="funenc_station_integrated_management" ></menuitem>
+
+	   <menuitem id="check_record_menu" name="奖励记录" action="check_record_act"
+				 parent="check_management_menu_parent"></menuitem>
+		<menuitem id="check_collect_menu" name="考评汇总" action="check_collect_act"
+				  parent="check_management_menu_parent"></menuitem>
+
+		<menuitem id="award_collect_menu" name="奖励汇总" action="award_collect_act"
+				  parent="check_management_menu_parent"></menuitem>
+
+
+
 
 
 

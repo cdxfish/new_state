@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="check_record_server_1">
+            <field name="name">新增奖励</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励记录</field>
+            <field name="code">
+                action = model.new_add_record()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="check_record_server_2">
+            <field name="name">导出</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励记录</field>
+            <field name="code">
+                action = model.new_add_standard()
+            </field>
+        </record>
+
+        <record id="check_record_tree" model="ir.ui.view">
+            <field name="name">check_record_tree</field>
+            <field name="model">funenc_xa_station.check_record</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="job_number"></field>
+                    <field name="position"></field>
+                    <field name="grade"></field>
+                    <field name="check_target"></field>
+                    <field name="problem_kind"></field>
+                    <field name="check_kind"></field>
+                    <field name="incident_describe"></field>
+                    <field name="check_person"></field>
+                    <field name="check_time"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="check_record_form" model="ir.ui.view">
+            <field name="name">check_record_tree</field>
+            <field name="model">funenc_xa_station.check_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_road"></field>
+                            <field name="station_site"></field>
+                            <field name="job_number"></field>
+                            <field name="position"></field>
+                            <field name="grade"></field>
+                            <field name="check_target"></field>
+                            <field name="problem_kind"></field>
+                            <field name="check_kind"></field>
+                            <field name="incident_describe"></field>
+                            <field name="check_person"></field>
+                            <field name="check_time"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="check_record_act" model="ir.actions.act_window">
+            <field name="name">check_record_act</field>
+            <field name="res_model">funenc_xa_station.check_record</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <!--<menuitem id="check_record_menu" name="奖励记录" action="check_record_act"></menuitem>-->
+    </data>
+</odoo>

@@ -3,8 +3,15 @@
 
     <t t-name="check_evaluate_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="professional_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="check_evalulate_edit" >修改</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_evaluate_delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+
+    <t t-name="award_standard_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="award_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="award_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 </templates>

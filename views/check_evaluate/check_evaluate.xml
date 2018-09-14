@@ -13,7 +13,7 @@
             <field name="binding_type">action_button</field>
             <field name="binding_action">考评指标库</field>
             <field name="code">
-                action = model.new_add_standard()
+                action = model.new_add_record()
             </field>
         </record>
 
@@ -102,6 +102,6 @@
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
-        <menuitem id="check_evaluate_menu" name="考评指标库" action="check_evaluate_act"></menuitem>
+        <!--<menuitem id="check_evaluate_menu" name="考评指标库" action="check_evaluate_act"></menuitem>-->
     </data>
 </odoo>

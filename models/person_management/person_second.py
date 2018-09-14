@@ -19,6 +19,36 @@ class PersonSecond(models.Model):
     operator = fields.Char(string='操作人')
     operat_time = fields.Selection([('one','正常'),(('zero','已过期'))],string='状态',compute='compute_time_status',readonly=True)
 
+    @api.model
+    def second_add_type(self):
+        res_user = self.env.user
+        if res_user.id == 1:
+
+            return {
+                'name': '人员借调',
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'person_management.person_second',
+                'context': self.env.context,
+            }
+        ding_user = self.env.user.dingtalk_user[0]
+        department = ding_user.departments[0]
+        if department.department_hierarchy == 3:
+            station = department.id
+            line_road = ding_user.line_id.id
+
+            return {
+                'name': '人员借调',
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'person_management.person_second',
+                'context': self.env.context,
+                'value': {'line_road': 9},
+                # 'domain':{'line_road':[('id','=', line_road)]},
+            }
+
     def second_delect(self):
         self.env['person_management.person_second'].search([('id', '=', self.id)]).unlink()
 
@@ -86,6 +116,7 @@ class PersonSecond(models.Model):
         return {'domain': {'user_id': [('id','in', user_ids)]},
                 'value': {'user_id': None}
                 }
+
 
 class DepartmentInherit(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'

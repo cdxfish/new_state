@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="award_collect_tree" model="ir.ui.view">
+            <field name="name">award_collect_tree</field>
+            <field name="model">funenc_xa_station.award_collect</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="jobnumber"></field>
+                    <field name="staff"></field>
+                    <field name="position"></field>
+                    <field name="award_money"></field>
+                    <field name="award_degree"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="award_collect_form" model="ir.ui.view">
+            <field name="name">award_collect_tree</field>
+            <field name="model">funenc_xa_station.award_collect</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_road"></field>
+                            <field name="station_site"></field>
+                            <field name="jobnumber"></field>
+                            <field name="staff"></field>
+                            <field name="position"></field>
+                            <field name="award_money"></field>
+                            <field name="award_degree"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="award_collect_act" model="ir.actions.act_window">
+            <field name="name">award_collect_act</field>
+            <field name="res_model">funenc_xa_station.award_collect</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <!--<menuitem id="award_collect_menu" name="奖励汇总" action="award_collect_act"></menuitem>-->
+    </data>
+</odoo>

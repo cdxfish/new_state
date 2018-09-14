@@ -2,11 +2,26 @@
 
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="second_server_1">
+            <field name="name">新建借调</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_person_management_person_second"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_person_management_person_second"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">人员借调</field>
+            <field name="code">
+                action = model.second_add_type()
+            </field>
+        </record>
+
         <record id="second_tree" model="ir.ui.view">
             <field name="name">second_tee</field>
             <field name="model">person_management.person_second</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="0">
                     <field name="person_number"></field>
                     <field name="user_id" string="名字"></field>
                     <field name="line_road" />
@@ -31,12 +46,12 @@
                     <sheet>
                         <group>
                             <field name="line_road" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
-                            <field name="station" options="{'no_create':True,'no_open':True}" />
+                            <field name="station" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]"/>
                             <field name="user_id" string="名字"  options="{'no_create':True,'no_open':True}"/>
                             <field name="person_number" readonly="1"/>
                             <field name="per_site" readonly="1"/>
-                            <field name="second_line" />
-                            <field name="second_station" />
+                            <field name="second_line" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                            <field name="second_station" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                             <field name="second_time" />
                             <field name="second_end_time" />
                         </group>

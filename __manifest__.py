@@ -56,6 +56,10 @@
 		'views/station_scheduling/arrange_order.xml',
 		'views/station_scheduling/class_group.xml',
 		'views/check_evaluate/check_evaluate.xml',
+		'views/check_evaluate/award_standard.xml',
+		'views/check_evaluate/check_record.xml',
+		'views/check_evaluate/check_collect.xml',
+		'views/check_evaluate/award_collect.xml',
         'views/menu.xml',
 
 	
