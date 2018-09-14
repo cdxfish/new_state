@@ -35,7 +35,7 @@ class CheckStandard(models.Model):
     comment = fields.Text(string='备注')
 
     @api.model
-    def new_add_standard(self):
+    def new_add_record(self):
         return {
             'type':'ir.actions.act_window',
             'view_type':'form',

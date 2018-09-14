@@ -45,7 +45,7 @@ class MainModel(models.Model):
     second_degree = fields.Char(string='第二学位')
     second_school_of_graduation = fields.Char(string='毕业院校')
     second_major = fields.Char(string='专业')
-    certificate_status = fields.Selection([('one','正常'),('zero','缺失')],string='证书状态')
+    certificate_status = fields.Selection([('one','正常'),('zero','缺失')],string='证书状态',default='one')
     email = fields.Char(string='邮箱')
     department = fields.Char(string='所属部门')
     department_load = fields.Char(string='所属线网')
