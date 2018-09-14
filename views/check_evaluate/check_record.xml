@@ -4,14 +4,14 @@
     <data>
 
         <record model="ir.actions.server" id="check_record_server_1">
-            <field name="name">新增奖励</field>
+            <field name="name">新增考评</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_check_record"/>
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
             <field name="binding_type">action_button</field>
-            <field name="binding_action">奖励记录</field>
+            <field name="binding_action">考评记录</field>
             <field name="code">
                 action = model.new_add_record()
             </field>
@@ -25,7 +25,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
             <field name="binding_type">action_button</field>
-            <field name="binding_action">奖励记录</field>
+            <field name="binding_action">考评记录</field>
             <field name="code">
                 action = model.new_add_standard()
             </field>
@@ -81,6 +81,6 @@
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
-        <!--<menuitem id="check_record_menu" name="奖励记录" action="check_record_act"></menuitem>-->
+        <!--<menuitem id="check_record_menu" name="考评记录" action="check_record_act"></menuitem>-->
     </data>
 </odoo>

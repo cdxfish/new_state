@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="award_record_server_1">
+            <field name="name">新增奖励</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_record"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励记录</field>
+            <field name="code">
+                action = model.award_record_create()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="award_record_server_2">
+            <field name="name">导出</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_record"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励记录</field>
+            <field name="code">
+                action = model.new_add_record()
+            </field>
+        </record>
+
+        <record id="award_record_tree" model="ir.ui.view">
+            <field name="name">award_record</field>
+            <field name="model">funenc_xa_station.award_record</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="line_road"></field>
+                    <field name="station_site"></field>
+                    <field name="jobnumber"></field>
+                    <field name="staff"></field>
+                    <field name="position"></field>
+                    <field name="award_money"></field>
+                    <field name="award_target_kind"></field>
+                    <field name="award_project"></field>
+                    <field name="check_project"></field>
+                    <field name="incident_describe"></field>
+                    <field name="check_person"></field>
+                    <field name="check_tiem"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="award_record_form" model="ir.ui.view">
+            <field name="name">award_record</field>
+            <field name="model">funenc_xa_station.award_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_road"></field>
+                            <field name="station_site"></field>
+                            <field name="jobnumber"></field>
+                            <field name="staff"></field>
+                            <field name="position"></field>
+                            <field name="award_money"></field>
+                            <field name="award_target_kind"></field>
+                            <field name="award_project"></field>
+                            <field name="check_project"></field>
+                            <field name="incident_describe"></field>
+                            <field name="check_person"></field>
+                            <field name="check_tiem"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="award_record_act">
+            <field name="name">考评记录</field>
+            <field name="res_model">funenc_xa_station.award_record</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <!--<menuitem id="award_record_menu" name="奖励记录" action="award_record_act"></menuitem>-->
+    </data>
+</odoo>

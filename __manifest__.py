@@ -61,6 +61,7 @@
 		'views/check_evaluate/check_record.xml',
 		'views/check_evaluate/check_collect.xml',
 		'views/check_evaluate/award_collect.xml',
+		'views/check_evaluate/award_record.xml',
         'views/menu.xml',
 
 	
