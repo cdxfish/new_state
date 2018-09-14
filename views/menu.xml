@@ -80,7 +80,16 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-
+        <record id="xa_motorized_user_action" model="ir.actions.act_window">
+			<field name="name">机动人员管理</field>
+			<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
+			<field name="view_mode">tree,form</field>
+            <field name="limit">10</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_form')})]">
+            </field>
+		</record>
 
 
 		<record id="station_detail_act_window" model="ir.actions.act_window">
@@ -228,6 +237,11 @@
 		<menuitem id="station_scheduling_class_group" name="班组设置"
 				  parent="station_scheduling_settings"
 				  action="xa_scheduling_class_group_settings"
+		/>
+
+        <menuitem id="station_scheduling_motorized_user" name="机动人员管理"
+				  parent="station_scheduling_settings"
+				  action="xa_motorized_user_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"

@@ -38,8 +38,11 @@
         <record model="ir.actions.act_window" id="per_management_act">
             <field name="name">人员管理系统-人员信息</field>
             <field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-            <field name="view_mode">tree,kanban,form</field>
-            <field name="view_id" ref="per_management_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.per_management_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.person_information_form')})]">
+            </field>
         </record>
 
         <!--<menuitem name="人员管理系统-人员信息"  action="per_management_act" id="per_management_menu" parent="person_management_menu_"-->
