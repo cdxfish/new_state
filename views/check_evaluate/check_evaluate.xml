@@ -78,17 +78,17 @@
                         <group>
                             <field name="check_standard"></field>
                             <field name="problem_kind"></field>
-                            <field name="check_project"></field>
+                            <field name="check_project" ></field>
                             <field name="check_parment"></field>
                             <field name="loca_per_score"></field>
                             <field name="relate_per_score"></field>
                             <field name="station_per_score"></field>
                             <field name="technology_score"></field>
-                            <field name="technology_serve"></field>
-                            <field name="duty_partment"></field>
+                            <field name="technology_serve" attrs="{'invisible':[('check_standard', '!=','server')]}"></field>
+                            <field name="duty_partment" attrs="{'invisible':[('check_standard', '!=','server')]}"></field>
                             <field name="management_score"></field>
-                            <field name="technology_serve_director"></field>
-                            <field name="duty_director"></field>
+                            <field name="technology_serve_director" attrs="{'invisible':[('check_standard', '!=','server')]}"></field>
+                            <field name="duty_director" attrs="{'invisible':[('check_standard', '!=','server')]}"></field>
                             <field name="comment"></field>
                         </group>
                     </sheet>

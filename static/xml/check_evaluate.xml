@@ -14,4 +14,9 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="award_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
+    <t t-name="check_record_add">
+        <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm" type="object" name="award_delete">新增责任人</button>
+        </div>
+    </t>
 </templates>

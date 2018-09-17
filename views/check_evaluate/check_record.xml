@@ -36,39 +36,59 @@
             <field name="model">funenc_xa_station.check_record</field>
             <field name="arch" type="xml">
                 <tree create="0">
-                    <field name="line_road"></field>
-                    <field name="station_site"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <field name="job_number"></field>
+                    <field name="staff"></field>
                     <field name="position"></field>
                     <field name="grade"></field>
                     <field name="check_target"></field>
                     <field name="problem_kind"></field>
                     <field name="check_kind"></field>
+                    <field name="check_project"></field>
                     <field name="incident_describe"></field>
                     <field name="check_person"></field>
+                    <field name="check_number"></field>
                     <field name="check_time"></field>
                 </tree>
             </field>
         </record>
 
         <record id="check_record_form" model="ir.ui.view">
-            <field name="name">check_record_tree</field>
+            <field name="name">check_record_form</field>
             <field name="model">funenc_xa_station.check_record</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_road"></field>
-                            <field name="station_site"></field>
-                            <field name="job_number"></field>
-                            <field name="position"></field>
-                            <field name="grade"></field>
+                            <field name="line_id"></field>
+                            <field name="site_id"></field>
+                            <!--<field name="job_number"></field>-->
+                            <!--<field name="position"></field>-->
                             <field name="check_target"></field>
                             <field name="problem_kind"></field>
+                            <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
+                            <field name="staff"></field>
+                            <field name="job_number"></field>
                             <field name="check_kind"></field>
+                            <field name="grade" string="考评分值"></field>
+                            <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
                             <field name="incident_describe"></field>
                             <field name="check_person"></field>
-                            <field name="check_time"></field>
+                            <field name="check_kind"></field>
+                            <field name="grade" string="考评分值"></field>
+                            <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
+                            <field name="incident_describe"></field>
+                            <field name="associated_add">
+                                <tree editable="top" class="noOpen">
+                                    <field name="check_person"></field>
+                                    <field name="check_number"></field>
+                                    <field name="check_kind"></field>
+                                    <field name="grade"></field>
+                                    <field name="chose_grade"></field>
+                                    <field name="incident_describe"></field>
+                                </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>

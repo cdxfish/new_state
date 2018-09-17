@@ -5,6 +5,7 @@ from odoo import api, fields, models
 
 class CheckStandard(models.Model):
     _name = 'funenc_xa_station.check_standard'
+    _rec_name = 'check_project'
 
     key = [('safety','安全管理')
         ,('technology','技术管理')
@@ -19,7 +20,7 @@ class CheckStandard(models.Model):
 
 
 
-    check_standard = fields.Selection(key,string='考核标准')
+    check_standard = fields.Selection(key,string='考核指标')
     problem_kind = fields.Char(string='问题类型',required=True)
     check_project = fields.Text(string='考核项目',required=True)
     check_parment = fields.Integer(string='考核分部（室）分值')
@@ -44,8 +45,9 @@ class CheckStandard(models.Model):
             # 'res_id':'',
             'context':self.env.context,
             'flags': {'initial_mode': 'edit'},
-            'target': 'new',
+            # 'target': 'new',
         }
+
 
     def check_evalulate_edit(self):
         return{
