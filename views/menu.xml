@@ -80,16 +80,21 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-        <record id="xa_motorized_user_action" model="ir.actions.act_window">
-			<field name="name">机动人员管理</field>
-			<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-			<field name="view_mode">tree,form</field>
-            <field name="limit">10</field>
-            <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_form')})]">
-            </field>
-		</record>
+        <!--<record id="xa_motorized_user_action" model="ir.actions.act_window">-->
+			<!--<field name="name">机动人员管理</field>-->
+			<!--<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="limit">10</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_list')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_form')})]">-->
+            <!--</field>-->
+		<!--</record>-->
+
+		<record model="ir.actions.client" id="funenc_xa_station.xa_motorized_user_action">
+          <field name="name">机动人员管理</field>
+          <field name="tag">funenc_xa_motorized_users</field>
+        </record>
 
 
 		<record id="station_detail_act_window" model="ir.actions.act_window">

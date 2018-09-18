@@ -118,7 +118,7 @@ class PersonSecond(models.Model):
                 }
 
 
-class DepartmentInherit(models.Model):
-    _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
+class UserInherit(models.Model):
+    _inherit = 'cdtct_dingtalk.cdtct_dingtalk_users'
 
-    person_second_id = fields.One2many('person_management.person_second','second_station',string='')
+    person_second_ids = fields.One2many('person_management.person_second','user_id',string='')
