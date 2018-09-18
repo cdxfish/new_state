@@ -22,25 +22,25 @@
 			<!--</field>-->
 		<!--</record>-->
 
-        <record model="ir.ui.view" id="cdtct_dingtalk_users_form">
-			<field name="name">cdtct_dingtalk_users_form</field>
-			<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-			<field name="arch" type="xml">
-				<form>
-					<div class="container-fluid">
-						<group>
-							<field name="jobnumber" string="工号"/>
-                            <field name="line_id" string="所属线路"/>
-                            <field name="department_name" string="车站" />
-                            <field name="name" string="姓名"/>
-                            <field name="tel" string="电话"/>
-                            <field name="position" string="岗位"/>
-                            <field name="certificate_status " string="证书情况" />
-                            <!--<field name=" " string="人员属性" />-->
-						</group>
-					</div>
-				</form>
-			</field>
-		</record>
+        <!--<record model="ir.ui.view" id="cdtct_dingtalk_users_form">-->
+			<!--<field name="name">cdtct_dingtalk_users_form</field>-->
+			<!--<field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+			<!--<field name="arch" type="xml">-->
+				<!--<form>-->
+					<!--<div class="container-fluid">-->
+						<!--<group>-->
+							<!--<field name="jobnumber" string="工号"/>-->
+                            <!--<field name="line_id" string="所属线路"/>-->
+                            <!--<field name="department_name" string="车站" />-->
+                            <!--<field name="name" string="姓名"/>-->
+                            <!--<field name="tel" string="电话"/>-->
+                            <!--<field name="position" string="岗位"/>-->
+                            <!--<field name="certificate_status " string="证书情况" />-->
+                            <!--&lt;!&ndash;<field name=" " string="人员属性" />&ndash;&gt;-->
+						<!--</group>-->
+					<!--</div>-->
+				<!--</form>-->
+			<!--</field>-->
+		<!--</record>-->
     </data>
 </odoo>
