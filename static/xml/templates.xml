@@ -53,4 +53,12 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="class_group_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
         </div>
     </t>
+
+    <!--排班规则删除编辑-->
+    <t t-name="arrange_class_manage_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="arrange_class_manage_edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="arrange_class_manage_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
 </templates>

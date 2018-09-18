@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+        <record model="ir.actions.server" id="create_arrange_order">
+			<field name="name">新增排班规则</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_arrange_class_manage"/>
+			<!--<field name="binding_xml_id">funenc_xa_station.xa_scheduling_class_group_settings</field>-->
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_arrange_class_manage"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">排班规则管理</field>
+			<field name="code">
+				action = model.create_arrange_class_manage()
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_arrange_class_manage_list">
+			<field name="name">funenc_xa_station_arrange_class_manage_list</field>
+			<field name="model">funenc_xa_station.arrange_class_manage</field>
+			<field name="arch" type="xml">
+				<tree limit="15" create="0" class="noOpen">
+					<field name="arrange_class_type" string="排班类型"/>
+					<field name="arrange_class_obj" string="对象"/>
+					<field name="remarks" string="备注"/>
+                    <widget string="操作" name="treebtns" template="arrange_class_manage_widget_edit_delete"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_arrange_class_manage_form">
+			<field name="name">funenc_xa_station_arrange_class_manage_form</field>
+			<field name="model">funenc_xa_station.arrange_class_manage</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True,'no_open':True}"/>
+                            <field name="site_id" string="站点" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True,'no_open':True}" context="{'site_id':site_id}"/>
+							<field name="arrange_class_type" string="排班类型"/>
+                            <field name="arrange_class_obj" string="对象" domain="[('site_id','=',site_id)]"/>
+                            <field name="remarks" string="备注"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+    </data>
+</odoo>

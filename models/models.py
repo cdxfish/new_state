@@ -7,8 +7,23 @@ import odoo.exceptions as msg
 class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
 
-    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点')
-    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路')
+    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点', default=lambda self: self.default_site_id())
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路', default=lambda self: self.default_line_id())
+
+
+    @api.model
+    def default_line_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.line_id.id
+
+    @api.model
+    def default_site_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.departments[0].id
 
     @api.constrains('site_id', 'line_id')
     def compute_site_and_line(self):
@@ -22,5 +37,18 @@ class fuenc_station(models.Model):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             if department.department_hierarchy == 3:
-                self.site_id = self.env.user.user[0].site_id
-                self.site_id = self.env.user.user[0].line_id
+                self.site_id = self.env.user.user[0].departments[0].id
+                self.site_id = self.env.user.user[0].line_id.id
+
+    @api.onchange('line_id')
+    def change_line_id(self):
+        if not self.line_id:
+            return
+
+        department_id = self.line_id.departmentId
+        child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+            [('parentid', '=', department_id)]).ids
+
+        return {'domain': {'site_id': [('id', 'in', child_department_ids)]}
+                # 'value': {'site_id': None}
+                }
