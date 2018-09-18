@@ -75,7 +75,7 @@
                             <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
                             <field name="incident_describe"></field>
                             <field name="check_person"></field>
-                            <field name="check_kind"></field>
+                            <!--<field name="check_kind"></field>-->
                             <field name="grade" string="考评分值"></field>
                             <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
                             <field name="incident_describe"></field>

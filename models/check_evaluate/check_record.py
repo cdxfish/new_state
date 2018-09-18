@@ -7,25 +7,24 @@ class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
     _inherit = 'fuenc_station.station_base'
 
-    key = [('1','考核分部（室）分值')
-        ,('2','相关负责人考核分值')
-        ,('3','车站站长考核分值')
-        ,('4','技术/职能岗考核分值')
-        ,('5','管理岗考核分值')
-        ,('6','当事人考核分值')
+    key = [('check_parment','考核分部（室）分值')
+        ,('relate_per_score','相关负责人考核分值')
+        ,('station_per_score','车站站长考核分值')
+        ,('technology_score','技术/职能岗考核分值')
+        ,('management_score','管理岗考核分值')
+        ,('loca_per_score','当事人考核分值')
         ]
-
-    line_id = fields.Char(string='线路')
-    site_id = fields.Char(string='站点')
+    #
+    # line_id = fields.Char(string='线路')
+    # site_id = fields.Char(string='站点')
     job_number = fields.Char(related='staff.jobnumber',string='工号',readonly=True)
     staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
     position = fields.Char(string='职位')
-    grade = fields.Integer(string='评分',readonly=True)
-    chose_grade = fields.Selection([('add','加'),('subtraction','减')],string='评分',store=True)
-    check_target = fields.Char(string='考评指标')
-    problem_kind =fields.Char(string='问题类型')
-    check_kind = fields.Selection(key,string='考核类别',default='subtraction',\
-                                   compute='parment_score')
+    grade = fields.Float(string='评分')
+    chose_grade = fields.Selection([('add','加'),('subtraction','减')],string='评分',defaukt='subtraction')
+    check_target = fields.Selection(related='check_project.check_standard',string='考评指标')
+    problem_kind =fields.Char(related='check_project.problem_kind',string='问题类型')
+    check_kind = fields.Selection(key,string='考核类别')
     check_project = fields.Many2one('funenc_xa_station.check_standard',string='考核项目')
     incident_describe = fields.Text(string='事件描述')
     check_person = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='考评人')
@@ -48,28 +47,45 @@ class CheckRecord(models.Model):
             'target': 'new',
         }
 
-    @api.constrains('grade')
+    @api.constrains('chose_grade')
     def chose_grade_grade(self):
-        for this in self:
-            if this.grade:
-                  if  this.chose_grade == 'subtraction':
-                      this.grade = -abs(this.grade)
+          if  self.chose_grade == 'subtraction':
+              # return {'value': {'grade': -abs(self.grade)}}
+              a = -self.grade
+              self.grade = a
+          elif self.chose_grade == 'add':
+              pass
 
-                  elif this.chose_grade == 'add':
-                      this.grade = abs(this.grade)
-    def create_(self):
 
-        self.associated_add = [(0, 0, {'check_person':''},)]
-
-    @api.constrains('grade','check_kind')
+    @api.onchange('check_kind')
     def parment_score(self):
-        for this in self:
-            if this.check_kind == 1:
-                this.grade = self.env['funenc_xa_station.check_standard'].search({}).check_parment
-            elif this.check_kind == 2:
-                this.grade = self.env['funenc_xa_station.check_standard'].search({}).relate_per_score
-            elif this.check_kind == 3:
-                this.grade = self.env['funenc_xa_station.check_standard'].search({}).station_per_score
+        if self.check_kind == 'check_parment':
+            check_kind1 = self.check_project.check_parment
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        elif self.check_kind == 'relate_per_score':
+            check_kind1 = self.check_project.relate_per_score
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        elif self.check_kind == 'station_per_score':
+            check_kind1 = self.check_project.station_per_score
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        elif self.check_kind == 'technology_score':
+            check_kind1 = self.check_project.technology_score
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        elif self.check_kind == 'management_score':
+            check_kind1 = self.check_project.management_score
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        elif self.check_kind == 'loca_per_score':
+            check_kind1 = self.check_project.loca_per_score
+            # lol = self.check_project.search([('check_parment','=',self.check_kind)])
+            return {'value':{'grade':check_kind1}}
+        else:
+             self.xxx = {'value':{'grade':0}}
+             # return  self.xxx
 
 
 
