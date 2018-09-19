@@ -37,8 +37,14 @@ class fuenc_station(models.Model):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             if department.department_hierarchy == 3:
-                self.site_id = self.env.user.user[0].departments[0].id
-                self.site_id = self.env.user.user[0].line_id.id
+                context = dict(self.env.context or {})
+                model = context.get('active_model').replace('.', '_')
+                site_id = self.env.user.dingtalk_user.departments[0].id
+                line_id = self.env.user.dingtalk_user.line_id.id
+                #   不用orm  因为会递归回调
+                sql = 'update {} set site_id = {}, line_id = {} where id = {}'.format(model,site_id,line_id,self.id)
+                self.env.cr.execute(sql)
+
 
     @api.onchange('line_id')
     def change_line_id(self):
