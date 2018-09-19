@@ -5,10 +5,10 @@ from odoo import models, fields, api
 class ArrangeClassManage(models.Model):
     _name = 'funenc_xa_station.arrange_class_manage'
     _description = u'排班规则管理'
-    _rec_name = 'arrange_class_type'
     _inherit = 'fuenc_station.station_base'
 
-    arrange_class_type = fields.Char(string='排班类型', required=True)
+    arrange_class_type = fields.Many2many('funenc_xa_station.arrange_order','arrange_class_manage_arrange_order_1_ref',
+                                          'arrange_class_manage_id', 'arrange_order_id',string='排班类型', required=True)
     arrange_class_obj = fields.Many2one('funenc_xa_station.class_group', string='对象', required=True)  # 班组对象
     remarks= fields.Text(string='备注')
 

@@ -3,7 +3,7 @@
 	<data>
 
 
-        <record model="ir.actions.server" id="create_arrange_order">
+        <record model="ir.actions.server" id="create_arrange_order_12">
 			<field name="name">新增班组</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>

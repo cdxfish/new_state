@@ -14,6 +14,7 @@ class AddStationCertificate(models.Model):
     station_agent_phone = fields.Integer(string='站长电话')
     url = fields.Char(string='url')
     station_file= fields.One2many('ir.attachment','res_id', string='图片上传')
+    conflict_rule_id = fields.Many2one('funenc_xa_station.conflict_rule', string='')
 
     # @api.model
     def station_certificate_type(self):

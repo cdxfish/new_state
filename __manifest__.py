@@ -57,6 +57,7 @@
 		'views/station_scheduling/class_group.xml',
 		'views/station_scheduling/arrange_class_manage.xml',
 		'views/station_scheduling/motorized_user.xml',
+		'views/station_scheduling/conflict_rule.xml',
 		'views/check_evaluate/check_evaluate.xml',
 		'views/check_evaluate/award_standard.xml',
 		'views/check_evaluate/check_record.xml',

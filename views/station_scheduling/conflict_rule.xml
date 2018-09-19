@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_list">
+			<field name="name">funenc_xa_station_conflict_rule_list</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<tree limit="15" create="0" class="noOpen">
+					<field name="conflict_rule_index" string="序号"/>
+					<field name="conflict_rule_content" string="内容"/>
+                    <field name="conflict_rule" string="条件"/>
+                    <!--<widget string="操作" name="treebtns" template="class_group_widget_edit_delete"/>-->
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="conflict_rule_index" string="序号"/>
+                            <field name="conflict_rule_content" string="内容"/>
+                            <field name="conflict_rule" string="条件"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+    </data>
+</odoo>

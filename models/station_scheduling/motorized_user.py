@@ -4,12 +4,6 @@ from odoo import models, api
 class UserInherit(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_users'
 
-    # user_property = fields.Selection(selection=[('station','本站'),('transfer','借调')], string='人员属性', compute='_compute_user_property')
-    #
-    #
-    # def _compute_user_property(self):
-    #     for this in self:
-    #         this.user_property = 'station'
 
     @api.model
     def get_motorized_users(self):
@@ -51,9 +45,6 @@ class UserInherit(models.Model):
                         centrality_user_id['certificate_status'] = '正常'
                     else:
                         centrality_user_id['certificate_status'] = '丢失'
-                # sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where department_id = {}".format(department_id.id)
-                # self.env.cr.execute(sel_sql)
-                # person_second_ids = self.env.cr.dictfetchall()
                 person_second_ids = self.env['person_management.person_second'].search_read([('line_road', '=', line_id)],['user_id'])
 
                 person_second_user_ids = self.search_read([ ('id','in', [person_second_id.get('user_id') for person_second_id in person_second_ids]) ])
@@ -78,9 +69,6 @@ class UserInherit(models.Model):
                     [('id', 'in', centrality_motorized_user_ids)])
                 for centrality_user_id in centrality_user_ids:
                     centrality_user_id['user_property'] = '本站'
-                # sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where department_id = {}".format(department_id.id)
-                # self.env.cr.execute(sel_sql)
-                # person_second_ids = self.env.cr.dictfetchall()
                 person_second_ids = self.env['person_management.person_second'].search_read(
                     [('station', '=', department_id)], ['user_id'])
 

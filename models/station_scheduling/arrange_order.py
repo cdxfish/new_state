@@ -118,6 +118,13 @@ class arrange_order(models.Model):
 
     def arrange_order_delete(self):
         # 还差在使用不能删除的判断
-        self.env['funenc_xa_station.arrange_order'].search([('id', '=', self.id)]).unlink()
+        sel_sql = "select * from arrange_class_manage_arrange_order_1_ref where arrange_order_id= {}".format(self.id)
+        self.env.cr.execute(sel_sql)
+        select_ids = self.env.cr.dictfetchall()
+        if not select_ids:
+            self.env['funenc_xa_station.arrange_order'].search([('id', '=', self.id)]).unlink()
+
+        else:
+            raise msg.Warning('此班次正在使用，若要删除请不要在排班规则中使用次班次')
 
 

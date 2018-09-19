@@ -103,6 +103,11 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="xa_station_conflict_rule_action">
+          <field name="name">冲突规则管理</field>
+          <field name="res_model">funenc_xa_station.conflict_rule</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
 
 		<record id="station_detail_act_window" model="ir.actions.act_window">
 			<field name="name">车站基本信息</field>
@@ -259,6 +264,11 @@
 		<menuitem id="station_arrange_manage" name="排班规则管理"
 				  parent="station_scheduling_settings"
 				  action="xa_station_arrange_manage_action"
+		/>
+
+		<menuitem id="xa_station_conflict_rule" name="冲突规则管理"
+				  parent="station_scheduling_settings"
+				  action="xa_station_conflict_rule_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
