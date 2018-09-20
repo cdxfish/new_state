@@ -39,8 +39,6 @@ class AddStationCertificate(models.Model):
         }
 
 
-    def station_cer_delete(self):
-        self.env['station.certificate'].search([('id', '=', self.id)]).unlink()
 
     def station_details(self):
         view_form = self.env.ref('funenc_xa_station.add_station_certificate_details').id
