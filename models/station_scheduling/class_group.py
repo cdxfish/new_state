@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import odoo.exceptions as msg
 from odoo import models, fields, api
 
 class ClassGroup(models.Model):
@@ -14,6 +15,8 @@ class ClassGroup(models.Model):
     name = fields.Char(string='班组名称', required= True)
     group_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'class_group_dingtalk_user_1_ref',
                                       'class_group_id', 'ding_talk_user_id', string='班组人员')
+
+    arrange_class_manage_ids =  fields.One2many('funenc_xa_station.arrange_class_manage', 'arrange_class_obj', string='排班规则对应')
 
     @api.model
     def create(self, vals):
@@ -59,7 +62,10 @@ class ClassGroup(models.Model):
         }
 
     def class_group_delete(self):
-        self.search([('id', '=', self.id)]).unlink()
+        if not self.arrange_class_manage_ids:
+            self.unlink()
+        else:
+            raise msg.Warning('删除失败，若要删除，请在排班规则管理中不要使用此班组')
 
     def unselected_user_ids(self):
         # 班组可选人员过滤

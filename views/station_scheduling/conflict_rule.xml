@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_list">
+			<field name="name">funenc_xa_station_conflict_rule_list</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<tree limit="15" create="0" class="noOpen">
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+					<field name="conflict_rule_index" string="序号"/>
+					<field name="conflict_rule_content" string="内容"/>
+                    <field name="conflict_rule" string="条件"/>
+                    <field name="conflict_rule_state" invisible="1"/>
+                    <widget string="状态" name="treebtns" template="conflict_rule_widget_enable"/>
+                    <widget string="操作" name="treebtns" template="conflict_rule_widget_edit"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+							<field name="conflict_rule_index" string="序号"/>
+                            <field name="conflict_rule_content" string="内容"/>
+                            <field name="conflict_rule" string="条件"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+        <!--1-->
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form_1">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="save_conflict_rule" string="条件(h)"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+        <!--2-->
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form_2">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="save_conflict_rule" string="条件(d)"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+        <!--3-->
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form_3">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="save_conflict_rule" string="条件(d)"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+        <!--4-->
+        <record model="ir.ui.view" id="funenc_xa_station_conflict_rule_form_4">
+			<field name="name">funenc_xa_station_conflict_rule_form</field>
+			<field name="model">funenc_xa_station.conflict_rule</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+							<field name="conflict_rule_to_station_certificate" string="证书设置">
+							</field>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+
+
+
+
+    </data>
+</odoo>
