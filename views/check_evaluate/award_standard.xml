@@ -68,6 +68,7 @@
                 <form>
                     <sheet>
                         <group>
+                            <field name="award_standard_default"></field>
                             <field name="award_standard_kind"></field>
                             <field name="award_project"></field>
                             <field name="check_project"></field>

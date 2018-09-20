@@ -1,0 +1,36 @@
+<div id="funenc_xa_check">
+     <template>
+	 <el-card class="box-card">
+		<div slot="header" class="clearfix">
+			<h4>奖励汇总</h4>
+		</div>
+			  <div class="block">
+				<span class="demonstration">选择时间</span>
+				<el-date-picker
+				  v-model="value6"
+				  type="month"
+				  placeholder="选择月">
+				</el-date-picker>
+			    <el-button type="primary" icon="el-icon-search" width="180" @click="search_time">搜索</el-button>
+			  </div>
+		 	<br/>
+		  <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
+
+			<el-table-column prop="line_id" label="线路" width="180" >
+			</el-table-column>
+			<el-table-column prop="site_id" label="站点" width="180">
+			</el-table-column>
+			<el-table-column prop="jobnumber" label="工号">
+			</el-table-column>
+			<el-table-column prop="position" label="职位">
+			</el-table-column>
+			<el-table-column prop="all_score" label="总分">
+			</el-table-column>
+			<el-table-column prop="mouth_grade" label="本月评分">
+			</el-table-column>
+		    <el-table-column prop="comment_count" label="考评次数">
+			</el-table-column>
+		  </el-table>
+	 </el-card>
+	</template>
+</div>

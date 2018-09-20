@@ -10,7 +10,8 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/multi_action_tab.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/key_statistic.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/motorized_users.js"/>
-
+                <script type="text/javascript" src="/funenc_xa_station/static/js/check_record.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/award_record.js"/>
             </xpath>
         </template>
     </data>

@@ -2,41 +2,49 @@
 
 <odoo>
     <data>
-        <record id="award_collect_tree" model="ir.ui.view">
-            <field name="name">award_collect_tree</field>
-            <field name="model">funenc_xa_station.award_collect</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="line_road"></field>
-                    <field name="station_site"></field>
-                    <field name="jobnumber"></field>
-                    <field name="staff"></field>
-                    <field name="position"></field>
-                    <field name="award_money"></field>
-                    <field name="award_degree"></field>
-                </tree>
-            </field>
+        <!--<record id="award_collect_tree" model="ir.ui.view">-->
+            <!--<field name="name">award_collect_tree</field>-->
+            <!--<field name="model">funenc_xa_station.award_collect</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="line_road"></field>-->
+                    <!--<field name="station_site"></field>-->
+                    <!--<field name="jobnumber"></field>-->
+                    <!--<field name="staff"></field>-->
+                    <!--<field name="position"></field>-->
+                    <!--<field name="award_money"></field>-->
+                    <!--<field name="award_degree"></field>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="award_collect_form" model="ir.ui.view">-->
+            <!--<field name="name">award_collect_tree</field>-->
+            <!--<field name="model">funenc_xa_station.award_collect</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<field name="line_road"></field>-->
+                            <!--<field name="station_site"></field>-->
+                            <!--<field name="jobnumber"></field>-->
+                            <!--<field name="staff"></field>-->
+                            <!--<field name="position"></field>-->
+                            <!--<field name="award_money"></field>-->
+                            <!--<field name="award_degree"></field>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+        <record model="ir.actions.client" id="funenc_xa_station.funenc_xa_award">
+          <field name="name"></field>
+          <field name="tag">funenc_xa_award</field>
         </record>
 
-        <record id="award_collect_form" model="ir.ui.view">
-            <field name="name">award_collect_tree</field>
-            <field name="model">funenc_xa_station.award_collect</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="line_road"></field>
-                            <field name="station_site"></field>
-                            <field name="jobnumber"></field>
-                            <field name="staff"></field>
-                            <field name="position"></field>
-                            <field name="award_money"></field>
-                            <field name="award_degree"></field>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+        <menuitem id="funenc_xa_award_act" name="奖励汇总"
+				  action="funenc_xa_award"
+		/>
 
         <record id="award_collect_act" model="ir.actions.act_window">
             <field name="name">award_collect_act</field>

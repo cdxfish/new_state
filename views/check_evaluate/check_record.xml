@@ -41,7 +41,7 @@
                     <field name="job_number"></field>
                     <field name="staff"></field>
                     <field name="position"></field>
-                    <field name="grade"></field>
+                    <field name="sure_grede"></field>
                     <field name="check_target"></field>
                     <field name="problem_kind"></field>
                     <field name="check_kind"></field>
@@ -61,23 +61,19 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_id"></field>
-                            <field name="site_id"></field>
-                            <!--<field name="job_number"></field>-->
-                            <!--<field name="position"></field>-->
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_target"></field>
                             <field name="problem_kind"></field>
                             <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
                             <field name="staff"></field>
                             <field name="job_number"></field>
                             <field name="check_kind"></field>
-                            <field name="grade" string="考评分值"></field>
+                            <field name="grade"></field>
                             <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
-                            <field name="incident_describe"></field>
-                            <field name="check_person"></field>
-                            <!--<field name="check_kind"></field>-->
-                            <field name="grade" string="考评分值"></field>
-                            <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
+                            <field name="sure_grede"></field>
                             <field name="incident_describe"></field>
                             <field name="associated_add">
                                 <tree editable="top" class="noOpen">

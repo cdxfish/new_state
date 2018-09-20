@@ -2,63 +2,73 @@
 
 <odoo>
     <data>
-        <record model="ir.actions.server" id="check_collect_server_1">
-            <field name="name">导出</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_funenc_xa_station_check_collect"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_check_collect"/>
-            <field name="binding_type">action_button</field>
-            <field name="binding_action">考评汇总</field>
-            <field name="code">
-                action = model.new_add_standard()
-            </field>
+
+        <record model="ir.actions.client" id="funenc_xa_station.funenc_xa_check">
+          <field name="name"></field>
+          <field name="tag">funenc_xa_check</field>
         </record>
 
-        <record id="check_collect_tree" model="ir.ui.view">
-            <field name="name"></field>
-            <field name="model">funenc_xa_station.check_collect</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="line_road"></field>
-                    <field name="station_site"></field>
-                    <field name="jobnumber"></field>
-                    <field name="staff"></field>
-                    <field name="position"></field>
-                    <field name="all_score"></field>
-                    <field name="mouth_grade"></field>
-                    <field name="grade_degree"></field>
-                </tree>
-            </field>
-        </record>
+        <menuitem id="funenc_xa_check_act" name="考评汇总"
+				  action="funenc_xa_check"
+		/>
 
-        <record id="check_collect_form" model="ir.ui.view">
-            <field name="name"></field>
-            <field name="model">funenc_xa_station.check_collect</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="line_road"></field>
-                            <field name="station_site"></field>
-                            <field name="jobnumber"></field>
-                            <field name="staff"></field>
-                            <field name="position"></field>
-                            <field name="all_score"></field>
-                            <field name="mouth_grade"></field>
-                            <field name="grade_degree"></field>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="check_collect_server_1">-->
+            <!--<field name="name">导出</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_funenc_xa_station_check_collect"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_funenc_xa_station_check_collect"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">考评汇总</field>-->
+            <!--<field name="code">-->
+                <!--action = model.new_add_standard()-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <record model="ir.actions.act_window" id="check_collect_act">
-            <field name="name">check_collect_act</field>
-            <field name="res_model">funenc_xa_station.check_collect</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
+        <!--<record id="check_collect_tree" model="ir.ui.view">-->
+            <!--<field name="name"></field>-->
+            <!--<field name="model">funenc_xa_station.check_collect</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="line_road"></field>-->
+                    <!--<field name="station_site"></field>-->
+                    <!--<field name="jobnumber"></field>-->
+                    <!--<field name="staff"></field>-->
+                    <!--<field name="position"></field>-->
+                    <!--<field name="all_score"></field>-->
+                    <!--<field name="mouth_grade"></field>-->
+                    <!--<field name="grade_degree"></field>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="check_collect_form" model="ir.ui.view">-->
+            <!--<field name="name"></field>-->
+            <!--<field name="model">funenc_xa_station.check_collect</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<field name="line_road"></field>-->
+                            <!--<field name="station_site"></field>-->
+                            <!--<field name="jobnumber"></field>-->
+                            <!--<field name="staff"></field>-->
+                            <!--<field name="position"></field>-->
+                            <!--<field name="all_score"></field>-->
+                            <!--<field name="mouth_grade"></field>-->
+                            <!--<field name="grade_degree"></field>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.actions.act_window" id="check_collect_act">-->
+            <!--<field name="name">check_collect_act</field>-->
+            <!--<field name="res_model">funenc_xa_station.check_collect</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="check_collect_menu" name="考评汇总" action="check_collect_act"></menuitem>-->
     </data>

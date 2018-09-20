@@ -298,11 +298,11 @@
 
 	   <menuitem id="check_record_menu" name="考评记录" action="check_record_act"
 				 parent="check_management_menu_parent"></menuitem>
-		<menuitem id="check_collect_menu" name="考评汇总" action="check_collect_act"
-				  parent="check_management_menu_parent"></menuitem>
+		<!--<menuitem id="check_collect_menu" name="考评汇总" action="check_collect_act"-->
+				  <!--parent="check_management_menu_parent"></menuitem>-->
 
-		<menuitem id="award_collect_menu" name="奖励汇总" action="award_collect_act"
-				  parent="check_management_menu_parent"></menuitem>
+		<!--<menuitem id="award_collect_menu" name="奖励汇总" action="award_collect_act"-->
+				  <!--parent="check_management_menu_parent"></menuitem>-->
 
 	  <menuitem id="award_record_menu" name="奖励记录" action="award_record_act"
 				parent="check_management_menu_parent"></menuitem>
