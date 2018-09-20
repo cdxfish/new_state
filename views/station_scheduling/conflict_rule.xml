@@ -8,6 +8,8 @@
 			<field name="model">funenc_xa_station.conflict_rule</field>
 			<field name="arch" type="xml">
 				<tree limit="15" create="0" class="noOpen">
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"  groups="funenc_xa_station.system_fuenc_tester"/>
 					<field name="conflict_rule_index" string="序号"/>
 					<field name="conflict_rule_content" string="内容"/>
                     <field name="conflict_rule" string="条件"/>
@@ -23,6 +25,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
 							<field name="conflict_rule_index" string="序号"/>
                             <field name="conflict_rule_content" string="内容"/>
                             <field name="conflict_rule" string="条件"/>
