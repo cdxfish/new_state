@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="award_standard_import_tree" model="ir.ui.view">
+            <field name="name">award_standard_import_tree</field>
+            <field name="model">award_import</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="xls_file"></field>
+                </tree>
+            </field>
+        </record>
+        <record id="award_standard_import_tree" model="ir.ui.view">
+            <field name="name">award_standard_import_tree</field>
+            <field name="model">award_import</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="xls_file"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="award_standard_import_act" model="ir.actions.act_window">
+            <field name="name">award_standard_import_act</field>
+            <field name="res_model">award_import</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+    </data>
+</odoo>

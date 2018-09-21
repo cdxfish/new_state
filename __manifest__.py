@@ -65,6 +65,8 @@
 		'views/check_evaluate/check_collect.xml',
 		'views/check_evaluate/award_collect.xml',
 		'views/check_evaluate/award_record.xml',
+		'views/check_evaluate/award_standard_import.xml',
+		'views/check_evaluate/check_evaluate_import.xml',
         'views/menu.xml',
 
 	

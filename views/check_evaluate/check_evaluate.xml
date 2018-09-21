@@ -31,7 +31,21 @@
             </field>
         </record>
 
-        <record model="ir.actions.server" id="check_evaluate_server_3">
+            <record model="ir.actions.server" id="check_evaluate_server_4">
+            <field name="name">选择导入文件</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">考评指标库</field>
+            <field name="code">
+                action = model.check_eva_import()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="check_evaluate_server_5">
             <field name="name">批量导入</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
