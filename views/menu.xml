@@ -285,30 +285,39 @@
 
 		<menuitem id="operation_management_id_parent" action="person_certificate_act" name="规章制度预设管理"
 				  parent="funenc_station_integrated_management"></menuitem>
+
         <menuitem id="kind_form_son" parent="operation_management_id_parent" name="新增专业分类" action='kind_act_id'></menuitem>
+
         <menuitem id="add_class_form_son" parent="operation_management_id_parent" name="新增级别分类"
 				  action='add_class_act_id'></menuitem>
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
 				  parent="funenc_station_integrated_management"></menuitem>
+
         <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件"
 				  parent="add_station_certificate_menu_parent"></menuitem>
+
 		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件"
 				  parent="add_station_certificate_menu_parent"></menuitem>
 
 
 		<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station.funenc_station"></menuitem>
+
         <menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_management_menu_"
                   sequence="2"></menuitem>
+
 		<menuitem name="人员管理系统-人员信息"  action="per_management_act" id="per_management_menu" parent="person_management_menu_"
         sequence="1"> </menuitem>
+
 		<menuitem id="second_menu"  action="second_act" name="人员借调" parent="person_management_menu_" sequence="3"></menuitem>
 
 
 		<menuitem id="check_evaluate_menu_parent"  name="考评指标库"
 				  parent="funenc_station_integrated_management" ></menuitem>
+
 		<menuitem id="check_evaluate_menu" name="考评指标" action="check_evaluate_act"
 				  parent="check_evaluate_menu_parent"></menuitem>
+
 		<menuitem id="award_standard_menu" action="award_standard_act" name="奖励标准"
 				  parent="check_evaluate_menu_parent"></menuitem>
 
@@ -317,11 +326,13 @@
 
 	   <menuitem id="check_record_menu" name="考评记录" action="check_record_act"
 				 parent="check_management_menu_parent"></menuitem>
-		<!--<menuitem id="check_collect_menu" name="考评汇总" action="check_collect_act"-->
-				  <!--parent="check_management_menu_parent"></menuitem>-->
 
-		<!--<menuitem id="award_collect_menu" name="奖励汇总" action="award_collect_act"-->
-				  <!--parent="check_management_menu_parent"></menuitem>-->
+		<menuitem id="funenc_xa_check_act" name="考评汇总" parent="check_management_menu_parent"
+				  action="funenc_xa_check"
+		/>
+		<menuitem id="funenc_xa_award_act" name="奖励汇总" parent="check_management_menu_parent"
+				  action="funenc_xa_award"
+		/>
 
 	  <menuitem id="award_record_menu" name="奖励记录" action="award_record_act"
 				parent="check_management_menu_parent"></menuitem>

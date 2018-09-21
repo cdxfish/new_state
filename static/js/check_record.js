@@ -65,7 +65,10 @@ odoo.define('funenc_xa_check', function (require) {
                                            model: 'funenc_xa_station.check_collect',
                                            method:'search_record_method',
                                            kwargs: {date: vue.value6}
-                                                });
+                                                }).then(function(data){
+                                                      vue.tableData =data;
+                                                    });
+
                                                 };
 
                               },

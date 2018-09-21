@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-
+from datetime import datetime
 
 class AwardRecord(models.Model):
     _name = 'funenc_xa_station.award_record'
@@ -21,7 +21,7 @@ class AwardRecord(models.Model):
     award_money_kind = fields.Char(related='award_project.award_standard',string='参考奖励')
     incident_describe = fields.Char(string='事件描述')
     check_person = fields.Char(string='考评人')
-    check_time = fields.Datetime(string='考评时间')
+    check_time = fields.Datetime(string='考评时间',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     award_record_add = fields.One2many('funenc_xa_station.award_record_add','associated',string='新增责任人员')
     award_money = fields.Float(string='奖励金额')
     award_degree = fields.Integer(string='奖励次数',default=1)

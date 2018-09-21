@@ -58,17 +58,18 @@ odoo.define('funenc_xa_award', function (require) {
                     methods: {
 
                            // 单击节点
-                            handleEdit(index, row) {
+                            search_time: function(){
 
-                               self.do_action({
-                                                name: '\u673a\u52a8\u4eba\u5458\u7ba1\u7406',
-                                                type: 'ir.actions.act_window',
-                                                res_model: 'funenc_xa_station.award_collect',
-                                                views: [[false, 'form']],
-                                                target: 'new',
-                                                flags: {'initial_mode': 'edit'},
-			                                    res_id: row['id']
-                                            });
+                                if (vue.datetime != '时间选择'){
+                                self._rpc({
+                                           model: 'funenc_xa_station.award_collect',
+                                           method:'search_award_method',
+                                           kwargs: {date: vue.datetime}
+                                                }).then(function(data){
+                                                      vue.tableData =data;
+                                                    });
+
+                                                };
 
                               },
 
