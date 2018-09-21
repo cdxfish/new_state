@@ -54,7 +54,7 @@ class ConflictRule(models.Model):
 
                 sel_sql = "insert into funenc_xa_station_conflict_rule(line_id,site_id,conflict_rule_index,conflict_rule_content," \
                           "conflict_rule,save_conflict_rule,conflict_rule_state,is_certificate) " \
-                          "values({},{},1, '班与班之间的时间间隔≤', '12h',12, 'enable', 2),({},{},2, '每人纯休的连续时间≤', '2d',2, 'enable', 2)," \
+                          "values({},{},1, '班与班之间的时间间隔≥', '12h',12, 'enable', 2),({},{},2, '每人纯休的连续时间≤', '2d',2, 'enable', 2)," \
                           "({},{},3, '夜班第2天必须排休', '2d',2, 'enable', 2),({},{},4, '每个班组必须具备证书', null, 0, 'enable', 1)".format(
                           line_id,site_id,line_id,site_id,line_id,site_id,line_id,site_id
                 )
@@ -118,13 +118,26 @@ class ConflictRule(models.Model):
         else:
             self.conflict_rule = str(self.save_conflict_rule) + 'd'
 
+    def conflict_rule_save(self):
+        conflict_rule = ''
+        for i , rule_to_certificate in enumerate(self.conflict_rule_to_station_certificate):
+            if i == 0:
+                conflict_rule = conflict_rule+ (rule_to_certificate.station_certificate_id.name + '*' +str(rule_to_certificate.station_certificate_count) )
+            else:
+                conflict_rule = conflict_rule + ', ' +(rule_to_certificate.station_certificate_id.name + '*' + str(
+                    rule_to_certificate.station_certificate_count))
+
+
+        self.conflict_rule = conflict_rule
 
 class conflict_rule_station_certificate(models.Model):
     _name = 'conflict_rule_station_certificate_ref'
     _description = '冲突规则人员证件中间表'
 
     conflict_rule_id = fields.Many2one('funenc_xa_station.conflict_rule', string='冲突规则关联')
-    station_certificate_id = fields.Many2one('person.certificate', string='人员证件关联')
+    station_certificate_id = fields.Many2one('person.certificate', string='人员证件关联', required= True)
+    station_certificate_count = fields.Integer(string='数量')
+
 
 
 

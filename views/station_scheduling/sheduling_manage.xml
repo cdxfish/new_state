@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_sheduling_manage_list">
+			<field name="name">funenc_xa_station_sheduling_manage_list</field>
+			<field name="model">funenc_xa_station.sheduling_manage</field>
+			<field name="arch" type="xml">
+				<tree limit="15" create="0" class="noOpen">
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+					<field name="show_class_group_name" string="班组"/>
+                    <field name="show_arrange_order_name" string="班次"/>
+                    <field name="show_rule_name" string="排班规则"/>
+                    <field name="show_sheduling_time" string="排班时间"/>
+                    <!--<widget string="状态" name="treebtns" template="conflict_rule_widget_enable"/>-->
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_sheduling_manage_form">
+			<field name="name">funenc_xa_station_sheduling_manage_form</field>
+			<field name="model">funenc_xa_station.sheduling_manage</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"  groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="sheduling_start_time" string="开始时间"/>
+                            <field name="sheduling_end_time" string="结束时间"/>
+                            <field name="class_group_ids" string="选择班组"/>
+                            <field name="arrange_order_ids" string="班组班次"/>
+                            <field name="motorized_ids" string="机动人员班次"/>
+                            <field name="sheduling_end_time" string="班组排班规则"/>
+                            <field name="sheduling_arrange_order_ids" string="班组排班规则"/>
+                            <field name="motorized_rule_ids" string="机动人员排班规则"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+    </data>
+</odoo>
