@@ -12,7 +12,9 @@ class MeetingDateils(models.Model):
     compere = fields.Char(string='主持人')
     meeting_site = fields.Char(string='会议地点')
     recorder = fields.Char(string='记录人')
-    record_time = fields.datetime(string='记录时间')
+    record_time = fields.Datetime(string='记录时间')
+    picture_accessory = fields.Char(string='图片附件')
+    files_accessory = fields.Char(string='文件附件')
 
 
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="meeting_details_tree" model="ir.ui.view">
+            <field name="name">会议记录</field>
+            <field name="model">funenc_xa_station.meeting_dateils</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="meeting_theme"></field>
+                    <field name="meeting_time"></field>
+                    <field name="compere"></field>
+                    <field name="meeting_site"></field>
+                    <field name="recorder"></field>
+                    <field name="record_time"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="meeting_details_form" model="ir.ui.view">
+            <field name="name">会议记录</field>
+            <field name="model">funenc_xa_station.meeting_dateils</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="meeting_theme"></field>
+                            <field name="meeting_time"></field>
+                            <field name="compere"></field>
+                            <field name="meeting_site"></field>
+                            <field name="recorder"></field>
+                            <field name="record_time"></field>
+                            <field name="picture_accessory"></field>
+                            <field name="files_accessory"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="meeting_details_act">
+            <field name="name">会议记录</field>
+            <field name="res_model">funenc_xa_station.meeting_dateils</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"></menuitem>
+    </data>
+</odoo>

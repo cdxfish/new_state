@@ -67,6 +67,7 @@
 		'views/check_evaluate/award_record.xml',
 		'views/check_evaluate/award_standard_import.xml',
 		'views/check_evaluate/check_evaluate_import.xml',
+		'views/meeting_details/meet_details.xml',
         'views/menu.xml',
 
 	
