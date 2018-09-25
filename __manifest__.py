@@ -86,6 +86,7 @@
         'static/xml/integrated_management.xml',
         'static/xml/person_info_management.xml',
         'static/xml/check_evaluate.xml',
+        'static/xml/meeting_dateils.xml',
 	],
 	'installable': True,
 	'auto_install': False,

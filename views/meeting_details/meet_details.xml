@@ -13,6 +13,7 @@
                     <field name="meeting_site"></field>
                     <field name="recorder"></field>
                     <field name="record_time"></field>
+                    <widget string="操作" name="treebtns" template="meet_details_button" />
                 </tree>
             </field>
         </record>
