@@ -41,7 +41,7 @@
             <field name="binding_type">action_button</field>
             <field name="binding_action">考评指标库</field>
             <field name="code">
-                action = model.check_eva_import()
+                action = model.check_evaluate_import()
             </field>
         </record>
 
@@ -55,7 +55,7 @@
             <field name="binding_type">action_button</field>
             <field name="binding_action">考评指标库</field>
             <field name="code">
-                action = model.person_certificate_type()
+                action = model.impotr_evaluate_file()
             </field>
         </record>
 

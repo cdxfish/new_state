@@ -127,10 +127,10 @@
                     "name": "车站证件管理",
                     'views': [[False, 'list'], [False, 'form']],
                     'view_mode': 'tree,form',
-                    "res_model": "station.certificate"
+                    "res_model": "person.certificate"
                 }},
                 {'title': '人员证件管理', 'domains': [['id', '=', '1']]},
-                {'title': ' ', 'domains': [['id', '=', '1']]}]}
+                {'title': '证件管理', 'domains': [['id', '=', '1']]}]}
             </field>
         </record>
         <record id="certificate_act_tree" model="ir.actions.act_window.view">

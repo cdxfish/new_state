@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-from datetime import datetime
+import datetime
 
 class CheckCollect(models.Model):
     _name = 'funenc_xa_station.check_collect'
@@ -31,10 +31,12 @@ class CheckCollect(models.Model):
     @api.model
     def search_record_method(self, date):
 
+        startTime = datetime.datetime.strptime(date[:10], '%Y-%m-%d')
+        date_one = (startTime + datetime.timedelta(days=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
 
         date_time = self.env['funenc_xa_station.check_record'].search_read([])
-        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date[:7]]
+        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
         for list1 in date_list:
             record[list1.get('job_number')] = list1
@@ -48,6 +50,8 @@ class CheckCollect(models.Model):
                     fs = fs + list3.get('sure_grede')
             record[list2].update({'comment_count':i})
             record[list2].update({'mouth_grade': fs})
+            record[list2].update({'line_id':list3.get('line_id')[1]})
+            record[list2].update({'site_id':list3.get('site_id')[1]})
 
 
 

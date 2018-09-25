@@ -42,3 +42,18 @@ class AwardStandard(models.Model):
 
     def award_delete(self):
         self.env['funenc_xa_station.award_standard'].search([('id', '=', self.id)]).unlink()
+
+    def award_standard_import(self):
+        return{
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'award_import',
+            'res_id': self.id,
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
+    def import_award_file(self):
+        self.env['award_import'].search([]).import_xls_bill()

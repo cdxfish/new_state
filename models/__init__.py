@@ -9,3 +9,4 @@ from . import person_management
 from . import integrated_management
 from . import station_scheduling
 from . import check_evaluate
+from  . import meeting_details

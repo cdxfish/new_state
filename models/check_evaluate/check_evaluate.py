@@ -63,3 +63,19 @@ class CheckStandard(models.Model):
 
     def check_evaluate_delete(self):
         self.env['funenc_xa_station.check_standard'].search([('id', '=', self.id)]).unlink()
+
+    def check_evaluate_import(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'evaluate_import',
+            'res_id': self.id,
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
+    def impotr_evaluate_file(self):
+        self.env['evaluate_import'].search([]).import_xls_bill()
+

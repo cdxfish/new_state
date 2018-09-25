@@ -21,8 +21,8 @@ class ImportAward(models.Model):
     def import_xls_bill(self):
         try:
             records = self.env['award_import'].search([]).sorted(key=lambda r: r.c_time, reverse=False)
-            print(records[0].xls_file)
-            data = xlrd.open_workbook(file_contents=base64.decodebytes(records[0].xls_file))
+            print(records[-1].xls_file)
+            data = xlrd.open_workbook(file_contents=base64.decodebytes(records[-1].xls_file))
         except IOError as err:
             print('异常: ' + err)
         except ConnectionError as err:
@@ -33,7 +33,7 @@ class ImportAward(models.Model):
             else:
                 # start = records[0].count + 1
                 start = records[0].count + 1
-            sheet_data = data.sheet_by_name('Sheet1')
+            sheet_data = data.sheet_by_name(data.sheet_names()[0])
             cols5 = sheet_data.col_values(5)
             end = sheet_data.nrows
 

@@ -9,7 +9,7 @@
                 </tree>
             </field>
         </record>
-        <record id="award_standard_import_tree" model="ir.ui.view">
+        <record id="award_standard_import_form" model="ir.ui.view">
             <field name="name">award_standard_import_tree</field>
             <field name="model">award_import</field>
             <field name="arch" type="xml">

@@ -31,7 +31,21 @@
             </field>
         </record>
 
-        <record model="ir.actions.server" id="award_standard_server_3">
+            <record model="ir.actions.server" id="award_standard_server_4">
+            <field name="name">选择导入文件</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">奖励标准</field>
+            <field name="code">
+                action = model.award_standard_import()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="award_standard_server_5">
             <field name="name">批量导入</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
@@ -41,7 +55,7 @@
             <field name="binding_type">action_button</field>
             <field name="binding_action">奖励标准</field>
             <field name="code">
-                action = model.new_add_standard()
+                action = model.import_award_file()
             </field>
         </record>
 

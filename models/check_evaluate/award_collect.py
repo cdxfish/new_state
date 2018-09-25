@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-
+import datetime
 
 class AwardCollect(models.Model):
     _name = 'funenc_xa_station.award_collect'
@@ -37,10 +37,13 @@ class AwardCollect(models.Model):
     @api.model
     def search_award_method(self, date):
 
+        startTime = datetime.datetime.strptime(date[:10], '%Y-%m-%d')
+        date_one = (startTime + datetime.timedelta(days=8)).strftime('%Y-%m-%d %H:%M:%S')
+
         record = {}
 
         date_time = self.env['funenc_xa_station.award_record'].search_read([])
-        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date[:7]]
+        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
         for list1 in date_list:
             record[list1.get('jobnumber')] = list1
@@ -54,5 +57,7 @@ class AwardCollect(models.Model):
                     fs = fs + list3.get('award_money')
             record[list2].update({'comment_count': i})
             record[list2].update({'award_money': fs})
+            record[list2].update({'line_id':list3.get('line_id')[1]})
+            record[list2].update({'site_id':list3.get('site_id')[1]})
 
         return [record.get(key) for key in record]

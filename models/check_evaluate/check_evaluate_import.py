@@ -21,8 +21,8 @@ class ImportManagement(models.Model):
     def import_xls_bill(self):
         try:
             records = self.env['evaluate_import'].search([]).sorted(key=lambda r: r.c_time, reverse=False)
-            print(records[0].xls_file)
-            data = xlrd.open_workbook(file_contents=base64.decodebytes(records[0].xls_file))
+            print(records[-1].xls_file)
+            data = xlrd.open_workbook(file_contents=base64.decodebytes(records[-1].xls_file))
         except IOError as err:
             print('异常: ' + err)
         except ConnectionError as err:
@@ -33,7 +33,7 @@ class ImportManagement(models.Model):
             else:
                 # start = records[0].count + 1
                 start = records[0].count + 1
-            sheet_data = data.sheet_by_name('Sheet1')
+            sheet_data = data.sheet_by_name(data.sheet_names()[0])
             cols5 = sheet_data.col_values(5)
             end = sheet_data.nrows
 
@@ -72,10 +72,30 @@ class ImportManagement(models.Model):
                     one_dict = dict(zip(keys, row_content))
                 one_sheet_content.append(one_dict)
 
-            print(one_sheet_content)
+            # print(one_sheet_content)
 
         try:
             for i, item in enumerate(one_sheet_content):
+                if item['check_standard']  == '安全管理':
+                    item['check_standard'] = 'safety'
+                elif item['check_standard']  == '技术管理':
+                    item['check_standard'] =='technology'
+                elif item['check_standard']  == '施工管理':
+                    item['check_standard'] =='road'
+                elif item['check_standard']  == '票务管理':
+                    item['check_standard'] =='ticket'
+                elif item['check_standard']  == '服务管理':
+                    item['check_standard'] =='server'
+                elif item['check_standard']  == '培训管理':
+                    item['check_standard'] =='train'
+                elif item['check_standard']  == '物资管理':
+                    item['check_standard'] =='goods'
+                elif item['check_standard']  == '人事绩效管理':
+                    item['check_standard'] =='personnel'
+                elif item['check_standard']  == '党务管理':
+                    item['check_standard'] =='party'
+                elif item['check_standard']  == '综合管理':
+                    item['check_standard'] =='integrated'
                 self.env['funenc_xa_station.check_standard'].sudo().create(item)
 
         except ConnectionError as err:
