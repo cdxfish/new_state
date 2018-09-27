@@ -12,6 +12,7 @@
 				  placeholder="选择月">
 				</el-date-picker>
 			    <el-button type="primary" icon="el-icon-search" width="180" @click="search_time">搜索</el-button>
+				<el-button type="primary" icon="el-icon-caret-bottom" width="180" @click="import_award">导出</el-button>
 			  </div>
 		 	<br/>
 		  <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>

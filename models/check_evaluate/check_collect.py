@@ -26,6 +26,7 @@ class CheckCollect(models.Model):
         #     list_temp.append(record)
         #
         # return list_temp
+
             return
 
     @api.model
@@ -49,7 +50,7 @@ class CheckCollect(models.Model):
                     i = i +1
                     fs = fs + list3.get('sure_grede')
             record[list2].update({'comment_count':i})
-            record[list2].update({'mouth_grade': fs})
+            record[list2].update({'mouth_grade': fs + 100})
             record[list2].update({'line_id':list3.get('line_id')[1]})
             record[list2].update({'site_id':list3.get('site_id')[1]})
 

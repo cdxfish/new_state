@@ -75,6 +75,7 @@ class CheckAward(http.Controller):
                 else:
                     worksheet.write(row, 11, "")
                 row += 1
+        name = '奖励记录' + str(int(round(time.time() * 1000))) + str(random.randint(1, 1000)) + '.xls'
         file = path + 'award_record.xls'
         print(file)
         with open(file, 'rb') as f:
@@ -86,7 +87,7 @@ class CheckAward(http.Controller):
         response = request.make_response(data)
         response.headers['Content-Type'] = 'application/vnd.ms-excel'
         response.headers["Content-Disposition"] = "attachment; filename={}". \
-            format('奖励记录.xls'.encode().decode('latin-1'))
+            format(name.encode().decode('latin-1'))
         # os.remove(file)
         return response
         # os.remove(wtbook)
