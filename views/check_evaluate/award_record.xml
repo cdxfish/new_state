@@ -17,18 +17,15 @@
             </field>
         </record>
 
-        <record model="ir.actions.server" id="award_record_server_2">
+
+    ﻿   <record model="ir.actions.act_url" id="award_record_excel">
             <field name="name">导出</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_funenc_xa_station_award_record"/>
-            <field name="condition">True</field>
+            <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_award_record"/>
+            <field name="binding_xml_id">award_record_tree</field>
             <field name="binding_type">action_button</field>
-            <field name="binding_action">奖励记录</field>
-            <field name="code">
-                action = model.new_add_record()
-            </field>
+            <field name="url">/funenc_xa_station/award_record_excel</field>
+            <field name="target">new</field>
         </record>
 
         <record id="award_record_tree" model="ir.ui.view">

@@ -3,6 +3,8 @@
 
 from odoo import api, fields, models
 
+import xlwt
+
 class CheckStandard(models.Model):
     _name = 'funenc_xa_station.check_standard'
     _rec_name = 'check_project'
@@ -78,4 +80,7 @@ class CheckStandard(models.Model):
 
     def impotr_evaluate_file(self):
         self.env['evaluate_import'].search([]).import_xls_bill()
+
+
+
 

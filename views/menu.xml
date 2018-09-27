@@ -188,6 +188,10 @@
 		          parent="funenc_station"
 		/>
 
+		<menuitem id="funenc_station_production_management" icon="&#xe628;" name="生产管理" sequence="5"
+		          parent="funenc_station"
+		/>
+
 		 <!--线别设置-->
         <!--<record id="train_rec_check_boxes" model="ir.actions.act_window">-->
             <!--<field name="name">线别设置</field>-->
@@ -351,6 +355,10 @@
 
 	  <menuitem id="award_record_menu" name="奖励记录" action="award_record_act"
 				parent="check_management_menu_parent"></menuitem>
+
+	  <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"
+				parent="funenc_station_production_management"></menuitem>
+
 
 
 

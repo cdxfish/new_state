@@ -3,7 +3,7 @@
 
 from odoo import api, models, fields
 from datetime import datetime
-
+import xlwt
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
     _inherit = 'fuenc_station.station_base'
@@ -113,6 +113,21 @@ class CheckRecord(models.Model):
             return {'value': {'sure_grede': check_kind1}}
         else:
             return {'value': {'sure_grede': 0}}
+
+    def write_data_to_excel(self):
+        one_row = ['线路','站点','工号','考核人员','职位','评分分值','考评指标','问题类型','考核类别','考核项目','事件描述',\
+                   '考评人','工号','考评时间']
+        # 新建一个excel文件
+        file = xlwt.Workbook()
+        table = file.add_sheet('sheet',cell_overwrite_ok=True)
+        try:
+           for i,one in zip([cu for cu in range(len(one_row))],one_row):
+                table.write(0,i,one)
+           file.save('考评记录.xls')
+        except SystemError:
+            print('系统错误')
+
+
 
 
 class AddResponsibility(models.Model):
