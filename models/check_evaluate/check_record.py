@@ -127,6 +127,21 @@ class CheckRecord(models.Model):
         except SystemError:
             print('系统错误')
 
+    def check_record_delete(self):
+        self.env['funenc_xa_station.check_record'].search([('id', '=', self.id)]).unlink()
+
+    def check_record_change(self):
+        view_form = self.env.ref('funenc_xa_station.check_record_form').id
+        return {
+            'name': '考评记录',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.check_record',
+            'res_id': self.id,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
 
 
 

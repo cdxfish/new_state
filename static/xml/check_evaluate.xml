@@ -19,4 +19,20 @@
                 <button class="layui-btn layui-btn-sm" type="object" name="award_delete">新增责任人</button>
         </div>
     </t>
+
+    <t t-name="check_record_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="check_record_change" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_record_delete"
+                    confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+
+    <t t-name="award_record_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="check_record_change" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_record_delete"
+                    confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
 </templates>

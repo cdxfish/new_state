@@ -39,6 +39,21 @@ class AwardRecord(models.Model):
             'target': 'new',
         }
 
+    def check_record_delete(self):
+        self.env['funenc_xa_station.award_record'].search([('id', '=', self.id)]).unlink()
+
+    def check_record_change(self):
+        view_form = self.env.ref('funenc_xa_station.award_record_form').id
+        return {
+            'name': '奖励记录',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.award_record',
+            'res_id': self.id,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
 
 class AwardRecordAdd(models.Model):
     _name = 'funenc_xa_station.award_record_add'

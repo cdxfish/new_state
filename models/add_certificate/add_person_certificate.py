@@ -23,10 +23,11 @@ class AddPersonCertificate(models.Model):
     gender = fields.Char(string='员工性别')
     train_time = fields.Char(string='培训时间')
     url = fields.Char(string='url')
-    load_file_test = fields.One2many('ir.attachment','res_id', string='图片上传')
+    load_file_test = fields.Many2many('ir.attachment','person_certificate_ir_attachment_rel','person_certificate_id','ir_attachment_id', string='图片上传')
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义')
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
+
 
     @api.model
     def person_certificate_type(self):
@@ -43,11 +44,13 @@ class AddPersonCertificate(models.Model):
 
 
     def person_cer_edit(self):
+        view_form = self.env.ref('funenc_xa_station.person_certificate_form').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
+            "views": [[view_form, "form"]],
             'res_model': 'person.certificate',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -79,5 +82,4 @@ class AddPersonCertificate(models.Model):
             'res_model': 'person.certificate',
             'res_id': self.id,
             'flags': {'initial_mode': 'readonly'},
-            'target': 'new',
         }

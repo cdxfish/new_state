@@ -13,17 +13,29 @@ odoo.define("one2many_image_read_widget", function(require) {
       var id = self.record.data.id;
       var mode = self.mode;
       var relation_field = self.field.relation_field;
+//       console.log('data:'+ JSON.stringify(self.record.data.load_file_test.data))
+
+       var img_id_list=[];
+       for ( var i=0;i<self.record.data.load_file_test.data.length;i++){
+         var img_id = self.record.data.load_file_test.data[i].data['id'];
+         img_id_list.push(img_id)
+       }
+
+      console.log('img_id_list:'+ JSON.stringify(img_id_list))
       var model = self.field.relation;
       if (mode == "edit") {
         this._super();
       } else {
+       console.log('model:'+ model)
+        console.log('relation_field:'+ relation_field)
         self
           ._rpc({
             model: model,
             method: "search_read",
-            domain: [[relation_field, "=", id]]
+            domain: [['id', "in", img_id_list]]
           })
           .then(function(data) {
+             console.log('ddd:'+JSON.stringify(data));
             if (data.length > 0) {
               var $el = $(
                 '<div class="one2many_image_read_widget" style="display: flex; flex-wrap: wrap; justify-content: flex-start"></div>'

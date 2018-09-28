@@ -21,7 +21,7 @@
             <field name="name">人员证件管理</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen">
+                <tree create="0">
                     <!--<field name="id" string="序号"></field>-->
                     <field name="name"></field>
                     <field name="line_road"></field>
@@ -78,14 +78,22 @@
                             <div class="container-fluid">
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
-                                         <label for="line_road" string="线路"/>
+                                      <div class="col-md-4">
+                                         <label for="line_road" string="线路:"/>
+                                         <!--<field name="line_road"/>-->
+                                      </div>
+                                         <div class="col-md-8">
+                                         <!--<label for="line_road" string="线路"/>-->
                                          <field name="line_road"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
-                                         <label for="station_site" string="站点"/>
+                                      <div class="col-md-4">
+                                         <label for="station_site" string="站点:"/>
+                                         <!--<field name="station_site"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="station_site" string="站点"/>-->
                                          <field name="station_site"/>
                                       </div>
                                    </div>
@@ -93,14 +101,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="person_name" string="员工姓名"/>
+                                         <!--<field name="person_name"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="person_name" string="员工姓名"/>-->
                                          <field name="person_name"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="work_number" string="员工工号"/>
+                                         <!--<field name="work_number"/>-->
+                                      </div>
+                                        <div class="col-md-8">
+                                         <!--<label for="work_number" string="员工工号"/>-->
                                          <field name="work_number"/>
                                       </div>
                                    </div>
@@ -108,14 +124,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="gender" string="员工性别"/>
+                                         <!--<field name="gender"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="gender" string="员工性别"/>-->
                                          <field name="gender"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="name" string="证书名称"/>
+                                         <!--<field name="name"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="name" string="证书名称"/>-->
                                          <field name="name"/>
                                       </div>
                                    </div>
@@ -123,14 +147,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="book_number" string="证书编号"/>
+                                         <!--<field name="book_number"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="book_number" string="证书编号"/>-->
                                          <field name="book_number"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="licence_issuing_authority" string="发证机关"/>
+                                         <!--<field name="licence_issuing_authority"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="licence_issuing_authority" string="发证机关"/>-->
                                          <field name="licence_issuing_authority"/>
                                       </div>
                                    </div>
@@ -138,14 +170,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="certificate_money" string="初领日期"/>
+                                         <!--<field name="certificate_money"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="certificate_money" string="初领日期"/>-->
                                          <field name="certificate_money"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="period_of_validity" string="有效期"/>
+                                         <!--<field name="period_of_validity"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="period_of_validity" string="有效期"/>-->
                                          <field name="period_of_validity"/>
                                       </div>
                                    </div>
@@ -153,14 +193,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="train_time" string="培训时间"/>
+                                         <!--<field name="train_time"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="train_time" string="培训时间"/>-->
                                          <field name="train_time"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="certificate_money" string="取证费用"/>
+                                         <!--<field name="certificate_money"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="certificate_money" string="取证费用"/>-->
                                          <field name="certificate_money"/>
                                       </div>
                                    </div>
@@ -168,14 +216,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="one_recheck_time" string="初次复审时间"/>
+                                         <!--<field name="one_recheck_time"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="one_recheck_time" string="初次复审时间"/>-->
                                          <field name="one_recheck_time"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="one_recheck_money" string="初次复审费用"/>
+                                         <!--<field name="one_recheck_money"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="one_recheck_money" string="初次复审费用"/>-->
                                          <field name="one_recheck_money"/>
                                       </div>
                                    </div>
@@ -183,14 +239,22 @@
 
                                 <div class="row">
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="two_recheck_time" string="二次复审时间"/>
+                                         <!--<field name="two_recheck_time"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="two_recheck_time" string="二次复审时间"/>-->
                                          <field name="two_recheck_time"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-                                      <div class="field-margin">
+                                      <div class="col-md-4">
                                          <label for="two_recheck_money" string="二次复审费用"/>
+                                         <!--<field name="two_recheck_money"/>-->
+                                      </div>
+                                     <div class="col-md-8">
+                                         <!--<label for="two_recheck_money" string="二次复审费用"/>-->
                                          <field name="two_recheck_money"/>
                                       </div>
                                    </div>
@@ -198,8 +262,18 @@
 
                                 <div class="row">
                                    <div class="col-md-12">
-                                      <div class="field-margin">
+                                      <div class="col-md-2">
                                          <label for="certificate_money" string="上传证件照片"/>
+                                         <!--<div class="x_panel form_sec">-->
+                                            <!--<field name="load_file_test" widget="one2many_binary">-->
+                                                <!--<tree>-->
+                                                    <!--<field name="datas_fname"/>-->
+                                                <!--</tree>-->
+                                            <!--</field>-->
+                                        <!--</div>-->
+                                      </div>
+                                     <div class="col-md-10">
+                                         <!--<label for="certificate_money" string="上传证件照片"/>-->
                                          <div class="x_panel form_sec">
                                             <field name="load_file_test" widget="one2many_binary">
                                                 <tree>
@@ -261,21 +335,21 @@
               <field name="type">ir.actions.act_window</field>
               <field name="res_model">person.certificate</field>
               <field name="view_mode">tree,kanban,form</field>
-              <!--<field name="view_id" ref="person_certificate_tree"/>-->
-                         <field name="top_widget">multi_action_tab</field>
-            <field name="top_widget_key">driver_manage_tab</field>
-            <field name="top_widget_options">
-                {'tabs': [{'title': '车站证件管理',
-                'action':  {
-                    'type': 'ir.actions.act_window',
-                    "name": "车站证件管理",
-                    'views': [[False, 'list'], [False, 'form']],
-                    'view_mode': 'tree,form',
-                    "res_model": "station.certificate"
-                }},
-                {'title': ' ', 'domains': [['id', '=', '1']]},
-                {'title': ' ', 'domains': [['id', '=', '1']]}]}
-            </field>
+              <field name="view_id" ref="person_certificate_tree"/>
+                <field name="top_widget">multi_action_tab</field>
+                <field name="top_widget_key">driver_manage_tab</field>
+                <field name="top_widget_options">
+                    {'tabs': [{'title': '车站证件管理',
+                    'action':  {
+                        'type': 'ir.actions.act_window',
+                        "name": "车站证件管理",
+                        'views': [[False, 'list'], [False, 'form']],
+                        'view_mode': 'tree,form',
+                        "res_model": "station.certificate"
+                    }},
+                    {'title': ' ', 'domains': [['id', '=', '1']]},
+                    {'title': ' ', 'domains': [['id', '=', '1']]}]}
+                </field>
           </record>
     </data>
 </odoo>

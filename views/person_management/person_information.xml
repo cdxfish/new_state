@@ -98,7 +98,7 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="field-margin" style="text-align: center;">
                                                      <label for="jobnumber" string="工号"/>
                                                      <field name="jobnumber" attrs="{'readonly':1}"/>
                                                   </div>
@@ -180,9 +180,6 @@
                                                   </div>
                                               </div>
                                         </div>
-                                    <!--</div>-->
-
-                                   <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
                                                   <div class="field-margin">
@@ -209,9 +206,6 @@
                                                   </div>
                                               </div>
                                         </div>
-                                    <!--</div>-->
-
-                                   <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
                                                   <div class="field-margin">
@@ -238,9 +232,6 @@
                                                   </div>
                                               </div>
                                         </div>
-                                    <!--</div>-->
-
-                                     <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
                                                   <div class="field-margin">
@@ -386,14 +377,6 @@
                                               </div>
                                         </div>
                                     </div>
-                                        <!--<field name="department"></field>-->
-                                        <!--<field name="department_load"></field>-->
-                                        <!--<field name="team_or_group_station"></field>-->
-                                        <!--<field name="position"></field>-->
-                                        <!--<field name="begin_time"></field>-->
-                                        <!--<field name="become_a_regular_worker_time"></field>-->
-                                        <!--<field name="join_work_time"></field>-->
-                                        <!--<field name="staff_source"></field>-->
                                     </group>
                                 </sheet>
                             </form>
@@ -401,7 +384,9 @@
                     </div>
                     <notebook>
                     <page string="持证信息">
-                            <widget string="操作" name="treebtns" template="create_cerficate_button"/>
+                        <div class="text-center ">
+                            <h1>持证信息</h1>
+                         </div>
                     <div class="text-center ">
                         <field name="certificate_info">
                             <tree>

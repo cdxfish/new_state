@@ -45,6 +45,7 @@
                     <field name="incident_describe"></field>
                     <field name="check_person"></field>
                     <field name="check_time"></field>
+                    <widget  string="操作"  name="treebtns"  template="award_record_edit"/>
                 </tree>
             </field>
         </record>
