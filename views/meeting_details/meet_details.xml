@@ -25,16 +25,165 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="meeting_theme"></field>
-                            <field name="meeting_time"></field>
-                            <field name="compere"></field>
+                            <field name="start_meet"></field>
+                            <field name="end_meet"></field>
                             <field name="meeting_site"></field>
-                            <field name="recorder"></field>
-                            <field name="record_time"></field>
-                            <field name="picture_accessory"></field>
-                            <field name="files_accessory"></field>
+                            <field name="compere"></field>
+                            <field name="meeting_theme"></field>
+                            <field name="join_person"></field>
+                            <field name="meeting_content"></field>
+                            <label for="picture_accessory" string="图片附件"/>
+                            <div class="x_panel form_sec">
+                                <field name="picture_accessory" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                            </div>
+                            <label for="files_accessory" string="文件附件"/>
+                            <div class="x_panel form_sec">
+                                <field name="files_accessory" widget="one2many_binary">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                            </div>
                         </group>
                     </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="meeting_details_details" model="ir.ui.view">
+            <field name="name">详情</field>
+            <field name="model">funenc_xa_station.meeting_dateils</field>
+            <field name="arch" type="xml">
+                    <form>
+                    <div>
+                        <h1>基本信息</h1>
+                    </div>
+                   <div class="container-fluid">
+                        <div class="row">
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="line_id" string="线路："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="line_id"/>
+                              </div>
+                           </div>
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="site_id" string="站点："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="site_id"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="meeting_theme" string="会议主题："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="meeting_theme"/>
+                              </div>
+                           </div>
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="record_time" string="记录日期："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="record_time"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="compere" string="主持人："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="compere"/>
+                              </div>
+                           </div>
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="recorder" string="记录人："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="recorder"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="meeting_site" string="会议地点："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="meeting_site"/>
+                              </div>
+                           </div>
+                           <div class="layui-col-sm6">
+                              <div class="layui-col-sm4">
+                                 <label for="meeting_time" string="会议时间："/>
+                              </div>
+                             <div class="layui-col-sm8">
+                                 <field name="meeting_time"/>
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>会议内容</h1>
+                    </div>
+                  <div class="container-fluid">
+                    <div class="row">
+                       <div class="layui-col-sm12">
+                         <div class="layui-col-sm2">
+                             <label for="meeting_site" string="内容："/>
+                          </div>
+                          <div class="layui-col-sm10">
+                             <field name="meeting_content"/>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                    <div>
+                        <h1>附件内容</h1>
+                    </div>
+                      <div class="container-fluid">
+                        <div class="row">
+                           <div class="layui-col-sm12">
+                              <div class="layui-col-sm2">
+                                  <label for="picture_accessory" string="照片："/>
+                              </div>
+                             <div class="layui-col-sm10">
+                                 <field name="picture_accessory" widget="one2many_image_read_widget">
+                                     <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                 </field>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="layui-col-sm12">
+                              <div class="layui-col-sm2">
+                                  <label for="files_accessory" string="文件："/>
+                              </div>
+                             <div class="layui-col-sm10">
+                                 <field name="files_accessory" widget="one2many_binary">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                 </field>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
                 </form>
             </field>
         </record>
@@ -43,8 +192,9 @@
             <field name="name">会议记录</field>
             <field name="res_model">funenc_xa_station.meeting_dateils</field>
             <field name="view_mode">tree,kanban,form</field>
+            <field name=""></field>
         </record>
 
-        <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"></menuitem>
+        <!--<menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"></menuitem>-->
     </data>
 </odoo>

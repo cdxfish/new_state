@@ -14,7 +14,7 @@ odoo.define('funenc_xa_award', function (require) {
       var self = this;
       this._super.apply(this, arguments)
       self.group_id = action.context.group_id
-      self.user_data = {"result":[]};   // 部门初始化变量
+      self.user_data = [];   // 部门初始化变量
       if (self.group_id) {
         self.is_update = true
       }
@@ -72,6 +72,34 @@ odoo.define('funenc_xa_award', function (require) {
                                                 };
 
                               },
+
+                       import_award(){
+                          if (this.tableData){
+                            var url='/fuenc_xa_station/award_collect_download';
+                            var params= {"exl_data":this.tableData};
+                            var params1=JSON.stringify(params);
+                            var oReq = new XMLHttpRequest();
+                            oReq.open("POST", url, true);
+                            oReq.responseType = "arraybuffer";
+                            oReq.onload = function(oEvent) {
+                              if (oReq.readyState == 4 && oReq.status == 200) {
+                                var blob = new Blob([oReq.response], { type: "application/vnd.ms-excel" });
+                                // 转换完成，创建一个a标签用于下载
+                                var a = document.createElement('a');
+                                //点击事件
+                                var evt = document.createEvent("HTMLEvents");
+                                evt.initEvent("click", false, false);
+                                // 设置文件名
+                                a.download = '奖励汇总'+(new Date()).getTime();
+                                // 利用URL.createObjectURL()方法为a元素生成blob URL
+                                a.href = URL.createObjectURL(blob);
+                                a.click();
+                              }
+                            };
+
+                            oReq.send(params1);
+                          }
+                        },
 
 
 

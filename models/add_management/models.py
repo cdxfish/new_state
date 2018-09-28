@@ -3,6 +3,7 @@ from datetime import datetime
 from odoo import models, fields, api
 import requests
 import urllib
+import base64
 
 
 class xian_metro(models.Model):
@@ -53,32 +54,26 @@ class xian_metro(models.Model):
     @api.model
     def create(self, params):
         file_binary = params['details']
+        file_name = params.get('file_name', self.file_name)
         if file_binary:
-            url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
-                file_binary, 'pdf')
+            url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
+                'funenc_xa_station', file_name, base64.b64decode(file_binary))
             params['url'] = url
-            params['file_name'] = key
-        url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
-            file_binary, 'pdf')
-        params['url'] = url
-        params['file_name'] = key
+            params['file_name'] = file_name
+        # url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
+        #     file_binary, 'pdf')
+        # params['url'] = url
+        # params['file_name'] = key
         return super(xian_metro, self).create(params)
 
     def view_details(self):
         url = self.url
         if url:
-            url = 'http://' + url
             return {
                 "type": "ir.actions.act_url",
                 "url": url,
                 "target": "new"
             }
-        url = 'http://' + url
-        return {
-            "type": "ir.actions.act_url",
-            "url": url,
-            "target": "new"
-        }
 
     def file_kind_load(self):
         view_form = self.env.ref('funenc_xa_station.add_operation_form_test').id
