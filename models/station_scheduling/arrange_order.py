@@ -17,7 +17,8 @@ class arrange_order(models.Model):
 
     name = fields.Char(string='班次名称', required= True)
     time = fields.Char(string='班次时间')
-    work_time = fields.Char(string='工作时长')
+    work_time = fields.Char(string='工作时长')   # 用于显示
+    save_work_time = fields.Float(string='工作时长') #用于计算储存
     start_work_time = fields.Datetime(string='上班时间', required= True, default= lambda self: self.default_start_work_time())
     end_work_time = fields.Datetime(string='下班时间', required= True)
     end_time_select = fields.Selection(string='下班日期',selection=[('same_day','当日'),('next_day','次日')],default='same_day')
@@ -84,6 +85,7 @@ class arrange_order(models.Model):
             self.end_time_select = 'same_day'
         work_time = round( (end_work_time - start_work_time).seconds / (60 * 60), 2)
         self.work_time = str(work_time) + 'h'
+        self.save_work_time = work_time
 
         self.time = '{}-{} ({})'.format(start_work_time.strftime('%Y-%m-%d %H:%M:%S')[11:-3], end_work_time.strftime('%Y-%m-%d %H:%M:%S')[11:-3], end_time_select)
 

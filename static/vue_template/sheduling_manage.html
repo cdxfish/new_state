@@ -1,0 +1,72 @@
+<!--<el-row>-->
+<!--<el-button type="primary" plain @click="create_key">创建钥匙</el-button>-->
+<!--<el-button type="primary" plain @click="key_borrow_record">钥匙借用</el-button>-->
+<!--<el-button type="primary" plain @click="key_return">钥匙归还</el-button>-->
+<!--<el-button type="primary" plain @click="key_borrow_record_list">借用记录</el-button>-->
+<!--</el-row>-->
+<div id="funenc_xa_station_sheduling_manage">
+        <div>
+            <el-row>
+                <h3>当前位置:{{ show_position1 }}</h3>
+                <h3>排班时间:{{ show_sheduling_time }}</h3>
+                <h3>排班班次:{{ show_arrange_order_name1 }}</h3>
+                <h3>排班规则:{{ current_rule }}</h3>
+            </el-row>
+        </div>
+        <br/>
+        <h3>班组班表</h3>
+        <template>
+            <el-table :data="group_data" stripe style="width: 100%">
+                <el-table-column
+                        v-for="col in group_cols"
+                        :prop="col.col"
+                        :label="col.label">
+                </el-table-column>
+
+            </el-table>
+        </template>
+
+        <h1>机动人员班表</h1>
+        <template>
+            <el-table :data="motorizedData" stripe style="width: 100%">
+
+                <el-table-column
+                        v-for="col in motorized_cols"
+                        :prop="col.col"
+                        :label="col.label">
+                </el-table-column>
+
+            </el-table>
+        </template>
+
+        <h1>班次汇总</h1>
+        <template>
+            <el-table :data="groupCountData" stripe style="width: 100%">
+
+                <el-table-column prop="index" label="序号" width="180">
+                </el-table-column>
+                <el-table-column prop="line_id" label="线路" width="180">
+                </el-table-column>
+                <el-table-column prop="key_type" label="钥匙类型">
+                </el-table-column>
+                <el-table-column prop="site_id" label="归属站点">
+                </el-table-column>
+                <el-table-column prop="key_total" label="钥匙总量">
+                </el-table-column>
+                <el-table-column prop="master_number" label="主钥匙数量">
+                </el-table-column>
+                <el-table-column prop="copy_number" label="备用钥匙数量">
+                </el-table-column>
+                <el-table-column prop="borrow_number" label="借出数量">
+                </el-table-column>
+                <el-table-column prop="destroy_number" label="损耗数量">
+                </el-table-column>
+
+            </el-table>
+        </template>
+</div>
+
+
+
+
+

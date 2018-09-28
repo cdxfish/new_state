@@ -5,7 +5,7 @@ from odoo import models, fields, api
 
 class ClassGroup(models.Model):
     '''
-         班次管理
+        班次管理
     '''
 
     _name = 'funenc_xa_station.class_group'

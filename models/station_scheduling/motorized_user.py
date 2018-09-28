@@ -60,20 +60,22 @@ class UserInherit(models.Model):
             else:
                 department_id = department_id.id
                 class_groups = self.env['funenc_xa_station.class_group'].search([('site_id', '=', department_id)])
-                centrality_motorized_user_ids = []  # 车站级别 机动人员
+                centrality_motorized_user_ids = []  # 车站级别 在组内人员
                 for class_group in class_groups:
                     for user_id in class_group.group_user_ids:
                         centrality_motorized_user_ids.append(user_id.id)
 
+                site_groups_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('departments','=',department_id)]).ids
+                not_in_groups_user_ids = list( set(site_groups_user_ids) - set(centrality_motorized_user_ids) )   # 未在组内人员
                 centrality_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search_read(
-                    [('id', 'in', centrality_motorized_user_ids)])
+                    [('id', 'in', not_in_groups_user_ids)])
                 for centrality_user_id in centrality_user_ids:
                     centrality_user_id['user_property'] = '本站'
                 person_second_ids = self.env['person_management.person_second'].search_read(
-                    [('station', '=', department_id)], ['user_id'])
+                    [('second_station', '=', department_id)], ['user_id'])
 
                 person_second_user_ids = self.search_read(
-                    [('id', 'in', [person_second_id.get('user_id') for person_second_id in person_second_ids])])
+                    [('id', 'in', [person_second_id.get('user_id')[0] for person_second_id in person_second_ids])])
                 for person_second_user_id in person_second_user_ids:
                     person_second_user_id['user_property'] = '借调'
                     if person_second_user_id.get('certificate_status') == 'one':
@@ -82,6 +84,19 @@ class UserInherit(models.Model):
                         person_second_user_id['certificate_status'] = '丢失'
 
                 return centrality_user_ids + person_second_user_ids
+
+
+    # @api.model
+    # def get_site_motorized_users(self, site_id):
+    #     '''
+    #          获取站点机动人员
+    #     :param site_id: 站点id
+    #     :return:
+    #     '''
+    #     self.env['funenc_xa_station.class_group'].search([('site_id', '=', site_id)])
+
+
+
 
 
 
