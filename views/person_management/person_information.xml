@@ -98,26 +98,42 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin" style="text-align: center;">
+                                                  <div class="col-md-4" >
                                                      <label for="jobnumber" string="工号"/>
+                                                     <!--<field name="jobnumber" attrs="{'readonly':1}"/>-->
+                                                  </div>
+                                                 <div class="col-md-8" >
+                                                     <!--<label for="jobnumber" string="工号"/>-->
                                                      <field name="jobnumber" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="name" string="姓名"/>
+                                                     <!--<field name="name" attrs="{'readonly':1}"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="name" string="姓名"/>-->
                                                      <field name="name" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="gender" string="性别"/>
+                                                     <!--<field name="gender"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="gender" string="性别"/>-->
                                                      <field name="gender"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="nation" string="民族"/>
+                                                     <!--<field name="nation"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="nation" string="民族"/>-->
                                                      <field name="nation"/>
                                                   </div>
                                               </div>
@@ -127,26 +143,42 @@
                                   <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="birth" string="出生日期"/>
+                                                     <!--<field name="birth"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="birth" string="出生日期"/>-->
                                                      <field name="birth"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="idcar" string="生份证"/>
+                                                     <!--<field name="idcar"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="idcar" string="生份证"/>-->
                                                      <field name="idcar"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="phone" string="电话号码"/>
+                                                     <!--<field name="phone"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="phone" string="电话号码"/>-->
                                                      <field name="phone"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="politics_status" string="政治面貌"/>
+                                                     <!--<field name="politics_status"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="politics_status" string="政治面貌"/>-->
                                                      <field name="politics_status"/>
                                                   </div>
                                               </div>
@@ -156,104 +188,169 @@
                                     <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="shoe_size" string="鞋码"/>
+                                                     <!--<field name="shoe_size"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="shoe_size" string="鞋码"/>-->
                                                      <field name="shoe_size"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="native_place" string="籍贯"/>
+                                                     <!--<field name="native_place"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="native_place" string="籍贯"/>-->
                                                      <field name="native_place"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="phone" string="电话号码"/>
+                                                     <!--<field name="phone"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="phone" string="电话号码"/>-->
                                                      <field name="phone"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="native_sition" string="户籍地址"/>
+                                                     <!--<field name="native_sition"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="native_sition" string="户籍地址"/>-->
                                                      <field name="native_sition"/>
                                                   </div>
                                               </div>
                                         </div>
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="new_site" string="现居地址"/>
+                                                     <!--<field name="new_site"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="new_site" string="现居地址"/>-->
                                                      <field name="new_site"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="native_place" string="籍贯"/>
+                                                     <!--<field name="native_place"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="native_place" string="籍贯"/>-->
                                                      <field name="native_place"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="emergency_contact" string="紧急联系人"/>
+                                                     <!--<field name="emergency_contact"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="emergency_contact" string="紧急联系人"/>-->
                                                      <field name="emergency_contact"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="emergency_contact_phone" string="紧急联系人电话"/>
+                                                     <!--<field name="emergency_contact_phone"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="emergency_contact_phone" string="紧急联系人电话"/>-->
                                                      <field name="emergency_contact_phone"/>
                                                   </div>
                                               </div>
                                         </div>
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="First_degree_major" string="第一学历"/>
+                                                     <!--<field name="First_degree_major"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="First_degree_major" string="第一学历"/>-->
                                                      <field name="First_degree_major"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="first_degree" string="第一学位"/>
+                                                     <!--<field name="first_degree"/>-->
+                                                  </div>
+
+                                                 <div class="col-md-8">
+                                                     <!--<label for="first_degree" string="第一学位"/>-->
                                                      <field name="first_degree"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="school_of_graduation" string="毕业院校"/>
+                                                     <!--<field name="school_of_graduation"/>-->
+                                                  </div>
+                                                    <div class="col-md-8">
+                                                     <!--<label for="school_of_graduation" string="毕业院校"/>-->
                                                      <field name="school_of_graduation"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="major" string="专业"/>
+                                                     <!--<field name="major"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="major" string="专业"/>-->
                                                      <field name="major"/>
                                                   </div>
                                               </div>
                                         </div>
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="second_degree_major" string="第二学历"/>
+                                                     <!--<field name="second_degree_major"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="second_degree_major" string="第二学历"/>-->
                                                      <field name="second_degree_major"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="second_degree" string="第二学位"/>
+                                                     <!--<field name="second_degree"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="second_degree" string="第二学位"/>-->
                                                      <field name="second_degree"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="second_school_of_graduation" string="毕业院校"/>
+                                                     <!--<field name="second_school_of_graduation"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="second_school_of_graduation" string="毕业院校"/>-->
                                                      <field name="second_school_of_graduation"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="second_major" string="专业"/>
+                                                     <!--<field name="second_major"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="second_major" string="专业"/>-->
                                                      <field name="second_major"/>
                                                   </div>
                                               </div>
@@ -261,14 +358,22 @@
 
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="certificate_status" string="证书状态"/>
+                                                     <!--<field name="certificate_status"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="certificate_status" string="证书状态"/>-->
                                                      <field name="certificate_status"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="email" string="邮箱"/>
+                                                     <!--<field name="email"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="email" string="邮箱"/>-->
                                                      <field name="email"/>
                                                   </div>
                                                </div>
@@ -329,20 +434,32 @@
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="department_load" string="所属线网"/>
+                                                     <!--<field name="department_load" attrs="{'readonly':1}"/>-->
+                                                  </div>
+                                                    <div class="col-md-8">
+                                                     <!--<label for="department_load" string="所属线网"/>-->
                                                      <field name="department_load" attrs="{'readonly':1}"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="team_or_group_station"/>
+                                                     <!--<field name="team_or_group_station" attrs="{'readonly':1}"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="team_or_group_station"/>-->
                                                      <field name="team_or_group_station" attrs="{'readonly':1}"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-3">
                                                      <label for="position"/>
+                                                     <!--<field name="position" attrs="{'readonly':1}"/>-->
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                     <!--<label for="position"/>-->
                                                      <field name="position" attrs="{'readonly':1}"/>
                                                   </div>
                                               </div>
@@ -352,26 +469,42 @@
                                     <!--<div class="container-fluid">-->
                                         <div class="row">
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="begin_time" string="入司时间"/>
+                                                     <!--<field name="begin_time"/>-->
+                                                  </div>
+                                                 <div class="col-md-8">
+                                                     <!--<label for="begin_time" string="入司时间"/>-->
                                                      <field name="begin_time"/>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="become_a_regular_worker_time" string="转正时间"/>
+                                                     <!--<field name="become_a_regular_worker_time"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="become_a_regular_worker_time" string="转正时间"/>-->
                                                      <field name="become_a_regular_worker_time"/>
                                                   </div>
                                                </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="join_work_time" string="参加工作时间"/>
+                                                     <!--<field name="join_work_time"/>-->
+                                                  </div>
+                                                <div class="col-md-8">
+                                                     <!--<label for="join_work_time" string="参加工作时间"/>-->
                                                      <field name="join_work_time"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">
-                                                  <div class="field-margin">
+                                                  <div class="col-md-4">
                                                      <label for="staff_source" string="员工来源"/>
+                                                     <!--<field name="staff_source"/>-->
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                     <!--<label for="staff_source" string="员工来源"/>-->
                                                      <field name="staff_source"/>
                                                   </div>
                                               </div>
