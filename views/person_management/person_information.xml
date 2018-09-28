@@ -392,8 +392,8 @@
                             <tree>
                                 <field name="id" string="序号"></field>
                                 <field name="name"></field>
-                                <field name="line_road"></field>
-                                <field name="station_site"></field>
+                                <field name="line_id"></field>
+                                <field name="site_id"></field>
                                 <field name="person_name"></field>
                                 <field name="work_number"></field>
                                 <field name="phone"></field>
@@ -523,8 +523,8 @@
                     <group>
                         <field name="id" string="序号"></field>
                         <field name="name"></field>
-                        <field name="line_road"></field>
-                        <field name="station_site"></field>
+                        <field name="line_id"></field>
+                        <field name="site_id"></field>
                         <field name="person_name"></field>
                         <field name="work_number"></field>
                         <field name="phone"></field>

@@ -84,7 +84,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="award_record_act">
-            <field name="name">考评记录</field>
+            <field name="name">奖励记录</field>
             <field name="res_model">funenc_xa_station.award_record</field>
             <field name="view_mode">tree,kanban,form</field>
         </record>

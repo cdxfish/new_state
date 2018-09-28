@@ -18,7 +18,8 @@ class MeetingDateils(models.Model):
     meeting_site = fields.Char(string='会议地点')
     recorder = fields.Char(string='记录人')
     record_time = fields.Char(string='记录日期',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    picture_accessory = fields.One2many('ir.attachment','res_id', string='图片上传')
+    load_file_test = fields.Many2many('ir.attachment','funenc_xa_station_meeting_dateils_ir_attachment_rel',
+                                         'attachment_id','meeting_dateils_id', string='图片上传')
     files_accessory = fields.One2many('ir.attachment','res_id', string='文件附件')
 
     def meet_dateils_button(self):

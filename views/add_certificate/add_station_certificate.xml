@@ -22,8 +22,8 @@
                         <tree  create="0" class="noOpen">
                             <field  name="id"  string="序号"></field>
                             <field  name="name"></field>
-                            <field  name="line_road"></field>
-                            <field  name="station_site"></field>
+                            <field  name="line_id"></field>
+                            <field  name="site_id"></field>
                             <field  name="certificate_time"></field>
                             <widget  string="证件详情"  name="treebtns"  template="details_certificate"/>
                             <field  name="certificate_number"></field>
@@ -41,8 +41,8 @@
                         <search>
                             <field  name="id"  string="序号"></field>
                             <field  name="name"></field>
-                            <field  name="line_road"></field>
-                            <field  name="station_site"></field>
+                            <field  name="line_id"></field>
+                            <field  name="site_id"></field>
                             <field  name="certificate_time"></field>
                             <field  name="certificate_number"></field>
                             <field  name="station_agent"></field>
@@ -58,10 +58,12 @@
                         <form>
                             <sheet>
                                 <group  name="group_top">
-                                    <field  name="line_road"></field>
+                                    <field  name="line_id" options="{'no_create':True,'no_open':True}"
+                                    domain="[('department_hierarchy','=',2)]"></field>
                                     <field  name="name"></field>
                                     <field  name="certificate_number"></field>
-                                    <field name="station_site"></field>
+                                    <field name="site_id" options="{'no_create':True,'no_open':True}"
+                                    domain="[('department_hierarchy','=',3)]"></field>
                                     <field name="certificate_time"></field>
                                      <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
                                             <tree>

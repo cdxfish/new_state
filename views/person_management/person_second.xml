@@ -24,8 +24,10 @@
                 <tree create="0">
                     <field name="person_number"></field>
                     <field name="user_id" string="名字"></field>
-                    <field name="line_road" />
-                    <field name="station" />
+                    <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                           options="{'no_create':True,'no_open':True}"/>
+                    <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                           options="{'no_create':True,'no_open':True}"/>
                     <field name="per_site"></field>
                     <field name="second_line"></field>
                     <field name="second_station"></field>
@@ -45,8 +47,8 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_road" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
-                            <field name="station" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]"/>
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                            <field name="line_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]"/>
                             <field name="user_id" string="名字"  options="{'no_create':True,'no_open':True}"/>
                             <field name="person_number" readonly="1"/>
                             <field name="per_site" readonly="1"/>

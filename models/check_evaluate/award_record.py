@@ -9,8 +9,8 @@ class AwardRecord(models.Model):
     _inherit = 'fuenc_station.station_base'
 
 
-    line_road = fields.Char(string='线路')
-    station_site = fields.Char(string='站点')
+    # line_road = fields.Char(string='线路')
+    # station_site = fields.Char(string='站点')
     jobnumber = fields.Char(related='staff.jobnumber',string='工号')
     staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
     position = fields.Text(related='staff.position',string='职位')

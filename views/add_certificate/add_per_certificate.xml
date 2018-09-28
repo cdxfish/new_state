@@ -24,8 +24,8 @@
                 <tree create="0">
                     <!--<field name="id" string="序号"></field>-->
                     <field name="name"></field>
-                    <field name="line_road"></field>
-                    <field name="station_site"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <field name="person_name"></field>
                     <field name="work_number"></field>
                     <field name="phone"></field>
@@ -50,8 +50,8 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"></field>
-                    <field name="line_road"></field>
-                    <field name="station_site"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <field name="person_name"></field>
                     <field name="work_number"></field>
                     <field name="phone"></field>
@@ -79,22 +79,24 @@
                                 <div class="row">
                                    <div class="col-md-6">
                                       <div class="col-md-4">
-                                         <label for="line_road" string="线路:"/>
+                                         <label for="line_id" string="线路:"/>
                                          <!--<field name="line_road"/>-->
                                       </div>
                                          <div class="col-md-8">
                                          <!--<label for="line_road" string="线路"/>-->
-                                         <field name="line_road"/>
+                                         <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                                options="{'no_create':True,'no_open':True}"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
                                       <div class="col-md-4">
-                                         <label for="station_site" string="站点:"/>
+                                         <label for="site_id" string="站点:"/>
                                          <!--<field name="station_site"/>-->
                                       </div>
                                      <div class="col-md-8">
                                          <!--<label for="station_site" string="站点"/>-->
-                                         <field name="station_site"/>
+                                         <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                                options="{'no_create':True,'no_open':True}"/>
                                       </div>
                                    </div>
                                 </div>

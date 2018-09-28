@@ -6,11 +6,12 @@ import time
 import datetime
 class PersonSecond(models.Model):
     _name = 'person_management.person_second'
+    _inherit = 'fuenc_station.station_base'
 
     person_number = fields.Char(related='user_id.jobnumber',string="工号")
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='')
-    line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
-    station = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='车站')
+    # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
+    # station = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='车站')
     per_site = fields.Text(related='user_id.position',string='岗位')
     second_line = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='借调线路')
     second_station = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='借调车站')

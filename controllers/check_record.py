@@ -115,8 +115,8 @@ class CheckRecord(http.Controller):
                 else:
                     worksheet.write(row, 13, "")
                 row += 1
-        name = '考评记录' + str(int(round(time.time() * 1000))) + str(random.randint(1, 1000)) + '.xls'
-        file = path + 'check_record.xls'
+        name =  str(int(round(time.time() * 1000))) + str(random.randint(1, 1000)) + '.xls'
+        file = path + name
         print(file)
         wtbook.save(file)
         with open(file, 'rb') as f:
@@ -125,7 +125,7 @@ class CheckRecord(http.Controller):
         response.headers['Content-Type'] = 'application/vnd.ms-excel'
         response.headers["Content-Disposition"] = "attachment; filename={}". \
             format(name.encode().decode('latin-1'))
-        # os.remove(file)
+        os.remove(file)
         return response
         # os.remove(wtbook)
 

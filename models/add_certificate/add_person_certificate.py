@@ -3,10 +3,11 @@ from odoo import api,models,fields
 
 class AddPersonCertificate(models.Model):
     _name = 'person.certificate'
+    _inherit = 'fuenc_station.station_base'
 
     name = fields.Char(string='证件名称')
-    line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
-    station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
+    # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
+    # station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     person_name = fields.Char(string='姓名')
     work_number = fields.Char(string='工号')
     phone = fields.Integer(string='电话')

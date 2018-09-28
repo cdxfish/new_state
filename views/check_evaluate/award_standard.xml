@@ -17,18 +17,28 @@
             </field>
         </record>
 
-        <record model="ir.actions.server" id="award_standard_server_2">
+        <!--<record model="ir.actions.server" id="award_standard_server_2">-->
+            <!--<field name="name">模板下载</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_funenc_xa_station_award_standard"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">奖励标准</field>-->
+            <!--<field name="code">-->
+                <!--action = model.new_add_standard()-->
+            <!--</field>-->
+        <!--</record>-->
+
+           <record model="ir.actions.act_url" id="to_excel">
             <field name="name">模板下载</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
-            <field name="condition">True</field>
+            <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <!--<field name="binding_xml_id">advice_tree</field>-->
             <field name="binding_type">action_button</field>
-            <field name="binding_action">奖励标准</field>
-            <field name="code">
-                action = model.new_add_standard()
-            </field>
+            <field name="url">/funenc_xa_station/award_standard</field>
+            <field name="target">new</field>
         </record>
 
             <record model="ir.actions.server" id="award_standard_server_4">

@@ -32,9 +32,9 @@
                             <field name="meeting_theme"></field>
                             <field name="join_person"></field>
                             <field name="meeting_content"></field>
-                            <label for="picture_accessory" string="图片附件"/>
+                            <label for="load_file_test" string="图片附件"/>
                             <div class="x_panel form_sec">
-                                <field name="picture_accessory" widget="one2many_image_read_widget">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
                                     <tree>
                                         <field name="datas_fname"/>
                                     </tree>
@@ -158,10 +158,10 @@
                         <div class="row">
                            <div class="layui-col-sm12">
                               <div class="layui-col-sm2">
-                                  <label for="picture_accessory" string="照片："/>
+                                  <label for="load_file_test" string="照片："/>
                               </div>
                              <div class="layui-col-sm10">
-                                 <field name="picture_accessory" widget="one2many_image_read_widget">
+                                 <field name="load_file_test" widget="one2many_image_read_widget">
                                      <tree>
                                         <field name="datas_fname"/>
                                     </tree>
