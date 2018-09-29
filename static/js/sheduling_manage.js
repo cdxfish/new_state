@@ -29,7 +29,7 @@ odoo.define('funenc_xa_station_sheduling_manage', function (require) {
 
     start: function () {
       var self = this;
-      if (self.res_id === 'undefined'){
+      if (self.res_id == null){
          return
       }
       self._rpc({

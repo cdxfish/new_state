@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class KeyManage(models.Model):
 	_name = 'funenc.xa.station.key.manage'
 	_description = '钥匙管理'
+	_inherit = 'fuenc_station.station_base'
 
 	# key_detail_id = fields.Many2one('funenc.xa.station.key.detail', string='钥匙详情')
 	# line_id = fields.Many2one('train_line.train_line', string='线路')

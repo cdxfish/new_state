@@ -23,6 +23,8 @@
 						<div class="text-center ">
 							<h1> 基本信息 </h1>
 						</div>
+					   <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                       <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
 						<div class="text-center ">
 							<field name="essential_information_ids">
 								<tree editable="top" class="noOpen">

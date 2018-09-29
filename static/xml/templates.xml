@@ -38,6 +38,14 @@
         </div>
     </t>
 
+    <!--钥匙详情删除编辑-->
+    <t t-name="key_detail_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="key_detail_edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
+
     <!--班次删除编辑-->
     <t t-name="arrange_order_widget_edit_delete">
         <div class="layui-btn-group">

@@ -7,19 +7,20 @@ import odoo.exceptions as msg
 
 class BorrowRecord(models.Model):
     _name = 'funenc.xa.station.borrow.record'
+    _inherit = 'fuenc_station.station_base'
 
     key_no = fields.Many2one('funenc.xa.station.key.detail',string='钥匙编号')
-    line = fields.Many2one(related='key_no.line_id',string='线路')
+    # line = fields.Many2one(related='key_no.line_id',string='线路')
     type = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型',related='key_no.key_type_id')
-    station = fields.Many2one(related='key_no.ascription_site_id',string='归属站点')
+    # station = fields.Many2one(related='key_no.site_id',string='归属站点')
     name = fields.Char(related='key_no.name',string='钥匙名称')
     position = fields.Char(related='key_no.key_position',string='对应位置')
     borrow_time = fields.Datetime(string='借用时间')
-    borrow_operate_member = fields.Many2one('res.users',string='借用操作人')
-    borrow_member = fields.Many2one('res.users',string='借用人')
+    borrow_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用操作人')
+    borrow_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用人')
     return_time = fields.Datetime(string='归还时间')
-    return_operate_member = fields.Many2one('res.users',string='归还操作人')
-    return_member = fields.Many2one('res.users',
+    return_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='归还操作人')
+    return_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',
                                      string='归还人')
     state = fields.Selection(selection=[('yes','借出'),('no','归还')],default='yes',string='状态')
     del_ids = fields.Integer(string='删除id')

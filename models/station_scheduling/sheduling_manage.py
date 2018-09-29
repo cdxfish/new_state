@@ -148,7 +148,7 @@ class ShedulingManage(models.Model):
     @api.model
     def sheduling_start(self,res_id):
         '''
-         排班开始  生成排班管理
+         排班开始  生成排班记录
         :return:
         '''
         if not self:
@@ -273,9 +273,12 @@ class ShedulingManage(models.Model):
                         night_index = lens - 2
 
 
-        motorized_data = []  # 班组排班
+        motorized_data = []  # 机动人员排班
         motorized_user_ids = self.motorized_user_ids.read()
         motorized_ids = self.motorized_ids.read()
+
+        # motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users()
+        # set([motorized_user_id.get('id') for motorized_user_id in motorized_user_ids]) -
 
         for i, group_user_id in enumerate(motorized_user_ids):
 
@@ -345,6 +348,7 @@ class ShedulingManage(models.Model):
         #         night_index = night_index - 1
         #         if night_index == -1:
         #             night_index = lens - 2
+
         group_cols = [{'col': 'class_group_name', 'label': '班组名称'}, {'col': 'name', 'label': '人员名称'},
                       {'col': 'position', 'label': '岗位'}]
         motorized_cols = [{'col': 'name', 'label': '人员名称'}, {'col': 'position', 'label': '岗位'}]
@@ -355,8 +359,7 @@ class ShedulingManage(models.Model):
                + [group_cols,motorized_cols] + [group_data] + [motorized_data]
 
     def save(self):
-        # self.sheduling_start()
-        context = dict(self.env.context or {})
+
         return {
             'name': '排班管理',
             'type': 'ir.actions.client',
@@ -364,4 +367,10 @@ class ShedulingManage(models.Model):
             'tag': 'funenc_xa_station_sheduling_manage',
             'target': 'current'
         }
+
+
+# class ShedulingRecordr(models.Model):
+#     _name = 'funenc_xa_station.sheduling_record'
+#     _description = '排班记录'
+#     _inherit = 'fuenc_station.station_base'
 

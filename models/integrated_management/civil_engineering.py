@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class CivilEngineering(models.Model):
     _name = 'funenc_xa_station.civil_engineering'
     _description = u'土建结构'
+    _inherit = 'fuenc_station.station_base'
     # _rec_name = ''
 
     essential_information_ids = fields.One2many('funenc_xa_station.essential_information','civil_engineering_id',string='基本信息')

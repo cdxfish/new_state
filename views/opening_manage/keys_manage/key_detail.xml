@@ -9,12 +9,12 @@
 				<tree create="0" class="noOpen" limit="15">
 					<field name="key_no" string="钥匙编号"/>
 					<field name="key_type_id" string="钥匙类型"/>
-					<field name="ascription_site_id" string="归属站点"/>
+					<field name="site_id" string="归属站点"/>
 					<field name="name" string="钥匙名称"/>
 					<field name="key_position" string="对应位置"/>
 					<field name="is_main" string="主备情况"/>
 					<field name="state_now" string="当前状态"/>
-					<widget string="操作" name="treebtns" template="arrange_order_widget_edit_delete"/>
+					<widget string="操作" name="treebtns" template="key_detail_widget_edit_delete"/>
 				</tree>
 			</field>
 		</record>
@@ -26,9 +26,9 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="line_id" string="选择线路"/>
-							<field name="ascription_site_id" string="归属站点"/>
-							<field name="key_type_id" string="钥匙类型"/>
+							<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester" context="{'site_id':site_id}"/>
+							<field name="key_type_id" string="钥匙类型" domain="[('site_id','=', site_id)]"/>
 							<field name="key_no" string="钥匙编号" placeholder="多个编号之间换行"/>
 							<field name="name" string="钥匙名称"/>
 							<field name="key_position" string="对应位置"/>

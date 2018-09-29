@@ -107,6 +107,7 @@ odoo.define('key_statistic', function (require) {
                                                 res_model: 'funenc.xa.station.borrow.record',
                                                 views: [[self.key_views_ids['borrow_record_form'], 'form']],
                                                 target: 'new',
+                                                context: {'active_model': 'funenc.xa.station.borrow.record'}
                                             });
 
 

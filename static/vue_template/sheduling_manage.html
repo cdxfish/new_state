@@ -13,8 +13,12 @@
                 <h3>排班规则:{{ current_rule }}</h3>
             </el-row>
         </div>
-        <br/>
-        <h3>班组班表</h3>
+        <el-row>
+            <el-button type="primary" plain @click="create_key" style="float:right;">保存</el-button>
+            <el-button type="primary" plain @click="create_key" style="float:right;">编辑</el-button>
+            <h3>班组班表</h3>
+        </el-row>
+
         <template>
             <el-table :data="group_data" stripe style="width: 100%">
                 <el-table-column

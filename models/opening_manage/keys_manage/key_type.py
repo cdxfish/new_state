@@ -6,14 +6,11 @@ from odoo import models, fields, api
 class KeyType(models.Model):
 	_name = 'funenc.xa.station.key.type'
 	_rec_name = "name"
+	_inherit = 'fuenc_station.station_base'
 	
 	name = fields.Char(string='钥匙类型', required=True)
 	remarks = fields.Text(string='备注')
 
-	@api.multi
-	def write(self, vals):
-
-		return
 	
 	# 创建钥匙类型
 	@api.model

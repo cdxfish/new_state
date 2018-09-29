@@ -37,8 +37,8 @@ class fuenc_station(models.Model):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             if department.department_hierarchy == 3:
-                context = dict(self.env.context or {})
-                model = context.get('active_model').replace('.', '_')
+                model = self._table
+
                 site_id = self.env.user.dingtalk_user.departments[0].id
                 line_id = self.env.user.dingtalk_user.line_id.id
                 #   不用orm  因为会递归回调
