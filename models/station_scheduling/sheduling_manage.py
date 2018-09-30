@@ -369,8 +369,10 @@ class ShedulingManage(models.Model):
         }
 
 
-# class ShedulingRecordr(models.Model):
-#     _name = 'funenc_xa_station.sheduling_record'
-#     _description = '排班记录'
-#     _inherit = 'fuenc_station.station_base'
+class ShedulingRecordr(models.Model):
+    _name = 'funenc_xa_station.sheduling_record'
+    _description = '排班记录'
+    _inherit = 'fuenc_station.station_base'
+
+
 

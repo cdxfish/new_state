@@ -22,7 +22,7 @@ class KeyDetail(models.Model):
     remark = fields.Text(string='操作说明')
     # line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='选择线路', required=True)
     # ascription_site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='归属站点', required=True)
-    key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型')
+    key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型', required=True)
     key_no = fields.Text(string='钥匙编号', required=True)
     only_key_no = fields.Char(string='钥匙唯一编号')  # 自动生成 线路id+站点id+钥匙编号   用来验证钥匙是否重复
     key_position = fields.Char(string='对应位置')
@@ -36,6 +36,9 @@ class KeyDetail(models.Model):
     def create(self, vals):
         line_id = vals.get('line_id')
         site_id = vals.get('site_id')
+        is_main = vals.get('is_main')
+        key_type_id = vals.get('key_type_id')
+        key_position = vals.get('key_position') or ''
         only_key_no = 'line_site_'.format(line_id,site_id)
         name = vals.get('name')
         key_nos = vals.get('key_no', '').split('\n')
@@ -49,8 +52,12 @@ class KeyDetail(models.Model):
                 if k == -1:
                     k = i
                 else:
-                    inset_sql = "insert into  funenc_xa_station_key_detail(line_id,site_id,key_no,only_key_no,name) " \
-                                "values({},{},{},'{}','{}')".format(line_id,site_id,new_key_no,(only_key_no + new_key_no),name)
+                    inset_sql = "insert into  funenc_xa_station_key_detail(line_id,site_id,key_no,only_key_no,name," \
+                                "is_borrow,is_main,state_now,key_type_id,key_position) " \
+                                "values({},{},{},'{}','{}',{},'{}','{}',{},'{}')".format(line_id, site_id, new_key_no,
+                                                                                    (only_key_no + new_key_no),
+                                                                                    name, 2, is_main, 'normal',
+                                                                                    key_type_id,key_position)
                     self.env.cr.execute(inset_sql)
         if k == -1:
             raise msg.Warning('此编号已存在')

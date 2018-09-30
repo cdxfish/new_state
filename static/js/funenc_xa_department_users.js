@@ -66,7 +66,6 @@ odoo.define('funenc_xa_department_users', function (require) {
 
                     methods: {
 
-                       // 单击节点
                        click_node: function(data){
 
                                self._rpc({

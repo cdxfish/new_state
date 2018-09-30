@@ -57,7 +57,6 @@ odoo.define('funenc_xa_award', function (require) {
 
                     methods: {
 
-                           // 单击节点
                             search_time: function(){
 
                                 if (vue.datetime != '时间选择'){
