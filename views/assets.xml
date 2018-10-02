@@ -13,6 +13,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/check_record.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/award_record.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/sheduling_manage.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/reserver_money.js"/>
 
             </xpath>
         </template>

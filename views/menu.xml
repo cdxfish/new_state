@@ -323,7 +323,7 @@
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
 				  parent="funenc_station_integrated_management"></menuitem>
 
-        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件"
+        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_3" name="车站证件"
 				  parent="add_station_certificate_menu_parent"></menuitem>
 
 		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件"

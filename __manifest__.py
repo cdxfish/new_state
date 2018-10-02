@@ -68,6 +68,7 @@
 		'views/check_evaluate/award_standard_import.xml',
 		'views/check_evaluate/check_evaluate_import.xml',
 		'views/meeting_details/meet_details.xml',
+		'views/reserves_management/reserves_money.xml',
         'views/menu.xml',
 
 	
