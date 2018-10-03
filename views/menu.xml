@@ -109,9 +109,14 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.client" id="funenc_xa_station.xa_station_sheduling_manage_action">
-          <field name="name">排班管理</field>
-          <field name="tag">funenc_xa_station_sheduling_manage</field>
+		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
+          <field name="name">排班列表</field>
+          <field name="res_model">funenc_xa_station.sheduling_record</field>
+		  <field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">
+            </field>
         </record>
 
 		<!--<record model="ir.actions.act_window" id="xa_station_conflict_rule_action">-->
@@ -306,7 +311,7 @@
 
 		<menuitem id="xa_station_sheduling_manage" name="排班管理"
 				  parent="station_scheduling_list"
-				  action="xa_station_sheduling_manage_action"
+				  action="xa_station_sheduling_manage_1_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"

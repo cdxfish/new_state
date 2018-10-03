@@ -59,6 +59,7 @@
 		'views/station_scheduling/motorized_user.xml',
 		'views/station_scheduling/conflict_rule.xml',
 		'views/station_scheduling/sheduling_manage.xml',
+		'views/station_scheduling/sheduling_record.xml',
 		'views/check_evaluate/check_evaluate.xml',
 		'views/check_evaluate/award_standard.xml',
 		'views/check_evaluate/check_record.xml',
