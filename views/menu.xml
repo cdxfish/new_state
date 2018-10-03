@@ -374,6 +374,9 @@
 	  <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"
 				parent="funenc_station_production_management"></menuitem>
 
+	<menuitem id="reserves_management_act" name="车站备用金管理"
+				  action="reserver_money" parent="opening_manage"
+		/>
 
 
 
