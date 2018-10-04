@@ -9,6 +9,33 @@
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
             t-if="widget.record.data.audit_state == 'two_audit'"
             >通过审核</button>
+
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'"
+            >继续审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.state_now == 'two_audit'"
+            >驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
+                t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.state_now == 'two_audit' ||
+                widget.record.data.audit_state == 'rejected'"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
+            >查看详情</button>
+        </div>
+    </t>
+
+    <t t-name="guests_hurt_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >通过审核</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
             t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.state_now == 'two_audit'"
             >驳回</button>

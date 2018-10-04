@@ -16,6 +16,7 @@
                     <field name="claim_money"></field>
                     <field name="claim_state"></field>
                     <field name="audit_state"></field>
+                    <widget string="操作" name="treebtns" template="guests_hurt_button" />
                 </tree>
             </field>
         </record>
@@ -24,19 +25,21 @@
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="id" string="序号"></field>
-                    <field name="line_id"></field>
-                    <field name="site_id"></field>
-                    <field name="open_time"></field>
-                    <field name="write_person"></field>
-                    <field name="guests_name"></field>
-                    <field name="write_time"></field>
-                    <field name="claim"></field>
-                    <field name="claim_money"></field>
-                    <field name="claim_state"></field>
-                    <field name="audit_state"></field>
-                </tree>
+                <form>
+                    <sheet>
+                        <field name="id" string="序号"></field>
+                        <field name="line_id"></field>
+                        <field name="site_id"></field>
+                        <field name="open_time"></field>
+                        <field name="write_person"></field>
+                        <field name="guests_name"></field>
+                        <field name="write_time"></field>
+                        <field name="claim"></field>
+                        <field name="claim_money"></field>
+                        <field name="claim_state"></field>
+                        <field name="audit_state"></field>
+                    </sheet>
+                </form>
             </field>
         </record>
 

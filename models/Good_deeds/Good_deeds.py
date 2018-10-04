@@ -47,8 +47,30 @@ class GoodDeeds(models.Model):
         self.audit_state = self.env.context.get('audit_state', 'rejected')
         self.env['fuenc_station.good_deeds'].write(values)
 
+    def test_btn_rejected(self):
+        values = {
+            'audit_state': self.audit_state,
+        }
+        self.audit_state = self.env.context.get('audit_state', 'one_audit')
+        self.env['fuenc_station.good_deeds'].write(values)
+
     def good_delete(self):
         self.env['fuenc_station.good_deeds'].search([('id','=',self.id)]).unlink()
+
+    def good_deedes_onchange(self):
+        view_form = self.env.ref('funenc_xa_station.good_deeds_state').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'fuenc_station.good_deeds',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': self.id,
+            'target': 'new',
+        }
 
     def good_details_button(self):
         view_form = self.env.ref('funenc_xa_station.good_deeds_state').id
