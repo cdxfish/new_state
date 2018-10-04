@@ -388,7 +388,13 @@
 	  <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"
 				parent="funenc_station_production_management"></menuitem>
 
+	<menuitem id="reserves_management_act" name="车站备用金管理"
+				  action="reserver_money" parent="opening_manage"
+		/>
 
+	<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act" parent="opening_manage"></menuitem>
 
 
 

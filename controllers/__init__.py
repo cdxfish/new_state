@@ -8,3 +8,4 @@ from . import award_collect
 from . import check_evaluate_excel
 from . import award_standard
 from . import reserves_import
+from . import good_deeds_excel

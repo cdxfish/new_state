@@ -6,9 +6,9 @@
           <field name="tag">reserver_money</field>
         </record>
 
-        <menuitem id="reserves_management_act" name="车站备用金管理"
-				  action="reserver_money"
-		/>
+        <!--<menuitem id="reserves_management_act" name="车站备用金管理"-->
+				  <!--action="reserver_money" parent="opening_manage"-->
+		<!--/>-->
 
         <record id="reserves_money" model="ir.ui.view">
             <field name="name">车站备用金管理</field>

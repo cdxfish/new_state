@@ -71,6 +71,8 @@
 		'views/check_evaluate/check_evaluate_import.xml',
 		'views/meeting_details/meet_details.xml',
 		'views/reserves_management/reserves_money.xml',
+		'views/Good_deeds/Good_deeds.xml',
+		'views/Good_deeds/guests_hurt.xml',
         'views/menu.xml',
 
 	
@@ -90,6 +92,7 @@
         'static/xml/person_info_management.xml',
         'static/xml/check_evaluate.xml',
         'static/xml/meeting_dateils.xml',
+        'static/xml/good_deeds_button.xml',
 	],
 	'installable': True,
 	'auto_install': False,
