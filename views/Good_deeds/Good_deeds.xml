@@ -1,0 +1,266 @@
+<odoo>
+    <data>
+    ﻿   <record model="ir.actions.act_url" id="good_deeds_url">
+            <field name="name">导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="binding_xml_id">good_deeds_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/good_deeds</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="good_deeds_tree" model='ir.ui.view'>
+            <field name="name">好人好事</field>
+            <field name="model">fuenc_station.good_deeds</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" string="序号"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="type"></field>
+                    <field name="open_time"></field>
+                    <field name="write_person"></field>
+                    <field name="write_time"></field>
+                    <field name="audit_state"></field>
+                    <widget string="操作" name="treebtns" template="good_deeds_button" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="good_deeds_from">
+            <field name="name">好人好事</field>
+            <field name="model">fuenc_station.good_deeds</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="line_id" string="线路"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="line_id"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="site_id" string="站点"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="site_id"/>
+                              </div>
+                           </div>
+                        </div>
+
+                            <div class="row">
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="open_time" string="发生时间"/>
+                                  </div>
+                                 <div class="col-md-8">
+                                     <field name="open_time"/>
+                                  </div>
+                               </div>
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="open_site" string="发生地点"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="open_site"/>
+                                  </div>
+                               </div>
+                            </div>
+
+                            <div class="row">
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="type" string="事件类型"/>
+                                  </div>
+                                 <div class="col-md-8">
+                                     <field name="type"/>
+                                  </div>
+                               </div>
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="related_person" string="相关人员"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="related_person"/>
+                                  </div>
+                               </div>
+                            </div>
+
+                           <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="event_state" string="事件详情"/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="event_state"/>
+                                  </div>
+                               </div>
+                            </div>
+
+                           <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="load_file_test" string="图片附件"/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="load_file_test"/>
+                                  </div>
+                               </div>
+                            </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="good_deeds_state" model="ir.ui.view">
+            <field name="name">好人好事详情</field>
+            <field name="model">fuenc_station.good_deeds</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <div class="container-fluid">
+                        <h1>基本信息</h1>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="line_id" string="线路"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="line_id"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="site_id" string="站点"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="site_id"/>
+                              </div>
+                           </div>
+                        </div>
+
+                       <div class="row">
+                           <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="open_time" string="发生时间"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="open_time"/>
+                              </div>
+                           </div>
+
+                             <div class="col-md-3">
+                                  <div class="col-md-6">
+                                     <label for="write_time" string="填报时间"/>
+                                  </div>
+                                     <div class="col-md-6">
+                                         <field name="write_time"/>
+                                  </div>
+                               </div>
+
+                           <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="write_time" string="填报人"/>
+                              </div>
+                                 <div class="col-md-6">
+                                     <field name="write_time"/>
+                              </div>
+                           </div>
+
+                              <div class="col-md-3">
+                                  <div class="col-md-6">
+                                     <label for="audit_state" string="审核状态"/>
+                                  </div>
+                                     <div class="col-md-6">
+                                         <field name="audit_state"/>
+                                  </div>
+                               </div>
+
+                           </div>
+
+                           <div class="row">
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="open_time" string="事件类型"/>
+                                  </div>
+                                 <div class="col-md-8">
+                                     <field name="open_time"/>
+                                  </div>
+                               </div>
+                               <div class="col-md-6">
+                                  <div class="col-md-4">
+                                     <label for="open_site" string="发生地点"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="open_site"/>
+                                  </div>
+                               </div>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="related_person" string="相关人员"/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="related_person"/>
+                                  </div>
+                           </div>
+                         </div>
+
+                          <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="event_state" string="事件详情"/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="event_state"/>
+                                  </div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="related_person" string="审核流程"/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="related_person"/>
+                                </div>
+                             </div>
+                         </div>
+                          <h1>附件类容</h1>
+
+                          <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="load_file_test" string="照片："/>
+                                  </div>
+                                 <div class="col-md-10">
+                                     <field name="load_file_test"/>
+                                </div>
+                             </div>
+                         </div>
+
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="good_deeds_act" model="ir.actions.act_window">
+			<field name="name">好人好事</field>
+			<field name="res_model">fuenc_station.good_deeds</field>
+			<field name="view_mode">tree,form</field>
+            <field name="ref_view">good_deeds_tree</field>
+
+		</record>
+
+        <menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>
+    </data>
+</odoo>

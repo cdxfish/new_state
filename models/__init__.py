@@ -11,3 +11,4 @@ from . import station_scheduling
 from . import check_evaluate
 from . import meeting_details
 from . import reserves_management
+from . import Good_deeds

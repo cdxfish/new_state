@@ -378,6 +378,9 @@
 				  action="reserver_money" parent="opening_manage"
 		/>
 
+	<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act" parent="opening_manage"></menuitem>
 
 
 
