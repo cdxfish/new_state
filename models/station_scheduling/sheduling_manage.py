@@ -378,11 +378,12 @@ class ShedulingManage(models.Model):
         '''
         # if not self:
         #     self = self.search([('id', '=', res_id)])
-        res_user = self.env.user
-        if res_user.id == 1:
-            return
+        # res_user = self.env.user
+        # if res_user.id == 1:
+        #     return
 
-        site_id = self.env.user.dingtalk_user.departments[0].id
+        # site_id = self.env.user.dingtalk_user.departments[0].id
+        site_id = self.site_id.id
         conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
                                                                                        'enable'),
@@ -393,8 +394,8 @@ class ShedulingManage(models.Model):
         rest_day = conflict_rule_dics[1].get('save_conflict_rule')  # 每人连续休息时间 <= d
         night_shift = conflict_rule_dics[2].get('save_conflict_rule')  # 第二天必须排休  1d
 
-        ding_user = res_user.dingtalk_user
-        show_position = ding_user.line_name + '-' + ding_user.departments[0].name
+        # ding_user = res_user.dingtalk_user
+        show_position = self.line_id.name + '-' + self.site_id.name
         show_sheduling_time = self.show_sheduling_time
         show_arrange_order_name = self.show_arrange_order_name
         current_rule = self.current_rule
@@ -587,6 +588,7 @@ class ShedulingRecordr(models.Model):
     _name = 'funenc_xa_station.sheduling_record'
     _description = '排班记录'
     _inherit = 'fuenc_station.station_base'
+    _order = 'id asc'
 
     class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
