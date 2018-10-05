@@ -119,7 +119,6 @@ class arrange_order(models.Model):
         }
 
     def arrange_order_delete(self):
-        # 还差在使用不能删除的判断
         sel_sql = "select * from arrange_class_manage_arrange_order_1_ref where arrange_order_id= {}".format(self.id)
         self.env.cr.execute(sel_sql)
         select_ids = self.env.cr.dictfetchall()

@@ -61,6 +61,8 @@
 		'views/station_scheduling/sheduling_manage.xml',
 		'views/station_scheduling/sheduling_record.xml',
 		'views/check_attendance/leave.xml',
+		'views/check_attendance/change_shifts.xml',
+		'views/check_attendance/clock_record.xml',
 		'views/check_evaluate/check_evaluate.xml',
 		'views/check_evaluate/award_standard.xml',
 		'views/check_evaluate/check_record.xml',
@@ -73,6 +75,7 @@
 		'views/reserves_management/reserves_money.xml',
 		'views/Good_deeds/Good_deeds.xml',
 		'views/Good_deeds/guests_hurt.xml',
+		'views/index.xml',
         'views/menu.xml',
 
 	
