@@ -1,4 +1,6 @@
 from odoo import models, fields, api
+import odoo.exceptions as msg
+import datetime
 
 class ChangeShifts(models.Model):
     _name = 'funenc_xa_station.change_shifts'
@@ -13,10 +15,68 @@ class ChangeShifts(models.Model):
     change_shifts_group = fields.Many2one('funenc_xa_station.arrange_order',string='换班班次')
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='换班对象')
     change_shifts_jobnumber = fields.Char(related='change_shifts_user_id.jobnumber', string="工号")
-    is_agree = fields.Selection(selection=[('yes','是'),('no','否')],string='是否同意')
+    is_agree = fields.Selection(selection=[('yes','是'),('no','否')],string='换班对象是否同意',default='no')
     agree_time = fields.Datetime(string='同意时间')
-    is_approve = fields.Selection(selection=[('yes','是'),('no','否')],string='是否审批')
+    is_approve = fields.Selection(selection=[('yes','是'),('no','否')],string='是否审批',default='no')
     approve_time = fields.Datetime(string='审批时间')
+
+    state = fields.Selection([('draft','草稿'),
+                              ('application','申请'),
+                              ('agree', '本人同意'),
+                              ('site_agree', '站长同意')
+                              ],default='draft')
+
+    def apply(self):
+        if not self.application_user_id:
+            raise msg.Warning('申请人必填')
+        if not self.application_time:
+            raise msg.Warning('申请时间必填')
+        if not self.change_shifts_time:
+            raise msg.Warning('换班时间必填')
+        if not self.change_shifts_group:
+            raise msg.Warning('换班班次必填')
+        if not self.change_shifts_user_id:
+            raise msg.Warning('换班对象')
+
+        self.state = 'application'
+
+    def agree(self):
+        if not self.application_user_id:
+            raise msg.Warning('申请人必填')
+        if not self.application_time:
+            raise msg.Warning('申请时间必填')
+        if not self.change_shifts_time:
+            raise msg.Warning('换班时间必填')
+        if not self.change_shifts_group:
+            raise msg.Warning('换班班次必填')
+        if not self.change_shifts_user_id:
+            raise msg.Warning('换班对象')
+        self.is_agree = 'yes'
+        self.agree_time = datetime.datetime.now()
+        self.state = 'agree'
+
+    def site_agree(self):
+        if not self.application_user_id:
+            raise msg.Warning('申请人必填')
+        if not self.application_time:
+            raise msg.Warning('申请时间必填')
+        if not self.change_shifts_time:
+            raise msg.Warning('换班时间必填')
+        if not self.change_shifts_group:
+            raise msg.Warning('换班班次必填')
+        if not self.change_shifts_user_id:
+            raise msg.Warning('换班对象')
+        self.approve_time = datetime.datetime.now()
+        self.is_approve = 'yes'
+        self.state = 'site_agree'
+
+    def retreat(self):
+
+        self.is_agree = 'no'
+        self.agree_time = None
+        self.approve_time = None
+        self.is_approve = 'no'
+        self.state = 'draft'
 
 
 class ChangeShiftsTime(models.Model):
