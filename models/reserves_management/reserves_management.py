@@ -66,3 +66,10 @@ class ReserverManagement(models.Model):
         lol = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy','=',3)],['id','name'])
         print(lol)
         return lol
+
+    @api.model
+    def search_site(self,date):
+        print("ooooooooooooooooooooooooooo",date)
+        return  [{
+            'id':'123'
+        },{'name':'1234'}]

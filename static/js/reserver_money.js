@@ -71,16 +71,38 @@ odoo.define('reserver_money', function (require) {
                                 line:'',
                                 site:'',
                                 lines: self.user_line,
-                                sites: self.user_site,
+                                sites: '',
 
                        };
                     },
 
                     methods: {
 
-                            currentSel: function(){
-                             alert(1)
-                            },
+//                            currentSel: function(){
+//                                 return{
+//                                 sites: self.user_site,
+//                                 };
+//                            },
+
+                            search_line_data: function(lis){
+                                let obj = {};
+                                obj = this.lines.find((item)=>{
+                                    return item.id === lis;
+                                });
+                                alert(obj)
+                                if (vue.lines != ''){
+                                self._rpc({
+                                           model: 'funenc_xa_station.reserver_management',
+                                           method:'search_site',
+                                           kwargs: {date: vue.lines}
+                                                }).then(function(data){
+                                                      vue.sites =data;
+                                                    });
+
+                                                 };
+
+                              },
+
 
                            // 单击节点
                             add_record: function(){
@@ -97,7 +119,6 @@ odoo.define('reserver_money', function (require) {
                               },
 //                          修改数据
                             onchange_data: function(index, row){
-                                    alert(row['id'])
                                     self.do_action({
                                                 type: 'ir.actions.act_window',
                                                 res_model: 'funenc_xa_station.reserver_management',

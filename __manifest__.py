@@ -73,6 +73,7 @@
 		'views/reserves_management/reserves_money.xml',
 		'views/Good_deeds/Good_deeds.xml',
 		'views/Good_deeds/guests_hurt.xml',
+		'views/Good_deeds/suggestion_box.xml',
         'views/menu.xml',
 
 	
