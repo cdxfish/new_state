@@ -15,6 +15,7 @@
                     <field name="webmaster" string="站长"></field>
                     <field name="write_time" string="填报时间"></field>
                     <field name="deal_result" string="处理结果"></field>
+                    <widget string="操作" name="treebtns" template="special_money_button" />
                 </tree>
             </field>
         </record>
@@ -24,20 +25,324 @@
             <field name="model">funenc_xa_station.special_money</field>
             <field name="arch" type="xml">
                 <form>
-                    <sheet>
-                        <group>
-                            <field name="id" string="序号"></field>
-                            <field name="line_id" string="线路"></field>
-                            <field name="site_id" string="站点"></field>
-                            <field name="open_time" string="发生时间"></field>
-                            <field name="event_type" string="事件类型"></field>
-                            <field name="involving_money" string="涉及金额"></field>
-                            <field name="passengers_name" string="乘客姓名"></field>
-                            <field name="webmaster" string="站长"></field>
-                            <field name="write_time" string="填报时间"></field>
-                            <field name="deal_result" string="处理结果"></field>
-                        </group>
-                    </sheet>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="open_site" string="发生地点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="open_site"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="involving_money" string="涉及金额"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="involving_money"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="event_type" string="事件类型"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="event_type"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="involving_money" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="involving_money"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="event_type" string="乘客电话"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="event_type"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="passengers_ID" string="乘客生份证"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="passengers_ID"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="webmaster" string="站长"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="webmaster"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="deputy_director" string="分部主任"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="deputy_director"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="main_director" string="部门领导"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="main_director"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="时间详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="survey_situation" string="时间详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="survey_situation"/>
+                          </div>
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="special_money_details" model="ir.ui.view">
+            <field name="name">特殊储备金</field>
+            <field name="model">funenc_xa_station.special_money</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h1>基本信息</h1>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_time" string="填报时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_person" string="填报人"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_person"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="deal_result" string="审核状态"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="deal_result"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="event_type" string="事件类型"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="event_type"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="open_site" string="发生地点"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="open_site"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="involving_money" string="涉及金额"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="involving_money"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="webmaster" string="站长"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="webmaster"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="passengers_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="passengers_name"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="passengers_phone" string="乘客电话"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="passengers_phone"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="deputy_director" string="分部主任"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="deputy_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="main_director" string="部门领导"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="main_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="passengers_ID" string="乘客生份证:"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="passengers_ID"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="事件详情:"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="survey_situation" string="调查情况:"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="survey_situation"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="audit_flow" string="审核流程:"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="audit_flow"/>
+                          </div>
+                       </div>
+                    </div>
+                    <h1>处理结果</h1>
                 </form>
             </field>
         </record>

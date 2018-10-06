@@ -13,7 +13,7 @@ class GoodDeeds(models.Model):
     _inherit = 'fuenc_station.station_base'
 
 
-    type = fields.Char(string='类型')
+    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
     open_time = fields.Datetime(string='发生时间')
     open_site =fields.Char(string='发生地点')
     related_person =fields.Char(string='相关人员')

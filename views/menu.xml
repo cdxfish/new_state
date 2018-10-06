@@ -468,6 +468,8 @@
 
 	<menuitem id="special_money_menu" name="特殊储备金" action="special_money_act" parent="opening_manage"></menuitem>
 
+	<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="opening_manage"></menuitem>
+
 
 
 
