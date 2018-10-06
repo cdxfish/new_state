@@ -1,5 +1,30 @@
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="guests_hurt_button">
+            <field name="name">新建</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">乘客意见箱</field>
+            <field name="code">
+                action = model.create_guests_action()
+            </field>
+        </record>
+
+    <!--﻿   <record model="ir.actions.act_url" id="guests_hurt_url">-->
+            <!--<field name="name">导出</field>-->
+            <!--<field name="type">ir.actions.act_url</field>-->
+            <!--<field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>-->
+            <!--<field name="binding_xml_id">suggestion_box_tree</field>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="url">/funenc_xa_station/suggestion_box</field>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
+
         <record id="guests_hurt_tree" model="ir.ui.view">
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
@@ -26,23 +51,272 @@
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
                 <form>
-                   <div class="col-md-8">
-                       <div class="col-md-8">
-                          <div class="field-margin">
-                             <label for="user_name" string="姓名"/>
-                             <field name="user_name"/>
+                    <h1>基本信息</h1>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id"/>
                           </div>
                        </div>
-                       <div class="col-md-4">
-                          <div class="field-margin">
-                             <label for="user_name" string="姓名"/>
-                             <field name="user_name"/>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id"/>
                           </div>
                        </div>
-                   </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_time" string="填报时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_time"/>
+                          </div>
+                       </div>
+
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_person" string="填报人"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_person"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="audit_state" string="审核状态"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="audit_state"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim" string="是否索赔"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim_money" string="索赔金额"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim_money"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim_state" string="索赔状态"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim_state"/>
+                          </div>
+                       </div>
+                    </div>
+
+                     <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_name"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_grede" string="乘客性别"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_grede"/>
+                          </div>
+                       </div>
+
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_age" string="乘客年龄"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_age"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="事件详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="audit_flow" string="审核流程"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="audit_flow"/>
+                          </div>
+                       </div>
+                    </div>
+                    <h1>附件内容</h1>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="照片："/>
+                          </div>
+                         <div class="col-md-11">
+                            <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
                 </form>
             </field>
         </record>
+
+            <record id="guests_hurt_details" model="ir.ui.view">
+            <field name="name">客伤</field>
+            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="site_id"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="open_site" string="发生地点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="open_site"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="claim_state" string="是否索赔"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="claim_state"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="claim_money" string="索赔金额"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="claim_money"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_name"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_grede" string="乘客性别"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_grede"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_age" string="乘客年龄"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_age"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="照片："/>
+                          </div>
+                         <div class="col-md-11">
+                            <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+            </record>
 
 
 		<record id="guests_hurt_act" model="ir.actions.act_window">

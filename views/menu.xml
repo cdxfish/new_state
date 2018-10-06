@@ -464,6 +464,10 @@
 
 	<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act" parent="opening_manage"></menuitem>
 
+	<menuitem id="suggestion_box_mune" name="乘客意见箱" action="suggestion_box_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="special_money_menu" name="特殊储备金" action="special_money_act" parent="opening_manage"></menuitem>
+
 
 
 

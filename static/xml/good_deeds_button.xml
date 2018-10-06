@@ -69,7 +69,7 @@
             <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
             confirm="您确定要删除该钥匙吗？"
             >删除</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
+            <button class="layui-btn layui-btn-sm" type="object" name="guests_details_action"
             >查看详情</button>
         </div>
     </t>

@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="special_money_tree" model="ir.ui.view">
+            <field name="name">特殊储备金</field>
+            <field name="model">funenc_xa_station.special_money</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" string="序号"></field>
+                    <field name="line_id" string="线路"></field>
+                    <field name="site_id" string="站点"></field>
+                    <field name="open_time" string="发生时间"></field>
+                    <field name="event_type" string="事件类型"></field>
+                    <field name="involving_money" string="涉及金额"></field>
+                    <field name="passengers_name" string="乘客姓名"></field>
+                    <field name="webmaster" string="站长"></field>
+                    <field name="write_time" string="填报时间"></field>
+                    <field name="deal_result" string="处理结果"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="special_money_form" model="ir.ui.view">
+            <field name="name">特殊储备金</field>
+            <field name="model">funenc_xa_station.special_money</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="id" string="序号"></field>
+                            <field name="line_id" string="线路"></field>
+                            <field name="site_id" string="站点"></field>
+                            <field name="open_time" string="发生时间"></field>
+                            <field name="event_type" string="事件类型"></field>
+                            <field name="involving_money" string="涉及金额"></field>
+                            <field name="passengers_name" string="乘客姓名"></field>
+                            <field name="webmaster" string="站长"></field>
+                            <field name="write_time" string="填报时间"></field>
+                            <field name="deal_result" string="处理结果"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="special_money_act" model="ir.actions.act_window">
+            <field name="name">特殊储备金</field>
+            <field name="res_model">funenc_xa_station.special_money</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="special_money_menu" name="特殊储备金" action="special_money_act"></menuitem>-->
+    </data>
+</odoo>
