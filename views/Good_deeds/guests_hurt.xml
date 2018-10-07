@@ -202,7 +202,7 @@
                        </div>
                     </div>
                     <h1>更近记录</h1>
-                     <widget string="操作" name="treebtns" template="add_guests_button_act" />
+                     <!--<widget string="操作" name="treebtns" template="add_guests_button_act" />-->
                     <field name="one_associated">
                         <tree edit="1">
                             <field name="id" string="序号"></field>
@@ -243,7 +243,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id"/>
+                             <field name="site_id" readonly="1 "/>
                           </div>
                        </div>
                     </div>

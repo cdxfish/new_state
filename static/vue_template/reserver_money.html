@@ -3,12 +3,12 @@
 	 <el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<template>
-			  <el-select v-model="line" placeholder="线路" @change="search_line_data">
+			  <el-select v-model="linei" placeholder="线路" @change="search_line_data">
 				<el-option
 				  v-for="item in lines"
 				  :key="item.id"
 				  :label="item.name"
-				  :value="item.line"
+				  :value="item.name"
 				>
 				</el-option>
 			  </el-select>

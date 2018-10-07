@@ -68,7 +68,7 @@ odoo.define('reserver_money', function (require) {
                     data() {
                        return {
                                 tableData:self.user_data,
-                                line:'',
+                                linei:'',
                                 site:'',
                                 lines: self.user_line,
                                 sites: '',
@@ -84,17 +84,13 @@ odoo.define('reserver_money', function (require) {
 //                                 };
 //                            },
 
-                            search_line_data: function(lis){
-                                let obj = {};
-                                obj = this.lines.find((item)=>{
-                                    return item.id === lis;
-                                });
-                                alert(obj)
+                            search_line_data: function(line_value){
+
                                 if (vue.lines != ''){
                                 self._rpc({
                                            model: 'funenc_xa_station.reserver_management',
                                            method:'search_site',
-                                           kwargs: {date: vue.lines}
+                                           kwargs: {date: line_value}
                                                 }).then(function(data){
                                                       vue.sites =data;
                                                     });
