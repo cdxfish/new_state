@@ -79,6 +79,9 @@
 		'views/Good_deeds/special_money.xml',
 		'views/Good_deeds/Good_deeds_type.xml',
 		'views/Good_deeds/add_guests_hurt.xml',
+		'views/consumables_manage/consumables_type.xml',
+		'views/consumables_manage/store_house.xml',
+		'views/consumables_manage/consumables_warehousing.xml',
 		'views/index.xml',
         'views/menu.xml',
 
