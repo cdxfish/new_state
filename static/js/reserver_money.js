@@ -99,6 +99,21 @@ odoo.define('reserver_money', function (require) {
 
                               },
 
+                              search_site_data: function(site_value){
+
+                                if (vue.lines != ''){
+                                self._rpc({
+                                           model: 'funenc_xa_station.reserver_management',
+                                           method:'search_record',
+                                           kwargs: {date: site_value}
+                                                }).then(function(data){
+                                                      vue.tableData =data;
+                                                    });
+
+                                                 };
+
+                              },
+
 
                            // 单击节点
                             add_record: function(){

@@ -17,8 +17,8 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_id"></field>
-                            <field name="site_id"></field>
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]"></field>
+                            <field name="site_id" domain="[('department_hierarchy','=',3)]"></field>
                             <field name="r_date"></field>
                             <field name="day_money"></field>
                             <field name="traffic_money"></field>

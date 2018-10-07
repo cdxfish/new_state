@@ -34,9 +34,6 @@ class ReserverManagement(models.Model):
     @api.model
     def reserver_money_method(self):
         lol = self.env['funenc_xa_station.reserver_management'].search_read([])
-        for i in lol:
-            print(i)
-        print(lol)
         return lol
 
 
@@ -57,19 +54,24 @@ class ReserverManagement(models.Model):
     @api.model
     def add_count_line(self):
         lol = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy','=',2)],['id','name'])
-        print(lol)
         return lol
 
     @api.model
     def add_count_site(self):
-        lis = []
         lol = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy','=',3)],['id','name'])
-        print(lol)
         return lol
 
     @api.model
     def search_site(self,date):
-        print("ooooooooooooooooooooooooooo",date)
-        return  [{
-            'id':'123'
-        },{'name':'1234'}]
+        site_parent = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('id','=',date)],['departmentId'])
+        site_son = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('parentid','=',site_parent[0]['departmentId'])],['name'])
+        # site = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('parentid','=',site_son[1]['departmentId'])],['name'])
+
+
+        return site_son
+
+    @api.model
+
+    def search_record(self,date):
+        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',date)])
+        return lol

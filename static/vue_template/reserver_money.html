@@ -8,18 +8,18 @@
 				  v-for="item in lines"
 				  :key="item.id"
 				  :label="item.name"
-				  :value="item.name"
+				  :value="item.id"
 				>
 				</el-option>
 			  </el-select>
 			</template>
 			<template>
-			  <el-select v-model="site" placeholder="站点">
+			  <el-select v-model="site" placeholder="站点" @change="search_site_data">
 				<el-option
 				  v-for="item in sites"
 				  :key="item.id"
 				  :label="item.name"
-				  :value="item.site">
+				  :value="item.id">
 				</el-option>
 			  </el-select>
 			</template>
