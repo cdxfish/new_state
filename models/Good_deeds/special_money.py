@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api,models,fields
+from datetime import datetime
+
+
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
        ('through','已通过'),
@@ -25,7 +28,7 @@ class SpecialMoney(models.Model):
     webmaster = fields.Char(string='站长')
     deputy_director = fields.Char(string='分部主任')
     main_director = fields.Char(string='部门领导')
-    write_time = fields.Datetime(string='填报时间')
+    write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-$m-%d'))
     write_person = fields.Datetime(string='填报人')
     audit_flow = fields.Char(string='审核流程')
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
@@ -43,6 +46,52 @@ class SpecialMoney(models.Model):
             'res_model': 'funenc_xa_station.special_money',
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
+            'res_id': self.id,
+            'target': 'new',
+        }
+
+    def test_btn_two_audit(self):
+        values = {
+            'deal_result': self.deal_result,
+        }
+        self.deal_result = self.env.context.get('deal_result', 'two_audit')
+        self.env['funenc_xa_station.special_money'].write(values)
+
+    def test_btn_through(self):
+        values = {
+            'deal_result': self.deal_result,
+        }
+        self.deal_result = self.env.context.get('deal_result', 'through')
+        self.env['funenc_xa_station.special_money'].write(values)
+
+    def good_rejected(self):
+        values = {
+            'deal_result': self.deal_result,
+        }
+        self.deal_result = self.env.context.get('deal_result', 'rejected')
+        self.env['funenc_xa_station.special_money'].write(values)
+
+    def test_btn_rejected(self):
+        values = {
+            'deal_result': self.deal_result,
+        }
+        self.deal_result = self.env.context.get('deal_result', 'one_audit')
+        self.env['funenc_xa_station.special_money'].write(values)
+
+    def good_delete(self):
+        self.env['funenc_xa_station.special_money'].search([('id', '=', self.id)]).unlink()
+
+    def onchange_button_action(self):
+        view_form = self.env.ref('funenc_xa_station.special_money_form').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.special_money',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
             'target': 'new',
         }

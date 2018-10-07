@@ -78,6 +78,7 @@
 		'views/Good_deeds/guests_hurt.xml',
 		'views/Good_deeds/special_money.xml',
 		'views/Good_deeds/Good_deeds_type.xml',
+		'views/Good_deeds/add_guests_hurt.xml',
 		'views/index.xml',
         'views/menu.xml',
 

@@ -10,3 +10,6 @@ from . import award_standard
 from . import reserves_import
 from . import good_deeds_excel
 from . import suggestion_box_excel
+from . import guests_hurt_excel
+from . import special_money_excel
+from . import special_money_word

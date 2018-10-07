@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api,models,fields
+from datetime import datetime
+
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -17,7 +19,7 @@ class SuggestionBox(models.Model):
     suggestion_title = fields.Char(string='意见标题')
     suggestion_details = fields.Text(string='意见详情')
     write_person = fields.Char(string='填报人')
-    write_time = fields.Date(string='填报时间')
+    write_time = fields.Date(string='填报时间',default=datetime.now().strftime("%Y-%m-%d"))
     passengers_name = fields.Char(string='乘客姓名')
     audit_state = fields.Selection(key,string='审核状态', default='one_audit')
     event_type = fields.Char(string='事件类别')
@@ -61,8 +63,15 @@ class SuggestionBox(models.Model):
     def good_delete(self):
         self.env['funenc_xa_station.suggestion_box'].search([('id', '=', self.id)]).unlink()
 
-    def good_deedes_onchange(self):
-        view_form = self.env.ref('funenc_xa_station.good_deeds_state').id
+    def test_btn_rejected(self):
+        values = {
+            'audit_state': self.audit_state,
+        }
+        self.audit_state = self.env.context.get('audit_state', 'one_audit')
+        self.env['funenc_xa_station.suggestion_box'].write(values)
+
+    def onchange_button_action(self):
+        view_form = self.env.ref('funenc_xa_station.suggestion_box_form').id
         return {
             'name': '意见箱',
             'type': 'ir.actions.act_window',
@@ -76,7 +85,7 @@ class SuggestionBox(models.Model):
             'target': 'new',
         }
 
-    def good_details_button(self):
+    def guests_details_action(self):
         view_form = self.env.ref('funenc_xa_station.suggestion_box_act_details').id
         return {
             'name': '意见箱',

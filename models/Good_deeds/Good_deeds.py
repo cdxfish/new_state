@@ -16,7 +16,8 @@ class GoodDeeds(models.Model):
     type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
     open_time = fields.Datetime(string='发生时间')
     open_site =fields.Char(string='发生地点')
-    related_person =fields.Char(string='相关人员')
+    related_person =fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='相关人员')
+    # related_person =fields.One2many('fuenc_station.good_deeds','fu_related_person',string='相关人员')
     write_person = fields.Char(string='填报人')
     write_time = fields.Date(string='填报时间')
     audit_state = fields.Selection(key,string='审核状态',default='one_audit')
@@ -57,8 +58,8 @@ class GoodDeeds(models.Model):
     def good_delete(self):
         self.env['fuenc_station.good_deeds'].search([('id','=',self.id)]).unlink()
 
-    def good_deedes_onchange(self):
-        view_form = self.env.ref('funenc_xa_station.good_deeds_state').id
+    def onchange_button_action(self):
+        view_form = self.env.ref('funenc_xa_station.good_deeds_from').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',

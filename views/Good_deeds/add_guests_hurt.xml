@@ -1,35 +1,35 @@
 <odoo>
     <data>
 
-        <record model="ir.actions.server" id="guests_hurt_button">
-            <field name="name">新建</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_fuenc_xa_station_guests_hurt"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
-            <field name="binding_type">action_button</field>
-            <field name="binding_action">乘客意见箱</field>
-            <field name="code">
-                action = model.create_guests_action()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="guests_hurt_button">-->
+            <!--<field name="name">新建</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_fuenc_xa_station_guests_hurt"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">乘客意见箱</field>-->
+            <!--<field name="code">-->
+                <!--action = model.create_guests_action()-->
+            <!--</field>-->
+        <!--</record>-->
 
-    ﻿   <record model="ir.actions.act_url" id="guests_hurt_url">
-            <field name="name">导出</field>
-            <field name="type">ir.actions.act_url</field>
-            <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
-            <field name="binding_xml_id">guests_hurt_tree</field>
-            <field name="binding_type">action_button</field>
-            <field name="url">/funenc_xa_station/guests_hurt</field>
-            <field name="target">new</field>
-        </record>
+    <!--﻿   <record model="ir.actions.act_url" id="guests_hurt_url">-->
+            <!--<field name="name">导出</field>-->
+            <!--<field name="type">ir.actions.act_url</field>-->
+            <!--<field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>-->
+            <!--<field name="binding_xml_id">suggestion_box_tree</field>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="url">/funenc_xa_station/suggestion_box</field>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
 
-        <record id="guests_hurt_tree" model="ir.ui.view">
+        <record id="add_guests_hurt_tree" model="ir.ui.view">
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <tree create="0" class="'noOpen">
+                <tree>
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>
@@ -46,9 +46,9 @@
             </field>
         </record>
 
-        <record id="guests_hurt_details" model="ir.ui.view">
+        <record id="add_guests_hurt_form" model="ir.ui.view">
             <field name="name">客伤</field>
-            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="model">fuenc_xa_station.add_guests_hurt</field>
             <field name="arch" type="xml">
                 <form>
                     <h1>基本信息</h1>
@@ -201,31 +201,13 @@
                           </div>
                        </div>
                     </div>
-                    <h1>更近记录</h1>
-                     <widget string="操作" name="treebtns" template="add_guests_button_act" />
-                    <field name="one_associated">
-                        <tree edit="1">
-                            <field name="id" string="序号"></field>
-                            <field name="line_id"></field>
-                            <field name="site_id"></field>
-                            <field name="open_time"></field>
-                            <field name="write_person"></field>
-                            <field name="guests_name"></field>
-                            <field name="write_time"></field>
-                            <field name="claim"></field>
-                            <field name="claim_money"></field>
-                            <field name="claim_state"></field>
-                            <field name="audit_state"></field>
-                            <widget string="操作" name="treebtns" template="guests_hurt_button" />
-                        </tree>
-                    </field>
                 </form>
             </field>
         </record>
 
-            <record id="guests_hurt_form" model="ir.ui.view">
+            <record id="add_guests_hurt_details" model="ir.ui.view">
             <field name="name">客伤</field>
-            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="model">fuenc_xa_station.add_guests_hurt</field>
             <field name="arch" type="xml">
                 <form>
 
@@ -331,16 +313,11 @@
                        </div>
                     </div>
 
+
+
                 </form>
             </field>
             </record>
-
-
-		<record id="guests_hurt_act" model="ir.actions.act_window">
-			<field name="name">客伤</field>
-			<field name="res_model">fuenc_xa_station.guests_hurt</field>
-			<field name="view_mode">tree,form</field>
-		</record>
 
         <!--<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act"></menuitem>-->
     </data>

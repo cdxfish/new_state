@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-    ﻿   <record model="ir.actions.act_url" id="good_deeds_url">
+    ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
