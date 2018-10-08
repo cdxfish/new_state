@@ -134,6 +134,23 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="xa_station_consumables_type_action">
+          <field name="name">耗材类型设置</field>
+          <field name="res_model">funenc_xa_station.consumables_type</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_consumables_warehousing_action">
+          <field name="name">耗材入库</field>
+          <field name="res_model">funenc_xa_station.consumables_warehousing</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_store_house_action">
+          <field name="name">仓库设置</field>
+          <field name="res_model">funenc_xa_station.store_house</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
 
 		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
 			<field name="name">换班时间间隔设置</field>
@@ -394,6 +411,25 @@
 		<menuitem id="xa_station_change_shifts_time_1" name="换班时间间隔"
 				  parent="funenc_xa_station_check_attendance"
 				  action="xa_station_change_shifts_time_action"
+		/>
+
+
+		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
+				  parent="funenc_station_integrated_management"
+		/>
+
+		<menuitem id="xa_station_consumables_type_1" name="耗材类型设置"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_type_action"
+		/>
+
+		<menuitem id="xa_station_store_house_1" name="仓库设置"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_store_house_action"
+		/>
+		<menuitem id="xa_station_consumables_warehousing_1" name="耗材入库"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_warehousing_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"

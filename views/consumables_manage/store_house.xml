@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+        <record model="ir.ui.view" id="funenc_xa_station_store_house_list">
+			<field name="name">funenc_xa_station_store_house_list</field>
+			<field name="model">funenc_xa_station.store_house</field>
+			<field name="arch" type="xml">
+				<tree limit="15">
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
+                           groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
+                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
+                           groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
+                    <field name="name" string="仓库名称"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_store_house_form">
+			<field name="name">funenc_xa_station_store_house_form</field>
+			<field name="model">funenc_xa_station.store_house</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
+                                   groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
+                                   groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
+                            <field name="name" string="仓库名称"/>
+                        </group>
+					</div>
+				</form>
+			</field>
+		</record>
+    </data>
+</odoo>
