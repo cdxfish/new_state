@@ -8,7 +8,7 @@ class ReserverManagement(models.Model):
     _inherit = 'fuenc_station.station_base'
 
     r_date = fields.Date(string='日期')
-    day_money = fields.Char(string='日常备用金配备金额（1）')
+    day_money = fields.Integer(string='日常备用金配备金额（1）')
     traffic_money = fields.Integer(string='交银行兑零纸币(2)')
     bank_Paper = fields.Integer(string='银行返兑零纸币(3)')
     bank_COINS = fields.Integer(string='银行返兑零硬币(4)')
@@ -21,20 +21,23 @@ class ReserverManagement(models.Model):
     Foreign_currency = fields.Integer(string='外币(11)')
     less_money = fields.Integer(string='少币(12)')
     subtotal = fields.Integer(string='小计(13)')
+    fu_subtotal = fields.Integer(string='小计(13)')
     more_money = fields.Integer(string='多币')
     return_money = fields.Integer(string='返还金额(14)')
-    return_money_date = fields.Integer(string='返还所属日期')
+    return_money_date = fields.Datetime(string='返还所属日期')
     bank_return_money = fields.Integer(string='返还金额')
     bank_return_date = fields.Datetime(string='返还所属日期')
     day_day_standby = fields.Integer(string='当日备用金额(15)')
+    fu_day_day_standby = fields.Integer(string='当日备用金额(15)')
     day_day_standby_subtraction = fields.Integer(string='当日备用金差额(16)')
+    fu_day_day_standby_subtraction = fields.Integer(string='当日备用金差额(16)')
     note = fields.Text(string='备注')
     Person_charge_account = fields.Char(string='记账人')
 
     @api.model
     def reserver_money_method(self):
-        lol = self.env['funenc_xa_station.reserver_management'].search_read([])
-        return lol
+        # lol = self.env['funenc_xa_station.reserver_management'].search_read([])
+        return
 
 
     def test_btn_start(self):
@@ -47,9 +50,46 @@ class ReserverManagement(models.Model):
             'flags': {'initial_mode': 'readonly'},
         }
 
-    @api.depends('','','','','','')
-    def add_count(self):
-        pass
+    @api.onchange('machine_money','counterfeit','imperfect_money','Foreign_currency','less_money')
+    def add_count_01(self):
+        for data in self:
+            data.subtotal = data.machine_money + data.counterfeit + data.imperfect_money + data.Foreign_currency \
+                            + data.less_money
+
+
+    @api.constrains('machine_money','counterfeit','imperfect_money','Foreign_currency','less_money')
+    def add_count_011(self):
+        for data in self:
+            data.fu_subtotal = data.machine_money + data.counterfeit + data.imperfect_money + data.Foreign_currency \
+                           + data.less_money
+
+    @api.onchange('day_money','traffic_money','bank_Paper','bank_COINS','day_standby_money','temporary_standby_money',
+                  'financial_temporary_money','subtotal','return_money',)
+    def add_count_02(self):
+        for data in self:
+            data.day_day_standby = data.day_money - data.traffic_money + data.bank_Paper + data.bank_COINS \
+                                   + data.day_standby_money + data.temporary_standby_money \
+                                   - data.financial_temporary_money - data.subtotal + data.return_money
+
+    @api.constrains('day_money','traffic_money','bank_Paper','bank_COINS','day_standby_money','temporary_standby_money',
+                  'financial_temporary_money','subtotal','return_money',)
+    def add_count_022(self):
+        for data in self:
+            data.fu_day_day_standby = data.day_money - data.traffic_money + data.bank_Paper + data.bank_COINS \
+                                   + data.day_standby_money + data.temporary_standby_money \
+                                   - data.financial_temporary_money - data.subtotal + data.return_money
+
+    @api.onchange('traffic_money','bank_Paper','bank_COINS','subtotal','return_money')
+    def add_count_03(self):
+        for data in self:
+            data.day_day_standby_subtraction = data.traffic_money - data.bank_Paper - data.bank_COINS + data.subtotal \
+                                               - data.return_money
+
+    @api.constrains('traffic_money','bank_Paper','bank_COINS','subtotal','return_money')
+    def add_count_033(self):
+        for data in self:
+            data.fu_day_day_standby_subtraction = data.traffic_money - data.bank_Paper - data.bank_COINS + data.subtotal \
+                                               - data.return_money
 
     @api.model
     def add_count_line(self):

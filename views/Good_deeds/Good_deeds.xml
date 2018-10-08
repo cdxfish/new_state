@@ -86,7 +86,11 @@
                                      <label for="related_person" string="相关人员"/>
                                   </div>
                                      <div class="col-md-8">
-                                         <field name="related_person"/>
+                                         <field name="related_person" widget="many2many_tags">
+                                             <tree>
+                                                 <field name="name" ></field>
+                                             </tree>
+                                         </field>
                                   </div>
                                </div>
                             </div>
@@ -211,7 +215,11 @@
                                      <label for="related_person" string="相关人员"/>
                                   </div>
                                  <div class="col-md-10">
-                                     <field name="related_person"/>
+                                     <field name="related_person" widget="many2many_tags">
+                                          <tree>
+                                             <field name="name"></field>
+                                         </tree>
+                                     </field>
                                   </div>
                            </div>
                          </div>
@@ -229,10 +237,10 @@
                             <div class="row">
                                <div class="col-md-12">
                                   <div class="col-md-2">
-                                     <label for="related_person" string="审核流程"/>
+                                     <label for="audit_flow" string="审核流程"/>
                                   </div>
                                  <div class="col-md-10">
-                                     <field name="related_person"/>
+                                     <field name="audit_flow"/>
                                 </div>
                              </div>
                          </div>

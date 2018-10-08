@@ -16,7 +16,7 @@ class GoodDeeds(models.Model):
     type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
     open_time = fields.Datetime(string='发生时间')
     open_site =fields.Char(string='发生地点')
-    related_person =fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='相关人员')
+    related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员')
     # related_person =fields.One2many('fuenc_station.good_deeds','fu_related_person',string='相关人员')
     write_person = fields.Char(string='填报人')
     write_time = fields.Date(string='填报时间')
@@ -24,6 +24,7 @@ class GoodDeeds(models.Model):
     event_state = fields.Text(string='事件详情')
     load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
+    audit_flow = fields.Char(string='审核流程')
 
 
 
