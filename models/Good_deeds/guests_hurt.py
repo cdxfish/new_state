@@ -80,7 +80,7 @@ class GuestsHurt(models.Model):
         }
 
     def create_guests_action(self):
-        view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
