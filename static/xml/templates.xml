@@ -106,4 +106,22 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
         </div>
     </t>
+
+    <!--钥匙类型删除编辑-->
+    <t t-name="consumables_type_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
+
+    <!--耗材申请删除编辑-->
+
+
+    <t t-name="delivery_storage_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
 </templates>

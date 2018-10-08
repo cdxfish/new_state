@@ -2,17 +2,32 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="create_consumables_type_button">
+			<field name="name">创建耗材类型</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_consumables_type"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_consumables_type"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">耗材类型设置</field>
+			<field name="code">
+				action = model.create_consumables_type()
+			</field>
+		</record>
+
         <record model="ir.ui.view" id="funenc_xa_station_consumables_type_list">
 			<field name="name">funenc_xa_station_consumables_type_list</field>
 			<field name="model">funenc_xa_station.consumables_type</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
-                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
-                           groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
-                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
-                           groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
+				<tree limit="15" create="0" class="noOpen">
+                    <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"-->
+                           <!--groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
+                    <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"-->
+                           <!--groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="prent_id" string="父耗材分类"/>
+					<widget string="操作" name="treebtns" template="consumables_type_widget_edit_delete"/>
                 </tree>
 			</field>
 		</record>
@@ -24,10 +39,10 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
-                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}" context="{'site_id':site_id}"/>
+                            <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
+                            <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}" context="{'site_id':site_id}"/>-->
 						    <field name="consumables_type" string="耗材类型" />
-                            <field name="prent_id" string="父耗材分类" domain="[('site_id','=',site_id)]"/>
+                            <field name="prent_id" string="父耗材分类" domain="[('id','!=',context.get('self_id'))]"/>
                         </group>
 					</div>
 				</form>

@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-	<data>
+    <data>
 
         <record model="ir.ui.view" id="funenc_xa_station_consumables_warehousing_list">
-			<field name="name">funenc_xa_station_consumables_warehousing_list</field>
-			<field name="model">funenc_xa_station.consumables_warehousing</field>
-			<field name="arch" type="xml">
-				<tree limit="15">
-                    <field name="line_id" string="线路" />
-                            <field name="site_id" string="站点" />
-						    <field name="consumables_type_id" string="耗材名称" />
-                            <field name="store_house_id" string="库房名称" />
-                            <field name="warehousing_parent" string="采购来源" />
-                            <field name="warehousing_line_id" string="采购线路" />
-                            <field name="warehousing_line_id" string="采购站点" />
+            <field name="name">funenc_xa_station_consumables_warehousing_list</field>
+            <field name="model">funenc_xa_station.consumables_warehousing</field>
+            <field name="arch" type="xml">
+                <tree limit="15" >
+                    <field name="consumables_type_id" string="耗材名称"/>
+                    <field name="store_house_id" string="库房名称"/>
+                    <field name="warehousing_parent" string="采购来源"/>
+                    <field name="warehousing_department_id" string="采购部门"
+                           attrs="{'invisible':[('warehousing_parent','!=','purchase')]}"/>
                 </tree>
-			</field>
-		</record>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="funenc_xa_station_consumables_warehousing_form">
-			<field name="name">funenc_xa_station_consumables_warehousing_form</field>
-			<field name="model">funenc_xa_station.consumables_warehousing</field>
-			<field name="arch" type="xml">
-				<form>
-					<div class="container-fluid">
-						<group>
-                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>
-                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}" context="{'site_id':site_id}"/>
-						    <field name="consumables_type_id" string="耗材名称" domain="[('site_id','=',site_id)]"/>
-                            <field name="store_house_id" string="库房名称" domain="[('site_id','=',site_id)]"/>
-                            <field name="warehousing_parent" string="采购来源" domain="[('site_id','=',site_id)]"/>
-                            <field name="warehousing_line_id" string="采购线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True}" contex="{'line_id':line_id}" attrs="{'required':[('warehousing_parent','=','purchase')]}"/>
-                            <field name="warehousing_line_id" string="采购站点" domain="[('parentid','=',line_id.departmentId)]" options="{'no_create':True}" attrs="{'required':[('warehousing_parent','=','purchase')]}"/>
+            <field name="name">funenc_xa_station_consumables_warehousing_form</field>
+            <field name="model">funenc_xa_station.consumables_warehousing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <!--attrs="{'readonly':[('is_admin','!=',1)]}"-->
+                            <field name="consumables_department_id" string="站点"
+                                   groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"
+                                   context="{'consumables_department_id':consumables_department_id}"/>
+                            <field name="consumables_type_id" string="耗材类型"/>
+                            <field name="store_house_id" string="库房名称"
+                                   domain="[('store_house_department_id','=',consumables_department_id)]"/>
+                            <field name="warehousing_count" string="入库数量"/>
+                            <field name="warehousing_parent" string="采购来源"/>
+                            <field name="warehousing_department_id" string="采购部门" options="{'no_create':True}"
+                                   attrs="{'required':[('warehousing_parent','=','purchase')],'invisible':[('warehousing_parent','!=','purchase')]}"/>
 
                         </group>
-					</div>
-				</form>
-			</field>
-		</record>
+                    </div>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>
