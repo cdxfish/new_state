@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="prude_newpaper_type_server">
+			<field name="name">生产日报类型设置</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_prude_newpaper_type"/>
+			<field name="code">
+				action = model.fixed_model()
+			</field>
+		</record>
+
+        <record id="prude_newpaper_type_tree" model="ir.ui.view">
+            <field name="name">生产日报类型设置</field>
+            <field name="model">funenc_xa_station.prude_newpaper_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="prude_event_type"></field>
+                    <field name="note"></field>
+                    <widget name="treebtns" template="prude_newpaper_type_action"
+                            attrs="{'invisible':['|',('prude_event_type', '=','边门进出情况')
+                            ,'|',('prude_event_type', '=','票务、AFC故障及异常情况')
+                            ,'|',('prude_event_type', '=','日票、预制单程票售卖情况')
+                            ,'|',('prude_event_type', '=','其他设备故障情况')]}"
+                            string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="prude_newpaper_type_form" model="ir.ui.view">
+            <field name="name">生产日报类型设置</field>
+            <field name="model">funenc_xa_station.prude_newpaper_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="prude_event_type"></field>
+                            <field name="note"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="prude_newpaper_type_act" model="ir.actions.act_window">
+            <field name="name">生产日报类型设置</field>
+            <field name="res_model">funenc_xa_station.prude_newpaper_type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>
