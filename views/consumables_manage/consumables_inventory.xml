@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--<record model="ir.actions.server" id="create_consumables_inventory_button">-->
+        <!--<field name="name">创建耗材申请</field>-->
+        <!--<field name="state">code</field>-->
+        <!--<field name="type">ir.actions.server</field>-->
+        <!--<field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>-->
+        <!--<field name="condition">True</field>-->
+        <!--<field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>-->
+        <!--<field name="binding_type">action_button</field>-->
+        <!--<field name="binding_action">耗材申请</field>-->
+        <!--<field name="code">-->
+        <!--action = model.create_consumables_inventory()-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.ui.view" id="funenc_xa_station_consumables_inventory_list">
+            <field name="name">funenc_xa_station_consumables_inventory_list</field>
+            <field name="model">funenc_xa_station.consumables_inventory</field>
+            <field name="arch" type="xml">
+                <tree limit="15">
+                    <field name="inventory_department_id" string="库存部门"/>
+                    <field name="consumables_type" string="耗材类型"/>
+                    <field name="store_house" string="库房位置"/>
+                    <field name="inventory_count" string="库存数量"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_consumables_inventory_form">
+            <field name="name">funenc_xa_station_consumables_inventory_form</field>
+            <field name="model">funenc_xa_station.consumables_inventory</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <field name="inventory_department_id" string="库存部门"/>
+                        <field name="consumables_type" string="耗材类型"/>
+                        <field name="store_house" string="库房位置"/>
+                        <field name="inventory_count" string="库存数量"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

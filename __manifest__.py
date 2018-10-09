@@ -86,7 +86,11 @@
 		'views/prude_newspaper/prude_newspaper_type.xml',
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
+<<<<<<< HEAD
+		'views/consumables_manage/consumables_inventory.xml',
+=======
 
+>>>>>>> 41c20f6e81820bd3fb7ebb2fa5c809d9d493287e
 		'views/index.xml',
         'views/menu.xml',
 

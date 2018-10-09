@@ -163,6 +163,12 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="xa_station_consumables_inventory_action">
+          <field name="name">耗材库存</field>
+          <field name="res_model">funenc_xa_station.consumables_inventory</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
 		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
 			<field name="name">换班时间间隔设置</field>
 			<field name ="state">code</field>
@@ -450,6 +456,10 @@
 		<menuitem id="xa_station_delivery_storage_1" name="耗材出库"
 				  parent="funenc_xa_station_consumables_manage"
 				  action="xa_station_consumables_delivery_storage"
+		/>
+		<menuitem id="xa_station_consumables_inventory_1" name="耗材库存"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_inventory_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
