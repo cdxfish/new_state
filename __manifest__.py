@@ -82,13 +82,11 @@
 		'views/consumables_manage/consumables_type.xml',
 		'views/consumables_manage/store_house.xml',
 		'views/consumables_manage/consumables_warehousing.xml',
-<<<<<<< HEAD
 		'views/prude_newspaper/prude_newspaper.xml',
 		'views/prude_newspaper/prude_newspaper_type.xml',
-=======
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
->>>>>>> e684607134afae2ebd0e8ed35891bdd05c89ac2a
+
 		'views/index.xml',
         'views/menu.xml',
 
