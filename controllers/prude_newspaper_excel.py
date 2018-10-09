@@ -8,6 +8,7 @@ from odoo import http
 from odoo.http import request
 import logging
 import base64
+import datetime
 
 APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -43,7 +44,10 @@ class CheckRecord(http.Controller):
                 else:
                     worksheet.write(row, 3, "")
                 if record.open_time:
-                    worksheet.write(row, 4, record.open_time)
+                    d = datetime.datetime.strptime(record.open_time, '%Y-%m-%d %H:%M:%S')
+                    delta = datetime.timedelta(hours=8)
+                    open_time = d +delta
+                    worksheet.write(row, 4,open_time.strftime('%Y-%m-%d %H:%M:%S'))
                 else:
                     worksheet.write(row, 4, "")
                 if record.write_time:
