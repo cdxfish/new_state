@@ -84,6 +84,7 @@
 		'views/consumables_manage/consumables_warehousing.xml',
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
+		'views/consumables_manage/consumables_inventory.xml',
 		'views/index.xml',
         'views/menu.xml',
 

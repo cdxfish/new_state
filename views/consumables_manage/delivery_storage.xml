@@ -21,9 +21,10 @@
             <field name="model">funenc_xa_station.delivery_storage</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen">
-                    <field name="department_id" string="部门"/>
+                    <field name="delivery_storage_department" string="申请部门"/>
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="consumables_count" string="出库数量"/>
+                    <field name="is_delivery" invisible="1" />
                     <widget string="操作" name="treebtns" template="delivery_storage_widget_edit_delete"/>
                 </tree>
             </field>
@@ -36,13 +37,22 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="department_id" string="部门"/>
-                            <field name="consumables_type" string="耗材类型"/>
-                            <field name="consumables_count" string="出库数量"/>
+                            <field name="delivery_storage_department" string="申请部门" readonly="1"/>
+
+                            <field name="consumables_type" string="耗材类型" readonly="1" context="{'consumables_type':consumables_type}"/>
+                            <field name="consumables_count" string="出库数量" readonly="1"/>
+                            <field name="store_house_ids" >
+                                <tree editable="top" class="noOpen">
+                                    <field name="consumables_inventory_id" string="库房选择" domain="[('consumables_type','=',consumables_type)]"/>
+                                    <field name="inventory_count" string="库存数量" readonly="1"/>
+                                    <field name="consumables_type" />
+                                    <field name="sel_inventory_count" string="选择出库数量"/>
+                                </tree>
+                            </field>
                         </group>
                         <footer>
                             <button name='delivery_storage_save'
-                                    string='确定'
+                                    string='确定出库'
                                     class='btn-primary'
                                     type='object'/>
                             <button string='取消'
