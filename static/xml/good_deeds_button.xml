@@ -103,6 +103,9 @@
             >删除</button>
             <button class="layui-btn layui-btn-sm" type="object" name="special_details_action"
             >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="print_refund_form"
+            t-if="widget.record.data.deal_result == 'through'"
+            >打印退款单</button>
         </div>
     </t>
 

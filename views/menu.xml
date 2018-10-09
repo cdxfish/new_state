@@ -506,6 +506,12 @@
 
 	<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="opening_manage"></menuitem>
 
+	<menuitem id="prude_newspaper_menu" name="生产日报" action="prude_newspaper_act" parent="opening_manage"></menuitem>
+
+    <menuitem id="prude_newpaper_type_menu" name="生产事件类型设置" action="prude_newpaper_type_server"
+              parent="opening_manage"></menuitem>
+
+
 
 
 

@@ -13,3 +13,4 @@ from . import suggestion_box_excel
 from . import guests_hurt_excel
 from . import special_money_excel
 from . import special_money_word
+from . import prude_newspaper_excel

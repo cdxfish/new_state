@@ -82,6 +82,8 @@
 		'views/consumables_manage/consumables_type.xml',
 		'views/consumables_manage/store_house.xml',
 		'views/consumables_manage/consumables_warehousing.xml',
+		'views/prude_newspaper/prude_newspaper.xml',
+		'views/prude_newspaper/prude_newspaper_type.xml',
 		'views/index.xml',
         'views/menu.xml',
 
@@ -103,6 +105,7 @@
         'static/xml/check_evaluate.xml',
         'static/xml/meeting_dateils.xml',
 		'static/xml/good_deeds_button.xml',
+		'static/xml/prude_newpaper.xml',
 	],
 	'installable': True,
 	'auto_install': False,

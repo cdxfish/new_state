@@ -95,3 +95,10 @@ class SpecialMoney(models.Model):
             'res_id': self.id,
             'target': 'new',
         }
+
+    def print_refund_form(self):
+        return {
+            "type": "ir.actions.act_url",
+            "url": '/funenc_xa_station/special_excel_word',
+            "target": "new",
+        }
