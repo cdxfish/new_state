@@ -383,6 +383,7 @@ class ShedulingManage(models.Model):
         #     return
 
         # site_id = self.env.user.dingtalk_user.departments[0].id
+        line_id = self.line_id.id
         site_id = self.site_id.id
         conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
@@ -434,7 +435,9 @@ class ShedulingManage(models.Model):
                 continuous_rest_time = 0  # 连续休息时长
                 next_work_time = 0  # 下次工作日期范围
                 for j, time_day in enumerate(time_days):
-                    data = []  #  班组   (user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
+                    data = []  #  班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
+                    data.append(line_id)
+                    data.append(site_id)
                     data.append(group_user_id.get('id'))
                     data.append(class_group_id.id)
                     data.append(time_day.strftime('%Y-%m-%d'))
@@ -514,10 +517,12 @@ class ShedulingManage(models.Model):
             continuous_rest_time = 0  # 连续休息时长
             next_work_time = 0  # 下次工作日期范围
             for j, time_day in enumerate(time_days):
-                data_2 = []  # (user_id,sheduling_date,order_type,work_time,arrange_order_id)
+                data_2 = []  # (line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)
+                data_2.append(line_id)
+                data_2.append(site_id)
                 data_2.append( group_user_id.get('id'))
                 data_2.append( time_day.strftime('%Y-%m-%d'))
-                data_2.append('order_group')
+                data_2.append('motorized_group')
                 data_2.append(arrange_order_ids[0].get('save_work_time', 0))
                 if j == 0:
                     data_2.append(  motorized_ids[0].get('id'))
@@ -566,11 +571,11 @@ class ShedulingManage(models.Model):
                                 break
                 motorized_data.append(tuple(data_2))
         if str(group_data)[1:-1]:
-            insert_sql = "insert into funenc_xa_station_sheduling_record(user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
                          "values{}".format(str(group_data)[1:-1])
             self.env.cr.execute(insert_sql)
         if str(motorized_data)[1:-1]:
-            insert_sql = "insert into funenc_xa_station_sheduling_record(user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
                          "values{}".format(str(motorized_data)[1:-1])
             self.env.cr.execute(insert_sql)
 
@@ -593,7 +598,7 @@ class ShedulingRecordr(models.Model):
     class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
     sheduling_date = fields.Datetime(string='排班时间')
-    order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')])
+    order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')],string='班组类型')
     work_time = fields.Integer(string='工作时长') # 工作时长
 
     #####

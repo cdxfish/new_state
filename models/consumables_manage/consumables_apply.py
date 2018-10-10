@@ -1,7 +1,6 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
-
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_apply'
     _description = u'耗材申请'

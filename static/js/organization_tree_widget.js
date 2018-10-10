@@ -45,6 +45,7 @@ odoo.define("organization_tree", function (require) {
         resetOnAnyFieldChange: true,
 
         init: function (parent, name, record, options) {
+            console.log(options)
             this._super.apply(this, arguments);
             this.res_ids = record.data[name].res_ids
             this.operations = [];
