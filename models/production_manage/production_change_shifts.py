@@ -26,7 +26,7 @@ class production_change_shifts(models.Model):
 
     # 行车值班员
     in_the_rough = fields.Text(string='未完成')
-
+    #  <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
 
     @api.model
     def create_production_change_shifts(self):

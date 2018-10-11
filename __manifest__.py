@@ -88,6 +88,7 @@
 		'views/consumables_manage/delivery_storage.xml',
 		'views/consumables_manage/consumables_inventory.xml',
 		'views/production_manage/production_change_shifts.xml',
+		'views/production_manage/change_shifts_setting.xml',
 		'views/index.xml',
         'views/menu.xml',
 

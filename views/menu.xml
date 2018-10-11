@@ -175,6 +175,27 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="xa_station_station_master_action">
+          <field name="name">值班站长</field>
+          <field name="res_model">funenc_xa_station.station_master</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+<!--car_line-->
+		<record model="ir.actions.act_window" id="xa_station_passenger_transport_action">
+          <field name="name">客运值班员</field>
+          <field name="res_model">funenc_xa_station.passenger_transport</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<!--<record model="ir.actions.server" id="xa_station_station_master_action">-->
+			<!--<field name="name">值班站长</field>-->
+			<!--<field name ="state">code</field>-->
+			<!--<field name="model_id" ref="model_funenc_xa_station_station_master"/>-->
+			<!--<field name="code">-->
+				<!--action = model.init()-->
+			<!--</field>-->
+		<!--</record>-->
+
 		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
 			<field name="name">换班时间间隔设置</field>
 			<field name ="state">code</field>
@@ -474,6 +495,25 @@
 		<menuitem id="xa_station_consumables_inventory_1" name="交接班"
 				  parent="xa_station_production_manage_1"
 				  action="xa_station_production_change_shifts_action"
+		/>
+
+		<menuitem id="xa_station_change_shifts_setting_1" name="交接班设置"
+				  parent="xa_station_production_manage_1"
+		/>
+
+		<menuitem id="xa_station_station_master_1" name="值班站长"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_master_action"
+		/>
+
+		<!--<menuitem id="xa_station_station_master_1" name="行车值班员"-->
+				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--action="xa_station_train_working_action"-->
+		<!--/>-->
+
+		<menuitem id="xa_station_station_master_1" name="行车值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_passenger_transport_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
