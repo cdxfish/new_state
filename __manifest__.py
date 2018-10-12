@@ -89,12 +89,12 @@
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
 		'views/consumables_manage/consumables_inventory.xml',
-<<<<<<< HEAD
+
 		'views/break_logo/break_logo_management.xml',
-=======
+
 		'views/production_manage/production_change_shifts.xml',
 		'views/production_manage/change_shifts_setting.xml',
->>>>>>> b1adc69f56e09fd8ec03d7579e12774c57e89c4a
+
 		'views/index.xml',
         'views/menu.xml',
 
