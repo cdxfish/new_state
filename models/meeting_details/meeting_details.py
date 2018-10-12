@@ -21,6 +21,7 @@ class MeetingDateils(models.Model):
     load_file_test = fields.Many2many('ir.attachment','funenc_xa_station_meeting_dateils_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
     files_accessory = fields.One2many('ir.attachment','res_id', string='文件附件')
+    shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
     def meet_dateils_button(self):
         view_form = self.env.ref('funenc_xa_station.meeting_details_details').id

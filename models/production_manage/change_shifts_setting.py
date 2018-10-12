@@ -12,6 +12,7 @@ from odoo import models, fields, api
 class preparedness(models.Model):
     _name = 'funenc_xa_station.preparedness'
     _description = u'备品'
+    _rec_name = 'preparedness_name'
 
     KEY=[('station_master','站长'),
          ('train_working','行车'),
@@ -79,6 +80,8 @@ class station_master(models.Model):
     _description = u'预设值班站长'
 
     preparedness_ids = fields.One2many('funenc_xa_station.preparedness','station_master_id',string='备品交接')
+
+    station_master_to_shifts_ids = fields.One2many('funenc_xa_station.station_master_to_production_change_shifts','station_master_id',string='交接班')
 
     @api.model
     def create(self, vals):

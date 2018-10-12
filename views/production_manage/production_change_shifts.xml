@@ -90,15 +90,45 @@
                             </div>
                         </sheet>
                         <sheet>
-                            <group string="工作情况">
-                                    <field name="before_on_duty" string="班前情况"/>
-                                    <field name="complete_task" string="工作完成情况"/>
-                                    <field name="after_work" string="班后总结"/>
+                             <group string="安全预想">
+                                    <field name="anticipation_security" string=""/>
                             </group>
-                        </sheet>
-                        <sheet>
-                            <group string="交接重点">
-                                <field name="focus_of_handover"/>
+                            <group string="班前提问">
+                                <field name="put_question_ids" string="" >
+                                    <tree editable="top" class="noOpen">
+                                        <field name="put_question_name" string="提问姓名" />
+                                        <field name="put_question_name" string="题目" />
+                                        <field name="put_question_name" string="得分" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="会议记录">
+                                <field name="meeting_ids" string="" >
+                                    <tree editable="top" class="noOpen">
+                                        <field name="start_meet" string="会议时间" />
+                                        <field name="meeting_site" string="会议地点" />
+                                        <field name="compere" string="主持人" />
+                                        <field name="join_person" string="参会人员" />
+                                        <field name="meeting_content" string="会议内容" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="备品交接">
+                                <field name="master_to_production_change_ids" string="" >
+                                    <tree editable="top" class="noOpen">
+                                        <field name="station_master_id" string="备品名称" />
+                                        <field name="unit" string="单位" />
+                                        <field name="count" string="数量" />
+                                        <field name="state" string="状态" />
+                                        <field name="remarks" string="备注" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="班中工">
+                                <field name="complete_task" string="当前工作完成情况" />
+                                <field name="equipment_problem" string="设备设施存在的问题" />
+                                <field name="handover" string="交接事项" />
+                                <field name="after_work" string="班后总结" />
                             </group>
                         </sheet>
                         <footer>

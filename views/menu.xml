@@ -180,10 +180,29 @@
           <field name="res_model">funenc_xa_station.station_master</field>
 		  <field name="view_mode">tree,form</field>
         </record>
-<!--car_line-->
+
+		<record model="ir.actions.act_window" id="xa_station_car_line_action">
+          <field name="name">行车值班员</field>
+          <field name="res_model">funenc_xa_station.car_line</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+       <!--car_line-->
 		<record model="ir.actions.act_window" id="xa_station_passenger_transport_action">
           <field name="name">客运值班员</field>
           <field name="res_model">funenc_xa_station.passenger_transport</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_station_service_action">
+          <field name="name">站务员</field>
+          <field name="res_model">funenc_xa_station.station_service</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_ticket_booth_action">
+          <field name="name">票亭岗</field>
+          <field name="res_model">funenc_xa_station.ticket_booth</field>
 		  <field name="view_mode">tree,form</field>
         </record>
 
@@ -506,14 +525,24 @@
 				  action="xa_station_station_master_action"
 		/>
 
-		<!--<menuitem id="xa_station_station_master_1" name="行车值班员"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_train_working_action"-->
-		<!--/>-->
+		<menuitem id="xa_station_car_line_1" name="行车值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_car_line_action"
+		/>
 
-		<menuitem id="xa_station_passenger_transport_1" name="行车值班员"
+		<menuitem id="xa_station_passenger_transport_1" name="客运值班员"
 				  parent="xa_station_change_shifts_setting_1"
 				  action="xa_station_passenger_transport_action"
+		/>
+
+		<menuitem id="xa_station_station_service_1" name="站务员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_service_action"
+		/>
+
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_ticket_booth_action"
 		/>
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
