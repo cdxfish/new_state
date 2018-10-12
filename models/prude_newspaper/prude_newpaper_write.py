@@ -1,18 +1,18 @@
 # !user/bin/env python3
 # -*- coding: utf-8 -*-
 
-import odoo.exceptions as msg
-from odoo import models, fields, api
+from odoo import api, models, fields, exceptions
+from datetime import datetime
 
 
-key=[('enter_come','边门进出情况')
-    ,('ticket_acf','票务、AFC故障及异常情况')
-    ,('ticket_sales','日票、预制单程票售卖情况')
-    ,('other_brenk','其他设备故障情况')
-    ,('normal','其他设备故障情况')]
+key = [('enter_come', '边门进出情况')
+    , ('ticket_acf', '票务、AFC故障及异常情况')
+    , ('ticket_sales', '日票、预制单程票售卖情况')
+    , ('other_brenk', '其他设备故障情况')
+    , ('normal', '其他设备故障情况')]
 
-class PrudeNewspaper(models.Model):
-    _name = 'funenc_xa_station.prude_newspaper'
+class PrudeNewpaperWrite(models.Model):
+    _name = 'funenc_xa_staion.prude_newpaper_write'
     _inherit = 'fuenc_station.station_base'
 
     event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型')
@@ -37,36 +37,39 @@ class PrudeNewspaper(models.Model):
     brenk_time = fields.Datetime(string='故障时间')
     brenk_repair_time = fields.Datetime(string='故障保修时间')
     brenk_state = fields.Text(string='故障情况')
-    c_type = fields.Char(string='区分')
 
+    def time_compare_action(self):
+        new_time = datetime.now().strftime('%Y-%m-%d')
+        old_time = self.env('funenc_xa_station.date_time').search_read([()],['date_time_limit'])
+        if new_time == old_time[-1]:
+            print('66666666666666')
+            raise exceptions.Warning('audit failed')
+        else:
+             
+            item={
+                'associated_time':new_time
+            }
+            self.env['funenc_xa_station.date_time'].sudo().create(item)
+
+
+    def information_daynewpaper_write(self):
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
+        return{
+            'name': '生产日报',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_staion.prude_newpaper_write',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+        }
 
     @api.one
     @api.depends('event_stype')
     def _compute_event_stype_name(self):
         if len(self.event_stype) != 0:
             self.event_stype_name = self.event_stype.prude_event_type
-
-    @api.model
-    def information_write(self):
-        view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_tree').id
-        return {
-            'name': '生产日报',
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            "views": [[view_form, "tree"]],
-            'res_model': 'funenc_xa_staion.prude_newpaper_write',
-            'context': self.env.context,
-            'flags': {'initial_mode': 'edit'},
-        }
-
-    # @api.onchange('event_stype')
-    # def c_type_distinguish(self):
-    #     cc = self.env['funenc_xa_station.prude_newspaper'].search_read([],['event_stype'])
-    #     print(cc)
-    #     return {
-    #         'invisible':[('event_content', '!=','')]
-    #     }
 
     @api.one
     @api.depends('event_stype')
@@ -91,10 +94,9 @@ class PrudeNewspaper(models.Model):
             self.event_content = self.event_content_create
 
 
+class DateTimeLimit(models.Model):
+    _name = 'funenc_xa_station.date_time'
 
-
-
-
-
+    date_time_limit = fields.Date(string='时间限制')
 
 

@@ -1,0 +1,182 @@
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="break_log_manage_server">
+            <field name="name">标识报修</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_break_log_manage"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_break_log_manage"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">故障标识管理</field>
+            <field name="code">
+                action = model.create_new_record()
+            </field>
+        </record>
+
+    ﻿   <record model="ir.actions.act_url" id="break_log_manage_url">
+            <field name="name">报表导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_break_log_manage"/>
+            <field name="binding_xml_id">break_log_manage_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/break_logo</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="break_log_manage_tree" model="ir.ui.view">
+            <field name="name">故障标识管理</field>
+            <field name="model">funenc_xa_station.break_log_manage</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="position"></field>
+                    <field name="apply_time"></field>
+                    <field name="break_details"></field>
+                    <field name="before_break_img" widget="image"></field>
+                    <field name="state"></field>
+                    <field name="repair_time"></field>
+                    <field name="repair_manufacturer"></field>
+                    <field name="after_break_img" widget="image"></field>
+                    <widget  name="treebtns" template="break_log_button" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="break_log_manage_form" model="ir.ui.view">
+            <field name="name">故障标识管理</field>
+            <field name="model">funenc_xa_station.break_log_manage</field>
+            <field name="arch" type="xml">
+                <form>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="line_id" string="线路"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="line_id"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="site_id" string="站点"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="site_id"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="position" string="标识位置"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="position"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="break_details" string="故障描述"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="break_details"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="before_break_img" string="故障图片"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="before_break_img"/>
+                              </div>
+                           </div>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+         <record id="break_log_manage_form_form" model="ir.ui.view">
+            <field name="name">故障标识管理</field>
+            <field name="model">funenc_xa_station.break_log_manage</field>
+            <field name="arch" type="xml">
+                <form>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="line_id" string="线路"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="line_id"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="site_id" string="站点"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="site_id"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="position" string="标识位置"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="position"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="repair_time" string="修复时间"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="repair_time"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="repair_manufacturer" string="修复厂家"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="repair_manufacturer"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="after_break_img" string="修复后图片"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="after_break_img"/>
+                              </div>
+                           </div>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="break_log_manage_act" model="ir.actions.act_window">
+            <field name="name">故障标识管理</field>
+            <field name="res_model">funenc_xa_station.break_log_manage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

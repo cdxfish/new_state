@@ -51,6 +51,8 @@
             >删除</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
             >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="view_details"
+            >播放视屏</button>
         </div>
     </t>
 
