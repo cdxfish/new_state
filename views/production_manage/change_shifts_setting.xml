@@ -71,12 +71,12 @@
                         <b>运营检查项目</b>
                         <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
                         <div class="container-fluid">
-                            <!--<field name="check_project_ids">-->
-                                <!--<tree editable="top" class="noOpen">-->
-                                    <!--<field name="context" string="工作中填写内容"/>-->
-                                    <!--<field name="remarks" string="备注"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
+                            <field name="check_project_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="context" string="工作中填写内容"/>
+                                    <field name="remarks" string="备注"/>
+                                </tree>
+                            </field>
                         </div>
                         <br/>
                         <b>备品交接项目</b>

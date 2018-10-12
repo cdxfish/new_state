@@ -511,7 +511,7 @@
 				  <!--action="xa_station_train_working_action"-->
 		<!--/>-->
 
-		<menuitem id="xa_station_station_master_1" name="行车值班员"
+		<menuitem id="xa_station_passenger_transport_1" name="行车值班员"
 				  parent="xa_station_change_shifts_setting_1"
 				  action="xa_station_passenger_transport_action"
 		/>
