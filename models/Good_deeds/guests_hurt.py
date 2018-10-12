@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from odoo import api,models,fields
+import requests
+import urllib
+import base64
+
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
        ('through','已通过'),
@@ -27,6 +31,30 @@ class GuestsHurt(models.Model):
     load_file_test = fields.Many2many('ir.attachment','guests_hurt_ir_attachment_rel',
                                          'attachment_id','guests_hurt_id', string='图片上传')
     one_associated = fields.One2many('fuenc_xa_station.add_guests_hurt','associated',string='客人关联字段')
+    mp_play = fields.Binary(string='上传视屏')
+    file_name = fields.Char(string="File Name")
+    url = fields.Char(string='url')
+    mp_play_many = fields.One2many('video_voice_model','mp_play_one',string='视频附件')
+
+    # @api.model
+    # def create(self, params):
+    #     file_binary = params['mp_play_many.']
+    #     file_name = params.get('file_name', self.file_name)
+    #     if file_binary:
+    #         url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
+    #             'funenc_xa_station', file_name, base64.b64decode(file_binary.mp_play))
+    #         params['url'] = url
+    #         params['file_name'] = file_name
+    #     return super(GuestsHurt, self).create(params)
+    #
+    # def view_details(self):
+    #     url = self.url
+    #     if url:
+    #         return {
+    #             "type": "ir.actions.act_url",
+    #             "url": url,
+    #             "target": "new"
+    #         }
 
 
 
