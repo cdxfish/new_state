@@ -231,5 +231,32 @@
             </field>
         </record>
 
+
+         <record model="ir.ui.view" id="funenc_xa_station_special_card_preset_list">
+            <field name="name">funenc_xa_station_special_card_preset_list</field>
+            <field name="model">funenc_xa_station.special_card_preset</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="card_number" string="特殊卡号"/>
+                    <field name="remarks" string="备注"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_special_card_preset_form">
+            <field name="name">funenc_xa_station_special_card_preset_form</field>
+            <field name="model">funenc_xa_station.special_card_preset</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="card_number" string="特殊卡号"/>
+                            <field name="remarks" string="备注"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
     </data>
 </odoo>

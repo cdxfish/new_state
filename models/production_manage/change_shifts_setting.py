@@ -40,6 +40,7 @@ class train_working(models.Model):
     context = fields.Text(string='工作中填写内容')
     remarks = fields.Char(string='备注')
 
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
     car_line_id = fields.Many2one('funenc_xa_station.car_line',string='')
 
 
@@ -49,7 +50,15 @@ class train_working_1(models.Model):
 
     context = fields.Text(string='运营前检查项目')
     remarks = fields.Char(string='备注')
+    check_situation = fields.Text(string='检查情况')
+    check_time = fields.Datetime(string='检查时间')
+    tvm = fields.Char(srting='tvm')
+    bom= fields.Char(srting='bom')
+    agm = fields.Char(srting='tvm')
+    tcm = fields.Char(srting='tcm')
+    plane_ticket= fields.Char(srting='互联网机票')
 
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts',string='交接班')
     passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport',string='')
 
 
@@ -71,6 +80,8 @@ class ticketing_key_type(models.Model):
     remarks = fields.Char(string='备注')
 
     passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport',string='')
+
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 #################
 
@@ -139,6 +150,14 @@ class passenger_transport(models.Model):
     prefabricate_ticket_type_ids = fields.One2many('funenc_xa_station.prefabricate_ticket_type', 'passenger_transport_id', string='预制票类型')
     ticketing_key_type_ids = fields.One2many('funenc_xa_station.ticketing_key_type', 'passenger_transport_id', string='钥匙类型')
 
+class special_card_preset(models.Model):
+    _name = 'funenc_xa_station.special_card_preset'
+    _description = u'特殊卡预设'
+    _inherit = 'fuenc_station.station_base'
+    _rec_name = 'card_number'
+
+    card_number = fields.Char(string='特殊卡号', required=True)
+    remarks = fields.Char(string='备注')
 
 
 
