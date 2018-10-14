@@ -9,7 +9,7 @@ from odoo.http import request
 import logging
 import base64
 import xlsxwriter
-import urllib3
+# import urllib3
 
 APP_DIR = os.path.dirname(os.path.dirname(__file__))
 

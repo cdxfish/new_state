@@ -34,6 +34,8 @@ class ReserverManagement(models.Model):
     note = fields.Text(string='备注')
     Person_charge_account = fields.Char(string='记账人')
 
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts',string='交接班')
+
     @api.model
     def reserver_money_method(self):
         # lol = self.env['funenc_xa_station.reserver_management'].search_read([])

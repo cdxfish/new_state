@@ -2,6 +2,7 @@
 
 from . import models
 from . import opening_manage
+from . import production_manage
 from . import depot_manage
 from . import add_management
 from . import add_certificate
@@ -16,5 +17,4 @@ from . import Good_deeds
 from . import consumables_manage
 from . import prude_newspaper
 from . import break_logo
-from . import production_manage
 

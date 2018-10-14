@@ -71,12 +71,12 @@
                         <b>运营检查项目</b>
                         <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
                         <div class="container-fluid">
-                            <!--<field name="check_project_ids">-->
-                                <!--<tree editable="top" class="noOpen">-->
-                                    <!--<field name="context" string="工作中填写内容"/>-->
-                                    <!--<field name="remarks" string="备注"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
+                            <field name="check_project_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="context" string="工作中填写内容"/>
+                                    <field name="remarks" string="备注"/>
+                                </tree>
+                            </field>
                         </div>
                         <br/>
                         <b>备品交接项目</b>
@@ -116,25 +116,25 @@
                     <sheet>
                         <b>运营检查项目</b>
                         <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
-                        <!--<div class="container-fluid">-->
-                            <!--<field name="check_project_ids">-->
-                                <!--<tree editable="top" class="noOpen">-->
-                                    <!--<field name="context" string="工作中填写内容"/>-->
-                                    <!--<field name="remarks" string="备注"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
-                        <!--</div>-->
+                        <div class="container-fluid">
+                            <field name="check_project_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="context" string="工作中填写内容"/>
+                                    <field name="remarks" string="备注"/>
+                                </tree>
+                            </field>
+                        </div>
                         <br/>
                         <b>票务备品</b>
                         <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
-                        <!--<div class="container-fluid">-->
-                            <!--<field name="preparedness_ids">-->
-                                <!--<tree editable="top" class="noOpen">-->
-                                    <!--<field name="context" string="备品名称"/>-->
-                                    <!--<field name="remarks" string="备注"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
-                        <!--</div>-->
+                        <div class="container-fluid">
+                            <field name="preparedness_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="preparedness_name" string="备品名称"/>
+                                    <field name="remarks" string="备注"/>
+                                </tree>
+                            </field>
+                        </div>
                         <b>预制票务类型</b>
                         <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
                         <div class="container-fluid">
@@ -156,6 +156,103 @@
                                 </tree>
                             </field>
                         </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--站务员-->
+        <record model="ir.ui.view" id="funenc_xa_station_station_service_list">
+            <field name="name">ffunenc_xa_station_station_service_list</field>
+            <field name="model">funenc_xa_station.station_service</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="preparedness_ids" string="目标部门"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_station_service_form">
+            <field name="name">ffunenc_xa_station_station_service_form</field>
+            <field name="model">funenc_xa_station.station_service</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <b>备品交接项目</b>
+                        <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
+                        <div class="container-fluid">
+                            <field name="preparedness_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="preparedness_name" string="备品名称"/>
+                                    <field name="unit" string="单位"/>
+                                    <field name="remarks" string="备注"/>
+                                    <field name="type" eval="station_master"/>
+                                </tree>
+
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--票务-->
+        <record model="ir.ui.view" id="funenc_xa_station_ticket_booth_list">
+            <field name="name">ffunenc_xa_station_ticket_booth_list</field>
+            <field name="model">funenc_xa_station.ticket_booth</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="preparedness_ids" string="目标部门"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_ticket_booth_form">
+            <field name="name">ffunenc_xa_station_ticket_booth_form</field>
+            <field name="model">funenc_xa_station.ticket_booth</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <b>备品交接项目</b>
+                        <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
+                        <div class="container-fluid">
+                            <field name="preparedness_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="preparedness_name" string="备品名称"/>
+                                    <field name="unit" string="单位"/>
+                                    <field name="remarks" string="备注"/>
+                                    <field name="type" eval="station_master"/>
+                                </tree>
+
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+         <record model="ir.ui.view" id="funenc_xa_station_special_card_preset_list">
+            <field name="name">funenc_xa_station_special_card_preset_list</field>
+            <field name="model">funenc_xa_station.special_card_preset</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="card_number" string="特殊卡号"/>
+                    <field name="remarks" string="备注"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_special_card_preset_form">
+            <field name="name">funenc_xa_station_special_card_preset_form</field>
+            <field name="model">funenc_xa_station.special_card_preset</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="card_number" string="特殊卡号"/>
+                            <field name="remarks" string="备注"/>
+                        </group>
                     </sheet>
                 </form>
             </field>
