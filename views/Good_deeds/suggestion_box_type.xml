@@ -33,6 +33,6 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="suggest_box_type_menu" name="意见箱类型设置" action="suggest_box_type_act"></menuitem>
+        <!--<menuitem id="suggest_box_type_menu" name="意见箱类型设置" action="suggest_box_type_act"></menuitem>-->
     </data>
 </odoo>
