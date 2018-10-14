@@ -11,15 +11,15 @@
             <field name="target">new</field>
         </record>
 
-    ﻿   <record model="ir.actions.act_url" id="special_money_url_word">
-            <field name="name">导出word</field>
-            <field name="type">ir.actions.act_url</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>
-            <field name="binding_xml_id">special_money_tree</field>
-            <field name="binding_type">action_button</field>
-            <field name="url">/funenc_xa_station/special_money_word</field>
-            <field name="target">new</field>
-        </record>
+    <!--﻿   <record model="ir.actions.act_url" id="special_money_url_word">-->
+            <!--<field name="name">导出word</field>-->
+            <!--<field name="type">ir.actions.act_url</field>-->
+            <!--<field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>-->
+            <!--<field name="binding_xml_id">special_money_tree</field>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="url">/funenc_xa_station/special_money_xlsx</field>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
 
 
         <record id="special_money_tree" model="ir.ui.view">
@@ -124,51 +124,51 @@
                        </div>
                     </div>
 
-                    <div class="row">
-                       <div class="col-md-6">
-                          <div class="col-md-2">
-                             <label for="passengers_ID" string="乘客生份证"/>
-                          </div>
-                         <div class="col-md-10">
-                             <field name="passengers_ID"/>
-                          </div>
-                       </div>
-                       <div class="col-md-6" attrs="{'invisible':[('event_type', '!=','money')]}">
-                          <div class="col-md-2">
-                             <label for="webmaster" string="站长"/>
-                          </div>
-                         <div class="col-md-10">
-                             <field name="webmaster"/>
-                          </div>
-                       </div>
-                       <div class="col-md-6" attrs="{'invisible':[('event_type', '!=','deal')]}">
-                          <div class="col-md-2">
-                             <label for="deal_person" string="处理人员"/>
-                          </div>
-                         <div class="col-md-10">
-                             <field name="deal_person"/>
-                          </div>
-                       </div>
-                    </div>
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-6">-->
+                          <!--<div class="col-md-2">-->
+                             <!--<label for="passengers_ID" string="乘客生份证"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="passengers_ID"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                       <!--<div class="col-md-6" attrs="{'invisible':[('event_type', '!=','money')]}">-->
+                          <!--<div class="col-md-2">-->
+                             <!--<label for="webmaster" string="站长"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="webmaster"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                       <!--<div class="col-md-6" attrs="{'invisible':[('event_type', '!=','deal')]}">-->
+                          <!--<div class="col-md-2">-->
+                             <!--<label for="deal_person" string="处理人员"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="deal_person"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
 
-                    <div class="row">
-                       <div class="col-md-6">
-                          <div class="col-md-2">
-                             <label for="deputy_director" string="分部主任" attrs="{'invisible':[('event_type', '!=','money')]}"/>
-                          </div>
-                         <div class="col-md-10">
-                             <field name="deputy_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
-                          </div>
-                       </div>
-                       <div class="col-md-6">
-                          <div class="col-md-2" attrs="{'invisible':[('event_type', '!=','money')]}">
-                             <label for="main_director" string="部门领导"/>
-                          </div>
-                         <div class="col-md-10">
-                             <field name="main_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
-                          </div>
-                       </div>
-                    </div>
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-6">-->
+                          <!--<div class="col-md-2">-->
+                             <!--<label for="deputy_director" string="分部主任" attrs="{'invisible':[('event_type', '!=','money')]}"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="deputy_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                       <!--<div class="col-md-6">-->
+                          <!--<div class="col-md-2" attrs="{'invisible':[('event_type', '!=','money')]}">-->
+                             <!--<label for="main_director" string="部门领导"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="main_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
 
                     <div class="row">
                        <div class="col-md-12">
@@ -188,6 +188,32 @@
                           </div>
                          <div class="col-md-11">
                              <field name="survey_situation"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="apply_why" string="申请原因"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="apply_why"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="生份证照片"/>
+                          </div>
+                         <div class="col-md-11">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
                           </div>
                        </div>
                     </div>
@@ -310,35 +336,35 @@
                              <field name="passengers_phone"/>
                           </div>
                        </div>
-                       <div class="col-md-3">
-                          <div class="col-md-6">
-                             <label for="deputy_director" string="分部主任"/>
-                          </div>
-                         <div class="col-md-6">
-                             <field name="deputy_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
-                          </div>
-                       </div>
-                       <div class="col-md-3">
-                          <div class="col-md-6">
-                             <label for="main_director" string="部门领导"/>
-                          </div>
-                         <div class="col-md-6">
-                             <field name="main_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>
-                          </div>
+                       <!--<div class="col-md-3">-->
+                          <!--<div class="col-md-6">-->
+                             <!--<label for="deputy_director" string="分部主任"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-6">-->
+                             <!--<field name="deputy_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                       <!--<div class="col-md-3">-->
+                          <!--<div class="col-md-6">-->
+                             <!--<label for="main_director" string="部门领导"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-6">-->
+                             <!--<field name="main_director" attrs="{'invisible':[('event_type', '!=','money')]}"/>-->
+                          <!--</div>-->
                        </div>
 
-                    </div>
+                    <!--</div>-->
 
-                    <div class="row">
-                       <div class="col-md-12">
-                          <div class="col-md-1">
-                             <label for="passengers_ID" string="乘客生份证:"/>
-                          </div>
-                         <div class="col-md-11">
-                             <field name="passengers_ID"/>
-                          </div>
-                       </div>
-                    </div>
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-12">-->
+                          <!--<div class="col-md-1">-->
+                             <!--<label for="passengers_ID" string="乘客生份证:"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-11">-->
+                             <!--<field name="passengers_ID"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
 
                     <div class="row">
                        <div class="col-md-12">
@@ -365,6 +391,32 @@
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
+                             <label for="apply_why" string="申请原因:"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="apply_why"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="生份证照片"/>
+                          </div>
+                         <div class="col-md-11">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
                              <label for="audit_flow" string="审核流程:"/>
                           </div>
                          <div class="col-md-11">
@@ -372,7 +424,7 @@
                           </div>
                        </div>
                     </div>
-                    <h1>处理结果</h1>
+                    <h1>处理结果</h1><widget string="操作" name="treebtns" template="attarment_load" />
                 </form>
             </field>
         </record>

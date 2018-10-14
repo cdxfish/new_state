@@ -68,12 +68,15 @@ class GuestsHurt(models.Model):
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
         self.env['fuenc_xa_station.guests_hurt'].write(values)
 
+    @api.multi
     def test_btn_through(self):
-        values = {
-            'audit_state': self.audit_state,
-        }
-        self.audit_state = self.env.context.get('audit_state', 'through')
-        self.env['fuenc_xa_station.guests_hurt'].write(values)
+        for i in self:
+            values = {
+                'audit_state': i.audit_state,
+            }
+            i.audit_state = self.env.context.get('audit_state', 'through')
+            self.env['fuenc_xa_station.guests_hurt'].write(values)
+
 
     def good_rejected(self):
         values = {

@@ -2,6 +2,7 @@
     <data>
         <template id="fuenc_station_res" name="fuenc_station_res" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/funenc_xa_station/static/css/common.css"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/week_tree_buttons_func.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/tree_buttons.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/no_open_tree.js"/>

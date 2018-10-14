@@ -40,16 +40,51 @@ class PrudeNewpaperWrite(models.Model):
 
     def time_compare_action(self):
         new_time = datetime.now().strftime('%Y-%m-%d')
-        old_time = self.env('funenc_xa_station.date_time').search_read([()],['date_time_limit'])
-        if new_time == old_time[-1]:
-            print('66666666666666')
-            raise exceptions.Warning('audit failed')
-        else:
-             
-            item={
-                'associated_time':new_time
-            }
-            self.env['funenc_xa_station.date_time'].sudo().create(item)
+        old_time = self.env['funenc_xa_station.date_time'].search_read([])
+        # if new_time[:9] == old_time[-1]['date_time_limit'][:9]:
+        #     raise exceptions.ValidationError('提交警告一天只能提交一次')
+        #
+        # else:
+        #     item={
+        #         'date_time_limit':new_time
+        #     }
+        #     self.env['funenc_xa_station.date_time'].sudo().create(item)
+
+        values = self.env['funenc_xa_staion.prude_newpaper_write'].search([])
+
+        for va in values:
+            line_id = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
+                [('line_id', '=', va['line_id']['name'])],['id'])
+            site_id = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
+                [('site_id', '=', va['site_id']['name'])],['id'])
+            event_stype = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
+                [('event_stype', '=', va['event_stype']['prude_event_type'])],['id'])
+            va_value = {
+                    'line_id' : line_id,
+                    'site_id' : site_id,
+                    'event_stype' : event_stype,
+                    'event_content' : va.event_content,
+                    'event_content_create' : va.event_content_create,
+                    'open_time' : va.open_time,
+                    'write_time' : va.write_time,
+                    'write_name' : va.write_name,
+                    'iobnumber' : va.iobnumber,
+                    'Enter_person_count' : va.Enter_person_count,
+                    'come_person_count' : va.come_person_count,
+                    'two_money' : va.two_money,
+                    'three_money' : va.three_money,
+                    'four_money' : va.four_money,
+                    'five_money' : va.five_money,
+                    'six_money' : va.six_money,
+                    'seven_money' : va.seven_money,
+                    'eight_money' : va.eight_money,
+                    'equipment_name' : va.equipment_name,
+                    'equipment_count' : va.equipment_count,
+                    'brenk_time' : va.brenk_time,
+                    'brenk_repair_time' : va.brenk_repair_time,
+                    'brenk_state' : va.brenk_state,
+                }
+            self.env['funenc_xa_station.prude_newspaper'].sudo().create(va_value)
 
 
     def information_daynewpaper_write(self):
