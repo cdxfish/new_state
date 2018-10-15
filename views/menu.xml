@@ -654,6 +654,10 @@
 
 	<menuitem id="suggest_box_type_menu" name="意见箱类型设置" action="suggest_box_type_act"
 			  parent="opening_manage"></menuitem>
+	<menuitem id="belong_to_management_menu" name="属地管理" action="belong_to_management_act"
+				  parent="opening_manage"></menuitem>
+	<menuitem id="belong_to_summary_menu1" name="属地管理汇总" action="belong_to_management"
+			  parent="opening_manage"></menuitem>
 
 
 

@@ -17,4 +17,5 @@ from . import Good_deeds
 from . import consumables_manage
 from . import prude_newspaper
 from . import break_logo
+from . import belong_to_mangement
 
