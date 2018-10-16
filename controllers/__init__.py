@@ -15,3 +15,5 @@ from . import special_money_excel
 from . import special_money_word
 from . import prude_newspaper_excel
 from . import break_logo_manage_excel
+from . import special_money_xlsx
+from . import belong_to_manage_import

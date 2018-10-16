@@ -68,12 +68,15 @@ class GuestsHurt(models.Model):
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
         self.env['fuenc_xa_station.guests_hurt'].write(values)
 
+    @api.multi
     def test_btn_through(self):
-        values = {
-            'audit_state': self.audit_state,
-        }
-        self.audit_state = self.env.context.get('audit_state', 'through')
-        self.env['fuenc_xa_station.guests_hurt'].write(values)
+        for i in self:
+            values = {
+                'audit_state': i.audit_state,
+            }
+            i.audit_state = self.env.context.get('audit_state', 'through')
+            self.env['fuenc_xa_station.guests_hurt'].write(values)
+
 
     def good_rejected(self):
         values = {
@@ -81,6 +84,7 @@ class GuestsHurt(models.Model):
         }
         self.audit_state = self.env.context.get('audit_state', 'rejected')
         self.env['fuenc_xa_station.guests_hurt'].write(values)
+        return False
 
     def good_delete(self):
         self.env['fuenc_xa_station.guests_hurt'].search([('id','=',self.id)]).unlink()
@@ -104,7 +108,7 @@ class GuestsHurt(models.Model):
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
-            'target': 'new',
+            # 'target': 'new',
         }
 
     def create_guests_action(self):
@@ -146,8 +150,7 @@ class GuestsHurt(models.Model):
             'res_model': 'fuenc_xa_station.add_guests_hurt',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
-            'res_id': self.id,
-            'target': 'new',
+            # 'target': 'new',
         }
 
     def onchange_button_action(self):

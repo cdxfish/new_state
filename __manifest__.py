@@ -80,6 +80,7 @@
 		'views/Good_deeds/Good_deeds_type.xml',
 		'views/Good_deeds/add_guests_hurt.xml',
 		'views/Good_deeds/video_voice.xml',
+		'views/Good_deeds/suggestion_box_type.xml',
 		'views/consumables_manage/consumables_type.xml',
 		'views/consumables_manage/store_house.xml',
 		'views/consumables_manage/consumables_warehousing.xml',
@@ -95,6 +96,8 @@
 
 		'views/production_manage/production_change_shifts.xml',
 		'views/production_manage/change_shifts_setting.xml',
+		'views/belong_to_management/belong_to_management.xml',
+		'views/belong_to_management/belong_to_summary.xml',
 
 		'views/index.xml',
         'views/menu.xml',
@@ -119,6 +122,7 @@
 		'static/xml/good_deeds_button.xml',
 		'static/xml/prude_newpaper.xml',
 		'static/xml/break_logo_manage.xml',
+		'static/xml/belong_to_managemet.xml',
 	],
 	'installable': True,
 	'auto_install': False,

@@ -111,6 +111,13 @@
         </div>
     </t>
 
+        <t t-name="attarment_load">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
+                >上传附件</button>
+            </div>
+        </t>
+
     <t t-name="special_money_type_button">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
@@ -126,6 +133,16 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="add_guests_button_action"
             >新增记录</button>
+        </div>
+    </t>
+
+    <t t-name="suggest_box_type_set">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
         </div>
     </t>
 </templates>

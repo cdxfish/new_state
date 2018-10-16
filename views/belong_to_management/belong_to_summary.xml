@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <!--<record id="belong_to_summary_tree" model="ir.ui.view">-->
+            <!--<field name="name">属地管理</field>-->
+            <!--<field name="model">funenc_xa_station.belong_to_summary</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="line_id"></field>-->
+                    <!--<field name="site_id"></field>-->
+                    <!--<field name="post_check"></field>-->
+                    <!--<field name="summary_score"></field>-->
+                    <!--<field name="mouth_score"></field>-->
+                    <!--<field name="check_count"></field>-->
+                    <!--<widget name="treebtns" template="" string="操作"></widget>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.client" id="funenc_xa_station.belong_to_management">
+          <field name="name">属地检查汇总</field>
+          <field name="tag">belong_to_management</field>
+        </record>
+
+        <!--<record model="ir.actions.act_window" id="belong_to_summary_act1">-->
+            <!--<field name="name">属地管理汇总</field>-->
+            <!--<field name="res_model">funenc_xa_station.belong_to_summary</field>-->
+            <!--<field name="view_mode">tree</field>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>

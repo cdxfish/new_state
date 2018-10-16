@@ -16,8 +16,8 @@ class PrudeNewspaper(models.Model):
     _inherit = 'fuenc_station.station_base'
 
     event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型')
-    event_stype_name = fields.Char(compute='_compute_event_stype_name')
-    event_content = fields.Text(string='事件内容',compute='_event_content',store=True)
+    event_stype_name = fields.Char()
+    event_content = fields.Text(string='事件内容')
     event_content_create = fields.Text(string='事件内容')
     open_time = fields.Datetime(string='发生时间')
     write_time = fields.Datetime(string='填报时间')
@@ -59,6 +59,22 @@ class PrudeNewspaper(models.Model):
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
         }
+
+    def onchange_change(self):
+        return {
+            'name': '生产日报',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_id':self.id,
+            'res_model': 'funenc_xa_staion.prude_newpaper_write',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+        }
+
+    @api.model
+    def delete_action(self):
+        self.env['funenc_xa_station.prude_newspaper'].search([('id','='.self.id)]).unlink()
 
     # @api.onchange('event_stype')
     # def c_type_distinguish(self):

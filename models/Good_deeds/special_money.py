@@ -31,9 +31,11 @@ class SpecialMoney(models.Model):
     write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-$m-%d'))
     write_person = fields.Datetime(string='填报人')
     audit_flow = fields.Char(string='审核流程')
+    apply_why = fields.Text(string='申请原因')
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
     load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
+    deal_list_file = fields.Binary(string='')
 
     def special_details_action(self):
         view_form = self.env.ref('funenc_xa_station.special_money_details').id
@@ -99,6 +101,6 @@ class SpecialMoney(models.Model):
     def print_refund_form(self):
         return {
             "type": "ir.actions.act_url",
-            "url": '/funenc_xa_station/special_excel_word',
+            "url": '/funenc_xa_station/special_money_xlsx',
             "target": "new",
         }
