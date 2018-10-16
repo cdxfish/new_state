@@ -16,6 +16,7 @@
 			<!--<field name="res_model">funenc_xa_station.generate_qr</field>-->
 			<!--<field name="view_mode">form</field>-->
 		<!--</record>-->
+
 		<record model="ir.actions.server" id="funenc_station_index_action">
 			<field name="name">网站首页</field>
 			<field name ="state">code</field>
@@ -374,6 +375,20 @@
 
 		<!--系统配置-->
         <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="2" icon="&#xe614;" />
+		<menuitem id="plan_menu_staffing_1" name="人员设置" sequence="3" icon="&#xe614;"
+		/>
+
+		<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="plan_menu_staffing_1"
+				  action="cdtct_dingtalk.account_manage_window"
+		/>
+
+		<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="plan_menu_staffing_1"
+				  action="cdtct_dingtalk.account_manage_window"
+		/>
+
+		<menuitem id="plan_menu_res_group_setting_1" name="角色组管理" parent="plan_menu_staffing_1"
+				  action="xa_res_group__action"
+		/>
 
 		<menuitem id="plan_menu_line_manage_1" name="线路管理" parent="plan_menu_system_conf_1" />
 
@@ -387,6 +402,7 @@
 		          parent="funenc_station_integrated_management"
 		          action="station_detail_act_window"
 		/>
+
 
 		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
 		          <!--parent="integrated_management_station_detail"/>-->

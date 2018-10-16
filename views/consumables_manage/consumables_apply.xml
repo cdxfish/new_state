@@ -46,7 +46,8 @@
 						<button name='consumables_apply_save'
 						        string='确定'
 						        class='btn-primary'
-						        type='object'/>
+						        type='object'
+                        />
 						<button string='取消'
 						        class='btn-default'
 						        special='cancel'/>

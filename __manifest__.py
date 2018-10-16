@@ -89,6 +89,7 @@
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
 		'views/consumables_manage/consumables_inventory.xml',
+		'views/staffiong/position_settings.xml',
 
 		'views/break_logo/break_logo_management.xml',
 
