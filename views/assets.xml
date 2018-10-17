@@ -16,6 +16,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/sheduling_manage.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/reserver_money.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/belong_to_management.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/visible_button.js"/>
 
             </xpath>
         </template>

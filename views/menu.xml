@@ -542,6 +542,10 @@
 				  parent="funenc_station"
 		/>
 
+		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
+				  parent="xa_station_production_manage_1"
+		/>
+
 		<menuitem id="xa_station_consumables_inventory_1" name="交接班"
 				  parent="xa_station_production_manage_1"
 				  action="xa_station_production_change_shifts_action"
@@ -585,6 +589,10 @@
 				  parent="xa_station_change_shifts_setting_1"
 				  action="xa_station_special_card_preset_action"
 		/>
+
+
+
+
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
 				  action="operation_act_id"></menuitem>

@@ -28,7 +28,6 @@
             </field>
         </record>
 
-
         <record model="ir.ui.view" id="ir_ui_view_form_inherit">
             <field name="name">ir.ui.form.inherit</field>
             <field name="model">res.groups</field>
