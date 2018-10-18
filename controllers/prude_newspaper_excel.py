@@ -27,16 +27,16 @@ class CheckRecord(http.Controller):
         records = request.env['funenc_xa_station.prude_newspaper'].search([])
         if len(records) > 0:
             for record in records:
-                if record.line_id.name:
-                    worksheet.write(row, 0, record.line_id.name)
+                if record.line_id:
+                    worksheet.write(row, 0, record.line_id)
                 else:
                     worksheet.write(row, 0, '')
-                if record.site_id.name:
-                    worksheet.write(row, 1, record.site_id.name)
+                if record.site_id:
+                    worksheet.write(row, 1, record.site_id)
                 else:
                     worksheet.write(row, 1, "")
-                if record.event_stype.prude_event_type:
-                    worksheet.write(row, 2, record.event_stype.prude_event_type)
+                if record.event_stype:
+                    worksheet.write(row, 2, record.event_stype)
                 else:
                     worksheet.write(row, 2, "")
                 if record.event_content:

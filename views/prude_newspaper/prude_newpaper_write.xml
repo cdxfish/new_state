@@ -43,7 +43,7 @@
                     <!--<field name="write_time"></field>-->
                     <!--<field name="write_name"></field>-->
                     <!--<field name="iobnumber"></field>-->
-                    <widget  name="treebtns" string='操作' template="prude_newpaper_action" />
+                    <widget  name="treebtns" string='操作' template="prude_newpaper_write_action" />
                 </tree>
             </field>
         </record>

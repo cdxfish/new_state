@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="break_submit_tree" model="ir.ui.view">
+            <field name="name">故障提报</field>
+            <field name="model">funenc_xa_station.break_submit</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="line_id"></field>
+                    <field name="site_id" ></field>
+                    <field name="break_describe"></field>
+                    <widget name="treebtns" template="break_submit_button" string="现场图片"></widget>
+                    <field name="equipment_name"></field>
+                    <field name="equipment_number"></field>
+                    <field name="equipment_post"></field>
+                    <field name="break_type"></field>
+                    <field name="submit_time"></field>
+                    <field name="deal_situation"></field>
+                    <field name="deal_results"></field>
+                    <field name="deal_time"></field>
+                    <widget name="treebtns" template="break_submit_operation" string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="break_submit_form" model="ir.ui.view">
+            <field name="name">故障提报</field>
+            <field name="model">funenc_xa_station.break_submit</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="break_type"></field>
+                            <field name="equipment_name"></field>
+                            <field name="equipment_number"></field>
+                            <field name="equipment_post"></field>
+                            <field name="break_describe"></field>
+                            <field name="load_file_test" widget="one2many_binary">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="break_submit_act" model="ir.actions.act_window">
+            <field name="name">故障提报</field>
+            <field name="res_model">funenc_xa_station.break_submit</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="break_submit_menu" name="故障提报" action="break_submit_act"></menuitem>
+
+    </data>
+</odoo>

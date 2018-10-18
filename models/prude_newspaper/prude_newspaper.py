@@ -13,10 +13,11 @@ key=[('enter_come','边门进出情况')
 
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
-    _inherit = 'fuenc_station.station_base'
-
-    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型')
-    event_stype_name = fields.Char()
+    # _inherit = 'fuenc_station.station_base'
+    line_id = fields.Char(string='线路')
+    site_id = fields.Char(string='站点')
+    event_stype = fields.Char(string='事件类型')
+    event_stype_name = fields.Char(string='事件类型名称')
     event_content = fields.Text(string='事件内容')
     event_content_create = fields.Text(string='事件内容')
     open_time = fields.Datetime(string='发生时间')
@@ -46,6 +47,7 @@ class PrudeNewspaper(models.Model):
         if len(self.event_stype) != 0:
             self.event_stype_name = self.event_stype.prude_event_type
 
+    #页面跳转的信息填报
     @api.model
     def information_write(self):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_tree').id
@@ -72,7 +74,8 @@ class PrudeNewspaper(models.Model):
             'flags': {'initial_mode': 'edit'},
         }
 
-    @api.model
+    #删除按钮
+    # @api.model
     def delete_action(self):
         self.env['funenc_xa_station.prude_newspaper'].search([('id','='.self.id)]).unlink()
 
@@ -105,6 +108,21 @@ class PrudeNewspaper(models.Model):
 
         else:
             self.event_content = self.event_content_create
+
+    #页面修改
+    def change_change_act(self):
+            view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
+            return {
+                'name': '生产日报',
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc_xa_station.prude_newspaper',
+                'context': self.env.context,
+                'res_id':self.id,
+                'flags': {'initial_mode': 'edit'}
+            }
 
 
 

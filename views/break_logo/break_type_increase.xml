@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="break_type_increase_tree" model="ir.ui.view">
+            <field name="name">故障类型设置</field>
+            <field name="model">funenc_xa_staion.break_type_increase</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="break_type"></field>
+                    <field name="note"></field>
+                    <widget name="treebtns" template="break_type_increase_button"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="break_type_increase_form" model="ir.ui.view">
+            <field name="name">故障类型设置</field>
+            <field name="model">funenc_xa_staion.break_type_increase</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="break_type"></field>
+                            <field name="note"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="break_type_increase_act" model="ir.actions.act_window">
+            <field name="name">故障类型设置</field>
+            <field name="res_model">funenc_xa_staion.break_type_increase</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="break_type_increase_menu" name="故障类型设置" action="break_type_increase_act"></menuitem>-->
+
+    </data>
+</odoo>

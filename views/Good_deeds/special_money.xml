@@ -108,10 +108,10 @@
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-2">
-                             <label for="involving_money" string="乘客姓名"/>
+                             <label for="passengers_name" string="乘客姓名"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="involving_money"/>
+                             <field name="passengers_name"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -203,20 +203,33 @@
                        </div>
                     </div>
 
-                    <div class="row">
-                       <div class="col-md-12">
-                          <div class="col-md-1">
-                             <label for="load_file_test" string="生份证照片"/>
-                          </div>
-                         <div class="col-md-11">
-                                <field name="load_file_test" widget="one2many_image_read_widget">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
-                                </field>
-                          </div>
-                       </div>
-                    </div>
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-12">-->
+                          <!--<div class="col-md-1">-->
+                             <!--<label for="load_file_test" string="生份证照片"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-11">-->
+                                <!--<field name="load_file_test" widget="one2many_image_read_widget">-->
+                                    <!--<tree>-->
+                                        <!--<field name="datas_fname"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
+
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="col-md-1">
+                         <label for="load_file_test" string="生份证照片"/>
+                      </div>
+                     <div class="col-md-11">
+                            <field name="load_file_test" filename="file_name"></field>
+                         <field name="file_name" invisible="1"></field>
+
+                      </div>
+                   </div>
+                </div>
 
                 </form>
             </field>
@@ -399,17 +412,28 @@
                        </div>
                     </div>
 
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-12">-->
+                          <!--<div class="col-md-1">-->
+                             <!--<label for="load_file_test" string="生份证照片"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-11">-->
+                                <!--<field name="load_file_test" widget="one2many_image_read_widget" options="{'size': [10, 10]}">-->
+                                    <!--<tree>-->
+                                        <!--<field name="datas_fname" widget="image" options="{'size': [10, 10]}"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
+
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
                              <label for="load_file_test" string="生份证照片"/>
                           </div>
                          <div class="col-md-11">
-                                <field name="load_file_test" widget="one2many_image_read_widget">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
-                                </field>
+                                <field name="load_file_test"></field>
                           </div>
                        </div>
                     </div>
