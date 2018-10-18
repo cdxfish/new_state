@@ -25,9 +25,12 @@ class GuestsHurt(models.Model):
     claim = fields.Selection([('one','是'),('zero','否')],string='是否索赔')
     claim_money = fields.Integer(string='索赔金额')
     event_details = fields.Text(string='事件详情')
-    claim_state = fields.Selection([('one','已赔付'),('zero','未赔付')],string='索赔状态')
+    claim_state = fields.Selection([('one','已赔付'),('zero','未赔付')],string='索赔状态',default='zero')
     audit_state = fields.Selection(key,string='审核状态', default='one_audit')
     audit_flow = fields.Char(string='审核流程')
+    guests_phone = fields.Char(string='乘客联系方式')
+    responsibility_identification = fields.Selection([('self','乘客自身的原因'),
+                                                      ('subway','地铁原因'),('three_method','第三方原因')],string='责任方认定(初审)')
     load_file_test = fields.Many2many('ir.attachment','guests_hurt_ir_attachment_rel',
                                          'attachment_id','guests_hurt_id', string='图片上传')
     one_associated = fields.One2many('fuenc_xa_station.add_guests_hurt','associated',string='客人关联字段')
@@ -35,6 +38,7 @@ class GuestsHurt(models.Model):
     file_name = fields.Char(string="File Name")
     url = fields.Char(string='url')
     mp_play_many = fields.One2many('video_voice_model','mp_play_one',string='视频附件')
+    mp3_play_many = fields.One2many('video_voice_model','mp3_play',string='视频附件')
 
     # @api.model
     # def create(self, params):
@@ -56,11 +60,7 @@ class GuestsHurt(models.Model):
     #             "target": "new"
     #         }
 
-
-
-
-
-
+    #通过初审按钮
     def test_btn_two_audit(self):
         values = {
             'audit_state': self.audit_state,
@@ -68,6 +68,7 @@ class GuestsHurt(models.Model):
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
         self.env['fuenc_xa_station.guests_hurt'].write(values)
 
+    #通过复审按钮
     @api.multi
     def test_btn_through(self):
         for i in self:
@@ -77,7 +78,7 @@ class GuestsHurt(models.Model):
             i.audit_state = self.env.context.get('audit_state', 'through')
             self.env['fuenc_xa_station.guests_hurt'].write(values)
 
-
+    #驳回按钮
     def good_rejected(self):
         values = {
             'audit_state': self.audit_state,
@@ -86,15 +87,19 @@ class GuestsHurt(models.Model):
         self.env['fuenc_xa_station.guests_hurt'].write(values)
         return False
 
+    #删除按钮
     def good_delete(self):
         self.env['fuenc_xa_station.guests_hurt'].search([('id','=',self.id)]).unlink()
 
+    #继续提交按钮
     def test_btn_rejected(self):
         values = {
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'one_audit')
         self.env['fuenc_xa_station.guests_hurt'].write(values)
+
+    #查看详情
 
     def good_details_button(self):
         view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
@@ -106,11 +111,12 @@ class GuestsHurt(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'fuenc_xa_station.guests_hurt',
             'context': self.env.context,
-            'flags': {'initial_mode': 'readonly'},
+            'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
             # 'target': 'new',
         }
 
+    #新建一条记录
     def create_guests_action(self):
         view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
@@ -124,6 +130,7 @@ class GuestsHurt(models.Model):
             'flags': {'initial_mode': 'edit'},
         }
 
+    #查看详情
     def guests_details_action(self):
         view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
         return {
@@ -134,13 +141,14 @@ class GuestsHurt(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'fuenc_xa_station.guests_hurt',
             'context': self.env.context,
-            'flags': {'initial_mode': 'readonly'},
+            'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
             'target': 'new',
         }
 
+    #form表格中的新增
     def add_guests_button_action(self):
-        view_form = self.env.ref('funenc_xa_station.add_guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.add_guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -150,9 +158,10 @@ class GuestsHurt(models.Model):
             'res_model': 'fuenc_xa_station.add_guests_hurt',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
-            # 'target': 'new',
+            'target': 'new',
         }
 
+    #tree视图中的修改按钮
     def onchange_button_action(self):
         view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
@@ -167,3 +176,9 @@ class GuestsHurt(models.Model):
             'res_id': self.id,
             'target': 'new',
         }
+    # 修改索赔的状态
+    def change_state(self):
+        if self.claim_state == 'zero':
+            self.write({'claim_state':'one'})
+        elif self.claim_state == 'one':
+            self.write({'claim_state': 'zero'})

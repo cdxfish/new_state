@@ -11,4 +11,37 @@
             >修改</button>
         </div>
     </t>
+
+   <t t-name="break_submit_button">
+        <div class="layui-btn-group">
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            >查看图片</button>
+        </div>
+    </t>
+
+   <t t-name="break_submit_operation">
+        <div class="layui-btn-group">
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            t-if="widget.record.data.deal_situation == 'zero'"
+            >处理</button>
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            t-if="widget.record.data.deal_situation == 'zero'"
+            >修改</button>
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            t-if="widget.record.data.deal_situation == 'one'"
+            >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="break_delete_action"
+                    confirm="您确定要删除该条记录吗？" >删除</button>
+        </div>
+    </t>
+
+       <t t-name="break_type_increase_button">
+        <div class="layui-btn-group">
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            >修改</button>
+            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm layui-btn-danger"
+                    confirm="您确定要删除该条记录吗？"
+            >删除</button>
+        </div>
+    </t>
 </templates>

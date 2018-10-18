@@ -8,6 +8,7 @@ from odoo import http
 from odoo.http import request
 import logging
 import base64
+import datetime
 
 APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -39,7 +40,11 @@ class SpecialMoneyExcel(http.Controller):
                 else:
                     worksheet.write(row, 2, "")
                 if record.open_time:
-                    worksheet.write(row, 3, record.open_time)
+                    d = datetime.datetime.strptime(record.open_time, '%Y-%m-%d %H:%M:%S')
+                    delta = datetime.timedelta(hours=8)
+                    open_time = d + delta
+                    worksheet.write(row, 3, open_time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # worksheet.write(row, 3, record.open_time)
                 else:
                     worksheet.write(row, 3, "")
                 if record.event_type:
@@ -63,7 +68,10 @@ class SpecialMoneyExcel(http.Controller):
                 else:
                     worksheet.write(row, 7, "")
                 if record.write_time:
-                    worksheet.write(row, 8, record.write_time)
+                    d = datetime.datetime.strptime(record.write_time, '%Y-%m-%d %H:%M:%S')
+                    delta = datetime.timedelta(hours=8)
+                    open_time = d + delta
+                    worksheet.write(row, 8, open_time.strftime('%Y-%m-%d %H:%M:%S'))
                 else:
                     worksheet.write(row, 8, "")
                 if record.deal_result:

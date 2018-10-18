@@ -20,7 +20,7 @@ class SpecialMoney(models.Model):
     event_type = fields.Selection([("deal","事务处理 "),('money','非及时退款')],string='事件类型')
     event_details = fields.Text(string='事件详情')
     survey_situation = fields.Text(string='调查情况')
-    involving_money = fields.Char(string='涉及金额')
+    involving_money = fields.Integer(string='涉及金额')
     passengers_name = fields.Char(string='乘客姓名')
     passengers_phone = fields.Char(string='乘客电话')
     passengers_ID = fields.Char(string='乘客生份证')
@@ -28,13 +28,15 @@ class SpecialMoney(models.Model):
     webmaster = fields.Char(string='站长')
     deputy_director = fields.Char(string='分部主任')
     main_director = fields.Char(string='部门领导')
-    write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-$m-%d'))
+    write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     write_person = fields.Datetime(string='填报人')
     audit_flow = fields.Char(string='审核流程')
     apply_why = fields.Text(string='申请原因')
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
-    load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
-                                         'attachment_id','meeting_dateils_id', string='图片上传')
+    # load_file_test = fields.Many2many('ir.attachment','good_special_ir_attachment_rel',
+    #                                      'attachment_id','meeting_dateils_id', string='图片上传')
+    load_file_test = fields.Binary(string='身份证照片')
+    file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
 
     def special_details_action(self):
@@ -99,8 +101,11 @@ class SpecialMoney(models.Model):
         }
 
     def print_refund_form(self):
+        id_id = self.id
         return {
             "type": "ir.actions.act_url",
-            "url": '/funenc_xa_station/special_money_xlsx',
+            'res_id': self.id,
+            "url": '/funenc_xa_station/special_money_xlsx?id=%s'%(id_id),
+
             "target": "new",
         }

@@ -4,7 +4,7 @@
             <field name="name">video_voice_tree</field>
             <field name="model">video_voice_model</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree edit="0" class="noOpen" create="0">
                     <field name="video"></field>
                     <field name="file_name" invisible="1"/>
                 </tree>
@@ -19,6 +19,23 @@
                     <sheet>
                         <group>
                             <field name="video"></field>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--视屏下载页面-->
+        <record id="video_voice_load" model="ir.ui.view">
+            <field name="name">video_voice_form</field>
+            <field name="model">video_voice_model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <h1>点击文件名进行下载</h1>
+                            <field name="video" filename="file_name"></field>
                             <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>

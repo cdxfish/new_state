@@ -10,6 +10,7 @@ key = [('one_audit','待初核'),
 class AddGuestsHurt(models.Model):
     _name = 'fuenc_xa_station.add_guests_hurt'
     _inherit = 'fuenc_station.station_base'
+    associated = fields.Many2one('fuenc_xa_station.guests_hurt', string='关联字段')
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
@@ -26,7 +27,18 @@ class AddGuestsHurt(models.Model):
     audit_flow = fields.Char(string='审核流程')
     load_file_test = fields.Many2many('ir.attachment','guests_hurt_ir_attachment_rel',
                                          'attachment_id','guests_hurt_id', string='图片上传')
-    associated = fields.Many2one('fuenc_xa_station.guests_hurt',string='关联字段')
+
+
+    guests_phone = fields.Char(string='乘客联系方式')
+    responsibility_identification = fields.Selection([('self', '乘客自身的原因'),
+                                                      ('subway', '地铁原因'), ('three_method', '第三方原因')],
+                                                     string='责任方认定(初审)')
+    one_associated = fields.One2many('fuenc_xa_station.add_guests_hurt', 'associated', string='客人关联字段')
+    mp_play = fields.Binary(string='上传视屏')
+    file_name = fields.Char(string="File Name")
+    url = fields.Char(string='url')
+    mp_play_many = fields.One2many('video_voice_model', 'mp_play_one', string='视频附件')
+    mp3_play_many = fields.One2many('video_voice_model', 'mp3_play', string='视频附件')
 
 
 
@@ -98,4 +110,19 @@ class AddGuestsHurt(models.Model):
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
             'target': 'new',
+        }
+
+    def good_details_button(self):
+        view_form = self.env.ref('funenc_xa_station.add_guests_hurt_details').id
+        return {
+            'name': '客伤',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'fuenc_xa_station.add_guests_hurt',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': self.id,
+            # 'target': 'new',
         }

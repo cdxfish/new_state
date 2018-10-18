@@ -659,6 +659,10 @@
 	<menuitem id="belong_to_summary_menu1" name="属地管理汇总" action="belong_to_management"
 			  parent="opening_manage"></menuitem>
 
+	<menuitem id="break_submit_menu" name="故障提报" action="break_submit_act" parent="opening_manage"></menuitem>
+	<menuitem id="break_type_increase_menu" name="故障类型设置" action="break_type_increase_act"
+			  parent="opening_manage"></menuitem>
+
 
 
 
