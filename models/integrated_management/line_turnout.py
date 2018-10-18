@@ -12,6 +12,13 @@ class LineTurnout(models.Model):
     operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路')
 
 
+    def test(self):
+        a = self.env['ir.ui.view'].search(
+            [('model', '=', 'funenc_xa_station.line_turnout'), ('name', '=', 'funenc_xa_station_line_turnout_list')])
+
+        a.write({'groups_id': [(6, 0, [13, 14])]})
+        print(a.groups_id)
+
 class LineMap(models.Model):
     _name = 'funenc_xa_station.line_map'
     _description = u'车站线路平面图'

@@ -10,10 +10,12 @@
                     <field name="turnout_ids" string="道岔"/>
                     <field name="liaison_station_ids" string="联络站基本信息"/>
                     <field name="operating_line_ids" string="作业线路"/>
+                    <button name="test" string="设置" type="object"
+					        groups="funenc_xa_station.system_fuenc_tester"
+					/>
                 </tree>
             </field>
         </record>
-
 
         <record model="ir.ui.view" id="funenc_xa_station_line_turnout_form">
             <field name="name">funenc_xa_station_line_turnout_form</field>

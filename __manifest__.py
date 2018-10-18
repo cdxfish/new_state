@@ -90,6 +90,7 @@
 		'views/consumables_manage/consumables_apply.xml',
 		'views/consumables_manage/delivery_storage.xml',
 		'views/consumables_manage/consumables_inventory.xml',
+		'views/staffiong/position_settings.xml',
 
 		'views/break_logo/break_logo_management.xml',
 		'views/break_logo/break_submit.xml',
@@ -99,9 +100,11 @@
 		'views/production_manage/change_shifts_setting.xml',
 		'views/belong_to_management/belong_to_management.xml',
 		'views/belong_to_management/belong_to_summary.xml',
-
+		'views/menu.xml',
+		'views/work_kanban/work_kanban.xml',
+		'views/work_kanban/task_type.xml',
 		'views/index.xml',
-        'views/menu.xml',
+
 
 
 	],
@@ -110,20 +113,7 @@
 	# 	'demo/demo.xml',
 	# ],
 	'qweb': [
-		'static/xml/templates.xml',
-		'static/xml/tree_btns.xml',
-		'static/xml/add_management.xml',
-		'static/xml/add_certificate.xml',
-		'static/xml/add_major_class.xml',
-		'static/xml/plan_method_btn.xml',
-        'static/xml/integrated_management.xml',
-        'static/xml/person_info_management.xml',
-        'static/xml/check_evaluate.xml',
-        'static/xml/meeting_dateils.xml',
-		'static/xml/good_deeds_button.xml',
-		'static/xml/prude_newpaper.xml',
-		'static/xml/break_logo_manage.xml',
-		'static/xml/belong_to_managemet.xml',
+		'static/xml/*.xml',
 	],
 	'installable': True,
 	'auto_install': False,
