@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="create_training_plan_button">
+            <field name="name">创建培训计划申请</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_training_plan"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_training_plan"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">培训计划</field>
+            <field name="code">
+                action = model.create_training_plan()
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_training_plan_list">
+            <field name="name">funenc_xa_station_training_plan_list</field>
+            <field name="model">funenc_xa_station.training_plan</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0" class="noOpen">
+                    <field name="training_plan_project" string="培训项目"/>
+                    <field name="training_plan_type" string="培训类型"/>
+                    <field name="training_plan_time" string="培训时间"/>
+                    <field name="training_plan_place" string="培训地点"/>
+                    <field name="training_plan_major" string="培训专业"/>
+                    <field name="lecturer" string="授课人"/>
+                    <field name="training_plan_mode" string="培训形式"/>
+                    <field name="remarks" string="备注"/>
+                    <field name="state" string="状态"/>
+                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_training_plan_form">
+            <field name="name">funenc_xa_station_training_plan_form</field>
+            <field name="model">funenc_xa_station.training_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="button_details" class="oe_stat_button"
+                                    icon="fa-pencil-square-o">
+                                <span>培训详情</span>
+                                <!--<field string="培训详情" name="configuration_count" widget="statinfo" />-->
+                            </button>
+                        </div>
+
+                        <div class="container-fluid">
+                            <group>
+                                <group>
+                                    <field name="training_plan_project" string="培训项目"/>
+                                    <field name="training_plan_time" string="培训时间">
+                                        <tree editable="top" class="noOpen">
+                                            <field name="name" string="培训时间"/>
+                                        </tree>
+                                    </field>
+                                    <field name="training_plan_place" string="培训地点"/>
+                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="training_plan_type" string="培训类型"/>
+                                    <field name="training_plan_mode" string="培训形式"/>
+                                    <field name="participate_unit" string="参培单位"/>
+                                    <field name="training_plan_major" string="培训专业"/>
+                                    <field name="lecturer" string="授课人"/>
+                                </group>
+                                <group>
+                                    <field name="remarks" string="备注"/>
+                                </group>
+                            </group>
+                            <!--<footer>-->
+                            <!--<button name='training_plan_save'-->
+                            <!--string='确定'-->
+                            <!--class='btn-primary'-->
+                            <!--type='object'/>-->
+                            <!--<button string='取消'-->
+                            <!--class='btn-default'-->
+                            <!--special='cancel'/>-->
+                            <!--</footer>-->
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_training_plan_form_1">
+            <field name="name">funenc_xa_station_training_plan_form</field>
+            <field name="model">funenc_xa_station.training_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="container-fluid">
+                            <group string="基本信息">
+                                <group >
+                                    <field name="training_plan_project" string="培训项目"/>
+                                     <field name="participate_unit" string="参培单位"/>
+                                    <field name="training_plan_major" string="培训专业"/>
+                                    <field name="training_plan_time" string="培训时间">
+                                        <tree editable="top" class="noOpen">
+                                            <field name="name" />
+                                        </tree>
+                                    </field>
+                                     <field name="training_plan_type" string="培训类型"/>
+                                     <field name="partake_site_ids" string="参与站点" widget="many2many_tags"/>
+
+                                    <field name="remarks" string="备注"/>
+                                </group>
+                                <group>
+                                    <field name="leaser_time" string="发布日期"/>
+                                    <field name="training_plan_mode" string="培训形式"/>
+                                    <field name="training_plan_place" string="培训地点"/>
+                                    <field name="lecturer" string="授课人"/>
+                                </group>
+                                <group>
+
+                                </group>
+                            </group>
+                            <group string="培训成果">
+                                <field name="site_training_results_ids" string="">
+                                    <tree>
+                                        <field name="line_id" string="线路"/>
+                                        <field name="site_id" string="站点"/>
+                                        <field name="course_hours" string="培训课时"/>
+                                        <field name="training_person_time" string="培训人次"/>
+                                        <field name="percent_of_pass" string="培训合格率"/>
+                                        <field name="training_content" string="培训内容"/>
+                                        <field name="training_evaluate" string="培训评价"/>
+                                        <field name="training_content" string="questions"/>
+                                    </tree>
+                                </field>
+
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="xa_station_training_plan_action">
+            <field name="name">培训计划</field>
+            <field name="res_model">funenc_xa_station.training_plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="xa_station_training_plan_menu" name="培训计划"
+                  action="xa_station_training_plan_action" parent="opening_manage"
+        />
+
+    </data>
+</odoo>

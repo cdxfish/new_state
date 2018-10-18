@@ -1,46 +1,65 @@
-odoo.define('btn_display_widget', function (require) {
+
+odoo.define('visible_button', function (require) {
     "use strict";
 
-        var core = require('web.core');
-        var Widget = require('web.Widget');
-        var widget_registry = require('web.widget_registry');
+    var core = require('web.core');
+    var ListView = require('web.ListView');
+    var FormView = require('web.FormView');
 
-     console.log('222')
+    ListView.include({
 
-    var btn_display_widget = Widget.extend({
-        init: function (parent,record) {
-         console.log('333')
-//            this._super.apply(this,arguments);
-//
-            console.log('record',record);
-
-            self.record=record;
+        init: function () {
+            this._super.apply(this, arguments);
+            console.log('11',$('#id_1'))
+            $('#id_1').css('dispaly','none')
         },
+
+//        render_buttons: function ($node) {
+//            var self = this;
+//            this._super($node);
+//            self.$buttons.find('#id_1').hide()
+//
+//            /*
+//             * 隐藏客户列表 创建按钮
+//             * */
+////            if (!tester_has_right && !region_customer_create) {
+////                self.$buttons.find('#res_partner_list').hide();
+////            }
+//
+//
+//
+//        },
         start: function () {
             var self = this;
+            self._super();
+            alert(33);
+//            var Users = new Model("res.users");
+//            Users.call('has_group', ['group_sobey.sale_sobey_leader']).done(function (has) {
+//                console.log("has_right: " + has);
+//                leader_has_right = has;
+//            });
 
-            var html='<div class="layui-btn-group">';
-            html += '<button class="layui-btn layui-btn-sm" type="object" name="edit" id="id_1" style="display:none">编辑</button>';
 
-            html += '<button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>';
-            html +='</div>';
-            this.$el.html(html);
-
-            this.$el.find('#id_1').click(function(){
-                console.log('click')
-
-            })
-
-        },
-        _render: function () {
-            if (this.mode === 'edit') {
-                return this._renderEdit();
-            } else if (this.mode === 'readonly') {
-                return this._renderReadonly();
+        }
+        ,
+    })
+    ;
+    FormView.include({
+        render_buttons: function ($node) {
+            var self = this;
+            this._super($node);
+            /*
+             * 隐藏现金流任务 创建按钮
+             * */
+            if (!tester_has_right && !cash_flow_management_create) {
+                self.$buttons.find('#cash_flow_mge_1').hide();
             }
+
+
+
         },
     });
 
-    widget_registry.add('btn_display_widget', btn_display_widget);
-    return {btn_display_widget: btn_display_widget}
 });
+
+

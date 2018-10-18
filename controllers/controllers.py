@@ -65,3 +65,13 @@ class FuencStation(http.Controller):
         return http.request.render('fuenc_station.object', {
             'object': obj
         })
+
+    # @http.route('controllers/training_plan/punch_the_clock', type='http', auth='none')
+    # def punch_the_clock(self):
+    #     '''
+    #     培训打卡
+    #     :param kw:
+    #     :return:
+    #     '''
+    #
+    #     return "打卡成功"
