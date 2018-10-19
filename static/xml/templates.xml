@@ -12,7 +12,7 @@
     <t t-name="key_widget_type_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="key_type_edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_type_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_type_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
     <!--钥匙详情操作按钮-->
@@ -34,7 +34,7 @@
             <button class="layui-btn layui-btn-sm" type="object" name="key_detail_state_change_recovery"
             t-if="widget.record.data.state_now == 'destroyed' || widget.record.data.state_now == 'error'"
             >恢复</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除该钥匙吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
@@ -42,7 +42,7 @@
     <t t-name="key_detail_widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="key_detail_edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="key_detail_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
@@ -50,7 +50,7 @@
     <t t-name="arrange_order_widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="arrange_order_edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="arrange_order_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="arrange_order_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
@@ -103,7 +103,7 @@
     <t t-name="funenc_xa_station_leave_widget_edit">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
@@ -111,14 +111,14 @@
     <t t-name="consumables_type_widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
     <t t-name="widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
