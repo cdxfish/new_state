@@ -25,6 +25,7 @@ class GoodDeeds(models.Model):
     load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
     audit_flow = fields.Char(string='审核流程')
+    mp_play_many = fields.One2many('video_voice_model' ,'good_deeds_play' ,string='视频附件')
 
 
 

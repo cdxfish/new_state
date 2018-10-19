@@ -18,7 +18,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="video"></field>
+                            <field name="video" max_upload_kb="1024000000"></field>
                             <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>
@@ -35,7 +35,7 @@
                     <sheet>
                         <group>
                             <h1>点击文件名进行下载</h1>
-                            <field name="video" filename="file_name"></field>
+                            <field name="video" filename="file_name" max_upload_kb="1024000000"></field>
                             <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>

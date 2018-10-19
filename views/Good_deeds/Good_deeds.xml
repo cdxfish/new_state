@@ -120,6 +120,32 @@
                                   </div>
                                </div>
                             </div>
+
+                           <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-1">
+                                     <label for="mp_play_many" string="视屏附件："/>
+                                  </div>
+                                 <div class="col-md-3">
+                                    <field name="mp_play_many">
+                                        <tree>
+                                            <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                            <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                    <field name="file_name" invisible="1"/>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                  </div>
+                               </div>
+                            </div>
+
                     </div>
                 </form>
             </field>
@@ -261,6 +287,31 @@
                                 </div>
                              </div>
                          </div>
+
+                         <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="mp_play_many" string="视屏附件："/>
+                              </div>
+                             <div class="col-md-3">
+                                <field name="mp_play_many">
+                                    <tree>
+                                        <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                        <field name="file_name" invisible="1"/>
+                                        <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                 <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                <field name="file_name" invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                              </div>
+                           </div>
+                        </div>
 
                     </div>
                 </form>
