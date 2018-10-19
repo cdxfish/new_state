@@ -144,3 +144,21 @@ class generate_qr(models.Model):
                 qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
                 img.save(file_name)
                 obj.update({'off_work_qr':file_name})
+
+# def create_qrcode_1():
+#         '''
+#         二维码生成
+#         :param filename:
+#         :return:
+#         '''
+#
+#         # 获取本机计算机名称
+#         hostname = socket.gethostname()
+#         # 获取本机ip
+#         ip = socket.gethostbyname(hostname)
+#         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
+#         qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+#         print('http://{}/fuenc_station/index/'.format(ip))
+#         img = qr.make_image()
+#         img.save("../static/images/advanceduse.png")
+# create_qrcode_1()

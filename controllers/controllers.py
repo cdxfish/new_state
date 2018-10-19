@@ -58,7 +58,7 @@ class FuencStation(http.Controller):
         except Exception as e:
             print(e)
 
-        return "打卡成功"
+        return http.local_redirect('/fnt_fm1212/static/home_pc.html?t=%s' % int(round(time.time())))
 
     @http.route('/fuenc_station/fuenc_station/objects/<model("fuenc_station.fuenc_station"):obj>/', auth='public')
     def object(self, obj, **kw):

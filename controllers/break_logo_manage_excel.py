@@ -80,6 +80,7 @@ class SpecialMoneyXlsx(http.Controller):
             #图片存放到列表
             lis.append(brefor_image_path)
 
+            #将审核状态转化成为汉字
             if re.state =='one':
                 state = '已修复'
             else:

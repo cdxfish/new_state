@@ -49,15 +49,15 @@ class PrudeNewpaperWrite(models.Model):
             if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
                 raise exceptions.ValidationError('提交警告一天只能提交一次')
 
-        else:
-            item = {
-                'date_time_limit': open_time
-            }
-            self.env['funenc_xa_station.date_time'].sudo().create(item)
-            item={
-                'date_time_limit':new_time
-            }
-            self.env['funenc_xa_station.date_time'].sudo().create(item)
+            else:
+                item = {
+                    'date_time_limit': open_time
+                }
+                self.env['funenc_xa_station.date_time'].sudo().create(item)
+                item={
+                    'date_time_limit':new_time
+                }
+                self.env['funenc_xa_station.date_time'].sudo().create(item)
 
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
