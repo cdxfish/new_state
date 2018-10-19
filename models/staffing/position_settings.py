@@ -3,16 +3,49 @@ import odoo.exceptions as msg
 
 from odoo import models, fields, api
 
+MODULE_NAME = 'funenc_xa_station'
+CATEGORY_ID_LIST = ['module_category_fuenc']
 
-class position_settiings(models.Model):
+
+class PositionSettings(models.Model):
     _inherit = 'res.groups'
     _description = '职位设置'
 
-    button_line_ids = fields.Many2many('funenc_xa_station.button_line', 'res_user_button_line_rel_1', 'group_id',
-                                       'button_id', string='页面按钮设置')
+    @api.model
+    def get_group_data(self, group_id):
+        category_id = self.env.ref('{}.{}'.format(MODULE_NAME, 'module_category_custom_groups'))
+        category_id.ensure_one()
+        cats = []
+        for c_id in CATEGORY_ID_LIST:
+            category_record = self.env.ref('{}.{}'.format(MODULE_NAME, c_id))
+            groups = self.search([('category_id', '=', category_record.id)])
+            checked_groups = self.browse(group_id).implied_ids
+            cats.append({
+                'name': category_record.display_name,
+                'groups': [{'id': i.id, 'name': i.name} for i in groups],
+                'checkedGroups': [j.id for j in checked_groups],
+                'isIndeterminate': False,
+                'checkAll': False if len(checked_groups) != len(groups) else True,
+                'xml_id': category_record.xml_id
+            })
+        template = self.env['vue_template_manager.template_manage'].get_template_content(
+            'funenc_xa_station', 'group_config')
+        rst = dict(cats=cats, template=template)
+        return rst
+
+    @api.model
+    def add_or_write_custom_group(self, open_type, group_id, group_name, cats):
+        category_id = self.env.ref('funenc_xa_station.module_category_custom_groups')
+        category_id.ensure_one()
+        implied_ids = []
+        for cat in cats:
+            implied_ids += cat['checkedGroups']
+        if open_type == 'add':
+            self.create({'name': group_name, 'category_id': category_id.id, 'implied_ids': [(6, 0, implied_ids)]})
+        elif open_type == 'update':
+            self.browse(group_id).write({'implied_ids': [(6, 0, implied_ids)]})
 
     def create_position_settings_button(self):
-
         return {
             'name': '职位创建',
             'type': 'ir.actions.act_window',
@@ -23,23 +56,3 @@ class position_settiings(models.Model):
             # 'flags': {'initial_mode': 'edit'},
             'target': 'new',
         }
-
-
-def create_position_settings(self):
-    self.env['ir.ui.view'].search(
-        [('model', '=', 'res.groups'), ('name', '=', 'funenc_xa_station_res_groups_list')])
-    return
-
-
-class button_line(models.Model):
-    _name = 'funenc_xa_station.button_line'
-    _rec_name = 'button_name'
-
-    button_name = fields.Char(string='按钮名字')
-    model_id = fields.Char(string='模型名称')
-    visible_button_name = fields.Char(string='可见的按钮名称')  # 准确匹配
-
-    def create_data(self):
-        self.env['ir.ui.view'].search(
-            [('model', '=', 'res.groups'), ('name', '=', 'funenc_xa_station_res_groups_list')])
-        return
