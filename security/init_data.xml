@@ -18,41 +18,41 @@
         <!--培训效果评价-->
 
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect">
-            <field name="project">课程是否符合个人及工作需要，达到培训目标</field>
+            <field name="evaluation_project">课程是否符合个人及工作需要，达到培训目标</field>
             <field name="evaluation_project_total_score">20</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_1">
-            <field name="project">培训内容是否紧密结合实际工作，应用性强</field>
+            <field name="evaluation_project">培训内容是否紧密结合实际工作，应用性强</field>
              <field name="evaluation_project_total_score">20</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_2">
-            <field name="project">课程是否丰富，易于理解</field>
+            <field name="evaluation_project">课程是否丰富，易于理解</field>
              <field name="evaluation_project_total_score">10</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_3">
-            <field name="project">培训内容是否紧密结合实际，具有指导性</field>
+            <field name="evaluation_project">培训内容是否紧密结合实际，具有指导性</field>
             <field name="evaluation_project_total_score">10</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_4">
-            <field name="project">培训师的表达是否清楚，态度友善</field>
+            <field name="evaluation_project">培训师的表达是否清楚，态度友善</field>
             <field name="evaluation_project_total_score">10</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_5">
-            <field name="project">对学员的提问做出回答与指导</field>
+            <field name="evaluation_project">对学员的提问做出回答与指导</field>
             <field name="evaluation_project_total_score">10</field>
         </record>
 
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_8">
-            <field name="project">是否鼓励学员参与课堂教学</field>
+            <field name="evaluation_project">是否鼓励学员参与课堂教学</field>
             <field name="evaluation_project_total_score">10</field>
         </record>
 
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_6">
-            <field name="project">培训讲义、课件编写质量</field>
+            <field name="evaluation_project">培训讲义、课件编写质量</field>
             <field name="evaluation_project_total_score">10</field>
         </record>
         <record model="funenc_xa_station.training_effect" id="create_data_training_effect_7 ">
-            <field name="project">总分</field>
+            <field name="evaluation_project">总分</field>
         </record>
 
     </data>
