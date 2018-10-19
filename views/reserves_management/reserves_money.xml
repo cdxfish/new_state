@@ -1,0 +1,162 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.client" id="funenc_xa_station.reserver_money">
+          <field name="name"></field>
+          <field name="tag">reserver_money</field>
+        </record>
+
+        <!--<menuitem id="reserves_management_act" name="车站备用金管理"-->
+				  <!--action="reserver_money" parent="opening_manage"-->
+		<!--/>-->
+
+        <record id="reserves_money" model="ir.ui.view">
+            <field name="name">车站备用金管理</field>
+            <field name="model">funenc_xa_station.reserver_management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="site_id" domain="[('department_hierarchy','=',2)]"/>
+                          </div>
+                       </div>
+                    </div>
+
+
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="r_date" string="填写时间"/>
+                           <field name="r_date"></field>
+                       </div>
+                       <div class="col-md-3">
+                           <label for="day_money" string="日常备用金配备金额(1)："/>
+                             <field name="day_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="traffic_money" string="交银行兑零纸币(2)："/>
+                             <field name="traffic_money" />
+                       </div>
+                       <div class="col-md-3">
+                           <label for="bank_Paper" string="银行返兑零纸币(3)："/>
+                             <field name="bank_Paper" />
+                       </div>
+                       <div class="col-md-3">
+                           <label for="bank_COINS" string="银行返兑零硬币(4)："/>
+                             <field name="bank_COINS" />
+                       </div>
+                    </div>
+                    <h1>配置备用金金额</h1>
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="day_standby_money" string="日常备用金(5)："/>
+                           <field name="day_standby_money"></field>
+                       </div>
+                       <div class="col-md-3">
+                           <label for="temporary_standby_money" string="临时备用金(6)："/>
+                             <field name="temporary_standby_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="financial_temporary_money" string="返还财务部备用金金额(7)："/>
+                             <field name="financial_temporary_money" />
+                       </div>
+                    </div>
+                    <h1>清点银行兑零发现机假币金额</h1>
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="machine_money" string="机币(8)："/>
+                             <field name="machine_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="counterfeit" string="假币(9)："/>
+                             <field name="counterfeit" />
+                       </div>
+                       <div class="col-md-3">
+                           <label for="imperfect_money" string="残币(10)："/>
+                             <field name="imperfect_money" />
+                       </div>
+                       <div class="col-md-3">
+                           <label for="Foreign_currency" string="外币(11)："/>
+                             <field name="Foreign_currency" />
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="less_money" string="少币(12)："/>
+                             <field name="less_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="subtotal" string="小计(13)："/>
+                             <field name="subtotal" readonly="1"/>
+                       </div>
+                       <div class="col-md-3">
+                           <label for="more_money" string="多币："/>
+                             <field name="more_money" />
+                       </div>
+                    </div>
+                    <h1>增配备用金金额</h1>
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="return_money" string="返还金额(14)："/>
+                             <field name="return_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="return_money_date" string="返还所属日期："/>
+                             <field name="return_money_date" />
+                       </div>
+                    </div>
+                    <h1>返回银行多币情况</h1>
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="bank_return_money" string="返还金额："/>
+                             <field name="bank_return_money" />
+                       </div>
+                        <div class="col-md-3">
+                            <label for="bank_return_date" string="返还所属日期："/>
+                             <field name="bank_return_date" />
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-3">
+                           <label for="day_day_standby" string="当日备用金金额(15)：" />
+                             <field name="day_day_standby" readonly="1"/>
+                       </div>
+                        <div class="col-md-3">
+                            <label for="day_day_standby_subtraction" string="当日备用金差额(16)："/>
+                             <field name="day_day_standby_subtraction" readonly="1"/>
+                       </div>
+                       <div class="col-md-3">
+                           <label for="Person_charge_account" string="记账人："/>
+                             <field name="Person_charge_account" />
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-12">
+                           <label for="note" string="备注："/>
+                             <field name="note" />
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="reserves_money_act" model="ir.actions.act_window">
+            <field name="name">车站备用金管理</field>
+            <field name="res_model">funenc_xa_station.reserver_management</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

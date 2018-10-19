@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+
+        <record id="Good_deeds_type_tree" model="ir.ui.view">
+            <field name="name">好人好事类型设置</field>
+            <field name="model">funenc_xa_station.good_deeds_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="good_type"></field>
+                    <field name="note"></field>
+                    <widget string="操作" name="treebtns" template="special_money_type_button" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="Good_deeds_type_form" model="ir.ui.view">
+            <field name="name">好人好事类型设置</field>
+            <field name="model">funenc_xa_station.good_deeds_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="good_type"></field>
+                            <field name="note"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="Good_deeds_type_act" model="ir.actions.act_window">
+            <field name="name">好人好事类型设置</field>
+            <field name="res_model">funenc_xa_station.good_deeds_type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act"></menuitem>-->
+
+    </data>
+</odoo>

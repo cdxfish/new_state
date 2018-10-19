@@ -42,7 +42,7 @@ odoo.define("one2many_image_read_widget", function(require) {
               );
               for (var i in data) {
                 $el.append(
-                  '<img src="data:image/png;base64,' + data[i].datas + '">'
+                  '<img  height="80" width="80" style="margin:4px;background-color: rgba(185, 211, 238,.6)" class="img-rounded" src="data:image/png;base64,' + data[i].datas + '">'
                 );
               }
               self.replaceElement($el);

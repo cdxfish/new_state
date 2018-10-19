@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+
+		<!--<record model="ir.actions.server" id="create_funenc_xa_station_leave_1">-->
+			<!--<field name="name">新增请假</field>-->
+			<!--<field name="state">code</field>-->
+			<!--<field name="type">ir.actions.server</field>-->
+			<!--<field name="model_id" ref="model_funenc_xa_station_leave"/>-->
+			<!--<field name="condition">True</field>-->
+			<!--<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>-->
+			<!--<field name="binding_type">action_button</field>-->
+			<!--<field name="binding_action">请假列表</field>-->
+			<!--<field name="code">-->
+				<!--action = model.create_leave()-->
+			<!--</field>-->
+		<!--</record>-->
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_leave_list">
+			<field name="name">funenc_xa_station_leave_list</field>
+			<field name="model">funenc_xa_station.leave</field>
+			<field name="arch" type="xml">
+				<tree limit="15"  class="noOpen">
+					<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+                            <field name="leave_user_id" string="请假员工"/>
+                            <field name="jobnumber" string="工号" readonly="1"/>
+							<field name="position" string="职位" readonly="1"/>
+							<field name="leave_type" string="请假类型" />
+							<field name="leave_start_time" string="请假开始时间" />
+							<field name="leave_end_time" string="请假结束时间时间" />
+							<field name="leave_length" string="请假请假时长" />
+							<field name="leave_reason" string="请假原因" />
+							<field name="application_time" string="申请时间" />
+							<field name="application_time" string="审批人" />
+                    <widget string="操作" name="treebtns" template="funenc_xa_station_leave_widget_edit"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_leave_form">
+			<field name="name">funenc_xa_station_leave_form</field>
+			<field name="model">funenc_xa_station.leave</field>
+			<field name="arch" type="xml">
+				<form>
+					<div class="container-fluid">
+						<group>
+                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester" domain="[('department_hierarchy','=',2)]"/>
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester" context="{'site_id':site_id}"/>
+                            <field name="leave_user_id" string="请假员工" domain="[('departments','=',site_id)]" options="{'no_create':True,'no_open':True}"/>
+                            <field name="jobnumber" string="工号" readonly="1"/>
+							<field name="position" string="职位" readonly="1"/>
+							<field name="leave_type" string="请假类型" />
+							<field name="leave_start_time" string="请假开始时间" />
+							<field name="leave_end_time" string="请假结束时间时间" />
+							<field name="leave_length" string="请假请假时长" />
+							<field name="leave_reason" string="请假原因" />
+							<field name="application_time" string="申请时间" />
+							<field name="approve_user" string="审批人" domain="[('departments','=',site_id)]" options="{'no_create':True,'no_open':True}"/>
+						</group>
+					</div>
+				</form>
+			</field>
+		</record>
+
+
+    </data>
+</odoo>

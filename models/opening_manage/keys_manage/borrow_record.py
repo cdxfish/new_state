@@ -28,17 +28,23 @@ class BorrowRecord(models.Model):
 
     @api.model
     def create(self, vals):
+        if self.env.user.id == 1:
+            return_operate_member = 1
+        else:
+            return_operate_member = self.env.user.dingtalk_user[0].id
         if vals.get('key_no') and ( not vals.get('return_member') ):
+
             key_no = vals.get('key_no')
             key = self.env['funenc.xa.station.key.detail'].search([('id','=',key_no)])
             if key.is_borrow == 1:
                 raise msg.Warning('钥匙正在借用')
             else:
                 key.write({'is_borrow':1})
+                key.write({'state_now': 'borrow'})
 
         vals['borrow_time'] = datetime.datetime.now()
         vals['state'] = 'yes'
-        vals['borrow_operate_member'] = self.env.user.id
+        vals['borrow_operate_member'] = return_operate_member
         if vals.get('return_member'):
             vals['del_ids']= 1
         return super(BorrowRecord, self).create(vals)
@@ -64,17 +70,28 @@ class BorrowRecord(models.Model):
 
         return super(BorrowRecord, self).write(vals)
     def submit(self):
+        if self.env.user.id ==1 :
+            return_operate_member = 1
+        else:
+            return_operate_member =self.env.user.dingtalk_user[0].id
 
         borrow_record = self.env['funenc.xa.station.borrow.record'].search(
             [('key_no', '=',self.key_no.id), ('state', '=','yes'), ('del_ids', '=', False)])
 
         borrow_record.write({'state': 'no','return_member':self.return_member.id,
                              'return_time':datetime.datetime.now(),
-                             'return_operate_member':self.env.user.id
+                             'return_operate_member': return_operate_member
 
                              })
-        borrow_record.key_no.write({'is_borrow':2})
+        borrow_record.key_no.write({'is_borrow':2,'state_now': 'normal'})
         self.env['funenc.xa.station.borrow.record'].search([('del_ids', '=', 1)]).unlink()
+        return {
+            'name': '钥匙',
+            "type": "ir.actions.client",
+            "tag": "key_statistic",
+            "target": "current",
+
+        }
 
     def _compute_count(self):
         '''
@@ -141,5 +158,13 @@ class BorrowRecord(models.Model):
                 # "domain": [()],
             }
 
+    def save(self):
 
+        return {
+            'name': '钥匙',
+            "type": "ir.actions.client",
+            "tag": "key_statistic",
+            "target": "current",
+
+        }
 

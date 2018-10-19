@@ -114,26 +114,40 @@
             </field>
         </record>
 
-            <record id="station_certificate_act_id_1" model="ir.actions.act_window">
+            <record id="station_certificate_act_id_3" model="ir.actions.act_window">
                 <field name="name">新增规章</field>
                 <field name="type">ir.actions.act_window</field>
                 <field name="res_model">station.certificate</field>
-                <field name="view_type">form</field>
-                <field name="view_mode">tree,kanban,form</field>
+                <field name="view_mode">tree,form</field>
                  <field name="top_widget">multi_action_tab</field>
                 <field name="top_widget_key">driver_manage_tab</field>
                 <field name="top_widget_options">
-                    {'tabs': [{'title': '车站证件管理',
-                    'action':  {
-                        'type': 'ir.actions.act_window',
-                        "name": "车站证件管理",
-                        'views': [[False, 'list'], [False, 'form']],
-                        'view_mode': 'tree,form',
-                        "res_model": "person.certificate"
-                    }},
-                    {'title': '人员证件管理', 'domains': [['id', '=', '1']]},
-                    {'title': '证件管理', 'domains': [['id', '=', '1']]}]}
+                    {'tabs':
+                        [
+                            {'title': '车站证件管理',
+                            'action':  {
+                                'type': 'ir.actions.act_window',
+                                "name": "车站证件管理",
+                                'views': [[False, 'list'], [False, 'form']],
+                                'view_mode': 'tree,form',
+                                "res_model": "station.certificate"，
+                            }},
+                            {
+                                'title': '人员证件管理',
+                                'action2':  {
+                                    'type': 'ir.actions.act_window',
+                                    "name": "车站证件管理",
+                                    'views': [[False, 'list'], [False, 'form']],
+                                    'view_mode': 'tree,form',
+                                    "res_model": "person.certificate"
+                            }},
+
+                            {'title': '证件管理', 'domains': [['id', '=', '1']]}
+                        ]
+                    }
                 </field>
             </record>
+
+
     </data>
 </odoo>

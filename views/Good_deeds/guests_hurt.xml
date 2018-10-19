@@ -1,0 +1,492 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="guests_hurt_button">
+            <field name="name">新建</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">乘客意见箱</field>
+            <field name="code">
+                action = model.create_guests_action()
+            </field>
+        </record>
+
+    ﻿   <record model="ir.actions.act_url" id="guests_hurt_url">
+            <field name="name">导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="binding_xml_id">guests_hurt_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/guests_hurt</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="guests_hurt_tree" model="ir.ui.view">
+            <field name="name">客伤</field>
+            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="arch" type="xml">
+                <tree create="0" class="noOpen">
+                    <field name="id" string="序号"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="open_time"></field>
+                    <field name="write_person"></field>
+                    <field name="guests_name"></field>
+                    <field name="write_time"></field>
+                    <field name="claim"></field>
+                    <field name="claim_money"></field>
+                    <field name="claim_state"></field>
+                    <field name="audit_state"></field>
+                    <widget  name="treebtns" template="guests_hurt_button" />
+                </tree>
+            </field>
+        </record>
+
+
+         <!--客人form创建-->
+        <record id="guests_hurt_form" model="ir.ui.view">
+            <field name="name">客伤</field>
+            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="site_id" />
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="open_site" string="发生地点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="open_site"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="claim_state" string="是否索赔"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="claim_state"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="claim_money" string="索赔金额"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="claim_money"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_name"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_grede" string="乘客性别"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_grede"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_age" string="乘客年龄"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_age"/>
+                          </div>
+                       </div>
+                        <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="guests_phone" string="乘客联系方式"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="guests_phone"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="responsibility_identification" string="责任认定(初判)"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="responsibility_identification"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="事件详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="设备状态"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="照片："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="load_file_test" widget="one2many_image_read_widget"  options="{'size': [90, 90]}">
+                                <tree>
+                                    <field name="datas_fname" widget="image" options="{'size': [90, 90]}"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+                   <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="mp_play_many" string="视屏附件："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="mp_play_many">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                 <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="mp3_play_many" string="录音附件："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="mp3_play_many">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+                </form>
+            </field>
+            </record>
+
+
+        <!--客人受伤详情-->
+        <record id="guests_hurt_details" model="ir.ui.view">
+            <field name="name">客伤</field>
+            <field name="model">fuenc_xa_station.guests_hurt</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h1>基本信息</h1>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路" readonly="1"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="open_time" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_time" string="填报时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_time" readonly="1"/>
+                          </div>
+                       </div>
+
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_person" string="填报人"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_person" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="audit_state" string="审核状态"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="audit_state" readonly="1"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim" string="是否索赔"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim_money" string="索赔金额"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim_money" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="claim_state" string="索赔状态"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="claim_state" readonly="1"/>
+                          </div>
+                       </div>
+                        <widget  name="treebtns" template="change_clain_state"/>
+                    </div>
+
+                     <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_name" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_grede" string="乘客性别"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_grede" readonly="1"/>
+                          </div>
+                       </div>
+
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_age" string="乘客年龄"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_age" readonly="1"/>
+                          </div>
+                       </div>
+
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="event_details" string="事件详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="event_details" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="audit_flow" string="审核流程"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="audit_flow" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+                    <h1>附件内容</h1>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="照片："/>
+                          </div>
+                         <div class="col-md-6">
+                            <field name="load_file_test" widget="one2many_image_read_widget" readonly="1">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                 <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="mp_play_many" string="视屏附件："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="mp_play_many" readonly="1">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="mp3_play_many" string="录音附件："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="mp3_play_many" readonly="1">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                    <h1>更近记录</h1>
+                    <field name="one_associated">
+                        <tree >
+                            <field name="id" string="序号"></field>
+                            <field name="line_id"></field>
+                            <field name="site_id"></field>
+                            <field name="open_time"></field>
+                            <field name="write_person"></field>
+                            <field name="guests_name"></field>
+                            <field name="write_time"></field>
+                            <field name="claim"></field>
+                            <field name="claim_money"></field>
+                            <field name="claim_state"></field>
+                            <field name="audit_state"></field>
+                            <widget string="操作" name="treebtns" template="guests_hurt_button" />
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+
+
+		<record id="guests_hurt_act" model="ir.actions.act_window">
+			<field name="name">客伤</field>
+			<field name="res_model">fuenc_xa_station.guests_hurt</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <!--<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act"></menuitem>-->
+    </data>
+</odoo>

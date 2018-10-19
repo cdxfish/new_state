@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 wp14">
+  <w:body>
+    <w:p w14:paraId="19B38FBB" w14:textId="3F41C2CF" w:rsidR="00300D35" w:rsidRDefault="00300D35" w:rsidP="00195A3B">
+      <w:pPr>
+        <w:tabs>
+          <w:tab w:val="left" w:pos="1862"/>
+        </w:tabs>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="方正小标宋简体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:bCs/>
+          <w:szCs w:val="21"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0176C5D9" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:ind w:firstLineChars="1496" w:firstLine="3142"/>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+          <w:b/>
+          <w:bCs/>
+          <w:szCs w:val="21"/>
+        </w:rPr>
+      </w:pPr>
+      <w:bookmarkStart w:id="0" w:name="_GoBack"/>
+      <w:bookmarkEnd w:id="0"/>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="方正小标宋简体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:bCs/>
+          <w:szCs w:val="21"/>
+        </w:rPr>
+        <w:t>特殊乘客事务处理表</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4490D0E0" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:ind w:leftChars="-337" w:left="-708" w:rightChars="-364" w:right="-764" w:firstLineChars="399" w:firstLine="838"/>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">          </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t xml:space="preserve">线路 </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">       </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> 站  </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">           </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t xml:space="preserve">班次        </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">        </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t xml:space="preserve">  年  </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> 月 </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:szCs w:val="21"/>
+          <w:u w:val="single" w:color="FFFFFF" w:themeColor="background1"/>
+        </w:rPr>
+        <w:t>日</w:t>
+      </w:r>
+    </w:p>
+    <w:tbl>
+      <w:tblPr>
+        <w:tblW w:w="10095" w:type="dxa"/>
+        <w:jc w:val="center"/>
+        <w:tblBorders>
+          <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+          <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+          <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+          <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+          <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+          <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+        </w:tblBorders>
+        <w:tblLayout w:type="fixed"/>
+        <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
+      </w:tblPr>
+      <w:tblGrid>
+        <w:gridCol w:w="1310"/>
+        <w:gridCol w:w="1559"/>
+        <w:gridCol w:w="1420"/>
+        <w:gridCol w:w="2267"/>
+        <w:gridCol w:w="1700"/>
+        <w:gridCol w:w="1839"/>
+      </w:tblGrid>
+      <w:tr w:rsidR="00A255C0" w14:paraId="4F536473" w14:textId="77777777">
+        <w:trPr>
+          <w:cantSplit/>
+          <w:trHeight w:val="2394"/>
+          <w:jc w:val="center"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1310" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:textDirection w:val="tbRlV"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="02AA0050" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:left="113" w:right="113" w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>事件详情</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="8785" w:type="dxa"/>
+            <w:gridSpan w:val="5"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4EDAC152" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="393752D7" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="1A71C9BD" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="1A552404" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00A255C0" w14:paraId="73915250" w14:textId="77777777">
+        <w:trPr>
+          <w:cantSplit/>
+          <w:trHeight w:val="2272"/>
+          <w:jc w:val="center"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1310" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:textDirection w:val="tbRlV"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4D41760E" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:left="113" w:right="113" w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>处理结果</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="8785" w:type="dxa"/>
+            <w:gridSpan w:val="5"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="635ACE9A" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="2DB4C9C8" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="0BADBD59" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="2345C1F2" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="462E26BF" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00A255C0" w14:paraId="5BCEC5A6" w14:textId="77777777">
+        <w:trPr>
+          <w:trHeight w:val="2970"/>
+          <w:jc w:val="center"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1310" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="290FBA9B" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="center"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>乘客身份证复印件</w:t>
+            </w:r>
+          </w:p>
+          <w:p w14:paraId="5B768361" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="center"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>粘贴处</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="8785" w:type="dxa"/>
+            <w:gridSpan w:val="5"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="6C9B0D7B" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="13612172" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="104CCC56" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="6D47C260" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="74F8D37C" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="08D62A92" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="1B2BD385" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="7B5E5CCB" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="6E1AE2E3" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+          <w:p w14:paraId="187F0425" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00A255C0" w14:paraId="10EA3E76" w14:textId="77777777">
+        <w:trPr>
+          <w:trHeight w:hRule="exact" w:val="1048"/>
+          <w:jc w:val="center"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1310" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="268152B7" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>涉及金额</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1559" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4A4EEF0D" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="50" w:firstLine="105"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>￥</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1420" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="5135A4E2" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>乘客电话</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2267" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="12033FCE" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1700" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="21B3832D" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>乘客签名</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1839" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="7EBC17CE" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00A255C0" w14:paraId="6A22B133" w14:textId="77777777">
+        <w:trPr>
+          <w:trHeight w:hRule="exact" w:val="1441"/>
+          <w:jc w:val="center"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1310" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="056AFBD4" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="center"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>站长/站长指定的值班站长</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1559" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="744BA803" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1420" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="15797D8B" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:cs="宋体" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>员工号</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2267" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="70D1FA1C" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1700" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4275025A" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="004675A3">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia" w:hint="eastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+              <w:t>备注</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="1839" w:type="dxa"/>
+            <w:tcBorders>
+              <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+              <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+            </w:tcBorders>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="1DE80C0B" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0">
+            <w:pPr>
+              <w:spacing w:line="360" w:lineRule="auto"/>
+              <w:ind w:firstLineChars="200" w:firstLine="420"/>
+              <w:jc w:val="left"/>
+              <w:rPr>
+                <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+                <w:b/>
+                <w:bCs/>
+                <w:szCs w:val="21"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+      </w:tr>
+    </w:tbl>
+    <w:p w14:paraId="4FF4DC00" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0" w:rsidP="00300D35">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:rFonts w:asciiTheme="minorEastAsia" w:hAnsiTheme="minorEastAsia"/>
+          <w:szCs w:val="21"/>
+        </w:rPr>
+        <w:sectPr w:rsidR="00A255C0">
+          <w:pgSz w:w="11906" w:h="16838"/>
+          <w:pgMar w:top="1440" w:right="1797" w:bottom="1440" w:left="1797" w:header="851" w:footer="992" w:gutter="0"/>
+          <w:cols w:space="425"/>
+          <w:docGrid w:type="lines" w:linePitch="312"/>
+        </w:sectPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0363F681" w14:textId="77777777" w:rsidR="00A255C0" w:rsidRDefault="00A255C0" w:rsidP="00300D35">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+          <w:szCs w:val="21"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:sectPr w:rsidR="00A255C0">
+      <w:pgSz w:w="11906" w:h="16838"/>
+      <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="851" w:footer="992" w:gutter="0"/>
+      <w:cols w:space="425"/>
+      <w:docGrid w:type="lines" w:linePitch="312"/>
+    </w:sectPr>
+  </w:body>
+</w:document>

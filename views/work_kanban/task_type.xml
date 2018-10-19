@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="create_task_type_button">
+            <field name="name">新增分类</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_task_type"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_task_type"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">任务事件设置</field>
+            <field name="code">
+                action = model.create_task_type()
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_task_type_list">
+            <field name="name">funenc_xa_station_task_type_list</field>
+            <field name="model">funenc_xa_station.task_type</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0" class="noOpen">
+                    <field name="name" string="任务事件名称"/>
+                    <field name="remarks" string="备注"/>
+                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_task_type_form">
+            <field name="name">funenc_xa_station_task_type_form</field>
+            <field name="model">funenc_xa_station.task_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="name" string="任务事件名称"/>
+                            <field name="remarks" string="备注"/>
+                        </group>
+                        <footer>
+                            <button name='task_type_save'
+                                    string='确定'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="xa_station_task_type_action">
+          <field name="name">任务事件设置</field>
+          <field name="res_model">funenc_xa_station.task_type</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="xa_station_task_type_1" name="任务事件设置"
+				  parent="funenc_xa_station.xa_station_work_kanban_1"
+				  action="xa_station_task_type_action"
+		/>
+
+    </data>
+</odoo>

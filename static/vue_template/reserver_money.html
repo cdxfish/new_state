@@ -1,0 +1,142 @@
+<div id="reserver_money">
+     <template>
+	 <el-card class="box-card">
+		<div slot="header" class="clearfix">
+			<template>
+			  <el-select v-model="linei" placeholder="线路" @change="search_line_data">
+				<el-option
+				  v-for="item in lines"
+				  :key="item.id"
+				  :label="item.name"
+				  :value="item.id"
+				>
+				</el-option>
+			  </el-select>
+			</template>
+			<template>
+			  <el-select v-model="site" placeholder="站点" @change="search_site_data">
+				<el-option
+				  v-for="item in sites"
+				  :key="item.id"
+				  :label="item.name"
+				  :value="item.id">
+				</el-option>
+			  </el-select>
+			</template>
+		</div>
+		  	<div class="block">
+				<el-button type="primary" icon="el-icon-circle-plus-outline" width="180"
+						   @click="add_record">新增记录</el-button>
+			    <el-button type="primary" icon="el-icon-upload2" width="180" >导入</el-button>
+				<el-button type="primary" icon="el-icon-download" width="180"
+						   @click="import_excel_reserves">导出</el-button>
+			  </div>
+		 	<br/>
+		  <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
+
+			<el-table-column prop="r_date" label="日期" >
+			</el-table-column>
+			<el-table-column prop="day_money" label="日常备用金配备金额(1)">
+			</el-table-column>
+			<el-table-column prop="traffic_money" label="交银行兑零纸币(2)">
+			</el-table-column>
+			<el-table-column prop="bank_Paper" label="银行返兑零纸币(3)">
+			</el-table-column>
+			<el-table-column prop="bank_COINS" label="银行返兑零硬币(4)">
+			</el-table-column>
+			<el-table-column prop="day_standby_money" label="增配备用金金额">
+			<el-table-column
+				prop="day_standby_money"
+				label="日常备用金(5)"
+				width="120">
+			</el-table-column>
+			<el-table-column
+				prop="temporary_standby_money"
+				label="临时备用金(6)"
+				width="120">
+			</el-table-column>
+			</el-table-column>
+			<el-table-column prop="financial_temporary_money" label="返还财务部备用金金额(7)">
+			</el-table-column>
+
+			<el-table-column  label="清点银行兑零发现机假币金额">
+				<el-table-column
+				prop="machine_money"
+				label="机币(8)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="counterfeit"
+				label="假币(9)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="counterfeit"
+				label="残币(10)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="Foreign_currency"
+				label="外币(11)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="less_money"
+				label="少币(12)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="fu_subtotal"
+				label="小计(13)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="more_money"
+				label="多币"
+				>
+			</el-table-column>
+			</el-table-column>
+			<el-table-column  label="增配备用金金额">
+			<el-table-column
+				prop="return_money"
+				label="返还金额(14)"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="return_money_date"
+				label="返还所属日期"
+				>
+			</el-table-column>
+			</el-table-column>
+			<el-table-column  label="返还银行多币情况">
+			<el-table-column
+				prop="bank_return_money"
+				label="返还金额"
+				>
+			</el-table-column>
+			<el-table-column
+				prop="bank_return_date"
+				label="返还所属日期"
+				>
+			</el-table-column>
+			</el-table-column>
+			<el-table-column prop="fu_day_day_standby" label="当日备用金额(15)">
+			</el-table-column>
+			<el-table-column prop="fu_day_day_standby_subtraction" label="当日备用金差额(16)">
+			</el-table-column>
+			<el-table-column prop="note" label="备注">
+			</el-table-column>
+			<el-table-column prop="Person_charge_account" label="记账人">
+			</el-table-column>
+			<el-table-column  label="操作">
+				<template slot-scope="scope">
+					<el-button @click="onchange_data(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+				  </template>
+			</el-table-column>
+		  </el-table>
+	 </el-card>
+	</template>
+</div>
+
+
+

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+	<!--修改与删除按钮和删除-->
+    <t t-name="good_deeds_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >通过审核</button>
+
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'"
+            >继续提交</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit'"
+            >驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+                t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
+                widget.record.data.audit_state == 'rejected'"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
+            >查看详情</button>
+        </div>
+    </t>
+
+    <t t-name="guests_hurt_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >通过初审</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >通过复审</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'"
+            >继续提交</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >初审驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >复审驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.state_now == 'two_audit' ||
+                    widget.record.data.audit_state == 'rejected'"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
+            >查看详情</button>
+            <!--<button class="layui-btn layui-btn-sm" type="object" name="view_details"-->
+            <!--&gt;播放视屏</button>-->
+        </div>
+    </t>
+
+    <t t-name="suggestion_box_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'"
+            >继续提交</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit'"
+            >驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
+                widget.record.data.audit_state == 'rejected'"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="guests_details_action"
+            >查看详情</button>
+        </div>
+    </t>
+
+    <t t-name="special_money_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            t-if="widget.record.data.deal_result == 'one_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
+            t-if="widget.record.data.deal_result == 'two_audit'"
+            >通过审核</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            t-if="widget.record.data.deal_result == 'rejected'"
+            >继续提交</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.deal_result == 'one_audit' || widget.record.data.deal_result == 'two_audit'"
+            >驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            t-if="widget.record.data.deal_result == 'one_audit' || widget.record.data.deal_result == 'two_audit' ||
+                widget.record.data.deal_result == 'rejected'"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="special_details_action"
+            >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="print_refund_form"
+            t-if="widget.record.data.deal_result == 'through'"
+            >打印退款单</button>
+        </div>
+    </t>
+
+        <t t-name="attarment_load">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
+                >上传附件</button>
+            </div>
+        </t>
+
+    <t t-name="special_money_type_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+
+        </div>
+    </t>
+
+    <t t-name="add_guests_button_act">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="add_guests_button_action"
+            >新增记录</button>
+        </div>
+    </t>
+
+    <t t-name="suggest_box_type_set">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
+            confirm="您确定要删除该钥匙吗？"
+            >删除</button>
+        </div>
+    </t>
+    <t t-name="guests_hurt_button_play">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="view_details"
+            >播放</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="load_file"
+            >下载</button>
+        </div>
+    </t>
+    <t t-name="change_clain_state">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="change_state"
+            >修改状态</button>
+        </div>
+    </t>
+</templates>

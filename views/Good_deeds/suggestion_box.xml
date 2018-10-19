@@ -1,0 +1,387 @@
+<odoo>
+    <data>
+
+    ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
+            <field name="name">导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="binding_xml_id">suggestion_box_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/suggestion_box</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.server" id="person_certificate_button">
+            <field name="name">新建</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">乘客意见箱</field>
+            <field name="code">
+                action = model.create_suggest()
+            </field>
+        </record>
+
+
+        <record id="suggestion_box_tree" model="ir.ui.view">
+            <field name="name">乘客意见箱</field>
+            <field name="model">funenc_xa_station.suggestion_box</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0">
+                    <field name="id" string="序号"></field>
+                    <field name="line_id" string="线路"></field>
+                    <field name="site_id" string="站点"></field>
+                    <field name="open_time" string="发生时间"></field>
+                    <field name="suggestion_title" string="意见标题"></field>
+                    <field name="write_person" string="填报人"></field>
+                    <field name="write_time" string="填报时间"></field>
+                    <field name="passengers_name" string="乘客姓名"></field>
+                    <field name="audit_state" string="审核状态"></field>
+                    <widget string="操作" name="treebtns" template="suggestion_box_button" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="suggestion_box_form" model="ir.ui.view">
+            <field name="name">乘客意见箱</field>
+            <field name="model">funenc_xa_station.suggestion_box</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="open_site" string="发生地点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="open_site"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="event_type" string="事件类别"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="event_type"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="passengers_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="passengers_name"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="passengers_phone" string="乘客电话"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="passengers_phone"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="main_parment" string="主办部门"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="main_parment"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="help_parment" string="协办部门"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="help_parment"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="deal_requirements" string="处理要求"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="deal_requirements"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="access_time" string="回访时间"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="access_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="Satisfied" string="乘客是否满意"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="Satisfied"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_title" string="意见标记"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="suggestion_title"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_details" string="意见详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="suggestion_details"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="load_file_test" string="图片详情"/>
+                          </div>
+                         <div class="col-md-11">
+                            <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="suggestion_box_act_details" model="ir.ui.view">
+            <field name="name">意见箱</field>
+            <field name="model">funenc_xa_station.suggestion_box</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h1>基本信息</h1>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="line_id"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-2">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="site_id"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-5">
+                             <label for="open_time" string="发生时间"/>
+                          </div>
+                         <div class="col-md-7">
+                             <field name="open_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="write_time" string="填报时间"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="write_time"/>
+                          </div>
+                       </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="write_person" string="填报人"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="write_person"/>
+                              </div>
+                         </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="audit_state" string="审核状态"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="audit_state"/>
+                              </div>
+                         </div>
+                    </div>
+
+                  <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-5">
+                             <label for="event_type" string="事件类别"/>
+                          </div>
+                         <div class="col-md-7">
+                             <field name="event_type"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="passengers_name" string="乘客姓名"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="passengers_name"/>
+                          </div>
+                       </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="passengers_phone" string="乘客电话"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="passengers_phone"/>
+                              </div>
+                         </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="main_parment" string="主办部门"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="main_parment"/>
+                              </div>
+                         </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-3">
+                          <div class="col-md-5">
+                             <label for="help_parment" string="协办部门"/>
+                          </div>
+                         <div class="col-md-7">
+                             <field name="help_parment"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="deal_requirements" string="处理要求"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="deal_requirements"/>
+                          </div>
+                       </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="access_time" string="回访时间"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="access_time"/>
+                              </div>
+                         </div>
+                        <div class="col-md-3">
+                              <div class="col-md-6">
+                                 <label for="Satisfied" string="乘客是否满意"/>
+                              </div>
+                             <div class="col-md-6">
+                                 <field name="Satisfied"/>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_title" string="意见标题"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="suggestion_title"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_details" string="意见详情"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="suggestion_details"/>
+                          </div>
+                       </div>
+                    </div>
+                <h1>附件类容</h1>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_details" string="图片"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="suggestion_box_act" model="ir.actions.act_window">
+            <field name="name">乘客意见箱</field>
+            <field name="res_model">funenc_xa_station.suggestion_box</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="suggestion_box_mune" name="乘客意见箱" action="suggestion_box_act"></menuitem>-->
+    </data>
+</odoo>

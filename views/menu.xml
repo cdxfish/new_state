@@ -11,6 +11,20 @@
 			<!--<field name="res_model">funenc.xa.station.key.manage</field>-->
 			<!--<field name="view_mode">tree,form</field>-->
 		<!--</record>-->
+		<!--<record id="funenc_station_index_action" model="ir.actions.act_window">-->
+			<!--<field name="name">网站首页</field>-->
+			<!--<field name="res_model">funenc_xa_station.generate_qr</field>-->
+			<!--<field name="view_mode">form</field>-->
+		<!--</record>-->
+
+		<record model="ir.actions.server" id="funenc_station_index_action">
+			<field name="name">网站首页</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_generate_qr"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
 		<record id="key_detail_act_window" model="ir.actions.act_window">
 			<field name="name">钥匙详情</field>
 			<field name="res_model">funenc.xa.station.key.detail</field>
@@ -103,15 +117,157 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="xa_station_leave_list_action">
+          <field name="name">请假列表</field>
+          <field name="res_model">funenc_xa_station.leave</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
 		<record model="ir.actions.act_window" id="xa_station_sheduling_manage_list_action">
           <field name="name">排班列表</field>
           <field name="res_model">funenc_xa_station.sheduling_manage</field>
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.client" id="funenc_xa_station.xa_station_sheduling_manage_action">
-          <field name="name">排班管理</field>
-          <field name="tag">funenc_xa_station_sheduling_manage</field>
+		<record model="ir.actions.act_window" id="xa_station_change_shifts_action">
+          <field name="name">换班</field>
+          <field name="res_model">funenc_xa_station.change_shifts</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_consumables_type_action">
+          <field name="name">耗材类型设置</field>
+          <field name="res_model">funenc_xa_station.consumables_type</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_consumables_warehousing_action">
+          <field name="name">耗材入库</field>
+          <field name="res_model">funenc_xa_station.consumables_warehousing</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_consumables_delivery_storage">
+          <field name="name">耗材入库</field>
+          <field name="res_model">funenc_xa_station.delivery_storage</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_store_house_action">
+          <field name="name">仓库设置</field>
+          <field name="res_model">funenc_xa_station.store_house</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+		<record model="ir.actions.act_window" id="xa_station_consumables_apply_action">
+          <field name="name">耗材申请</field>
+          <field name="res_model">funenc_xa_station.consumables_apply</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_consumables_inventory_action">
+          <field name="name">耗材库存</field>
+          <field name="res_model">funenc_xa_station.consumables_inventory</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_production_change_shifts_action">
+          <field name="name">交接班</field>
+          <field name="res_model">funenc_xa_station.production_change_shifts</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_train_working_action">
+			<field name="name">行车员交接班</field>
+			<field name="res_model">funenc_xa_station.production_change_shifts</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form')})]">
+			</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_station_master_action">
+          <field name="name">值班站长</field>
+          <field name="res_model">funenc_xa_station.station_master</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_car_line_action">
+          <field name="name">行车值班员</field>
+          <field name="res_model">funenc_xa_station.car_line</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+       <!--car_line-->
+		<record model="ir.actions.act_window" id="xa_station_passenger_transport_action">
+          <field name="name">客运值班员</field>
+          <field name="res_model">funenc_xa_station.passenger_transport</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_station_service_action">
+          <field name="name">站务员</field>
+          <field name="res_model">funenc_xa_station.station_service</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_ticket_booth_action">
+          <field name="name">票亭岗</field>
+          <field name="res_model">funenc_xa_station.ticket_booth</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_special_card_preset_action">
+          <field name="name">特殊卡号</field>
+          <field name="res_model">funenc_xa_station.special_card_preset</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+		<!--<record model="ir.actions.server" id="xa_station_station_master_action">-->
+			<!--<field name="name">值班站长</field>-->
+			<!--<field name ="state">code</field>-->
+			<!--<field name="model_id" ref="model_funenc_xa_station_station_master"/>-->
+			<!--<field name="code">-->
+				<!--action = model.init()-->
+			<!--</field>-->
+		<!--</record>-->
+
+		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
+			<field name="name">换班时间间隔设置</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_change_shifts_time"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
+          <field name="name">排班列表</field>
+          <field name="res_model">funenc_xa_station.sheduling_record</field>
+		  <field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="xa_station_clock_list_action">
+            <field name="name">打卡记录</field>
+            <field name="res_model">fuenc_station.clock_record</field>
+            <field name="view_mode">tree</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('fuenc_station_clock_record_list')}),
+            ]">
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="xa_station_overtime_list_action">
+            <field name="name">加班记录</field>
+            <field name="res_model">fuenc_station.clock_record</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('is_overtime','=','yes')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.fuenc_station_overtime_record_list')}),
+            ]">
+            </field>
         </record>
 
 		<!--<record model="ir.actions.act_window" id="xa_station_conflict_rule_action">-->
@@ -188,14 +344,17 @@
 		<!--parent="funenc_station"/>-->
 		<!--<menuitem id="others_manage" icon="&#xe621;" name="系统及其他" sequence="6"-->
 		<!--parent="funenc_station"/>-->
+		<menuitem id="funenc_station_index" icon="&#xe628;" name="PC首页" sequence="1"
+				  action="funenc_station_index_action"
+		/>
 
 		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="4"
 		          parent="funenc_station"
 		/>
 
-		<menuitem id="funenc_station_production_management" icon="&#xe628;" name="生产管理" sequence="5"
-		          parent="funenc_station"
-		/>
+		<!--<menuitem id="funenc_station_production_management" icon="&#xe628;" name="生产管理" sequence="5"-->
+		          <!--parent="funenc_station"-->
+		<!--/>-->
 
 		 <!--线别设置-->
         <!--<record id="train_rec_check_boxes" model="ir.actions.act_window">-->
@@ -216,6 +375,20 @@
 
 		<!--系统配置-->
         <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="2" icon="&#xe614;" />
+		<menuitem id="plan_menu_staffing_1" name="人员设置" sequence="3" icon="&#xe614;"
+		/>
+
+		<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="plan_menu_staffing_1"
+				  action="cdtct_dingtalk.account_manage_window"
+		/>
+
+		<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="plan_menu_staffing_1"
+				  action="cdtct_dingtalk.account_manage_window"
+		/>
+
+		<menuitem id="plan_menu_res_group_setting_1" name="角色组管理" parent="plan_menu_staffing_1"
+				  action="xa_res_group__action"
+		/>
 
 		<menuitem id="plan_menu_line_manage_1" name="线路管理" parent="plan_menu_system_conf_1" />
 
@@ -229,6 +402,7 @@
 		          parent="funenc_station_integrated_management"
 		          action="station_detail_act_window"
 		/>
+
 
 		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
 		          <!--parent="integrated_management_station_detail"/>-->
@@ -306,8 +480,119 @@
 
 		<menuitem id="xa_station_sheduling_manage" name="排班管理"
 				  parent="station_scheduling_list"
-				  action="xa_station_sheduling_manage_action"
+				  action="xa_station_sheduling_manage_1_action"
 		/>
+
+		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
+				  parent="funenc_station_integrated_management"
+		/>
+		<menuitem id="xa_station_leave_list_1" name="请假列表"
+				  parent="funenc_xa_station_check_attendance"
+				  action="xa_station_leave_list_action"
+		/>
+        <menuitem id="xa_station_clock_1" name="打卡记录"
+				  parent="funenc_xa_station_check_attendance"
+				  action="xa_station_clock_list_action"
+		/>
+        <menuitem id="xa_station_overtime_list_1" name="加班记录"
+				  parent="funenc_xa_station_check_attendance"
+				  action="xa_station_overtime_list_action"
+		/>
+		<menuitem id="xa_station_change_shifts_1" name="换班申请"
+				  parent="funenc_xa_station_check_attendance"
+				  action="xa_station_change_shifts_action"
+		/>
+		<menuitem id="xa_station_change_shifts_time_1" name="换班时间间隔"
+				  parent="funenc_xa_station_check_attendance"
+				  action="xa_station_change_shifts_time_action"
+		/>
+
+
+		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
+				  parent="funenc_station_integrated_management"
+		/>
+
+		<menuitem id="xa_station_consumables_type_1" name="耗材类型设置"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_type_action"
+		/>
+
+		<menuitem id="xa_station_store_house_1" name="仓库设置"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_store_house_action"
+		/>
+		<menuitem id="xa_station_consumables_warehousing_1" name="耗材入库"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_warehousing_action"
+		/>
+		<menuitem id="xa_station_consumables_apply_1" name="耗材申请"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_apply_action"
+		/>
+
+		<menuitem id="xa_station_delivery_storage_1" name="耗材出库"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_delivery_storage"
+		/>
+		<menuitem id="xa_station_consumables_inventory_1" name="耗材库存"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_inventory_action"
+		/>
+		<menuitem id="xa_station_production_manage_1" name="生产管理"
+				  parent="funenc_station"
+		/>
+
+		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
+				  parent="xa_station_production_manage_1"
+		/>
+
+		<menuitem id="xa_station_consumables_inventory_1" name="交接班"
+				  parent="xa_station_production_manage_1"
+				  action="xa_station_production_change_shifts_action"
+		/>
+
+		<menuitem id="xa_station_train_working_1" name="行车员"
+				  parent="xa_station_production_manage_1"
+				  action="xa_station_train_working_action"
+		/>
+
+		<menuitem id="xa_station_change_shifts_setting_1" name="交接班设置"
+				  parent="xa_station_production_manage_1"
+		/>
+
+		<menuitem id="xa_station_station_master_1" name="值班站长"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_master_action"
+		/>
+
+		<menuitem id="xa_station_car_line_1" name="行车值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_car_line_action"
+		/>
+
+		<menuitem id="xa_station_passenger_transport_1" name="客运值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_passenger_transport_action"
+		/>
+
+		<menuitem id="xa_station_station_service_1" name="站务员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_service_action"
+		/>
+
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_ticket_booth_action"
+		/>
+
+		<menuitem id="xa_station_special_card_preset_1" name="特殊卡号"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_special_card_preset_action"
+		/>
+
+
+
+
 
 		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
 				  action="operation_act_id"></menuitem>
@@ -323,7 +608,7 @@
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
 				  parent="funenc_station_integrated_management"></menuitem>
 
-        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_1" name="车站证件"
+        <menuitem id="add_station_certificate_menu" action="station_certificate_act_id_3" name="车站证件"
 				  parent="add_station_certificate_menu_parent"></menuitem>
 
 		<menuitem id="person_certificate_menu" action="person_certificate_act" name="人员证件"
@@ -367,9 +652,40 @@
 				parent="check_management_menu_parent"></menuitem>
 
 	  <menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"
-				parent="funenc_station_production_management"></menuitem>
+				parent="xa_station_production_manage_1"></menuitem>
 
+	<menuitem id="reserves_management_act" name="车站备用金管理"
+				  action="reserver_money" parent="opening_manage"
+		/>
 
+	<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="suggestion_box_mune" name="乘客意见箱" action="suggestion_box_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="special_money_menu" name="特殊赔偿金" action="special_money_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="opening_manage"></menuitem>
+
+	<menuitem id="prude_newspaper_menu" name="生产日报" action="prude_newspaper_act" parent="opening_manage"></menuitem>
+
+    <menuitem id="prude_newpaper_type_menu" name="生产事件类型设置" action="prude_newpaper_type_server"
+              parent="opening_manage"></menuitem>
+
+   <menuitem id="break_log_manage_menu" name="故障标识管理" action="break_log_manage_act"
+			 parent="opening_manage"></menuitem>
+
+	<menuitem id="suggest_box_type_menu" name="意见箱类型设置" action="suggest_box_type_act"
+			  parent="opening_manage"></menuitem>
+	<menuitem id="belong_to_management_menu" name="属地管理" action="belong_to_management_act"
+				  parent="opening_manage"></menuitem>
+	<menuitem id="belong_to_summary_menu1" name="属地管理汇总" action="belong_to_management"
+			  parent="opening_manage"></menuitem>
+
+	<menuitem id="break_submit_menu" name="故障提报" action="break_submit_act" parent="opening_manage"></menuitem>
+	<menuitem id="break_type_increase_menu" name="故障类型设置" action="break_type_increase_act"
+			  parent="opening_manage"></menuitem>
 
 
 

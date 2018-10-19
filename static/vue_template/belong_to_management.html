@@ -1,0 +1,76 @@
+<div id="belong_to_management">
+    <template>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <h4>属地检查汇总</h4>
+            </div>
+            <div class="block">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item>
+                        <el-date-picker
+                                v-model="datetime"
+                                type="month"
+                                placeholder="选择月">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="linei" placeholder="线路" @change="search_line_data">
+                            <el-option
+                                    v-for="item in lines"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="site" placeholder="站点">
+                            <el-option
+                                    v-for="item in sites"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-input v-model="input" placeholder="请输入人名\工号进行搜索"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" icon="el-icon-search" width="180" @click="search_data_record">搜索
+                        </el-button>
+                        <el-button type="primary" icon="el-icon-caret-bottom" width="180"
+                                   @click="import_excel_belong_to_management">导出
+                        </el-button>
+                    </el-form-item>
+
+                </el-form>
+            </div>
+            <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
+
+                <el-table-column prop="line_id" label="线路" width="180">
+                </el-table-column>
+                <el-table-column prop="site_id" label="站点" width="180">
+                </el-table-column>
+                <el-table-column prop="post_check" label="检查岗位">
+                </el-table-column>
+                <el-table-column prop="summary_score" label="总分值">
+                </el-table-column>
+                <el-table-column prop="mouth_score" label="本月评分">
+                </el-table-column>
+                <el-table-column prop="check_count" label="检查次数">
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button @click="onchange_data(scope.$index, scope.row)" type="text" size="small">查看详情
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-card>
+    </template>
+</div>
+
+
+

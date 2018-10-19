@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="suggest_box_type_tree" model="ir.ui.view">
+            <field name="name">意见箱类型设置</field>
+            <field name="model">funenc_xa_station.suggest_box_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="suggest_box"></field>
+                    <field name="note"></field>
+                    <widget name="treebtns" template="suggest_box_type_set" string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="suggest_box_type_form" model="ir.ui.view">
+            <field name="name">意见箱类型设置</field>
+            <field name="model">funenc_xa_station.suggest_box_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="suggest_box"></field>
+                            <field name="note"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="suggest_box_type_act">
+            <field name="name">意见箱类型设置</field>
+            <field name="res_model">funenc_xa_station.suggest_box_type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="suggest_box_type_menu" name="意见箱类型设置" action="suggest_box_type_act"></menuitem>-->
+    </data>
+</odoo>

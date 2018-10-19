@@ -4,6 +4,7 @@ odoo.define("multi_action_tab", function (require) {
   ///
   // domain 格式 [[["departments", "=", id]]]
   ///
+//  alert(111)
 
   var Widget = require("web.Widget");
   var widgetRegistry = require('web.widget_registry');
@@ -26,6 +27,8 @@ odoo.define("multi_action_tab", function (require) {
       this.control_pannel = parent
       this.action_manager = action_manager
       this.action_descript = action_descript
+//            alert(widget_type)
+      console.log("widget_type:"+widget_type)
       if (widget_type == 'top') {
         this.options = pyeval.eval('context',
           action_descript.top_widget_options)
@@ -41,23 +44,35 @@ odoo.define("multi_action_tab", function (require) {
       var self = this
       self.$el.addClass("layui-tab-brief")
 
+      this.tabs=self.tabs;
+
       layui.use('element', function () {
         var element = layui.element;
+        console.log('element:'+element)
         element.on('tab(' + self.tab_id + ")", function (data) {
           var index = data.index
+            console.log('index:'+index)
           var tab = self.tabs[index]
+          console.log(JSON.stringify(tab))
+
           if (tab.action) {
             self.do_action(tab.action)
-          } else if (tab.domains) {
-            var inner_widget = self.action_manager.inner_widget
-            if (inner_widget) {
-              var user_context = self.getSession().user_context;
-              inner_widget.trigger_up("search", {
-                domains: [tab.domains],
-                contexts: user_context,
-                groupbys: []
-              });
-            }
+
+          } else if (tab.action2) {
+            self.do_action(tab.action2)
+//          console.log("domains:"+JSON.stringify(tab.domains))
+//
+//            var inner_widget = self.action_manager.inner_widget
+//            console.log("inner_widget:"+inner_widget)
+//            if (inner_widget) {
+//              var user_context = self.getSession().user_context;
+//              console.log("user_context:"+user_context)
+//              inner_widget.trigger_up("search", {
+//                domains: [tab.domains],
+//                contexts: user_context,
+//                groupbys: []
+//              });
+//            }
           } else {
             console.log('yu must set the action or the domain in the option');
           }

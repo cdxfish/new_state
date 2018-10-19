@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="create_position_settings_button">
+            <field name="name">职位创建</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_res_groups"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_res_groups"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">角色组设置</field>
+            <field name="code">
+                action = model.create_position_settings()
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_res_groups_list">
+            <field name="name">funenc_xa_station_res_groups_list</field>
+            <field name="model">res.groups</field>
+            <field name="arch" type="xml">
+                <tree limit="15">
+                    <field name="name" string="职位名称"/>
+                    <button name="create_position_settings_button" type="object" string="设置"
+                            class="layui-btn layui-btn-sm"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ir_ui_view_form_inherit">
+            <field name="name">ir.ui.form.inherit</field>
+            <field name="model">res.groups</field>
+            <field name="inherit_id" ref="base.view_groups_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page" position="before">
+                    <page string="按钮权限">
+                        <field name="button_line_ids">
+                            <tree editable="bottom">
+                                <field name="button_name" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="funenc_xa_station_position_settiings_form">-->
+            <!--<field name="name">funenc_xa_station_position_settiings_form</field>-->
+            <!--<field name="model">funenc_xa_station.position_settiings</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<div class="container-fluid">-->
+                        <!--<group>-->
+                            <!--<field name="to_department_id" string="目标部门" readonly="1"/>-->
+                            <!--<field name="department_id" string="申请部门" readonly="1"/>-->
+                            <!--<field name="consumables_type" string="耗材类型"/>-->
+                            <!--<field name="consumables_count" string="申请数量"/>-->
+                        <!--</group>-->
+                        <!--<footer>-->
+                            <!--<button name='position_settiings_save'-->
+                                    <!--string='确定'-->
+                                    <!--class='btn-primary'-->
+                                    <!--type='object'/>-->
+                            <!--<button string='取消'-->
+                                    <!--class='btn-default'-->
+                                    <!--special='cancel'/>-->
+                        <!--</footer>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="xa_res_group__action" model="ir.actions.act_window">
+            <field name="name">角色组</field>
+            <field name="res_model">res.groups</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"
+                   eval="[('category_id', '=', ref('funenc_xa_station.module_category_fuenc'))]"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station_res_groups_list')})]"/>
+        </record>
+
+    </data>
+</odoo>

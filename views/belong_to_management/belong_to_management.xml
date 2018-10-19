@@ -1,0 +1,172 @@
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="belong_to_management_server">
+            <field name="name">新增检查</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_belong_to_management"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_belong_to_management"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">乘客意见箱</field>
+            <field name="code">
+                action = model.create_belong_to_action()
+            </field>
+        </record>
+
+    ﻿   <record model="ir.actions.act_url" id="belong_to_management_url">
+            <field name="name">导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_belong_to_management"/>
+            <field name="binding_xml_id">belong_to_management_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/belong_to_management_import</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="'belong_to_management_tree" model="ir.ui.view">
+            <field name="name">属地管理</field>
+            <field name="model">funenc_xa_station.belong_to_management</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit='0'>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="post_check"></field>
+                    <field name="check_time"></field>
+                    <field name="check_state"></field>
+                    <field name="find_problem"></field>
+                    <field name="reference_according"></field>
+                    <field name="local_image"></field>
+                    <field name="check_score"></field>
+                    <field name="note"></field>
+                    <field name="write_person" string="填报人"></field>
+                    <widget name="treebtns" template="belong_to_management_template" string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="'belong_to_management_form" model="ir.ui.view">
+            <field name="name">属地管理</field>
+            <field name="model">funenc_xa_station.belong_to_management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                    <div class="row">
+                       <div class="col-md-4">
+                          <div class="col-md-3">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-9">
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                          </div>
+                       </div>
+                       <div class="col-md-4">
+                          <div class="col-md-3">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-9">
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="post_check" string="检查岗位"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="post_check"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="check_time" string="检查时间"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="check_time"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="check_state" string="检查情况"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="check_state"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="find_problem" string="发现问题"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="find_problem"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="reference_according" string="考核依据"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="reference_according"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-4">
+                          <div class="col-md-3">
+                             <label for="change_state" string="评分"/>
+                          </div>
+                         <div class="col-md-9">
+                             <field name="change_state" widget="radio" options="{'horizontal': true}"/>
+                          </div>
+                       </div>
+                        <div class="col-md-4">
+                            <div class="col-md-9">
+                            <field name="check_score"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-3">-->
+                         <!--<div class="col-md-10">-->
+                             <!--<field name="change_state"/>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row">
+                       <div class="col-md-8">
+                          <div class="col-md-2">
+                             <label for="note" string="备注"/>
+                          </div>
+                         <div class="col-md-10">
+                             <field name="note"/>
+                          </div>
+                       </div>
+                    </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="belong_to_management_act" model="ir.actions.act_window">
+            <field name="name">属地管理</field>
+            <field name="res_model">funenc_xa_station.belong_to_management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

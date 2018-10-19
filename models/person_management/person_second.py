@@ -99,7 +99,7 @@ class PersonSecond(models.Model):
         department_id = self.line_road.departmentId
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('parentid', '=', department_id)]).ids
 
-        return {'domain':{'station':[('id','in', child_department_ids)]},
+        return {'invisible':{'station':[('id','in', child_department_ids)]},
                 'value':{'station': None}
                 }
 

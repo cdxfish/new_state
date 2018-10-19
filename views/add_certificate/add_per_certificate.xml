@@ -341,16 +341,22 @@
                 <field name="top_widget">multi_action_tab</field>
                 <field name="top_widget_key">driver_manage_tab</field>
                 <field name="top_widget_options">
-                    {'tabs': [{'title': '车站证件管理',
-                    'action':  {
-                        'type': 'ir.actions.act_window',
-                        "name": "车站证件管理",
-                        'views': [[False, 'list'], [False, 'form']],
-                        'view_mode': 'tree,form',
-                        "res_model": "station.certificate"
-                    }},
-                    {'title': ' ', 'domains': [['id', '=', '1']]},
-                    {'title': ' ', 'domains': [['id', '=', '1']]}]}
+                    {
+                    'tabs':
+                        [
+                            {
+                            'title': '车站证件管理',
+                            'action':  {
+                                'type': 'ir.actions.act_window',
+                                "name": "车站证件管理",
+                                'views': [[False, 'list'], [False, 'form']],
+                                'view_mode': 'tree,form',
+                                "res_model": "station.certificate"
+                            }},
+                            {'title': ' ', 'domains': [['id', '=', '1']]},
+                            {'title': ' ', 'domains': [['id', '=', '2']]  }
+                        ]
+                    }
                 </field>
           </record>
     </data>
