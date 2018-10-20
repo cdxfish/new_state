@@ -25,7 +25,6 @@ odoo.define('group_config_client', function (require) {
                 method: 'get_group_data',
                 kwargs: {group_id: self.group_id}
             }).then(function (rst) {
-                console.log(rst)
                 self.replaceElement($(rst.template));
                 self.vue_data.normalCats = rst.cats;
                 new Vue({

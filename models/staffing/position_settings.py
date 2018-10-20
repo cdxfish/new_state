@@ -44,9 +44,6 @@ class PositionSettings(models.Model):
         if open_type == 'add':
             self.create({'name': group_name, 'category_id': category_id.id, 'implied_ids': [(6, 0, implied_ids)]})
         elif open_type == 'update':
-            now_implied_ids = self.browse(group_id).implied_ids.ids
-            print(now_implied_ids)
-            print(implied_ids)
             self.browse(group_id).write({'implied_ids': [(6, 0, implied_ids)]})
             # 删除group中用户
 
