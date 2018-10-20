@@ -221,7 +221,7 @@
         </record>
 
         <menuitem id="xa_station_training_plan_menu" name="培训计划"
-                  action="xa_station_training_plan_action" parent="opening_manage"
+                  action="xa_station_training_plan_action" parent="opening_manage" sequence="5"
         />
 
     </data>

@@ -96,7 +96,8 @@ class BelongToSummary(models.Model):
             # print(date,line,site,person_id)
             # print(date_new)
             record = {}
-            line = self.env['funenc_xa_station.belong_to_management'].search_read([('write_person', '=', person_id)]or[('write_person', '=', person_id)])
+            line = self.env['funenc_xa_station.belong_to_management'].search_read(['|',('write_person', '=', person_id),
+                                                                                   ('job_number', '=', person_id)])
             date_list = [check_record for check_record in line if check_record.get('check_time')[:7] == date_new[:7]]
 
             for list1 in date_list:

@@ -48,7 +48,7 @@ class BelongToManagement(models.Model):
     def default_job_number_id(self):
         if self.env.user.id ==1:
             return
-        return  self.env.user.dingtalk_user.name
+        return  self.env.user.dingtalk_user.jobnumber
 
     #修改当前的记录
     def belong_to_edit_action(self):

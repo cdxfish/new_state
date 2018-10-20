@@ -37,8 +37,8 @@ class AddGuestsHurt(models.Model):
     mp_play = fields.Binary(string='上传视屏')
     file_name = fields.Char(string="File Name")
     url = fields.Char(string='url')
-    mp_play_many = fields.One2many('video_voice_model', 'mp_play_one', string='视频附件')
-    mp3_play_many = fields.One2many('video_voice_model', 'mp3_play', string='视频附件')
+    mp_play_many = fields.One2many('video_voice_model', 'add_guest_play_mp4', string='视频附件')
+    mp3_play_many = fields.One2many('video_voice_model', 'add_guest_play_mp3', string='视频附件')
 
 
 
