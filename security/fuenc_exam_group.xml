@@ -2,33 +2,74 @@
 <odoo>
     <data noupdate="0">
         <record model="ir.module.category" id="module_category_fuenc">
-            <field name="name">站务管理</field>
+            <field name="name">生产管理系统</field>
         </record>
 
         <record model="res.groups" id="system_fuenc_tester">
-            <field name="name">站务管理</field>
+            <field name="name">交接班</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
-         <record model="res.groups" id="system_fuenc_site">
-            <field name="name">运作管理</field>
+        <record model="res.groups" id="system_fuenc_site">
+            <field name="name">生产日报</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
         <record model="res.groups" id="system_fuenc_centrality">
-            <field name="name">综合管理</field>
+            <field name="name">会议记录</field>
             <field name="category_id" ref="module_category_fuenc"/>
+        </record>
+        <!--添加该category下其他group-->
+
+        <record model="ir.module.category" id="module_category_run">
+            <field name="name">运作管理系统</field>
         </record>
 
-        <record model="res.groups" id="system_fuenc_production">
-            <field name="name">生产管理</field>
-            <field name="category_id" ref="module_category_fuenc"/>
+        <record model="res.groups" id="system_territoriality">
+            <field name="name">属地管理</field>
+            <field name="category_id" ref="module_category_run"/>
+        </record>
+        <!--添加该category下其他group-->
+
+        <record model="ir.module.category" id="module_category_comprehensive">
+            <field name="name">综合管理系统</field>
         </record>
 
-        <record model="res.groups" id="system_fuenc_people">
-            <field name="name">人员管理系统</field>
-            <field name="category_id" ref="module_category_fuenc"/>
+        <record model="res.groups" id="system_station">
+            <field name="name">车站基本信息</field>
+            <field name="category_id" ref="module_category_comprehensive"/>
         </record>
+        <!--添加该category下其他group-->
+
+        <record model="ir.module.category" id="module_category_people">
+            <field name="name">人员管理</field>
+        </record>
+
+        <record model="res.groups" id="system_people">
+            <field name="name">人员信息</field>
+            <field name="category_id" ref="module_category_people"/>
+        </record>
+        <!--添加该category下其他group-->
+
+        <record model="ir.module.category" id="module_category_setting">
+            <field name="name">系统设置</field>
+        </record>
+
+        <record model="res.groups" id="system_shifts">
+            <field name="name">交接班设置</field>
+            <field name="category_id" ref="module_category_setting"/>
+        </record>
+        <!--添加该category下其他group-->
+
+        <record model="ir.module.category" id="module_category_jurisdiction">
+            <field name="name">权限设置</field>
+        </record>
+
+        <record model="res.groups" id="system_position">
+            <field name="name">职位设置</field>
+            <field name="category_id" ref="module_category_jurisdiction"/>
+        </record>
+        <!--添加该category下其他group-->
 
         <record model="ir.module.category" id="module_category_custom_groups">
             <field name="name">自定义角色组</field>

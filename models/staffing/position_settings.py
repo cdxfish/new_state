@@ -5,7 +5,8 @@ from collections import defaultdict
 from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
-CATEGORY_ID_LIST = ['module_category_fuenc']
+CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
+                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction']
 
 
 class PositionSettings(models.Model):
@@ -20,13 +21,14 @@ class PositionSettings(models.Model):
         for c_id in CATEGORY_ID_LIST:
             category_record = self.env.ref('{}.{}'.format(MODULE_NAME, c_id))
             groups = self.search([('category_id', '=', category_record.id)])
-            checked_groups = self.browse(group_id).implied_ids
+            checked_groups = self.browse(group_id).implied_ids.filtered(lambda x: x.category_id.id == category_record.id)
             cats.append({
                 'name': category_record.display_name,
                 'groups': [{'id': i.id, 'name': i.name} for i in groups],
                 'checkedGroups': [j.id for j in checked_groups],
                 'isIndeterminate': False,
-                'checkAll': False if len(checked_groups) != len(groups) else True,
+                'checkAll': True if set([i.id for i in groups]) & set([j.id for j in checked_groups]) == set(
+                    [i.id for i in groups]) else False,
                 'xml_id': category_record.xml_id
             })
         template = self.env['vue_template_manager.template_manage'].get_template_content(
@@ -107,4 +109,3 @@ class PositionSettings(models.Model):
             super(models.Model, record).unlink()
 
         return True
-

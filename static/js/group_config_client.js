@@ -63,6 +63,8 @@ odoo.define('group_config_client', function (require) {
                         handleCheckedCitiesChange: function (cat, checkedGroups, groups) {
                             var checkedCount = checkedGroups.length;
                             cat.checkAll = checkedCount === groups.length;
+                            console.log(checkedGroups)
+                            console.log(groups)
                             cat.isIndeterminate = checkedCount > 0 && checkedCount < cat.groups.length;
                         },
                     },
