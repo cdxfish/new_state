@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="transceiver_settings_tree" model="ir.ui.view">
+            <field name="name">工器具使用列表</field>
+            <field name="model">funenc_xa_station.transceiver_settings</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="transient_type"></field>
+                    <field name="transient_name"></field>
+                    <field name="transient_number"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="post"></field>
+                    <field name="state"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="transceiver_settings_form" model="ir.ui.view">
+            <field name="name">工器具使用列表</field>
+            <field name="model">funenc_xa_station.transceiver_settings</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_id"></field>
+                            <field name="site_id"></field>
+                            <field name="transient_type"></field>
+                            <field name="transient_name"></field>
+                            <field name="transient_number"></field>
+                            <field name="line_id"></field>
+                            <field name="site_id"></field>
+                            <field name="post"></field>
+                            <field name="state"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="transceiver_settings_act" model="ir.actions.act_window">
+            <field name="name">工器具使用列表</field>
+            <field name="res_model">funenc_xa_station.transceiver_settings</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act" parent=""></menuitem>
+
+    </data>
+</odoo>

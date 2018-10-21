@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="transient_break_management_tree" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="transceiver_type"></field>
+                    <field name="transceive_name"></field>
+                    <field name="transceive_number"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="post"></field>
+                    <field name="apply_name"></field>
+                    <field name="break_describe"></field>
+                    <field name="break_image"></field>
+                    <field name="state"></field>
+                    <field name="repair_imange"></field>
+                    <field name="repair_manufacturer"></field>
+                    <field name="after_repair_image"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="transient_break_management_form" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="transceiver_type"></field>
+                            <field name="transceive_name"></field>
+                            <field name="transceive_number"></field>
+                            <field name="line_id"></field>
+                            <field name="site_id"></field>
+                            <field name="post"></field>
+                            <field name="apply_name"></field>
+                            <field name="break_describe"></field>
+                            <field name="break_image"></field>
+                            <field name="state"></field>
+                            <field name="repair_imange"></field>
+                            <field name="repair_manufacturer"></field>
+                            <field name="after_repair_image"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="transient_break_management_act" model="ir.actions.act_window">
+            <field name="name">工器具故障管理</field>
+            <field name="res_model">funenc_xa_station.transient_break_management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="transient_break_management_menu" name="工器具故障管理" action="transient_break_management_act"></menuitem>
+
+    </data>
+</odoo>

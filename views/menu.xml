@@ -346,6 +346,12 @@
 		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="3"
 		          parent="funenc_station"
 		/>
+		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
+				parent="funenc_station_integrated_management" sequence="6"></menuitem>
+
+		<menuitem id="transient_break_management_menu" name="工器具故障管理" action="transient_break_management_act"
+				  parent="funenc_station_integrated_management" sequence="7"></menuitem>
+
 
 
 		<!--系统配置-->

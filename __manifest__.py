@@ -96,6 +96,8 @@
 		'views/break_logo/break_logo_management.xml',
 		'views/break_logo/break_submit.xml',
 		'views/break_logo/break_type_increase.xml',
+		'views/transceiver_settings/transceiver_settings.xml',
+		'views/transceiver_settings/transient_break_management.xml',
 
 		'views/production_manage/production_change_shifts.xml',
 		'views/production_manage/change_shifts_setting.xml',
