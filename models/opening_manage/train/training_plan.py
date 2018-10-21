@@ -115,6 +115,8 @@ class training_plan(models.Model):
                      }
                 )
 
+        # training_plan_id.write()
+
         return training_plan_id
 
     def button_details(self):
