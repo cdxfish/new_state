@@ -1,27 +1,31 @@
 # -*- coding: utf-8 -*-
 from odoo import http
-import requests,datetime
+import requests, datetime, time
+
+
 class FuencStation(http.Controller):
     @http.route('/funenc_xa_station/check_collect/', type='http', auth='none')
     def index(self, **kw):
         try:
-            payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f', 'appsecret': '7E4S7vJhcnDQ4jUwCuCbHo7qkisscY5Yq8dP0gW0dsFYs0USp4bw8WuhLFa19trr'}
+            payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f',
+                       'appsecret': '7E4S7vJhcnDQ4jUwCuCbHo7qkisscY5Yq8dP0gW0dsFYs0USp4bw8WuhLFa19trr'}
             _resp = requests.get('https://oapi.dingtalk.com/sns/gettoken', params=payload).json()
             url = 'https://oapi.dingtalk.com/sns/get_persistent_code?access_token={}'.format(_resp.get('access_token'))
             payload = {'tmp_auth_code': ''}
             res = requests.post(url, json=payload).json()
             openid = res.get('openid')
-            user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId','=', openid)])
-            arrange_order_id=self.env['funenc_xa_station.sheduling_record'].search([('site_id','=',user_id.departments[0].id),
-                                                                   ('user_id','=',user_id.id),
-                                                                   ('sheduling_date','=',datetime.datetime.now())])
-            values = {'line_id':user_id.line_id.id,
-                      'site_id':user_id.departments[0].id,
-                      'time':datetime.datetime.now(),
-                      'user_id':user_id.id,
-                      'arrange_order_id':arrange_order_id.id,
-                      'clock_site':user_id.departments[0].id,
-                      'clock_start_time':datetime.datetime.now(),
+            user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId', '=', openid)])
+            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
+                [('site_id', '=', user_id.departments[0].id),
+                 ('user_id', '=', user_id.id),
+                 ('sheduling_date', '=', datetime.datetime.now())])
+            values = {'line_id': user_id.line_id.id,
+                      'site_id': user_id.departments[0].id,
+                      'time': datetime.datetime.now(),
+                      'user_id': user_id.id,
+                      'arrange_order_id': arrange_order_id.id,
+                      'clock_site': user_id.departments[0].id,
+                      'clock_start_time': datetime.datetime.now(),
                       'is_overtime': 'no'
                       }
             self.env['fuenc_station.clock_record'].create(values)
@@ -75,3 +79,48 @@ class FuencStation(http.Controller):
     #     '''
     #
     #     return "打卡成功"
+
+    @http.route('/funenc_xa_station/controllers/training_plan/punch_the_clock', type='http', auth='none')
+    def training_plan_local_redirect(self, **kw):
+        print('redirect')
+        # &t=%s % int(round(time.time()))
+
+        return http.local_redirect(
+            '/funenc_xa_station/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
+
+    @http.route('/funenc_xa_station/get_code', type='http', auth='none')
+    def get_code(self, **kw):
+        code = kw.get('code')
+        current_time = datetime.datetime.now()
+        training_plan_id = kw.get('training_plan_id')
+        user = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('code', '=', code)])
+        line_id = user.line_id.id
+        site_id = user.departemnts[0].id
+        #  打卡
+        personnel_situation = self.env['funenc_xa_station.personnel_situation'].create({
+            'training_plan_id': training_plan_id,
+            'sign_in_time': current_time,
+            'user_id': user.id
+        })
+
+        # training_plan = self.env['funenc_xa_station.training_plan'].search([('id', '=', training_plan_id)])
+        site_training_results = self.env['funenc_xa_station.site_training_results'].search([('site_id', '=', site_id),
+                                                                                            ('training_plan_id', '=',
+                                                                                             training_plan_id)])
+        if not site_training_results:
+            create = self.env['funenc_xa_station.site_training_results'].create({
+                'line_id': line_id,
+                'site_id': site_id,
+                'training_person_time': 1,
+                'training_plan_id': training_plan_id,
+            })
+
+            personnel_situation.site_training_results_id = create.id
+
+
+        else:
+            site_training_results.write({
+                'training_person_time': site_training_results.training_person_time + 1
+            })
+
+        return '<h1>打卡成功</h1>'

@@ -4,6 +4,7 @@ from odoo import models, fields, api
 import qrcode
 
 import os, socket
+import base64
 
 
 class training_plan(models.Model):
@@ -45,7 +46,7 @@ class training_plan(models.Model):
         二维码生成
         '''
         file = os.path.dirname(os.path.dirname(__file__))
-
+        qr_file = os.path.dirname(os.path.dirname(file))
         # 获取本机计算机名称
         hostname = socket.gethostname()
         # 获取本机ip
@@ -53,8 +54,16 @@ class training_plan(models.Model):
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
         qr.add_data('http://{}:8069/controllers/training_plan/punch_the_clock?training_plan_id={}'.format(ip, self.id))
         img = qr.make_image()
-        file_name = file + "/static/images/punch_the_clock_{}.png".format(self.id)
+        file_name = qr_file + "/static/images/punch_the_clock_{}.png".format(self.id)
         img.save(file_name)
+        imgs = open(file_name, 'rb')
+        datas = imgs.read()
+        file_b64 = base64.b64encode(datas)
+        self.write({
+            'training_plan_qr':file_b64
+        })
+        imgs.close()
+        os.remove(file_name)
 
     @api.model
     def create_training_plan(self):
@@ -115,7 +124,10 @@ class training_plan(models.Model):
                      }
                 )
 
-        # training_plan_id.write()
+        self = training_plan_id
+        self.create_qrcode()
+
+
 
         return training_plan_id
 
@@ -189,6 +201,19 @@ class PersonnelSituation(models.Model):
     ### 站点培训关联
     site_training_results_id = fields.Many2one('funenc_xa_station.site_training_results', string='站点培训关联')
 
+
+    @api.constrains('training_result')
+    def compute_percent_of_pass(self):
+        '''
+        合格率
+        :return:
+        '''
+        site_training_results_ids = self.site_training_results_id.user_ids  # 集中培训结果  签到先关人员
+        pass_number = len([site_training_results_id.id for site_training_results_id in site_training_results_ids if site_training_results_id == 'qualified']) # 合格人数
+        if pass_number:
+            self.site_training_results_id.percent_of_pass = (pass_number / len(site_training_results_ids)) * 100
+        else:
+            self.site_training_results_id.percent_of_pass = 0
 
 class training_plan_to_situation(models.Model):
     '''

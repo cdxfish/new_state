@@ -71,8 +71,10 @@
                                     <field name="lecturer" string="授课人"/>
                                 </group>
                                 <group>
-                                    <field name="training_plan_qr" string="二维码"/>
                                     <field name="remarks" string="备注"/>
+                                </group>
+                                <group>
+                                    <field name="training_plan_qr" string="二维码" widget="image" readonly="1"/>
                                 </group>
                             </group>
                             <!--<footer>-->
@@ -133,7 +135,16 @@
                                         <field name="percent_of_pass" string="培训合格率"/>
                                         <field name="training_content" string="培训内容"/>
                                         <field name="training_evaluate" string="培训评价"/>
-                                        <field name="user_ids" string="人员问题"/>
+                                        <field name="user_ids" string="人员问题">
+                                           <!--<tree editable="top" class="noOpen">-->
+                                               <!--<field name="line_id" string="线路"/>-->
+                                               <!--<field name="site_id" string="站点"/>-->
+                                               <!--<field name="line_id" string="线路"/>-->
+                                               <!--<field name="line_id" string="线路"/>-->
+                                               <!--<field name="line_id" string="线路"/>-->
+
+                                           <!--</tree>-->
+                                        </field>
                                     </tree>
                                 </field>
 
