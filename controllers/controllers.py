@@ -2,6 +2,9 @@
 from odoo import http
 import requests, datetime, time
 
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class FuencStation(http.Controller):
     @http.route('/funenc_xa_station/check_collect/', type='http', auth='none')
@@ -80,7 +83,7 @@ class FuencStation(http.Controller):
     #
     #     return "打卡成功"
 
-    @http.route('/funenc_xa_station/controllers/training_plan/punch_the_clock', type='http', auth='none')
+    @http.route('/controllers/training_plan/punch_the_clock', type='http', auth='none')
     def training_plan_local_redirect(self, **kw):
         print('redirect')
         # &t=%s % int(round(time.time()))
@@ -90,37 +93,77 @@ class FuencStation(http.Controller):
 
     @http.route('/funenc_xa_station/get_code', type='http', auth='none')
     def get_code(self, **kw):
-        code = kw.get('code')
-        current_time = datetime.datetime.now()
         training_plan_id = kw.get('training_plan_id')
-        user = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('code', '=', code)])
-        line_id = user.line_id.id
-        site_id = user.departemnts[0].id
-        #  打卡
-        personnel_situation = self.env['funenc_xa_station.personnel_situation'].create({
-            'training_plan_id': training_plan_id,
-            'sign_in_time': current_time,
-            'user_id': user.id
-        })
+        code = kw.get('code')
+        cdtct_dingtalk_account = http.request.env['cdtct_dingtalk.cdtct_dingtalk_account'].sudo().search([])[0]
+        if cdtct_dingtalk_account:
+            if cdtct_dingtalk_account.corpid:
+                if cdtct_dingtalk_account.secret:
+                    try:
+                        url = 'https://oapi.dingtalk.com/gettoken?corpid={corpid}&corpsecret={corpsecret}'
+                        content = requests.get(url.format(corpid=cdtct_dingtalk_account.corpid,corpsecret=cdtct_dingtalk_account.secret))
+                        access_token = content.json().get('access_token')
+                        url1 = 'https://oapi.dingtalk.com/user/getuserinfo?access_token={}&code={}'.format(access_token,code)
+                        _resp = requests.get(url1).json()
+                        user_id = _resp.get('userid')
+                        current_time = datetime.datetime.now()
+                        user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search([('userid', '=', user_id)])
+                        line_id = user.line_id.id
+                        site_id = user.departments[0].id
+                        #  打卡
+                        personnel_situation = http.request.env['funenc_xa_station.personnel_situation'].sudo().create({
+                            'training_plan_id': training_plan_id,
+                            'sign_in_time': current_time,
+                            'user_id': user.id
+                        })
 
-        # training_plan = self.env['funenc_xa_station.training_plan'].search([('id', '=', training_plan_id)])
-        site_training_results = self.env['funenc_xa_station.site_training_results'].search([('site_id', '=', site_id),
-                                                                                            ('training_plan_id', '=',
-                                                                                             training_plan_id)])
-        if not site_training_results:
-            create = self.env['funenc_xa_station.site_training_results'].create({
-                'line_id': line_id,
-                'site_id': site_id,
-                'training_person_time': 1,
-                'training_plan_id': training_plan_id,
-            })
+                        training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search([('id', '=', training_plan_id)])
+                        site_training_results = http.request.env['funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
+                                                                                                            ('training_plan_id', '=',
+                                                                                                             training_plan_id)])
+                        if not site_training_results:
+                            create = http.request.env['funenc_xa_station.site_training_results'].sudo().create({
+                                'line_id': line_id,
+                                'site_id': site_id,
+                                'training_person_time': 1,
+                                'training_plan_id': training_plan_id,
+                            })
 
-            personnel_situation.site_training_results_id = create.id
+                            personnel_situation.site_training_results_id = create.id
 
 
+                        else:
+                            site_training_results.write({
+                                'training_person_time': site_training_results.training_person_time + 1
+                            })
+                    except Exception :
+                        logging.info('{}'.format(Exception))
+                        return '打卡失败'
+
+
+                else:
+                    return  '<h1>打卡失败,企业secret未设置</h1>'
+            else:
+                return '<h1>打卡失败,企业id未设置</h1>'
         else:
-            site_training_results.write({
-                'training_person_time': site_training_results.training_person_time + 1
-            })
+            return '<h1>打卡失败,企业账号未设置</h1>'
 
         return '<h1>打卡成功</h1>'
+
+    def get_user_by_code(self, **kw):
+        try:
+            code = kw.get('code')
+            url = 'https://oapi.dingtalk.com/gettoken?corpid={corpid}&corpsecret={corpsecret}'
+            cdtct_dingtalk_account = http.request.env['cdtct_dingtalk.cdtct_dingtalk_account'].sudo().search([])[0]
+            content = requests.get(
+                url.format(corpid=cdtct_dingtalk_account.corpid, corpsecret=cdtct_dingtalk_account.secret))
+            access_token = content.json().get('access_token')
+            url1 = 'https://oapi.dingtalk.com/user/getuserinfo?access_token={}&code={}'.format(access_token, code)
+            _resp = requests.get(url1).json()
+            user_id = _resp.get('userid')
+            user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search([('userid', '=', user_id)])
+        except Exception:
+            return []
+
+        return user
+
