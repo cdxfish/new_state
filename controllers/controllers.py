@@ -6,6 +6,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class FuencStation(http.Controller):
     @http.route('/funenc_xa_station/check_collect/', type='http', auth='none')
     def index(self, **kw):
@@ -101,13 +102,16 @@ class FuencStation(http.Controller):
                 if cdtct_dingtalk_account.secret:
                     try:
                         url = 'https://oapi.dingtalk.com/gettoken?corpid={corpid}&corpsecret={corpsecret}'
-                        content = requests.get(url.format(corpid=cdtct_dingtalk_account.corpid,corpsecret=cdtct_dingtalk_account.secret))
+                        content = requests.get(
+                            url.format(corpid=cdtct_dingtalk_account.corpid, corpsecret=cdtct_dingtalk_account.secret))
                         access_token = content.json().get('access_token')
-                        url1 = 'https://oapi.dingtalk.com/user/getuserinfo?access_token={}&code={}'.format(access_token,code)
+                        url1 = 'https://oapi.dingtalk.com/user/getuserinfo?access_token={}&code={}'.format(access_token,
+                                                                                                           code)
                         _resp = requests.get(url1).json()
                         user_id = _resp.get('userid')
                         current_time = datetime.datetime.now()
-                        user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search([('userid', '=', user_id)])
+                        user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search(
+                            [('userid', '=', user_id)])
                         line_id = user.line_id.id
                         site_id = user.departments[0].id
                         #  打卡
@@ -117,10 +121,12 @@ class FuencStation(http.Controller):
                             'user_id': user.id
                         })
 
-                        training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search([('id', '=', training_plan_id)])
-                        site_training_results = http.request.env['funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
-                                                                                                            ('training_plan_id', '=',
-                                                                                                             training_plan_id)])
+                        training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search(
+                            [('id', '=', training_plan_id)])
+                        site_training_results = http.request.env[
+                            'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
+                                                                                      ('training_plan_id', '=',
+                                                                                       training_plan_id)])
                         if not site_training_results:
                             create = http.request.env['funenc_xa_station.site_training_results'].sudo().create({
                                 'line_id': line_id,
@@ -136,13 +142,13 @@ class FuencStation(http.Controller):
                             site_training_results.write({
                                 'training_person_time': site_training_results.training_person_time + 1
                             })
-                    except Exception :
+                    except Exception:
                         logging.info('{}'.format(Exception))
                         return '打卡失败'
 
 
                 else:
-                    return  '<h1>打卡失败,企业secret未设置</h1>'
+                    return '<h1>打卡失败,企业secret未设置</h1>'
             else:
                 return '<h1>打卡失败,企业id未设置</h1>'
         else:
@@ -150,9 +156,9 @@ class FuencStation(http.Controller):
 
         return '<h1>打卡成功</h1>'
 
-    def get_user_by_code(self, **kw):
+    def get_user_by_code(self, code=None):
         try:
-            code = kw.get('code')
+            code = code
             url = 'https://oapi.dingtalk.com/gettoken?corpid={corpid}&corpsecret={corpsecret}'
             cdtct_dingtalk_account = http.request.env['cdtct_dingtalk.cdtct_dingtalk_account'].sudo().search([])[0]
             content = requests.get(
@@ -167,3 +173,38 @@ class FuencStation(http.Controller):
 
         return user
 
+    @http.route('/controllers/drill_plan/punch_the_clock', type='http', auth='none')
+    def training_plan_local_redirect(self, **kw):
+        print('redirect')
+        # &t=%s % int(round(time.time()))
+
+        return http.local_redirect(
+            '/funenc_xa_station/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
+
+    @http.route('/funenc_xa_station/get_code', type='http', auth='none')
+    def get_code(self, **kw):
+        training_plan_id = kw.get('drill_plan_id')
+        code = kw.get('code')
+        user = self.get_user_by_code(code)
+
+
+        try:
+            # 生成签到
+            http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().create({
+                'sign_in_time': datetime.datetime.now(),
+                'sign_user_id': user.id,
+                'drill_plan_sign_in_id': training_plan_id
+
+            })
+            # 签到人员统计
+            drill_plan = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().search(
+                [('id', '=', training_plan_id)])
+
+            for drill_result_id in drill_plan.drill_result_ids:
+                if drill_result_id.site_id.id == user.departments[0].id:
+                    drill_result_id.people_number = drill_result_id.people_number + 1
+
+        except Exception:
+            return '<h1>签到失败</h1>'
+
+        return '<h1>签到成功</h1>'

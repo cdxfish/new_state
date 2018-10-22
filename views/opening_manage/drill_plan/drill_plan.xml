@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="create_drill_plan_button">
+            <field name="name">新增计划</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_drill_plan"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_drill_plan"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">演练计划</field>
+            <field name="code">
+                action = model.create_drill_plan()
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_drill_plan_list">
+            <field name="name">funenc_xa_station_drill_plan_list</field>
+            <field name="model">funenc_xa_station.drill_plan</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0" class="noOpen">
+                    <field name="drill_project" string="演练项目"/>
+                    <field name="drill_time" string="演练时间"/>
+                    <field name="drill_plan" string="演练方案"/>
+                    <field name="drill_hierarchy" string="演练层级"/>
+                    <field name="create_date" string="创建时间"/>
+                    <field name="state" string="状态"/>
+                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_drill_plan_form">
+            <field name="name">funenc_xa_station_drill_plan_form</field>
+            <field name="model">funenc_xa_station.drill_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="drill_project" string="演练项目"/>
+                            <field name="drill_time" string="演练时间"/>
+                            <field name="drill_plan" string="演练方案" widget="many2many_binary"/>
+                            <field name="drill_hierarchy" string="演练层级"/>
+                            <field name="state" string="状态"/>
+                            <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
+                                   options="{'no_create':True,'no_open':True}"/>
+                        </group>
+                        <footer>
+                            <button name='drill_plan_save'
+                                    string='确定'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_drill_plan_form_2">
+            <field name="name">funenc_xa_station_drill_plan_form</field>
+            <field name="model">funenc_xa_station.drill_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="drill_project" string="演练项目"/>
+                            <field name="drill_time" string="演练时间"/>
+                            <field name="drill_plan" string="演练方案" widget="many2many_binary"/>
+                            <field name="drill_hierarchy" string="演练层级"/>
+                            <field name="state" string="状态"/>
+                            <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
+                                   options="{'no_create':True,'no_open':True}"/>
+                        </group>
+                        <group string="演练结果">
+                            <field name="drill_result_ids">
+                                <tree class="noOpen">
+                                    <field name="line_id" string="线路"/>
+                                    <field name="site_id" string="站点"/>
+                                    <field name="people_number" string="参与人次"/>
+                                    <!--<field name="drill_hierarchy" string="状态"/>-->
+                                    <!--<field name="state" string="填写人"/>-->
+                                    <!--<field name="state" string="填写时间"/>-->
+                                </tree>
+
+                            </field>
+
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="xa_station_drill_plan_action">
+            <field name="name">演练计划</field>
+            <field name="res_model">funenc_xa_station.drill_plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="xa_station_drill_plan_menu" name="演练计划"
+                  action="xa_station_drill_plan_action" parent="opening_manage" sequence="5"
+        />
+
+
+    </data>
+</odoo>

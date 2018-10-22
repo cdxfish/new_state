@@ -107,7 +107,9 @@
 		'views/work_kanban/work_kanban.xml',
 		'views/work_kanban/task_type.xml',
 		'views/opening_manage/train/training_plan.xml',
+		'views/opening_manage/drill_plan/drill_plan.xml',
 		'views/index.xml',
+
 
 	],
 	# only loaded in demonstration mode
