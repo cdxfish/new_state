@@ -2,6 +2,8 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
+import datetime
+
 
 class work_kanban(models.Model):
     _name = 'funenc_xa_station.work_kanban'
@@ -64,13 +66,24 @@ class work_kanban(models.Model):
     def work_kanban_save(self):
         dic = self.read(
             ['originator_time', 'task_send_user_ids', 'task_start_time', 'task_end_time',
-             'task_priority',
+             'task_priority','task_originator_id',
              'task_type_id', 'task_describe', 'task_state'
              ])
         if dic:
             copy_value = dic[0]
-            copy_value['task_type_id'] = copy_value.get('task_type_id')[0] or None
+            if copy_value.get('task_originator_id'):
+                copy_value['task_originator_id'] = copy_value.get('task_originator_id')[0]
+            else:
+                copy_value['task_originator_id'] = None
+
+            if  copy_value['task_type_id']:
+                copy_value['task_type_id'] = copy_value.get('task_type_id')[0]
+            else:
+                copy_value['task_type_id'] = None
             user_ids = self.task_send_user_ids
+            copy_value['task_send_user_ids'] = [(6,0, copy_value.get('task_send_user_ids'))]
+
+
             for user in user_ids:
                 # 人物不多循环创建不影响效率
                 copy_value['task_type'] = 'receive_task'
@@ -80,8 +93,9 @@ class work_kanban(models.Model):
                 copy_value['receive_task_state'] = 'receive_state'
 
                 self.create(copy_value)
+        self.is_send = 1
 
-            self.is_send = 1
+
 
     def check_task_complete(self):
         '''
@@ -107,9 +121,10 @@ class work_kanban(models.Model):
                                            ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
             for kanban in kanban_list:
                 kanban['task_type_id'] = kanban.get('task_type_id')[1]
+
         else:
             if item == 'recieve':
-                value = '收到的任务'
+                value = 'receive_task'
             elif item == 'send':
                 value = 'send_task'
             else:
@@ -117,30 +132,47 @@ class work_kanban(models.Model):
 
             kanban_list = self.search_read([('task_type', '=', value)],
                                            ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+            for kanban in kanban_list:
+                kanban['task_type_id'] = kanban.get('task_type_id')[1]
 
         return kanban_list
 
     @api.model
     def get_kanban_by_id(self, id):
-        if id:
-            kanban = self.search_read([('id', '=', id)],
-                                      ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
-                                       'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
-                                       'task_describe',
-                                       'task_send_user_id',
-                                       ])[0]
-            kanban['sender'] = kanban.get('task_originator_id')[1]
+        kanban = self.search_read([('id', '=', id)],
+                                  ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
+                                   'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
+                                   'task_describe','task_send_user_ids',
+                                   'task_send_user_id','child_ids'
+                                   ])
+        if kanban:
+            kanban = kanban[0]
+            if kanban.get('task_originator_id'):
+                kanban['sender'] = kanban.get('task_originator_id')[1]
+            else:
+                kanban['sender'] = None
             kanban.pop('task_originator_id')
-            kanban['sendee'] = kanban.get('task_send_user_id')[1]
+            if kanban.get('task_send_user_ids'):
+                kanban['sendee'] = kanban.get('task_send_user_ids')
+                kanban['sendee'] = [self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('id','=',user_id)]).name
+                                    for user_id in kanban.get('task_send_user_ids')]
+
+            else:
+                kanban['sendee'] = None
             kanban.pop('task_send_user_id')
             kanban['complateInfo'] = []
-            for child_id in self.child_ids:
+            child_ids = self.search([('id','in', kanban.get('child_ids'))])
+            for child_id in child_ids:
                 dic = {'id': child_id.task_send_user_id.id,
                        'name': child_id.task_send_user_id.name,
-                       'complateTime': child_id.task_send_user_id.completed_time,
-                       'feedback': child_id.task_send_user_id.task_feedback,
+                       'complateTime': child_id.completed_time or '',
+                       'feedback': child_id.task_feedback or '',
                        }
                 kanban['complateInfo'].append(dic)
+            if kanban.get('task_type_id'):
+                kanban['task_type_id'] = kanban.get('task_type_id')[1]
+            else:
+                kanban['task_type_id'] = None
 
             return kanban
         else:
