@@ -29,7 +29,7 @@ class work_kanban(models.Model):
     task_feedback = fields.Char(string='任务反馈')
     receive_task_state = fields.Selection(selection=[('receive_state', '接收状态'), ('completed', '已完成')])  # 接收任务状态
     completed_time = fields.Datetime(string='接收任务完成时间')
-    task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='完成任务接收人')  # 完成任务接收人
+    task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
 
     @api.model
     def create_work_kanban(self):
@@ -98,3 +98,25 @@ class work_kanban(models.Model):
         if flag:
             self.prent_id.task_state = 'completed'
 
+    #   app
+    @api.model
+    def get_kanban_list(self, item):
+        self.env.user
+
+        if not item:
+            kanban_list = self.search_read([],
+                                           ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+            for kanban in kanban_list:
+                kanban['task_type_id'] = kanban.get('task_type_id')[1]
+        else:
+            if item == 'recieve':
+                value = '收到的任务'
+            elif item == 'send':
+                value = 'send_task'
+            else:
+                value = ''
+
+            kanban_list = self.search_read([('task_type','=', value)],
+                                           ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+
+        return kanban_list

@@ -49,7 +49,11 @@
                         </group>
                         <footer>
                             <button name='drill_plan_save'
-                                    string='确定'
+                                    string='保存'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button name='drill_plan_start'
+                                    string='演练计划开始'
                                     class='btn-primary'
                                     type='object'/>
                             <button string='取消'

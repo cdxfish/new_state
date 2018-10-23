@@ -30,26 +30,15 @@ class drill_plan(models.Model):
     drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果')
 
     # 人员签到
-    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in','drill_plan_sign_in_id', string='人员签到情况')
+    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况')
 
     @api.model
     def create(self, vals):
         drill_plan_id = super(drill_plan, self).create(vals)
-        if vals.get('vals'):
-            partake_site_ids = vals.get('vals')
-
-            for partake_site_id in partake_site_ids:
-                line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('departmentId','=',partake_site_id.parentid)]).id
-                self.env['funenc_xa_station.drill_result'].create({
-                    'line_id':line_id,
-                    'site_id':partake_site_id,
-                    'drill_plan_id': drill_plan_id.id
-                })
-
 
         # 生成二维码
         self = drill_plan_id
-        self.create_qrcode(drill_plan_id)
+        self.create_qrcode()
 
         return drill_plan_id
 
@@ -100,6 +89,22 @@ class drill_plan(models.Model):
     def drill_plan_save(self):
         pass
 
+    def drill_plan_start(self):
+        self.is_release = 1
+        partake_site_ids = self.partake_site_ids.ids
+
+        for partake_site_id in partake_site_ids:
+            line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('departmentId', '=', partake_site_id.parentid)]).id
+            self.env['funenc_xa_station.drill_result'].create({
+                'line_id': line_id,
+                'site_id': partake_site_id,
+                'drill_plan_id': self.id
+            })
+
+    # def
+
+
     def create_qrcode(self):
         '''
         二维码生成
@@ -141,12 +146,10 @@ class drill_plan_sign_in(models.Model):
     _description = u'演练计划签到情况'
 
     sign_in_time = fields.Datetime(string='签到时间')
-    sign_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='姓名')
-    line_id = fields.Many2one(related='sign_user_id.line_id',string='线路')
+    sign_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
+    line_id = fields.Many2one(related='sign_user_id.line_id', string='线路')
     site_id = fields.Many2many(related='sign_user_id.departments', string='站点')
-    jobnumber = fields.Char(related='sign_user_id.jobnumber',string="工号")
-    position = fields.Text(related='sign_user_id.position',string="职位")
+    jobnumber = fields.Char(related='sign_user_id.jobnumber', string="工号")
+    position = fields.Text(related='sign_user_id.position', string="职位")
 
-    drill_plan_sign_in_id = fields.Many2one('funenc_xa_station.drill_plan',string='演练相关')
-
-
+    drill_plan_sign_in_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练相关')

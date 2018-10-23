@@ -208,3 +208,10 @@ class FuencStation(http.Controller):
             return '<h1>签到失败</h1>'
 
         return '<h1>签到成功</h1>'
+
+
+class GetUser(http.Controller):
+    @http.route('/dingtalk/get_ding_user/', type='json', auth='none')
+    def get_ding_user(self,**kw):
+        params = http.request.params
+        a =1
