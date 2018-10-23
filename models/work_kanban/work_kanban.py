@@ -101,7 +101,6 @@ class work_kanban(models.Model):
     #   app
     @api.model
     def get_kanban_list(self, item):
-        self.env.user
 
         if not item:
             kanban_list = self.search_read([],
@@ -116,7 +115,48 @@ class work_kanban(models.Model):
             else:
                 value = ''
 
-            kanban_list = self.search_read([('task_type','=', value)],
+            kanban_list = self.search_read([('task_type', '=', value)],
                                            ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
 
         return kanban_list
+
+    @api.model
+    def get_kanban_by_id(self, id):
+        if id:
+            kanban = self.search_read([('id', '=', id)],
+                                      ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
+                                       'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
+                                       'task_describe',
+                                       'task_send_user_id',
+                                       ])[0]
+            kanban['sender'] = kanban.get('task_originator_id')[1]
+            kanban.pop('task_originator_id')
+            kanban['sendee'] = kanban.get('task_send_user_id')[1]
+            kanban.pop('task_send_user_id')
+            kanban['complateInfo'] = []
+            for child_id in self.child_ids:
+                dic = {'id': child_id.task_send_user_id.id,
+                       'name': child_id.task_send_user_id.name,
+                       'complateTime': child_id.task_send_user_id.completed_time,
+                       'feedback': child_id.task_send_user_id.task_feedback,
+                       }
+                kanban['complateInfo'].append(dic)
+
+            return kanban
+        else:
+            return []
+
+    @api.model
+    def app_save_work_kanban(self, **kw):
+        try:
+            ding_user = self.env.user.dingtalk_user
+
+            kw['task_originator_id'] = ding_user.id
+
+            task_send_user_ids = [int(id) for id in kw.get('ids')]
+            kw['task_originator_id'] = [(6, 0, task_send_user_ids)]
+
+            self.create(kw)
+            return True
+        except Exception:
+            return False

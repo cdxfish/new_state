@@ -45,3 +45,7 @@ class task_type(models.Model):
 
     def task_type_save(self):
         pass
+
+    @api.model
+    def get_type_all(self):
+        return  self.search_read([],['name'])
