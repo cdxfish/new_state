@@ -14,7 +14,7 @@ class BelongToManagement(models.Model):
     find_problem = fields.Text(string='发现问题')
     reference_according = fields.Char(string='参考依据')
     local_image = fields.Binary(string='现场照片')
-    check_score = fields.Integer(string='参考分值')
+    check_score = fields.Integer(string='考核分值')
     note = fields.Char(string='备注')
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char( string='填报人',

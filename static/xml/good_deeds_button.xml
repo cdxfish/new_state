@@ -5,17 +5,20 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
             t-if="widget.record.data.audit_state == 'one_audit'"
-            >通过审核</button>
+            >通过初审</button>
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
             t-if="widget.record.data.audit_state == 'two_audit'"
-            >通过审核</button>
+            >通过复审</button>
 
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
             t-if="widget.record.data.audit_state == 'rejected'"
             >继续提交</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit'"
-            >驳回</button>
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >初审驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >复审驳回</button>
             <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
                 t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
                 widget.record.data.audit_state == 'rejected'"
@@ -63,16 +66,19 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
             t-if="widget.record.data.audit_state == 'one_audit'"
-            >通过审核</button>
+            >通过初审</button>
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
             t-if="widget.record.data.audit_state == 'two_audit'"
-            >通过审核</button>
+            >通过复审</button>
             <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
             t-if="widget.record.data.audit_state == 'rejected'"
             >继续提交</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit'"
-            >驳回</button>
+            t-if="widget.record.data.audit_state == 'one_audit'"
+            >初审驳回</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'"
+            >复审驳回</button>
             <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
             t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
                 widget.record.data.audit_state == 'rejected'"
@@ -160,6 +166,29 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="change_state"
             >修改状态</button>
+        </div>
+    </t>
+
+    <t t-name="video_suggest_button_play">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="view_details"
+            >播放</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="load_file"
+            >下载</button>
+        </div>
+    </t>
+
+    <t t-name="duty_opinion_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="new_create_opnion"
+            >编辑</button>
+        </div>
+    </t>
+
+    <t t-name="complaints_suer_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="complaints_suer_button"
+            >编辑</button>
         </div>
     </t>
 </templates>

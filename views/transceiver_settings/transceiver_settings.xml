@@ -5,6 +5,7 @@
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="id" string="序号"></field>
                     <field name="transient_type"></field>
                     <field name="transient_name"></field>
                     <field name="transient_number"></field>
@@ -12,6 +13,7 @@
                     <field name="site_id"></field>
                     <field name="post"></field>
                     <field name="state"></field>
+                    <widget name="treebtns" template="transceiver_settings_template" string="操作"></widget>
                 </tree>
             </field>
         </record>
@@ -28,12 +30,122 @@
                             <field name="transient_type"></field>
                             <field name="transient_name"></field>
                             <field name="transient_number"></field>
-                            <field name="line_id"></field>
-                            <field name="site_id"></field>
-                            <field name="post"></field>
-                            <field name="state"></field>
+                            <field name="post" string="工器具位置"></field>
                         </group>
                     </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="transceiver_settings_form_warranty" model="ir.ui.view">
+            <field name="name">工器具使用列表</field>
+            <field name="model">funenc_xa_station.transceiver_settings</field>
+            <field name="arch" type="xml">
+                <form>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="line_id" string="线路"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="line_id" readonly="1"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="site_id" string="站点"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="site_id" readonly="1"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="transient_type" string="工器具类型"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="transient_type" readonly="1"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="post" string="工器具位置"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="post" readonly="1"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="transient_name" string="工器具名称"/>
+                              </div>
+                             <div class="col-md-8">
+                                 <field name="transient_name" readonly="1"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-4">
+                                 <label for="transient_number" string="工器具编号"/>
+                              </div>
+                                 <div class="col-md-8">
+                                     <field name="transient_number" readonly="1"/>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-2">
+                                 <label for="break_descrip" string="故障描述"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="break_descrip"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-2">
+                                 <label for="load_file_test" string="故障图片"/>
+                              </div>
+                             <div class="col-md-10">
+                                    <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                              </div>
+                           </div>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+       <record id="transceiver_settings_before_button" model="ir.ui.view">
+            <field name="name">工器具使用列表</field>
+            <field name="model">funenc_xa_station.transceiver_settings</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-2">
+                             <label for="load_file_test" string="故障图片"/>
+                          </div>
+                         <div class="col-md-10">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
                 </form>
             </field>
         </record>

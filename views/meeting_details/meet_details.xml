@@ -7,6 +7,9 @@
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="id" string="序号"></field>
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
+                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                     <field name="meeting_theme"></field>
                     <field name="meeting_time"></field>
                     <field name="compere"></field>
@@ -90,14 +93,14 @@
                                  <field name="meeting_theme"/>
                               </div>
                            </div>
-                           <div class="layui-col-sm6">
-                              <div class="layui-col-sm4">
-                                 <label for="record_time" string="记录日期："/>
-                              </div>
-                             <div class="layui-col-sm8">
-                                 <field name="record_time"/>
-                              </div>
-                           </div>
+                           <!--<div class="layui-col-sm6">-->
+                              <!--<div class="layui-col-sm4">-->
+                                 <!--<label for="record_time" string="记录日期："/>-->
+                              <!--</div>-->
+                             <!--<div class="layui-col-sm8">-->
+                                 <!--<field name="record_time"/>-->
+                              <!--</div>-->
+                           <!--</div>-->
                         </div>
                         <div class="row">
                            <div class="layui-col-sm6">
@@ -108,14 +111,14 @@
                                  <field name="compere"/>
                               </div>
                            </div>
-                           <div class="layui-col-sm6">
-                              <div class="layui-col-sm4">
-                                 <label for="recorder" string="记录人："/>
-                              </div>
-                             <div class="layui-col-sm8">
-                                 <field name="recorder"/>
-                              </div>
-                           </div>
+                           <!--<div class="layui-col-sm6">-->
+                              <!--<div class="layui-col-sm4">-->
+                                 <!--<label for="recorder" string="记录人："/>-->
+                              <!--</div>-->
+                             <!--<div class="layui-col-sm8">-->
+                                 <!--<field name="recorder"/>-->
+                              <!--</div>-->
+                           <!--</div>-->
                         </div>
                         <div class="row">
                            <div class="layui-col-sm6">

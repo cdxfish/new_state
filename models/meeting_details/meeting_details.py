@@ -16,12 +16,20 @@ class MeetingDateils(models.Model):
     join_person = fields.Char(string='参会人员')
     meeting_content = fields.Text(string='会议内容')
     meeting_site = fields.Char(string='会议地点')
-    recorder = fields.Char(string='记录人')
+    recorder = fields.Char(string='记录人',default=lambda self: self.default_person_id())
     record_time = fields.Char(string='记录日期',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     load_file_test = fields.Many2many('ir.attachment','funenc_xa_station_meeting_dateils_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
     files_accessory = fields.One2many('ir.attachment','res_id', string='文件附件')
     shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
+
+    #自动获取记录人的姓名
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.name
 
     def meet_dateils_button(self):
         view_form = self.env.ref('funenc_xa_station.meeting_details_details').id
