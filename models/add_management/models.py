@@ -21,6 +21,7 @@ class xian_metro(models.Model):
     operation_peison = fields.Char(string='操作人')
     operation_time = fields.Datetime(string='操作时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     url = fields.Char(string='url')
+    release_time = fields.Date(string='发布实施日期')
 
     @api.model
     def xian_metro_type(self):

@@ -34,7 +34,12 @@ class CheckRecord(models.Model):
     all_score = fields.Float(string='总分值', default=100)
     mouth_grade = fields.Float(string='本月评分')
     grade_degree = fields.Float(string='考评次数',default=1)
+    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='关联字段')
 
+    @api.model
+    def create(self, vals):
+        vals['relevance'] = vals['staff']
+        return super(CheckRecord, self).create(vals)
 
     @api.model
     def new_add_record(self):

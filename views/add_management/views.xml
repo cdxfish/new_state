@@ -74,6 +74,7 @@
                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="profession_kind"></field>
                                 <field name="rules_id"></field>
+                                 <field name="release_time"></field>
                             </group>
                             <group name="group_left">
                                 <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>

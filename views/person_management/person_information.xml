@@ -583,31 +583,6 @@
                          </div>
                     <div class="text-center ">
                         <field name="check_info">
-                            <tree>
-                                <field name="grade"></field>
-                                <field name="grade_standard"></field>
-                                <field name="problem_kind"></field>
-                                <field name="check_kind"></field>
-                                <field name="check_project"></field>
-                                <field name="incident_desfcription"></field>
-                                <field name="check_person"></field>
-                                <field name="check_time"></field>
-                            </tree>
-
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <field name="grade"></field>
-                                        <field name="grade_standard"></field>
-                                        <field name="problem_kind"></field>
-                                        <field name="check_kind"></field>
-                                        <field name="check_project"></field>
-                                        <field name="incident_desfcription"></field>
-                                        <field name="check_person"></field>
-                                        <field name="check_time"></field>
-                                    </group>
-                                </sheet>
-                            </form>
                         </field>
                         </div>
                    </page>
@@ -618,26 +593,6 @@
                          </div>
                     <div class="text-center ">
                         <field name="award_info">
-                            <tree>
-                                <field name="award_money"></field>
-                                <field name="award_standard_kind"></field>
-                                <field name="examination_item"></field>
-                                <field name="incident_description"></field>
-                                <field name="check_person"></field>
-                                <field name="check_time"></field>
-                            </tree>
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <field name="award_money"></field>
-                                        <field name="award_standard_kind"></field>
-                                        <field name="examination_item"></field>
-                                        <field name="incident_description"></field>
-                                        <field name="check_person"></field>
-                                        <field name="check_time"></field>
-                                    </group>
-                                </sheet>
-                            </form>
                         </field>
                         </div>
                    </page>

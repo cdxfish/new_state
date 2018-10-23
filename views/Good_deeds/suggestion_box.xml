@@ -11,7 +11,7 @@
             <field name="target">new</field>
         </record>
 
-        <record model="ir.actions.server" id="person_certificate_button">
+        <record model="ir.actions.server" id="suggestion_box_tree_button">
             <field name="name">新建</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>

@@ -25,6 +25,12 @@ class AwardRecord(models.Model):
     award_record_add = fields.One2many('funenc_xa_station.award_record_add','associated',string='新增责任人员')
     award_money = fields.Float(string='奖励金额')
     award_degree = fields.Integer(string='奖励次数',default=1)
+    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='关联字段')
+
+    @api.model
+    def create(self, vals):
+        vals['relevance'] = vals['staff']
+        return super(AwardRecord, self).create(vals)
 
     @api.model
     def award_record_create(self):

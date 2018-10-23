@@ -8,8 +8,9 @@ class AddPersonCertificate(models.Model):
     name = fields.Char(string='证件名称')
     # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
     # station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
-    person_name = fields.Char(string='姓名')
-    work_number = fields.Char(string='工号')
+    person_name = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
+    # person_name = fields.Char(string='姓名')
+    work_number = fields.Char(string='工号',related='person_name.jobnumber')
     phone = fields.Integer(string='电话')
     site = fields.Char(string='职位')
     book_number = fields.Char(string='证书编码')
@@ -29,6 +30,10 @@ class AddPersonCertificate(models.Model):
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
 
+    @api.model
+    def create(self, vals):
+        vals['relevance'] = vals['person_name']
+        return super(AddPersonCertificate, self).create(vals)
 
     @api.model
     def person_certificate_type(self):
