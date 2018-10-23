@@ -1,7 +1,7 @@
 /**
  * Created by artorias on 2018/7/13.
  */
-odoo.define("one2many_image_read_widget", function(require) {
+odoo.define("many2many_image_read_widget", function(require) {
   "use strict";
 
   var registry = require("web.field_registry");
@@ -17,8 +17,8 @@ odoo.define("one2many_image_read_widget", function(require) {
 //       console.log('dataoooooooooooooooo:'+ self.record.data.load_file_test.data)
 
        var img_id_list=[];
-       for ( var i=0;i<self.record.data.load_file_test.data.length;i++){
-         var img_id = self.record.data.load_file_test.data[i].data['id'];
+       for ( var i=0;i<self.record.data.many2many_image.data.length;i++){
+         var img_id = self.record.data.many2many_image.data[i].data['id'];
          img_id_list.push(img_id)
        }
 
@@ -93,6 +93,6 @@ odoo.define("one2many_image_read_widget", function(require) {
       }
     }
   });
-  registry.add("one2many_image_read_widget", one2many_image_read_widget);
-  return { one2many_image_read_widget: one2many_image_read_widget };
+  registry.add("many2many_image_read_widget", many2many_image_read_widget);
+  return { many2many_image_read_widget: many2many_image_read_widget };
 });

@@ -60,7 +60,7 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id"/>
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -68,7 +68,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" />
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
@@ -152,7 +152,7 @@
                    <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
-                             <label for="responsibility_identification" string="责任认定(初判)"/>
+                             <label for="responsibility_identification" string="责任认定"/>
                           </div>
                          <div class="col-md-8">
                              <field name="responsibility_identification"/>
@@ -333,12 +333,22 @@
                        <div class="col-md-3">
                           <div class="col-md-6">
                              <label for="claim_state" string="索赔状态"/>
+                              <widget  name="treebtns" template="change_clain_state"/>
                           </div>
                          <div class="col-md-6">
                              <field name="claim_state" readonly="1"/>
+                             <!--<widget  name="treebtns" template="change_clain_state"/>-->
                           </div>
                        </div>
-                        <widget  name="treebtns" template="change_clain_state"/>
+                        <!--<widget  name="treebtns" template="change_clain_state"/>-->
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="responsibility_identification" string="责任认定"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="responsibility_identification" readonly="1"/>
+                          </div>
+                       </div>
                     </div>
 
                      <div class="row">
@@ -365,6 +375,15 @@
                           </div>
                          <div class="col-md-6">
                              <field name="guests_age" readonly="1"/>
+                          </div>
+                       </div>
+
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_phone" string="乘客联系方式"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_phone" readonly="1"/>
                           </div>
                        </div>
 

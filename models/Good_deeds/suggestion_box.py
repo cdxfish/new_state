@@ -31,6 +31,17 @@ class SuggestionBox(models.Model):
     Satisfied = fields.Selection([('one','满意'),('zero','不满意')],string='乘客是否满意')
     load_file_test = fields.Many2many('ir.attachment','suggestion_box_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
+    video_attachment = fields.One2many('video_voice_model','suggest_box_video',string='视频附件')
+    audio_attachment = fields.One2many('video_voice_model','suggest_box_audio',string='音频附件')
+    recovery_time = fields.Datetime(string='回复时间')
+    recovery_person = fields.Char(string='回复人')
+    satisfied_person = fields.Selection([('one', '满意'), ('zero', '不满意')], string='乘客是否满意')#责任部门意见的乘客满意
+    survey_state = fields.Char(string='调查概况')
+    recovery_content = fields.Text(string='回复内容')
+    rectification_method = fields.Text(string='整改方法')
+    according_opinion = fields.Text(string='定则意见及依据')
+    duty_general = fields.Text(string='最终定性及定责')
+
 
     def test_btn_two_audit(self):
         values = {
@@ -70,6 +81,7 @@ class SuggestionBox(models.Model):
         self.audit_state = self.env.context.get('audit_state', 'one_audit')
         self.env['funenc_xa_station.suggestion_box'].write(values)
 
+    #修改整条记录
     def onchange_button_action(self):
         view_form = self.env.ref('funenc_xa_station.suggestion_box_form').id
         return {
@@ -85,6 +97,7 @@ class SuggestionBox(models.Model):
             'target': 'new',
         }
 
+    #查看整条记录的详情
     def guests_details_action(self):
         view_form = self.env.ref('funenc_xa_station.suggestion_box_act_details').id
         return {
@@ -97,7 +110,6 @@ class SuggestionBox(models.Model):
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
-            'target': 'new',
         }
 
     def create_suggest(self):
@@ -112,4 +124,41 @@ class SuggestionBox(models.Model):
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
         }
+
+    #编辑form页面的责任部门意见
+    def new_create_opnion(self):
+        view_form = self.env.ref('funenc_xa_station.duty_derpament_opnion_form').id
+        return {
+            'name': '乘客意见箱',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.suggestion_box',
+            'context': self.env.context,
+            'res_id':self.id,
+            'flags': {'initial_mode': 'edit'},
+            'target':'new'
+
+        }
+
+    #责任form页面的投诉定性
+    def complaints_suer_button(self):
+        view_form = self.env.ref('funenc_xa_station.complaints_sure').id
+        return {
+            'name': '乘客意见箱',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.suggestion_box',
+            'context': self.env.context,
+            'res_id': self.id,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new'
+
+        }
+
+
+
 
