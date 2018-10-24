@@ -337,6 +337,7 @@
               <field name="type">ir.actions.act_window</field>
               <field name="res_model">person.certificate</field>
               <field name="view_mode">tree,kanban,form</field>
+              <field name="domain"></field>
               <field name="view_id" ref="person_certificate_tree"/>
                 <field name="top_widget">multi_action_tab</field>
                 <field name="top_widget_key">driver_manage_tab</field>

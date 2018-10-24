@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import functools
+
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
@@ -10,6 +12,7 @@ import base64
 class drill_plan(models.Model):
     _name = 'funenc_xa_station.drill_plan'
     _description = u'演练计划'
+    _inherit = 'fuenc_station.station_base'
 
     drill_project = fields.Char(string='演练项目', required=True)
     drill_time = fields.Datetime(string='演练时间', required=True)
@@ -88,6 +91,25 @@ class drill_plan(models.Model):
 
     def drill_plan_save(self):
         pass
+
+    # 页面详情按钮
+    def details(self):
+        # record_ids = self.search([
+        #     ()
+        # ]).ids
+        view_form = self.env.ref('funenc_xa_station.xa_station_drill_plan_form_button').id
+        return {
+            'name': '演练详情',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.drill_plan',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'readonly'},
+            'res_id': self.id,
+            # 'target': 'new',
+        }
 
     def drill_plan_start(self):
         self.is_release = 1

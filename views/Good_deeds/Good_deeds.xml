@@ -327,6 +327,6 @@
 
 		</record>
 
-        <menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>
+        <!--<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>-->
     </data>
 </odoo>

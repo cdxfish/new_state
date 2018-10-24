@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api,models,fields
-
+from ..get_domain import get_domain
 
 class BreakLogManage(models.Model):
     _name = 'funenc_xa_station.break_log_manage'
@@ -17,6 +17,7 @@ class BreakLogManage(models.Model):
     repair_manufacturer = fields.Char(string='修复厂家')
     after_break_img =fields.Binary(string='修复后照片')
 
+    @get_domain
     def create_new_record(self):
         view_form = self.env.ref('funenc_xa_station.break_log_manage_form').id
         return {

@@ -236,5 +236,9 @@
                   action="xa_station_training_plan_action" parent="opening_manage" sequence="5"
         />
 
+        <menuitem id="xa_station_training_plan_1" name="(缺)培训汇总"
+                  action="xa_station_training_plan_action" parent="opening_manage" sequence="6"
+        />
+
     </data>
 </odoo>
