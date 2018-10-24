@@ -91,6 +91,9 @@ class xian_metro(models.Model):
 
     @api.model
     def get_xian_metro_list(self):
+        xian_metro = self.search_read([], ['id', 'rules_id', 'profession_kind', 'url'])
+        for xian in xian_metro:
+            xian['profession_kind'] =  xian['profession_kind'][1]
 
-        pass
+        return xian_metro
 

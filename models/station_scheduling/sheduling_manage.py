@@ -4,7 +4,7 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 
 import datetime
-
+import calendar
 
 class ShedulingManage(models.Model):
     _name = 'funenc_xa_station.sheduling_manage'
@@ -30,7 +30,8 @@ class ShedulingManage(models.Model):
                                                    'sheduling_manage_id', 'arrange_order_id', string='班组排班规则')
     motorized_rule_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_5_ref',
                                           'sheduling_manage_id', 'arrange_order_id', string='机动人员排班规则')
-    current_rule = fields.Text(string='当前冲突规则', default=lambda self: self.default_current_rule())
+    current_rule = fields.Text(string='当前冲突规则')
+    # , default = lambda self: self.default_current_rule()
     # sort = fields.Integer(string='排序', default=1)
 
     #  tree显示字段
@@ -361,7 +362,6 @@ class ShedulingManage(models.Model):
     def save(self):
         self.sheduling_start()
 
-
         # return {
         #     'name': '排班管理',
         #     'type': 'ir.actions.client',
@@ -421,7 +421,7 @@ class ShedulingManage(models.Model):
         group_data = []  # 班组排班
         for class_group_id in class_group_ids:
             class_group_name = class_group_id.name
-            group_user_ids = class_group_id.group_user_ids.read(['name', 'position','id'])  # 班组人员
+            group_user_ids = class_group_id.group_user_ids.read(['name', 'position', 'id'])  # 班组人员
             for i, group_user_id in enumerate(group_user_ids):
                 # group_user_id['index'] = i + 1
                 # group_user_id['user_name'] = group_user_id.get('name')
@@ -435,7 +435,7 @@ class ShedulingManage(models.Model):
                 continuous_rest_time = 0  # 连续休息时长
                 next_work_time = 0  # 下次工作日期范围
                 for j, time_day in enumerate(time_days):
-                    data = []  #  班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
+                    data = []  # 班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
                     data.append(line_id)
                     data.append(site_id)
                     data.append(group_user_id.get('id'))
@@ -520,12 +520,12 @@ class ShedulingManage(models.Model):
                 data_2 = []  # (line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)
                 data_2.append(line_id)
                 data_2.append(site_id)
-                data_2.append( group_user_id.get('id'))
-                data_2.append( time_day.strftime('%Y-%m-%d'))
+                data_2.append(group_user_id.get('id'))
+                data_2.append(time_day.strftime('%Y-%m-%d'))
                 data_2.append('motorized_group')
                 data_2.append(arrange_order_ids[0].get('save_work_time', 0))
                 if j == 0:
-                    data_2.append(  motorized_ids[0].get('id'))
+                    data_2.append(motorized_ids[0].get('id'))
                     work_time = work_time + motorized_ids[0].get('save_work_time')
                     last_work_time = motorized_ids[0].get('save_work_time')
                     # last_class_group_index = 0
@@ -597,14 +597,30 @@ class ShedulingRecordr(models.Model):
 
     class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
+    time_interval = fields.Char(related='arrange_order_id.time',string='班次时间')
     sheduling_date = fields.Datetime(string='排班时间')
-    order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')],string='班组类型')
-    work_time = fields.Integer(string='工作时长') # 工作时长
+    order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')], string='班组类型')
+    work_time = fields.Integer(string='工作时长')  # 工作时长
 
     #####
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='排班人员')
-    user_name = fields.Char(related='user_id.name',string="名字")
-    user_position = fields.Text(related='user_id.position',string="职位")
+    user_name = fields.Char(related='user_id.name', string="名字")
+    user_position = fields.Text(related='user_id.position', string="职位")
+
+    @api.model
+    def get_sheduling_record_by_user(self, month):
+        if month:
+            print(month)
+            year = month[:4]
+            month1 = month[5:7]
+            days = calendar.monthrange(int(year), int(month1))[1]
+            select_date = year +'-{}'.format(month1) + '-{}'.format(days)
+
+            ding_user = self.env.user.dingtalk_user
+            search_read = self.search_read([('user_id', '=', ding_user.id),('sheduling_date','>=',month),('sheduling_date','<=',select_date)],
+                                           ['sheduling_date','arrange_order_id','time_interval'])
+            for search in search_read:
+                search['arrange_order_id'] = search['arrange_order_id'][1]
 
 
-
+            return search_read
