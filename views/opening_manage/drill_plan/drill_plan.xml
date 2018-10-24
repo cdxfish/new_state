@@ -183,11 +183,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="xa_station_drill_plan_menu" name="演练计划"
+        <menuitem id="xa_station_drill_plan_menu" name="演练计划" groups="system_drill_plan"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="5"
         />
 
-        <menuitem id="xa_station_drill_plan_menu_01" name="(缺)演练计划汇总"
+        <menuitem id="xa_station_drill_plan_menu_01" name="(缺)演练计划汇总" groups="system_drill_total"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="6"
         />
 
