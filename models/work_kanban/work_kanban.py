@@ -96,21 +96,21 @@ class work_kanban(models.Model):
         self.is_send = 1
 
 
-
     def check_task_complete(self):
         '''
          任务完成
         :return:
         '''
         flag = True
-        self.task_state = 'completed'
+        self.receive_task_state = 'completed'
+        self.completed_time = datetime.datetime.now()
         child_ids = self.parent_id.child_ids
         for child_id in child_ids:
             if child_id.receive_task_state != 'completed':
                 flag = False
                 break
         if flag:
-            self.prent_id.task_state = 'completed'
+            self.parent_id.task_state = 'completed'
 
     #   app
     @api.model
@@ -142,8 +142,8 @@ class work_kanban(models.Model):
         kanban = self.search_read([('id', '=', id)],
                                   ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
                                    'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
-                                   'task_describe','task_send_user_ids',
-                                   'task_send_user_id','child_ids'
+                                   'task_describe','task_send_user_ids','receive_task_state',
+                                   'task_send_user_id','child_ids','task_type'
                                    ])
         if kanban:
             kanban = kanban[0]
@@ -192,3 +192,25 @@ class work_kanban(models.Model):
             return True
         except Exception:
             return False
+
+    @api.model
+    def app_save_kanban_type(self, taskid,feedBackContent):
+        self = self.browse([int(taskid)])
+        if self:
+            flag = True
+            self.receive_task_state = 'completed'
+            self.completed_time = datetime.datetime.now()
+            self.task_feedback = feedBackContent
+            child_ids = self.parent_id.child_ids
+            for child_id in child_ids:
+                if child_id.receive_task_state != 'completed':
+                    flag = False
+                    break
+            if flag:
+                self.parent_id.task_state = 'completed'
+
+            return {'receive_task_state': 'completed'}
+        else:
+            return {'receive_task_state': 'receive_state'}
+
+

@@ -7,6 +7,7 @@ class site_drill_plan(models.Model):
     _name = 'funenc_xa_station.site_drill_plan'
     _description = u'站点演练详情'
 
+
     @api.model
     def create_site_drill_plan(self):
         context = dict(self.env.context or {})

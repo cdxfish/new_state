@@ -88,3 +88,9 @@ class xian_metro(models.Model):
             'flags': {'initial_mode': 'readonly'},
             'target': 'new',
         }
+
+    @api.model
+    def get_xian_metro_list(self):
+
+        pass
+
