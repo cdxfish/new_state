@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields, exceptions
 import datetime
+from ..get_domain import get_domain
 
 
 key = [('enter_come', '边门进出情况')
@@ -114,13 +115,15 @@ class PrudeNewpaperWrite(models.Model):
             # self.env['funenc_xa_station.date_time'].search([]).unlink()
 
     #新创建一条记录
-    def information_daynewpaper_write(self):
+    @get_domain
+    def information_daynewpaper_write(self,domain):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
+            'domain':'domain',
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,

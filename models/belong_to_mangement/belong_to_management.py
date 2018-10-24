@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-
+from .. get_domain import get_domain
 
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
@@ -25,12 +25,14 @@ class BelongToManagement(models.Model):
     check_count = fields.Integer(string='检查次数', default=1)
     imgs = fields.Char('照片路径')  # 存的字典  自己转
 
-    def create_belong_to_action(self):
+    @get_domain
+    def create_belong_to_action(self,domain):
         return {
             'name': '属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
+            'domain':domain,
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},

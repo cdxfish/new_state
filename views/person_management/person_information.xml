@@ -429,8 +429,14 @@
                                         <div class="row">
                                                <div class="col-md-3">
                                                   <div class="field-margin">
-                                                     <label for="department" string="所属部门"/>
-                                                     <field name="department" attrs="{'readonly':1}"/>
+                                                    <div class="col-md-4">
+                                                         <label for="department" string="所属线网"/>
+                                                         <!--<field name="department_load" attrs="{'readonly':1}"/>-->
+                                                      </div>
+                                                        <div class="col-md-8">
+                                                         <!--<label for="department_load" string="所属线网"/>-->
+                                                         <field name="department" attrs="{'readonly':1}"/>
+                                                      </div>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
@@ -540,7 +546,7 @@
                                 <field name="two_recheck_time"></field>
                                 <field name="two_recheck_money"></field>
                                 <widget string="证件详情" name="treebtns" template="person_dateils"/>
-                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                                <widget string="操作" name="treebtns" template="person_certificate_information"/>
                             </tree>
                         </field>
                     </div>
@@ -558,8 +564,7 @@
                                 <field name="site_post"></field>
                                 <field name="site_time"></field>
                                 <field name="site_file"></field>
-                                <widget string="证件详情" name="treebtns" template="person_dateils"/>
-                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                                <widget string="操作" name="treebtns" template="person_muddleheaded_information"/>
                             </tree>
                             <form>
                                 <sheet>
@@ -570,6 +575,7 @@
                                         <field name="site_post"></field>
                                         <field name="site_time"></field>
                                         <field name="site_file"></field>
+                                        <field name="relevance" invisible='1'></field>
                                     </group>
                                 </sheet>
                             </form>
@@ -583,6 +589,22 @@
                          </div>
                     <div class="text-center ">
                         <field name="check_info">
+                            <tree>
+                                <field name="line_id"></field>
+                                <field name="site_id"></field>
+                                <field name="job_number"></field>
+                                <field name="staff"></field>
+                                <field name="position"></field>
+                                <field name="sure_grede"></field>
+                                <field name="check_target"></field>
+                                <field name="problem_kind"></field>
+                                <field name="check_kind"></field>
+                                <field name="check_project"></field>
+                                <field name="incident_describe"></field>
+                                <field name="check_person"></field>
+                                <field name="check_number"></field>
+                                <field name="check_time"></field>
+                            </tree>
                         </field>
                         </div>
                    </page>
@@ -593,6 +615,20 @@
                          </div>
                     <div class="text-center ">
                         <field name="award_info">
+                            <tree>
+                                <field name="line_id"></field>
+                                <field name="site_id"></field>
+                                <field name="jobnumber"></field>
+                                <field name="staff"></field>
+                                <field name="position"></field>
+                                <field name="award_money"></field>
+                                <field name="award_target_kind"></field>
+                                <field name="award_project"></field>
+                                <field name="check_project"></field>
+                                <field name="incident_describe"></field>
+                                <field name="check_person"></field>
+                                <field name="check_time"></field>
+                            </tree>
                         </field>
                         </div>
                    </page>

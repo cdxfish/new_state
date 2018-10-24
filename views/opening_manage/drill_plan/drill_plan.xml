@@ -99,14 +99,96 @@
             </field>
         </record>
 
+        <record id="xa_station_drill_plan_form_button" model="ir.ui.view">
+            <field name="name">演练计划详情</field>
+            <field name="model">funenc_xa_station.drill_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h2>基本信息</h2>
+                    <div class="row">
+                       <div class="col-md-3">
+
+                          <div class="col-md-4">
+                             <label for="drill_project" string="培训项目"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="drill_project" />
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-4">
+                             <label for="create_date" string="发布日期"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="create_date" />
+                          </div>
+                       </div>
+
+                       <div class="col-md-3">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-3">
+
+                          <div class="col-md-4">
+                             <label for="drill_hierarchy" string="演练层级"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="drill_hierarchy" />
+                          </div>
+                       </div>
+                       <div class="col-md-3">
+                          <div class="col-md-4">
+                             <label for="drill_time" string="演练时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="drill_time" />
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-3">
+
+                          <div class="col-md-4">
+                             <label for="drill_plan" string="演练方案"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="drill_plan" widget="many2many_binary"/>
+                          </div>
+                       </div>
+                    </div>
+                    <h2>演练结果附件</h2>
+                    <widget name="treebtns" template="new_button_increase"></widget>
+                </form>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="xa_station_drill_plan_action">
             <field name="name">演练计划</field>
             <field name="res_model">funenc_xa_station.drill_plan</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="xa_station_drill_plan_menu" name="演练计划"
+        <menuitem id="xa_station_drill_plan_menu" name="演练计划" groups="system_drill_plan"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="5"
+        />
+
+        <menuitem id="xa_station_drill_plan_menu_01" name="(缺)演练计划汇总" groups="system_drill_total"
+                  action="xa_station_drill_plan_action" parent="opening_manage" sequence="6"
         />
 
 

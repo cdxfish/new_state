@@ -64,7 +64,6 @@ class MainModel(models.Model):
     #     self.name_name = self.name
 
     def person_info(self):
-        print('oo')
         return {
             'name': '人员管理系统',
             'type': 'ir.actions.act_window',

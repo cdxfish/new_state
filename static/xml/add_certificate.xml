@@ -22,6 +22,21 @@
             <button type="object" name="book_details_load" class="layui-btn layui-btn-sm" >下载</button>
         </div>
     </t>
+    <!--人员管理系统企业员工信息-->
+    <t t-name="person_certificate_information">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="person_cer_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="person_cer_delete" confirm="您确定要删除该条记录吗？" >删除</button>
+        </div>
+    </t>
+    <!--人员管理系统——人员信息，员工转岗信息-->
+    <t t-name="person_muddleheaded_information">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="person_cer_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="person_cer_delete" confirm="您确定要删除该条记录吗？" >删除</button>
+        </div>
+    </t>
+
     <!--文件的显示按钮-->
     <t t-name="person_dateils">
         <div class="layui-btn-group">
