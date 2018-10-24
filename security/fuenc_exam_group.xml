@@ -180,6 +180,11 @@
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
+        <record model="res.groups" id="system_station_card">
+            <field name="name">交接班-车站特殊卡预设</field>
+            <field name="category_id" ref="module_category_setting"/>
+        </record>
+
         <record model="res.groups" id="system_production_events">
             <field name="name">生产日报-生产事件设置</field>
             <field name="category_id" ref="module_category_setting"/>
