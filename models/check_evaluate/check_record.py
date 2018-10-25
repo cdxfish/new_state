@@ -4,6 +4,8 @@
 from odoo import api, models, fields
 from datetime import datetime
 import xlwt
+from ..get_domain import get_domain
+
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
     _inherit = 'fuenc_station.station_base'
@@ -35,6 +37,21 @@ class CheckRecord(models.Model):
     mouth_grade = fields.Float(string='本月评分')
     grade_degree = fields.Float(string='考评次数',default=1)
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='关联字段')
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.check_record_tree').id
+        return {
+            'name': '新增考评',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.check_record',
+            'context': self.env.context,
+        }
 
     @api.model
     def create(self, vals):

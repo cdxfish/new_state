@@ -5,6 +5,8 @@ from odoo import api,models,fields
 import requests
 import urllib
 import base64
+from ..get_domain import get_domain
+
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -59,6 +61,21 @@ class GuestsHurt(models.Model):
     #             "url": url,
     #             "target": "new"
     #         }
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.guests_hurt_tree').id
+        return {
+            'name': '客伤',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'fuenc_xa_station.guests_hurt',
+            'context': self.env.context,
+        }
 
     #通过初审按钮
     def test_btn_two_audit(self):

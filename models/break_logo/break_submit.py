@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-
+from ..get_domain import get_domain
 
 class BreakSubmit(models.Model):
     _name = 'funenc_xa_station.break_submit'
@@ -24,3 +24,18 @@ class BreakSubmit(models.Model):
 
     def break_delete_action(self):
         self.env['funenc_xa_station.break_submit'].search([('id','=',self.id)]).unlink()
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'context': self.env.context,
+        }

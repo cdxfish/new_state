@@ -1,6 +1,19 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="suggestion_box_act">
+            <field name="name">意见箱</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.suggestion_box</field>
+            <field name="model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
     ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
@@ -682,11 +695,11 @@
             </field>
         </record>
 
-        <record id="suggestion_box_act" model="ir.actions.act_window">
-            <field name="name">乘客意见箱</field>
-            <field name="res_model">funenc_xa_station.suggestion_box</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--<record id="suggestion_box_act" model="ir.actions.act_window">-->
+            <!--<field name="name">乘客意见箱</field>-->
+            <!--<field name="res_model">funenc_xa_station.suggestion_box</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="suggestion_box_mune" name="乘客意见箱" action="suggestion_box_act"></menuitem>-->
     </data>

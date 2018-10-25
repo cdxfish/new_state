@@ -60,6 +60,7 @@ odoo.define("multi_action_tab", function (require) {
 
           } else if (tab.action2) {
             self.do_action(tab.action2)
+
 //          console.log("domains:"+JSON.stringify(tab.domains))
 //
 //            var inner_widget = self.action_manager.inner_widget

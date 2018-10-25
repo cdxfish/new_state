@@ -1,5 +1,18 @@
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="break_log_manage_act">
+            <field name="name">故障标识管理</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">construction.dispatch</field>
+            <field name="model_id" ref="model_funenc_xa_station_break_log_manage"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
         <record model="ir.actions.server" id="break_log_manage_server">
             <field name="name">标识报修</field>
             <field name="state">code</field>
@@ -172,11 +185,11 @@
             </field>
         </record>
 
-        <record id="break_log_manage_act" model="ir.actions.act_window">
-            <field name="name">故障标识管理</field>
-            <field name="res_model">funenc_xa_station.break_log_manage</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--<record id="break_log_manage_act" model="ir.actions.act_window">-->
+            <!--<field name="name">故障标识管理</field>-->
+            <!--<field name="res_model">funenc_xa_station.break_log_manage</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
     </data>
 </odoo>

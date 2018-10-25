@@ -6,7 +6,7 @@ def get_domain(func):
     def wrapper(self, *args, **kwargs):
         ding_user = self.env.user.dingtalk_user
         if len(ding_user.departments) == 0:
-            return func(self, [('id', '=', None)], *args, **kwargs)
+            return func(self, [], *args, **kwargs)
         department = ding_user.departments[0]
         if department.department_hierarchy == 1:
             return func(self, [], *args, **kwargs)

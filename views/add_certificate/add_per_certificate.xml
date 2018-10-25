@@ -3,6 +3,19 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="person_certificate_server">
+            <field name="name">人员证件</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">person.certificate</field>
+            <field name="model_id" ref="model_person_certificate"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
         <record model="ir.actions.server" id="person_certificate_button">
             <field name="name">人员证件</field>
             <field name="state">code</field>
@@ -333,7 +346,7 @@
         </record>
 
         <record id="person_certificate_act" model="ir.actions.act_window">
-              <field name="name">编辑信息</field>
+              <field name="name">人员证件管理</field>
               <field name="type">ir.actions.act_window</field>
               <field name="res_model">person.certificate</field>
               <field name="view_mode">tree,kanban,form</field>
@@ -342,20 +355,15 @@
                 <field name="top_widget">multi_action_tab</field>
                 <field name="top_widget_key">driver_manage_tab</field>
                 <field name="top_widget_options">
-                    {
-                    'tabs':
+                    {'tabs':
                         [
+                            {'title': '人员证件',
+                            'action':  'funenc_xa_station.person_certificate_act'},
                             {
-                            'title': '车站证件管理',
-                            'action':  {
-                                'type': 'ir.actions.act_window',
-                                "name": "车站证件管理",
-                                'views': [[False, 'list'], [False, 'form']],
-                                'view_mode': 'tree,form',
-                                "res_model": "station.certificate"
-                            }},
-                            {'title': ' ', 'domains': [['id', '=', '1']]},
-                            {'title': ' ', 'domains': [['id', '=', '2']]  }
+                                'title': '车站证件',
+                                'action2': 'funenc_xa_station.station_certificate_act_id_3'},
+
+                            {'title': '', 'domains': [['id', '=', '1']]}
                         ]
                     }
                 </field>

@@ -2,6 +2,17 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="xa_station_sheduling_manage_list_action">
+        <field name="name">排班列表</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('排班列表', 'funenc_xa_station.sheduling_record',
+            'funenc_xa_station.funenc_xa_station_sheduling_record_list_1', 'funenc_xa_station.funenc_xa_station_sheduling_record_form')
+        </field>
+        </record>
 
         <record model="ir.ui.view" id="funenc_xa_station_sheduling_record_list_1">
             <field name="name">funenc_xa_station_sheduling_record_list</field>
