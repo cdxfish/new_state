@@ -12,7 +12,7 @@ CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_cate
                     'module_station_detail_interface_display', 'module_rules_type_interface_display',
                     'module_scheduling_setting_interface_display', 'module_scheduling_manage_interface_display',
                     'module_attendance_interface_display', 'module_evaluation_index_setting_interface_display',
-                    'module_evaluation_index_manage_interface_display']
+                    'module_evaluation_index_manage_interface_display', 'module_category_view_page_button']
 
 
 class PositionSettings(models.Model):
