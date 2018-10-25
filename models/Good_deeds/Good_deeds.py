@@ -32,7 +32,7 @@ class GoodDeeds(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
+        view_tree = self.env.ref('funenc_xa_station.good_deeds_tree').id
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
