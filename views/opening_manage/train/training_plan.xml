@@ -243,11 +243,11 @@
         <!--</record>-->
 
         <menuitem id="xa_station_training_plan_menu" name="培训计划"
-                  action="xa_station_training_plan_action" parent="opening_manage" sequence="5"
+                  action="xa_station_training_plan_action" groups="system_cultivate_plan" parent="opening_manage" sequence="5"
         />
 
         <menuitem id="xa_station_training_plan_1" name="(缺)培训汇总"
-                  action="xa_station_training_plan_action" parent="opening_manage" sequence="6"
+                  action="xa_station_training_plan_action" groups="system_cultivate_total" parent="opening_manage" sequence="6"
         />
 
     </data>

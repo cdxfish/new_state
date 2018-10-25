@@ -80,12 +80,12 @@ class production_change_shifts(models.Model):
     @api.model
     def create_production_change_shifts(self):
         context = dict(self.env.context or {})
-        local_station_master_ids = set(master_to_production_change_id for  master_to_production_change_id in self.master_to_production_change_ids)
-        station_master = self.env['funenc_xa_station.station_master'].search([])[0]
-        inst_ids = list(set(station_master.preparedness_ids.ids) - local_station_master_ids)
-        for inst_id in inst_ids:
-            self.master_to_production_change_ids = (0, 0, {'station_master_id':inst_id
-                                                           })
+        # local_station_master_ids = set(master_to_production_change_id for  master_to_production_change_id in self.master_to_production_change_ids)
+        # station_master = self.env['funenc_xa_station.station_master'].search([])[0]
+        # inst_ids = list(set(station_master.preparedness_ids.ids) - local_station_master_ids)
+        # for inst_id in inst_ids:
+        #     self.master_to_production_change_ids = (0, 0, {'station_master_id':inst_id
+        #                                                    })
 
         return {
             'name': '交接班创建',

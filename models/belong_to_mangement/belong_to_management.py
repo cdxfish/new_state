@@ -23,6 +23,7 @@ class BelongToManagement(models.Model):
     change_state = fields.Selection([('add', '加'), ('reduce', '减')], dafault='reduce')
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
+    imgs = fields.Char('照片路径')  # 存的字典  自己转
 
     @get_domain
     def get_day_plan_publish_action(self,domain):
@@ -85,21 +86,58 @@ class BelongToManagement(models.Model):
         ding_user = self.env.user.dingtalk_user
         department = ding_user.departments[0]
         if department.department_hierarchy == 1:
-
-            return self.search_read([], ['id', 'summary_score', 'note', 'post_check', 'check_time'])
+            temps = self.search_read([], ['id', 'summary_score', 'note', 'post_check', 'check_time'])
         elif department.department_hierarchy == 2:
             ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                 [('parentid', '=', department.departmentId)]).ids
 
-            self.search_read([('site_id', 'in', ids)],
-                             ['id', 'summary_score', 'note', 'post_check', 'check_time'])
+            temps = self.search_read([('site_id', 'in', ids)],
+                                     ['id', 'summary_score', 'note', 'post_check', 'check_time'])
         else:
-            return self.search_read([('site_id', '=', department.id)],
-                                    ['id', 'summary_score', 'note', 'post_check', 'check_time'])
+            temps = self.search_read([('site_id', '=', department.id)],
+                                     ['id', 'summary_score', 'note', 'post_check', 'check_time'])
+        for temp in temps:
+            if temp.get('post_check') == 'guard':
+                temp['post_check'] = '保安'
+            elif temp.get('post_check') == 'check':
+                temp['post_check'] = '安检'
+            elif temp.get('post_check') == 'clean':
+                temp['post_check'] = '保洁'
+            else:
+                temp['post_check'] = ''
+        return temps
 
     @api.model
     def get_belong_to_management_by_id(self, id):
         select_id = int(id) or -1
-        return self.search_read([('id', '=', select_id)],
-                                ['find_problem', 'check_state', 'note', 'post_check', 'reference_according',
-                                 'summary_score', 'local_image','check_time'])
+        belong_to_management = self.search_read([('id', '=', select_id)],
+                                                ['find_problem', 'check_state', 'note', 'post_check',
+                                                 'reference_according',
+                                                 'summary_score', 'local_image', 'check_time', 'line_id', 'site_id'])[0]
+        if belong_to_management.get('line_id') and belong_to_management.get('site_id'):
+            belong_to_management['devicePosition'] = belong_to_management.get('line_id')[1] + '-' + \
+                                                     belong_to_management.get('site_id')[1]
+        else:
+            belong_to_management['devicePosition'] = ''
+        temp = belong_to_management.get('post_check')
+        if temp:
+            if temp == 'guard':
+                belong_to_management['post_check'] = '保安'
+            elif temp == 'check':
+                belong_to_management['post_check'] = '安检'
+            elif temp == 'clean':
+                belong_to_management['post_check'] = '保洁'
+            else:
+                belong_to_management['post_check'] = ''
+
+        return belong_to_management
+
+    @api.model
+    def save_belong_to_management(self, vals):
+
+        try:
+            self.create(vals)
+            a = 1
+        except Exception:
+            raise False
+        return True
