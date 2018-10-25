@@ -595,11 +595,9 @@
 				  <!--action='add_class_act_id'></menuitem>-->
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
-<<<<<<< HEAD
+
 				  parent="funenc_station_integrated_management" sequence="3" action="station_certificate_button_server"></menuitem>
-=======
-				  parent="funenc_station_integrated_management" groups="system_files" sequence="3" action="station_certificate_act_id_3"></menuitem>
->>>>>>> b40c3d97a8aa92b3cce42cbca328be487e330e24
+
 
         <!--<menuitem id="add_station_certificate_menu" action="station_certificate_act_id_3" name="车站证件"-->
 				  <!--parent="add_station_certificate_menu_parent"></menuitem>-->
