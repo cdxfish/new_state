@@ -22,3 +22,16 @@ class ReturnViewFunction(models.AbstractModel):
             'res_model': model,
             'context': self.env.context,
         }
+
+    @api.model
+    def return_tab_with_group(self, tab_data):
+        for tab in tab_data:
+            if tab.get('group', '') != '':
+                if self.user_has_groups(tab['group']) is True:
+                    tab['display'] = 'true'
+                else:
+                    tab['display'] = 'false'
+            else:
+                tab['display'] = 'true'
+        return tab_data
+

@@ -138,12 +138,11 @@
                     {'tabs':
                         [
                             {'title': '车站证件管理',
-                            'action':  'funenc_xa_station.station_certificate_act_id_3'},
+                            'action':  'funenc_xa_station.station_certificate_act_id_3',
+                            'group': 'funenc_xa_station.test_group'},
                             {
                                 'title': '人员证件管理',
-                                'action2':  'funenc_xa_station.person_certificate_act'},
-
-                            {'title': '', 'domains': [['id', '=', '1']]}
+                                'action2':  'funenc_xa_station.person_certificate_act'}
                         ]
                     }
                 </field>
