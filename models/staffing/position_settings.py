@@ -6,7 +6,13 @@ from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
 CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
-                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction']
+                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction',
+                    'module_passenger_service_interface_display', 'module_files_interface_display',
+                    'module_change_shifts_list_interface_display', 'module_production_daily_interface_display',
+                    'module_station_detail_interface_display', 'module_rules_type_interface_display',
+                    'module_scheduling_setting_interface_display', 'module_scheduling_manage_interface_display',
+                    'module_attendance_interface_display', 'module_evaluation_index_setting_interface_display',
+                    'module_evaluation_index_manage_interface_display']
 
 
 class PositionSettings(models.Model):
