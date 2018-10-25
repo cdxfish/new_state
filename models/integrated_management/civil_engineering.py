@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from ..get_domain import get_domain
 
 class CivilEngineering(models.Model):
     _name = 'funenc_xa_station.civil_engineering'

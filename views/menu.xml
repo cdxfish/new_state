@@ -52,11 +52,11 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<record id="funenc_station_civil_engineering" model="ir.actions.act_window">
-			<field name="name">土建结构</field>
-			<field name="res_model">funenc_xa_station.civil_engineering</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+		<!--<record id="funenc_station_civil_engineering" model="ir.actions.act_window">-->
+			<!--<field name="name">土建结构</field>-->
+			<!--<field name="res_model">funenc_xa_station.civil_engineering</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+		<!--</record>-->
 
 		<record id="funenc_station_signal_system" model="ir.actions.act_window">
 			<field name="name">信号系统</field>
@@ -117,11 +117,11 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_leave_list_action">
-          <field name="name">请假列表</field>
-          <field name="res_model">funenc_xa_station.leave</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<!--<record model="ir.actions.act_window" id="xa_station_leave_list_action">-->
+          <!--<field name="name">请假列表</field>-->
+          <!--<field name="res_model">funenc_xa_station.leave</field>-->
+		  <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
 		<record model="ir.actions.act_window" id="xa_station_sheduling_manage_list_action">
           <field name="name">排班列表</field>
@@ -129,11 +129,11 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_change_shifts_action">
-          <field name="name">换班</field>
-          <field name="res_model">funenc_xa_station.change_shifts</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<!--<record model="ir.actions.act_window" id="xa_station_change_shifts_action">-->
+          <!--<field name="name">换班</field>-->
+          <!--<field name="res_model">funenc_xa_station.change_shifts</field>-->
+		  <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
 		<record model="ir.actions.act_window" id="xa_station_consumables_type_action">
           <field name="name">耗材类型设置</field>
@@ -528,7 +528,7 @@
 		/>
 
 
-		<menuitem id="xa_station_consumables_inventory_1" name="交接班列表"
+		<menuitem id="xa_station_consumables_inventory_1" name="(缺)交接班列表"
 				  parent="xa_station_production_manage_1"
 				  action="xa_station_production_change_shifts_action"
 				  sequence="2"
@@ -588,7 +588,7 @@
 				  <!--action='add_class_act_id'></menuitem>-->
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
-				  parent="funenc_station_integrated_management" sequence="3" action="station_certificate_act_id_3"></menuitem>
+				  parent="funenc_station_integrated_management" sequence="3" action="station_certificate_button_server"></menuitem>
 
         <!--<menuitem id="add_station_certificate_menu" action="station_certificate_act_id_3" name="车站证件"-->
 				  <!--parent="add_station_certificate_menu_parent"></menuitem>-->

@@ -1,6 +1,18 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="prude_newspaper_write_act">
+        <field name="name">生产日报填写</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('生产日报填写', 'funenc_xa_staion.prude_newpaper_write',
+            'funenc_xa_station.prude_newspaper_write_tree', 'funenc_xa_station.prude_newspaper_write_form')
+        </field>
+        </record>
+
 
         <record model="ir.actions.server" id="prude_newspaper_write_button">
             <field name="name">新增事项</field>
@@ -243,11 +255,11 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="prude_newspaper_write_act">
-            <field name="name">日报填写</field>
-            <field name="res_model">funenc_xa_staion.prude_newpaper_write</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
+        <!--<record model="ir.actions.act_window" id="prude_newspaper_write_act">-->
+            <!--<field name="name">日报填写</field>-->
+            <!--<field name="res_model">funenc_xa_staion.prude_newpaper_write</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+        <!--</record>-->
 
     </data>
 </odoo>

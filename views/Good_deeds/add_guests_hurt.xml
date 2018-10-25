@@ -25,6 +25,19 @@
             <!--<field name="target">new</field>-->
         <!--</record>-->
 
+        <record model="ir.actions.server" id="add_guests_hurt_act">
+            <field name="name">客伤</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">fuenc_xa_station.add_guests_hurt</field>
+            <field name="model_id" ref="model_fuenc_xa_station_add_guests_hurt"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
         <record id="add_guests_hurt_tree" model="ir.ui.view">
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.add_guests_hurt</field>
@@ -474,11 +487,11 @@
 
 
 
-		<record id="add_guests_hurt_act" model="ir.actions.act_window">
-			<field name="name">客伤</field>
-			<field name="res_model">fuenc_xa_station.add_guests_hurt</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+		<!--<record id="add_guests_hurt_act" model="ir.actions.act_window">-->
+			<!--<field name="name">客伤</field>-->
+			<!--<field name="res_model">fuenc_xa_station.add_guests_hurt</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+		<!--</record>-->
 
         <!--<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act"></menuitem>-->
     </data>

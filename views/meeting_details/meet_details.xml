@@ -2,6 +2,19 @@
 
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="meeting_details_act">
+        <field name="name">会议记录</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('会议记录', 'funenc_xa_station.meeting_dateils',
+            'funenc_xa_station.meeting_details_tree', 'funenc_xa_station.meeting_details_form')
+        </field>
+        </record>
+
         <record id="meeting_details_tree" model="ir.ui.view">
             <field name="name">会议记录</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>

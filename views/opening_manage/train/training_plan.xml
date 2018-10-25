@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
         <record model="ir.actions.server" id="create_training_plan_button">
             <field name="name">创建培训计划申请</field>
             <field name="state">code</field>
@@ -226,11 +225,22 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="xa_station_training_plan_action">
-            <field name="name">培训计划</field>
-            <field name="res_model">funenc_xa_station.training_plan</field>
-            <field name="view_mode">tree,form</field>
+        <record model="ir.actions.server" id="xa_station_training_plan_action">
+        <field name="name">训练计划</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('训练计划', 'funenc_xa_station.training_plan',
+            'funenc_xa_station.funenc_xa_station_training_plan_list', 'funenc_xa_station.funenc_xa_station_training_plan_form')
+        </field>
         </record>
+        <!--<record model="ir.actions.act_window" id="xa_station_training_plan_action">-->
+            <!--<field name="name">培训计划</field>-->
+            <!--<field name="res_model">funenc_xa_station.training_plan</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <menuitem id="xa_station_training_plan_menu" name="培训计划"
                   action="xa_station_training_plan_action" parent="opening_manage" sequence="5"

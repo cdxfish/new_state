@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 import odoo.exceptions as msg
 import datetime
+from ..get_domain import get_domain
+
 
 class ChangeShifts(models.Model):
     _name = 'funenc_xa_station.change_shifts'
@@ -25,6 +27,22 @@ class ChangeShifts(models.Model):
                               ('agree', '本人同意'),
                               ('site_agree', '站长同意')
                               ],default='draft')
+
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.change_shifts',
+            'context': self.env.context,
+        }
 
     def apply(self):
         if not self.application_user_id:

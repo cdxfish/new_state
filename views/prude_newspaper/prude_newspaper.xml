@@ -1,5 +1,22 @@
 <odoo>
     <data>
+        <record id="prude_newspaper_tree_view" model="ir.ui.view">
+            <field name="name">生产日报</field>
+            <field name="model">funenc_xa_station.prude_newspaper</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
+                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
+                    <field name="event_stype"></field>
+                    <field name="event_content"></field>
+                    <field name="open_time"></field>
+                    <field name="write_time"></field>
+                    <field name="write_name"></field>
+                    <field name="iobnumber"></field>
+                    <widget name="treebtns" string='操作' template="prude_newpaper_action" />
+                </tree>
+            </field>
+        </record>
 
     ﻿   <record model="ir.actions.act_url" id="prude_newspaper_url">
             <field name="name">导出报表</field>
@@ -26,25 +43,8 @@
             </field>
         </record>
 
-        <record id="prude_newspaper_tree" model="ir.ui.view">
-            <field name="name">生产日报</field>
-            <field name="model">funenc_xa_station.prude_newspaper</field>
-            <field name="arch" type="xml">
-                <tree create="0">
-                    <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
-                    <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
-                    <field name="event_stype"></field>
-                    <field name="event_content"></field>
-                    <field name="open_time"></field>
-                    <field name="write_time"></field>
-                    <field name="write_name"></field>
-                    <field name="iobnumber"></field>
-                    <widget  name="treebtns" string='操作' template="prude_newpaper_action" />
-                </tree>
-            </field>
-        </record>
 
-        <record id="prude_newspaper_form" model="ir.ui.view">
+        <record id="prude_newspaper_form_view" model="ir.ui.view">
             <field name="name">生产日报</field>
             <field name="model">funenc_xa_station.prude_newspaper</field>
             <field name="arch" type="xml">
@@ -239,11 +239,23 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="prude_newspaper_act">
-            <field name="name">生产日报</field>
-            <field name="res_model">funenc_xa_station.prude_newspaper</field>
-            <field name="view_mode">tree,kanban,form</field>
+        <record model="ir.actions.server" id="prude_newspaper_act">
+        <field name="name">生产日报</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('生产日报', 'funenc_xa_station.prude_newspaper',
+            'funenc_xa_station.prude_newspaper_tree_view', 'funenc_xa_station.prude_newspaper_form_view')
+        </field>
         </record>
+
+        <!--<record model="ir.actions.act_window" id="prude_newspaper_act">-->
+            <!--<field name="name">生产日报</field>-->
+            <!--<field name="res_model">funenc_xa_station.prude_newspaper</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+        <!--</record>-->
 
     </data>
 </odoo>

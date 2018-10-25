@@ -2,6 +2,18 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="key_detail_act_window">
+		<field name="name">钥匙详情</field>
+		<field name="type">ir.actions.server</field>
+		<field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+		<field name="condition">True</field>
+		<field name="state">code</field>
+		<field name="code">
+		    action = model.return_act_window('钥匙详情', 'funenc.xa.station.key.detail',
+		    'funenc_xa_station.funenc_xa_station_key_detail_list', 'funenc_xa_station.funenc_xa_station_key_detail_form')
+		</field>
+		</record>
+
 		<record model="ir.ui.view" id="funenc_xa_station_key_detail_list">
 			<field name="name">funenc_xa_station_key_detail_list</field>
 			<field name="model">funenc.xa.station.key.detail</field>

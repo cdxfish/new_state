@@ -25,17 +25,17 @@ class BelongToManagement(models.Model):
     check_count = fields.Integer(string='检查次数', default=1)
 
     @get_domain
-    def create_belong_to_action(self,domain):
+    def get_day_plan_publish_action(self,domain):
+        view_form = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
-            'name': '属地管理',
+            'name': '属地管理属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             'domain':domain,
+            "views": [[view_form, "tree"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
-            'flags': {'initial_mode': 'edit'},
-            'target': 'new',
         }
 
     # 获取前端输入的姓名

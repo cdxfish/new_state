@@ -3,7 +3,7 @@
 
 from odoo import api,models,fields
 from datetime import datetime
-
+from ..get_domain import get_domain
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -41,6 +41,21 @@ class SuggestionBox(models.Model):
     rectification_method = fields.Text(string='整改方法')
     according_opinion = fields.Text(string='定则意见及依据')
     duty_general = fields.Text(string='最终定性及定责')
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.suggestion_box_tree').id
+        return {
+            'name': '意见箱',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.suggestion_box',
+            'context': self.env.context,
+        }
 
 
     def test_btn_two_audit(self):

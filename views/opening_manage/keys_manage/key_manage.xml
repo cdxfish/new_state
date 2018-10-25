@@ -2,6 +2,17 @@
 <odoo>
 	<data>
 
+		<!--<record model="ir.actions.server" id="xa_station_sheduling_manage_1_action">-->
+		<!--<field name="name">钥匙管理</field>-->
+		<!--<field name="type">ir.actions.server</field>-->
+		<!--<field name="model_id" ref="model_funenc_xa_station_return_view_function"/>-->
+		<!--<field name="condition">True</field>-->
+		<!--<field name="state">code</field>-->
+		<!--<field name="code">-->
+		    <!--action = model.return_act_window('钥匙管理', 'funenc.xa.station.key.manage',-->
+		    <!--'funenc_xa_station.funenc_xa_station_change_shifts_list', 'funenc_xa_station.funenc_xa_station_change_shifts_form')-->
+		<!--</field>-->
+		<!--</record>-->
 
 		<record model="ir.actions.server" id="create_key_button">
 			<field name="name">创建钥匙</field>
