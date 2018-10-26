@@ -120,6 +120,8 @@ class station_master(models.Model):
             return
 
 
+
+
 class car_line(models.Model):
     _name = 'funenc_xa_station.car_line'
     _description = u'预设行车值班员'

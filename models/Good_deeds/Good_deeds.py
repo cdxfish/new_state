@@ -33,6 +33,16 @@ class GoodDeeds(models.Model):
     @get_domain
     def get_day_plan_publish_action(self,domain):
         view_tree = self.env.ref('funenc_xa_station.good_deeds_tree').id
+        # return {
+        #     'name': '好人好事',
+        #     'type': 'ir.actions.act_window',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'domain':domain,
+        #     "views": [[view_tree, "tree"]],
+        #     'res_model': 'fuenc_station.good_deeds',
+        #     'context': self.env.context,
+        # }
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
@@ -41,6 +51,23 @@ class GoodDeeds(models.Model):
             'domain':domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'fuenc_station.good_deeds',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                        [
+                            {'title': '好人好事',
+                            'action':  'funenc_xa_station.good_deeds_act'},
+                            {
+                                'title': '客伤',
+                                'action2':  'funenc_xa_station.guests_hurt_act'},
+                            {
+                                'title': '乘客意意见箱',
+                                'action2':  'funenc_xa_station.suggestion_box_act'},
+                           {
+                                'title': '特殊赔偿金',
+                                'action2':  'funenc_xa_station.special_money_act'},
+                        ]
+                    }''',
             'context': self.env.context,
         }
 

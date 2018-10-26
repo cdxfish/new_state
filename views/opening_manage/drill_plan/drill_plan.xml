@@ -38,7 +38,7 @@
                     <field name="drill_hierarchy" string="演练层级"/>
                     <field name="create_date" string="创建时间"/>
                     <field name="state" string="状态"/>
-                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                    <widget string="操作" name="treebtns" template="plan_widget_edit_delete"/>
                 </tree>
             </field>
         </record>
@@ -50,13 +50,16 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="drill_project" string="演练项目"/>
-                            <field name="drill_time" string="演练时间"/>
-                            <field name="drill_plan" string="演练方案" widget="many2many_binary"/>
-                            <field name="drill_hierarchy" string="演练层级"/>
-                            <field name="state" string="状态"/>
+                            <field name="is_release" invisible="1"/>
+                             <field name="line_id" string="线路" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="site_id" string="站点" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="drill_project" string="演练项目" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="drill_time" string="演练时间" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="drill_plan" string="演练方案" widget="many2many_binary" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="drill_hierarchy" string="演练层级" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="state" string="状态" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
-                                   options="{'no_create':True,'no_open':True}"/>
+                                   options="{'no_create':True,'no_open':True}" attrs="{'readonly':[('is_release','=',1)]}"/>
                         </group>
                         <footer>
                             <button name='drill_plan_save'
@@ -64,9 +67,11 @@
                                     class='btn-primary'
                                     type='object'/>
                             <button name='drill_plan_start'
-                                    string='演练计划开始'
+                                    string='发布'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('is_release','=',1)]}"
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -83,20 +88,20 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="drill_project" string="演练项目"/>
-                            <field name="drill_time" string="演练时间"/>
-                            <field name="drill_plan" string="演练方案" widget="many2many_binary"/>
-                            <field name="drill_hierarchy" string="演练层级"/>
-                            <field name="state" string="状态"/>
+                            <field name="drill_project" string="演练项目" readonly="1"/>
+                            <field name="drill_time" string="演练时间" readonly="1"/>
+                            <field name="drill_plan" string="演练方案" widget="many2many_binary" readonly="1"/>
+                            <field name="drill_hierarchy" string="演练层级" readonly="1"/>
+                            <field name="state" string="状态" readonly="1"/>
                             <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
-                                   options="{'no_create':True,'no_open':True}"/>
+                                   options="{'no_create':True,'no_open':True}" readonly="1"/>
                         </group>
                         <group string="演练结果">
-                            <field name="drill_result_ids">
+                            <field name="drill_result_ids" readonly="1">
                                 <tree class="noOpen">
-                                    <field name="line_id" string="线路"/>
-                                    <field name="site_id" string="站点"/>
-                                    <field name="people_number" string="参与人次"/>
+                                    <field name="line_id" string="线路" readonly="1"/>
+                                    <field name="site_id" string="站点" readonly="1"/>
+                                    <field name="people_number" string="参与人次" readonly="1"/>
                                     <!--<field name="drill_hierarchy" string="状态"/>-->
                                     <!--<field name="state" string="填写人"/>-->
                                     <!--<field name="state" string="填写时间"/>-->
@@ -104,6 +109,9 @@
 
                             </field>
 
+                        </group>
+                        <group>
+                            <field name="drill_plan_qr" string="二维码" widget="image"/>
                         </group>
                     </div>
                 </form>
@@ -194,6 +202,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+
         <menuitem id="xa_station_drill_plan_menu" name="演练计划" groups="system_drill_plan"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="5"
         />
@@ -201,7 +210,6 @@
         <menuitem id="xa_station_drill_plan_menu_01" name="(缺)演练计划汇总" groups="system_drill_total"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="6"
         />
-
 
     </data>
 </odoo>
