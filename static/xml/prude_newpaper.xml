@@ -3,8 +3,10 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="prude_newpaper_action">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="change_change_act" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete_action"
+            <button class="layui-btn layui-btn-sm" type="object"
+                    name="change_change_act" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger"   group='funenc_xa_station.new_production_newpaper_delete_button'
+                    type="object" name="delete_action"
                     confirm="您确定要删除该条记录吗？">删除</button>
         </div>
     </t>

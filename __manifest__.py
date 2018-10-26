@@ -24,16 +24,16 @@
 
 	# always loaded
 	'data': [
-<<<<<<< HEAD
+
         # 'security/fuenc_exam_group.xml',
         'security/rule_group/button_groups.xml',
         'security/rule_group/fuenc_exam_group.xml',
         'security/rule_group/view_groups.xml',
-=======
+
         'security/rule_group/fuenc_exam_group.xml',
 		'security/rule_group/view_groups.xml',
 		'security/rule_group/button_groups.xml',
->>>>>>> 82d326cd08b18992c7b146a2305b50c0f285403a
+
 		'security/ir.model.access.csv',
 		'security/init_data.xml',
         'views/depot_manage/person_account_mgmt.xml',

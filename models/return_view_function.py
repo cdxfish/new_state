@@ -38,18 +38,7 @@ class ReturnViewFunction(models.AbstractModel):
     @api.model
     def get_groups_with_id(self):
         group_ids = tuple(self.env.user.groups_id.ids)
-<<<<<<< HEAD
-        # print(group_ids)
-        self._cr.execute("""SELECT module ||'.'|| name FROM ir_model_data WHERE module='funenc_xa_station' AND 
-        res_id IN %s""" % str(group_ids))
-        result = self._cr.fetchall()
-        # print(result)
-
-        return
-=======
         self._cr.execute("""SELECT module ||'.'|| name FROM ir_model_data WHERE module='funenc_xa_station' AND 
         res_id IN %s""" % str(group_ids))
         result = [i[0] for i in self._cr.fetchall()]
         return {self._uid: result}
-
->>>>>>> 82d326cd08b18992c7b146a2305b50c0f285403a
