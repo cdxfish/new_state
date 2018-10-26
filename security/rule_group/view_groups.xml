@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <!--客运服务界面-->
+        <record model="ir.module.category" id="module_passenger_service_interface_display">
+            <field name="name">客运服务界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_good_actions">
+            <field name="name">好人好事</field>
+            <field name="parent_id" ref="system_passenger_service"/>
+            <field name="category_id" ref="module_passenger_service_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_people_wound">
+            <field name="name">客伤</field>
+            <field name="parent_id" ref="system_passenger_service"/>
+            <field name="category_id" ref="module_passenger_service_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_people_message">
+            <field name="name">乘客意见箱</field>
+            <field name="parent_id" ref="system_passenger_service"/>
+            <field name="category_id" ref="module_passenger_service_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_special_compensation">
+            <field name="name">特殊赔偿金</field>
+            <field name="parent_id" ref="system_passenger_service"/>
+            <field name="category_id" ref="module_passenger_service_interface_display"/>
+        </record>
+
+        <!--档案资料界面-->
+        <record model="ir.module.category" id="module_files_interface_display">
+            <field name="name">档案资料界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_car_certificates">
+            <field name="name">车辆证件</field>
+            <field name="parent_id" ref="system_files"/>
+            <field name="category_id" ref="module_files_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_people_certificates">
+            <field name="name">人员证件</field>
+            <field name="parent_id" ref="system_files"/>
+            <field name="category_id" ref="module_files_interface_display"/>
+        </record>
+
+        <!--交接班列表界面-->
+        <record model="ir.module.category" id="module_change_shifts_list_interface_display">
+            <field name="name">交接班列表界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_station_agent">
+            <field name="name">值班站长</field>
+            <field name="parent_id" ref="system_change_shifts_list"/>
+            <field name="category_id" ref="module_change_shifts_list_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_car_station_people">
+            <field name="name">行车值班员</field>
+            <field name="parent_id" ref="system_change_shifts_list"/>
+            <field name="category_id" ref="module_change_shifts_list_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_passenger_duty_people">
+            <field name="name">客运值班员</field>
+            <field name="parent_id" ref="system_change_shifts_list"/>
+            <field name="category_id" ref="module_change_shifts_list_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_station_attendant">
+            <field name="name">站务员</field>
+            <field name="parent_id" ref="system_change_shifts_list"/>
+            <field name="category_id" ref="module_change_shifts_list_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_sentry_box">
+            <field name="name">票亭岗</field>
+            <field name="parent_id" ref="system_change_shifts_list"/>
+            <field name="category_id" ref="module_change_shifts_list_interface_display"/>
+        </record>
+
+        <!--交接班设置界面-->
+        <record model="ir.module.category" id="module_change_shifts_setting_interface_display">
+            <field name="name">交接班设置界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_station_agent_setting">
+            <field name="name">值班站长</field>
+            <field name="parent_id" ref="system_shifts"/>
+            <field name="category_id" ref="module_change_shifts_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_car_station_people_setting">
+            <field name="name">行车值班员</field>
+            <field name="parent_id" ref="system_shifts"/>
+            <field name="category_id" ref="module_change_shifts_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_passenger_duty_people_setting">
+            <field name="name">客运值班员</field>
+            <field name="parent_id" ref="system_shifts"/>
+            <field name="category_id" ref="module_change_shifts_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_station_attendant_setting">
+            <field name="name">站务员</field>
+            <field name="parent_id" ref="system_shifts"/>
+            <field name="category_id" ref="module_change_shifts_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_sentry_box_setting">
+            <field name="name">票亭岗</field>
+            <field name="parent_id" ref="system_shifts"/>
+            <field name="category_id" ref="module_change_shifts_setting_interface_display"/>
+        </record>
+
+        <!--生产事件设置界面-->
+        <record model="ir.module.category" id="module_production_daily_interface_display">
+            <field name="name">生产日报-生产事件设置界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_production_daily_type">
+            <field name="name">生产事件类型</field>
+            <field name="parent_id" ref="system_production_events"/>
+            <field name="category_id" ref="module_production_daily_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_production_daily_submit">
+            <field name="name">每日报表提交事件</field>
+            <field name="parent_id" ref="system_production_events"/>
+            <field name="category_id" ref="module_production_daily_interface_display"/>
+        </record>
+
+
+        <!--车站详情界面-->
+        <record model="ir.module.category" id="module_station_detail_interface_display">
+            <field name="name">车站基本信息-车站详情界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_station_detail">
+            <field name="name">车站详情</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_ground_traffic">
+            <field name="name">地面交通</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_civil_construction">
+            <field name="name">土建结构</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_line_and_turnout">
+            <field name="name">线路、道岔</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_station_equipment">
+            <field name="name">车站设备</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_staffing">
+            <field name="name">人员配置</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_fire_escape">
+            <field name="name">消防逃生图</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
+        <!--规章分类设置-->
+        <record model="ir.module.category" id="module_rules_type_interface_display">
+            <field name="name">规章制度-规章分类设置界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_major_type">
+            <field name="name">专业分类</field>
+            <field name="parent_id" ref="system_rules_and_regulations"/>
+            <field name="category_id" ref="module_rules_type_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_level_type">
+            <field name="name">级别分类</field>
+            <field name="parent_id" ref="system_rules_and_regulations"/>
+            <field name="category_id" ref="module_rules_type_interface_display"/>
+        </record>
+
+
+
+        <!--排班设置界面-->
+        <record model="ir.module.category" id="module_scheduling_setting_interface_display">
+            <field name="name">排班设置界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_classes_order_manage">
+            <field name="name">班次管理</field>
+            <field name="parent_id" ref="system_scheduling_management_type"/>
+            <field name="category_id" ref="module_scheduling_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_classes_group_manage">
+            <field name="name">班组管理</field>
+            <field name="parent_id" ref="system_scheduling_management_type"/>
+            <field name="category_id" ref="module_scheduling_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_motorized personnel_manage">
+            <field name="name">机动人员管理</field>
+            <field name="parent_id" ref="system_scheduling_management_type"/>
+            <field name="category_id" ref="module_scheduling_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_conflict_rules_manage">
+            <field name="name">冲突规则管理</field>
+            <field name="parent_id" ref="system_scheduling_management_type"/>
+            <field name="category_id" ref="module_scheduling_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_cheduling_rules_manage">
+            <field name="name">排班规则管理</field>
+            <field name="parent_id" ref="system_scheduling_management_type"/>
+            <field name="category_id" ref="module_scheduling_setting_interface_display"/>
+        </record>
+
+        <!--排班管理界面-->
+        <record model="ir.module.category" id="module_scheduling_manage_interface_display">
+            <field name="name">排班管理界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_scheduling_list">
+            <field name="name">排班列表</field>
+            <field name="parent_id" ref="system_scheduling_management"/>
+            <field name="category_id" ref="module_scheduling_manage_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_class_total">
+            <field name="name">班表汇总</field>
+            <field name="parent_id" ref="system_scheduling_management"/>
+            <field name="category_id" ref="module_scheduling_manage_interface_display"/>
+        </record>
+
+
+        <!--考勤管理界面-->
+        <record model="ir.module.category" id="module_attendance_interface_display">
+            <field name="name">考勤管理界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_attendance_total">
+            <field name="name">考勤汇总</field>
+            <field name="parent_id" ref="system_attendance_management"/>
+            <field name="category_id" ref="module_attendance_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_leave_record">
+            <field name="name">请假记录</field>
+            <field name="parent_id" ref="system_attendance_management"/>
+            <field name="category_id" ref="module_attendance_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_card_record">
+            <field name="name">打卡记录</field>
+            <field name="parent_id" ref="system_attendance_management"/>
+            <field name="category_id" ref="module_attendance_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_overtime_record">
+            <field name="name">加班记录</field>
+            <field name="parent_id" ref="system_attendance_management"/>
+            <field name="category_id" ref="module_attendance_interface_display"/>
+        </record>
+
+        <!--考评指标设置界面-->
+        <record model="ir.module.category" id="module_evaluation_index_setting_interface_display">
+            <field name="name">考评管理-考评指标设置界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_evaluation_index">
+            <field name="name">考评指标</field>
+            <field name="parent_id" ref="system_review_management_index_library"/>
+            <field name="category_id" ref="module_evaluation_index_setting_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_reward_index">
+            <field name="name">奖励指标</field>
+            <field name="parent_id" ref="system_review_management_index_library"/>
+            <field name="category_id" ref="module_evaluation_index_setting_interface_display"/>
+        </record>
+
+
+        <!--考评管理界面-->
+        <record model="ir.module.category" id="module_evaluation_index_manage_interface_display">
+            <field name="name">考评管理界面显示</field>
+        </record>
+
+        <record model="res.groups" id="table_evaluation_record">
+            <field name="name">考评记录</field>
+            <field name="parent_id" ref="system_review_management"/>
+            <field name="category_id" ref="module_evaluation_index_manage_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_evaluation_total">
+            <field name="name">考评汇总</field>
+            <field name="parent_id" ref="system_review_management"/>
+            <field name="category_id" ref="module_evaluation_index_manage_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_reward_record">
+            <field name="name">奖励记录</field>
+            <field name="parent_id" ref="system_review_management"/>
+            <field name="category_id" ref="module_evaluation_index_manage_interface_display"/>
+        </record>
+
+        <record model="res.groups" id="table_reward_total">
+            <field name="name">奖励汇总</field>
+            <field name="parent_id" ref="system_review_management"/>
+            <field name="category_id" ref="module_evaluation_index_manage_interface_display"/>
+        </record>
+    </data>
+</odoo>

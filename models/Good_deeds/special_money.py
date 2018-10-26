@@ -54,20 +54,28 @@ class SpecialMoney(models.Model):
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
-                                [
-                                    {'title': '好人好事',
-                                    'action':  'funenc_xa_station.good_deeds_act'},
-                                    {
-                                        'title': '客伤',
-                                        'action2':  'funenc_xa_station.guests_hurt_act'},
-                                    {
-                                        'title': '乘客意意见箱',
-                                        'action2':  'funenc_xa_station.suggestion_box_act'},
-                                   {
-                                        'title': '特殊赔偿金',
-                                        'action2':  'funenc_xa_station.special_money_act'},
-                                ]
-                            }''',
+                        [
+                            {'title': '好人好事',
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions'
+                            },
+                            {
+                                'title': '客伤',
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound'
+                                },
+                            {
+                                'title': '乘客意意见箱',
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message'
+                                },
+                           {
+                                'title': '特殊赔偿金',
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation'
+                                },
+                        ]
+                    }''',
             'context': self.env.context,
         }
 

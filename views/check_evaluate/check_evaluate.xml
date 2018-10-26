@@ -3,6 +3,19 @@
 <odoo>
     <data>
 
+        <!--返回一个新的页面用来增加权限-->
+        <record model="ir.actions.server" id="check_evaluate_act">
+            <field name="name">奖励指标</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.check_standard</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_standard"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
         <record model="ir.actions.server" id="check_evaluate_server_1">
             <field name="name">新增指标</field>
             <field name="state">code</field>
@@ -120,11 +133,11 @@
             </field>
         </record>
 
-        <record id="check_evaluate_act" model="ir.actions.act_window">
-            <field name="name">check_evaluate_act</field>
-            <field name="res_model">funenc_xa_station.check_standard</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
+        <!--<record id="check_evaluate_act" model="ir.actions.act_window">-->
+            <!--<field name="name">check_evaluate_act</field>-->
+            <!--<field name="res_model">funenc_xa_station.check_standard</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="check_evaluate_menu" name="考评指标库" action="check_evaluate_act"></menuitem>-->
     </data>

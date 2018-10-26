@@ -30,6 +30,7 @@ odoo.define("multi_action_tab", function (require) {
         tabs: [],
         template: 'layui_window_tab',
         init: function (parent, widget_type, action_manager, action_descript) {
+            console.log('init')
             this._super.apply(this, arguments)
             this.widget_type = widget_type
             this.control_pannel = parent
@@ -48,6 +49,7 @@ odoo.define("multi_action_tab", function (require) {
         renderElement: function () {
             var self = this;
             $.when(get_group_tab(this)).then(function (data) {
+            console.log(data)
                 var $el;
                 self.tabs = data;
                 if (self.template) {

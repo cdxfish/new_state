@@ -40,16 +40,41 @@ class CheckRecord(models.Model):
 
     @api.model
     @get_domain
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.check_record_tree').id
         return {
-            'name': '新增考评',
+            'name': '考评管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.check_record',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                           [
+                               {'title': '考评管理',
+                               'action':  'funenc_xa_station.check_record_act',
+                               'group':'funenc_xa_station.table_evaluation_record',
+                               },
+                               {
+                                   'title': '考评汇总',
+                                   'action2' : 'funenc_xa_station.funenc_xa_check',
+                                   'group' : 'funenc_xa_station.table_evaluation_total',
+                                   },
+                               {
+                                   'title': '奖励记录',
+                                   'action2':  'funenc_xa_station.award_record_act',
+                                   'group' : 'funenc_xa_station.table_reward_record',
+                                   },
+                              {
+                                   'title': '奖励记录',
+                                   'action2':  'funenc_xa_station.funenc_xa_award',
+                                   'group' : 'funenc_xa_station.table_reward_total',
+                                   },
+                           ]
+                       }''',
             'context': self.env.context,
         }
 

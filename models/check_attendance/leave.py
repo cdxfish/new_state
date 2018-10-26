@@ -40,19 +40,43 @@ class Leave(models.Model):
             end_work_time = datetime.datetime.strptime(this.leave_end_time, '%Y-%m-%d %H:%M:%S')
             this.leave_length = round( (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple())+(24*60*60)) / (60 * 60), 2)
 
-
     @api.model
     @get_domain
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_leave_list').id
         return {
-            'name': '证件名称',
+            'name': '请假记录',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.leave',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                           [
+                               {'title': '考勤汇总(缺失)',
+                               'action':  'funenc_xa_station.good_deeds_act',
+                                'group':'funenc_xa_station.table_attendance_total',
+                               },
+                               {
+                                   'title': '请假记录',
+                                   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+                                   'group' : 'funenc_xa_station.table_leave_record',
+                               },
+                               {
+                                   'title': '打卡记录',
+                                   'action2':  'funenc_xa_station.xa_station_clock_list_action',
+                                   'group' : 'funenc_xa_station.table_card_record',
+                               },
+                              {
+                                   'title': '加班记录',
+                                   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
+                                   'group' : 'funenc_xa_station.table_overtime_record',
+                               },
+                           ]
+                       }''',
             'context': self.env.context,
         }
 

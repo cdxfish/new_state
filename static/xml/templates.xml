@@ -79,6 +79,9 @@
 
     <!--冲突规则修改-->
     <t t-name="conflict_rule_widget_enable">
+        <t t-esc="">
+
+        </t>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="conflict_rule_enable"
                     t-if="widget.record.data.conflict_rule_state == 'enable'"

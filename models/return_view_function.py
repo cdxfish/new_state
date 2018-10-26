@@ -35,3 +35,11 @@ class ReturnViewFunction(models.AbstractModel):
                 tab['display'] = 'true'
         return tab_data
 
+
+    @api.model
+    def get_groups_with_id(self):
+
+        return
+
+
+

@@ -4,7 +4,7 @@
     <data>
 
         <record model="ir.actions.server" id="check_record_act">
-            <field name="name">新增考评</field>
+            <field name="name">考评记录</field>
             <field name="type">ir.actions.server</field>
             <field name="res_model">funenc_xa_station.check_record</field>
             <field name="model_id" ref="model_funenc_xa_station_check_record"/>
