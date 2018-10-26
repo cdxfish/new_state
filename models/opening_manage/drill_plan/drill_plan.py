@@ -15,7 +15,7 @@ class drill_plan(models.Model):
     _inherit = 'fuenc_station.station_base'
 
     drill_project = fields.Char(string='演练项目', required=True)
-    drill_time = fields.Datetime(string='演练时间', required=True)
+    drill_time = fields.Date(string='演练时间', required=True)
     drill_plan = fields.Many2many('ir.attachment', 'drill_plan_ir_attachment_rel_1', 'drill_plan_id',
                                   'ir_attachment_id', string='演练方案')
     drill_hierarchy = fields.Char(string='演练层级', required=True)
@@ -27,6 +27,7 @@ class drill_plan(models.Model):
                                         'drill_plan_id', 'ding_department_id', string='参与站点',
                                         domain=[('department_hierarchy', '=', 3)])
     is_release = fields.Integer(string='是否已经发布')
+    release_time = fields.Datetime(string='发布时间')
     drill_plan_qr = fields.Binary(string='二维码')
 
     # 演练结果
@@ -34,6 +35,9 @@ class drill_plan(models.Model):
 
     # 人员签到
     sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况')
+
+    #站点演练
+    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='') #  子
 
     @api.model
     def create(self, vals):
@@ -64,7 +68,7 @@ class drill_plan(models.Model):
     def create_drill_plan(self):
         context = dict(self.env.context or {})
         return {
-            'name': '耗材出库创建',
+            'name': '创建',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -76,7 +80,7 @@ class drill_plan(models.Model):
     def edit(self):
         context = dict(self.env.context or {})
         return {
-            'name': '耗材出库编辑',
+            'name': '编辑',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -84,6 +88,7 @@ class drill_plan(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
+            'res_id': self.id,
         }
 
     def delete(self):
@@ -97,7 +102,7 @@ class drill_plan(models.Model):
         # record_ids = self.search([
         #     ()
         # ]).ids
-        view_form = self.env.ref('funenc_xa_station.xa_station_drill_plan_form_button').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_drill_plan_form_2').id
         return {
             'name': '演练详情',
             'type': 'ir.actions.act_window',
@@ -113,18 +118,31 @@ class drill_plan(models.Model):
 
     def drill_plan_start(self):
         self.is_release = 1
-        partake_site_ids = self.partake_site_ids.ids
+        self.release_time = datetime.datetime.now()
+        partake_site_ids = self.partake_site_ids
+        self_id = self.id
 
+        insert_id = []
+        #  若此处出现效率问题  采用一条sql插入 没有时间暂用orm 形如下
+        #生成 演练结果
         for partake_site_id in partake_site_ids:
+            insert_id.append((self_id,1,partake_site_id.id))
             line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                 [('departmentId', '=', partake_site_id.parentid)]).id
             self.env['funenc_xa_station.drill_result'].create({
                 'line_id': line_id,
-                'site_id': partake_site_id,
+                'site_id': partake_site_id.id,
                 'drill_plan_id': self.id
             })
 
-    # def
+        # 生成站点详情   此可解决循环orm多次调用数据库问题
+        if insert_id:
+            sql = 'insert into funenc_xa_station_site_drill_plan(drill_plan_id,create_uid,position) values{}'.format(str(insert_id)[1:-1])
+            self.env.cr.execute(sql)
+
+
+
+
 
 
     def create_qrcode(self):
@@ -175,3 +193,9 @@ class drill_plan_sign_in(models.Model):
     position = fields.Text(related='sign_user_id.position', string="职位")
 
     drill_plan_sign_in_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练相关')
+
+    # 站点演练签到
+    site_drill_plan_id = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练签到相关')
+
+    #  委外人员
+    is_alien = fields.Integer(string='外人')  # 1 为外人 其他为签到

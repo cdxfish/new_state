@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_site_drill_plan_list">
+            <field name="name">funenc_xa_station_site_drill_plan_list</field>
+            <field name="model">funenc_xa_station.site_drill_plan</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0">
+                    <field name="drill_project" string="演练项目"/>
+                    <field name="release_time" string="发布时间"/>
+                    <field name="line_id" string="发布站点"/>
+                    <field name="site_id" string="发布线路"/>
+                    <widget string="操作" name="treebtns" template="edit"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_site_drill_plan_form">
+            <field name="name">funenc_xa_station_site_drill_plan_form</field>
+            <field name="model">funenc_xa_station.site_drill_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="drill_project" string="演练项目"/>
+                            <field name="release_time" string="发布时间"/>
+                            <field name="line_id" string="发布站点"/>
+                            <field name="site_id" string="发布线路"/>
+                        </group>
+
+                        <group string="演练情况">
+
+                            <field name="site_drill_plan_to_drill_situation_ids" string="">
+                                <tree delete="0" editable="top" create="0" class="noOpen">
+                                    <field name="drill_situation_id" string="演练情况" readonly="1"/>
+                                    <field name="describe" string="描述"/>
+                                </tree>
+                            </field>
+
+                        </group>
+
+                        <group string="意见及整改">
+                            <field name="proposal_rectification_ids">
+
+                                <tree>
+                                    <field name="proposal_user_id" string="意见填写人"/>
+                                    <field name="jobnumber" string="工号"/>
+                                    <field name="proposal_time" string="意见填写时间"/>
+                                    <field name="proposal_question" string="存在问题及整改建议"/>
+                                    <field name="rectification_user_id" string="整改填写人"/>
+                                    <field name="rectification_no" string="工号"/>
+                                    <field name="rectification_time" string="整改填写时间"/>
+                                    <field name="rectification_question" string="整改情况"/>
+                                    <widget string="操作" name="treebtns" template="edit_rectification"/>
+
+                                </tree>
+
+                            </field>
+
+                        </group>
+
+                        <group string="演练签到情况">
+                            <field name="sign_in_ids">
+                                <tree class="noOpen">
+                                    <field name="sign_in_time" string="签到时间"/>
+                                    <field name="line_id" string="线路"/>
+                                    <field name="site_id" string="站点"/>
+                                    <field name="sign_user_id" string="姓名"/>
+                                    <field name="jobnumber" string="工号"/>
+                                    <field name="position" string="职位"/>
+                                </tree>
+                            </field>
+
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="site_drill_plan_edit">
+            <field name="name">funenc_xa_station_drill_plan_form</field>
+            <field name="model">funenc_xa_station.proposal_rectification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="proposal_user_id" string="意见填写人" options="{'no_create':True,'no_open':True}"/>
+                            <field name="jobnumber" string="工号" readonly="1"/>
+                            <field name="proposal_question" string="存在问题及整改建议"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="site_drill_plan_rectification">
+            <field name="name">funenc_xa_station_drill_plan_form</field>
+            <field name="model">funenc_xa_station.proposal_rectification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="rectification_user_id" string="意见填写人" options="{'no_create':True,'no_open':True}"/>
+                            name="drill_project" string="演练项目" readonly="1"/>
+                            <field name="rectification_no" string="工号" readonly="1"/>
+                            <field name="rectification_question" string="整改情况" />
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!--<record model="ir.actions.act_window" id="xa_station_site_drill_plan_action_1">-->
+        <!--<field name="name">演练计划</field>-->
+        <!--<field name="res_model">funenc_xa_station.site_drill_plan</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.server" id="xa_station_site_drill_plan_action_1">
+            <field name="name">站点演练详情</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_funenc_xa_station_site_drill_plan"/>
+            <field name="code">
+                action = model.init_data()
+            </field>
+        </record>
+
+        <menuitem id="xa_station_site_drill_plan_menu" name="站点演练详情"
+                  action="xa_station_site_drill_plan_action_1" parent="opening_manage" sequence="5"
+        />
+
+    </data>
+</odoo>

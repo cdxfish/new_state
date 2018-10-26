@@ -117,9 +117,29 @@
 
     <t t-name="widget_edit_delete">
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+    <!--演练计划-->
+    <t t-name="plan_widget_edit_delete">
+        <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="details" >详情</button>
             <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+
+    <t t-name="edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+        </div>
+    </t>
+
+    <t t-name="edit_rectification">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="rectification" >整改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
         </div>
     </t>
 
