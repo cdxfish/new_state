@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data noupdate="0">
+    <data>
         <!--客运服务界面-->
         <record model="ir.module.category" id="module_passenger_service_interface_display">
             <field name="name">客运服务界面显示</field>
@@ -248,7 +248,7 @@
         </record>
 
         <record model="res.groups" id="table_class_total">
-            <field name="name">班表汇总</field>
+            <field name="name">班表归总</field>
             <field name="parent_id" ref="system_scheduling_management"/>
             <field name="category_id" ref="module_scheduling_manage_interface_display"/>
         </record>
