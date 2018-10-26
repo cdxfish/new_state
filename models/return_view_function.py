@@ -35,16 +35,6 @@ class ReturnViewFunction(models.AbstractModel):
                 tab['display'] = 'true'
         return tab_data
 
-<<<<<<< HEAD
-
-    @api.model
-    def get_groups_with_id(self):
-
-        return
-
-
-
-=======
     @api.model
     def get_groups_with_id(self):
         group_ids = tuple(self.env.user.groups_id.ids)
@@ -56,4 +46,3 @@ class ReturnViewFunction(models.AbstractModel):
 
         return
 
->>>>>>> cf48bec57b2d2858f413ed38cba7f5a6989f3f64
