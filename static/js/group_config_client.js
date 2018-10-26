@@ -15,7 +15,12 @@ odoo.define('group_config_client', function (require) {
             this.vue_data = {
                 open_type: record.params.type,
                 normalCats: [],
-                group_name: ''
+                group_name: '',
+                group_tree_data: [],
+                defaultProps: {
+                    children: 'children',
+                    label: 'name'
+                }
             }
         },
         start: function () {
@@ -27,6 +32,7 @@ odoo.define('group_config_client', function (require) {
             }).then(function (rst) {
                 self.replaceElement($(rst.template));
                 self.vue_data.normalCats = rst.cats;
+                self.vue_data.group_tree_data = rst.cats;
                 new Vue({
                     el: '#app',
                     data() {
@@ -65,6 +71,9 @@ odoo.define('group_config_client', function (require) {
                             cat.checkAll = checkedCount === groups.length;
                             cat.isIndeterminate = checkedCount > 0 && checkedCount < cat.groups.length;
                         },
+                        handleNodeClick(data) {
+                            console.log(data);
+                        }
                     },
                 })
             })

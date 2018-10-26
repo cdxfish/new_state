@@ -3,6 +3,7 @@ import odoo.exceptions as msg
 from collections import defaultdict
 
 from odoo import models, fields, api
+from odoo.tools import ormcache
 
 MODULE_NAME = 'funenc_xa_station'
 CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
@@ -13,6 +14,7 @@ CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_cate
                     'module_scheduling_setting_interface_display', 'module_scheduling_manage_interface_display',
                     'module_attendance_interface_display', 'module_evaluation_index_setting_interface_display',
                     'module_evaluation_index_manage_interface_display', 'module_category_view_page_button']
+CACHE_LIST = []
 
 
 class PositionSettings(models.Model):
@@ -24,27 +26,34 @@ class PositionSettings(models.Model):
     parent_left = fields.Integer(index=True)
     parent_right = fields.Integer(index=True)
 
+    def recursion_tree_data(self, cats):
+        for cat in cats:
+            if len(cat['child_ids']) == 0:
+                cat['children'] = []
+            else:
+                cat['children'] = self.search_read([('id', 'in', cat['child_ids'])],
+                                                     fields=['name', 'child_ids', 'parent_left', 'parent_right'])
+                self.recursion_tree_data(cat['children'])
+        return
+
     @api.model
     def get_group_data(self, group_id):
+        global CACHE_LIST
         category_id = self.env.ref('{}.{}'.format(MODULE_NAME, 'module_category_custom_groups'))
         category_id.ensure_one()
-        cats = []
-        for c_id in CATEGORY_ID_LIST:
-            category_record = self.env.ref('{}.{}'.format(MODULE_NAME, c_id))
-            groups = self.search([('category_id', '=', category_record.id)])
-            checked_groups = self.browse(group_id).implied_ids.filtered(lambda x: x.category_id.id == category_record.id)
-            cats.append({
-                'name': category_record.display_name,
-                'groups': [{'id': i.id, 'name': i.name} for i in groups],
-                'checkedGroups': [j.id for j in checked_groups],
-                'isIndeterminate': False,
-                'checkAll': True if set([i.id for i in groups]) & set([j.id for j in checked_groups]) == set(
-                    [i.id for i in groups]) else False,
-                'xml_id': category_record.xml_id
-            })
+        # 获取父节点
+        # 组装子节点
+        if len(CACHE_LIST) == 0:
+            category_record_ids = [self.env.ref('{}.{}'.format(MODULE_NAME, i)).id for i in CATEGORY_ID_LIST]
+            cats = self.search_read([('category_id', 'in', category_record_ids)], fields=[
+                'name', 'parent_id', 'child_ids', 'parent_left', 'parent_right', 'category_id'])
+            self.recursion_tree_data(cats)
+            CACHE_LIST = cats
+        # 获取已选择节点
+        checked_groups_ids = self.browse(group_id).implied_ids.ids
         template = self.env['vue_template_manager.template_manage'].get_template_content(
             'funenc_xa_station', 'group_config')
-        rst = dict(cats=cats, template=template)
+        rst = dict(cats=CACHE_LIST, template=template)
         return rst
 
     @api.model
