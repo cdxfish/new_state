@@ -2,7 +2,7 @@
     <data>
 
         <record model="ir.actions.server" id="suggestion_box_act">
-            <field name="name">意见箱</field>
+            <field name="name">乘客意见箱</field>
             <field name="type">ir.actions.server</field>
             <field name="res_model">funenc_xa_station.suggestion_box</field>
             <field name="model_id" ref="model_funenc_xa_station_suggestion_box"/>
