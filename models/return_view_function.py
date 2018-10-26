@@ -35,3 +35,14 @@ class ReturnViewFunction(models.AbstractModel):
                 tab['display'] = 'true'
         return tab_data
 
+    @api.model
+    def get_groups_with_id(self):
+        group_ids = tuple(self.env.user.groups_id.ids)
+        print(group_ids)
+        self._cr.execute("""SELECT module ||'.'|| name FROM ir_model_data WHERE module='funenc_xa_station' AND 
+        res_id IN %s""" % str(group_ids))
+        result = self._cr.fetchall()
+        print(result)
+
+        return
+
