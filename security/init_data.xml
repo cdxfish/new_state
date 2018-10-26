@@ -55,5 +55,14 @@
             <field name="evaluation_project">总分</field>
         </record>
 
+
+        <!---->
+        <record model="funenc_xa_station.drill_situation" id="create_data_drill_situation_1 ">
+            <field name="name">演练背景</field>
+        </record>
+        <record model="funenc_xa_station.drill_situation" id="create_data_drill_situation_2 ">
+            <field name="name">演练过程记录</field>
+        </record>
+
     </data>
 </odoo>

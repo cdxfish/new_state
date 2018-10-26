@@ -187,31 +187,45 @@ class FuencStation(http.Controller):
         code = kw.get('code')
         user = self.get_user_by_code(code)
 
-
         try:
             # 生成签到
-            http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().create({
-                'sign_in_time': datetime.datetime.now(),
-                'sign_user_id': user.id,
-                'drill_plan_sign_in_id': training_plan_id
+            check_in = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().search(
+                [('sign_user_id', '=', user.id), ('drill_plan_sign_in_id', '=', training_plan_id)])
 
-            })
+            if check_in:
+                return '<h1>你已签到</h1>'
+
+
             # 签到人员统计
-            drill_plan = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().search(
+            drill_plan = http.request.env['funenc_xa_station.drill_plan'].sudo().search(
                 [('id', '=', training_plan_id)])
 
-            for drill_result_id in drill_plan.drill_result_ids:
-                if drill_result_id.site_id.id == user.departments[0].id:
-                    drill_result_id.people_number = drill_result_id.people_number + 1
+            if user.departments[0].id in drill_plan.partake_site_ids.ids:
+
+                obj = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().create({
+                    'sign_in_time': datetime.datetime.now(),
+                    'sign_user_id': user.id,
+                    'drill_plan_sign_in_id': training_plan_id,
+                    # 'site_drill_plan_id': ''
+
+                })
+
+                for drill_result_id in drill_plan.drill_result_ids:
+                    if drill_result_id.site_id.id == user.departments[0].id:
+                        # 统计
+                        drill_result_id.people_number = drill_result_id.people_number + 1
+
+                for site_drill_plan_id in drill_plan.site_drill_plan_ids:
+                    if site_drill_plan_id.position.id == user.departments[0].id:
+                        # 人员签到和站点关联
+                        obj.write({'site_drill_plan_id': site_drill_plan_id.id})
+            else:
+                return '<h1>你不属于演练签到人员</h1>'
+
+
+
 
         except Exception:
             return '<h1>签到失败</h1>'
 
         return '<h1>签到成功</h1>'
-
-
-class GetUser(http.Controller):
-    @http.route('/dingtalk/get_ding_user/', type='json', auth='none')
-    def get_ding_user(self,**kw):
-        params = http.request.params
-        a =1

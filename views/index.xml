@@ -8,7 +8,7 @@
 			<field name="arch" type="xml">
 				<form>
                     <div class="form-group">
-                        <div class="text-center" groups="funenc_xa_station.system_fuenc_site">
+                        <div class="text-center">
                             <h1>上班二维码</h1>
                              <field name="work_qr" />
                         </div>
