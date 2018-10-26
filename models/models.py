@@ -8,6 +8,7 @@ import os
 import base64
 from odoo import http
 import socket, datetime
+import calendar
 
 
 class fuenc_station(models.Model):
@@ -86,6 +87,51 @@ class StationIndex(models.Model):
     work_time = fields.Float(string='工作时长(h)')
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
     overtime = fields.Float(string='加班时长')
+
+    @api.model
+    def get_month_clock_record(self, month):
+        if self.env.user != 1:
+            year = month[:4]
+            month1 = month[5:7]
+            days = calendar.monthrange(int(year), int(month1))[1]
+            select_date = year + '-{}'.format(month1) + '-{}'.format(days)
+            ding_user = self.env.user.dingtalk_user
+            clock_records = self.search_read(
+                ['|',('user_id', '=', ding_user.id),
+                 '&',
+                 ('clock_start_time', '>=', month),
+                 ('clock_start_time', '<=', select_date),
+                 '&',
+                 ('clock_start_time', '>=', month),
+                 ('clock_start_time', '<=', select_date)
+
+                 ],
+                ['id', 'line_id', 'site_id', 'clock_start_time', 'clock_end_time'])
+        else:
+            clock_records = self.search_read([], ['id', 'line_id', 'site_id', 'clock_start_time', 'clock_end_time'])
+
+        data = []
+        for clock_record in clock_records:
+            dic = {}
+            if clock_record.get('clock_start_time'):
+                dic['clockType'] = '上班打卡'
+                dic['id'] = clock_record.get('id')
+                dic['time'] = clock_record.get('clock_start_time')
+                dic['line_id'] = clock_record.get('line_id')[1]
+                dic['site_id'] = clock_record.get('site_id')[1]
+            data.append(dic)
+
+        for clock_record in clock_records:
+            dic1 = {}
+            if clock_record.get('clock_end_time'):
+                dic1['clockType'] = '下班打卡'
+                dic1['id'] = clock_record.get('id')
+                dic1['time'] = clock_record.get('clock_end_time')
+                dic1['line_id'] = clock_record.get('line_id')[1]
+                dic1['site_id'] = clock_record.get('site_id')[1]
+            data.append(dic1)
+
+        return data
 
 
 class generate_qr(models.Model):
@@ -180,7 +226,8 @@ class inherit_department(models.Model):
     def get_users_by_department_id(self, departmentid):
         users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search_read([('departments', '=', departmentid)]
                                                                                    , ['id', 'jobnumber', 'name',
-                                                                                      'departments'])
+                                                                                      'departments', 'avatar',
+                                                                                      'position'])
         for user in users:
             user['departmentId'] = user.get('departments')[0]
 
@@ -197,12 +244,13 @@ class inherit_department(models.Model):
                 return self.search_read([('department_hierarchy', '=', 2)], ['id', 'name'])
             elif department.department_hierarchy == 2:
 
-                return [{'id':department.id,'name':department.name}]
+                return [{'id': department.id, 'name': department.name}]
             else:
                 return self.search_read([('departmentId', '=', department.parentid)],
-                                         ['id', 'name'])
+                                        ['id', 'name'])
+
     @api.model
-    def get_sites(self,line_id):
+    def get_sites(self, line_id):
         if self.env.user == 1:
             return self.search_read([('department_hierarchy', '=', 3)], ['id', 'name'])
         else:
@@ -213,5 +261,4 @@ class inherit_department(models.Model):
                 department_id = self.browse(line_id).departmentId
                 return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
             else:
-                return [{'id':ding_user.departments[0].id,'name':ding_user.department_name}]
-
+                return [{'id': ding_user.departments[0].id, 'name': ding_user.department_name}]

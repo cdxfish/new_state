@@ -20,7 +20,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/group_config_client.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/many2many.js"/>
 
-                <script type="text/javascript" src="/funenc_xa_station/static/js/get_code.js"/>
+                <!--<script type="text/javascript" src="/funenc_xa_station/static/js/get_code.js"/>-->
             </xpath>
         </template>
     </data>

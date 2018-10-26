@@ -137,7 +137,6 @@ class BelongToManagement(models.Model):
 
         try:
             self.create(vals)
-            a = 1
         except Exception:
             raise False
         return True

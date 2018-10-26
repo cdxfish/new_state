@@ -524,6 +524,916 @@
             <field name="name">自定义角色组</field>
         </record>
 
+        <record model="ir.module.category" id="module_category_view_page_button">
+            <field name="name">视图页面按钮</field>
+        </record>
+
+           <record model="res.groups" id="new_production_newpaper_export_button">
+            <field name="name">生产日报-导出报表按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="new_production_newpaper_delete_button">
+            <field name="name">生产日报-删除按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="new_production_newpaper_Modify_button">
+            <field name="name">生产日报-修改按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="new_production_newpaper_button">
+            <field name="name">生产日报-日报填写按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="meet_record_increase_button">
+            <field name="name">会议记录-新增记录按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="meet_record_details_button">
+            <field name="name">会议记录-详情按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="meet_record_Modify_button">
+            <field name="name">会议记录-修改按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="new_production_newpaper_button">
+            <field name="name">生产日报-日报填写按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="work_look_kanban_button">
+            <field name="name">工作看板-添加新任务按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="work_list_details_button">
+            <field name="name">工作任务列表-详情按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="work_list_modify_button">
+            <field name="name">工作任务列表-修改按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="work_list_delete_button">
+            <field name="name">工作任务列表-删除按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="apanage_management_new_check_button">
+            <field name="name">属地管理-新增检查按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="apanage_management_import_button">
+            <field name="name">属地管理-导出按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="apanage_management_modify_button">
+            <field name="name">属地管理-修改按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="apanage_management_delete_button">
+            <field name="name">属地管理-删除按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_list_new_increase_button">
+            <field name="name">故障列表-新增故障按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_list_deal_button">
+            <field name="name">故障列表-处理按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_list_modify_button">
+            <field name="name">故障列表-修改按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_list_delete_button">
+            <field name="name">故障列表-删除按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_standby_money_export_button">
+            <field name="name">车站备用金-导出按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_standby_modify_button">
+            <field name="name">车站备用金-修复按钮</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_details_edit_button">
+            <field name="name">培训计划-集中培训-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_details_button">
+            <field name="name">培训计划-详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_modify_button">
+            <field name="name">培训计划-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_delete_button">
+            <field name="name">培训计划-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_station_train_write_button">
+            <field name="name">培训计划-站点培训-填写结果</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_station_train_edit_button">
+            <field name="name">培训计划-站点培训-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_plan_station_train_edit_button">
+            <field name="name">培训计划-站点培训-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="train_summary_details_button">
+            <field name="name">培训汇总-详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_button">
+            <field name="name">演练计划-详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_modify_button">
+            <field name="name">演练计划-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_delete_button">
+            <field name="name">演练计划-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_delete_button">
+            <field name="name">演练计划-演练详情-详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_new_attchment_button">
+            <field name="name">演练计划-站点演练详情-新增附件</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_load_button">
+            <field name="name">演练计划-站点演练详情-下载</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_edit_button">
+            <field name="name">演练计划-站点演练详情-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_rectification_button">
+            <field name="name">演练计划-站点演练详情-整改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_increase_problem_button">
+            <field name="name">演练计划-站点演练详情-新增问题建议</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_increase_person_button">
+            <field name="name">演练计划-站点演练详情-新增委外人员</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_plan_details_delete_button">
+            <field name="name">演练计划-站点演练详情-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rehearse_summary_details_button">
+            <field name="name">演练汇总-详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_increase">
+            <field name="name">客运服务-好人好事-新建</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_export">
+            <field name="name">客运服务-好人好事-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_noe_audit">
+            <field name="name">客运服务-好人好事-通过初审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_noe_audit_return">
+            <field name="name">客运服务-好人好事-初审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_two_audit">
+            <field name="name">客运服务-好人好事-通过复审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_two_audit_return">
+            <field name="name">客运服务-好人好事-复审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_continue_submit">
+            <field name="name">客运服务-好人好事-继续提交</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_modify">
+            <field name="name">客运服务-好人好事-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_delete">
+            <field name="name">客运服务-好人好事-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_good_deeds_look_details">
+            <field name="name">客运服务-好人好事-查看详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured__increase">
+            <field name="name">客运服务-客伤-新建</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_export">
+            <field name="name">客运服务-客伤-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_noe_audit">
+            <field name="name">客运服务-客伤-通过初审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_noe_audit_return">
+            <field name="name">客运服务-客伤-初审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_two_audit">
+            <field name="name">客运服务-客伤-通过复审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_two_audit_return">
+            <field name="name">客运服务-客伤-复审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_continue_submit">
+            <field name="name">客运服务-客伤-继续提交</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_modify">
+            <field name="name">客运服务-客伤-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_delete">
+            <field name="name">客运服务-客伤-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_injured_look_details">
+            <field name="name">客运服务-客伤-查看详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="passenger_server_guest_box__increase">
+            <field name="name">客运服务-乘客意见箱-新建</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_export">
+            <field name="name">客运服务-乘客意见箱-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_noe_audit">
+            <field name="name">客运服务-乘客意见箱-通过初审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_noe_audit_return">
+            <field name="name">客运服务-乘客意见箱-初审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_two_audit">
+            <field name="name">客运服务-乘客意见箱-通过复审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_two_audit_return">
+            <field name="name">客运服务-乘客意见箱-复审驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_continue_submit">
+            <field name="name">客运服务-乘客意见箱-继续提交</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_modify">
+            <field name="name">客运服务-乘客意见箱-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_delete">
+            <field name="name">客运服务-乘客意见箱-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_guest_box_look_details">
+            <field name="name">客运服务乘客意见箱-查看详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money__increase">
+            <field name="name">客运服务-特殊赔偿金-新建</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_export">
+            <field name="name">客运服务-特殊赔偿金-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_noe_audit">
+            <field name="name">客运服务-特殊赔偿金-通过初审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_audit_return">
+            <field name="name">客运服务-特殊赔偿金-驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_two_audit">
+            <field name="name">客运服务-特殊赔偿金-通过复审</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_continue_submit">
+            <field name="name">客运服务-特殊赔偿金-继续提交</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_modify">
+            <field name="name">客运服务-特殊赔偿金-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_delete">
+            <field name="name">客运服务-特殊赔偿金-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="passenger_server_special_money_look_details">
+            <field name="name">客运服务-特殊赔偿金-查看详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_warehouse_management_logo_repair">
+            <field name="name">故障标识管理-标志保修</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_warehouse_management_form_export">
+            <field name="name">故障标识管理-报表导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_warehouse_management_repair">
+            <field name="name">故障标识管理-修复</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_warehouse_management_modifty">
+            <field name="name">故障标识管理-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="break_warehouse_management_delete">
+            <field name="name">故障标识管理-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_create_key">
+            <field name="name">钥匙管理-创建钥匙</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_borrow_key">
+            <field name="name">钥匙管理-钥匙借用</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_return_key">
+            <field name="name">钥匙管理-钥匙归回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_borrow_record">
+            <field name="name">钥匙管理-借用记录</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_export">
+            <field name="name">钥匙管理-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_look_details">
+            <field name="name">钥匙管理-查看详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_change_record">
+            <field name="name">钥匙管理-钥匙详情-变更记录</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_form_export">
+            <field name="name">钥匙管理-钥匙详情-报表导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_modify">
+            <field name="name">钥匙管理-钥匙详情-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_scrap">
+            <field name="name">钥匙管理-钥匙详情-报废</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_broken">
+            <field name="name">钥匙管理-钥匙详情-破损</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_delete">
+            <field name="name">钥匙管理-钥匙详情-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_restore">
+            <field name="name">钥匙管理-钥匙详情-修复</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_enable">
+            <field name="name">钥匙管理-钥匙详情-启用</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_details_unlocked">
+            <field name="name">钥匙管理-钥匙详情-解除锁定</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_record_form_export">
+            <field name="name">钥匙管理-钥匙变更记录-报表导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="key_management_key_borrow_record_form_export">
+            <field name="name">钥匙管理-钥匙借用记录-报表导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_list_edit">
+            <field name="name">车站基本信息-站点列表-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_list_increase">
+            <field name="name">车站基本信息-站点列表-新增</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_list_modify">
+            <field name="name">车站基本信息-站点列表-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_list_delete">
+            <field name="name">车站基本信息-站点列表-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_details_edit">
+            <field name="name">车站基本信息-车站详情-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_ground_traffic_edit">
+            <field name="name">车站基本信息-地面交通-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_ground_traffic_increase">
+            <field name="name">车站基本信息-地面交通-新增</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_Civil_engineering_structure_edit">
+            <field name="name">车站基本信息-土建结构-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_Civil_engineering_structure_increase">
+            <field name="name">车站基本信息-土建结构-新增</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_line_switch_edit">
+            <field name="name">车站基本信息-线路、道岔-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_line_switch_increase">
+            <field name="name">车站基本信息-线路、道岔-新增</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_equiment_edit">
+            <field name="name">车站基本信息-车站设备-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_station_equiment_increase">
+            <field name="name">车站基本信息-车站设备-新增</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_Fire_escape_plan_increase">
+            <field name="name">车站基本信息-消防逃生图-新增消防逃生图</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_Fire_escape_plan_modify">
+            <field name="name">车站基本信息-消防逃生图-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="station_basic_information_Fire_escape_plan_delete">
+            <field name="name">车站基本信息-消防逃生图-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rules_regulations_increase">
+            <field name="name">规章制度-新增规章</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rules_regulations_modify">
+            <field name="name">规章制度-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rules_regulations_delete">
+            <field name="name">规章制度-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="rules_regulations_download">
+            <field name="name">规章制度-下载</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_station_certificate_increase">
+            <field name="name">档案资料-车站证件-新增证件</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_station_certificate_modify">
+            <field name="name">档案资料-车站证件_修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_station_certificate_delete">
+            <field name="name">档案资料-车站证件_删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_person_certificate_increase">
+            <field name="name">档案资料-人员证件-新增证件</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_person_certificate_modify">
+            <field name="name">档案资料-人员证件-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="archives_person_certificate_delete">
+            <field name="name">档案资料-人员证件-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_storage">
+            <field name="name">耗材管理-耗材入库</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_apply">
+            <field name="name">耗材管理-耗材申请</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_record">
+            <field name="name">耗材管理-出入库记录</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_form_export">
+            <field name="name">耗材管理-报表导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_no_storage">
+            <field name="name">耗材管理-出库</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables_edit">
+            <field name="name">耗材管理-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables-record_modify">
+            <field name="name">耗材管理-出入库记录-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_management_consumables-record_delete">
+            <field name="name">耗材管理-出入库记录-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_apply_list-deal">
+            <field name="name">耗材申请列表-处理</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_apply_list_delete">
+            <field name="name">耗材申请列表-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_user_list_increase">
+            <field name="name">工器具使用列表-新增工器具</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_user_list_repair">
+            <field name="name">工器具使用列表-保修</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_user_list_modify">
+            <field name="name">工器具使用列表-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_user_list_delete">
+            <field name="name">工器具使用列表-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_break_management_export">
+            <field name="name">工器具故障管理-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_break_management_repair">
+            <field name="name">工器具故障管理-修复</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_break_management_modify">
+            <field name="name">工器具故障管理-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="instrument_break_management_delete">
+            <field name="name">工器具故障管理-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_list_increase">
+            <field name="name">排班管理-排班列表-新增排班</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_list_edit">
+            <field name="name">排班管理-排班列表-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_list_delete">
+            <field name="name">排班管理-排班列表-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_management_new">
+            <field name="name">排班管理-排班管理-重新排班</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_management_edit">
+            <field name="name">排班管理-排班管理-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_management_export_list">
+            <field name="name">排班管理-排班管理-导出班表</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_queue_summary_export_list">
+            <field name="name">排班管理-排班汇总-导出班表</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="queue_management_attendance_summary_export_list">
+            <field name="name">排班管理-考勤汇总-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="attendance_management_leave_list_increase">
+            <field name="name">考勤管理-请假列表-新增请假</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="attendance_management_leave_list_import_all">
+            <field name="name">考勤管理-请假列表-批量导入</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="attendance_management_leave_list_modify">
+            <field name="name">考勤管理-请假列表-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="attendance_management_leave_list_delete">
+            <field name="name">考勤管理-请假列表-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_check_record-increase">
+            <field name="name">考评管理-考评记录-新增考评</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_check_record_export">
+            <field name="name">考评管理-考评记录-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_check_record_modify">
+            <field name="name">考评管理-考评记录-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_check_record_delete">
+            <field name="name">考评管理-考评记录-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_award_record_increase">
+            <field name="name">考评管理-奖励记录-新增奖励</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+       <record model="res.groups" id="check_management_award_record_export">
+            <field name="name">考评管理-奖励记录-导出</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="check_management_award_record_modify">
+            <field name="name">考评管理-奖励记录-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="check_management_award_record_delete">
+            <field name="name">考评管理-奖励记录-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="shift_apply_through">
+            <field name="name">换班申请-通过</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="shift_apply_rejected">
+            <field name="name">换班申请-驳回</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="shift_apply_delete">
+            <field name="name">换班申请-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_all_import">
+            <field name="name">人员信息-批量导入</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_synchronous">
+            <field name="name">人员信息-同步人员</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_datails_edit">
+            <field name="name">人员信息-人员详情-编辑</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_datails_new_increase_certificate">
+            <field name="name">人员信息-人员详情-新增证件</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_datails_new_increase_record">
+            <field name="name">人员信息-人员详情-新增记录</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_datails_new_increase_modify">
+            <field name="name">人员信息-人员详情-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_information_datails_new_increase_delete">
+            <field name="name">人员信息-人员详情-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_secondment_new_increase">
+            <field name="name">人员借调-新增借调</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_secondment_new_modify">
+            <field name="name">人员借调-修改</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_secondment_delete">
+            <field name="name">人员借调-删除</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+        <record model="res.groups" id="person_secondment_persom_details">
+            <field name="name">人员借调-人员详情</field>
+            <field name="category_id" ref="module_category_view_page_button"/>
+        </record>
+
+
     </data>
 </odoo>
 

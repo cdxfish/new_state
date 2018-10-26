@@ -38,8 +38,8 @@ class Leave(models.Model):
         for this in self:
             start_work_time = datetime.datetime.strptime(this.leave_start_time, '%Y-%m-%d %H:%M:%S')
             end_work_time = datetime.datetime.strptime(this.leave_end_time, '%Y-%m-%d %H:%M:%S')
-            this.leave_length = round(
-                (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple())) / (60 * 60), 2)
+            this.leave_length = round( (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple())+(24*60*60)) / (60 * 60), 2)
+
 
     @api.model
     @get_domain
@@ -83,3 +83,9 @@ class Leave(models.Model):
 
     def delete(self):
         self.unlink()
+
+
+    @api.model
+    def get_leave_list(self):
+
+        pass

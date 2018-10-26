@@ -6,6 +6,7 @@ from odoo import models, fields, api
 import datetime
 import calendar
 
+
 class ShedulingManage(models.Model):
     _name = 'funenc_xa_station.sheduling_manage'
     _description = '排班管理'
@@ -597,7 +598,7 @@ class ShedulingRecordr(models.Model):
 
     class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
-    time_interval = fields.Char(related='arrange_order_id.time',string='班次时间')
+    time_interval = fields.Char(related='arrange_order_id.time', string='班次时间')
     sheduling_date = fields.Datetime(string='排班时间')
     order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')], string='班组类型')
     work_time = fields.Integer(string='工作时长')  # 工作时长
@@ -610,17 +611,77 @@ class ShedulingRecordr(models.Model):
     @api.model
     def get_sheduling_record_by_user(self, month):
         if month:
-            print(month)
             year = month[:4]
             month1 = month[5:7]
             days = calendar.monthrange(int(year), int(month1))[1]
-            select_date = year +'-{}'.format(month1) + '-{}'.format(days)
+            select_date = year + '-{}'.format(month1) + '-{}'.format(days)
 
             ding_user = self.env.user.dingtalk_user
-            search_read = self.search_read([('user_id', '=', ding_user.id),('sheduling_date','>=',month),('sheduling_date','<=',select_date)],
-                                           ['sheduling_date','arrange_order_id','time_interval'])
+            search_read = self.search_read([('user_id', '=', ding_user.id), ('sheduling_date', '>=', month),
+                                            ('sheduling_date', '<=', select_date)],
+                                           ['sheduling_date', 'arrange_order_id', 'time_interval'])
             for search in search_read:
                 search['arrange_order_id'] = search['arrange_order_id'][1]
 
-
             return search_read
+
+    @api.model
+    def get_sheduling_record_by_user_id(self, month, user_id):
+        try:
+            if month:
+                year = month[:4]
+                month1 = month[5:7]
+                days = calendar.monthrange(int(year), int(month1))[1]
+                select_date = year + '-{}'.format(month1) + '-{}'.format(days)
+
+                # ding_user = self.env.user.dingtalk_user
+                search_read = self.search_read([('user_id', '=', int(user_id)), ('sheduling_date', '>=', month),
+                                                ('sheduling_date', '<=', select_date)],
+                                               ['sheduling_date', 'arrange_order_id', 'time_interval', 'id'])
+                for search in search_read:
+                    search['arrange_order_id'] = search['arrange_order_id'][1]
+
+                return search_read
+        except Exception:
+            return []
+
+    @api.model
+    def get_sheduling_object(self):
+        if self.env.user.id == 1:
+            return []
+        else:
+            ding_user = self.env.user.dingtalk_user
+            department = ding_user.departments[0]
+            data = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search_read([('departments', '=', department.id)],
+                                                                               ['id', 'name', 'jobnumber', 'avatar',
+                                                                                'position'])
+
+            return data
+
+    @api.model
+    def get_sheduling_by_user_id(self, month, user_id):
+        try:
+            if month:
+                year = month[:4]
+                month1 = month[5:7]
+                days = calendar.monthrange(int(year), int(month1))[1]
+                select_date = year + '-{}'.format(month1) + '-{}'.format(days)
+
+                # ding_user = self.env.user.dingtalk_user
+                search_read = self.search_read([('user_id', '=', int(user_id)), ('sheduling_date', '>=', month),
+                                                ('sheduling_date', '<=', select_date)],
+                                               ['sheduling_date', 'arrange_order_id', 'time_interval', 'id'])
+                for search in search_read:
+                    search['arrange_order_id'] = search['arrange_order_id'][1]
+
+                return search_read
+        except Exception:
+            return []
+
+    @api.model
+    def save_sheduling_record(self, **kw):
+        try:
+            self.create(kw)
+            return True
+        except Exception:
+            return False
