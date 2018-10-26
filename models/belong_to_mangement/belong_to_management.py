@@ -26,6 +26,7 @@ class BelongToManagement(models.Model):
     imgs = fields.Char('照片路径')  # 存的字典  自己转
 
     @get_domain
+    @api.model
     def get_day_plan_publish_action(self,domain):
         view_form = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
