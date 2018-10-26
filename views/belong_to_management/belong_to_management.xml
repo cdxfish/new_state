@@ -36,7 +36,7 @@
             <field name="target">new</field>
         </record>
 
-        <record id="'belong_to_management_tree" model="ir.ui.view">
+        <record id="belong_to_management_tree" model="ir.ui.view">
             <field name="name">属地管理</field>
             <field name="model">funenc_xa_station.belong_to_management</field>
             <field name="arch" type="xml">
