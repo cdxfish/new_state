@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields
 from datetime import datetime
+from ..get_domain import get_domain
 
 class AwardRecord(models.Model):
     _name = 'funenc_xa_station.award_record'
@@ -26,6 +27,21 @@ class AwardRecord(models.Model):
     award_money = fields.Float(string='奖励金额')
     award_degree = fields.Integer(string='奖励次数',default=1)
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='关联字段')
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.award_record_tree').id
+        return {
+            'name': '奖励记录',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.award_record',
+            'context': self.env.context,
+        }
 
     @api.model
     def create(self, vals):

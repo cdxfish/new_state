@@ -1,5 +1,18 @@
 <odoo>
     <data>
+        <record model="ir.actions.server" id="good_deeds_act">
+            <field name="name">好人好事</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">fuenc_station.good_deeds</field>
+            <field name="model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
     ﻿   <record model="ir.actions.act_url" id="good_deeds_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
@@ -319,13 +332,13 @@
         </record>
 
 
-        <record id="good_deeds_act" model="ir.actions.act_window">
-			<field name="name">好人好事</field>
-			<field name="res_model">fuenc_station.good_deeds</field>
-			<field name="view_mode">tree,form</field>
-            <field name="ref_view">good_deeds_tree</field>
+        <!--<record id="good_deeds_act" model="ir.actions.act_window">-->
+			<!--<field name="name">好人好事</field>-->
+			<!--<field name="res_model">fuenc_station.good_deeds</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="ref_view">good_deeds_tree</field>-->
 
-		</record>
+		<!--</record>-->
 
         <!--<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>-->
     </data>

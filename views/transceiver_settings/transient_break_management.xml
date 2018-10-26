@@ -1,5 +1,18 @@
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="transient_break_management_act">
+        <field name="name">工器具故障管理</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('工器具故障管理', 'funenc_xa_station.transient_break_management',
+            'funenc_xa_station.transient_break_management_tree', 'funenc_xa_station.funenc_xa_station_change_shifts_form')
+        </field>
+        </record>
+
     ﻿   <record model="ir.actions.act_url" id="transient_break_management_url">
             <field name="name">报表导出</field>
             <field name="type">ir.actions.act_url</field>
@@ -258,11 +271,11 @@
 
 
 
-        <record id="transient_break_management_act" model="ir.actions.act_window">
-            <field name="name">工器具故障管理</field>
-            <field name="res_model">funenc_xa_station.transient_break_management</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--<record id="transient_break_management_act" model="ir.actions.act_window">-->
+            <!--<field name="name">工器具故障管理</field>-->
+            <!--<field name="res_model">funenc_xa_station.transient_break_management</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <menuitem id="transient_break_management_menu" name="工器具故障管理" action="transient_break_management_act"></menuitem>
 

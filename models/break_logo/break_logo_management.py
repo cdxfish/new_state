@@ -17,6 +17,21 @@ class BreakLogManage(models.Model):
     repair_manufacturer = fields.Char(string='修复厂家')
     after_break_img =fields.Binary(string='修复后照片')
 
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.break_log_manage_tree').id
+        return {
+            'name': '故障标识管理',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.break_log_manage',
+            'context': self.env.context,
+        }
+
     @get_domain
     def create_new_record(self):
         view_form = self.env.ref('funenc_xa_station.break_log_manage_form').id

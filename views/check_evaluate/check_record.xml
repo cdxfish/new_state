@@ -3,6 +3,19 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="check_record_act">
+            <field name="name">新增考评</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.check_record</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
         <record model="ir.actions.server" id="check_record_server_1">
             <field name="name">新增考评</field>
             <field name="state">code</field>
@@ -88,11 +101,11 @@
             </field>
         </record>
 
-        <record id="check_record_act" model="ir.actions.act_window">
-            <field name="name">check_record_act</field>
-            <field name="res_model">funenc_xa_station.check_record</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
+        <!--<record id="check_record_act" model="ir.actions.act_window">-->
+            <!--<field name="name">check_record_act</field>-->
+            <!--<field name="res_model">funenc_xa_station.check_record</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="check_record_menu" name="考评记录" action="check_record_act"></menuitem>-->
     </data>

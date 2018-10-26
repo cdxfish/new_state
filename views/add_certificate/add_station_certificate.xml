@@ -1,6 +1,19 @@
 <?xml  version="1.0"  encoding="UTF-8"  ?>
 <odoo>
         <data>
+
+            <record model="ir.actions.server" id="station_certificate_button_server">
+                <field name="name"></field>
+                <field name="type">ir.actions.server</field>
+                <field name="res_model">construction.dispatch</field>
+                <field name="model_id" ref="model_station_certificate"/>
+                <field name="condition">True</field>
+                <field name="state">code</field>
+                <field name="code">
+                    action = model.get_day_plan_publish_action()
+                </field>
+            </record>
+
             <record  model="ir.actions.server"  id="station_certificate_button">
                 <field  name="name">车站证件</field>
                 <field  name="state">code</field>
@@ -115,7 +128,7 @@
         </record>
 
             <record id="station_certificate_act_id_3" model="ir.actions.act_window">
-                <field name="name">新增规章</field>
+                <field name="name">车站证件管理</field>
                 <field name="type">ir.actions.act_window</field>
                 <field name="res_model">station.certificate</field>
                 <field name="view_mode">tree,form</field>
@@ -125,24 +138,11 @@
                     {'tabs':
                         [
                             {'title': '车站证件管理',
-                            'action':  {
-                                'type': 'ir.actions.act_window',
-                                "name": "车站证件管理",
-                                'views': [[False, 'list'], [False, 'form']],
-                                'view_mode': 'tree,form',
-                                "res_model": "station.certificate"，
-                            }},
+                            'action':  'funenc_xa_station.station_certificate_act_id_3',
+                            'group': 'funenc_xa_station.test_group'},
                             {
                                 'title': '人员证件管理',
-                                'action2':  {
-                                    'type': 'ir.actions.act_window',
-                                    "name": "车站证件管理",
-                                    'views': [[False, 'list'], [False, 'form']],
-                                    'view_mode': 'tree,form',
-                                    "res_model": "person.certificate"
-                            }},
-
-                            {'title': '证件管理', 'domains': [['id', '=', '1']]}
+                                'action2':  'funenc_xa_station.person_certificate_act'}
                         ]
                     }
                 </field>

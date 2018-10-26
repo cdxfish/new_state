@@ -1,6 +1,18 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="special_money_act">
+            <field name="name">特殊赔偿金</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.special_money</field>
+            <field name="model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
     ﻿   <record model="ir.actions.act_url" id="special_money_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
@@ -453,11 +465,11 @@
             </field>
         </record>
 
-        <record id="special_money_act" model="ir.actions.act_window">
-            <field name="name">特殊储备金</field>
-            <field name="res_model">funenc_xa_station.special_money</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--<record id="special_money_act" model="ir.actions.act_window">-->
+            <!--<field name="name">特殊储备金</field>-->
+            <!--<field name="res_model">funenc_xa_station.special_money</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="special_money_menu" name="特殊储备金" action="special_money_act"></menuitem>-->
     </data>

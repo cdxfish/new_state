@@ -26,17 +26,17 @@ class BelongToManagement(models.Model):
     imgs = fields.Char('照片路径')  # 存的字典  自己转
 
     @get_domain
-    def create_belong_to_action(self,domain):
+    def get_day_plan_publish_action(self,domain):
+        view_form = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
-            'name': '属地管理',
+            'name': '属地管理属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             'domain':domain,
+            "views": [[view_form, "tree"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
-            'flags': {'initial_mode': 'edit'},
-            'target': 'new',
         }
 
     # 获取前端输入的姓名

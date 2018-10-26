@@ -3,7 +3,7 @@
 
 from odoo import api,models,fields
 from datetime import datetime
-
+from ..get_domain import get_domain
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -38,6 +38,21 @@ class SpecialMoney(models.Model):
     load_file_test = fields.Binary(string='身份证照片')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.special_money_tree').id
+        return {
+            'name': '特殊赔偿金',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.special_money',
+            'context': self.env.context,
+        }
 
     def special_details_action(self):
         view_form = self.env.ref('funenc_xa_station.special_money_details').id

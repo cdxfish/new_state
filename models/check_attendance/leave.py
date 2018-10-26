@@ -4,7 +4,7 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 
 import datetime, time
-
+from ..get_domain import get_domain
 
 class Leave(models.Model):
     _name = 'funenc_xa_station.leave'
@@ -40,6 +40,21 @@ class Leave(models.Model):
             end_work_time = datetime.datetime.strptime(this.leave_end_time, '%Y-%m-%d %H:%M:%S')
             this.leave_length = round( (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple())+(24*60*60)) / (60 * 60), 2)
 
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_leave_list').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.leave',
+            'context': self.env.context,
+        }
 
     @api.model
     def create_leave(self):

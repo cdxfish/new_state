@@ -29,9 +29,8 @@ class AddPersonCertificate(models.Model):
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义')
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
-    @api.model
-    def fixed_model(self):
-        pass
+
+    
 
 
     @api.model

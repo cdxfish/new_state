@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api,models,fields
+from ..get_domain import get_domain
+
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
        ('through','已通过'),
@@ -41,7 +43,20 @@ class AddGuestsHurt(models.Model):
     mp3_play_many = fields.One2many('video_voice_model', 'add_guest_play_mp3', string='视频附件')
 
 
-
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.add_guests_hurt_tree').id
+        return {
+            'name': '客伤',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'fuenc_xa_station.add_guests_hurt',
+            'context': self.env.context,
+        }
 
 
 
