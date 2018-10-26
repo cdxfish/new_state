@@ -18,6 +18,11 @@ CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_cate
 class PositionSettings(models.Model):
     _inherit = 'res.groups'
     _description = '职位设置'
+    _parent_store = True  # set to True to compute MPTT (parent_left, parent_right)
+    parent_id = fields.Many2one('res.groups', ondelete='cascade')
+    child_ids = fields.One2many('res.groups', 'parent_id')
+    parent_left = fields.Integer(index=True)
+    parent_right = fields.Integer(index=True)
 
     @api.model
     def get_group_data(self, group_id):
