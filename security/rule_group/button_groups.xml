@@ -12,6 +12,15 @@
             <field name="parent_id" ref="system_fuenc_tester"/>
             <field name="category_id" ref="module_change_class_page_button"/>
         </record>
+        32342asdfasf
+        asdfasdf
+        as
+        dfas
+        df
+        asdf
+        as
+        fdsa
+        fd
 
         <record model="res.groups" id="module_change_class_page_button_succession_child">
             <field name="name">交接班-接班按钮</field>
