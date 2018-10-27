@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record model="ir.actions.server" id="belong_to_management_act">
-            <field name="name">日计划发布</field>
+            <field name="name">属地管理</field>
             <field name="type">ir.actions.server</field>
             <field name="res_model">funenc_xa_station.belong_to_management</field>
             <field name="model_id" ref="model_funenc_xa_station_belong_to_management"/>
@@ -34,7 +34,7 @@
             <field name="binding_xml_id">belong_to_management_tree</field>
             <field name="binding_type">action_button</field>
             <field name="url">/funenc_xa_station/belong_to_management_import</field>
-        <field name="binding_group">funenc_xa_station.apanage_management_import_button</field>
+            <field name="binding_group">funenc_xa_station.apanage_management_import_button</field>
             <field name="target">new</field>
         </record>
 

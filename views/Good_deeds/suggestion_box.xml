@@ -20,6 +20,7 @@
             <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
             <field name="binding_xml_id">suggestion_box_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
             <field name="url">/funenc_xa_station/suggestion_box</field>
             <field name="target">new</field>
         </record>
@@ -32,6 +33,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box__increase</field>
             <field name="binding_action">乘客意见箱</field>
             <field name="code">
                 action = model.create_suggest()

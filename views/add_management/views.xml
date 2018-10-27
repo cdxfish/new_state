@@ -10,6 +10,7 @@
             <field name="binding_model_id" ref="model_xian_metro_xian_metro"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">专业分类</field>
+            <field name="binding_group">funenc_xa_station.rules_regulations_increase</field>
             <field name="code">
                 action = model.xian_metro_type()
             </field>

@@ -54,7 +54,7 @@ class CheckRecord(models.Model):
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                            [
-                               {'title': '考评管理',
+                               {'title': '考评记录',
                                'action':  'funenc_xa_station.check_record_act',
                                'group':'funenc_xa_station.table_evaluation_record',
                                },
@@ -69,7 +69,7 @@ class CheckRecord(models.Model):
                                    'group' : 'funenc_xa_station.table_reward_record',
                                    },
                               {
-                                   'title': '奖励记录',
+                                   'title': '奖励汇总',
                                    'action2':  'funenc_xa_station.funenc_xa_award',
                                    'group' : 'funenc_xa_station.table_reward_total',
                                    },

@@ -25,6 +25,20 @@ class BreakSubmit(models.Model):
                                       'attachment_id', 'meeting_dateils_id', string='图片上传')
     url = fields.Char(string='七牛路径')  # app 上传路径 自己转换
 
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.break_submit_form').id
+        return {
+            'name': '证件名称',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'context': self.env.context,
+        }
+
+    # 删除当前的一条记录
     def break_delete_action(self):
         self.env['funenc_xa_station.break_submit'].search([('id', '=', self.id)]).unlink()
 

@@ -13,12 +13,28 @@
             </field>
         </record>
 
+        <record model="ir.actions.server" id="special_money_new_increase_button">
+            <field name="name">新增</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box__increase</field>
+            <field name="binding_action">特殊赔偿金</field>
+            <field name="code">
+                action = model.new_increase_record()
+            </field>
+        </record>
+
     ﻿   <record model="ir.actions.act_url" id="special_money_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>
             <field name="binding_xml_id">special_money_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
             <field name="url">/funenc_xa_station/special_money</field>
             <field name="target">new</field>
         </record>
@@ -38,7 +54,7 @@
             <field name="name">特殊储备金</field>
             <field name="model">funenc_xa_station.special_money</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="0" class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>

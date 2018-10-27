@@ -10,10 +10,10 @@ key = [('one_audit','待初核'),
        ('through','通过'),
        ('rejected','驳回')]
 
+
 class GoodDeeds(models.Model):
     _name = 'fuenc_station.good_deeds'
     _inherit = 'fuenc_station.station_base'
-
 
     type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
     open_time = fields.Datetime(string='发生时间')
@@ -28,6 +28,19 @@ class GoodDeeds(models.Model):
                                          'attachment_id','meeting_dateils_id', string='图片上传')
     audit_flow = fields.Char(string='审核流程')
     mp_play_many = fields.One2many('video_voice_model' ,'good_deeds_play' ,string='视频附件')
+
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.good_deeds_form').id
+        return {
+            'name': '好人好事',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'fuenc_station.good_deeds',
+            'context': self.env.context,
+        }
 
     @api.model
     @get_domain

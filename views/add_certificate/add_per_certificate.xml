@@ -17,7 +17,7 @@
 
 
         <record model="ir.actions.server" id="person_certificate_button">
-            <field name="name">人员证件</field>
+            <field name="name">新增证件</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_person_certificate"/>
@@ -25,6 +25,7 @@
             <field name="binding_model_id" ref="model_person_certificate"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">人员证件管理</field>
+            <field name="binding_group">funenc_xa_station.archives_person_certificate_increase</field>
             <field name="code">
                 action = model.person_certificate_type()
             </field>
