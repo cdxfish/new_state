@@ -67,6 +67,8 @@ class fuenc_station(models.Model):
                 }
 
 
+
+
 class StationIndex(models.Model):
     '''
     打卡记录

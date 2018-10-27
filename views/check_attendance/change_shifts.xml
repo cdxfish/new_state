@@ -46,17 +46,11 @@
 				<form>
 					<div class="container-fluid">
                         <header>
-                            <button name="apply" type="object" string="申请" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'draft')]}"
+                            <button name="site_agree" type="object" string="审批通过" class="oe_highlight"
+                                    attrs="{'invisible': [('state','!=', 'approval_pending')]}"
                             />
-                            <button name="agree" type="object" string="本人同意" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'application')]}"
-                            />
-                            <button name="site_agree" type="object" string="站长同意" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'agree')]}"
-                            />
-                            <button name="retreat" type="object" string="退回" class="oe_highlight"
-                                    attrs="{'invisible': [('state','in', ['draft','site_agree','application'])]}"
+                            <button name="retreat" type="object" string="驳回" class="oe_highlight"
+                                    attrs="{'invisible': [('state','!=', 'approval_pending')]}"
                             />
 
                             <field name="state" widget="statusbar"/>

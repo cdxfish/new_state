@@ -4,11 +4,18 @@ import datetime
 from ..get_domain import get_domain
 
 
+KEY =[('send', '待确认'),
+     ('refuse', '已拒绝'),
+     ('approval_pending', '待审批'),
+     ('pass', '已通过'),
+     ('reject', '已驳回')
+     ]
 
 class ChangeShifts(models.Model):
     _name = 'funenc_xa_station.change_shifts'
     _description = '换班'
     _inherit = 'fuenc_station.station_base'
+
 
     application_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='申请人')
     jobnumber = fields.Char(related='application_user_id.jobnumber', string="工号")
@@ -31,32 +38,27 @@ class ChangeShifts(models.Model):
     agree_time = fields.Datetime(string='同意时间')
     is_approve = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='是否审批', default='no')
     approve_time = fields.Datetime(string='审批时间')
+    reject_time = fields.Datetime(string='驳回时间')
     reason = fields.Text(string='换班原因')
+    examine_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='审核人')
 
-    change_shifts_state = fields.Selection(selection=[('send', '发起的'), ('receive', '接收的')])
+    # change_shifts_state = fields.Selection(selection=[('send', '发起的'), ('receive', '接收的')])
+    #
+    # parent_id = fields.Many2one('funenc_xa_station.change_shifts', string='父')  # 发起的
+    # child_ids = fields.One2many('funenc_xa_station.change_shifts', 'parent_id', seing='子')  # 收到的
 
-    parent_id = fields.Many2one('funenc_xa_station.change_shifts', string='父')  # 发起的
-    child_ids = fields.One2many('funenc_xa_station.change_shifts', 'parent_id', seing='子')  # 收到的
-
-    state = fields.Selection([('send', '发起'),
-                              ('confirmed', '已确认'),
-                              ('refuse', '已拒绝'),
-                              ('approval_pending', '待审批'),
-                              ('pass', '已通过'),
-                              ('reject', '驳回')
-                              ], default='send')
-
+    state = fields.Selection(KEY, default='send')
 
     @api.model
     @get_domain
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.change_shifts',
             'context': self.env.context,
@@ -92,19 +94,9 @@ class ChangeShifts(models.Model):
         self.state = 'agree'
 
     def site_agree(self):
-        if not self.application_user_id:
-            raise msg.Warning('申请人必填')
-        if not self.application_time:
-            raise msg.Warning('申请时间必填')
-        if not self.change_shifts_time:
-            raise msg.Warning('换班时间必填')
-        if not self.change_shifts_group:
-            raise msg.Warning('换班班次必填')
-        if not self.change_shifts_user_id:
-            raise msg.Warning('换班对象')
         self.approve_time = datetime.datetime.now()
         self.is_approve = 'yes'
-        self.state = 'site_agree'
+        self.state = 'pass'
 
     def retreat(self):
 
@@ -112,25 +104,27 @@ class ChangeShifts(models.Model):
         self.agree_time = None
         self.approve_time = None
         self.is_approve = 'no'
-        self.state = 'draft'
+        self.state = 'reject'
+        self.reject_time = datetime.datetime.now()
 
     @api.model
     def save_change_shifts(self, **kw):
         try:
+
             ding_user = self.env.user.dingtalk_user
+            personal_change_shifts_1 = kw.get('personal_change_shifts_1')
+            sheduling_record = self.env['funenc_xa_station.sheduling_record'].search(
+                [('id', '=', personal_change_shifts_1)])
+            if sheduling_record:
+                kw['application_user_id'] = ding_user.id
+                kw['state'] = 'send'
+                kw['change_shifts_time'] = sheduling_record.sheduling_date or ''
+                kw['application_time'] = datetime.datetime.now()
+                self.create(kw)
 
-            kw['application_user_id'] = ding_user.id
-            kw['state'] = 'confirmed'
-            kw['application_time'] = datetime.datetime.now()
-
-            obj = self.create(kw)
-
-            kw['state'] = 'send'
-            kw['parent_id'] = obj.id
-
-            self.create(kw)
-
-            return True
+                return True
+            else:
+                return False
         except Exception:
 
             return False
@@ -140,36 +134,101 @@ class ChangeShifts(models.Model):
         try:
             ding_user = self.env.user.dingtalk_user
             if parameter == 'send':
-                change_shifts_ids = self.search_read([('application_user_id', '=', ding_user.id)],
-                                                     ['id', 'personal_change_shifts_1', 'change_shifts_user_id'])
+                change_shifts_ids = self.search([('application_user_id', '=', ding_user.id)])  # 发送的
 
             else:
-                change_shifts_ids = self.search_read([('change_shifts_user_id', '=', ding_user.id)])
-
+                change_shifts_ids = self.search([('change_shifts_user_id', '=', ding_user.id)])  # 接收的
+            data = []
             for change_shifts_id in change_shifts_ids:
-                if parameter == 'send':
-                    sheduling_record = self.env['funenc_xa_station.sheduling_record'].search(
-                        [('id', '=', change_shifts_id.get('personal_change_shifts_1'))])
-                    change_shifts_id['originDate'] = sheduling_record.sheduling_date[
-                                                     :9] if sheduling_record.sheduling_date else ''
-                    change_shifts_id[
-                        'originDON'] = sheduling_record.arrange_order_id.name if sheduling_record.arrange_order_id else ''
-
-                    change_shifts_id['changeTime'] = change_shifts_id.get('application_time', '')
-                    change_shifts_id['status'] = change_shifts_id.get('state', '')
-                else:
-
-                    receive = self.env['funenc_xa_station.sheduling_record'].search(
-                        [('id', '=', change_shifts_id.get('change_shifts_user_id'))])
-
-                    change_shifts_id['changeDate'] = receive.sheduling_date[
-                                                     :9] if receive.sheduling_date else ''
-                    change_shifts_id['changeDON'] = receive.arrange_order_id.name if receive.arrange_order_id else ''
-                    change_shifts_id['originTime'] = receive.get('application_time', '')
-                    change_shifts_id['status'] = change_shifts_id.get('state', '')
-
+                states = KEY
+                tmp = ''
+                for state in states:
+                    if state[0] == change_shifts_id.state:
+                        tmp = state[1]
+                data.append({'id': change_shifts_id.id,
+                             'originDate': change_shifts_id.change_shifts_time if change_shifts_id.change_shifts_time else '',
+                             'originDON': change_shifts_id.change_shifts_group_1.arrange_order_id.name,
+                             'originTime': change_shifts_id.change_shifts_group_1.time_interval[
+                                           :-5] if change_shifts_id.change_shifts_group_1.time_interval else '',
+                             'changeDate': change_shifts_id.personal_change_shifts_1.sheduling_date,
+                             'changeDON': change_shifts_id.personal_change_shifts_1.arrange_order_id.name,
+                             'changeTime': change_shifts_id.personal_change_shifts_1.time_interval[
+                                           :-5] if change_shifts_id.personal_change_shifts_1.time_interval else '',
+                             'status': tmp
+                             })
+            return data
         except Exception:
             return []
+
+    @api.model
+    def get_change_shifts_by_id(self, id):
+        try:
+
+            id = int(id)
+            change_shifts = self.browse(id)
+            states = KEY
+            tmp = ''
+            for state in states:
+                if state[0] == change_shifts.state:
+                    tmp = state[1]
+
+            dic = {
+                'id': change_shifts.id,
+                'line': change_shifts.line_id.name,
+                'station': change_shifts.site_id.name,
+                'originDate': change_shifts.change_shifts_time,
+                'originDON': change_shifts.personal_change_shifts_1.arrange_order_id.name,
+                'originTime': change_shifts.personal_change_shifts_1.time_interval[
+                              :-5] if change_shifts.personal_change_shifts_1.time_interval else '',
+                'originUser': change_shifts.application_user_id.name,
+                'originUserJobNum' :change_shifts.application_user_id.jobnumber,
+                'changeDate':change_shifts.change_shifts_group_1.sheduling_date,
+                'changeDON': change_shifts.change_shifts_group_1.arrange_order_id.name,
+                'changeTime': change_shifts.change_shifts_group_1.time_interval[
+                              :-5] if change_shifts.change_shifts_group_1.time_interval else '',
+                'changeUser': change_shifts.change_shifts_user_id.name,
+                'changeUserJobNum': change_shifts.change_shifts_jobnumber,
+                'changeReason': change_shifts.reason,
+                'passUser': change_shifts.examine_user.name,
+                'sendTime': change_shifts.application_time,
+                'comfirmTime': change_shifts.agree_time,
+                'passTime': change_shifts.approve_time,
+                'status': tmp,
+
+            }
+
+            return dic
+        except Exception:
+            return []
+
+    @api.model
+    def save_state(self,id,states):
+        try:
+            id = int(id)
+            ding_user = self.env.user.dingtalk_user
+            change_shifts = self.browse([id])
+            if change_shifts.change_shifts_user_id.id == ding_user.id:
+                if states == '同意':
+                    change_shifts.state = 'approval_pending'
+                    change_shifts.personal_change_shifts_1.arrange_order_id = change_shifts.change_shifts_group_1.arrange_order_id.id
+
+                    return True
+
+                else:
+
+                    change_shifts.state = 'refuse'
+
+                    return True
+
+
+            else:
+                return False
+
+        except Exception:
+
+            return False
+
+
 
 
 class ChangeShiftsTime(models.Model):

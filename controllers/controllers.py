@@ -85,14 +85,14 @@ class FuencStation(http.Controller):
     #     return "打卡成功"
 
     @http.route('/controllers/training_plan/punch_the_clock', type='http', auth='none')
-    def training_plan_local_redirect(self, **kw):
+    def training_plan_local_redirect_1(self, **kw):
         print('redirect')
         # &t=%s % int(round(time.time()))
 
         return http.local_redirect(
             '/funenc_xa_station/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
 
-    @http.route('/funenc_xa_station/get_code', type='http', auth='none')
+    @http.route('/funenc_xa_station/training_plan_get_code', type='http', auth='none')
     def get_code(self, **kw):
         training_plan_id = kw.get('training_plan_id')
         code = kw.get('code')
@@ -182,7 +182,7 @@ class FuencStation(http.Controller):
             '/funenc_xa_station/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
 
     @http.route('/funenc_xa_station/get_code', type='http', auth='none')
-    def get_code(self, **kw):
+    def get_code_1(self, **kw):
         training_plan_id = kw.get('drill_plan_id')
         code = kw.get('code')
         user = self.get_user_by_code(code)

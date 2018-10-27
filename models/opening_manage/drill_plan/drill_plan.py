@@ -175,10 +175,11 @@ class drill_result(models.Model):
     _description = u'演练结果'
     _inherit = 'fuenc_station.station_base'
 
-    people_number = fields.Integer(string='参与演出人数')
+    people_number = fields.Integer(string='参与演练人数')
     state = fields.Selection(string='状态', selection=[('already_filled', '已填写'), ('unfilled', '未填写')])
 
     drill_plan_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练计划相关')
+    drill_time = fields.Date(string='演练时间', related='drill_plan_id.drill_time',store=True)
 
 
 class drill_plan_sign_in(models.Model):

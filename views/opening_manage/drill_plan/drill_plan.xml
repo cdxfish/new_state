@@ -2,15 +2,16 @@
 <odoo>
     <data>
         <record model="ir.actions.server" id="xa_station_drill_plan_action">
-        <field name="name">演练计划</field>
-        <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
-        <field name="condition">True</field>
-        <field name="state">code</field>
-        <field name="code">
-            action = model.return_act_window('演练计划', 'funenc_xa_station.drill_plan',
-            'funenc_xa_station.funenc_xa_station_drill_plan_list', 'funenc_xa_station.funenc_xa_station_drill_plan_form')
-        </field>
+            <field name="name">演练计划</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.return_act_window('演练计划', 'funenc_xa_station.drill_plan',
+                'funenc_xa_station.funenc_xa_station_drill_plan_list',
+                'funenc_xa_station.funenc_xa_station_drill_plan_form')
+            </field>
         </record>
 
         <record model="ir.actions.server" id="create_drill_plan_button">
@@ -51,15 +52,17 @@
                     <div class="container-fluid">
                         <group>
                             <field name="is_release" invisible="1"/>
-                             <field name="line_id" string="线路" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="line_id" string="线路" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="site_id" string="站点" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_project" string="演练项目" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_time" string="演练时间" attrs="{'readonly':[('is_release','=',1)]}"/>
-                            <field name="drill_plan" string="演练方案" widget="many2many_binary" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="drill_plan" string="演练方案" widget="many2many_binary"
+                                   attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_hierarchy" string="演练层级" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="state" string="状态" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
-                                   options="{'no_create':True,'no_open':True}" attrs="{'readonly':[('is_release','=',1)]}"/>
+                                   options="{'no_create':True,'no_open':True}"
+                                   attrs="{'readonly':[('is_release','=',1)]}"/>
                         </group>
                         <footer>
                             <button name='drill_plan_save'
@@ -125,73 +128,105 @@
                 <form>
                     <h2>基本信息</h2>
                     <div class="row">
-                       <div class="col-md-3">
+                        <div class="col-md-3">
 
-                          <div class="col-md-4">
-                             <label for="drill_project" string="培训项目"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="drill_project" />
-                          </div>
-                       </div>
-                       <div class="col-md-3">
-                          <div class="col-md-4">
-                             <label for="create_date" string="发布日期"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="create_date" />
-                          </div>
-                       </div>
+                            <div class="col-md-4">
+                                <label for="drill_project" string="培训项目"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="drill_project"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="create_date" string="发布日期"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="create_date"/>
+                            </div>
+                        </div>
 
-                       <div class="col-md-3">
-                          <div class="col-md-4">
-                             <label for="line_id" string="线路"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
-                          </div>
-                       </div>
-                       <div class="col-md-3">
-                          <div class="col-md-4">
-                             <label for="site_id" string="站点"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
-                          </div>
-                       </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="line_id" string="线路"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                       options="{'no_create':True,'no_open':True}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="site_id" string="站点"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                       options="{'no_create':True,'no_open':True}"/>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                       <div class="col-md-3">
+                        <div class="col-md-3">
 
-                          <div class="col-md-4">
-                             <label for="drill_hierarchy" string="演练层级"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="drill_hierarchy" />
-                          </div>
-                       </div>
-                       <div class="col-md-3">
-                          <div class="col-md-4">
-                             <label for="drill_time" string="演练时间"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="drill_time" />
-                          </div>
-                       </div>
+                            <div class="col-md-4">
+                                <label for="drill_hierarchy" string="演练层级"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="drill_hierarchy"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="drill_time" string="演练时间"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="drill_time"/>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                       <div class="col-md-3">
+                        <div class="col-md-3">
 
-                          <div class="col-md-4">
-                             <label for="drill_plan" string="演练方案"/>
-                          </div>
-                         <div class="col-md-8">
-                             <field name="drill_plan" widget="many2many_binary"/>
-                          </div>
-                       </div>
+                            <div class="col-md-4">
+                                <label for="drill_plan" string="演练方案"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="drill_plan" widget="many2many_binary"/>
+                            </div>
+                        </div>
                     </div>
                     <h2>演练结果附件</h2>
                     <widget name="treebtns" template="new_button_increase"></widget>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="drill_plan_statistics_list">
+            <field name="name">funenc_xa_station_drill_result_list</field>
+            <field name="model">funenc_xa_station.drill_result</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0" class="noOpen">
+                    <field name="drill_time" string="时间"/>
+                    <field name="line_id" string="线路"/>
+                    <field name="site_id" string="站点"/>
+                    <field name="people_number" string="参与演练人数"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_drill_result_from">
+            <field name="name">funenc_xa_station_drill_result_from</field>
+            <field name="model">funenc_xa_station.drill_result</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="drill_time" string="时间"/>
+                            <field name="line_id" string="线路"/>
+                            <field name="site_id" string="站点"/>
+                            <field name="people_number" string="参与演练人数"/>
+                        </group>
+                    </div>
                 </form>
             </field>
         </record>
@@ -202,14 +237,21 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record model="ir.actions.act_window" id="xa_station_drill_result_action">
+            <field name="name">演练汇总</field>
+            <field name="res_model">funenc_xa_station.drill_result</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 
         <menuitem id="xa_station_drill_plan_menu" name="演练计划" groups="system_drill_plan"
                   action="xa_station_drill_plan_action" parent="opening_manage" sequence="5"
         />
 
-        <menuitem id="xa_station_drill_plan_menu_01" name="(缺)演练计划汇总" groups="system_drill_total"
-                  action="xa_station_drill_plan_action" parent="opening_manage" sequence="6"
+        <menuitem id="xa_station_drill_plan_menu_01" name="演练汇总" groups="system_drill_total"
+                  action="xa_station_drill_result_action" parent="opening_manage" sequence="6"
         />
+
 
     </data>
 </odoo>

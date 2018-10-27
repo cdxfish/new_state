@@ -66,7 +66,7 @@ class work_kanban(models.Model):
     def work_kanban_save(self):
         dic = self.read(
             ['originator_time', 'task_send_user_ids', 'task_start_time', 'task_end_time',
-             'task_priority','task_originator_id',
+             'task_priority', 'task_originator_id',
              'task_type_id', 'task_describe', 'task_state'
              ])
         if dic:
@@ -76,13 +76,12 @@ class work_kanban(models.Model):
             else:
                 copy_value['task_originator_id'] = None
 
-            if  copy_value['task_type_id']:
+            if copy_value['task_type_id']:
                 copy_value['task_type_id'] = copy_value.get('task_type_id')[0]
             else:
                 copy_value['task_type_id'] = None
             user_ids = self.task_send_user_ids
-            copy_value['task_send_user_ids'] = [(6,0, copy_value.get('task_send_user_ids'))]
-
+            copy_value['task_send_user_ids'] = [(6, 0, copy_value.get('task_send_user_ids'))]
 
             for user in user_ids:
                 # 人物不多循环创建不影响效率
@@ -94,7 +93,6 @@ class work_kanban(models.Model):
 
                 self.create(copy_value)
         self.is_send = 1
-
 
     def check_task_complete(self):
         '''
@@ -115,23 +113,33 @@ class work_kanban(models.Model):
     #   app
     @api.model
     def get_kanban_list(self, item):
+        ding_user = self.env.user.dingtalk_user
 
         if not item:
-            kanban_list = self.search_read([],
-                                           ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
-            for kanban in kanban_list:
-                kanban['task_type_id'] = kanban.get('task_type_id')[1]
-
+            return []
+            # kanban_list = self.search_read([],
+            #                                ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+            # for kanban in kanban_list:
+            #     kanban['task_type_id'] = kanban.get('task_type_id')[1]
         else:
             if item == 'recieve':
-                value = 'receive_task'
+                kanban_list = self.search_read(
+                    [('task_type', '=', 'receive_task'), ('task_send_user_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
             elif item == 'send':
-                value = 'send_task'
-            else:
-                value = ''
+                kanban_list = self.search_read(
+                    [('task_type', '=', 'send_task'), ('task_originator_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
 
-            kanban_list = self.search_read([('task_type', '=', value)],
-                                           ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+            else:
+                kanban_list = self.search_read(
+                    ['|', '&', ('task_type', '=', 'receive_task'), ('task_send_user_id', '=', ding_user.id), '&',
+                     ('task_type', '=', 'send_task'), ('task_originator_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
+
             for kanban in kanban_list:
                 kanban['task_type_id'] = kanban.get('task_type_id')[1]
 
@@ -142,8 +150,8 @@ class work_kanban(models.Model):
         kanban = self.search_read([('id', '=', id)],
                                   ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
                                    'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
-                                   'task_describe','task_send_user_ids','receive_task_state',
-                                   'task_send_user_id','child_ids','task_type'
+                                   'task_describe', 'task_send_user_ids', 'receive_task_state',
+                                   'task_send_user_id', 'child_ids', 'task_type'
                                    ])
         if kanban:
             kanban = kanban[0]
@@ -154,14 +162,14 @@ class work_kanban(models.Model):
             kanban.pop('task_originator_id')
             if kanban.get('task_send_user_ids'):
                 kanban['sendee'] = kanban.get('task_send_user_ids')
-                kanban['sendee'] = [self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('id','=',user_id)]).name
+                kanban['sendee'] = [self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('id', '=', user_id)]).name
                                     for user_id in kanban.get('task_send_user_ids')]
 
             else:
                 kanban['sendee'] = None
             kanban.pop('task_send_user_id')
             kanban['complateInfo'] = []
-            child_ids = self.search([('id','in', kanban.get('child_ids'))])
+            child_ids = self.search([('id', 'in', kanban.get('child_ids'))])
             for child_id in child_ids:
                 dic = {'id': child_id.task_send_user_id.id,
                        'name': child_id.task_send_user_id.name,
@@ -184,17 +192,27 @@ class work_kanban(models.Model):
             ding_user = self.env.user.dingtalk_user
 
             kw['task_originator_id'] = ding_user.id
+            kw['originator_time'] = datetime.datetime.now()
 
             task_send_user_ids = [int(id) for id in kw.get('ids')]
-            kw['task_originator_id'] = [(6, 0, task_send_user_ids)]
+            kw['task_send_user_ids'] = [(6, 0, task_send_user_ids)]
+            obj = self.create(kw)
+            obj.write({'is_send': 1})
 
-            self.create(kw)
+            for user_id in task_send_user_ids:
+                kw['task_type'] = 'receive_task'
+                kw['parent_id'] = obj.id
+                kw['receive_task_state'] = 'receive_state'
+                kw['task_send_user_id'] = user_id
+
+                self.create(kw)
+
             return True
         except Exception:
             return False
 
     @api.model
-    def app_save_kanban_type(self, taskid,feedBackContent):
+    def app_save_kanban_type(self, taskid, feedBackContent):
         self = self.browse([int(taskid)])
         if self:
             flag = True
@@ -212,5 +230,3 @@ class work_kanban(models.Model):
             return {'receive_task_state': 'completed'}
         else:
             return {'receive_task_state': 'receive_state'}
-
-

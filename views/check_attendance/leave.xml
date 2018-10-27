@@ -78,5 +78,12 @@
 		</record>
 
 
+
+		<!--<menuitem id="xa_station_attendance_statistics_1" name="考勤汇总"-->
+                  <!--action="xa_station_attendance_statistics_action" groups="funenc_station_integrated_management" parent="opening_manage" sequence="6"-->
+        <!--/>-->
+
+
+
     </data>
 </odoo>
