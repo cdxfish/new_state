@@ -53,7 +53,7 @@ class PositionSettings(models.Model):
         # 组装子节点
         if len(CACHE_LIST) == 0:
             category_record_ids = [self.env.ref('{}.{}'.format(MODULE_NAME, i)).id for i in CATEGORY_ID_LIST]
-            cats = self.search_read([('category_id', 'in', category_record_ids)], fields=[
+            cats = self.search_read([('category_id', 'in', category_record_ids), ('parent_id', '=', None)], fields=[
                 'name', 'parent_id', 'child_ids', 'parent_left', 'parent_right', 'category_id'])
             self.recursion_tree_data(cats)
             CACHE_LIST = cats
