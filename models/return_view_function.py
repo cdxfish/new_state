@@ -42,4 +42,3 @@ class ReturnViewFunction(models.AbstractModel):
         res_id IN %s""" % str(group_ids))
         result = [i[0] for i in self._cr.fetchall()]
         return {self._uid: result}
-

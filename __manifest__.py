@@ -24,9 +24,16 @@
 
 	# always loaded
 	'data': [
+
+        # 'security/fuenc_exam_group.xml',
+        'security/rule_group/button_groups.xml',
+        'security/rule_group/fuenc_exam_group.xml',
+        'security/rule_group/view_groups.xml',
+
         'security/rule_group/fuenc_exam_group.xml',
 		'security/rule_group/view_groups.xml',
 		'security/rule_group/button_groups.xml',
+
 		'security/ir.model.access.csv',
 		'security/init_data.xml',
         'views/depot_manage/person_account_mgmt.xml',
