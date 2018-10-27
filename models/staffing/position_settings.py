@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import odoo.exceptions as msg
 from collections import defaultdict
 
 from odoo import models, fields, api
-from odoo.tools import ormcache
 
 MODULE_NAME = 'funenc_xa_station'
 CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
@@ -37,7 +35,7 @@ class PositionSettings(models.Model):
                 cat['children'] = []
             else:
                 cat['children'] = self.search_read([('id', 'in', cat['child_ids'])],
-                                                     fields=['name', 'child_ids', 'parent_left', 'parent_right'])
+                                                   fields=['name', 'child_ids', 'parent_left', 'parent_right'])
                 self.recursion_tree_data(cat['children'])
         return
 
