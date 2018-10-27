@@ -27,6 +27,11 @@ class PositionSettings(models.Model):
     parent_right = fields.Integer(index=True)
 
     def recursion_tree_data(self, cats):
+        '''
+        递归添加group树
+        :param cats: 根节点的list
+        :return:
+        '''
         for cat in cats:
             if len(cat['child_ids']) == 0:
                 cat['children'] = []
@@ -38,6 +43,11 @@ class PositionSettings(models.Model):
 
     @api.model
     def get_group_data(self, group_id):
+        '''
+        获取group树和template模板
+        :param group_id: 当前group的id，如果是新建，则此值为None
+        :return:
+        '''
         global CACHE_LIST
         category_id = self.env.ref('{}.{}'.format(MODULE_NAME, 'module_category_custom_groups'))
         category_id.ensure_one()
@@ -53,16 +63,21 @@ class PositionSettings(models.Model):
         checked_groups_ids = self.browse(group_id).implied_ids.ids
         template = self.env['vue_template_manager.template_manage'].get_template_content(
             'funenc_xa_station', 'group_config')
-        rst = dict(cats=CACHE_LIST, template=template)
+        rst = dict(cats=CACHE_LIST, template=template, checked_groups_ids=checked_groups_ids)
         return rst
 
     @api.model
-    def add_or_write_custom_group(self, open_type, group_id, group_name, cats):
+    def add_or_write_custom_group(self, open_type, group_id, group_name, implied_ids):
+        '''
+        添加或更改依赖组
+        :param open_type: 'add' or 'update'
+        :param group_id: 当前组id
+        :param group_name: 当前组name
+        :param implied_ids: 选中的group_id
+        :return:
+        '''
         category_id = self.env.ref('funenc_xa_station.module_category_custom_groups')
         category_id.ensure_one()
-        implied_ids = []
-        for cat in cats:
-            implied_ids += cat['checkedGroups']
         if open_type == 'add':
             self.create({'name': group_name, 'category_id': category_id.id, 'implied_ids': [(6, 0, implied_ids)]})
         elif open_type == 'update':

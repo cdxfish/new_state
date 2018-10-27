@@ -9,21 +9,5 @@
     </el-row>
     <div style="height:10px;"></div>
     <h3>角色组权限设置</h3>
-    <el-tree :data="group_tree_data" :props="defaultProps" show-checkbox @node-click="handleNodeClick"></el-tree>
-    <h3>角色组权限设置</h3>
-    <el-collapse>
-        <el-collapse-item v-for='cat in normalCats' :title="cat.name">
-            <el-checkbox :indeterminate="cat.isIndeterminate" v-model="cat.checkAll" @change="handleCheckAllChange(cat)">全选
-            </el-checkbox>
-            <div style="margin-left: 16px;">
-                <el-checkbox-group v-model="cat.checkedGroups" @change="handleCheckedCitiesChange(cat, cat.checkedGroups, cat.groups)">
-                    <el-checkbox v-for="group in cat.groups" :label="group.id" :key="group.id" v-model="cat.checkedGroups"
-                        style="margin:6px 8px;">
-                        {{group.name}}
-                    </el-checkbox>
-                </el-checkbox-group>
-
-            </div>
-        </el-collapse-item>
-    </el-collapse>
+    <el-tree ref="group_tree" check-strictly="true" :default-checked-keys="checked_groups_ids" node-key="id" :data="group_tree_data" :props="defaultProps" show-checkbox></el-tree>
 </div>
