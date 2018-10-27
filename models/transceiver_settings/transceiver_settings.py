@@ -17,6 +17,19 @@ class TransceiverSettings(models.Model):
     load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_transceiver_attachment_rel',
                                      'attachment_id', 'meeting_dateils_id', string='图片上传')
 
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.transceiver_settings_form').id
+        return {
+            'name': '新增工器具',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.transceiver_settings',
+            'context': self.env.context,
+        }
+
     #保修按钮
     def warranty_action(self):
         dic={

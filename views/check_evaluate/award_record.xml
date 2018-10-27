@@ -23,6 +23,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_award_record"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.check_management_award_record_increase</field>
             <field name="binding_action">奖励记录</field>
             <field name="code">
                 action = model.award_record_create()
@@ -36,6 +37,7 @@
             <field name="binding_model_id" ref="model_funenc_xa_station_award_record"/>
             <field name="binding_xml_id">award_record_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.check_management_award_record_export</field>
             <field name="url">/funenc_xa_station/award_record_excel</field>
             <field name="target">new</field>
         </record>

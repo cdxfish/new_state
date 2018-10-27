@@ -39,6 +39,19 @@ class SpecialMoney(models.Model):
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
 
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.special_money_form').id
+        return {
+            'name': '特殊赔偿金',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.special_money',
+            'context': self.env.context,
+        }
+
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):

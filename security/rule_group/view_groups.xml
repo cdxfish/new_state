@@ -140,6 +140,12 @@
             <field name="name">车站基本信息-车站详情界面显示</field>
         </record>
 
+        <record model="res.groups" id="table_station_list_main">
+            <field name="name">车站列表</field>
+            <field name="parent_id" ref="system_station"/>
+            <field name="category_id" ref="module_station_detail_interface_display"/>
+        </record>
+
         <record model="res.groups" id="table_station_detail">
             <field name="name">车站详情</field>
             <field name="parent_id" ref="system_station"/>

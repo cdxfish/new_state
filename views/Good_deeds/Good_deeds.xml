@@ -1,5 +1,21 @@
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="good_deeds_act_new_increase">
+            <field name="name">新增</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">好人好事</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_good_deeds_increase</field>
+            <field name="code">
+                action = model.new_increase_record()
+            </field>
+        </record>
+
         <record model="ir.actions.server" id="good_deeds_act">
             <field name="name">好人好事</field>
             <field name="type">ir.actions.server</field>
@@ -19,6 +35,7 @@
             <field name="binding_model_id" ref="model_fuenc_station_good_deeds"/>
             <field name="binding_xml_id">good_deeds_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_good_deeds_export</field>
             <field name="url">/funenc_xa_station/good_deeds</field>
             <field name="target">new</field>
         </record>
@@ -27,7 +44,7 @@
             <field name="name">好人好事</field>
             <field name="model">fuenc_station.good_deeds</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree edit="0" create="0" class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>

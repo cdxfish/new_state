@@ -7,32 +7,38 @@
 
         <record model="res.groups" id="system_fuenc_tester">
             <field name="name">交接班</field>
+            <field name="sequence">1</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
 
         <record model="res.groups" id="system_change_shifts_list">
             <field name="name">交接班列表</field>
+            <field name="sequence">2</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
         <record model="res.groups" id="system_fuenc_site">
             <field name="name">生产日报</field>
+            <field name="sequence">3</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
         <record model="res.groups" id="system_fuenc_centrality">
             <field name="name">会议记录</field>
+            <field name="sequence">4</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
         <record model="res.groups" id="system_work_kanban">
             <field name="name">工作看板</field>
+            <field name="sequence">5</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
         <record model="res.groups" id="system_work_project_list">
             <field name="name">工作任务列表</field>
+            <field name="sequence">6</field>
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
         <!--添加该category下其他group-->
@@ -43,56 +49,67 @@
 
         <record model="res.groups" id="system_territoriality">
             <field name="name">属地管理</field>
+            <field name="sequence">7</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_territoriality_total">
             <field name="name">属地管理汇总</field>
+            <field name="sequence">8</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_fault_list">
             <field name="name">故障列表</field>
+            <field name="sequence">9</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_station_spare_gold">
             <field name="name">车站备用金</field>
+            <field name="sequence">10</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_cultivate_plan">
             <field name="name">培训计划</field>
+            <field name="sequence">11</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_cultivate_total">
             <field name="name">培训汇总</field>
+            <field name="sequence">12</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_drill_plan">
             <field name="name">演练计划</field>
+            <field name="sequence">13</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_drill_total">
             <field name="name">演练汇总</field>
+            <field name="sequence">14</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_passenger_service">
             <field name="name">客运服务</field>
+            <field name="sequence">15</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_fault_identification_management">
             <field name="name">故障标识管理</field>
+            <field name="sequence">16</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
 
         <record model="res.groups" id="system_key_management">
             <field name="name">钥匙管理</field>
+            <field name="sequence">17</field>
             <field name="category_id" ref="module_category_run"/>
         </record>
         <!--添加该category下其他group-->
@@ -103,56 +120,67 @@
 
         <record model="res.groups" id="system_station">
             <field name="name">车站基本信息</field>
+            <field name="sequence">18</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_rules_and_regulations">
             <field name="name">规章制度</field>
+            <field name="sequence">19</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_files">
             <field name="name">档案资料</field>
+            <field name="sequence">20</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_consumables_management">
             <field name="name">耗材管理</field>
+            <field name="sequence">21</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_consumables_apply_list">
             <field name="name">耗材申请列表</field>
+            <field name="sequence">22</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_equipment_use_list">
             <field name="name">工器具使用列表</field>
+            <field name="sequence">23</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_equipment_fault_management">
             <field name="name">工器具故障管理</field>
+            <field name="sequence">24</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_scheduling_management">
             <field name="name">排班管理</field>
+            <field name="sequence">25</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_attendance_management">
             <field name="name">考勤管理</field>
+            <field name="sequence">26</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_review_management">
             <field name="name">考评管理</field>
+            <field name="sequence">27</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
 
         <record model="res.groups" id="system_change_shifts">
             <field name="name">换班申请</field>
+            <field name="sequence">28</field>
             <field name="category_id" ref="module_category_comprehensive"/>
         </record>
         <!--添加该category下其他group-->
@@ -163,11 +191,13 @@
 
         <record model="res.groups" id="system_people">
             <field name="name">人员信息</field>
+            <field name="sequence">29</field>
             <field name="category_id" ref="module_category_people"/>
         </record>
 
         <record model="res.groups" id="system_people_loan">
             <field name="name">人员借调</field>
+            <field name="sequence">30</field>
             <field name="category_id" ref="module_category_people"/>
         </record>
         <!--添加该category下其他group-->
@@ -178,66 +208,79 @@
 
         <record model="res.groups" id="system_shifts">
             <field name="name">交接班-交接班设置</field>
+            <field name="sequence">31</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_station_card">
             <field name="name">交接班-车站特殊卡预设</field>
+            <field name="sequence">32</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_production_events">
             <field name="name">生产日报-生产事件设置</field>
+            <field name="sequence">33</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_work_kanban_project">
             <field name="name">工作看板-任务事件设置</field>
+            <field name="sequence">34</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_fault_list_type">
             <field name="name">故障列表-故障类型设置</field>
+            <field name="sequence">35</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_passenger_service_type">
             <field name="name">客运服务-好人好事类型设置</field>
+            <field name="sequence">36</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_passenger_service_message_type">
             <field name="name">客运服务-意见信箱类型设置</field>
+            <field name="sequence">37</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_key_management_type">
             <field name="name">钥匙管理-钥匙类型设置</field>
+            <field name="sequence">38</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_rules_and_regulations_type">
             <field name="name">规则制度-规则制度类型设置</field>
+            <field name="sequence">39</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_consumables_management_type">
             <field name="name">耗材管理-耗材类型设置</field>
+            <field name="sequence">40</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_scheduling_management_type">
             <field name="name">排班管理-排班设置</field>
+            <field name="sequence">41</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_review_management_index_library">
             <field name="name">考评管理-考评指标库</field>
+            <field name="sequence">42</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
 
         <record model="res.groups" id="system_review_management_index_library_date">
             <field name="name">换班申请-换班时限设置</field>
+            <field name="sequence">43</field>
             <field name="category_id" ref="module_category_setting"/>
         </record>
         <!--添加该category下其他group-->
@@ -248,6 +291,7 @@
 
         <record model="res.groups" id="system_position">
             <field name="name">角色组管理设置</field>
+            <field name="sequence">44</field>
             <field name="category_id" ref="module_category_jurisdiction"/>
         </record>
         <!--添加该category下其他group-->
