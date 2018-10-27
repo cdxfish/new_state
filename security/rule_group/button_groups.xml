@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <!--交接班按钮-->
         <record model="ir.module.category" id="module_change_class_page_button">
