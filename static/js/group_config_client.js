@@ -8,7 +8,6 @@ odoo.define('group_config_client', function (require) {
     var core = require('web.core');
 
     var group_config_client = Widget.extend({
-        template: '',
         init: function (parent, record, node) {
             this._super(parent, record, node);
             this.group_id = record.params.type === 'add' ? null : record.context.active_id;
@@ -17,6 +16,7 @@ odoo.define('group_config_client', function (require) {
                 normalCats: [],
                 group_name: '',
                 group_tree_data: [],
+                checked_groups_ids: [],
                 defaultProps: {
                     children: 'children',
                     label: 'name'
@@ -33,6 +33,7 @@ odoo.define('group_config_client', function (require) {
                 self.replaceElement($(rst.template));
                 self.vue_data.normalCats = rst.cats;
                 self.vue_data.group_tree_data = rst.cats;
+                self.vue_data.checked_groups_ids = rst.checked_groups_ids;
                 new Vue({
                     el: '#app',
                     data() {
@@ -48,33 +49,21 @@ odoo.define('group_config_client', function (require) {
                                 });
                                 return
                             }
+                            var implied_ids = [];
+                            this.$refs.group_tree.getCheckedNodes(false, true).map(function (node) {
+                                implied_ids.push(node.id)
+                            });
                             self._rpc({
                                 model: 'res.groups',
                                 method: 'add_or_write_custom_group',
-                                args: [this.open_type, self.group_id, this.group_name, this.normalCats],
+                                args: [this.open_type, self.group_id, this.group_name, implied_ids],
                             }).then(function () {
                                 self.do_action({
                                     type: 'ir.actions.act_window_close'
                                 })
                             })
-                        },
-                        handleCheckAllChange: function (cat) {
-                            if (cat.checkAll) {
-                                cat.checkedGroups = _.pluck(cat.groups, 'id');
-                            } else {
-                                cat.checkedGroups = []
-                            }
-                            cat.isIndeterminate = false
-                        },
-                        handleCheckedCitiesChange: function (cat, checkedGroups, groups) {
-                            var checkedCount = checkedGroups.length;
-                            cat.checkAll = checkedCount === groups.length;
-                            cat.isIndeterminate = checkedCount > 0 && checkedCount < cat.groups.length;
-                        },
-                        handleNodeClick(data) {
-                            console.log(data);
                         }
-                    },
+                    }
                 })
             })
         }
