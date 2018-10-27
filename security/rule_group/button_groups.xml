@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <!--交接班按钮-->
         <record model="ir.module.category" id="module_change_class_page_button">
@@ -27,6 +27,17 @@
             <field name="parent_id" ref="system_fuenc_tester"/>
             <field name="category_id" ref="module_change_class_page_button"/>
         </record>
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        
 
         <!--测试组-->
         <record model="ir.module.category" id="module_category_view_page_button">
