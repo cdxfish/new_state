@@ -5,13 +5,7 @@ from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
 CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
-                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction',
-                    'module_passenger_service_interface_display', 'module_files_interface_display',
-                    'module_change_shifts_list_interface_display', 'module_production_daily_interface_display',
-                    'module_station_detail_interface_display', 'module_rules_type_interface_display',
-                    'module_scheduling_setting_interface_display', 'module_scheduling_manage_interface_display',
-                    'module_attendance_interface_display', 'module_evaluation_index_setting_interface_display',
-                    'module_evaluation_index_manage_interface_display', 'module_category_view_page_button']
+                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction']
 CACHE_LIST = []
 
 
@@ -23,6 +17,7 @@ class PositionSettings(models.Model):
     child_ids = fields.One2many('res.groups', 'parent_id')
     parent_left = fields.Integer(index=True)
     parent_right = fields.Integer(index=True)
+    sequence = fields.Integer(index=True, default=0)
 
     def recursion_tree_data(self, cats):
         '''
@@ -34,8 +29,9 @@ class PositionSettings(models.Model):
             if len(cat['child_ids']) == 0:
                 cat['children'] = []
             else:
-                cat['children'] = self.search_read([('id', 'in', cat['child_ids'])],
-                                                   fields=['name', 'child_ids', 'parent_left', 'parent_right'])
+                cat['children'] = self.search_read([
+                    ('id', 'in', cat['child_ids'])], fields=['name', 'child_ids', 'parent_left', 'parent_right'],
+                    order='sequence')
                 self.recursion_tree_data(cat['children'])
         return
 
@@ -54,7 +50,7 @@ class PositionSettings(models.Model):
         if len(CACHE_LIST) == 0:
             category_record_ids = [self.env.ref('{}.{}'.format(MODULE_NAME, i)).id for i in CATEGORY_ID_LIST]
             cats = self.search_read([('category_id', 'in', category_record_ids), ('parent_id', '=', None)], fields=[
-                'name', 'parent_id', 'child_ids', 'parent_left', 'parent_right', 'category_id'])
+                'name', 'parent_id', 'child_ids', 'parent_left', 'parent_right', 'category_id'], order='sequence')
             self.recursion_tree_data(cats)
             CACHE_LIST = cats
         # 获取已选择节点

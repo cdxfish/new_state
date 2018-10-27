@@ -399,7 +399,6 @@
 
         <!--客运服务-客伤-页面按钮-->
         <record model="ir.module.category" id="passenger_service_guests_hurt_page_button">
-            <field name="parent_id" ref="table_people_wound"/>
             <field name="name">客运服务-客伤-页面按钮</field>
         </record>
 
