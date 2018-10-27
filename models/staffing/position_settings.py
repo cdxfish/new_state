@@ -58,7 +58,7 @@ class PositionSettings(models.Model):
             self.recursion_tree_data(cats)
             CACHE_LIST = cats
         # 获取已选择节点
-        checked_groups_ids = self.browse(group_id).implied_ids.ids
+        checked_groups_ids = self.browse(group_id).implied_ids.filtered(lambda x: len(x.child_ids) == 0).ids
         template = self.env['vue_template_manager.template_manage'].get_template_content(
             'funenc_xa_station', 'group_config')
         rst = dict(cats=CACHE_LIST, template=template, checked_groups_ids=checked_groups_ids)
