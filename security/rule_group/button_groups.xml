@@ -18,6 +18,17 @@
             <field name="parent_id" ref="system_fuenc_tester"/>
             <field name="category_id" ref="module_change_class_page_button"/>
         </record>
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        asdfasdfasdfasdfsadfsadf
+        asdfsadf
+        
 
         <!--测试组-->
         <record model="ir.module.category" id="module_category_view_page_button">
