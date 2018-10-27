@@ -23,7 +23,18 @@ class MeetingDateils(models.Model):
     files_accessory = fields.One2many('ir.attachment','res_id', string='文件附件')
     shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
-    #自动获取记录人的姓名
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.meeting_details_form').id
+        return {
+            'name': '会议记录',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.meeting_dateils',
+            'target': 'new',
+        }
+
+    # 自动获取记录人的姓名
     @api.model
     def default_person_id(self):
         if self.env.user.id ==1:

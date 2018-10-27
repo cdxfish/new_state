@@ -9,7 +9,7 @@
         <field name="state">code</field>
         <field name="code">
             action = model.return_act_window('工器具故障管理', 'funenc_xa_station.transient_break_management',
-            'funenc_xa_station.transient_break_management_tree', 'funenc_xa_station.funenc_xa_station_change_shifts_form')
+            'funenc_xa_station.transient_break_management_tree', 'funenc_xa_station.transient_break_management_form')
         </field>
         </record>
 
@@ -19,6 +19,7 @@
             <field name="binding_model_id" ref="model_funenc_xa_station_transient_break_management"/>
             <field name="binding_xml_id">transient_break_management_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.instrument_break_management_export</field>
             <field name="url">/funenc_xa_station/transient_break_management</field>
             <field name="target">new</field>
         </record>

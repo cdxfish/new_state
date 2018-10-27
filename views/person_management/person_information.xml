@@ -39,6 +39,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.person_information_all_import</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
                 action = model.import_xls_bill()
@@ -54,6 +55,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.person_information_synchronous</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
                 action = model.synchronization_information()

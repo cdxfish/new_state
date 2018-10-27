@@ -3,9 +3,12 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="add_management_type">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="profession_kind_edit" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="xian_metro_delete" confirm="您确定要删除该条记录吗？" >删除</button>
-            <button type="object" name="file_kind_load" class="layui-btn layui-btn-sm" >下载</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="profession_kind_edit"
+            group='funencxa_xa_station.rules_regulations_modify'>修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="xian_metro_delete" confirm="您确定要删除该条记录吗？"
+            group='funencxa_xa_station.rules_regulations_delete'>删除</button>
+            <button type="object" name="file_kind_load" class="layui-btn layui-btn-sm"
+            group='funencxa_xa_station.rules_regulations_download'>下载</button>
         </div>
     </t>
     <!--文件的显示按钮-->

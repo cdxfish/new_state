@@ -1,6 +1,21 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="transceiver_settings_act_increase_record">
+            <field name="name">新增工器具</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_transceiver_settings"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_transceiver_settings"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">工器具使用列表</field>
+            <field name="binding_group">funenc_xa_station.instrument_user_list_increase</field>
+            <field name="code">
+                action = model.new_increase_record()
+            </field>
+        </record>
+
         <record model="ir.actions.server" id="transceiver_settings_act">
         <field name="name">工器具使用列表</field>
         <field name="type">ir.actions.server</field>
