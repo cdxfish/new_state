@@ -414,7 +414,7 @@
 					   },
 					   {
 						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'action2' : 'funenc_xa_station.create_funenc_xa_station_leave_1',
 						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
 					   {
@@ -586,38 +586,38 @@
 		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
 		          <!--parent="integrated_management_station_detail"/>-->
 
-		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
-				   parent="funenc_station_integrated_management"
-				   action="station_detail_ground_traffic"
+		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
+				   <!--parent="funenc_station_integrated_management"-->
+				   <!--action="station_detail_ground_traffic"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_3" name="土建结构" sequence="3"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_civil_engineering"
+		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_civil_engineering"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_4" name="线路、道岔" sequence="4"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_line_turnout"
-		 />
+		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_line_turnout"-->
+		 <!--/>-->
 
-		 <menuitem id="station_detail_5" name="信号系统" sequence="5"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_signal_system"
+		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_signal_system"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_6" name="人员配置" sequence="6"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_station_staffing"
-		 />
+		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_station_staffing"-->
+		 <!--/>-->
 
-		 <menuitem id="station_detail_7" name="消防逃生图" sequence="7"
-				   parent="funenc_station_integrated_management"
-		           action="funenc_station_station_exit"
-		 />
+		 <!--<menuitem id="station_detail_7" name="消防逃生图" sequence="7"-->
+				   <!--parent="funenc_station_integrated_management"-->
+		           <!--action="funenc_station_station_exit"-->
+		 <!--/>-->
 
 
 
@@ -663,7 +663,7 @@
 
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
 				  parent="funenc_station_integrated_management"
-				  groups="system_attendance_management" sequence="9" action="xa_station_leave_list_action"
+				  groups="system_attendance_management" sequence="9" action="create_funenc_xa_station_leave_1"
 		/>
 		<!--<menuitem id="xa_station_leave_list_1" name="请假列表"-->
 				  <!--parent="funenc_xa_station_check_attendance"-->
@@ -894,7 +894,7 @@
 	<menuitem id="prude_newpaper_type_menu" groups="system_production_events" name="生产日报-生产事件设置" action="prude_newpaper_type_server"
               parent="system_configuration" sequence="3"></menuitem>
 
-	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="(缺)工作看板-任务事件设置" action="task_type_action"
+	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="工作看板-任务事件设置" action="task_type_action"
               parent="system_configuration" sequence="4"></menuitem>
 
 	<menuitem id="break_type_increase_menu" groups="system_fault_list_type" name="故障列表-故障类型设置" action="break_type_increase_act"
