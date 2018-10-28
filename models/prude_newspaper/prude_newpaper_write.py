@@ -117,7 +117,7 @@ class PrudeNewpaperWrite(models.Model):
     #新创建一条记录
     @get_domain
     def information_daynewpaper_write(self,domain):
-        view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
@@ -128,6 +128,7 @@ class PrudeNewpaperWrite(models.Model):
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
+            'target':'new',
         }
 
     #修改生产日报
