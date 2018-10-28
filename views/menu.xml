@@ -733,9 +733,9 @@
 				  groups="system_work_kanban" action="xa_station_task_type_action"
 		/>
 
-		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="(缺)工作任务列表"
+		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="工作任务列表"
 				  parent="xa_station_production_manage_1"
-				  groups="system_work_project_list" sequence="6" action="xa_station_task_type_action"
+				  groups="system_work_project_list" sequence="6" action="xa_station_work_kanban_2_action"
 		/>
 
 
