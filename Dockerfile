@@ -16,7 +16,7 @@ RUN rm -rf /mnt/extra-addons/funenc_xa_station/vue_template_manager
 RUN rm -rf /mnt/extra-addons/funenc_xa_station/cdtct_dingtalk
 
 # 安装其它依赖
-ADD extra_pip.txt /opt/sources/requirements.txt
+ADD requirements.txt /opt/sources/requirements.txt
 RUN pip3 install -r /opt/sources/requirements.txt
 
 # 添加配置文件,一定要添加这两句

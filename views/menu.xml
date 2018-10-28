@@ -392,7 +392,7 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
+		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_2_action">
           <field name="name">排班列表</field>
           <field name="res_model">funenc_xa_station.sheduling_record</field>
 		  <field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>
@@ -655,13 +655,13 @@
 
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_management"
-				  sequence="2" action="key_manage_act_window_1"
+				  sequence="2" action="xa_station_sheduling_manage_list_action"
 		/>
 
-		<!--<menuitem id="xa_station_sheduling_manage_list" name="排班列表"-->
-				  <!--parent="station_scheduling_list"-->
-				  <!--action="xa_station_sheduling_manage_list_action"-->
-		<!--/>-->
+		<menuitem id="xa_station_sheduling_manage_list" name="排班列表111"
+				  parent="station_scheduling_list"
+				  action="xa_station_sheduling_manage_list_action"
+		/>
 
 		<menuitem id="xa_station_sheduling_manage" name="排班管理"
 				  parent="funenc_station_integrated_management"
@@ -733,9 +733,9 @@
 				  groups="system_work_kanban" action="xa_station_task_type_action"
 		/>
 
-		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="(缺)工作任务列表"
+		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="工作任务列表"
 				  parent="xa_station_production_manage_1"
-				  groups="system_work_project_list" sequence="6" action="xa_station_task_type_action"
+				  groups="system_work_project_list" sequence="6" action="xa_station_work_kanban_2_action"
 		/>
 
 
