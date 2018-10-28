@@ -3,6 +3,18 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="xa_station_production_change_shifts_action">
+        <field name="name">人员借调</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('人员借调', 'person_management.person_second',
+            'funenc_xa_station.second_tree', 'funenc_xa_station.second_form')
+        </field>
+        </record>
+
         <record model="ir.actions.server" id="second_server_1">
             <field name="name">新建借调</field>
             <field name="state">code</field>
@@ -12,6 +24,7 @@
             <field name="binding_model_id" ref="model_person_management_person_second"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">人员借调</field>
+            <field name="binding_group">funenc_xa_station.person_secondment_new_increase</field>
             <field name="code">
                 action = model.second_add_type()
             </field>
@@ -48,7 +61,7 @@
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
-                            <field name="line_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]"/>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]"/>
                             <field name="user_id" string="名字"  options="{'no_create':True,'no_open':True}"/>
                             <field name="person_number" readonly="1"/>
                             <field name="per_site" readonly="1"/>

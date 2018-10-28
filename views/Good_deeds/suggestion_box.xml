@@ -1,17 +1,31 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="suggestion_box_act">
+            <field name="name">乘客意见箱</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.suggestion_box</field>
+            <field name="model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
     ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
             <field name="binding_xml_id">suggestion_box_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
             <field name="url">/funenc_xa_station/suggestion_box</field>
             <field name="target">new</field>
         </record>
 
-        <record model="ir.actions.server" id="person_certificate_button">
+        <record model="ir.actions.server" id="suggestion_box_tree_button">
             <field name="name">新建</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
@@ -19,6 +33,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box__increase</field>
             <field name="binding_action">乘客意见箱</field>
             <field name="code">
                 action = model.create_suggest()
@@ -56,7 +71,7 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="line_id"/>
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -64,7 +79,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="site_id"/>
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
@@ -191,7 +206,7 @@
                           <div class="col-md-1">
                              <label for="load_file_test" string="图片详情"/>
                           </div>
-                         <div class="col-md-11">
+                         <div class="col-md-3">
                             <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
                                 <tree>
                                     <field name="datas_fname"/>
@@ -200,6 +215,72 @@
                           </div>
                        </div>
                     </div>
+
+                    <!--<div class="row">-->
+                       <!--<div class="col-md-12">-->
+                          <!--<div class="col-md-1">-->
+                             <!--<label for="video_attachment" string="视频附件"/>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-11">-->
+                            <!--<field name="video_attachment">-->
+                                <!--<tree>-->
+                                    <!--<field name="video"/>-->
+                                <!--</tree>-->
+                            <!--</field>-->
+                          <!--</div>-->
+                       <!--</div>-->
+                    <!--</div>-->
+
+                     <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="video_attachment" string="视屏："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="video_attachment">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <!--<widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>-->
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="audio_attachment" string="录音："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="audio_attachment">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <!--<widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>-->
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
                 </form>
             </field>
         </record>
@@ -209,7 +290,7 @@
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
                 <form>
-                    <h1>基本信息</h1>
+                    <h2>基本信息</h2>
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-2">
@@ -355,14 +436,24 @@
                           </div>
                        </div>
                     </div>
-                <h1>附件类容</h1>
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="suggestion_details" string="审核流程"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="suggestion_details"/>
+                          </div>
+                       </div>
+                    </div>
+                <h2>附件类容</h2>
 
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
                              <label for="suggestion_details" string="图片"/>
                           </div>
-                         <div class="col-md-11">
+                         <div class="col-md-3">
                              <field name="load_file_test" widget="one2many_image_read_widget">
                                 <tree>
                                     <field name="datas_fname"/>
@@ -372,15 +463,245 @@
                        </div>
                     </div>
 
+                   <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="video_attachment" string="视屏："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="video_attachment">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <widget  name="treebtns" template="video_suggest_button_play" string="操作"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="audio_attachment" string="录音："/>
+                          </div>
+                         <div class="col-md-3">
+                            <field name="audio_attachment">
+                                <tree>
+                                    <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                    <field name="file_name" invisible="1"/>
+                                    <widget  name="treebtns" template="video_suggest_button_play" string="操作"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+                    <h2>责任部门意见</h2><widget name="treebtns" template="duty_opinion_edit"></widget>
+                    <div class="row">
+                       <div class="col-md-4">
+                          <div class="col-md-4">
+                             <label for="recovery_time" string="回复时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="recovery_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-4">
+                          <div class="col-md-4">
+                             <label for="recovery_person" string="回复人"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="recovery_person"/>
+                          </div>
+                       </div>
+                       <div class="col-md-4">
+                          <div class="col-md-4">
+                             <label for="satisfied_person" string="乘客是否满意"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="satisfied_person"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="survey_state" string="调查概况"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="survey_state"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="rectification_method" string="整改方法"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="rectification_method"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="recovery_content" string="回复内容"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="recovery_content"/>
+                          </div>
+                       </div>
+                    </div>
+                    <h2>投诉定性</h2><widget name="treebtns" template="complaints_suer_button"></widget>
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="according_opinion" string="定则意见及依据"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="according_opinion"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="duty_general" string="最终定性及定责"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="duty_general"/>
+                          </div>
+                       </div>
+                    </div>
+
                 </form>
             </field>
         </record>
 
-        <record id="suggestion_box_act" model="ir.actions.act_window">
-            <field name="name">乘客意见箱</field>
-            <field name="res_model">funenc_xa_station.suggestion_box</field>
-            <field name="view_mode">tree,form</field>
+        <record id="duty_derpament_opnion_form" model="ir.ui.view">
+            <field name="name">责任部门意见</field>
+            <field name="model">funenc_xa_station.suggestion_box</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="recovery_time" string="回复时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="recovery_time"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="recovery_person" string="回复人"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="recovery_person"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="satisfied_person" string="乘客是否满意"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="satisfied_person"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="survey_state" string="调查概况"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="survey_state"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="rectification_method" string="整改方法"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="rectification_method"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-1">
+                             <label for="recovery_content" string="回复内容"/>
+                          </div>
+                         <div class="col-md-11">
+                             <field name="recovery_content"/>
+                          </div>
+                       </div>
+                    </div>
+                </form>
+            </field>
         </record>
+
+        <record id="complaints_sure" model="ir.ui.view">
+            <field name="name">投诉定性</field>
+            <field name="model">funenc_xa_station.suggestion_box</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-3">
+                             <label for="according_opinion" string="定则意见及依据"/>
+                          </div>
+                         <div class="col-md-9">
+                             <field name="according_opinion"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-3">
+                             <label for="duty_general" string="最终定性及定责"/>
+                          </div>
+                         <div class="col-md-9">
+                             <field name="duty_general"/>
+                          </div>
+                       </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="suggestion_box_act" model="ir.actions.act_window">-->
+            <!--<field name="name">乘客意见箱</field>-->
+            <!--<field name="res_model">funenc_xa_station.suggestion_box</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="suggestion_box_mune" name="乘客意见箱" action="suggestion_box_act"></menuitem>-->
     </data>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="transceiver_settings_template">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="warranty_action"
+            t-if="widget.record.data.state == 'one'" group='funencxa_xa_station.instrument_user_list_repair'
+            >保修</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="professional_edit"
+            group='funencxa_xa_station.instrument_user_list_modify'>修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="management_delete"
+                    confirm="您确定要删除吗？"  group='funencxa_xa_station.instrument_user_list_delete'>删除</button>
+        </div>
+    </t>
+    <t t-name="transient_break_management_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="repair_image"
+            t-if="widget.record.data.state == 'zero'" group='funencxa_xa_station.instrument_break_management_repair'
+            >修复</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="professional_edit" >上报</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="change_onchange"
+            group='funencxa_xa_station.instrument_break_management_modify'>修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="management_delete" confirm="您确定要删除吗？"
+            group='funencxa_xa_station.instrument_break_management_delete'>删除</button>
+        </div>
+    </t>
+    <!--修复故障之前的图片-->
+    <t t-name="before_image">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="before_action" >查看详情</button>
+        </div>
+    </t>
+    <!--修复故障之后的图片-->
+    <t t-name="after_image">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="after_action" >查看详情</button>
+        </div>
+    </t>
+</templates>

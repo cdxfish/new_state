@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields, exceptions
 import datetime
+from ..get_domain import get_domain
 
 
 key = [('enter_come', '边门进出情况')
@@ -20,9 +21,9 @@ class PrudeNewpaperWrite(models.Model):
     event_content = fields.Text(string='事件内容',compute='_event_content',store=True)
     event_content_create = fields.Text(string='事件内容')
     open_time = fields.Datetime(string='发生时间')
-    write_time = fields.Datetime(string='填报时间')
-    write_name = fields.Char(string='填报人')
-    iobnumber = fields.Char(string='工号')
+    write_time = fields.Datetime(string='填报时间',dafault=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    write_name = fields.Char(string='填报人',default=lambda self: self.default_person_id())
+    iobnumber = fields.Char(string='工号',default=lambda self: self.default_jobnumber_id())
     Enter_person_count =fields.Integer(string='进边门人数')
     come_person_count = fields.Integer(string='出边门人数')
     two_money =fields.Char(string='2元')
@@ -37,6 +38,21 @@ class PrudeNewpaperWrite(models.Model):
     brenk_time = fields.Datetime(string='故障时间')
     brenk_repair_time = fields.Datetime(string='故障保修时间')
     brenk_state = fields.Text(string='故障情况')
+
+    #自动获取登录人的姓名
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.name
+
+    #自动获取登录人的工号
+    def default_jobnumber_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.jobnumber
 
     #提交功能
     def time_compare_action(self):
@@ -99,13 +115,15 @@ class PrudeNewpaperWrite(models.Model):
             # self.env['funenc_xa_station.date_time'].search([]).unlink()
 
     #新创建一条记录
-    def information_daynewpaper_write(self):
+    @get_domain
+    def information_daynewpaper_write(self,domain):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
+            'domain':domain,
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,

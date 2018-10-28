@@ -1,22 +1,13 @@
 <div id="app">
-  <el-row>
-    <el-button @click="save_group">保存</el-button>
-  </el-row>
-  <h3 v-if="!is_update">基本信息</h3>
-  <div v-if="!is_update">
-    <span>名称:</span>
-    <el-input v-model="group_name" style="height:30px;"></el-input>
-  </div>
-  <h3>角色组权限设置</h3>
-  <el-collapse>
-    <el-collapse-item v-for='cat in cats' :title="cat.name">
-      <el-checkbox :indeterminate="cat.isIndeterminate" v-model="cat.checkAll" @change="handleCheckAllChange(cat)">全选</el-checkbox>
-      <div style="margin: 15px 0;"></div>
-      <el-checkbox-group v-model="cat.checkedGroups" @change="handleCheckedCitiesChange(cat)">
-        <el-checkbox v-for="group in cat.groups" :label="group.id" :key="group.id">
-          {{group.name}}
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-collapse-item>
-  </el-collapse>
+    <el-row>
+        <el-button @click="save_group">保存</el-button>
+    </el-row>
+    <h3 v-if="open_type === 'add'">基本信息</h3>
+    <el-row v-if="open_type === 'add'">
+        <div>分组名称:</div>
+        <el-input v-model="group_name" style="width: 200px"></el-input>
+    </el-row>
+    <div style="height:10px;"></div>
+    <h3>角色组权限设置</h3>
+    <el-tree ref="group_tree" :default-checked-keys="checked_groups_ids" node-key="id" :data="group_tree_data" :props="defaultProps" show-checkbox></el-tree>
 </div>

@@ -4,6 +4,8 @@
 from odoo import api, models, fields
 from datetime import datetime
 import xlwt
+from ..get_domain import get_domain
+
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
     _inherit = 'fuenc_station.station_base'
@@ -34,7 +36,52 @@ class CheckRecord(models.Model):
     all_score = fields.Float(string='总分值', default=100)
     mouth_grade = fields.Float(string='本月评分')
     grade_degree = fields.Float(string='考评次数',default=1)
+    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='关联字段')
 
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self, domain):
+        view_tree = self.env.ref('funenc_xa_station.check_record_tree').id
+        return {
+            'name': '考评管理',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.check_record',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                           [
+                               {'title': '考评记录',
+                               'action':  'funenc_xa_station.check_record_act',
+                               'group':'funenc_xa_station.table_evaluation_record',
+                               },
+                               {
+                                   'title': '考评汇总',
+                                   'action2' : 'funenc_xa_station.funenc_xa_check',
+                                   'group' : 'funenc_xa_station.table_evaluation_total',
+                                   },
+                               {
+                                   'title': '奖励记录',
+                                   'action2':  'funenc_xa_station.award_record_act',
+                                   'group' : 'funenc_xa_station.table_reward_record',
+                                   },
+                              {
+                                   'title': '奖励汇总',
+                                   'action2':  'funenc_xa_station.funenc_xa_award',
+                                   'group' : 'funenc_xa_station.table_reward_total',
+                                   },
+                           ]
+                       }''',
+            'context': self.env.context,
+        }
+
+    @api.model
+    def create(self, vals):
+        vals['relevance'] = vals['staff']
+        return super(CheckRecord, self).create(vals)
 
     @api.model
     def new_add_record(self):

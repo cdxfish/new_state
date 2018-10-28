@@ -1,0 +1,284 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="transient_break_management_act">
+        <field name="name">工器具故障管理</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('工器具故障管理', 'funenc_xa_station.transient_break_management',
+            'funenc_xa_station.transient_break_management_tree', 'funenc_xa_station.transient_break_management_form')
+        </field>
+        </record>
+
+    ﻿   <record model="ir.actions.act_url" id="transient_break_management_url">
+            <field name="name">报表导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_transient_break_management"/>
+            <field name="binding_xml_id">transient_break_management_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.instrument_break_management_export</field>
+            <field name="url">/funenc_xa_station/transient_break_management</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="transient_break_management_tree" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <tree create="0" class="noOpen">
+                    <field name="transceiver_type"></field>
+                    <field name="transceive_name"></field>
+                    <field name="transceive_number"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="post"></field>
+                    <field name="apply_time"></field>
+                    <field name="break_describe"></field>
+                    <widget name="treebtns" template="before_image" string="故障图片"></widget>
+                    <field name="state"></field>
+                    <field name="repair_time"></field>
+                    <field name="repair_manufacturer"></field>
+                    <widget name="treebtns" template="after_image" string="故障后图片"></widget>
+                    <widget name="treebtns" template="transient_break_management_button"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="transient_break_management_form" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="site_id" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceiver_type" string="工器具类型"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="transceiver_type" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="post" string="工器具位置"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="post" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceive_name" string="标工器具名称"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="transceive_name" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceive_number" string="工器具编号"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="transceive_number" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="repair_time" string="修复时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="repair_time"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="repair_manufacturer" string="修复厂家"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="repair_manufacturer"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-2">
+                             <label for="load_file_test" string="故障图片"/>
+                          </div>
+                         <div class="col-md-10">
+                                <field name="load_file_test" widget="many2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="transient_break_management_form_button" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="line_id" string="线路"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="line_id" readonly="1"/>
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="site_id" string="站点"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="site_id" readonly="1"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceiver_type" string="工器具类型"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="transceiver_type" />
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="post" string="工器具位置"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="post" />
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceive_name" string="标工器具名称"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="transceive_name" />
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="transceive_number" string="工器具编号"/>
+                          </div>
+                             <div class="col-md-8">
+                                 <field name="transceive_number" />
+                          </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="repair_time" string="修复时间"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="repair_time"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
+                             <label for="repair_manufacturer" string="修复厂家"/>
+                          </div>
+                         <div class="col-md-8">
+                             <field name="repair_manufacturer"/>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-2">
+                             <label for="load_file_test" string="故障后图片"/>
+                          </div>
+                         <div class="col-md-10">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+       <record id="transient_break_management_before_image" model="ir.ui.view">
+            <field name="name">工器具故障管理</field>
+            <field name="model">funenc_xa_station.transient_break_management</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <div class="row">
+                       <div class="col-md-12">
+                          <div class="col-md-2">
+                             <label for="load_file_test" string="故障后图片"/>
+                          </div>
+                         <div class="col-md-10">
+                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                <tree>
+                                    <field name="datas_fname"/>
+                                </tree>
+                            </field>
+                          </div>
+                       </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+        <!--<record id="transient_break_management_act" model="ir.actions.act_window">-->
+            <!--<field name="name">工器具故障管理</field>-->
+            <!--<field name="res_model">funenc_xa_station.transient_break_management</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+        <menuitem id="transient_break_management_menu" name="工器具故障管理" action="transient_break_management_act"></menuitem>
+
+    </data>
+</odoo>

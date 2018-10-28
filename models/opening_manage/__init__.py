@@ -2,3 +2,4 @@
 
 from . import keys_manage
 from . import train
+from . import drill_plan

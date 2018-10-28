@@ -19,9 +19,9 @@ class MainModel(models.Model):
     #转岗信息
     transfer_info = fields.One2many('persom_namagement.jobt_ranfer','relevance',string='转岗信息')
     #考评记录
-    check_info = fields.One2many('person_management.check_info','relevance',string='考评记录')
+    check_info = fields.One2many('funenc_xa_station.check_record','relevance',string='考评记录')
     #奖励制度
-    award_info = fields.One2many('person_management.award_info','relevance',string='考核标准')
+    award_info = fields.One2many('funenc_xa_station.award_record','relevance',string='奖励记录')
 
     # staff_number = fields.Char(string='员工工号',compute='onchange_name_sta',readonly=True)
     # name_name = fields.Char(string='姓名',compute='onchange_name_sta',readonly=True)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>dingding-1</title>
+
+        <!--//手机版钉钉免登引入的jsapi,和电脑版引入的不同-->
+        <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js">
+        </script>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    </head>
+
+    <body>
+        <p id="userName">正在加载。。。。</P>
+    </body>
+
+    <script>
+        var strUrl = window.location.href;
+        //把一个字符串按照/分割成字符串数组 array['http:','www.aaa.com','模块名','216.html']
+        var arrUrl = strUrl.split("/");
+        //获取216.html
+        var strPage = arrUrl[arrUrl.length-1];
+        //获取数值
+        var id=strPage.replace(/[^0-9]/ig,"");
+        dd.ready(function() {
+            dd.runtime.permission.requestAuthCode({
+                corpId: "ding4484e57b2688826335c2f4657eb6378f",
+                onSuccess: function(result) {
+                    window.location.href='http://172.16.109.53:8069/funenc_xa_station/get_code?code='+result.code
+                                          +'&drill_plan_id='+id;
+                },
+                onFail : function(err) {}
+            });
+        });
+    </script>
+</html>

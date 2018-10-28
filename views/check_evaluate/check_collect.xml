@@ -8,9 +8,9 @@
           <field name="tag">funenc_xa_check</field>
         </record>
 
-        <menuitem id="funenc_xa_check_act" name="考评汇总"
-				  action="funenc_xa_check"
-		/>
+        <!--<menuitem id="funenc_xa_check_act" name="考评汇总"-->
+				  <!--action="funenc_xa_check"-->
+		<!--/>-->
 
         <!--<record model="ir.actions.server" id="check_collect_server_1">-->
             <!--<field name="name">导出</field>-->

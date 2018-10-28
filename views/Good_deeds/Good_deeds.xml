@@ -1,11 +1,41 @@
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="good_deeds_act_new_increase">
+            <field name="name">新增</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">好人好事</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_good_deeds_increase</field>
+            <field name="code">
+                action = model.new_increase_record()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="good_deeds_act">
+            <field name="name">好人好事</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">fuenc_station.good_deeds</field>
+            <field name="model_id" ref="model_fuenc_station_good_deeds"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+
     ﻿   <record model="ir.actions.act_url" id="good_deeds_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_fuenc_station_good_deeds"/>
             <field name="binding_xml_id">good_deeds_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_good_deeds_export</field>
             <field name="url">/funenc_xa_station/good_deeds</field>
             <field name="target">new</field>
         </record>
@@ -14,7 +44,7 @@
             <field name="name">好人好事</field>
             <field name="model">fuenc_station.good_deeds</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree edit="0" create="0" class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>
@@ -40,7 +70,7 @@
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id"/>
+                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -48,7 +78,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id"/>
+                                     <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                         </div>
@@ -120,6 +150,32 @@
                                   </div>
                                </div>
                             </div>
+
+                           <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-1">
+                                     <label for="mp_play_many" string="视屏附件："/>
+                                  </div>
+                                 <div class="col-md-3">
+                                    <field name="mp_play_many">
+                                        <tree>
+                                            <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                            <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                    <field name="file_name" invisible="1"/>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                  </div>
+                               </div>
+                            </div>
+
                     </div>
                 </form>
             </field>
@@ -262,20 +318,45 @@
                              </div>
                          </div>
 
+                         <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="mp_play_many" string="视屏附件："/>
+                              </div>
+                             <div class="col-md-3">
+                                <field name="mp_play_many">
+                                    <tree>
+                                        <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                        <field name="file_name" invisible="1"/>
+                                        <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                 <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                <field name="file_name" invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                              </div>
+                           </div>
+                        </div>
+
                     </div>
                 </form>
             </field>
         </record>
 
 
-        <record id="good_deeds_act" model="ir.actions.act_window">
-			<field name="name">好人好事</field>
-			<field name="res_model">fuenc_station.good_deeds</field>
-			<field name="view_mode">tree,form</field>
-            <field name="ref_view">good_deeds_tree</field>
+        <!--<record id="good_deeds_act" model="ir.actions.act_window">-->
+			<!--<field name="name">好人好事</field>-->
+			<!--<field name="res_model">fuenc_station.good_deeds</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="ref_view">good_deeds_tree</field>-->
 
-		</record>
+		<!--</record>-->
 
-        <menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>
+        <!--<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>-->
     </data>
 </odoo>

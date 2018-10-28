@@ -26,9 +26,12 @@
 
     <t t-name="second_details">
         <div class="layui-btn-group">
-            <button class="layui-btn" type="object" name="second_modification" >修改</button>
-            <button class="layui-btn" type="object" name="second_delect" confirm="您确定要删除该条记录吗？">删除</button>
-            <button class="layui-btn" type="object" name="person_details" >人员详情</button>
+            <button class="layui-btn" type="object" name="second_modification"
+            group='funencxa_xa_station.person_secondment_new_modify'>修改</button>
+            <button class="layui-btn" type="object" name="second_delect" confirm="您确定要删除该条记录吗？"
+            group='funencxa_xa_station.person_secondment_delete'>删除</button>
+            <button class="layui-btn" type="object" name="person_details"
+            group='funencxa_xa_station.person_secondment_persom_details'>人员详情</button>
         </div>
     </t>
 </templates>

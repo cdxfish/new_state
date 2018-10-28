@@ -1,6 +1,18 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="guests_hurt_act">
+            <field name="name">客伤</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">fuenc_xa_station.guests_hurt</field>
+            <field name="model_id" ref="model_fuenc_xa_station_guests_hurt"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
         <record model="ir.actions.server" id="guests_hurt_button">
             <field name="name">新建</field>
             <field name="state">code</field>
@@ -9,6 +21,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_injured__increase</field>
             <field name="binding_action">乘客意见箱</field>
             <field name="code">
                 action = model.create_guests_action()
@@ -21,6 +34,7 @@
             <field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>
             <field name="binding_xml_id">guests_hurt_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_injured_export</field>
             <field name="url">/funenc_xa_station/guests_hurt</field>
             <field name="target">new</field>
         </record>
@@ -60,7 +74,7 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id"/>
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -68,7 +82,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" />
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
@@ -152,7 +166,7 @@
                    <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
-                             <label for="responsibility_identification" string="责任认定(初判)"/>
+                             <label for="responsibility_identification" string="责任认定"/>
                           </div>
                          <div class="col-md-8">
                              <field name="responsibility_identification"/>
@@ -333,12 +347,22 @@
                        <div class="col-md-3">
                           <div class="col-md-6">
                              <label for="claim_state" string="索赔状态"/>
+                              <widget  name="treebtns" template="change_clain_state"/>
                           </div>
                          <div class="col-md-6">
                              <field name="claim_state" readonly="1"/>
+                             <!--<widget  name="treebtns" template="change_clain_state"/>-->
                           </div>
                        </div>
-                        <widget  name="treebtns" template="change_clain_state"/>
+                        <!--<widget  name="treebtns" template="change_clain_state"/>-->
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="responsibility_identification" string="责任认定"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="responsibility_identification" readonly="1"/>
+                          </div>
+                       </div>
                     </div>
 
                      <div class="row">
@@ -365,6 +389,15 @@
                           </div>
                          <div class="col-md-6">
                              <field name="guests_age" readonly="1"/>
+                          </div>
+                       </div>
+
+                        <div class="col-md-3">
+                          <div class="col-md-6">
+                             <label for="guests_phone" string="乘客联系方式"/>
+                          </div>
+                         <div class="col-md-6">
+                             <field name="guests_phone" readonly="1"/>
                           </div>
                        </div>
 
@@ -481,11 +514,11 @@
 
 
 
-		<record id="guests_hurt_act" model="ir.actions.act_window">
-			<field name="name">客伤</field>
-			<field name="res_model">fuenc_xa_station.guests_hurt</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+		<!--<record id="guests_hurt_act" model="ir.actions.act_window">-->
+			<!--<field name="name">客伤</field>-->
+			<!--<field name="res_model">fuenc_xa_station.guests_hurt</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+		<!--</record>-->
 
         <!--<menuitem id="guests_hurt_mune" name="客伤" action="guests_hurt_act"></menuitem>-->
     </data>

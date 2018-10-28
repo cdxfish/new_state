@@ -2,6 +2,19 @@
 
 <odoo>
     <data>
+
+        <record model="ir.actions.server" id="person_information_act">
+        <field name="name">人员信息</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="condition">True</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.return_act_window('人员信息', 'cdtct_dingtalk.cdtct_dingtalk_users',
+            'funenc_xa_station.person_information_form', 'funenc_xa_station.person_information_form')
+        </field>
+        </record>
+
         <record model="ir.actions.server" id="main_information_button">
             <field name="name">选择文件</field>
             <field name="state">code</field>
@@ -26,6 +39,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.person_information_all_import</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
                 action = model.import_xls_bill()
@@ -41,6 +55,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.person_information_synchronous</field>
             <field name="binding_action">人员信息详情</field>
             <field name="code">
                 action = model.synchronization_information()
@@ -429,8 +444,14 @@
                                         <div class="row">
                                                <div class="col-md-3">
                                                   <div class="field-margin">
-                                                     <label for="department" string="所属部门"/>
-                                                     <field name="department" attrs="{'readonly':1}"/>
+                                                    <div class="col-md-4">
+                                                         <label for="department" string="所属线网"/>
+                                                         <!--<field name="department_load" attrs="{'readonly':1}"/>-->
+                                                      </div>
+                                                        <div class="col-md-8">
+                                                         <!--<label for="department_load" string="所属线网"/>-->
+                                                         <field name="department" attrs="{'readonly':1}"/>
+                                                      </div>
                                                   </div>
                                                </div>
                                                <div class="col-md-3">
@@ -540,7 +561,7 @@
                                 <field name="two_recheck_time"></field>
                                 <field name="two_recheck_money"></field>
                                 <widget string="证件详情" name="treebtns" template="person_dateils"/>
-                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                                <widget string="操作" name="treebtns" template="person_certificate_information"/>
                             </tree>
                         </field>
                     </div>
@@ -558,8 +579,7 @@
                                 <field name="site_post"></field>
                                 <field name="site_time"></field>
                                 <field name="site_file"></field>
-                                <widget string="证件详情" name="treebtns" template="person_dateils"/>
-                                <widget string="操作" name="treebtns" template="person_certificate"/>
+                                <widget string="操作" name="treebtns" template="person_muddleheaded_information"/>
                             </tree>
                             <form>
                                 <sheet>
@@ -570,6 +590,7 @@
                                         <field name="site_post"></field>
                                         <field name="site_time"></field>
                                         <field name="site_file"></field>
+                                        <field name="relevance" invisible='1'></field>
                                     </group>
                                 </sheet>
                             </form>
@@ -584,30 +605,21 @@
                     <div class="text-center ">
                         <field name="check_info">
                             <tree>
-                                <field name="grade"></field>
-                                <field name="grade_standard"></field>
+                                <field name="line_id"></field>
+                                <field name="site_id"></field>
+                                <field name="job_number"></field>
+                                <field name="staff"></field>
+                                <field name="position"></field>
+                                <field name="sure_grede"></field>
+                                <field name="check_target"></field>
                                 <field name="problem_kind"></field>
                                 <field name="check_kind"></field>
                                 <field name="check_project"></field>
-                                <field name="incident_desfcription"></field>
+                                <field name="incident_describe"></field>
                                 <field name="check_person"></field>
+                                <field name="check_number"></field>
                                 <field name="check_time"></field>
                             </tree>
-
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <field name="grade"></field>
-                                        <field name="grade_standard"></field>
-                                        <field name="problem_kind"></field>
-                                        <field name="check_kind"></field>
-                                        <field name="check_project"></field>
-                                        <field name="incident_desfcription"></field>
-                                        <field name="check_person"></field>
-                                        <field name="check_time"></field>
-                                    </group>
-                                </sheet>
-                            </form>
                         </field>
                         </div>
                    </page>
@@ -619,25 +631,19 @@
                     <div class="text-center ">
                         <field name="award_info">
                             <tree>
+                                <field name="line_id"></field>
+                                <field name="site_id"></field>
+                                <field name="jobnumber"></field>
+                                <field name="staff"></field>
+                                <field name="position"></field>
                                 <field name="award_money"></field>
-                                <field name="award_standard_kind"></field>
-                                <field name="examination_item"></field>
-                                <field name="incident_description"></field>
+                                <field name="award_target_kind"></field>
+                                <field name="award_project"></field>
+                                <field name="check_project"></field>
+                                <field name="incident_describe"></field>
                                 <field name="check_person"></field>
                                 <field name="check_time"></field>
                             </tree>
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <field name="award_money"></field>
-                                        <field name="award_standard_kind"></field>
-                                        <field name="examination_item"></field>
-                                        <field name="incident_description"></field>
-                                        <field name="check_person"></field>
-                                        <field name="check_time"></field>
-                                    </group>
-                                </sheet>
-                            </form>
                         </field>
                         </div>
                    </page>
@@ -676,11 +682,11 @@
             </field>
         </record>
 
-        <record id="person_information_act" model="ir.actions.act_window">
-            <field name="name">人员信息详情</field>
-			<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
-			<field name="view_mode">form</field>
-        </record>
+        <!--<record id="person_information_act" model="ir.actions.act_window">-->
+            <!--<field name="name">人员信息详情</field>-->
+			<!--<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
+			<!--<field name="view_mode">form</field>-->
+        <!--</record>-->
         <!--<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station.funenc_station"></menuitem>-->
         <!--<menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_management_menu_"-->
                   <!--sequence="2"></menuitem>-->

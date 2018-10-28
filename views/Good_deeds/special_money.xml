@@ -1,12 +1,40 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="special_money_act">
+            <field name="name">特殊赔偿金</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.special_money</field>
+            <field name="model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="special_money_new_increase_button">
+            <field name="name">新增</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box__increase</field>
+            <field name="binding_action">特殊赔偿金</field>
+            <field name="code">
+                action = model.new_increase_record()
+            </field>
+        </record>
+
     ﻿   <record model="ir.actions.act_url" id="special_money_url">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>
             <field name="binding_xml_id">special_money_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
             <field name="url">/funenc_xa_station/special_money</field>
             <field name="target">new</field>
         </record>
@@ -26,7 +54,7 @@
             <field name="name">特殊储备金</field>
             <field name="model">funenc_xa_station.special_money</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="0" class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>
@@ -54,12 +82,12 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="line_id"/>
+                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
                           <div class="col-md-2">
-                             <label for="site_id" string="站点"/>
+                             <label for="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                          <div class="col-md-10">
                              <field name="site_id"/>
@@ -453,11 +481,11 @@
             </field>
         </record>
 
-        <record id="special_money_act" model="ir.actions.act_window">
-            <field name="name">特殊储备金</field>
-            <field name="res_model">funenc_xa_station.special_money</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--<record id="special_money_act" model="ir.actions.act_window">-->
+            <!--<field name="name">特殊储备金</field>-->
+            <!--<field name="res_model">funenc_xa_station.special_money</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="special_money_menu" name="特殊储备金" action="special_money_act"></menuitem>-->
     </data>

@@ -10,6 +10,7 @@
             <field name="binding_model_id" ref="model_xian_metro_xian_metro"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">专业分类</field>
+            <field name="binding_group">funenc_xa_station.rules_regulations_increase</field>
             <field name="code">
                 action = model.xian_metro_type()
             </field>
@@ -33,8 +34,8 @@
                     <field name="rank_kind"></field>
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
-                    <field name="load_line"></field>
-                    <field name="station_id"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
@@ -54,8 +55,8 @@
                     <field name="rank_kind"></field>
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
-                    <field name="load_line"></field>
-                    <field name="station_id"></field>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
                 </search>
@@ -71,17 +72,18 @@
                     <sheet>
                         <group name="group_top">
                             <group name="group_right">
-                                <field name="load_line" widget="radio" options="{'horizontal':true}"></field>
+                                <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="profession_kind"></field>
                                 <field name="rules_id"></field>
+                                 <field name="release_time"></field>
                             </group>
                             <group name="group_left">
-                                <field name="station_id"></field>
+                                <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rank_kind"></field>
                                 <field name="rules_name"></field>
                             </group>
                             <group name="group_bottom">
-                                <field name="details" filename="file_name"></field>
+                                <field name="details" filename="file_name" max_upload_kb="10240000"></field>
                                 <field name="file_name" invisible="1"/>
                             </group>
                         </group>

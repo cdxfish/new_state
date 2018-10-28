@@ -79,6 +79,9 @@
 
     <!--冲突规则修改-->
     <t t-name="conflict_rule_widget_enable">
+        <t t-esc="">
+
+        </t>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="conflict_rule_enable"
                     t-if="widget.record.data.conflict_rule_state == 'enable'"
@@ -119,6 +122,30 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+    <!--演练计划-->
+    <t t-name="plan_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="details"
+                    group="funenc_xa-station.train_plan_details_button">详情</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="edit"
+                    group="funenc_xa_station.train_plan_modify_button">编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
+                    name="delete" confirm="您确定要删除吗？"  group="funenc_xa_station.train_plan_delete_button">删除</button>
+        </div>
+    </t>
+
+    <t t-name="edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+        </div>
+    </t>
+
+    <t t-name="edit_rectification">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="rectification" >整改</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
         </div>
     </t>
 

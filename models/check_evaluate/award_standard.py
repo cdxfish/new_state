@@ -14,6 +14,35 @@ class AwardStandard(models.Model):
     support_file = fields.Char(string='支持文件')
     comment = fields.Char(string='备注')
 
+    #群信server奖励指标隐藏还是显示
+    @api.model
+    def get_day_plan_publish_action(self):
+        view_tree = self.env.ref('funenc_xa_station.award_standard_tree').id
+        return {
+            'name': '奖励指标',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.award_standard',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                             [
+                                 {'title': '考评指标',
+                                 'action':  'funenc_xa_station.check_evaluate_act',
+                                 'group':'funenc_xa_station.table_reward_index',
+                                 },
+                                 {
+                                     'title': '奖励指标',
+                                     'action2' : 'funenc_xa_station.award_standard_act',
+                                     'group' : 'funenc_xa_station.table_reward_index',
+                                     },
+                             ]
+                         }''',
+            'context': self.env.context,
+        }
+
     @api.model
     def new_add_standard(self):
         return {

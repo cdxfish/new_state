@@ -5,6 +5,8 @@ from odoo import api,models,fields
 import requests
 import urllib
 import base64
+from ..get_domain import get_domain
+
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -37,8 +39,8 @@ class GuestsHurt(models.Model):
     mp_play = fields.Binary(string='上传视屏')
     file_name = fields.Char(string="File Name")
     url = fields.Char(string='url')
-    mp_play_many = fields.One2many('video_voice_model','mp_play_one',string='视频附件')
-    mp3_play_many = fields.One2many('video_voice_model','mp3_play',string='视频附件')
+    mp_play_many = fields.One2many('video_voice_model','guests_mp_play_one',string='视频附件')
+    mp3_play_many = fields.One2many('video_voice_model','guests_mp3_play',string='视频附件')
 
     # @api.model
     # def create(self, params):
@@ -59,6 +61,46 @@ class GuestsHurt(models.Model):
     #             "url": url,
     #             "target": "new"
     #         }
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.guests_hurt_tree').id
+        return {
+            'name': '客伤',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'fuenc_xa_station.guests_hurt',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                        [
+                            {'title': '好人好事',
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions'
+                            },
+                            {
+                                'title': '客伤',
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound'
+                                },
+                            {
+                                'title': '乘客意意见箱',
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message'
+                                },
+                           {
+                                'title': '特殊赔偿金',
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation'
+                                },
+                        ]
+                    }''',
+            'context': self.env.context,
+        }
 
     #通过初审按钮
     def test_btn_two_audit(self):

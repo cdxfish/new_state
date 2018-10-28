@@ -77,26 +77,29 @@
                                        options="{'no_create':True,'no_open':True}"/>
                                 <field name="originator_time" string="任务发起时间"/>
                                 <field name="task_send_user_ids" string="任务接收人"
-                                       options="{'no_create':True,'no_open':True}" widget="many2many_tags"/>
+                                       context="{'tree_view_ref':'cdtct_dingtalk.users_list'}"
+                                       options="{'no_create':True,'no_open':True}" />
+                                <!--widget="many2many_tags"-->
                                 <field name="task_start_time" string="任务开始时间"/>
                                 <field name="task_end_time" string="任务结束时间"/>
                                 <field name="task_priority" string="优先级"/>
                                 <field name="task_type_id" string="任务类型"/>
                                 <field name="task_describe" string="任务描述"/>
                                 <field name="task_state" string="任务状态" readonly="1"/>
+                                <field name="task_feedback" string="任务反馈"/>
                             </group>
-                            <notebook>
-                                <page string="任务完成情况">
-                                    <field name="child_ids">
-                                        <tree create="0" class="noOpen">
-                                            <field name="task_send_user_id" string="任务完成人"
-                                                   options="{'no_create':True,'no_open':True}"/>
-                                            <field name="completed_time" string="完成时间"/>
-                                            <field name="task_feedback" string="任务反馈"/>
-                                        </tree>
-                                    </field>
-                                </page>
-                            </notebook>
+                            <!--<notebook>-->
+                                <!--<page string="任务完成情况">-->
+                                    <!--<field name="child_ids">-->
+                                        <!--<tree create="0" class="noOpen">-->
+                                            <!--<field name="task_send_user_id" string="任务完成人"-->
+                                                   <!--options="{'no_create':True,'no_open':True}"/>-->
+                                            <!--<field name="completed_time" string="完成时间"/>-->
+                                            <!--<field name="task_feedback" string="任务反馈"/>-->
+                                        <!--</tree>-->
+                                    <!--</field>-->
+                                <!--</page>-->
+                            <!--</notebook>-->
                         </sheet>
                         <footer>
                             <button name='work_kanban_save'
@@ -130,10 +133,10 @@
                 ]"/>
         </record>
 
-        <menuitem id="xa_station_work_kanban_2" name="工作看板"
-                  parent="funenc_xa_station.xa_station_work_kanban_1"
-                  action="xa_station_work_kanban_2_action"
-        />
+        <!--<menuitem id="xa_station_work_kanban_2" name="工作看板"-->
+                  <!--parent="funenc_xa_station.xa_station_work_kanban_1"-->
+                  <!--action="xa_station_work_kanban_2_action"-->
+        <!--/>-->
 
 
     </data>

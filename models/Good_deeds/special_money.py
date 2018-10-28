@@ -3,7 +3,7 @@
 
 from odoo import api,models,fields
 from datetime import datetime
-
+from ..get_domain import get_domain
 
 key = [('one_audit','待初核'),
        ('two_audit','待复核'),
@@ -38,6 +38,59 @@ class SpecialMoney(models.Model):
     load_file_test = fields.Binary(string='身份证照片')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
+
+    # 创建一条新的记录
+    def new_increase_record(self):
+        view_form = self.env.ref('funenc_xa_station.special_money_form').id
+        return {
+            'name': '特殊赔偿金',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.special_money',
+            'context': self.env.context,
+        }
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.special_money_tree').id
+        return {
+            'name': '特殊赔偿金',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.special_money',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                        [
+                            {'title': '好人好事',
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions'
+                            },
+                            {
+                                'title': '客伤',
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound'
+                                },
+                            {
+                                'title': '乘客意意见箱',
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message'
+                                },
+                           {
+                                'title': '特殊赔偿金',
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation'
+                                },
+                        ]
+                    }''',
+            'context': self.env.context,
+        }
 
     def special_details_action(self):
         view_form = self.env.ref('funenc_xa_station.special_money_details').id

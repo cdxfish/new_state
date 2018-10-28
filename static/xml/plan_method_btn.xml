@@ -21,11 +21,16 @@
 		</t>
 	</t>
 	<t t-name="layui_window_tab">
-		<div t-if="widget.tabs.length > 0" class="layui-tab layui-tab-brief" t-att-lay-filter="widget.tab_id" lay-allowclose="false">
+		<div t-if="widget.tabs.length > 0" class="layui-tab layui-tab-brief" t-att-lay-filter="widget.tab_id">
 			<ul class="layui-tab-title">
-				<li t-foreach="widget.tabs" t-as="tab">
-					<t t-esc="tab.title" />
-				</li>
+				<t t-foreach="widget.tabs" t-as="tab">
+					<t t-if="tab['display'] == 'true'">
+						<li>
+							<t t-esc="tab.title" />
+						</li>
+					</t>
+				</t>
+
 			</ul>
 			<div class="layui-tab-content" style="display:none">
 			</div>

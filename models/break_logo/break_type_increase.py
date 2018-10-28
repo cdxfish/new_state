@@ -9,3 +9,9 @@ class BreakTypeIncrease(models.Model):
     _rec_name = 'break_type'
     break_type = fields.Char(string='故障类型')
     note = fields.Char(string='备注')
+
+
+    @api.model
+    def get_break_type(self):
+
+        return self.search_read([],['id','break_type'])

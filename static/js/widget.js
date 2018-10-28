@@ -13,7 +13,8 @@ odoo.define("one2many_image_read_widget", function(require) {
       var id = self.record.data.id;
       var mode = self.mode;
       var relation_field = self.field.relation_field;
-//       console.log('data:'+ JSON.stringify(self.record.data.load_file_test.data))
+//       console.log('databbbbbbbbbbbbbbbbbbb:'+ JSON.stringify(self.record.data.load_file_test))
+//       console.log('dataoooooooooooooooo:'+ self.record.data.load_file_test.data)
 
        var img_id_list=[];
        for ( var i=0;i<self.record.data.load_file_test.data.length;i++){
@@ -21,13 +22,13 @@ odoo.define("one2many_image_read_widget", function(require) {
          img_id_list.push(img_id)
        }
 
-      console.log('img_id_list:'+ JSON.stringify(img_id_list))
+//      console.log('img_id_list:'+ JSON.stringify(img_id_list))
       var model = self.field.relation;
       if (mode == "edit") {
         this._super();
       } else {
-       console.log('model:'+ model)
-        console.log('relation_field:'+ relation_field)
+//       console.log('model:'+ model)
+//        console.log('relation_field:'+ relation_field)
         self
           ._rpc({
             model: model,

@@ -2,6 +2,19 @@
 <odoo>
 	<data>
 
+        <record model="ir.actions.server" id="xa_station_change_shifts_action">
+            <field name="name">换班时间间隔设置</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.return_act_window('换班时间间隔设置', 'funenc_xa_station.change_shifts',
+                'funenc_xa_station.funenc_xa_station_change_shifts_list', 'funenc_xa_station.funenc_xa_station_change_shifts_form')
+            </field>
+        </record>
+
+
         <record model="ir.ui.view" id="funenc_xa_station_change_shifts_list">
 			<field name="name">funenc_xa_station_change_shifts_list</field>
 			<field name="model">funenc_xa_station.change_shifts</field>
@@ -33,17 +46,11 @@
 				<form>
 					<div class="container-fluid">
                         <header>
-                            <button name="apply" type="object" string="申请" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'draft')]}"
+                            <button name="site_agree" type="object" string="审批通过" class="oe_highlight"
+                                    attrs="{'invisible': [('state','!=', 'approval_pending')]}"
                             />
-                            <button name="agree" type="object" string="本人同意" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'application')]}"
-                            />
-                            <button name="site_agree" type="object" string="站长同意" class="oe_highlight"
-                                    attrs="{'invisible': [('state','!=', 'agree')]}"
-                            />
-                            <button name="retreat" type="object" string="退回" class="oe_highlight"
-                                    attrs="{'invisible': [('state','in', ['draft','site_agree','application'])]}"
+                            <button name="retreat" type="object" string="驳回" class="oe_highlight"
+                                    attrs="{'invisible': [('state','!=', 'approval_pending')]}"
                             />
 
                             <field name="state" widget="statusbar"/>

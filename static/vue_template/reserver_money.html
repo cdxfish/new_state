@@ -25,9 +25,9 @@
 			</template>
 		</div>
 		  	<div class="block">
-				<el-button type="primary" icon="el-icon-circle-plus-outline" width="180"
-						   @click="add_record">新增记录</el-button>
-			    <el-button type="primary" icon="el-icon-upload2" width="180" >导入</el-button>
+				<!--<el-button type="primary" icon="el-icon-circle-plus-outline" width="180"-->
+						   <!--@click="add_record">新增记录</el-button>-->
+			    <!--<el-button type="primary" icon="el-icon-upload2" width="180" >导入</el-button>-->
 				<el-button type="primary" icon="el-icon-download" width="180"
 						   @click="import_excel_reserves">导出</el-button>
 			  </div>
@@ -130,7 +130,7 @@
 			</el-table-column>
 			<el-table-column  label="操作">
 				<template slot-scope="scope">
-					<el-button @click="onchange_data(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+					<el-button @click="onchange_data(scope.$index, scope.row)" type="text" size="small">修改</el-button>
 				  </template>
 			</el-table-column>
 		  </el-table>

@@ -2,6 +2,8 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
+import datetime
+
 
 class work_kanban(models.Model):
     _name = 'funenc_xa_station.work_kanban'
@@ -29,7 +31,7 @@ class work_kanban(models.Model):
     task_feedback = fields.Char(string='任务反馈')
     receive_task_state = fields.Selection(selection=[('receive_state', '接收状态'), ('completed', '已完成')])  # 接收任务状态
     completed_time = fields.Datetime(string='接收任务完成时间')
-    task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='完成任务接收人')  # 完成任务接收人
+    task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
 
     @api.model
     def create_work_kanban(self):
@@ -64,13 +66,23 @@ class work_kanban(models.Model):
     def work_kanban_save(self):
         dic = self.read(
             ['originator_time', 'task_send_user_ids', 'task_start_time', 'task_end_time',
-             'task_priority',
+             'task_priority', 'task_originator_id',
              'task_type_id', 'task_describe', 'task_state'
              ])
         if dic:
             copy_value = dic[0]
-            copy_value['task_type_id'] = copy_value.get('task_type_id')[0] or None
+            if copy_value.get('task_originator_id'):
+                copy_value['task_originator_id'] = copy_value.get('task_originator_id')[0]
+            else:
+                copy_value['task_originator_id'] = None
+
+            if copy_value['task_type_id']:
+                copy_value['task_type_id'] = copy_value.get('task_type_id')[0]
+            else:
+                copy_value['task_type_id'] = None
             user_ids = self.task_send_user_ids
+            copy_value['task_send_user_ids'] = [(6, 0, copy_value.get('task_send_user_ids'))]
+
             for user in user_ids:
                 # 人物不多循环创建不影响效率
                 copy_value['task_type'] = 'receive_task'
@@ -80,8 +92,7 @@ class work_kanban(models.Model):
                 copy_value['receive_task_state'] = 'receive_state'
 
                 self.create(copy_value)
-
-            self.is_send = 1
+        self.is_send = 1
 
     def check_task_complete(self):
         '''
@@ -89,12 +100,133 @@ class work_kanban(models.Model):
         :return:
         '''
         flag = True
-        self.task_state = 'completed'
+        self.receive_task_state = 'completed'
+        self.completed_time = datetime.datetime.now()
         child_ids = self.parent_id.child_ids
         for child_id in child_ids:
             if child_id.receive_task_state != 'completed':
                 flag = False
                 break
         if flag:
-            self.prent_id.task_state = 'completed'
+            self.parent_id.task_state = 'completed'
 
+    #   app
+    @api.model
+    def get_kanban_list(self, item):
+        ding_user = self.env.user.dingtalk_user
+
+        if not item:
+            return []
+            # kanban_list = self.search_read([],
+            #                                ['id', 'task_priority', 'task_describe', 'task_type_id', 'task_end_time'])
+            # for kanban in kanban_list:
+            #     kanban['task_type_id'] = kanban.get('task_type_id')[1]
+        else:
+            if item == 'recieve':
+                kanban_list = self.search_read(
+                    [('task_type', '=', 'receive_task'), ('task_send_user_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
+            elif item == 'send':
+                kanban_list = self.search_read(
+                    [('task_type', '=', 'send_task'), ('task_originator_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
+
+            else:
+                kanban_list = self.search_read(
+                    ['|', '&', ('task_type', '=', 'receive_task'), ('task_send_user_id', '=', ding_user.id), '&',
+                     ('task_type', '=', 'send_task'), ('task_originator_id', '=', ding_user.id)],
+                    ['id', 'task_priority', 'task_describe', 'task_type_id',
+                     'task_end_time'])
+
+            for kanban in kanban_list:
+                kanban['task_type_id'] = kanban.get('task_type_id')[1]
+
+        return kanban_list
+
+    @api.model
+    def get_kanban_by_id(self, id):
+        kanban = self.search_read([('id', '=', id)],
+                                  ['id', 'task_originator_id', 'originator_time', 'task_start_time', 'task_state',
+                                   'task_end_time', 'task_priority', 'task_type_id', 'task_send_user_id',
+                                   'task_describe', 'task_send_user_ids', 'receive_task_state',
+                                   'task_send_user_id', 'child_ids', 'task_type'
+                                   ])
+        if kanban:
+            kanban = kanban[0]
+            if kanban.get('task_originator_id'):
+                kanban['sender'] = kanban.get('task_originator_id')[1]
+            else:
+                kanban['sender'] = None
+            kanban.pop('task_originator_id')
+            if kanban.get('task_send_user_ids'):
+                kanban['sendee'] = kanban.get('task_send_user_ids')
+                kanban['sendee'] = [self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('id', '=', user_id)]).name
+                                    for user_id in kanban.get('task_send_user_ids')]
+
+            else:
+                kanban['sendee'] = None
+            kanban.pop('task_send_user_id')
+            kanban['complateInfo'] = []
+            child_ids = self.search([('id', 'in', kanban.get('child_ids'))])
+            for child_id in child_ids:
+                dic = {'id': child_id.task_send_user_id.id,
+                       'name': child_id.task_send_user_id.name,
+                       'complateTime': child_id.completed_time or '',
+                       'feedback': child_id.task_feedback or '',
+                       }
+                kanban['complateInfo'].append(dic)
+            if kanban.get('task_type_id'):
+                kanban['task_type_id'] = kanban.get('task_type_id')[1]
+            else:
+                kanban['task_type_id'] = None
+
+            return kanban
+        else:
+            return []
+
+    @api.model
+    def app_save_work_kanban(self, **kw):
+        try:
+            ding_user = self.env.user.dingtalk_user
+
+            kw['task_originator_id'] = ding_user.id
+            kw['originator_time'] = datetime.datetime.now()
+
+            task_send_user_ids = [int(id) for id in kw.get('ids')]
+            kw['task_send_user_ids'] = [(6, 0, task_send_user_ids)]
+            obj = self.create(kw)
+            obj.write({'is_send': 1})
+
+            for user_id in task_send_user_ids:
+                kw['task_type'] = 'receive_task'
+                kw['parent_id'] = obj.id
+                kw['receive_task_state'] = 'receive_state'
+                kw['task_send_user_id'] = user_id
+
+                self.create(kw)
+
+            return True
+        except Exception:
+            return False
+
+    @api.model
+    def app_save_kanban_type(self, taskid, feedBackContent):
+        self = self.browse([int(taskid)])
+        if self:
+            flag = True
+            self.receive_task_state = 'completed'
+            self.completed_time = datetime.datetime.now()
+            self.task_feedback = feedBackContent
+            child_ids = self.parent_id.child_ids
+            for child_id in child_ids:
+                if child_id.receive_task_state != 'completed':
+                    flag = False
+                    break
+            if flag:
+                self.parent_id.task_state = 'completed'
+
+            return {'receive_task_state': 'completed'}
+        else:
+            return {'receive_task_state': 'receive_state'}

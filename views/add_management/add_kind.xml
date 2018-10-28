@@ -2,9 +2,7 @@
 
 <odoo>
     <data>
-
         <record model="ir.actions.server" id="add_management_key_button">
-			<field name="name">规章制度</field>
 			<field name="name">新增专业分类</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
@@ -49,13 +47,27 @@
         </record>
 
         <record id="kind_act_id" model="ir.actions.act_window">
-              <field name="name">新增规章制度</field>
-              <field name="name">编辑专业分类</field>
+              <field name="name">新增专业分类</field>
               <field name="type">ir.actions.act_window</field>
               <field name="res_model">xian_metro.professional</field>
               <field name="view_type">form</field>
               <field name="view_mode">tree,kanban,form</field>
-              <field name="view_id" ref="kind_form_id"/>
+                <field name="top_widget">multi_action_tab</field>
+                <field name="top_widget_key">driver_manage_tab</field>
+                <field name="top_widget_options">
+                    {'tabs':
+                        [
+                            {'title': '专业分类',
+                            'action':  'funenc_xa_station.kind_act_id',
+                            'group':'funenc_xa_station.table_major_type'},
+                            {
+                                'title': '级别分类',
+                                'action2': 'funenc_xa_station.add_class_act_id',
+                                'group':'funenc_xa_station.table_level_type',
+                    },
+                        ]
+                    }
+                </field>
           </record>
           <record id="kind_act_tree" model="ir.actions.act_window.view">
               <field eval="1" name="sequence"/>

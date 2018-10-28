@@ -2,6 +2,17 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="xa_scheduling_settings">
+		<field name="name">排班设置</field>
+		<field name="type">ir.actions.server</field>
+		<field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+		<field name="condition">True</field>
+		<field name="state">code</field>
+		<field name="code">
+		    action = model.return_act_window('排班设置', 'funenc_xa_station.arrange_order',
+		    'funenc_xa_station.funenc_xa_station_arrange_order_list', 'funenc_xa_station.funenc_xa_station_arrange_order_form')
+		</field>
+		</record>
 
         <record model="ir.actions.server" id="create_arrange_order_11">
 			<field name="name">新增班次</field>

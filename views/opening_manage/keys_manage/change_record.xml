@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
+
+		<record model="ir.actions.server" id="change_record_act_window">
+		<field name="name">变更记录</field>
+		<field name="type">ir.actions.server</field>
+		<field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+		<field name="condition">True</field>
+		<field name="state">code</field>
+		<field name="code">
+		    action = model.return_act_window('变更记录', 'funenc.xa.station.change.record',
+		    'funenc_xa_station.funenc_xa_station_change_record_list', 'funenc_xa_station.funenc_xa_station_change_record_form')
+		</field>
+		</record>
+
 		<record model="ir.ui.view" id="funenc_xa_station_change_record_list">
 			<field name="name">funenc_xa_station_change_record_list</field>
 			<field name="model">funenc.xa.station.change.record</field>

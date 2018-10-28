@@ -2,6 +2,17 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="xa_scheduling_class_group_settings">
+		<field name="name">班组设置</field>
+		<field name="type">ir.actions.server</field>
+		<field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+		<field name="condition">True</field>
+		<field name="state">code</field>
+		<field name="code">
+		    action = model.return_act_window('班组设置', 'funenc_xa_station.class_group',
+		    'funenc_xa_station.funenc_xa_station_class_group_list', 'funenc_xa_station.funenc_xa_station_class_group_form')
+		</field>
+		</record>
 
         <record model="ir.actions.server" id="create_arrange_order_12">
 			<field name="name">新增班组</field>
