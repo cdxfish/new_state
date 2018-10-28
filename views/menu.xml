@@ -319,6 +319,7 @@
           <field name="res_model">funenc_xa_station.special_card_preset</field>
 		  <field name="view_mode">tree,form</field>
         </record>
+
 		<record model="ir.actions.server" id="xa_station_station_master_action">
 			<field name="name">值班站长</field>
 			<field name ="state">code</field>
@@ -336,6 +337,21 @@
 				action = model.init_data()
 			</field>
 		</record>
+
+		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
+			<field name="name">换班时间间隔设置</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_task_type"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="task_type_action">
+          <field name="name">任务时间设置</field>
+          <field name="res_model">funenc_xa_station.task_type</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
 
 		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
           <field name="name">排班列表</field>
