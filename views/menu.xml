@@ -293,6 +293,38 @@
           <field name="name">行车值班员</field>
           <field name="res_model">funenc_xa_station.car_line</field>
 		  <field name="view_mode">tree,form</field>
+			<field name="top_widget">multi_action_tab</field>
+			<field name="top_widget_key">driver_manage_tab</field>
+		   	<field name="top_widget_options">
+                    {'tabs':
+                        [
+						{'title': '(缺)值班站长',
+					   'action':  'funenc_xa_station.xa_station_car_line_action',
+						'group':'funenc_xa_station.table_station_agent',
+					   },
+					   {
+						   'title': '行车值班员',
+						   'action2' : 'funenc_xa_station.xa_station_car_line_action',
+						   'group' : 'funenc_xa_station.table_car_station_people',
+						   },
+					   {
+						   'title': '客运值班员',
+						   'action2':  'funenc_xa_station.xa_station_passenger_transport_action',
+						   'group' : 'funenc_xa_station.table_passenger_duty_people',
+						   },
+					  {
+						   'title': '站务员',
+						   'action2':  'funenc_xa_station.xa_station_station_service_action',
+						   'group' : 'funenc_xa_station.table_station_attendant',
+						   },
+					  {
+						   'title': '票岗亭',
+						   'action2':  'funenc_xa_station.table_sentry_box',
+						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+                        ]
+                    }
+			</field>
         </record>
 
        <!--car_line-->
@@ -836,17 +868,17 @@
 
 	<menuitem id="xa_station_change_shifts_setting_1" name="(缺)交接班-交接班设置"
 				  parent="system_configuration" sequence="1"
-			  groups="system_shifts" action="prude_newpaper_type_server"
+			  groups="system_shifts" action="xa_station_car_line_action"
 		/>
 
-	<menuitem id="xa_station_change_shifts_setting_1_fu" name="(缺)交接班-车站特殊卡预设"
-				  parent="system_configuration"
-			  groups="system_station_card" sequence="2" action="prude_newpaper_type_server"
-		/>
+	<!--<menuitem id="xa_station_change_shifts_setting_1_fu" name="(缺)交接班-车站特殊卡预设"-->
+				  <!--parent="system_configuration"-->
+			  <!--groups="system_station_card" sequence="2" action="prude_newpaper_type_server"-->
+		<!--/>-->
 	<menuitem id="prude_newpaper_type_menu" groups="system_production_events" name="生产日报-生产事件设置" action="prude_newpaper_type_server"
               parent="system_configuration" sequence="3"></menuitem>
 
-	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="(缺)工作看板-任务事件设置" action="prude_newpaper_type_server"
+	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="(缺)工作看板-任务事件设置" action="task_type_action"
               parent="system_configuration" sequence="4"></menuitem>
 
 	<menuitem id="break_type_increase_menu" groups="system_fault_list_type" name="故障列表-故障类型设置" action="break_type_increase_act"
