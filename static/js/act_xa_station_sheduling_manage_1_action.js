@@ -124,6 +124,17 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
                 }],
             }
         },
+//        willStart: function(){
+//            var self = this;
+//            return self._rpc({
+//                model: '',
+//                method: '',
+//                kwargs: '',
+//            }).then(function(data){
+//                self.vue_data = data
+//            })
+//
+//        },
         start: function () {
             var self = this;
             self._rpc({
