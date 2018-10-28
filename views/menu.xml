@@ -337,15 +337,21 @@
 			</field>
 		</record>
 
-		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
-          <field name="name">排班列表</field>
-          <field name="res_model">funenc_xa_station.sheduling_record</field>
-		  <field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>
-			<field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">
-            </field>
-        </record>
+		<record id="funenc_xa_station.xa_station_sheduling_manage_1_action" model="ir.actions.client">
+		    <field name="name">排班管理</field>
+		    <field name="tag">act_xa_station_sheduling_manage_1_action</field>
+		    <field name="target">current</field>
+		</record>
+
+		<!--<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">-->
+          <!--<field name="name">排班列表</field>-->
+          <!--<field name="res_model">funenc_xa_station.sheduling_record</field>-->
+		  <!--<field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>-->
+			<!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.actions.act_window" id="xa_station_clock_list_action">
             <field name="name">打卡记录</field>
