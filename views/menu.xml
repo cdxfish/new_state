@@ -376,15 +376,15 @@
 		    <field name="target">current</field>
 		</record>
 
-		<!--<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">-->
-          <!--<field name="name">排班列表</field>-->
-          <!--<field name="res_model">funenc_xa_station.sheduling_record</field>-->
-		  <!--<field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>-->
-			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">-->
-            <!--</field>-->
-        <!--</record>-->
+		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action11111">
+          <field name="name">排班列表</field>
+          <field name="res_model">funenc_xa_station.sheduling_record</field>
+		  <field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">
+            </field>
+        </record>
 		
 		<record model="ir.actions.act_window" id="task_type_action">
           <field name="name">任务时间设置</field>
@@ -658,14 +658,19 @@
 				  sequence="2" action="xa_station_sheduling_manage_list_action"
 		/>
 
-		<menuitem id="xa_station_sheduling_manage_list" name="排班列表111"
-				  parent="station_scheduling_list"
-				  action="xa_station_sheduling_manage_list_action"
-		/>
+		<!--<menuitem id="xa_station_sheduling_manage_list" name="排班列表111"-->
+				  <!--parent="station_scheduling_list"-->
+				  <!--action="xa_station_sheduling_manage_list_action"-->
+		<!--/>-->
 
 		<menuitem id="xa_station_sheduling_manage" name="排班管理"
 				  parent="funenc_station_integrated_management"
 				  action="xa_station_sheduling_manage_1_action" groups="system_scheduling_management" sequence="8"
+		/>
+
+		<menuitem id="xa_station_sheduling_manage11111" name="排班管理11111"
+				  parent="funenc_station_integrated_management"
+				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"
 		/>
 
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"

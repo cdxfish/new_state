@@ -361,15 +361,14 @@ class ShedulingManage(models.Model):
     #            + [group_cols,motorized_cols] + [group_data] + [motorized_data]
 
     def save(self):
-        self.sheduling_start()
-
-        # return {
-        #     'name': '排班管理',
-        #     'type': 'ir.actions.client',
-        #     'res_id': self.id,
-        #     'tag': 'funenc_xa_station_sheduling_manage',
-        #     'target': 'current'
-        # }
+        show_data = self.sheduling_start()
+        return {
+            'name': '排班管理',
+            'type': 'ir.actions.client',
+            'tag': 'act_xa_station_sheduling_manage_1_action',
+            'target': 'current',
+            'params': {'show_data': show_data}
+        }
 
     @api.model
     def sheduling_start(self):
@@ -580,14 +579,144 @@ class ShedulingManage(models.Model):
                          "values{}".format(str(motorized_data)[1:-1])
             self.env.cr.execute(insert_sql)
 
-        # group_cols = [{'col': 'class_group_name', 'label': '班组名称'}, {'col': 'name', 'label': '人员名称'},
-        #               {'col': 'position', 'label': '岗位'}]
-        # motorized_cols = [{'col': 'name', 'label': '人员名称'}, {'col': 'position', 'label': '岗位'}]
-        # for key in time_days:
-        #     group_cols.append({'col': key, 'label': key})
-        #     motorized_cols.append({'col': key, 'label': key})
-        # return [[show_position, show_sheduling_time, show_arrange_order_name, current_rule]] \
-        #        + [group_cols, motorized_cols] + [group_data] + [motorized_data]
+        #  统计
+
+        # days
+        show_data = {}
+        show_time_days = []  # 排班显示时间
+        for day in range(days):
+            str_to_datetime = start_datetime + datetime.timedelta(days=day)
+            datetime_to_str = str_to_datetime.strftime('%Y-%m-%d')[5:11]
+            if datetime_to_str == '0':
+                show_time_days.append(datetime_to_str[1:])
+            else:
+                show_time_days.append(datetime_to_str)
+
+        show_data['days'] = show_time_days
+
+        #  数据太多不能循环用orm
+        # 班组
+        sel_groups = self.env['funenc_xa_station.sheduling_record'].search_read(
+            [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
+             ('order_type', '=', 'order_group')], order='sheduling_date asc')
+
+        show_data['group_table_data'] = self.get_data(sel_groups)
+
+        # 机动
+        motorizeds = self.env['funenc_xa_station.sheduling_record'].search_read(
+            [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
+             ('order_type', '=', 'motorized_group')])
+        show_data['motorized_group_table_data'] = self.get_data(motorizeds)
+        show_data['total_group_table_data'] = self.total_group_table_data(sel_groups+motorizeds,show_time_days)
+
+        shift_options = []
+
+        arrange_orders = self.env['funenc_xa_station.arrange_order'].search_read([('site_id', '=', site_id)],
+                                                                                 ['id', 'name'])
+        for arrange_order in arrange_orders:
+            tmp = {
+                'id': arrange_order.get('id'),
+                'label': arrange_order.get('name')
+            }
+            shift_options.append(tmp)
+
+        show_data['shift_options'] = shift_options
+
+        return show_data
+
+    def total_group_table_data(self, groups, days):
+        '''
+        统计班次次数
+        :param groups:  参数需要按时间升序
+        :return:
+        '''
+        data = []
+        group_ids = {}  # id为key去重
+        for group in groups:
+            group_ids[group.get('arrange_order_id')[0]] = group
+
+        for group_id in group_ids.keys():
+            compute_groups = []  # 同一班次数据
+            for group_tmp in groups:
+                if group_tmp.get('arrange_order_id')[0] == group_id:
+                    group_tmp['sheduling_date'] = group_tmp['sheduling_date'][5:] if group_tmp['sheduling_date'] else '无'
+                    compute_groups.append(group_tmp)
+
+            # 构建排班统计数据
+            if compute_groups:
+                user_dic = {
+                    'group_name': compute_groups[0].get('arrange_order_id')[1] if compute_groups[0].get(
+                        'class_group_id') else '',
+                    'shift_value': []
+                }
+
+                for day in days:
+
+                    count = 0
+                    for compute_group in compute_groups:
+                        if compute_group.get('sheduling_date') == day:
+                            count = count + 1
+                    user_dic['shift_value'].append({
+                        'user_number':count
+                    })
+
+            else:
+                user_dic = {}
+
+            data.append(user_dic)
+
+        return data
+
+    def get_data(self, group_data):
+        '''
+        获取排班
+        :param group_data:
+        :return:
+        '''
+        groups = group_data
+        data = []
+        group_user_ids = {}  # 去重
+        for group in groups:
+            group_user_ids[group.get('user_id')[0]] = group
+
+        for user_id in group_user_ids.keys():
+            compute_users = []  # 同一个人数据
+            for group_tmp in groups:
+                if group_tmp.get('user_id')[0] == user_id:
+                    compute_users.append(group_tmp)
+
+            # 构建排班个人数据
+            if compute_users:
+                user_dic = {
+                    'user_name': compute_users[0].get('user_id')[1] if compute_users[0].get('user_id') else '',
+                    'group_name': compute_users[0].get('class_group_id')[1] if compute_users[0].get(
+                        'class_group_id') else '',
+                    'work_number': compute_users[0].get('user_no'),
+                    'position': compute_users[0].get('user_position'),
+                    'shift_value': []
+                }
+
+                for compute_user in compute_users:
+                    shift_value = {
+                        'id': compute_user.get('arrange_order_id')[0] if compute_user.get('arrange_order_id') else '',
+                        'shift': compute_user.get('arrange_order_id')[1] if compute_user.get('arrange_order_id') else ''
+
+                    }
+                    user_dic['shift_value'].append(shift_value)
+            else:
+                user_dic = {}
+
+            data.append(user_dic)
+
+        return data
+
+
+    @api.model
+    def save_change_data(self,**kw):
+
+        a =kw
+        return {'message': '\u4fdd\u5b58\u6210\u529f'}
+
 
 
 class ShedulingRecordr(models.Model):
@@ -599,7 +728,7 @@ class ShedulingRecordr(models.Model):
     class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
     time_interval = fields.Char(related='arrange_order_id.time', string='班次时间')
-    sheduling_date = fields.Datetime(string='排班时间')
+    sheduling_date = fields.Date(string='排班时间')
     order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')], string='班组类型')
     work_time = fields.Integer(string='工作时长')  # 工作时长
 
@@ -607,6 +736,7 @@ class ShedulingRecordr(models.Model):
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='排班人员')
     user_name = fields.Char(related='user_id.name', string="名字")
     user_position = fields.Text(related='user_id.position', string="职位")
+    user_no = fields.Char(related='user_id.jobnumber', string="工号")
 
     @api.model
     def get_sheduling_record_by_user(self, month):

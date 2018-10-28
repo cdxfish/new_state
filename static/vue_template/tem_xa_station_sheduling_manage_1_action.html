@@ -44,9 +44,9 @@
                         <el-select size="mini" v-model="scope.row.shift_value[index].shift" placeholder="请选择班次">
                             <el-option
                                     v-for="item in shift_options"
-                                    :key="item.value"
+                                    :key="item.id"
                                     :label="item.label"
-                                    :value="item.value">
+                                    :value="item.id">
                             </el-option>
                         </el-select>
                     </template>
@@ -90,12 +90,15 @@
                                  align="center"
                                  :label="item">
                     <template slot-scope="scope">
-                        <el-select size="mini" v-model="scope.row.shift_value[index].shift" placeholder="请选择班次">
+                        <el-select size="mini" v-model="scope.row.shift_value[index].shift" placeholder="请选择班次"
+                                   @change="change_data($event,scope.row)"
+                        >
                             <el-option
                                     v-for="item in shift_options"
-                                    :key="item.value"
+                                    :key="item.id"
                                     :label="item.label"
-                                    :value="item.value">
+                                    :value="item.id"
+                            >
                             </el-option>
                         </el-select>
                     </template>
