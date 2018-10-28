@@ -293,6 +293,38 @@
           <field name="name">行车值班员</field>
           <field name="res_model">funenc_xa_station.car_line</field>
 		  <field name="view_mode">tree,form</field>
+			<field name="top_widget">multi_action_tab</field>
+			<field name="top_widget_key">driver_manage_tab</field>
+		   	<field name="top_widget_options">
+                    {'tabs':
+                        [
+						{'title': '(缺)值班站长',
+					   'action':  'funenc_xa_station.xa_station_car_line_action',
+						'group':'funenc_xa_station.table_station_agent',
+					   },
+					   {
+						   'title': '行车值班员',
+						   'action2' : 'funenc_xa_station.xa_station_car_line_action',
+						   'group' : 'funenc_xa_station.table_car_station_people',
+						   },
+					   {
+						   'title': '客运值班员',
+						   'action2':  'funenc_xa_station.xa_station_passenger_transport_action',
+						   'group' : 'funenc_xa_station.table_passenger_duty_people',
+						   },
+					  {
+						   'title': '站务员',
+						   'action2':  'funenc_xa_station.xa_station_station_service_action',
+						   'group' : 'funenc_xa_station.table_station_attendant',
+						   },
+					  {
+						   'title': '票岗亭',
+						   'action2':  'funenc_xa_station.table_sentry_box',
+						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+                        ]
+                    }
+			</field>
         </record>
 
        <!--car_line-->
@@ -319,6 +351,7 @@
           <field name="res_model">funenc_xa_station.special_card_preset</field>
 		  <field name="view_mode">tree,form</field>
         </record>
+
 		<record model="ir.actions.server" id="xa_station_station_master_action">
 			<field name="name">值班站长</field>
 			<field name ="state">code</field>
@@ -352,6 +385,22 @@
             <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">-->
             <!--</field>-->
         <!--</record>-->
+		
+		<record model="ir.actions.act_window" id="task_type_action">
+          <field name="name">任务时间设置</field>
+          <field name="res_model">funenc_xa_station.task_type</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="funenc_xa_station.xa_station_sheduling_manage_1_action">
+          <field name="name">排班列表</field>
+          <field name="res_model">funenc_xa_station.sheduling_record</field>
+		  <field name="view_mode">tree,form,claendar,kanban,graph,pivot</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_list_1')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_sheduling_record_form')})]">
+            </field>
+        </record>
 
         <record model="ir.actions.act_window" id="xa_station_clock_list_action">
             <field name="name">打卡记录</field>
@@ -372,7 +421,7 @@
 					   },
 					   {
 						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'action2' : 'funenc_xa_station.create_funenc_xa_station_leave_1',
 						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
 					   {
@@ -544,38 +593,38 @@
 		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
 		          <!--parent="integrated_management_station_detail"/>-->
 
-		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
-				   parent="funenc_station_integrated_management"
-				   action="station_detail_ground_traffic"
+		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
+				   <!--parent="funenc_station_integrated_management"-->
+				   <!--action="station_detail_ground_traffic"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_3" name="土建结构" sequence="3"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_civil_engineering"
+		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_civil_engineering"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_4" name="线路、道岔" sequence="4"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_line_turnout"
-		 />
+		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_line_turnout"-->
+		 <!--/>-->
 
-		 <menuitem id="station_detail_5" name="信号系统" sequence="5"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_signal_system"
+		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_signal_system"-->
 
-		 />
+		 <!--/>-->
 
-		 <menuitem id="station_detail_6" name="人员配置" sequence="6"
-		           parent="funenc_station_integrated_management"
-				   action="funenc_station_station_staffing"
-		 />
+		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
+		           <!--parent="funenc_station_integrated_management"-->
+				   <!--action="funenc_station_station_staffing"-->
+		 <!--/>-->
 
-		 <menuitem id="station_detail_7" name="消防逃生图" sequence="7"
-				   parent="funenc_station_integrated_management"
-		           action="funenc_station_station_exit"
-		 />
+		 <!--<menuitem id="station_detail_7" name="消防逃生图" sequence="7"-->
+				   <!--parent="funenc_station_integrated_management"-->
+		           <!--action="funenc_station_station_exit"-->
+		 <!--/>-->
 
 
 
@@ -621,7 +670,7 @@
 
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
 				  parent="funenc_station_integrated_management"
-				  groups="system_attendance_management" sequence="9" action="xa_station_leave_list_action"
+				  groups="system_attendance_management" sequence="9" action="create_funenc_xa_station_leave_1"
 		/>
 		<!--<menuitem id="xa_station_leave_list_1" name="请假列表"-->
 				  <!--parent="funenc_xa_station_check_attendance"-->
@@ -842,17 +891,17 @@
 
 	<menuitem id="xa_station_change_shifts_setting_1" name="(缺)交接班-交接班设置"
 				  parent="system_configuration" sequence="1"
-			  groups="system_shifts" action="prude_newpaper_type_server"
+			  groups="system_shifts" action="xa_station_car_line_action"
 		/>
 
-	<menuitem id="xa_station_change_shifts_setting_1_fu" name="(缺)交接班-车站特殊卡预设"
-				  parent="system_configuration"
-			  groups="system_station_card" sequence="2" action="prude_newpaper_type_server"
-		/>
+	<!--<menuitem id="xa_station_change_shifts_setting_1_fu" name="(缺)交接班-车站特殊卡预设"-->
+				  <!--parent="system_configuration"-->
+			  <!--groups="system_station_card" sequence="2" action="prude_newpaper_type_server"-->
+		<!--/>-->
 	<menuitem id="prude_newpaper_type_menu" groups="system_production_events" name="生产日报-生产事件设置" action="prude_newpaper_type_server"
               parent="system_configuration" sequence="3"></menuitem>
 
-	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="(缺)工作看板-任务事件设置" action="prude_newpaper_type_server"
+	<menuitem id="prude_newpaper_type_menu_fu" groups="system_work_kanban_project" name="工作看板-任务事件设置" action="task_type_action"
               parent="system_configuration" sequence="4"></menuitem>
 
 	<menuitem id="break_type_increase_menu" groups="system_fault_list_type" name="故障列表-故障类型设置" action="break_type_increase_act"

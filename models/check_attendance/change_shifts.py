@@ -249,7 +249,7 @@ class ChangeShiftsTime(models.Model):
             'context': context,
             'target': 'current',
         }
-        if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
+        if self.env.user.id !=1:
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             obj = self.search([('site_id', '=', department.id)])
