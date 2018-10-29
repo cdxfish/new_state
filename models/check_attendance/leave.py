@@ -6,6 +6,7 @@ from odoo import models, fields, api
 import datetime, time
 from ..get_domain import get_domain
 
+
 class Leave(models.Model):
     _name = 'funenc_xa_station.leave'
     _description = '请假模型'
@@ -38,7 +39,9 @@ class Leave(models.Model):
         for this in self:
             start_work_time = datetime.datetime.strptime(this.leave_start_time, '%Y-%m-%d %H:%M:%S')
             end_work_time = datetime.datetime.strptime(this.leave_end_time, '%Y-%m-%d %H:%M:%S')
-            this.leave_length = round( (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple())+(24*60*60)) / (60 * 60), 2)
+            this.leave_length = round(
+                (time.mktime(end_work_time.timetuple()) - time.mktime(start_work_time.timetuple()) + (24 * 60 * 60)) / (
+                        60 * 60), 2)
 
     @api.model
     @get_domain
@@ -108,7 +111,6 @@ class Leave(models.Model):
     def delete(self):
         self.unlink()
 
-
     @api.model
     def get_leave_list(self):
 
@@ -116,14 +118,33 @@ class Leave(models.Model):
 
     @api.model
     def save(self):
-        leave_user_id = self.leave_user_id # 请假人
+        leave_user_id = self.leave_user_id  # 请假人
         site_id = leave_user_id.departments[0].id
-        vacation_id = self.env['funenc_xa_station.sheduling_record'].search([('site_id','=',site_id),('is_vacation','=',1)]).id  # 休假
-        leave_start_time = self.leave_start_time # 请假开始时间
+        vacation_id = self.env['funenc_xa_station.sheduling_record'].search(
+            [('site_id', '=', site_id), ('is_vacation', '=', 1)]).id  # 休假
+        leave_start_time = self.leave_start_time  # 请假开始时间
         leave_end_time = self.leave_end_time  # 请假结束时间
-        sheduling_records = self.env['funenc_xa_station.sheduling_record'].search([('sheduling_date','>=',leave_start_time),('sheduling_date','<=',leave_end_time)])
+        sheduling_records = self.env['funenc_xa_station.sheduling_record'].search(
+            [('sheduling_date', '>=', leave_start_time), ('sheduling_date', '<=', leave_end_time)])
         for sheduling_record in sheduling_records:
             # if sheduling_record.arrange_order_id.is_vacation == 1:
             sheduling_record.arrange_order_id = vacation_id
 
+        # 考勤   更改  必须出排班 不然排班改不了
+        start_datetime = datetime.datetime.strptime(leave_end_time, '%Y-%m-%d')
+        days = (start_datetime - datetime.datetime.strptime(leave_start_time, '%Y-%m-%d')).days + 1
+        # clock_records = self.env['fuenc_station.clock_record'].search(
+        #     [('time', '>=', leave_start_time), ('time', '<=', leave_end_time), ('user_id', '=', leave_user_id)])
+        time_days = []
+        for day in range(days):
+            str_to_datetime = start_datetime + datetime.timedelta(days=day)
+            time_days.append(str_to_datetime)
 
+        for time_day in time_days:
+            self.env['fuenc_station.clock_record'].create({
+                'arrange_order_id': vacation_id,
+                'is_leave': 1,
+                'show_value': self.leave_type,
+                'time': time_day,
+                'user_id': leave_user_id
+            })
