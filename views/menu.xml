@@ -213,11 +213,11 @@
                 </field>
         </record>
 
-		<!--<record model="ir.actions.act_window" id="xa_station_leave_list_action">-->
-          <!--<field name="name">请假列表</field>-->
-          <!--<field name="res_model">funenc_xa_station.leave</field>-->
-		  <!--<field name="view_mode">tree,form</field>-->
-        <!--</record>-->
+		<record model="ir.actions.act_window" id="xa_station_leave_list_action">
+          <field name="name">请假列表</field>
+          <field name="res_model">funenc_xa_station.leave</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
 
 		<record model="ir.actions.act_window" id="xa_station_sheduling_manage_list_action">
           <field name="name">排班列表</field>
@@ -673,14 +673,35 @@
 				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"
 		/>
 
+		<record model="ir.actions.client" id="xa_station_sheduling_manage_1_action11111111111">
+          <field name="name">排班汇总</field>
+          <field name="tag">test_html_client</field>
+        </record>
+
+		<record model="ir.actions.client" id="xa_station_punch_clock_client_action22">
+          <field name="name">考勤汇总</field>
+          <field name="tag">punch_clock_client</field>
+        </record>
+
+
+		<menuitem id="xa_station_sheduling_manage22" name="考勤汇总"
+				  parent="funenc_station_integrated_management"
+				  action="funenc_xa_station.xa_station_punch_clock_client_action22"  sequence="8"
+		/>
+
+		<menuitem id="xa_station_sheduling_manage11111111111" name="排班汇总"
+				  parent="funenc_station_integrated_management"
+				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111111111" sequence="8"
+		/>
+
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
 				  parent="funenc_station_integrated_management"
 				  groups="system_attendance_management" sequence="9" action="create_funenc_xa_station_leave_1"
 		/>
-		<!--<menuitem id="xa_station_leave_list_1" name="请假列表"-->
-				  <!--parent="funenc_xa_station_check_attendance"-->
-				  <!--action="xa_station_leave_list_action"-->
-		<!--/>-->
+		<menuitem id="xa_station_leave_list_1" name="请假列表"
+				  parent="funenc_station_integrated_management"
+				  action="xa_station_leave_list_action"
+		/>
         <!--<menuitem id="xa_station_clock_1" name="打卡记录"-->
 				  <!--parent="funenc_xa_station_check_attendance"-->
 				  <!--action="xa_station_clock_list_action"-->

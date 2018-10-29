@@ -113,3 +113,17 @@ class Leave(models.Model):
     def get_leave_list(self):
 
         pass
+
+    @api.model
+    def save(self):
+        leave_user_id = self.leave_user_id # 请假人
+        site_id = leave_user_id.departments[0].id
+        vacation_id = self.env['funenc_xa_station.sheduling_record'].search([('site_id','=',site_id),('is_vacation','=',1)]).id  # 休假
+        leave_start_time = self.leave_start_time # 请假开始时间
+        leave_end_time = self.leave_end_time  # 请假结束时间
+        sheduling_records = self.env['funenc_xa_station.sheduling_record'].search([('sheduling_date','>=',leave_start_time),('sheduling_date','<=',leave_end_time)])
+        for sheduling_record in sheduling_records:
+            # if sheduling_record.arrange_order_id.is_vacation == 1:
+            sheduling_record.arrange_order_id = vacation_id
+
+

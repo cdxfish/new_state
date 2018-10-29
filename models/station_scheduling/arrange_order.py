@@ -23,6 +23,7 @@ class arrange_order(models.Model):
     end_work_time = fields.Datetime(string='下班时间', required= True)
     end_time_select = fields.Selection(string='下班日期',selection=[('same_day','当日'),('next_day','次日')],default='same_day')
     sort = fields.Integer(string='排序', default=1)
+    is_vacation = fields.Integer(string='是否是休班',default=0)
 
     @api.model
     def default_start_work_time(self):
@@ -53,13 +54,14 @@ class arrange_order(models.Model):
                           'start_work_time': datetime.datetime.strptime('1970-1-1', '%Y-%m-%d'),
                           'end_work_time': datetime.datetime.strptime('1970-1-1', '%Y-%m-%d'),
                           'time': '00:00-23:59(当日)',
-                          'work_time': '0h'
+                          'work_time': '0h',
+                          'is_vacation': 1
 
                           }
 
                 sql = "insert into funenc_xa_station_arrange_order" \
-                      "(name,site_id,line_id,sort,start_work_time,end_work_time,time,work_time)  " \
-                      "values('{name}',{site_id},{line_id},{sort},'{start_work_time}','{end_work_time}','{time}','{work_time}')".format(
+                      "(name,site_id,line_id,sort,start_work_time,end_work_time,time,work_time,is_vacation)  " \
+                      "values('{name}',{site_id},{line_id},{sort},'{start_work_time}','{end_work_time}','{time}','{work_time}',{is_vacation})".format(
                        **values
                 )
                 self.env.cr.execute(sql)

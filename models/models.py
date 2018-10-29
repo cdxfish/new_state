@@ -237,7 +237,7 @@ class inherit_department(models.Model):
 
     @api.model
     def get_line_id(self):
-        if self.env.user == 1:
+        if self.env.user.id == 1:
             return self.search_read([('department_hierarchy', '=', 2)], ['id', 'name'])
         else:
             ding_user = self.env.user.dingtalk_user
@@ -253,7 +253,7 @@ class inherit_department(models.Model):
 
     @api.model
     def get_sites(self, line_id):
-        if self.env.user == 1:
+        if self.env.user.id == 1:
             return self.search_read([('department_hierarchy', '=', 3)], ['id', 'name'])
         else:
             ding_user = self.env.user.dingtalk_user
@@ -264,3 +264,5 @@ class inherit_department(models.Model):
                 return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
             else:
                 return [{'id': ding_user.departments[0].id, 'name': ding_user.department_name}]
+
+

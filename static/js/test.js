@@ -1,16 +1,17 @@
 /**
  * Created by artorias on 2018/10/28.
  */
-odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
+odoo.define('scheduling_summary_clint', function (require) {
     'use strict';
 
     var Widget = require('web.Widget');
     var core = require('web.core');
 
-    var act_xa_station_sheduling_manage_1_action = Widget.extend({
+    var scheduling_summary_clint = Widget.extend({
         init: function (parent, record, node) {
+            console.log(record.params.show_data)
             this._super(parent, record, node);
-            this.vue_data=record.params.show_data;
+//            this.vue_data=record.params.show_data;
 
         },
 
@@ -18,7 +19,7 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
 //            var self = this;
 //            return self._rpc({
 //                model: 'funenc_xa_station.sheduling_manage',
-//                method: '',
+//                method: 'get_sheuling_list_1',
 //                kwargs: '',
 //            }).then(function(data){
 //                self.vue_data = data
@@ -32,7 +33,7 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
                 method: 'get_template_content',
                 kwargs: {
                     module_name: 'funenc_xa_station',
-                    template_name: 'tem_xa_station_sheduling_manage_1_action'
+                    template_name: 'test_dome'
                 }
             }).then(function (el) {
                 self.replaceElement($(el));
@@ -59,7 +60,7 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
                         },
 
                         change_data: function($event,data){
-//                            console.log($event);
+                            console.log($event);
 
                         },
 
@@ -69,6 +70,6 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
             })
         }
     });
-    core.action_registry.add('act_xa_station_sheduling_manage_1_action', act_xa_station_sheduling_manage_1_action);
-    return {act_xa_station_sheduling_manage_1_action: act_xa_station_sheduling_manage_1_action}
+    core.action_registry.add('scheduling_summary_clint', scheduling_summary_clint);
+    return {scheduling_summary_clint: scheduling_summary_clint}
 });

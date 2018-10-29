@@ -3,19 +3,18 @@ import odoo.exceptions as msg
 import datetime
 from ..get_domain import get_domain
 
+KEY = [('send', '待确认'),
+       ('refuse', '已拒绝'),
+       ('approval_pending', '待审批'),
+       ('pass', '已通过'),
+       ('reject', '已驳回')
+       ]
 
-KEY =[('send', '待确认'),
-     ('refuse', '已拒绝'),
-     ('approval_pending', '待审批'),
-     ('pass', '已通过'),
-     ('reject', '已驳回')
-     ]
 
 class ChangeShifts(models.Model):
     _name = 'funenc_xa_station.change_shifts'
     _description = '换班'
     _inherit = 'fuenc_station.station_base'
-
 
     application_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='申请人')
     jobnumber = fields.Char(related='application_user_id.jobnumber', string="工号")
@@ -40,7 +39,7 @@ class ChangeShifts(models.Model):
     approve_time = fields.Datetime(string='审批时间')
     reject_time = fields.Datetime(string='驳回时间')
     reason = fields.Text(string='换班原因')
-    examine_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='审核人')
+    examine_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='审核人')
 
     # change_shifts_state = fields.Selection(selection=[('send', '发起的'), ('receive', '接收的')])
     #
@@ -97,6 +96,16 @@ class ChangeShifts(models.Model):
         self.approve_time = datetime.datetime.now()
         self.is_approve = 'yes'
         self.state = 'pass'
+
+        #   换班
+        change_shifts_group = self.change_shifts_group_1.arrange_order_id.id  # 换班班次
+        change_user_id = self.change_shifts_group_1.user.id
+        personal_change_shifts = self.personal_change_shifts_1.arrange_order_id.id  # 个人班次
+        personal_user_id = self.personal_change_shifts_1.user.id
+        self.change_shifts_group_1.arrange_order_id = personal_change_shifts
+        self.change_shifts_group_1.user_id = change_user_id
+        self.personal_change_shifts_1.arrange_order_id = change_shifts_group
+        self.personal_change_shifts_1.user_id = personal_user_id
 
     def retreat(self):
 
@@ -181,8 +190,8 @@ class ChangeShifts(models.Model):
                 'originTime': change_shifts.personal_change_shifts_1.time_interval[
                               :-5] if change_shifts.personal_change_shifts_1.time_interval else '',
                 'originUser': change_shifts.application_user_id.name,
-                'originUserJobNum' :change_shifts.application_user_id.jobnumber,
-                'changeDate':change_shifts.change_shifts_group_1.sheduling_date,
+                'originUserJobNum': change_shifts.application_user_id.jobnumber,
+                'changeDate': change_shifts.change_shifts_group_1.sheduling_date,
                 'changeDON': change_shifts.change_shifts_group_1.arrange_order_id.name,
                 'changeTime': change_shifts.change_shifts_group_1.time_interval[
                               :-5] if change_shifts.change_shifts_group_1.time_interval else '',
@@ -202,7 +211,7 @@ class ChangeShifts(models.Model):
             return []
 
     @api.model
-    def save_state(self,id,states):
+    def save_state(self, id, states):
         try:
             id = int(id)
             ding_user = self.env.user.dingtalk_user
@@ -229,8 +238,6 @@ class ChangeShifts(models.Model):
             return False
 
 
-
-
 class ChangeShiftsTime(models.Model):
     _name = 'funenc_xa_station.change_shifts_time'
     _description = '换班时间间隔'
@@ -249,7 +256,7 @@ class ChangeShiftsTime(models.Model):
             'context': context,
             'target': 'current',
         }
-        if self.env.user.id !=1:
+        if self.env.user.id != 1:
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             obj = self.search([('site_id', '=', department.id)])
