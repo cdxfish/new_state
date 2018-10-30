@@ -1,0 +1,128 @@
+<div id="app">
+    <div class="container" :style="height">
+        <el-form :inline="true" class="demo-form-inline">
+            <el-form-item label="日期">
+                <el-date-picker
+                        v-model="month"
+                        type="month"
+                        placeholder="选择月份">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="线路">
+                <el-select v-model="lines" @change="selectLine" filterable placeholder="请选择线路">
+                    <el-option
+                            v-for="item in lines"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="站点">
+                <el-select v-model="sites" filterable placeholder="请选择站点">
+                    <el-option
+                            v-for="item in sites"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button size="small" type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+        </el-form>
+        <div>
+            <el-row>
+                 <span><h2>本月班表</h2></span>
+            </el-row>
+            <el-table
+                    border
+                    :data="day_table_data"
+                    style="width: 100%">
+                <el-table-column
+                        label="序号"
+                        type="index"
+                        align="center"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="group_name"
+                        label="班组名称"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="user_name"
+                        label="人员名称"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="work_number"
+                        align="center"
+                        label="工号">
+                </el-table-column>
+                <el-table-column
+                        prop="position"
+                        align="center"
+                        label="岗位">
+                </el-table-column>
+                <el-table-column v-for="(item, index) in days"
+                                 align="center"
+                                 :key="index"
+                                 :label="item">
+                    <template slot-scope="scope">
+                        {{scope.row.shift_value[index]}}
+                    </template>
+                </el-table-column>
+
+            </el-table>
+            <div style="margin-top:40px;"></div>
+            <el-row>
+                <span><h2>本月班次</h2></span>
+            </el-row>
+
+            <el-table
+                    border
+                    :data="total_table_data"
+                    style="width: 100%">
+                <el-table-column
+                        label="序号"
+                        type="index"
+                        align="center"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="group_name"
+                        label="班组名称"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="user_name"
+                        label="人员名称"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="work_number"
+                        align="center"
+                        label="工号">
+                </el-table-column>
+                <el-table-column
+                        prop="position"
+                        align="center"
+                        label="岗位">
+                </el-table-column>
+                <el-table-column v-for="(item, index) in arrange_orders"
+                                 align="center"
+                                 :key="index"
+                                 :label="item">
+                    <template slot-scope="scope">
+                        {{scope.row.total[index]}}
+                    </template>
+                </el-table-column>
+
+
+            </el-table>
+
+        </div>
+    </div>
+</div>

@@ -20,8 +20,8 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/group_config_client.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/many2many.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/act_xa_station_sheduling_manage_1_action.js"/>
-
-                <!--<script type="text/javascript" src="/funenc_xa_station/static/js/get_code.js"/>-->
+                <script type="text/javascript" src="/funenc_xa_station/static/js/test_html_client1.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/punch_clock_client.js"/>
             </xpath>
         </template>
     </data>

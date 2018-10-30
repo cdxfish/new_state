@@ -1,0 +1,232 @@
+<div id="app">
+    <el-row type="flex" align="middle" :gutter="20" style="margin-bottom: 20px">
+        <el-col :span="10">
+            <el-row type="flex" align="middle">
+                <el-col :span="5">
+                    <span>日期筛选：</span>
+                </el-col>
+                <el-col :span="19">
+                    <el-date-picker
+                            v-model="month"
+                            type="month"
+                            placeholder="选择月份">
+
+                    </el-date-picker>
+                </el-col>
+            </el-row>
+        </el-col>
+
+        <el-col :span="4">
+            <el-row type="flex" align="middle">
+                <el-col :span="6">
+                    <span>线路：</span>
+                </el-col>
+                <el-col :span="18">
+                    <el-select size="small" v-model="sel_line" placeholder="请选择" @change="select_line">
+                        <el-option
+                                v-for="item in line_options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-row>
+        </el-col>
+
+        <el-col :span="4">
+            <el-row type="flex" align="middle">
+                <el-col :span="9">
+                    <span>归属站点：</span>
+                </el-col>
+                <el-col :span="15">
+                    <el-select size="small" v-model="sel_station" placeholder="请选择" @change="select_user">
+                        <el-option
+                                v-for="item in station_options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-row>
+        </el-col>
+
+        <el-col :span="4">
+            <el-row type="flex" align="middle">
+                <el-col :span="9">
+                    <span>人员搜索：</span>
+                </el-col>
+                <el-col :span="15">
+                    <el-select
+                            size="small"
+                            v-model="sel_user"
+                            filterable
+                            remote
+                            reserve-keyword
+                            placeholder="请输入关键词"
+                            :remote-method="remoteMethod"
+                            :loading="loading">
+                        <el-option
+                                v-for="item in user_options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-row>
+        </el-col>
+
+        <el-col :span="2">
+            <el-button type="primary" size="small" @click="search">搜索</el-button>
+        </el-col>
+    </el-row>
+
+    <el-row style="margin-bottom: 10px">
+        <span>本月考勤详情</span>
+    </el-row>
+    <el-row type="flex" align="middle" :gutter="20" style="margin-bottom: 20px">
+        <el-col :span="24">
+            <el-table
+                    size="mini"
+                    border="true"
+                    :data="attendance_table_data"
+                    style="width: 100%">
+                <el-table-column
+                        label="序号"
+                        type="index"
+                        align="center"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="user_name"
+                        align="center"
+                        label="班组人员">
+                </el-table-column>
+                <el-table-column
+                        prop="work_num"
+                        align="center"
+                        label="工号">
+                </el-table-column>
+                <el-table-column
+                        prop="position"
+                        align="center"
+                        label="岗位">
+                </el-table-column>
+                <el-table-column v-for="(item, index) in days"
+                                 align="center"
+                                 :label="item">
+                    <template slot-scope="scope">
+                        <span>{{scope.row[item]}}</span>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-col>
+    </el-row>
+
+    <el-row style="margin-bottom: 10px">
+        <span>本月考勤汇总</span>
+    </el-row>
+    <el-row type="flex" align="middle" :gutter="20">
+        <el-col :span="24">
+            <el-table
+                    size="mini"
+                    border="true"
+                    :data="attendance_total_table_data"
+                    style="width: 100%">
+                <el-table-column
+                        label="序号"
+                        type="index"
+                        align="center"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="user_name"
+                        align="center"
+                        label="班组人员">
+                </el-table-column>
+                <el-table-column
+                        prop="work_num"
+                        align="center"
+                        label="工号">
+                </el-table-column>
+                <el-table-column
+                        prop="position"
+                        align="center"
+                        label="岗位">
+                </el-table-column>
+                <el-table-column
+                        prop="total_work_time"
+                        align="center"
+                        label="总工时">
+                </el-table-column>
+                <el-table-column
+                        prop="no_work_time"
+                        align="center"
+                        label="缺勤工时">
+                </el-table-column>
+                <el-table-column
+                        prop="night_work_time"
+                        align="center"
+                        label="夜班">
+                </el-table-column>
+                <el-table-column
+                        prop="add_work_time"
+                        align="center"
+                        label="加班">
+                </el-table-column>
+                <el-table-column
+                        prop="sick_leave"
+                        align="center"
+                        label="病假">
+                </el-table-column>
+                <el-table-column
+                        prop="maternity_leave"
+                        align="center"
+                        label="孕假">
+                </el-table-column>
+                <el-table-column
+                        prop="compassionate_leave"
+                        align="center"
+                        label="事假">
+                </el-table-column>
+                <el-table-column
+                        prop="year_leave"
+                        align="center"
+                        label="年假">
+                </el-table-column>
+                <el-table-column
+                        prop="marry_leave"
+                        align="center"
+                        label="婚假">
+                </el-table-column>
+                <el-table-column
+                        prop="maternited_leave"
+                        align="center"
+                        label="产假">
+                </el-table-column>
+                <el-table-column
+                        prop="nursing_leave"
+                        align="center"
+                        label="护理">
+                </el-table-column>
+                <el-table-column
+                        prop="funeral_leave"
+                        align="center"
+                        label="丧假">
+                </el-table-column>
+                <el-table-column
+                        prop="job_injury_leave"
+                        align="center"
+                        label="工伤假">
+                </el-table-column>
+                <el-table-column
+                        prop="absenteeism"
+                        align="center"
+                        label="旷工">
+                </el-table-column>
+            </el-table>
+        </el-col>
+    </el-row>
+</div>
