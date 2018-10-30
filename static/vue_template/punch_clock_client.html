@@ -7,14 +7,10 @@
                 </el-col>
                 <el-col :span="19">
                     <el-date-picker
-                            style="width: 100%"
-                            v-model="sel_date"
-                            type="daterange"
-                            value-format="yyyy-MM-dd"
-                            size="small"
-                            range-separator="至"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期">
+                            v-model="month"
+                            type="month"
+                            placeholder="选择月份">
+
                     </el-date-picker>
                 </el-col>
             </el-row>
@@ -26,12 +22,12 @@
                     <span>线路：</span>
                 </el-col>
                 <el-col :span="18">
-                    <el-select size="small" v-model="sel_line" placeholder="请选择">
+                    <el-select size="small" v-model="sel_line" placeholder="请选择" @change="select_line">
                         <el-option
                                 v-for="item in line_options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
                         </el-option>
                     </el-select>
                 </el-col>
@@ -44,12 +40,12 @@
                     <span>归属站点：</span>
                 </el-col>
                 <el-col :span="15">
-                    <el-select size="small" v-model="sel_station" placeholder="请选择">
+                    <el-select size="small" v-model="sel_station" placeholder="请选择" @change="select_user">
                         <el-option
                                 v-for="item in station_options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
                         </el-option>
                     </el-select>
                 </el-col>
@@ -74,7 +70,7 @@
                         <el-option
                                 v-for="item in user_options"
                                 :key="item.id"
-                                :label="item.label"
+                                :label="item.name"
                                 :value="item.id">
                         </el-option>
                     </el-select>
@@ -122,7 +118,7 @@
                                  align="center"
                                  :label="item">
                     <template slot-scope="scope">
-                        <span>{{scope.row.shift_value[index].shift}}</span>
+                        <span>{{scope.row[item]}}</span>
                     </template>
                 </el-table-column>
             </el-table>

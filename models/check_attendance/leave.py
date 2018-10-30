@@ -14,7 +14,7 @@ class Leave(models.Model):
 
     KEY = [('sick_leave', '病假'),
            ('maternity_leave', '孕假'),
-           ('compassionate_leave', '病假'),
+           ('compassionate_leave', '事假'),
            ('annual_leave', '年假'),
            ('marital_leave', '婚假'),
            ('maternity_eave_1', '产假'),

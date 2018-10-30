@@ -14,6 +14,8 @@ odoo.define('punch_clock_client', function (require) {
                     days: ['9-1', '9-2'],
                     sel_date: '',
                     sel_line: '',
+                    month: '',
+                    sel_station: '',
                     line_options: [{
                         value: '选项1',
                         label: '黄金糕'
@@ -30,7 +32,7 @@ odoo.define('punch_clock_client', function (require) {
                         value: '选项5',
                         label: '北京烤鸭'
                     }],
-                    sel_station: '',
+
                     station_options: [{
                         value: '选项1',
                         label: '黄金糕'
@@ -50,12 +52,7 @@ odoo.define('punch_clock_client', function (require) {
                     sel_user: '',
                     user_options: [],
                     loading: false,
-                    attendance_table_data: [{
-                        user_name: '张三',
-                        work_num: '92323',
-                        position: '站长',
-                        shift_value: [{shift: '修'}, {shift: '修'}]
-                    }],
+                    attendance_table_data: '',
                     attendance_total_table_data: [{
                         user_name: '张三',
                         work_num: '92323',
@@ -78,7 +75,15 @@ odoo.define('punch_clock_client', function (require) {
                 };
             },
             willStart: function () {
-                return $.when()
+
+                    var self= this;
+
+                    return self._rpc({
+                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                        method: 'get_line_id',
+                    }).then(function(data){
+                        self.vue_data.line_options = data
+                    })
             },
             start: function () {
                 var self = this;
@@ -94,6 +99,20 @@ odoo.define('punch_clock_client', function (require) {
                             data() {
                                 return self.vue_data
                             },
+
+//                            mounted() {
+//                                var that = this;
+//                                var height = window.innerHeight - 20;
+//                                that.height = "padding:40px 80px;height: " + height + "px;";
+//                                that._rpc({
+//                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+//                                    method: 'get_line_id',
+//                                }).then(function(data){
+//                                    that.vue_data.lines = data
+//                                })
+//
+//                            },
+
                             methods: {
                                 remoteMethod(query) {
                                     if (query !== '') {
@@ -114,15 +133,51 @@ odoo.define('punch_clock_client', function (require) {
                                         self.vue_data.user_options = [];
                                     }
                                 },
+
+                                select_line:function(line_id){
+
+                                     self._rpc({
+                                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                                        method: 'get_sites',
+                                        kwargs: {line_id: line_id}
+                                    }).then(function(data){
+                                        console.log(data)
+                                        self.vue_data.station_options = data
+                                    })
+
+                                },
+
+                                select_user:function(site_id){
+
+                                     self._rpc({
+                                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                                        method: 'pc_get_users_by_department_id',
+                                        kwargs: {site_id: site_id}
+                                    }).then(function(data){
+                                        console.log(data)
+                                        self.vue_data.user_options = data
+                                    })
+
+                                },
+
                                 search: function () {
-                                    console.log(self.vue_data)
-                                    // self._rpc({
-                                    //     model: '',
-                                    //     method: '',
-                                    //     kwargs: {data: self.vue_data}
-                                    // }).then(function (data) {
-                                    //     console.log(data)
-                                    // })
+                                if (self.vue_data.month && self.vue_data.sel_station){
+
+                                    self._rpc({
+                                             model: 'fuenc_station.clock_record',
+                                             method: 'get_clock_record',
+                                             kwargs: {start_time: self.vue_data.month,
+                                                      site_id: self.vue_data.sel_station,
+                                                      user_id: self.vue_data.sel_user
+                                             }
+                                         }).then(function (data) {
+                                             self.vue_data.days = data.days;
+                                             self.vue_data.attendance_table_data = data.attendance_table_data;
+                                             self.vue_data.attendance_total_table_data = data.attendance_total_table_data;
+                                         })
+                                    }
+
+
                                 }
                             }
                         })

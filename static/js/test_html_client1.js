@@ -13,8 +13,8 @@ odoo.define('test_html_client', function (require) {
                 this.vue_data = {
                     height: '800px',
                     month: '',
-                    lines: [],
-                    sites: [],
+                    lines: '',
+                    sites: '',
                     arrange_orders: [],
                     days: ['9月2日', '9月3日', '9月4日', '9月5日', '9月6日', '9月7日'],
                     // shift_value里字典的个数需要与days的元素个数相对应

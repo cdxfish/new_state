@@ -743,6 +743,7 @@ class ShedulingManage(models.Model):
             shift_options.append(tmp)
 
         show_data['shift_options'] = shift_options
+        show_data['arrange_orders'] = arrange_orders
 
         return show_data
 
