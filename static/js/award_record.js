@@ -42,7 +42,6 @@ odoo.define('funenc_xa_award', function (require) {
           method: 'get_template_content',
           kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_award'}
       }).then(function (res) {
-
            self.$el.append(res);
            setTimeout(function () {
                var vue = new Vue({
@@ -50,7 +49,8 @@ odoo.define('funenc_xa_award', function (require) {
                     data() {
                        return {
                                 tableData:self.user_data,
-                                datetime:'时间选择'
+                                datetime:'时间选择',
+                                activeIndex:'1',
 
                        };
                     },
@@ -71,6 +71,16 @@ odoo.define('funenc_xa_award', function (require) {
                                                 };
 
                               },
+
+//                          tab页面的跳转功能
+                           handleSelect: function(){
+                                    self._rpc({
+                                                model: 'funenc_xa_station.check_record',
+                                                 method:'get_day_plan_publish_action',
+                                              }).then(function(data){
+                                                      vue.activeIndex = data;
+                                                    });
+                               },
 
                        import_award(){
                           if (this.tableData){

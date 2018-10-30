@@ -79,13 +79,13 @@
                             <field name="award_project" options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_project"></field>
                             <field name="award_money_kind"></field>
-                            <field name="staff"></field>
+                            <field name="staff" options="{'no_create':True,'no_open':True}"></field>
                             <field name="jobnumber"></field>
                             <field name="award_money"></field>
                             <field name="incident_describe"></field>
-                            <field name="award_record_add">
-                                <tree>
-                                    <field name="staff"></field>
+                            <field name="award_record_add" context="{'connection_id':'award_project'}">
+                                <tree editable="top" class="noOpen">
+                                    <field name="staff" options="{'no_create':True,'no_open':True}"></field>
                                     <field name="jobnumber"></field>
                                     <field name="award_money"></field>
                                     <field name="incident_describe"></field>

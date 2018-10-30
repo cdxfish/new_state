@@ -3,62 +3,62 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="good_deeds_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_two_audit"
             t-if="widget.record.data.audit_state == 'one_audit'" group="funenc_xa_station.passenger_server_good_deeds_noe_audit"
             >通过初审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_good_deeds_two_audit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_good_deeds_two_audit'
             >通过复审</button>
 
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
-            t-if="widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_good_deeds_continue_submit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_good_deeds_continue_submit'
             >继续提交</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'one_audit'" group='funencxa_xa_station.passenger_server_good_deeds_noe_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit'" group='funenc_xa_station.passenger_server_good_deeds_noe_audit_return'
             >初审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_good_deeds_two_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_good_deeds_two_audit_return'
             >复审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="onchange_button_action"
                 t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
-                widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_good_deeds_modify'
+                widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_good_deeds_modify'
             >修改</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
-            confirm="您确定要删除该钥匙吗？" group='funencxa_xa_station.passenger_server_good_deeds_delete'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_delete"
+            confirm="您确定要删除该记录吗？" group='funenc_xa_station.passenger_server_good_deeds_delete'
             >删除</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
-                    group='funencxa_xa_station.passenger_server_good_deeds_look_details'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_details_button"
+                    group='funenc_xa_station.passenger_server_good_deeds_look_details'
             >查看详情</button>
         </div>
     </t>
 
     <t t-name="guests_hurt_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_two_audit"
             t-if="widget.record.data.audit_state == 'one_audit'"
-                    group='funencxa_xa_station.passenger_server_guest_injured_noe_audit'
+                    group='funenc_xa_station.passenger_server_guest_injured_noe_audit'
             >通过初审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_guest_injured_two_audit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_guest_injured_two_audit'
             >通过复审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
-            t-if="widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_guest_injured_continue_submit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_guest_injured_continue_submit'
             >继续提交</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'one_audit'" group='funencxa_xa_station.passenger_server_guest_injured_noe_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit'" group='funenc_xa_station.passenger_server_guest_injured_noe_audit_return'
             >初审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_guest_injured_two_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_guest_injured_two_audit_return'
             >复审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="onchange_button_action"
             t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.state_now == 'two_audit' ||
-                    widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_guest_injured_modify'
+                    widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_guest_injured_modify'
             >修改</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
-            confirm="您确定要删除该钥匙吗？" group='funencxa_xa_station.passenger_server_guest_injured_delete'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_delete"
+            confirm="您确定要删除该记录吗？" group='funenc_xa_station.passenger_server_guest_injured_delete'
             >删除</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_details_button"
-                    group='funencxa_xa_station.passenger_server_guest_injured_look_details'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_details_button"
+                    group='funenc_xa_station.passenger_server_guest_injured_look_details'
             >查看详情</button>
             <!--<button class="layui-btn layui-btn-sm" type="object" name="view_details"-->
             <!--&gt;播放视屏</button>-->
@@ -67,64 +67,64 @@
 
     <t t-name="suggestion_box_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
-            t-if="widget.record.data.audit_state == 'one_audit'" group='funencxa_xa_station.passenger_server_guest_box_noe_audit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_two_audit"
+            t-if="widget.record.data.audit_state == 'one_audit'" group='funenc_xa_station.passenger_server_guest_box_noe_audit'
             >通过初审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_guest_box_two_audit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_through"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_guest_box_two_audit'
             >通过复审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
-            t-if="widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_guest_box_continue_submit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_rejected"
+            t-if="widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_guest_box_continue_submit'
             >继续提交</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'one_audit'" group='funencxa_xa_station.passenger_server_guest_box_noe_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'one_audit'" group='funenc_xa_station.passenger_server_guest_box_noe_audit_return'
             >初审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
-            t-if="widget.record.data.audit_state == 'two_audit'" group='funencxa_xa_station.passenger_server_guest_box_two_audit_return'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
+            t-if="widget.record.data.audit_state == 'two_audit'" group='funenc_xa_station.passenger_server_guest_box_two_audit_return'
             >复审驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="onchange_button_action"
             t-if="widget.record.data.audit_state == 'one_audit' || widget.record.data.audit_state == 'two_audit' ||
-                widget.record.data.audit_state == 'rejected'" group='funencxa_xa_station.passenger_server_guest_box_modify'
+                widget.record.data.audit_state == 'rejected'" group='funenc_xa_station.passenger_server_guest_box_modify'
             >修改</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
-            confirm="您确定要删除该钥匙吗？" group='funencxa_xa_station.passenger_server_guest_box_delete'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_delete"
+            confirm="您确定要删除该记录吗？" group='funenc_xa_station.passenger_server_guest_box_delete'
             >删除</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="guests_details_action"
-                    group='funencxa_xa_station.passenger_server_guest_box_look_details'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="guests_details_action"
+                    group='funenc_xa_station.passenger_server_guest_box_look_details'
             >查看详情</button>
         </div>
     </t>
 
     <t t-name="special_money_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_two_audit"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_two_audit"
             t-if="widget.record.data.deal_result == 'one_audit'"
-                    group='funencxa_xa_station.passenger_server_special_money_noe_audit'
+                    group='funenc_xa_station.passenger_server_special_money_noe_audit'
             >通过初审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_through"
-            t-if="widget.record.data.deal_result == 'two_audit'" group='funencxa_xa_station.passenger_server_special_money_two_audit'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_through"
+            t-if="widget.record.data.deal_result == 'two_audit'" group='funenc_xa_station.passenger_server_special_money_two_audit'
             >通过复审</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="test_btn_rejected"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="test_btn_rejected"
             t-if="widget.record.data.deal_result == 'rejected'"
-                    group='funencxa_xa_station.passenger_server_special_money_continue_submit'
+                    group='funenc_xa_station.passenger_server_special_money_continue_submit'
             >继续提交</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_rejected"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_rejected"
             t-if="widget.record.data.deal_result == 'one_audit' || widget.record.data.deal_result == 'two_audit'"
-                    group='funencxa_xa_station.passenger_server_special_money_audit_return'
+                    group='funenc_xa_station.passenger_server_special_money_audit_return'
             >驳回</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="onchange_button_action"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="onchange_button_action"
             t-if="widget.record.data.deal_result == 'one_audit' || widget.record.data.deal_result == 'two_audit' ||
-                widget.record.data.deal_result == 'rejected'" group='funencxa_xa_station.passenger_server_special_money_modify'
+                widget.record.data.deal_result == 'rejected'" group='funenc_xa_station.passenger_server_special_money_modify'
             >修改</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="good_delete"
-            confirm="您确定要删除该钥匙吗？" group='funencxa_xa_station.passenger_server_special_money_delete'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="good_delete"
+            confirm="您确定要删除该记录吗？" group='funenc_xa_station.passenger_server_special_money_delete'
             >删除</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="special_details_action"
-                    group='funencxa_xa_station.passenger_server_special_money_look_details'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="special_details_action"
+                    group='funenc_xa_station.passenger_server_special_money_look_details'
             >查看详情</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="print_refund_form"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="print_refund_form"
             t-if="widget.record.data.deal_result == 'through'"
-                    group='funencxa_xa_station.passenger_server_special_money_print_form'
+                    group='funenc_xa_station.passenger_server_special_money_print_form'
             >打印退款单</button>
         </div>
     </t>
@@ -141,7 +141,7 @@
             <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
             >修改</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
-            confirm="您确定要删除该钥匙吗？"
+            confirm="您确定要删除该记录吗？"
             >删除</button>
 
         </div>
@@ -149,7 +149,7 @@
 
     <t t-name="add_guests_button_act">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="add_guests_button_action"
+            <button class="layui-btn layui-btn-sm" type="object"  name="add_guests_button_action"
             >新增记录</button>
         </div>
     </t>
@@ -159,13 +159,13 @@
             <button class="layui-btn layui-btn-sm" type="object" name="onchange_typr_action"
             >修改</button>
             <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
-            confirm="您确定要删除该钥匙吗？"
+            confirm="您确定要删除该记录吗？"
             >删除</button>
         </div>
     </t>
     <t t-name="guests_hurt_button_play">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="view_details"
+            <button class="layui-btn layui-btn-sm" type="object"  name="view_details"
             >播放</button>
             <button class="layui-btn layui-btn-sm" type="object" name="load_file"
             >下载</button>
@@ -180,7 +180,7 @@
 
     <t t-name="video_suggest_button_play">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="view_details"
+            <button class="layui-btn layui-btn-sm" type="object"  name="view_details"
             >播放</button>
             <button class="layui-btn layui-btn-sm" type="object" name="load_file"
             >下载</button>
@@ -189,15 +189,21 @@
 
     <t t-name="duty_opinion_edit">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="new_create_opnion"
+            <button class="layui-btn layui-btn-sm" type="object"  name="new_create_opnion"
             >编辑</button>
         </div>
     </t>
 
     <t t-name="complaints_suer_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="complaints_suer_button"
+            <button class="layui-btn layui-btn-sm" type="object"  name="complaints_suer_button"
             >编辑</button>
+        </div>
+    </t>
+    <t t-name="follow_up_records_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="complaints_suer_button"
+            >新增记录</button>
         </div>
     </t>
 </templates>

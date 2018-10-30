@@ -3,38 +3,38 @@
 
     <t t-name="check_evaluate_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="check_evalulate_edit" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_evaluate_delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="check_evalulate_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="check_evaluate_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
     <t t-name="award_standard_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="award_edit" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="award_delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="award_edit" >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="award_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
     <t t-name="check_record_add">
         <div class="layui-btn-group">
-                <button class="layui-btn layui-btn-sm" type="object" name="award_delete">新增责任人</button>
+                <button class="layui-btn layui-btn-sm" type="object"  name="award_delete">新增责任人</button>
         </div>
     </t>
 
     <t t-name="check_record_edit">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="check_record_change"
-            group='funencxa_xa_station.check_management_check_record_modify'>修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_record_delete"
-                    confirm="您确定要删除吗？"  group='funencxa_xa_station.check_management_check_record_delete'>删除</button>
+            group='funenc_xa_station.check_management_check_record_modify'>修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="check_record_delete"
+                    confirm="您确定要删除吗？"  group='funenc_xa_station.check_management_check_record_delete'>删除</button>
         </div>
     </t>
 
     <t t-name="award_record_edit">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="check_record_change"
-            group='funencxa_xa_station.check_management_award_record_modify'>修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="check_record_delete"
-                    confirm="您确定要删除吗？" group='funencxa_xa_station.check_management_award_record_delete'>删除</button>
+            group='funenc_xa_station.check_management_award_record_modify'>修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="check_record_delete"
+                    confirm="您确定要删除吗？" group='funenc_xa_station.check_management_award_record_delete'>删除</button>
         </div>
     </t>
 </templates>

@@ -52,6 +52,7 @@ odoo.define('funenc_xa_check', function (require) {
                        return {
                                 tableData:self.user_data,
                                 value6:'时间选择',
+                                activeIndex:'1',
 
                        };
                     },
@@ -73,6 +74,15 @@ odoo.define('funenc_xa_check', function (require) {
                                                 };
 
                               },
+//                          tab页面的跳转功能
+                           handleSelect: function(){
+                                         self._rpc({
+                                                        model: 'funenc_xa_station.check_record',
+                                                        method: 'get_day_plan_publish_action',
+                                                    }).then(function (action) {
+                                                            self.do_action(action)
+                                                        });
+                                                    },
 
                         import_excel(){
                           if (this.tableData){

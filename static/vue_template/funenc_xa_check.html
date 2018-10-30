@@ -3,6 +3,12 @@
 	 <el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<h4>考评汇总</h4>
+			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+			  <el-menu-item index="1">考评记录</el-menu-item>
+			  <el-menu-item index="2">考评汇总</el-menu-item>
+			  <el-menu-item index="3">奖励记录</el-menu-item>
+			  <el-menu-item index="4">奖励汇总</el-menu-item>
+			</el-menu>
 		</div>
 			  <div class="block">
 				<span class="demonstration">选择时间</span>

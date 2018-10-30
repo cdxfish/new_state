@@ -16,12 +16,12 @@ class PrudeNewspaper(models.Model):
     # _inherit = 'fuenc_station.station_base'
     line_id = fields.Char(string='线路')
     site_id = fields.Char(string='站点')
-    event_stype = fields.Char(string='事件类型')
+    event_stype = fields.Selection(key, string='事件类型')
     event_stype_name = fields.Char(string='事件类型名称')
     event_content = fields.Text(string='事件内容')
     event_content_create = fields.Text(string='事件内容')
     open_time = fields.Datetime(string='发生时间')
-    write_time = fields.Datetime(string='填报时间')
+    write_time = fields.Datetime(string='提交时间')
     write_name = fields.Char(string='填报人')
     iobnumber = fields.Char(string='工号')
     Enter_person_count =fields.Integer(string='进边门人数')
@@ -36,7 +36,7 @@ class PrudeNewspaper(models.Model):
     equipment_name = fields.Char(string='设备名称')
     equipment_count = fields.Char(string='设备编号')
     brenk_time = fields.Datetime(string='故障时间')
-    brenk_repair_time = fields.Datetime(string='故障保修时间')
+    brenk_repair_time = fields.Datetime(string='故障报修时间')
     brenk_state = fields.Text(string='故障情况')
     c_type = fields.Char(string='区分')
 
@@ -62,22 +62,24 @@ class PrudeNewspaper(models.Model):
             'flags': {'initial_mode': 'edit'},
         }
 
-    def onchange_change(self):
-        return {
-            'name': '生产日报',
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_id':self.id,
-            'res_model': 'funenc_xa_staion.prude_newpaper_write',
-            'context': self.env.context,
-            'flags': {'initial_mode': 'edit'},
-        }
+    # #修改当前记录
+    # @api.model
+    # def change_change_act(self):
+    #     return {
+    #         'name': '生产日报',
+    #         'type': 'ir.actions.act_window',
+    #         'view_type': 'form',
+    #         'view_mode': 'form',
+    #         'res_id':self.id,
+    #         'res_model': 'funenc_xa_station.prude_newspaper',
+    #         'context': self.env.context,
+    #         'flags': {'initial_mode': 'edit'},
+    #     }
 
     #删除按钮
     # @api.model
-    def delete_action(self):
-        self.env['funenc_xa_station.prude_newspaper'].search([('id','='.self.id)]).unlink()
+    def delete_button_action(self):
+        self.env['funenc_xa_station.prude_newspaper'].search([('id','=',self.id)]).unlink()
 
     # @api.onchange('event_stype')
     # def c_type_distinguish(self):
@@ -95,12 +97,12 @@ class PrudeNewspaper(models.Model):
 
         elif self.event_stype.prude_event_type == '票务、AFC故障及异常情况':
             self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
-                str('、故障保修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
 
         elif self.event_stype.prude_event_type == '日票、预制单程票售卖情况':
             self.event_content = '2元'+':'+self.two_money+'、'+'3元'+':'+str(self.three_money)+'、4元'+':'\
                                  +str(self.four_money)+'、5元'+':'+str(self.five_money)+'、6元'+':'+str(self.six_money) \
-                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money)
+                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money or 0)
 
         elif self.event_stype.prude_event_type == '其他设备故障情况':
             self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
@@ -111,7 +113,7 @@ class PrudeNewspaper(models.Model):
 
     #页面修改
     def change_change_act(self):
-            view_form = self.env.ref('funenc_xa_station.prude_newspaper_form').id
+            view_form = self.env.ref('funenc_xa_station.prude_newspaper_form_view').id
             return {
                 'name': '生产日报',
                 'type': 'ir.actions.act_window',
@@ -121,7 +123,8 @@ class PrudeNewspaper(models.Model):
                 'res_model': 'funenc_xa_station.prude_newspaper',
                 'context': self.env.context,
                 'res_id':self.id,
-                'flags': {'initial_mode': 'edit'}
+                'flags': {'initial_mode': 'edit'},
+                'target':'new'
             }
 
 

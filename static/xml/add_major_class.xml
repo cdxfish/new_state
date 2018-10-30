@@ -4,14 +4,14 @@
     <t t-name="add_major_type">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="professional_edit" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="management_delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="management_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 
     <t t-name="add_class_type">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="class_edit" >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="class_delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="class_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
 </templates>

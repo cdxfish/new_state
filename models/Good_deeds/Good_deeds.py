@@ -5,10 +5,10 @@ from odoo import api, models, fields
 from datetime import  datetime
 from ..get_domain import get_domain
 
-key = [('one_audit','待初核'),
-       ('two_audit','待复核'),
-       ('through','通过'),
-       ('rejected','驳回')]
+key = [('one_audit','待初审'),
+       ('two_audit','待复审'),
+       ('through','已通过'),
+       ('rejected','已驳回')]
 
 
 class GoodDeeds(models.Model):
@@ -31,7 +31,7 @@ class GoodDeeds(models.Model):
 
     # 创建一条新的记录
     def new_increase_record(self):
-        view_form = self.env.ref('funenc_xa_station.good_deeds_form').id
+        view_form = self.env.ref('funenc_xa_station.good_deeds_from').id
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
@@ -40,6 +40,8 @@ class GoodDeeds(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'fuenc_station.good_deeds',
             'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target':'new',
         }
 
     @api.model
@@ -60,7 +62,7 @@ class GoodDeeds(models.Model):
                         [
                             {'title': '好人好事',
                             'action':  'funenc_xa_station.good_deeds_act',
-                            # 'group':'funenc_xa_station.table_good_actions',
+                            'group':'funenc_xa_station.table_good_actions',
                             },
                             {
                                 'title': '客伤',
@@ -68,7 +70,7 @@ class GoodDeeds(models.Model):
                                 'group' : 'funenc_xa_station.table_people_wound',
                                 },
                             {
-                                'title': '乘客意意见箱',
+                                'title': '乘客意见箱',
                                 'action2':  'funenc_xa_station.suggestion_box_act',
                                 'group' : 'funenc_xa_station.table_people_message',
                                 },

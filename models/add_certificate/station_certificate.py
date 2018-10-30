@@ -19,29 +19,30 @@ class AddStationCertificate(models.Model):
     @get_domain
     @api.model
     def get_day_plan_publish_action(self,domain):
-        tree_id = self.env.ref('funenc_xa_station.add_station_certificate_tree').id
-        form_id = self.env.ref('funenc_xa_station.add_station_certificate_form').id
+        view_tree = self.env.ref('funenc_xa_station.add_station_certificate_tree').id
         return {
-            'name': '车站证件管理',
+            'name': '车站证件',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
-            "views": [[tree_id, "tree"], [form_id, 'form']],
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
             'res_model': 'station.certificate',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
-                        [
-                            {'title': '车站证件管理',
-                            'action':  'funenc_xa_station.station_certificate_act_id_3'},
-                            {
-                                'title': '人员证件管理',
-                                'action2':  'funenc_xa_station.person_certificate_act'},
-
-                            {'title': '', 'domains': [['id', '=', '1']]}
-                        ]
-                    }''',
+                                [
+                                    {'title': '车站证件管理',
+                                    'action':  'funenc_xa_station.station_certificate_button_server',
+                                    'group':'funenc_xa_station.table_car_certificates',
+                                    },
+                                    {
+                                        'title': '人员证件管理',
+                                        'action2' : 'funenc_xa_station.person_certificate_server',
+                                        'group' : 'funenc_xa_station.table_people_certificates',
+                                        },
+                                ]
+                            }''',
             'context': self.env.context,
         }
 
@@ -54,6 +55,7 @@ class AddStationCertificate(models.Model):
             'res_model': 'station.certificate',
             "views": [[view_form, "form"]],
             'context': self.env.context,
+            'target':'new',
         }
 
     def station_cer_edit(self):

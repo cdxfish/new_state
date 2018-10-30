@@ -32,7 +32,7 @@
             <field name="name">工器具使用列表</field>
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="0" edit="0" class="noOpen">
                     <field name="id" string="序号"></field>
                     <field name="transient_type"></field>
                     <field name="transient_name"></field>
@@ -53,8 +53,8 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_id"></field>
-                            <field name="site_id"></field>
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
+                            <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                             <field name="transient_type"></field>
                             <field name="transient_name"></field>
                             <field name="transient_number"></field>

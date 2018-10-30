@@ -3,38 +3,39 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="break_log_button">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="onchange_change"
-            t-if="widget.record.data.state == 'zero'" group='funencxa_xa_station.break_warehouse_management_repair'
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="onchange_change"
+            t-if="widget.record.data.state == 'zero'" group='funenc_xa_station.break_warehouse_management_repair'
             >修复</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="break_record_selete"
-                    group='funencxa_xa_station.break_warehouse_management_delete'
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" hidden="hidden" name="break_record_selete"
+                    group='funenc_xa_station.break_warehouse_management_delete'
                     confirm="您确定要删除该条记录吗？" >删除</button>
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm" group='funencxa_xa_station.break_warehouse_management_modifty'
+            <button type="object" hidden="hidden" name="onchange_record" class="layui-btn layui-btn-sm" group='funenc_xa_station.break_warehouse_management_modifty'
             >修改</button>
         </div>
     </t>
 
+
    <t t-name="break_submit_button">
         <div class="layui-btn-group">
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            <button type="object"  name="browse_image_button_act" class="layui-btn layui-btn-sm"
             >查看图片</button>
         </div>
     </t>
 
    <t t-name="break_submit_operation">
         <div class="layui-btn-group">
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            <button type="object" hidden="hidden" name="deal_button_action" class="layui-btn layui-btn-sm"
                     group="funenc_xa_station.break_list_deal_button"
             t-if="widget.record.data.deal_situation == 'zero'"
             >处理</button>
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            <button type="object" hidden="hidden" name="onchange_record_button_act" class="layui-btn layui-btn-sm"
                     group="funenc_xa_station.break_list_modify_button"
             t-if="widget.record.data.deal_situation == 'zero'"
             >修改</button>
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            <button type="object"  name="edit_button_subit_act" class="layui-btn layui-btn-sm"
             t-if="widget.record.data.deal_situation == 'one'"
             >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="break_delete_action"
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="break_delete_action"
                     group="funenc_xa_station.break_list_delete_button"
                     confirm="您确定要删除该条记录吗？" >删除</button>
         </div>
@@ -42,9 +43,9 @@
 
        <t t-name="break_type_increase_button">
         <div class="layui-btn-group">
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm"
+            <button type="object"  name="onchange_record" class="layui-btn layui-btn-sm"
             >修改</button>
-            <button type="object" name="onchange_record" class="layui-btn layui-btn-sm layui-btn-danger"
+            <button type="object"  name="onchange_record" class="layui-btn layui-btn-sm layui-btn-danger"
                     confirm="您确定要删除该条记录吗？"
             >删除</button>
         </div>

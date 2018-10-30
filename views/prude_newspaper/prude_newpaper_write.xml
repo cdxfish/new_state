@@ -50,7 +50,7 @@
                     <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>-->
                     <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>-->
                     <field name="event_stype"></field>
-                    <field name="event_content"></field>
+                    <field name="event_content" widget="text" options="{'max_width': '200px'}"></field>
                     <field name="open_time"></field>
                     <!--<field name="write_time"></field>-->
                     <!--<field name="write_name"></field>-->
@@ -152,7 +152,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="col-md-2">
-                                 <label for="brenk_repair_time" string="故障保修时间:"/>
+                                 <label for="brenk_repair_time" string="故障报修时间:"/>
                               </div>
                                  <div class="col-md-10">
                                      <field name="brenk_repair_time"/>

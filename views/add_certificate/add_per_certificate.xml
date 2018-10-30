@@ -187,12 +187,12 @@
                                 <div class="row">
                                    <div class="col-md-6">
                                       <div class="col-md-4">
-                                         <label for="certificate_money" string="初领日期"/>
+                                         <label for="get_certificate_time" string="初领日期"/>
                                          <!--<field name="certificate_money"/>-->
                                       </div>
                                      <div class="col-md-8">
                                          <!--<label for="certificate_money" string="初领日期"/>-->
-                                         <field name="certificate_money"/>
+                                         <field name="get_certificate_time"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
@@ -346,26 +346,26 @@
             </field>
         </record>
 
-        <record id="person_certificate_act" model="ir.actions.act_window">
-              <field name="name">人员证件管理</field>
-              <field name="type">ir.actions.act_window</field>
-              <field name="res_model">person.certificate</field>
-              <field name="view_mode">tree,kanban,form</field>
-              <field name="domain"></field>
-              <field name="view_id" ref="person_certificate_tree"/>
-                <field name="top_widget">multi_action_tab</field>
-                <field name="top_widget_key">driver_manage_tab</field>
-                <field name="top_widget_options">
-                    {'tabs':
-                        [
-                            {'title': '人员证件',
-                            'action':  'funenc_xa_station.person_certificate_act'},
-                            {
-                                'title': '车站证件',
-                                'action2': 'funenc_xa_station.station_certificate_act_id_3'},
-                        ]
-                    }
-                </field>
-          </record>
+        <!--<record id="person_certificate_act" model="ir.actions.act_window">-->
+              <!--<field name="name">人员证件管理</field>-->
+              <!--<field name="type">ir.actions.act_window</field>-->
+              <!--<field name="res_model">person.certificate</field>-->
+              <!--<field name="view_mode">tree,kanban,form</field>-->
+              <!--<field name="domain"></field>-->
+              <!--<field name="view_id" ref="person_certificate_tree"/>-->
+                <!--<field name="top_widget">multi_action_tab</field>-->
+                <!--<field name="top_widget_key">driver_manage_tab</field>-->
+                <!--<field name="top_widget_options">-->
+                    <!--{'tabs':-->
+                        <!--[-->
+                            <!--{'title': '人员证件',-->
+                            <!--'action':  'funenc_xa_station.person_certificate_act'},-->
+                            <!--{-->
+                                <!--'title': '车站证件',-->
+                                <!--'action2': 'funenc_xa_station.station_certificate_act_id_3'},-->
+                        <!--]-->
+                    <!--}-->
+                <!--</field>-->
+          <!--</record>-->
     </data>
 </odoo>

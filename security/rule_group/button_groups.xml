@@ -598,7 +598,7 @@
         </record>
 
         <record model="res.groups" id="break_warehouse_management_logo_repair">
-            <field name="name">故障标识管理-标志保修</field>
+            <field name="name">故障标识管理-标志报修</field>
             <field name="parent_id" ref="system_fault_identification_management"/>
             <field name="category_id" ref="break_logo_management_page_button"/>
         </record>
@@ -992,7 +992,7 @@
         </record>
 
         <record model="res.groups" id="instrument_user_list_repair">
-            <field name="name">工器具使用列表-保修</field>
+            <field name="name">工器具使用列表-报修</field>
             <field name="parent_id" ref="system_equipment_use_list"/>
             <field name="category_id" ref="equiment_use_list_button_page_button"/>
         </record>
