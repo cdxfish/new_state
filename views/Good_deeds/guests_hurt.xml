@@ -43,7 +43,7 @@
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen">
+                <tree create="0" class="noOpen" edit="0">
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>
@@ -66,7 +66,7 @@
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <form>
+                <form create="0" class="noOpen" edit="0">
 
                     <div class="row">
                        <div class="col-md-6">
@@ -269,7 +269,7 @@
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <form>
+                <form  create="0" class="noOpen" edit="0">
                     <h1>基本信息</h1>
                     <div class="row">
                        <div class="col-md-6">
@@ -491,9 +491,10 @@
                        </div>
                     </div>
 
-                    <h1>更近记录</h1>
+                    <h1>跟进记录</h1>
+                    <widget  name="treebtns" template="follow_up_records_button" string="操作"/>
                     <field name="one_associated">
-                        <tree >
+                        <tree>
                             <field name="id" string="序号"></field>
                             <field name="line_id"></field>
                             <field name="site_id"></field>

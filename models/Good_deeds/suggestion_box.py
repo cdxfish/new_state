@@ -5,8 +5,8 @@ from odoo import api,models,fields
 from datetime import datetime
 from ..get_domain import get_domain
 
-key = [('one_audit','待初核'),
-       ('two_audit','待复核'),
+key = [('one_audit','待初审'),
+       ('two_audit','待复审'),
        ('through','已通过'),
        ('rejected','已驳回')]
 
@@ -68,7 +68,7 @@ class SuggestionBox(models.Model):
                                 'group' : 'funenc_xa_station.table_people_wound',
                                 },
                             {
-                                'title': '乘客意意见箱',
+                                'title': '乘客意见箱',
                                 'action2':  'funenc_xa_station.suggestion_box_act',
                                 'group' : 'funenc_xa_station.table_people_message',
                                 },

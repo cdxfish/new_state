@@ -30,7 +30,37 @@ class AddPersonCertificate(models.Model):
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
 
-    
+    @get_domain
+    @api.model
+    def get_day_plan_publish_action(self, domain):
+        tree_id = self.env.ref('funenc_xa_station.person_certificate_tree').id
+        form_id = self.env.ref('funenc_xa_station.person_certificate_form').id
+        return {
+            'name': '人员证件管理',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': domain,
+            "views": [[tree_id, "tree"], [form_id, 'form']],
+            'res_model': 'person.certificate',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                            [
+                                    {
+                                        'title': '车站证件管理',
+                                        'action':  'funenc_xa_station.station_certificate_button_server',
+                                        'group':'funenc_xa_station.table_car_certificates',
+                                    },
+                                    {
+                                        'title': '人员证件管理',
+                                        'action2' : 'funenc_xa_station.person_certificate_server',
+                                        'group' : 'funenc_xa_station.table_people_certificates',
+                                    },
+                            ]
+                        }''',
+            'context': self.env.context,
+        }
 
 
     @api.model
@@ -38,17 +68,18 @@ class AddPersonCertificate(models.Model):
         vals['relevance'] = vals['person_name']
         return super(AddPersonCertificate, self).create(vals)
 
+    #新增一条记录
     @api.model
     def person_certificate_type(self):
         view_form = self.env.ref('funenc_xa_station.person_certificate_form').id
         return {
-            'name': '新增专业类型',
+            'name': '新增',
             'type': 'ir.actions.act_window',
             'res_model': 'person.certificate',
             "views": [[view_form, "form"]],
             'context': self.env.context,
-            # 'flags': {'initial_mode': 'edit'},
-            # 'target': 'new',
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
         }
 
 
@@ -91,4 +122,5 @@ class AddPersonCertificate(models.Model):
             'res_model': 'person.certificate',
             'res_id': self.id,
             'flags': {'initial_mode': 'readonly'},
+            'target':'new',
         }

@@ -27,6 +27,9 @@ class TransientBreakManagement(models.Model):
 
     #修复
     def repair_image(self):
+        self.env['funenc_xa_station.transceiver_settings'].search([('id','=',int(self.id_id))]).write({
+          'state':'one'
+        })
         self.write({'state': 'one'})
         view_form = self.env.ref('funenc_xa_station.transient_break_management_form').id
         return {

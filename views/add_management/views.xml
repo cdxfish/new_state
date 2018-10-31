@@ -39,6 +39,7 @@
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
+                    <field name="release_time"></field>
                     <widget string="操作" name="treebtns" template="add_management_type"/>
                 </tree>
             </field>

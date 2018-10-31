@@ -14,14 +14,14 @@ class BreakSubmit(models.Model):
     break_describe = fields.Char(string='故障描述')
     local_image = fields.Binary(string='现场图片')
     equipment_name = fields.Char(string='设备名称')
-    equipment_number = fields.Char(string='设备编码`')
+    equipment_number = fields.Char(string='设备编码')
     equipment_post = fields.Char(string='设备位置')
     break_type = fields.Many2one('funenc_xa_staion.break_type_increase', string='故障类型')
     submit_time = fields.Datetime(string='提报时间')
-    deal_situation = fields.Selection([('one', '提交'), ('zero', '未处理')], string='处理情况')
+    deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况',default='zero')
     deal_results = fields.Char(string='处理结果')
     deal_time = fields.Datetime(string='处理时间')
-    load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_station_break_dateils_ir_attachment_rel',
+    load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_station_break_submit_dateils_ir_attachment_rel',
                                       'attachment_id', 'meeting_dateils_id', string='图片上传')
     url = fields.Char(string='七牛路径')  # app 上传路径 自己转换
 
@@ -29,14 +29,65 @@ class BreakSubmit(models.Model):
     def new_increase_record(self):
         view_form = self.env.ref('funenc_xa_station.break_submit_form').id
         return {
-            'name': '证件名称',
+            'name': '故障列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
+            'target':'new',
         }
+
+    # 处理操作
+    def deal_button_action(self):
+
+        self.write({'deal_situation':'one'})
+        view_form = self.env.ref('funenc_xa_station.break_submit_deal_form').id
+        return {
+            'name': '故障列表',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'context': self.env.context,
+            'res_id':self.id,
+            'target':'new',
+        }
+
+    # 修改当前的一条记录
+    def onchange_record_button_act(self):
+        view_form = self.env.ref('funenc_xa_station.break_submit_form').id
+        return {
+            'name': '故障列表',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id':self.id,
+            'target':'new',
+        }
+
+    # 编辑当前的一条记录
+    def edit_button_subit_act(self):
+        view_form = self.env.ref('funenc_xa_station.break_submit_edit_form').id
+        return {
+            'name': '故障列表',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'flags': {'initial_mode': 'edit'},
+            'context': self.env.context,
+            'res_id':self.id,
+            'target':'new',
+        }
+
 
     # 删除当前的一条记录
     def break_delete_action(self):
@@ -125,4 +176,20 @@ class BreakSubmit(models.Model):
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
+        }
+
+    #浏览当前记录的图片
+    def browse_image_button_act(self):
+        view_form = self.env.ref('funenc_xa_station.browse_image_button_submit_act').id
+        return {
+            'name': '查看图片',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.break_submit',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'readonly'},
+            'res_id': self.id,
+            'target': 'new',
         }

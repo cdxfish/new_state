@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<!-- 停送电通知搜索 -->
+	<t t-name="blong_to_management_search">
+		<div class="form-inline custom_search_box">
+			<div class="container-fluid">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px;">
+					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">线路:</label>
+					<div for="line_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px;">
+					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">站点:</label>
+					<div for="site_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+				</div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px;">
+					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">日期:</label>
+					<div for="check_time" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="col-md-4 col-sm-12 col-xs-12">
+					<button type="button" class="btn btn-default search_extend_apply">
+						应用
+					</button>
+					<button type="button" class="btn btn-default search_extend_reset">
+						重置
+					</button>
+				</div>
+			</div>
+		</div>
+	</t>
+
+</templates>

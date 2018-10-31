@@ -30,7 +30,6 @@ odoo.define("multi_action_tab", function (require) {
         tabs: [],
         template: 'layui_window_tab',
         init: function (parent, widget_type, action_manager, action_descript) {
-            console.log('init')
             this._super.apply(this, arguments)
             this.widget_type = widget_type
             this.control_pannel = parent
@@ -49,7 +48,6 @@ odoo.define("multi_action_tab", function (require) {
         renderElement: function () {
             var self = this;
             $.when(get_group_tab(this)).then(function (data) {
-            console.log(data)
                 var $el;
                 self.tabs = data;
                 if (self.template) {
@@ -69,14 +67,12 @@ odoo.define("multi_action_tab", function (require) {
             layui.use('element', function () {
                 var element = layui.element;
                 element.on('tab(' + self.tab_id + ")", function (data) {
-                    var index = data.index
-                    var tab = self.tabs[index]
+                    var tab = $(this);
+                    if (tab.attr('action')) {
+                        self.do_action(tab.attr('action'))
 
-                    if (tab.action) {
-                        self.do_action(tab.action)
-
-                    } else if (tab.action2) {
-                        self.do_action(tab.action2)
+                    } else if (tab.attr('action2')) {
+                        self.do_action(tab.attr('action2'))
 
 //          console.log("domains:"+JSON.stringify(tab.domains))
 //

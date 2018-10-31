@@ -586,7 +586,7 @@
 		<!--/>-->
 
 		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="3"
-
+				  groups="module_category_comprehensive"
 		/>
 		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
 				parent="funenc_station_integrated_management" groups="system_equipment_use_list" sequence="6"></menuitem>
@@ -598,7 +598,7 @@
 
 		<!--系统配置-->
         <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="5" icon="&#xe614;" />
-		<menuitem id="plan_menu_staffing_1" name="人员设置" sequence="4" icon="&#xe614;"
+		<menuitem id="plan_menu_staffing_1" name="权限设置" sequence="4" icon="&#xe614;"
 		/>
 
 		<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="plan_menu_staffing_1"
@@ -690,6 +690,12 @@
 				  <!--action="xa_station_conflict_rule_action"-->
 		/>
 
+
+		<!--<menuitem id="station_scheduling_list" name="排班列表"-->
+				  <!--parent="funenc_station_integrated_management"-->
+				  <!--sequence="2" action="key_manage_act_window_1"-->
+		<!--/>-->
+
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_management"
 				  sequence="2" action="xa_station_sheduling_manage_list_action"
@@ -739,7 +745,6 @@
 				  parent="funenc_station_integrated_management"
 				  action="xa_station_leave_list_action"
 		/>
-		、
 		<record model="ir.actions.act_window" id="xa_station_clock_list_action111">
             <field name="name">打卡记录</field>
             <field name="res_model">fuenc_station.clock_record</field>
@@ -920,7 +925,7 @@
 				  <!--action='add_class_act_id'></menuitem>-->
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
-
+				  groups="system_files"
 				  parent="funenc_station_integrated_management" sequence="3" action="station_certificate_button_server"></menuitem>
 
 
@@ -940,8 +945,8 @@
 		<menuitem id="second_menu"  action="second_act" groups="system_people_loan" name="人员借调" parent="person_management_menu_" sequence="2"></menuitem>
 
 
-		<menuitem id="check_evaluate_menu_parent"  name="考评指标库"
-				  parent="funenc_station_integrated_management" action="check_evaluate_act"></menuitem>
+		<!--<menuitem id="check_evaluate_menu_parent"  name="考评指标库"-->
+				  <!--parent="funenc_station_integrated_management" action="check_evaluate_act"></menuitem>-->
 
 		<!--<menuitem id="check_evaluate_menu" name="考评指标" action="check_evaluate_act"-->
 				  <!--parent="check_evaluate_menu_parent"></menuitem>-->

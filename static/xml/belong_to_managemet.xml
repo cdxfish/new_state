@@ -3,12 +3,19 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="belong_to_management_template">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="belong_to_edit_action"
+            <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="belong_to_edit_action"
                     group="funenc_xa_station.apanage_management_modify_button"
                     >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete_action"
+            <button class="layui-btn layui-btn-sm layui-btn-danger" hidden="hidden" type="object" name="delete_action"
                     group="funenc_xa_station.apanage_management_delete_button"
                     confirm="您确定要删除该条记录吗？" >删除</button>
+        </div>
+    </t>
+    <t t-name="browse_image_button">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="browse_image_button_act"
+                    t-if="widget.record.data.load_file_test == Ture"
+                    >现场照片</button>
         </div>
     </t>
 </templates>

@@ -21,6 +21,7 @@ class GoodDeedsType(models.Model):
             'res_model': 'funenc_xa_station.good_deeds_type',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
+            'res_id':self.id,
             'target': 'new',
         }
 

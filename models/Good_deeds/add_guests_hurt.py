@@ -12,7 +12,12 @@ key = [('one_audit','待初核'),
 class AddGuestsHurt(models.Model):
     _name = 'fuenc_xa_station.add_guests_hurt'
     _inherit = 'fuenc_station.station_base'
-    associated = fields.Many2one('fuenc_xa_station.guests_hurt', string='关联字段')
+
+    def _default_associated(self):
+        if self._context.get('active_id', False):
+            return self._context['active_id']
+
+    associated = fields.Many2one('fuenc_xa_station.guests_hurt', string='关联字段',default=_default_associated)
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
@@ -41,7 +46,6 @@ class AddGuestsHurt(models.Model):
     url = fields.Char(string='url')
     mp_play_many = fields.One2many('video_voice_model', 'add_guest_play_mp4', string='视频附件')
     mp3_play_many = fields.One2many('video_voice_model', 'add_guest_play_mp3', string='视频附件')
-
 
     @api.model
     @get_domain

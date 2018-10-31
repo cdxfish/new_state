@@ -3,27 +3,42 @@
 
 from odoo import api, models, fields
 from .. get_domain import get_domain
+import odoo.exceptions as warning
 
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
     _inherit = 'fuenc_station.station_base'
 
     post_check = fields.Selection([('guard', '保安'), ('check', '安检'), ('clean', '保洁')], string='岗位检查')
-    check_time = fields.Datetime(string='检测时间', requird=True)
-    check_state = fields.Text(string='检测情况')
+    check_time = fields.Datetime(string='检测时间', required=True)
+    check_state = fields.Text(string='检测情况', required=True)
     find_problem = fields.Text(string='发现问题')
     reference_according = fields.Char(string='参考依据')
     local_image = fields.Binary(string='现场照片')
-    check_score = fields.Integer(string='考核分值')
+    check_score = fields.Float(string='考核分值', required=True)
     note = fields.Char(string='备注')
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char(string='填报人',
                                default=lambda self: self.default_name_id())
     job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
-    change_state = fields.Selection([('add', '加'), ('reduce', '减')], dafault='reduce')
+    change_state = fields.Selection([('add', '加'), ('reduce', '减')],required=True)
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
+    load_file_test = fields.Many2many('ir.attachment', 'funenc_management_',
+                                      'attachment_id', 'meeting_dateils_id', string='图片上传')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
+    browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片')
+
+    #在创建的时候改变分数的正负数
+    @api.model
+    def create(self, vals):
+        if vals.get('change_state') == 'add':
+            vals['check_score'] = abs(vals.get('check_score'))
+        elif vals.get('change_state') == 'reduce':
+            vals['check_score'] = -abs(vals.get('check_score'))
+        if vals['load_file_test'][1][2]['datas']:
+            vals['browse_image_invisible'] == 'one'
+        return super(BelongToManagement, self).create(vals)
 
     @get_domain
     @api.model
@@ -54,6 +69,21 @@ class BelongToManagement(models.Model):
             return
         return self.env.user.dingtalk_user.jobnumber
 
+    #创建新记录
+    @api.model
+    def create_belong_to_action(self):
+        # view_form = self.env.ref('funenc_xa_station.belong_to_management_form').id
+        return {
+            'name': '属地管理',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            # "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.belong_to_management',
+            'context': self.env.context,
+            'target':'new',
+        }
+
     # 修改当前的记录
     def belong_to_edit_action(self):
         lol = self.env.user.dingtalk_user
@@ -72,14 +102,6 @@ class BelongToManagement(models.Model):
     # 删除当前的记录
     def delete_action(self):
         self.env['funenc_xa_station.belong_to_management'].search([('id', '=', self.id)]).unlink()
-
-    # 改变参考分数的正负数
-    @api.onchange('change_state')
-    def change_state_negative(self):
-        if self.change_state == 'add':
-            self.check_score = abs(self.check_score)
-        elif self.change_state == 'reduce':
-            self.check_score = -abs(self.check_score)
 
     @api.model
     def get_belong_to_management(self):
@@ -141,3 +163,19 @@ class BelongToManagement(models.Model):
         except Exception:
             raise False
         return True
+
+    #查看现场图片
+    def browse_image_button_act(self):
+        view_form = self.env.ref('funenc_xa_station.browse_iamge_form').id
+        return {
+            'name': '属地管理',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.belong_to_management',
+            'context': self.env.context,
+            'res_id': self.id,
+            'flags': {'initial_mode': 'readonly'},
+            'target': 'new',
+        }

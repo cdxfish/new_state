@@ -9,6 +9,16 @@ class CheckCollect(models.Model):
     _inherit = 'funenc_xa_station.check_record'
 
     @api.model
+    def get_action(self):
+        return {
+            'name': '考评汇总',
+            'type': 'ir.actions.client',
+            'tag':'funenc_xa_check',
+            'res_model': 'funenc_xa_station.award_record',
+            'context': self.env.context,
+        }
+
+    @api.model
     def check_record_method(self):
         # data = self.env['funenc_xa_station.check_record'].search([]).mapped('job_number')
         # data1 = set(data)

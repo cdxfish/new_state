@@ -32,7 +32,7 @@
             <field name="name">故障提报</field>
             <field name="model">funenc_xa_station.break_submit</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="0" edit="0" class="noOpen">
                     <field name="line_id"></field>
                     <field name="site_id" ></field>
                     <field name="break_describe"></field>
@@ -54,25 +54,383 @@
             <field name="name">故障提报</field>
             <field name="model">funenc_xa_station.break_submit</field>
             <field name="arch" type="xml">
+                <form edit="0" create="0" class="noOpen">
+                    <sheet>
+                        <group>
+                          <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="line_id" string="线路："/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="site_id" string="站点"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_type" string="故障类型"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_type">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_name" string="设备名称"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_name">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_number" string="设备编码"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_number">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_post" string="设备位置"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_post">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_describe" string="故障描述"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_describe">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="load_file_test" string="照片："/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="load_file_test" widget="one2many_image_read_widget">
+                                            <tree>
+                                                <field name="datas_fname"/>
+                                            </tree>
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="break_submit_deal_form" model="ir.ui.view">
+            <field name="name">故障提报</field>
+            <field name="model">funenc_xa_station.break_submit</field>
+            <field name="arch" type="xml">
                 <form>
                     <sheet>
                         <group>
-                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
-                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
-                            <field name="break_type"></field>
-                            <field name="equipment_name"></field>
-                            <field name="equipment_number"></field>
-                            <field name="equipment_post"></field>
-                            <field name="break_describe"></field>
-                            <field name="load_file_test" widget="one2many_binary">
-                                <tree>
-                                    <field name="datas_fname"/>
-                                </tree>
-                            </field>
+                          <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="line_id" string="线路："/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="line_id"  domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="site_id" string="站点"/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_type" string="故障类型"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_type" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_name" string="设备名称"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_name" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_number" string="设备编码"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_number" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_post" string="设备位置"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_post" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_describe" string="故障描述"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_describe" readonly="1">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="load_file_test" string="照片："/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="load_file_test" widget="one2many_image_read_widget" readonly="1">
+                                            <tree>
+                                                <field name="datas_fname"/>
+                                            </tree>
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="deal_results" string="处理结果"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="deal_results">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="deal_time" string="处理时间"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="deal_time">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
                         </group>
                     </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="break_submit_edit_form" model="ir.ui.view">
+            <field name="name">故障提报</field>
+            <field name="model">funenc_xa_station.break_submit</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0" class="noOpen">
+                    <sheet>
+                        <group>
+                          <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="line_id" string="线路："/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="line_id"  domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="site_id" string="站点"/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_type" string="故障类型"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_type" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_name" string="设备名称"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_name" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_number" string="设备编码"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_number" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="equipment_post" string="设备位置"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="equipment_post" >
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="break_describe" string="故障描述"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="break_describe">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="load_file_test" string="照片："/>
+                                      </div>
+                                     <div class="col-md-10">
+                                         <field name="load_file_test" widget="one2many_image_read_widget" >
+                                            <tree>
+                                                <field name="datas_fname"/>
+                                            </tree>
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="deal_results" string="处理结果"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="deal_results">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="col-md-2">
+                                         <label for="deal_time" string="处理时间"/>
+                                      </div>
+                                     <div class="col-md-10" >
+                                         <field name="deal_time">
+                                         </field>
+                                    </div>
+                                 </div>
+                             </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="browse_image_button_submit_act" model="ir.ui.view">
+            <field name="name">图片详情</field>
+            <field name="model">funenc_xa_station.break_submit</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0" class="noOpen">
+                    <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-2">
+                                 <label for="load_file_test" string="照片："/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                 </field>
+                            </div>
+                         </div>
+                     </div>
                 </form>
             </field>
         </record>
@@ -83,7 +441,7 @@
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 
-        <menuitem id="break_submit_menu" name="故障提报" action="break_submit_act"></menuitem>
+        <!--<menuitem id="break_submit_menu" name="故障提报" action="break_submit_act"></menuitem>-->
 
     </data>
 </odoo>

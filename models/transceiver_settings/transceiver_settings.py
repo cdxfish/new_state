@@ -28,9 +28,10 @@ class TransceiverSettings(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.transceiver_settings',
             'context': self.env.context,
+            'target':'new',
         }
 
-    #保修按钮
+    #报修按钮
     def warranty_action(self):
         dic={
             'id_id':self.id,

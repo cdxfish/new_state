@@ -1,11 +1,10 @@
 <?xml  version="1.0"  encoding="UTF-8"  ?>
 <odoo>
         <data>
-
             <record model="ir.actions.server" id="station_certificate_button_server">
-                <field name="name"></field>
+                <field name="name">车站证件</field>
                 <field name="type">ir.actions.server</field>
-                <field name="res_model">construction.dispatch</field>
+                <field name="res_model">station.certificate</field>
                 <field name="model_id" ref="model_station_certificate"/>
                 <field name="condition">True</field>
                 <field name="state">code</field>
@@ -128,26 +127,26 @@
             </field>
         </record>
 
-            <record id="station_certificate_act_id_3" model="ir.actions.act_window">
-                <field name="name">车站证件管理</field>
-                <field name="type">ir.actions.act_window</field>
-                <field name="res_model">station.certificate</field>
-                <field name="view_mode">tree,form</field>
-                 <field name="top_widget">multi_action_tab</field>
-                <field name="top_widget_key">driver_manage_tab</field>
-                <field name="top_widget_options">
-                    {'tabs':
-                        [
-                            {'title': '车站证件管理',
-                            'action':  'funenc_xa_station.station_certificate_act_id_3',
-                            'group': 'funenc_xa_station.test_group'},
-                            {
-                                'title': '人员证件管理',
-                                'action2':  'funenc_xa_station.person_certificate_act'}
-                        ]
-                    }
-                </field>
-            </record>
+            <!--<record id="station_certificate_act_id_3" model="ir.actions.act_window">-->
+                <!--<field name="name">车站证件管理</field>-->
+                <!--<field name="type">ir.actions.act_window</field>-->
+                <!--<field name="res_model">station.certificate</field>-->
+                <!--<field name="view_mode">tree,form</field>-->
+                 <!--<field name="top_widget">multi_action_tab</field>-->
+                <!--<field name="top_widget_key">driver_manage_tab</field>-->
+                <!--<field name="top_widget_options">-->
+                    <!--{'tabs':-->
+                        <!--[-->
+                            <!--{'title': '车站证件管理',-->
+                            <!--'action':  'funenc_xa_station.station_certificate_act_id_3',-->
+                            <!--'group': 'funenc_xa_station.test_group'},-->
+                            <!--{-->
+                                <!--'title': '人员证件管理',-->
+                                <!--'action2':  'funenc_xa_station.person_certificate_act'}-->
+                        <!--]-->
+                    <!--}-->
+                <!--</field>-->
+            <!--</record>-->
 
 
     </data>

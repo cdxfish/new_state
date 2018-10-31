@@ -3,7 +3,12 @@
 	 <el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<h4>奖励汇总</h4>
-		</div>
+				<el-tabs v-model="tabValue" @tab-click="handleSelect">
+                    <el-tab-pane label="考评记录" name="1"></el-tab-pane>
+                    <el-tab-pane label="考评汇总" name="2"></el-tab-pane>
+                    <el-tab-pane label="奖励记录" name="3"></el-tab-pane>
+                    <el-tab-pane label="奖励汇总" name="4"></el-tab-pane>
+				</el-tabs>
 		  	<div class="block">
 				<span class="demonstration">选择时间</span>
 				<el-date-picker

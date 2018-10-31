@@ -8,8 +8,8 @@ import base64
 from ..get_domain import get_domain
 
 
-key = [('one_audit','待初核'),
-       ('two_audit','待复核'),
+key = [('one_audit','待初审'),
+       ('two_audit','待复审'),
        ('through','已通过'),
        ('rejected','已驳回')]
 
@@ -88,7 +88,7 @@ class GuestsHurt(models.Model):
                                 'group' : 'funenc_xa_station.table_people_wound'
                                 },
                             {
-                                'title': '乘客意意见箱',
+                                'title': '乘客意见箱',
                                 'action2':  'funenc_xa_station.suggestion_box_act',
                                 'group' : 'funenc_xa_station.table_people_message'
                                 },
@@ -170,6 +170,7 @@ class GuestsHurt(models.Model):
             'res_model': 'fuenc_xa_station.guests_hurt',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
+            'target':'new',
         }
 
     #查看详情
@@ -224,3 +225,18 @@ class GuestsHurt(models.Model):
             self.write({'claim_state':'one'})
         elif self.claim_state == 'one':
             self.write({'claim_state': 'zero'})
+
+    # 新增一条跟进记录
+    def complaints_suer_button(self):
+        view_form = self.env.ref('funenc_xa_station.add_aguests_hurt_form').id
+        return {
+            'name': '跟进记录',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'fuenc_xa_station.add_guests_hurt',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }

@@ -8,14 +8,14 @@ class MeetingDateils(models.Model):
     _name = 'funenc_xa_station.meeting_dateils'
     _inherit = 'fuenc_station.station_base'
 
-    meeting_theme = fields.Char(string='会议主题')
+    meeting_theme = fields.Char(string='会议主题',required=True)
     meeting_time = fields.Char(string='会议时间',computed='date_change',store=True)
-    start_meet = fields.Datetime(string='会议开始时间')
-    end_meet = fields.Datetime(string='会议结束时间')
-    compere = fields.Char(string='主持人')
-    join_person = fields.Char(string='参会人员')
-    meeting_content = fields.Text(string='会议内容')
-    meeting_site = fields.Char(string='会议地点')
+    start_meet = fields.Datetime(string='会议开始时间',required=True)
+    end_meet = fields.Datetime(string='会议结束时间',required=True)
+    compere = fields.Char(string='主持人',required=True)
+    join_person = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','meet_detaails_rel',string='参会人员')
+    meeting_content = fields.Text(string='会议内容',required=True)
+    meeting_site = fields.Char(string='会议地点',required=True)
     recorder = fields.Char(string='记录人',default=lambda self: self.default_person_id())
     record_time = fields.Char(string='记录日期',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     load_file_test = fields.Many2many('ir.attachment','funenc_xa_station_meeting_dateils_ir_attachment_rel',
@@ -51,7 +51,7 @@ class MeetingDateils(models.Model):
             'res_model': 'funenc_xa_station.meeting_dateils',
             'res_id': self.id,
             'flags': {'initial_mode': 'readonly'},
-            'target': 'new',
+            # 'target': 'new',
         }
 
     def meet_change_button(self):

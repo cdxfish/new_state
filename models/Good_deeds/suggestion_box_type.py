@@ -18,6 +18,7 @@ class SuggestBoxTy(models.Model):
             'view_mode': 'form',
             'res_model': 'funenc_xa_station.suggest_box_type',
             'context': self.env.context,
+            'res_id':self.id,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
         }

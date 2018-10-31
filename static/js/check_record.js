@@ -52,6 +52,7 @@ odoo.define('funenc_xa_check', function (require) {
                        return {
                                 tableData:self.user_data,
                                 value6:'时间选择',
+                                tabValue:''
 
                        };
                     },
@@ -73,6 +74,47 @@ odoo.define('funenc_xa_check', function (require) {
                                                 };
 
                               },
+//                          tab页面的跳转功能
+                           handleSelect: function(){
+                                                        var that =this;
+//                                                        console.log(that.tabValue);
+                                                        if(that.tabValue==2){
+                                                                     self._rpc({
+                                                                            model:'funenc_xa_station.check_collect',
+                                                                            method:'get_action',
+                                                                         }).then(function(data){
+//                                                                            console.log(data);
+                                                                            self.do_action(data);
+                                                                            });
+
+                                                        }else if(that.tabValue==4){
+                                                                     self._rpc({
+                                                                        model:'funenc_xa_station.award_collect',
+                                                                        method:'get_action',
+                                                                     }).then(function(data){
+//                                                                        console.log(data);
+                                                                        self.do_action(data);
+                                                                        });
+
+
+                                                        }else if(that.tabValue==1){
+                                                        self._rpc({
+                                                            model:'funenc_xa_station.check_record',
+                                                            method:'get_action',
+                                                         }).then(function(data){
+                                                            self.do_action(data);
+
+                                                         });
+                                                        }else if(that.tabValue==3){
+                                                                self._rpc({
+                                                                    model:'funenc_xa_station.award_record',
+                                                                    method:'get_action',
+                                                                 }).then(function(data){
+                                                                    self.do_action(data);
+                                                                    });
+
+                                                        }
+                                                    },
 
                         import_excel(){
                           if (this.tableData){

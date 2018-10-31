@@ -32,7 +32,6 @@ class BreakLogManage(models.Model):
             'context': self.env.context,
         }
 
-    @get_domain
     def create_new_record(self):
         view_form = self.env.ref('funenc_xa_station.break_log_manage_form').id
         return {
@@ -69,7 +68,7 @@ class BreakLogManage(models.Model):
         }
 
     def break_record_selete(self):
-        self.env('funenc_xa_station.break_log_manage').search(['id','=',self.id]).unlink()
+        self.unlink()
 
     def onchange_record(self):
         view_form = self.env.ref('funenc_xa_station.break_log_manage_form').id

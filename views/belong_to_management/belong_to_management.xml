@@ -12,7 +12,7 @@
             </field>
         </record>
 
-        <record model="ir.actions.server" id="belong_to_management_server">
+        <record model="ir.actions.server" id="belong_to_management_server_server">
             <field name="name">新增检查</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
@@ -20,7 +20,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_belong_to_management"/>
             <field name="binding_type">action_button</field>
-            <field name="binding_action">乘客意见箱</field>
+            <field name="binding_action">属地管理</field>
             <field name="binding_group">funenc_xa_station.apanage_management_new_check_button</field>
             <field name="code">
                 action = model.create_belong_to_action()
@@ -42,7 +42,7 @@
             <field name="name">属地管理</field>
             <field name="model">funenc_xa_station.belong_to_management</field>
             <field name="arch" type="xml">
-                <tree create="0" edit='0'>
+                <tree create="0" edit='0' search_ex_template="blong_to_management_search">
                     <field name="line_id"></field>
                     <field name="site_id"></field>
                     <field name="post_check"></field>
@@ -50,7 +50,7 @@
                     <field name="check_state"></field>
                     <field name="find_problem"></field>
                     <field name="reference_according"></field>
-                    <field name="local_image"></field>
+                    <widget name="treebtns" template="browse_image_button" string="现场图片"></widget>
                     <field name="check_score"></field>
                     <field name="note"></field>
                     <field name="write_person" string="填报人"></field>
@@ -173,6 +173,43 @@
                        </div>
                     </div>
                     </div>
+                    <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="load_file_test" string="照片"/>
+                              </div>
+                             <div class="col-md-11">
+                                 <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                 </field>
+                            </div>
+                         </div>
+                     </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="browse_iamge_form">
+            <field name="name">现场照片</field>
+            <field name="model">funenc_xa_station.belong_to_management</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0">
+                    <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="load_file_test" string="照片"/>
+                              </div>
+                             <div class="col-md-11">
+                                 <field name="load_file_test" widget="one2many_image_read_widget">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                 </field>
+                            </div>
+                         </div>
+                     </div>
                 </form>
             </field>
         </record>

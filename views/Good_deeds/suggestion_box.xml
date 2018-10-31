@@ -13,18 +13,6 @@
             </field>
         </record>
 
-
-    ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
-            <field name="name">导出</field>
-            <field name="type">ir.actions.act_url</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
-            <field name="binding_xml_id">suggestion_box_tree</field>
-            <field name="binding_type">action_button</field>
-            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
-            <field name="url">/funenc_xa_station/suggestion_box</field>
-            <field name="target">new</field>
-        </record>
-
         <record model="ir.actions.server" id="suggestion_box_tree_button">
             <field name="name">新建</field>
             <field name="state">code</field>
@@ -38,6 +26,17 @@
             <field name="code">
                 action = model.create_suggest()
             </field>
+        </record>
+
+    ﻿   <record model="ir.actions.act_url" id="suggestion_box_url">
+            <field name="name">导出</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_suggestion_box"/>
+            <field name="binding_xml_id">suggestion_box_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.passenger_server_guest_box_export</field>
+            <field name="url">/funenc_xa_station/suggestion_box</field>
+            <field name="target">new</field>
         </record>
 
 
