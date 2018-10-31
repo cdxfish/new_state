@@ -1,31 +1,44 @@
 /**
  * Created by artorias on 2018/10/28.
  */
-odoo.define('scheduling_summary_clint', function (require) {
+odoo.define('change_shifts_clint', function (require) {
     'use strict';
 
     var Widget = require('web.Widget');
     var core = require('web.core');
 
-    var scheduling_summary_clint = Widget.extend({
+    var change_shifts_clint = Widget.extend({
         init: function (parent, record, node) {
             console.log(record.params.show_data)
             this._super(parent, record, node);
-//            this.vue_data=record.params.show_data;
+            this.vue_data = {
+                    activeName: 'first',
+                    shift_shift_data:[
+//                    {
+//                    index: 1,
+//                    shift_shift_date:'2010-10-10',
+//                    take_over_user: '张三',
+//                    job_no:001,
+//                    take_over_date: '2010-10-11'
+//                    }
+                    ]
+
+
+                };
 
         },
 
-//        willStart: function(){
-//            var self = this;
-//            return self._rpc({
-//                model: 'funenc_xa_station.sheduling_manage',
-//                method: 'get_sheuling_list_1',
-//                kwargs: '',
-//            }).then(function(data){
-//                self.vue_data = data
-//            })
+//        willStart: function () {
 //
-//        },
+//                    var self= this;
+//
+//                    return self._rpc({
+//                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+//                        method: 'get_line_id',
+//                    }).then(function(data){
+//                        self.vue_data.line_options = data
+//                    })
+//            },
         start: function () {
             var self = this;
             self._rpc({
@@ -33,7 +46,7 @@ odoo.define('scheduling_summary_clint', function (require) {
                 method: 'get_template_content',
                 kwargs: {
                     module_name: 'funenc_xa_station',
-                    template_name: 'test_dome'
+                    template_name: 'test_demo'
                 }
             }).then(function (el) {
                 self.replaceElement($(el));
@@ -42,27 +55,34 @@ odoo.define('scheduling_summary_clint', function (require) {
                     data() {
                         return self.vue_data
                     },
+
                     methods: {
-                        save: function () {
-                            var this_vue = this;
-                            console.log(self.vue_data);
-
-                             self._rpc({
-                                 model: 'funenc_xa_station.sheduling_manage',
-                                 method: 'save_change_data',
-                                 kwargs: {kw: self.vue_data}
-                             }).then(function (data) {
-                                 this_vue.$message({
-                                     message: data.message || '恭喜你，这是一条成功消息',
-                                     type: 'success'
-                                 });
-                             })
-                        },
-
-                        change_data: function($event,data){
-                            console.log($event);
+                        shift_shift: function(){
 
                         },
+
+                        take_over: function(){
+                            self._rpc({
+                                model: 'funenc_xa_station.production_change_shifts',
+                                method: 'get_views'
+
+                            }).then(function (data) {
+//                                    self.do_action({
+//                                                    name: '\u94a5\u5319\u65b0\u5efa',
+//                                                    type: 'ir.actions.act_window',
+//                                                    res_model: 'funenc_xa_station.production_change_shifts',
+//                                                    views: [[data.list_views, 'tree'],[data.form_views,'form']],
+//                                                    target: 'new',
+//                                                    domain: data.domain
+//                                                })
+                              };
+
+                        },
+
+                        handleClick(tab, event) {
+                            console.log(tab, event);
+                        },
+
 
 
                     }
@@ -70,6 +90,6 @@ odoo.define('scheduling_summary_clint', function (require) {
             })
         }
     });
-    core.action_registry.add('scheduling_summary_clint', scheduling_summary_clint);
-    return {scheduling_summary_clint: scheduling_summary_clint}
+    core.action_registry.add('change_shifts_clint', change_shifts_clint);
+    return {change_shifts_clint: change_shifts_clint}
 });

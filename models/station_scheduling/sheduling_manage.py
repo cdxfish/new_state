@@ -370,6 +370,16 @@ class ShedulingManage(models.Model):
             'params': {'show_data': show_data}
         }
 
+    def sheduling_manage_clint(self):
+        show_data = self.get_sheuling_list(self.site_id.id, self.sheduling_start_time, self.sheduling_end_time)
+        return {
+            'name': '排班管理',
+            'type': 'ir.actions.client',
+            'tag': 'act_xa_station_sheduling_manage_1_action',
+            'target': 'current',
+            'params': {'show_data': show_data}
+        }
+
     @api.model
     def sheduling_start(self):
         '''

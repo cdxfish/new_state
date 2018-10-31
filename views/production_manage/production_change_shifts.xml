@@ -10,7 +10,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_production_change_shifts"/>
             <field name="binding_type">action_button</field>
-            <field name="binding_action">耗材申请</field>
+            <field name="binding_action">交接班</field>
             <field name="code">
                 action = model.create_production_change_shifts()
             </field>
@@ -28,6 +28,7 @@
                     <field name="before_on_duty" string="班前情况"/>
                     <field name="complete_task" string="工作完成情况"/>
                     <field name="after_work" string="班后总结"/>
+                    <field name="state"  string="状态"/>
                     <!--<widget string="操作" name="treebtns" template="production_change_shifts_widget_edit_delete"/>-->
                 </tree>
             </field>
@@ -52,41 +53,41 @@
                                         <div class="form-group">
                                             <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
                                             <div class="col-md-8  col-sm-6  col-xs-12">
-                                                <field name="change_shifts_user_id"/>
+                                                <field name="change_shifts_user_id" readonly="1"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3  col-sm-6  col-xs-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>
-                                            <div class="col-md-8  col-sm-6  col-xs-12">
-                                                <field name="take_over_from_user_id"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3  col-sm-6  col-xs-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <span class="widget-label  col-md-4  col-sm-6  col-xs-12">当班时间:</span>
-                                            <div class="col-md-8  col-sm-6  col-xs-12">
-                                                <field name="on_duty_time"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3  col-sm-7  col-xs-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <span class="widget-label  col-md-4  col-sm-7  col-xs-12">交班时间:</span>
-                                            <div class="col-md-8  col-sm-7  col-xs-12">
-                                                <field name="change_shifts_time"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="col-md-3  col-sm-6  col-xs-12">-->
+                                <!--<div class="row">-->
+                                <!--<div class="form-group">-->
+                                <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>-->
+                                <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                <!--<field name="take_over_from_user_id"/>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3  col-sm-6  col-xs-12">-->
+                                <!--<div class="row">-->
+                                <!--<div class="form-group">-->
+                                <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">当班时间:</span>-->
+                                <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                <!--<field name="on_duty_time"/>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3  col-sm-7  col-xs-12">-->
+                                <!--<div class="row">-->
+                                <!--<div class="form-group">-->
+                                <!--<span class="widget-label  col-md-4  col-sm-7  col-xs-12">交班时间:</span>-->
+                                <!--<div class="col-md-8  col-sm-7  col-xs-12">-->
+                                <!--<field name="change_shifts_time"/>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
                             </div>
                         </sheet>
                         <sheet>
@@ -97,8 +98,8 @@
                                 <field name="put_question_ids" string="">
                                     <tree editable="top" class="noOpen">
                                         <field name="put_question_name" string="提问姓名"/>
-                                        <field name="put_question_name" string="题目"/>
-                                        <field name="put_question_name" string="得分"/>
+                                        <field name="examination_questions" string="题目"/>
+                                        <field name="score" string="得分"/>
                                     </tree>
                                 </field>
                             </group>
@@ -115,8 +116,8 @@
                             </group>
                             <group string="备品交接">
                                 <field name="master_to_production_change_ids" string="">
-                                    <tree editable="top" class="noOpen">
-                                        <field name="station_master_id" string="备品名称"/>
+                                    <tree editable="top" class="noOpen" create="0">
+                                        <field name="station_master_id" string="备品名称" readonly="1"/>
                                         <field name="unit" string="单位"/>
                                         <field name="count" string="数量"/>
                                         <field name="state" string="状态"/>
@@ -129,17 +130,32 @@
                                 <field name="equipment_problem" string="设备设施存在的问题"/>
                                 <field name="handover" string="交接事项"/>
                                 <field name="after_work" string="班后总结"/>
+                                <field name="production_state" invisible="1"/>
+                                <field name="state" invisible="1"/>
                             </group>
                         </sheet>
                         <footer>
                             <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
+
+                            />
                             <button name='submit'
-                                    string='提交'
+                                    string='立即交班'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state','in',['take_over_from'])]}"
+
+                            />
+                             <button name='take_over'
+                                    string='接班'
+                                    class='btn-primary'
+                                    type='object'
+                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+
+                             />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -149,15 +165,15 @@
             </field>
         </record>
 
-
-        <record model="ir.ui.view" id="production_change_shifts_train_working_list">
+        <!--行车-->
+        <record model="ir.ui.view" id="production_change_shifts_train_working_list11">
             <field name="name">funenc_xa_station_production_change_shifts_list</field>
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0">
                     <field name="change_shifts_user_id" string="交班人"/>
-                    <field name="take_over_from_user_id" string="接班人"/>
-                    <field name="on_duty_time" string="当班时间"/>
+                    <!--<field name="take_over_from_user_id" string="接班人"/>-->
+                    <!--<field name="on_duty_time" string="当班时间"/>-->
                     <field name="change_shifts_time" string="交班时间"/>
                     <field name="before_on_duty" string="班前情况"/>
                     <field name="complete_task" string="工作完成情况"/>
@@ -167,7 +183,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="production_change_train_working_shifts_form">
+        <record model="ir.ui.view" id="production_change_train_working_shifts_form11">
             <field name="name">funenc_xa_station_production_change_shifts_form</field>
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
@@ -180,152 +196,163 @@
                                 </p>
                                 <br/>
                             </div>
-                            <group>
-                                <field name="production_to_train_working_ids" string="运营前检查"/>
-                                <field name="focus_of_work" string="今日工作重点记录"/>
-                                <field name="other_work_record" string="其他工作记录"/>
+                            <div class="row">
+                                <div class="col-md-3  col-sm-6  col-xs-12">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
+                                            <div class="col-md-8  col-sm-6  col-xs-12">
+                                                <field name="change_shifts_user_id" readonly="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <group string="运营前检查">
+                                <field name="check_project_ids" string="">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="context" string="运营前检查项目" readonly="1"/>
+                                        <field name="check_situation" string="检查情况"/>
+                                        <field name="check_time" string="检查时间"/>
+                                    </tree>
+                                </field>
+                                <field name="production_state" invisible="1"/>
+
+                            </group>
+                            <group string="今日工作重点记录">
+                                <field name="focus_of_work" string=""/>
+                            </group>
+                            <group string="挡板其他工作记录">
+                                <field name="other_work_record" string=""/>
                             </group>
                             <group string="车站客运情况">
-                                <div class="row">
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="daily_passenger_volume"/>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日进/出站客运量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="daily_passenger_volume"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日TVM售票数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="tmv_booking"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">纪念票出售数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="anniversary_booking"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-7  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-7  col-xs-12">开边门次数:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-7  col-xs-12">
+                                                        <field name="number_of_opening_door"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="tmv_booking"/>
+
+                                    <div class="row">
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">硬币库存量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="coin_stock"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">增票库存:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="stock_increase_stock"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日客伤数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="day_number_of_guest_injuries"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3  col-sm-7  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-7  col-xs-12">本日投诉数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-7  col-xs-12">
+                                                        <field name="number_of_complaints_today"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">当班时间:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="anniversary_booking"/>
+
+                                    <div class="row">
+                                        <div class="col-md-6  col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">
+                                                        本日感谢信/锦旗数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="gratitude_number"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-7  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-7  col-xs-12">交班时间:</span>
-                                                <div class="col-md-8  col-sm-7  col-xs-12">
-                                                    <field name="number_of_opening_door"/>
+                                        <div class="col-md-6 col-sm-6  col-xs-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <span class="widget-label  col-md-4  col-sm-6  col-xs-12">好人好数量:
+                                                    </span>
+                                                    <div class="col-md-8  col-sm-6  col-xs-12">
+                                                        <field name="good_people_good_deeds"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="coin_stock"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="stock_increase_stock"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">当班时间:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="day_number_of_guest_injuries"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-7  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-7  col-xs-12">交班时间:</span>
-                                                <div class="col-md-8  col-sm-7  col-xs-12">
-                                                    <field name="number_of_complaints_today"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="gratitude_number"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="good_people_good_deeds"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </group>
                             <group string="票款收入">
-                                <div>
-                                    <p class="text-center">
-                                        <h1>值班站长交班记录表</h1>
-                                    </p>
-                                    <br/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="tmv_booking_income"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6  col-sm-6  col-xs-12">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">接班人:</span>
-                                                <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="other_tickets_income"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <field name="tmv_booking_income" string="本日TVM收入"/>
+                                <field name="other_tickets_income" string="其他票款收入"/>
                             </group>
                         </sheet>
                         <sheet>
@@ -395,22 +422,229 @@
                         <sheet>
                             <div>
                                 <p class="text-center">
-                                    <h1>站务交班记录表</h1>
+                                    <h1>交班记录表</h1>
                                 </p>
                                 <br/>
                             </div>
+
+                            <group>
+                                <field name="preparedness_state" widget="radio"/>
+                            </group>
                             <group string="备品交接">
-                                <field name="master_to_production_change_ids" string="">
+                                <field name="preparedness_1_ids" string="">
                                     <tree editable="top" class="noOpen">
-                                        <field name="station_master_id" string="备品名称"/>
+                                        <field name="preparedness_name" string="备品名称" readonly="1"/>
+                                        <field name="unit" string="单位" readonly="1"/>
                                         <field name="list_situation" string="清单情况"/>
-                                        <field name="exceptional_situation" string="异常情况"/>
-                                        <field name="state" string="状态"/>
-                                        <field name="remarks" string="备注"/>
+                                        <field name="error_name" string="异常情况"/>
+                                        <field name="explain" string="说明"/>
+
                                     </tree>
                                 </field>
+                                <field name="production_state" invisible="1"/>
                             </group>
                         </sheet>
+                        <footer>
+                            <button name='production_change_shifts_save'
+                                    string='保存草稿'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button name='submit'
+                                    string='提交'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!--客运-->
+        <record model="ir.ui.view" id="passenger_transport_train_working_shifts_form11">
+            <field name="name">funenc_xa_station_production_change_shifts_form</field>
+            <field name="model">funenc_xa_station.production_change_shifts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <div>
+                            <p class="text-center">
+                                <h1>客运值班交班记录表</h1>
+                            </p>
+                            <br/>
+                        </div>
+                        <group string="基本内容">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本班票款:</span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="flight_ticket" string="本班票款"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">特殊卡号:</span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="special_card_preset_id" string="特殊卡号"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">特殊工作卡卡数:
+                                                </span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="special_card_preset_no" string="特殊工作卡卡数"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">备用金本班结存(纸币):
+                                                </span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="spare_gold_notes" string="备用金本班结存(纸币)"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">备用金本班结存(硬币):
+                                                </span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="spare_gold_coin" string="备用金本班结存(硬币)"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4  col-sm-6  col-xs-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="widget-label  col-md-4  col-sm-6  col-xs-12">备用金本班结存(总计):
+                                                </span>
+                                                <div class="col-md-8  col-sm-6  col-xs-12">
+                                                    <field name="spare_gold_total" string="备用金本班结存(总计)"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <group string="票务备品">
+                            <field name="preparedness_2_ids" string="">
+                                <tree editable="top" create="0" class="noOpen">
+                                    <field name="name" string="备品名称" readonly=""/>
+                                    <field name="increase" string="本班增加/减少数"/>
+                                    <field name="balance" string="本班结存"/>
+                                    <field name="damage" string="损坏数量"/>
+                                    <field name="scrap" string="报废数量"/>
+
+                                </tree>
+
+                            </field>
+                            <field name="production_state" invisible="1"/>
+
+                        </group>
+                        <group>
+                            <field name="day_15_situation" string="车站每月15日盘点情况"/>
+                        </group>
+                        <group string="备用金">
+                            <field name="reserver_management_ids" string="备用金">
+                                <tree>
+                                    <field name="r_date" string="日期"/>
+                                    <field name="day_money" string="日常备用金配备金额（1）"/>
+                                    <field name="traffic_money" string="交银行兑零纸币(2)"/>
+                                    <field name="bank_Paper" string="银行返兑零纸币(3)"/>
+                                    <field name="bank_COINS" string="银行返兑零硬币(4)"/>
+                                    <field name="day_standby_money" string="日常备用金(5)"/>
+                                    <field name="temporary_standby_money" string="临时备用金(6)"/>
+                                    <field name="financial_temporary_money" string="返还财务部备用金金额(7)"/>
+                                    <field name="machine_money" string="机币(8)"/>
+                                    <field name="counterfeit" string="假币(9)"/>
+                                    <field name="imperfect_money" string="外币(11)"/>
+                                    <field name="less_money" string="少币(12)"/>
+                                    <field name="subtotal" string="小计(13)"/>
+                                    <field name="fu_subtotal" string="小计(13)"/>
+                                    <field name="more_money" string="多币"/>
+                                    <field name="return_money" string="返还金额(14)"/>
+                                    <field name="return_money_date" string="返还所属日期"/>
+                                    <field name="bank_return_money" string="返还金额"/>
+                                    <field name="bank_return_date" string="返还所属日期"/>
+                                    <field name="day_day_standby" string="当日备用金额(15)"/>
+                                    <field name="fu_day_day_standby" string="当日备用金额(15)"/>
+                                    <field name="day_day_standby_subtraction" string="当日备用金差额(16)"/>
+                                    <field name="fu_day_day_standby_subtraction" string="当日备用金差额(16)"/>
+
+                                </tree>
+
+                            </field>
+
+                        </group>
+
+                        <group string="备用金配出">
+                            <!--<field name="other_handover" string="其他事项交接"/>-->
+                        </group>
+                        <group string="车票使用情况">
+                            <field name="prefabricate_ticket_type_2_ids" string="">
+                                <tree editable="top" class="noOpen" create="0">
+                                    <field name="name" string="票种" readonly="1"/>
+                                    <field name="settlement" string="上班结存"/>
+                                    <field name="call_out" string="调出本站"/>
+                                    <field name="turn_over" string="上交车票"/>
+                                    <field name="press_ticket" string="售票员配票/票箱压票"/>
+                                    <field name="add_up" string="增配数量"/>
+                                    <field name="recovery" string="销售员结账/人工回收"/>
+                                    <field name="this_lass" string="本班结存"/>
+
+                                </tree>
+
+                            </field>
+
+                        </group>
+                        <group string="特殊卡号">
+                            <field string="" name="special_card_preset_ids">
+                                <tree>
+                                    <field name="card_number" string="借出卡号" />
+                                    <field name="user_id" string="借用人" />
+                                    <field name="borrow_time" string="借用时间" />
+                                    <field name="return_user_id" string="归还人" />
+                                    <field name="return_time" string="归还时间" />
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="票务钥匙情况">
+                            <field string="" name="ticketing_key_type_2_ids">
+                                <tree>
+                                    <field name="name" string="钥匙名称" readonly="1"/>
+                                    <field name="number" string="随身携带数量" />
+                                    <field name="cabinet" string="票柜存放数量" />
+                                    <field name="spare" string="备用数量" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field string="备注" name="remarks" />
+                        </group>
                         <footer>
                             <button name='production_change_shifts_save'
                                     string='保存草稿'

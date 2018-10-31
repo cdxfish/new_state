@@ -272,22 +272,22 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_train_working_action">
-			<field name="name">行车员交接班</field>
-			<field name="res_model">funenc_xa_station.production_change_shifts</field>
-			<field name="view_mode">tree,form</field>
-			<field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form')})]">
-			</field>
-        </record>
-
-		<!--<record model="ir.actions.act_window" id="xa_station_station_master_action">-->
-          <!--<field name="name">值班站长</field>-->
-          <!--<field name="res_model">funenc_xa_station.station_master</field>-->
-		  <!--<field name="view_mode">tree,form</field>-->
-			<!---->
+		<!--<record model="ir.actions.act_window" id="xa_station_train_working_action">-->
+			<!--<field name="name">行车员交接班</field>-->
+			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+			<!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form')})]">-->
+			<!--</field>-->
         <!--</record>-->
+		<!--无-->
+		<record model="ir.actions.act_window" id="xa_station_station_master_action">
+          <field name="name">值班站长</field>
+          <field name="res_model">funenc_xa_station.station_master</field>
+		  <field name="view_mode">tree,form</field>
+
+        </record>
 
 		<record model="ir.actions.act_window" id="xa_station_car_line_action">
           <field name="name">行车值班员</field>
@@ -352,14 +352,51 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.server" id="xa_station_station_master_action">
+		<record model="ir.actions.server" id="xa_station_station_master_action11">
 			<field name="name">值班站长</field>
 			<field name ="state">code</field>
 			<field name="model_id" ref="model_funenc_xa_station_station_master"/>
 			<field name="code">
-				action = model.init()
+				action = model.init_data()
 			</field>
 		</record>
+
+		<record model="ir.actions.server" id="xa_station_car_line_action11">
+			<field name="name">行车值班员</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_car_line"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="xa_station_passenger_transport_action11">
+			<field name="name">客运值班员</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_passenger_transport"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="xa_station_station_service_action11">
+			<field name="name">站务员</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_station_service"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="xa_station_ticket_booth_action11">
+			<field name="name">票岗亭</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_ticket_booth"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
 
 		<record model="ir.actions.server" id="xa_station_change_shifts_time_action">
 			<field name="name">换班时间间隔设置</field>
@@ -726,7 +763,7 @@
 
 
 		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
-				  parent="funenc_station_integrated_management" groups="system_consumables_management" sequence="4" action="xa_station_consumables_apply_action"
+				  parent="funenc_station_integrated_management"  sequence="4" action="xa_station_consumables_apply_action"
 		/>
 
 		<menuitem id="funenc_xa_station_consumables_manage_fu" name="(缺)耗材申请列表"
@@ -736,27 +773,27 @@
 
 
 
-		<!--<menuitem id="xa_station_store_house_1" name="仓库设置"-->
-				  <!--parent="funenc_xa_station_consumables_manage"-->
-				  <!--action="xa_station_store_house_action"-->
-		<!--/>-->
-		<!--<menuitem id="xa_station_consumables_warehousing_1" name="耗材入库"-->
-				  <!--parent="funenc_xa_station_consumables_manage"-->
-				  <!--action="xa_station_consumables_warehousing_action"-->
-		<!--/>-->
-		<!--<menuitem id="xa_station_consumables_apply_1" name="耗材申请"-->
-				  <!--parent="funenc_xa_station_consumables_manage"-->
-				  <!--action="xa_station_consumables_apply_action" sequence="5"-->
-		<!--/>-->
+		<menuitem id="xa_station_store_house_1" name="仓库设置"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_store_house_action"
+		/>
+		<menuitem id="xa_station_consumables_warehousing_1" name="耗材入库"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_warehousing_action"
+		/>
+		<menuitem id="xa_station_consumables_apply_1" name="耗材申请"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_apply_action" sequence="5"
+		/>
 
-		<!--<menuitem id="xa_station_delivery_storage_1" name="耗材出库"-->
-				  <!--parent="funenc_xa_station_consumables_manage"-->
-				  <!--action="xa_station_consumables_delivery_storage"-->
-		<!--/>-->
-		<!--<menuitem id="xa_station_consumables_inventory_1" name="耗材库存"-->
-				  <!--parent="funenc_xa_station_consumables_manage"-->
-				  <!--action="xa_station_consumables_inventory_action"-->
-		<!--/>-->
+		<menuitem id="xa_station_delivery_storage_1" name="耗材出库"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_delivery_storage"
+		/>
+		<menuitem id="xa_station_consumables_inventory_1" name="耗材库存"
+				  parent="funenc_xa_station_consumables_manage"
+				  action="xa_station_consumables_inventory_action"
+		/>
 		<menuitem id="xa_station_production_manage_1" name="生产管理"
 				   sequence="1"
 		/>
@@ -790,33 +827,82 @@
 
 
 
-		<!--<menuitem id="xa_station_station_master_1" name="值班站长"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_station_master_action"-->
+		<menuitem id="xa_station_station_master_111" name="预设值班站长"
+				  parent="person_management_menu_"
+				  action="xa_station_station_master_action11"
+		/>
+
+		<menuitem id="xa_station_car_line_111" name="行车值班员1"
+				  parent="person_management_menu_"
+				  action="xa_station_car_line_action11"
+		/>
+
+		<menuitem id="xa_station_passenger_transport_11" name="客运值班员1"
+				  parent="person_management_menu_"
+				  action="xa_station_passenger_transport_action11"
+		/>
+
+		<menuitem id="xa_station_station_service_1" name="站务员1"
+				  parent="person_management_menu_"
+				  action="xa_station_station_service_action11"
+		/>
+
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗1"
+				  parent="person_management_menu_"
+				  action="xa_station_ticket_booth_action11"
+		/>
+       <!--xin-->
+		<menuitem id="xa_station_jjb" name="交接班xxx"
+				  parent="person_management_menu_"
+		/>
+
+		<record model="ir.actions.act_window" id="xa_station_train_working_action">
+			<field name="name">值班站长</field>
+			<field name="res_model">funenc_xa_station.production_change_shifts</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form')})]">
+			</field>
+        </record>
+
+		<!--<record model="ir.actions.act_window" id="xa_station_xczby_action111">-->
+			<!--<field name="name">行车值班员</field>-->
+			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+			<!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list11')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form11')})]">-->
+			<!--</field>-->
+        <!--</record>-->
+
+		<menuitem id="xa_station_zbzz" name="交接班列表"
+				  parent="xa_station_jjb"
+				  action="xa_station_train_working_action"
+		/>
+
+		<record model="ir.actions.client" id="funenc_xa_station.xa_station_xa_station_jjb1_action">
+          <field name="name">机动人员管理</field>
+          <field name="tag">change_shifts_clint</field>
+        </record>
+		<menuitem id="xa_station_jjb1" name="交接班"
+				  parent="xa_station_jjb"
+				  action="xa_station_xa_station_jjb1_action"
+		/>
+
+		<!--<menuitem id="xa_station_xczby" name="行车值班员11"-->
+				  <!--parent="xa_station_jjb"-->
+				  <!--action="xa_station_xczby_action111"-->
 		<!--/>-->
 
-		<!--<menuitem id="xa_station_car_line_1" name="行车值班员"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_car_line_action"-->
-		<!--/>-->
+		<!--end xin-->
 
-		<!--<menuitem id="xa_station_passenger_transport_1" name="客运值班员"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_passenger_transport_action"-->
-		<!--/>-->
 
-		<!--<menuitem id="xa_station_station_service_1" name="站务员"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_station_service_action"-->
-		<!--/>-->
 
-		<!--<menuitem id="xa_station_ticket_booth_1" name="票亭岗"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
-				  <!--action="xa_station_ticket_booth_action"-->
-		<!--/>-->
+
 
 		<!--<menuitem id="xa_station_special_card_preset_1" name="特殊卡号"-->
-				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--parent="person_management_menu_"-->
 				  <!--action="xa_station_special_card_preset_action"-->
 		<!--/>-->
 
