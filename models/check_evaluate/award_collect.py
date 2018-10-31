@@ -14,6 +14,17 @@ class AwardCollect(models.Model):
     staff = fields.Char(string='员工')
     position = fields.Char(string='职位')
 
+    #用来向前端获取tab页面
+    @api.model
+    def get_action(self):
+        return {
+            'name': '奖励汇总',
+            'type': 'ir.actions.client',
+            'tag':'funenc_xa_award',
+            'res_model': 'funenc_xa_station.award_record',
+            'context': self.env.context,
+        }
+
 
     @api.model
     def award_record_method(self):

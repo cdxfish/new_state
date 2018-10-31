@@ -3,13 +3,12 @@
 	 <el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<h4>奖励汇总</h4>
-			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-			  <el-menu-item index="1">考评记录</el-menu-item>
-			  <el-menu-item index="2">考评汇总</el-menu-item>
-			  <el-menu-item index="3">奖励记录</el-menu-item>
-			  <el-menu-item index="4">奖励汇总</el-menu-item>
-			</el-menu>
-		</div>
+				<el-tabs v-model="tabValue" @tab-click="handleSelect">
+                    <el-tab-pane label="考评记录" name="1"></el-tab-pane>
+                    <el-tab-pane label="考评汇总" name="2"></el-tab-pane>
+                    <el-tab-pane label="奖励记录" name="3"></el-tab-pane>
+                    <el-tab-pane label="奖励汇总" name="4"></el-tab-pane>
+				</el-tabs>
 		  	<div class="block">
 				<span class="demonstration">选择时间</span>
 				<el-date-picker

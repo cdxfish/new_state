@@ -51,6 +51,7 @@ odoo.define('funenc_xa_award', function (require) {
                                 tableData:self.user_data,
                                 datetime:'时间选择',
                                 activeIndex:'1',
+                                tabValue:''
 
                        };
                     },
@@ -74,12 +75,41 @@ odoo.define('funenc_xa_award', function (require) {
 
 //                          tab页面的跳转功能
                            handleSelect: function(){
-                                    self._rpc({
-                                                model: 'funenc_xa_station.check_record',
-                                                 method:'get_day_plan_publish_action',
-                                              }).then(function(data){
-                                                      vue.activeIndex = data;
+                                    var that =this;
+                                    if(that.tabValue==1){
+                                        self._rpc({
+                                            model:'funenc_xa_station.check_record',
+                                            method:'get_action',
+                                         }).then(function(data){
+//                                            console.log(data);
+                                            self.do_action(data);
+                                            });
+                                     }else if(that.tabValue==2){
+                                                    self._rpc({
+                                                    model:'funenc_xa_station.check_collect',
+                                                    method:'get_action',
+                                                 }).then(function(data){
+//                                                    console.log(data);
+                                                    self.do_action(data);
                                                     });
+                                            }
+                                      else if(that.tabValue==3){
+                                         self._rpc({
+                                                model:'funenc_xa_station.award_record',
+                                                method:'get_action',
+                                             }).then(function(data){
+                                                self.do_action(data);
+                                                });
+                                     }else if(that.tabValue==4){
+                                                 self._rpc({
+                                                    model:'funenc_xa_station.check_collect',
+                                                    method:'get_action',
+                                                 }).then(function(data){
+//                                                    console.log(data);
+                                                    self.do_action(data);
+                                                    });
+                                     };
+
                                },
 
                        import_award(){

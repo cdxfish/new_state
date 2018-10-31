@@ -38,7 +38,7 @@
             <!--</field>-->
         <!--</record>-->
         <record model="ir.actions.client" id="funenc_xa_station.funenc_xa_award">
-          <field name="name"></field>
+          <field name="name">奖励汇总</field>
           <field name="tag">funenc_xa_award</field>
         </record>
 

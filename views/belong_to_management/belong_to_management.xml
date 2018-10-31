@@ -42,7 +42,7 @@
             <field name="name">属地管理</field>
             <field name="model">funenc_xa_station.belong_to_management</field>
             <field name="arch" type="xml">
-                <tree create="0" edit='0'>
+                <tree create="0" edit='0' search_ex_template="blong_to_management_search">
                     <field name="line_id"></field>
                     <field name="site_id"></field>
                     <field name="post_check"></field>

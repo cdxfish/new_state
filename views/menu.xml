@@ -653,17 +653,16 @@
 				  <!--action="xa_station_conflict_rule_action"-->
 		/>
 
-<<<<<<< HEAD
+
 		<!--<menuitem id="station_scheduling_list" name="排班列表"-->
 				  <!--parent="funenc_station_integrated_management"-->
 				  <!--sequence="2" action="key_manage_act_window_1"-->
 		<!--/>-->
-=======
+
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_management"
 				  sequence="2" action="xa_station_sheduling_manage_list_action"
 		/>
->>>>>>> 360feb7e42c030edf9c3cd389b04e3b00a9a09b1
 
 		<!--<menuitem id="xa_station_sheduling_manage_list" name="排班列表111"-->
 				  <!--parent="station_scheduling_list"-->
@@ -709,7 +708,6 @@
 				  parent="funenc_station_integrated_management"
 				  action="xa_station_leave_list_action"
 		/>
-		、
 		<record model="ir.actions.act_window" id="xa_station_clock_list_action111">
             <field name="name">打卡记录</field>
             <field name="res_model">fuenc_station.clock_record</field>

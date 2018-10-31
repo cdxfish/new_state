@@ -79,25 +79,25 @@ class ImportManagement(models.Model):
                 if item['check_standard']  == '安全管理':
                     item['check_standard'] = 'safety'
                 elif item['check_standard']  == '技术管理':
-                    item['check_standard'] =='technology'
+                    item['check_standard'] ='technology'
                 elif item['check_standard']  == '施工管理':
-                    item['check_standard'] =='road'
+                    item['check_standard'] ='road'
                 elif item['check_standard']  == '票务管理':
-                    item['check_standard'] =='ticket'
+                    item['check_standard'] ='ticket'
                 elif item['check_standard']  == '服务管理':
-                    item['check_standard'] =='server'
+                    item['check_standard'] ='server'
                 elif item['check_standard']  == '培训管理':
-                    item['check_standard'] =='train'
+                    item['check_standard'] ='train'
                 elif item['check_standard']  == '物资管理':
-                    item['check_standard'] =='goods'
+                    item['check_standard'] ='goods'
                 elif item['check_standard']  == '人事绩效管理':
-                    item['check_standard'] =='personnel'
+                    item['check_standard'] ='personnel'
                 elif item['check_standard']  == '党务管理':
-                    item['check_standard'] =='party'
+                    item['check_standard'] ='party'
                 elif item['check_standard']  == '综合管理':
-                    item['check_standard'] =='integrated'
+                    item['check_standard'] ='integrated'
                 self.env['funenc_xa_station.check_standard'].sudo().create(item)
-                self.env['evaluate_import'].search([]).unlink()
+            self.env['evaluate_import'].search([]).unlink()
 
         except ConnectionError as err:
             print(err)

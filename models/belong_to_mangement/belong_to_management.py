@@ -27,6 +27,7 @@ class BelongToManagement(models.Model):
     load_file_test = fields.Many2many('ir.attachment', 'funenc_management_',
                                       'attachment_id', 'meeting_dateils_id', string='图片上传')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
+    browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片')
 
     #在创建的时候改变分数的正负数
     @api.model
@@ -35,6 +36,8 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
+        if vals['load_file_test'][1][2]['datas']:
+            vals['browse_image_invisible'] == 'one'
         return super(BelongToManagement, self).create(vals)
 
     @get_domain
