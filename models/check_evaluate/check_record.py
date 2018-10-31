@@ -267,7 +267,7 @@ class CheckRecord(models.Model):
         self.env['funenc_xa_station.check_record'].search([('id', '=', self.id)]).unlink()
 
     def check_record_change(self):
-        view_form = self.env.ref('funenc_xa_station.check_record_form').id
+        view_form = self.env.ref('funenc_xa_station.check_record_form_modify').id
         return {
             'name': '考评记录',
             'type': 'ir.actions.act_window',

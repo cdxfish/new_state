@@ -153,8 +153,9 @@ class AwardRecord(models.Model):
     def check_record_delete(self):
         self.env['funenc_xa_station.award_record'].search([('id', '=', self.id)]).unlink()
 
+    #修改当前的一条记录
     def check_record_change(self):
-        view_form = self.env.ref('funenc_xa_station.award_record_form').id
+        view_form = self.env.ref('funenc_xa_station.award_record_form_modify').id
         return {
             'name': '奖励记录',
             'type': 'ir.actions.act_window',

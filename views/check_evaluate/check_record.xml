@@ -114,6 +114,33 @@
             </field>
         </record>
 
+                <record id="check_record_form_modify" model="ir.ui.view">
+            <field name="name">check_record_form</field>
+            <field name="model">funenc_xa_station.check_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
+                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="check_target"></field>
+                            <field name="problem_kind"></field>
+                            <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
+                            <field name="staff" options="{'no_create':True,'no_open':True}"></field>
+                            <field name="job_number"></field>
+                            <field name="check_kind"></field>
+                            <field name="grade"></field>
+                            <field name="chose_grade" widget="radio" options="{'horizontal': true}"></field>
+                            <field name="sure_grede"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
         <!--<record id="check_record_act" model="ir.actions.act_window">-->
             <!--<field name="name">check_record_act</field>-->
             <!--<field name="res_model">funenc_xa_station.check_record</field>-->

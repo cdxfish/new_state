@@ -9,7 +9,7 @@ key=[('enter_come','边门进出情况')
     ,('ticket_acf','票务、AFC故障及异常情况')
     ,('ticket_sales','日票、预制单程票售卖情况')
     ,('other_brenk','其他设备故障情况')
-    ,('normal','其他设备故障情况')]
+    ,('normal','普通事件')]
 
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
