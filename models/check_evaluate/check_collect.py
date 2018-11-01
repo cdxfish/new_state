@@ -22,9 +22,30 @@ class CheckCollect(models.Model):
         }
 
     @api.model
-    def get_group(self):
+    def get_group_2(self):
         if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
             return self.user_has_groups('funenc_xa_station.table_evaluation_total')
+        else:
+            return
+
+    @api.model
+    def get_group_1(self):
+        if self.user_has_groups('funenc_xa_station.table_evaluation_record'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_record')
+        else:
+            return
+
+    @api.model
+    def get_group_3(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_record'):
+            return self.user_has_groups('funenc_xa_station.table_reward_record')
+        else:
+            return
+
+    @api.model
+    def get_group_4(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_total'):
+            return self.user_has_groups('funenc_xa_station.table_reward_total')
         else:
             return
 
