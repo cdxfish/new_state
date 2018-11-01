@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class LineTurnout(models.Model):
     _name = 'funenc_xa_station.line_turnout'
     _description = u'线路道岔'
+    _inherit = 'fuenc_station.station_base'
     # _rec_name = 'type'
     name = fields.Char(string='土建结构', default='土建结构')
     line_map_ids = fields.One2many('funenc_xa_station.line_map', 'line_turnout_id', string='车站线路平面图')

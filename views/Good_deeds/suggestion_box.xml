@@ -44,7 +44,7 @@
             <field name="name">乘客意见箱</field>
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0">
+                <tree create="0" edit="0" search_ex_template="suggestion_box_search_button">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>

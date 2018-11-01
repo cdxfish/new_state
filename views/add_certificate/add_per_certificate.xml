@@ -35,7 +35,7 @@
             <field name="name">人员证件管理</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" class="noOpen" edit="0" search_ex_template="per_certificate_search_button">
                     <!--<field name="id" string="序号"></field>-->
                     <field name="name"></field>
                     <field name="line_id"></field>

@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record model="ir.actions.server" id="create_training_plan_button">
-            <field name="name">创建培训计划申请</field>
+            <field name="name">新增计划</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_training_plan"/>
@@ -19,7 +19,7 @@
             <field name="name">funenc_xa_station_training_plan_list</field>
             <field name="model">funenc_xa_station.training_plan</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0" class="noOpen">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="training_plan_search_button">
                     <field name="training_plan_project" string="培训项目"/>
                     <field name="training_plan_type" string="培训类型"/>
                     <field name="training_plan_time" string="培训时间"/>
@@ -230,12 +230,12 @@
             <field name="name">funenc_xa_station_site_training_results_list</field>
             <field name="model">funenc_xa_station.site_training_results</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="training_plan_search_button_summary">
                     <field name="line_id" string="线路"/>
-                                        <field name="site_id" string="站点"/>
-                                        <field name="course_hours" string="培训课时"/>
-                                        <field name="training_person_time" string="培训人次"/>
-                                        <field name="percent_of_pass" string="培训合格率"/>
+                    <field name="site_id" string="站点"/>
+                    <field name="course_hours" string="培训课时"/>
+                    <field name="training_person_time" string="培训人次"/>
+                    <field name="percent_of_pass" string="培训合格率"/>
                 </tree>
             </field>
         </record>
@@ -244,12 +244,12 @@
             <field name="name">funenc_xa_station_site_training_results_list</field>
             <field name="model">funenc_xa_station.site_training_results</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0" class="noOpen">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="training_summary_search_button">
                     <field name="line_id" string="线路"/>
-                                        <field name="site_id" string="站点"/>
-                                        <field name="course_hours" string="培训课时"/>
-                                        <field name="training_person_time" string="培训人次"/>
-                                        <field name="percent_of_pass" string="培训合格率"/>
+                    <field name="site_id" string="站点"/>
+                    <field name="course_hours" string="培训课时"/>
+                    <field name="training_person_time" string="培训人次"/>
+                    <field name="percent_of_pass" string="培训合格率"/>
                 </tree>
             </field>
         </record>

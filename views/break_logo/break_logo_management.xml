@@ -43,7 +43,7 @@
             <field name="name">故障标识管理</field>
             <field name="model">funenc_xa_station.break_log_manage</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" class="noOpen" search_ex_template="break_logo_management_search_button">
                     <field name="line_id"></field>
                     <field name="site_id"></field>
                     <field name="position"></field>

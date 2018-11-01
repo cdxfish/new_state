@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class CivilEngineering(models.Model):
     _name = 'funenc_xa_station.station_exit'
     _description = u'安全出口图'
+    _inherit = 'fuenc_station.station_base'
 
     position= fields.Char(string='位置')
     exit_map = fields.Many2many('ir.attachment','station_exit_ir_attachment_1_ref','station_exit_id','ir_attachment_id',string='消防逃生图')

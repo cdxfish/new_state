@@ -54,7 +54,7 @@
             <field name="name">特殊储备金</field>
             <field name="model">funenc_xa_station.special_money</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen">
+                <tree create="0" class="noOpen" edit="0" search_ex_template="special_money_search_button">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>

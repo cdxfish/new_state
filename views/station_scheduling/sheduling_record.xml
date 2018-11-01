@@ -20,9 +20,9 @@
             <field name="arch" type="xml">
                 <tree limit="15" create="0">
                     <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
-                           groups="funenc_xa_station.system_fuenc_tester"/>
+                           />
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
-                           groups="funenc_xa_station.system_fuenc_tester"/>
+                           />
                     <field name="class_group_id" string="班组"/>
                     <field name="user_id" string="排班人员"/>
                     <field name="arrange_order_id" string="班次"/>
@@ -40,9 +40,9 @@
                     <div class="container-fluid">
                     <group>
                         <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
-                               groups="funenc_xa_station.system_fuenc_tester"/>
+                               />
                         <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
-                               groups="funenc_xa_station.system_fuenc_tester"/>
+                               />
                         <field name="class_group_id" string="班组"/>
                         <field name="user_id" string="排班人员"/>
                         <field name="arrange_order_id" string="班次"/>

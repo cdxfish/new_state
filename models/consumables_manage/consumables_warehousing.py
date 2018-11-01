@@ -15,6 +15,39 @@ class StoreHouse(models.Model):
                                           default='organize')
     warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='采购部门')
 
+
+    @api.model
+    def create_consumables_warehousing(self):
+        context = dict(self.env.context or {})
+        return {
+
+            'name': '耗材入库创建',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'funenc_xa_station.consumables_warehousing',
+            'context': context,
+            'target': 'new',
+        }
+
+
+    def edit(self):
+        context = dict(self.env.context or {})
+        return {
+            'name': '编辑',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'funenc_xa_station.consumables_warehousing',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': self.id,
+            'target': 'new',
+        }
+
+    def delete(self):
+        self.unlink()
+
     @api.onchange('warehousing_parent')
     def filter_warehousing_site_id(self):
         if self.warehousing_parent == 'organize':
@@ -40,3 +73,6 @@ class StoreHouse(models.Model):
                       'inventory_count': self.warehousing_count
                       }
             self.env['funenc_xa_station.consumables_inventory'].create(values)
+
+
+

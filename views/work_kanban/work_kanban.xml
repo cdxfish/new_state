@@ -20,8 +20,11 @@
             <field name="name">funenc_xa_station_work_kanban_list</field>
             <field name="model">funenc_xa_station.work_kanban</field>
             <field name="arch" type="xml">
-               <tree limit="15" create="0" class="noOpen">
+               <tree limit="15" create="0" class="noOpen" search_ex_template="work_kanban_search_button">
+                   <field name="task_originator_id" string="任务发起人"/>
+                   <field name="originator_time" string="任务发起时间"/>
                     <field name="task_type_id" string="任务类型"/>
+                   <field name="task_describe" string="任务描述"/>
                     <field name="task_priority" string="任务优先级"/>
                     <field name="task_end_time" string="到期时间"/>
                     <widget string="操作" name="treebtns" template="widget_edit_delete"/>

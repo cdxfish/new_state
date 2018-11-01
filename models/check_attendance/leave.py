@@ -59,10 +59,6 @@ class Leave(models.Model):
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                            [
-                               {'title': '考勤汇总(缺失)',
-                               'action':  'funenc_xa_station.good_deeds_act',
-                                'group':'funenc_xa_station.table_attendance_total',
-                               },
                                {
                                    'title': '请假记录',
                                    'action2' : 'funenc_xa_station.xa_station_leave_list_action',

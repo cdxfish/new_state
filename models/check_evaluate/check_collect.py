@@ -22,13 +22,32 @@ class CheckCollect(models.Model):
         }
 
     @api.model
-    def get_group(self):
-        user_id = self.env.user.dingtalk_user.id
-        group_list = self.env['res.groups'].search([('name','=','考评汇总')])
+    def get_group_2(self):
+        if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_total')
+        else:
+            return
 
+    @api.model
+    def get_group_1(self):
+        if self.user_has_groups('funenc_xa_station.table_evaluation_record'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_record')
+        else:
+            return
 
+    @api.model
+    def get_group_3(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_record'):
+            return self.user_has_groups('funenc_xa_station.table_reward_record')
+        else:
+            return
 
-        return  group_list
+    @api.model
+    def get_group_4(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_total'):
+            return self.user_has_groups('funenc_xa_station.table_reward_total')
+        else:
+            return
 
 
 

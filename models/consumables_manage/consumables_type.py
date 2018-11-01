@@ -33,7 +33,7 @@ class ConsumablesType(models.Model):
         context = dict(self.env.context or {})
         context['self_id'] = self.id
         return {
-            'name': '钥匙类型编辑',
+            'name': '编辑',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',

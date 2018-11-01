@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class SignalSystem(models.Model):
     _name = 'funenc_xa_station.signal_system'
     _description = u'信号系统'
+    _inherit = 'fuenc_station.station_base'
 
     name= fields.Char(string='', default=' ')
     signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine', 'signal_system_id', string='信号机位置编号')

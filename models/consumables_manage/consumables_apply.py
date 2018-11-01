@@ -1,5 +1,6 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
+from ..get_domain import get_domain
 
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_apply'
@@ -73,3 +74,36 @@ class StoreHouse(models.Model):
         self.env['funenc_xa_station.delivery_storage'].create(values)
 
         self.is_apply = 'yes'
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self, domain):
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_inventory_list').id
+        return {
+            'name': '耗材入库',
+            'type': 'ir.actions.act_window',
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.consumables_inventory',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                               [
+                                   {'title': '耗材入库',
+                                   'action':  'funenc_xa_station.xa_station_consumables_inventory_action',
+                                   'group':'funenc_xa_station.consumables_management_consumables_storage',
+                                   },
+                                   {
+                                       'title': '耗材申请',
+                                       'action2' : 'funenc_xa_station.xa_station_consumables_apply_action',
+                                       'group' : 'funenc_xa_station.consumables_management_consumables_apply',
+                                       },
+                                   {
+                                       'title': '出入库记录',
+                                       'action2':  'funenc_xa_station.award_record_act',
+                                       'group' : 'funenc_xa_station.consumables_management_consumables_record',
+                                       },
+                               ]
+                           }''',
+            'context': self.env.context,
+        }

@@ -32,7 +32,7 @@
             <field name="name">工器具使用列表</field>
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" class="noOpen">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="transceiver_seeting_search_button">
                     <field name="id" string="序号"></field>
                     <field name="transient_type"></field>
                     <field name="transient_name"></field>

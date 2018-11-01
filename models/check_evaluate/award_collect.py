@@ -72,3 +72,31 @@ class AwardCollect(models.Model):
             record[list2].update({'site_id':list3.get('site_id')[1]})
 
         return [record.get(key) for key in record]
+
+    @api.model
+    def get_group_2(self):
+        if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_total')
+        else:
+            return
+
+    @api.model
+    def get_group_1(self):
+        if self.user_has_groups('funenc_xa_station.table_evaluation_record'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_record')
+        else:
+            return
+
+    @api.model
+    def get_group_3(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_record'):
+            return self.user_has_groups('funenc_xa_station.table_reward_record')
+        else:
+            return
+
+    @api.model
+    def get_group_4(self):
+        if self.user_has_groups('funenc_xa_station.table_reward_total'):
+            return self.user_has_groups('funenc_xa_station.table_reward_total')
+        else:
+            return

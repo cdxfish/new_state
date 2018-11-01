@@ -14,6 +14,54 @@ odoo.define('funenc_xa_award', function (require) {
       var self = this;
       this._super.apply(this, arguments)
       self.group_id = action.context.group_id
+
+       self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_group_2'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_2 = true;
+        }else{
+            self.data_2 = false;
+        };
+      });
+
+    self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_group_1'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_1 = true;
+        }else{
+            self.data_1 = false;
+        };
+      });
+
+    self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_group_3'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_3 = true;
+        }else{
+            self.data_3 = false;
+        };
+      });
+
+      self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_group_4'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_4 = true;
+        }else{
+            self.data_4 = false;
+        };
+      });
       self.user_data = [];   // 部门初始化变量
       if (self.group_id) {
         self.is_update = true
@@ -51,7 +99,11 @@ odoo.define('funenc_xa_award', function (require) {
                                 tableData:self.user_data,
                                 datetime:'时间选择',
                                 activeIndex:'1',
-                                tabValue:''
+                                tabValue:'',
+                                show_1:self.data_1,
+                                show_2:self.data_2,
+                                show_3:self.data_3,
+                                show_4:self.data_4,
 
                        };
                     },

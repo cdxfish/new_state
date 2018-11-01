@@ -43,7 +43,7 @@
             <field name="name">客伤</field>
             <field name="model">fuenc_xa_station.guests_hurt</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen" edit="0">
+                <tree create="0" class="noOpen" edit="0" search_ex_template="guests_hurt_search_button123">
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>

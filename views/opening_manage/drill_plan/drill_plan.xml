@@ -32,7 +32,7 @@
             <field name="name">funenc_xa_station_drill_plan_list</field>
             <field name="model">funenc_xa_station.drill_plan</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0" class="noOpen">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="drill_plan_search_button">
                     <field name="drill_project" string="演练项目"/>
                     <field name="drill_time" string="演练时间"/>
                     <field name="drill_plan" string="演练方案"/>
@@ -205,7 +205,7 @@
             <field name="name">funenc_xa_station_drill_result_list</field>
             <field name="model">funenc_xa_station.drill_result</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0" class="noOpen">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="drill_plan_search_button_anniu">
                     <field name="drill_time" string="时间"/>
                     <field name="line_id" string="线路"/>
                     <field name="site_id" string="站点"/>

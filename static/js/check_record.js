@@ -17,9 +17,50 @@ odoo.define('funenc_xa_check', function (require) {
 
       self._rpc({
             model:'funenc_xa_station.check_collect',
-            method:'get_group'
+            method:'get_group_2'
       }).then(function(data){
-        console.log("pppppppp",data )
+      console.log(data);
+        if(data ){
+            self.data_2 = true;
+        }else{
+            self.data_2 = false;
+        };
+      });
+
+    self._rpc({
+            model:'funenc_xa_station.check_collect',
+            method:'get_group_1'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_1 = true;
+        }else{
+            self.data_1 = false;
+        };
+      });
+
+    self._rpc({
+            model:'funenc_xa_station.check_collect',
+            method:'get_group_3'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_3 = true;
+        }else{
+            self.data_3 = false;
+        };
+      });
+
+      self._rpc({
+            model:'funenc_xa_station.check_collect',
+            method:'get_group_4'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+            self.data_4 = true;
+        }else{
+            self.data_4 = false;
+        };
       });
 
       self.user_data = [];   // 部门初始化变量
@@ -61,10 +102,13 @@ odoo.define('funenc_xa_check', function (require) {
                                 tableData:self.user_data,
                                 value6:'时间选择',
                                 tabValue:'',
-                                check:''
+                                check:'',
+                                show_1:self.data_1,
+                                show_2:self.data_2,
+                                show_3:self.data_3,
+                                show_4:self.data_4,
                        };
                     },
-
                     methods: {
 
                            // 点击进入方法
