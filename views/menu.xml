@@ -586,7 +586,6 @@
 		<!--/>-->
 
 		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="3"
-				  groups="module_category_comprehensive"
 		/>
 		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
 				parent="funenc_station_integrated_management" groups="system_equipment_use_list" sequence="6"></menuitem>

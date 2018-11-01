@@ -8,8 +8,11 @@ class CheckCollect(models.Model):
     _name = 'funenc_xa_station.check_collect'
     _inherit = 'funenc_xa_station.check_record'
 
+
     @api.model
     def get_action(self):
+        user_id = self.env.user.dingtalk_user.id
+        print(user_id)
         return {
             'name': '考评汇总',
             'type': 'ir.actions.client',
@@ -17,6 +20,17 @@ class CheckCollect(models.Model):
             'res_model': 'funenc_xa_station.award_record',
             'context': self.env.context,
         }
+
+    @api.model
+    def get_group(self):
+        user_id = self.env.user.dingtalk_user.id
+        group_list = self.env['res.groups'].search([('name','=','考评汇总')])
+
+
+
+        return  group_list
+
+
 
     @api.model
     def check_record_method(self):

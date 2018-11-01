@@ -10,7 +10,7 @@ class TransceiverSettings(models.Model):
 
     transient_type = fields.Char(string='工器具类型')
     transient_name = fields.Char(string='工器具名称' )
-    transient_number = fields.Char(string='工器具编号')
+    transient_number = fields.Char(string='工器具编号',_sql_constraints = [ ('check_uniq_cph', 'unique(transient_number)', '编号已经存在！')])
     post = fields.Char(string='位置')
     state = fields.Selection([('one','正常'),('zero','故障')],string='状态',default='one')
     break_descrip = fields.Text(string='故障描述')

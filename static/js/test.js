@@ -75,7 +75,7 @@ odoo.define('change_shifts_clint', function (require) {
 //                                                    target: 'new',
 //                                                    domain: data.domain
 //                                                })
-                              };
+                            });
 
                         },
 

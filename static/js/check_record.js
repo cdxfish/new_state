@@ -14,6 +14,14 @@ odoo.define('funenc_xa_check', function (require) {
       var self = this;
       this._super.apply(this, arguments)
       self.group_id = action.context.group_id
+
+      self._rpc({
+            model:'funenc_xa_station.check_collect',
+            method:'get_group'
+      }).then(function(data){
+        console.log("pppppppp",data )
+      });
+
       self.user_data = [];   // 部门初始化变量
       if (self.group_id) {
         self.is_update = true
@@ -53,6 +61,7 @@ odoo.define('funenc_xa_check', function (require) {
                                 tableData:self.user_data,
                                 value6:'时间选择',
                                 tabValue:'',
+                                check:''
                        };
                     },
 
@@ -84,8 +93,8 @@ odoo.define('funenc_xa_check', function (require) {
                                                                             group:'funenc_xa_station.table_evaluation_total'
                                                                          }).then(function(data){
                                                                             self.do_action(data);
-//                                                                            that.check = data.group;
-                                                                            console.log('999999999',that.check);
+                                                                            that.check = data.user_id;
+//                                                                            console.log('999999999',that.check);
 
                                                                             });
 

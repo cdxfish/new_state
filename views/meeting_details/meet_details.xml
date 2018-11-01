@@ -63,7 +63,7 @@
                             <field name="meeting_site"></field>
                             <field name="compere"></field>
                             <field name="meeting_theme"></field>
-                            <field name="join_person" widget="many2many_tags"></field>
+                            <field name="join_person" widget="many2many_tags" options="{'no_create':True,'no_open':True}"></field>
                             <field name="meeting_content"></field>
                             <label for="load_file_test" string="图片附件"/>
                             <div class="x_panel form_sec">
