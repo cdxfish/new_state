@@ -21,7 +21,9 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme', 'vue_template_manager'],
-
+    'qweb': [
+        'static/xml/*.xml',
+    ],
     # always loaded
     'data': [
         'security/rule_group/fuenc_exam_group.xml',
@@ -121,9 +123,6 @@
     # 'demo': [
     # 	'demo/demo.xml',
     # ],
-    'qweb': [
-        'static/xml/*.xml',
-    ],
     'installable': True,
     'auto_install': False,
     'application': True
