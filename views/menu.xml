@@ -530,29 +530,14 @@
 			</field>
 		</record>
 
-		<record id="station_detail_act_window" model="ir.actions.act_window">
-			<field name="name">车站基本信息</field>
-			<field name="res_model">funenc_xa_station.station_detail</field>
-			<field name="view_mode">tree,form</field>
-			<field name="top_widget">multi_action_tab</field>
-            <field name="top_widget_key">driver_manage_tab_1</field>
-            <field name="top_widget_options">
-                {'tabs': [{'title': '测试',
-                'action':  {
-                    'type': 'ir.actions.act_window',
-                    "name": "测试",
-                    'views': [[False, 'list'], [False, 'form']],
-                    'view_mode': 'tree,form',
-                    "res_model": "funenc_xa_station.station_detail"
-                }},
-                {'title': 'tab2', 'domains': [['login', '=', 'admin']]},
-                {'title': 'tab3', 'domains': [['login', '=', 'demo']]}]}
-            </field>
 
-			<field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_station_detail_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_station_detail_form')})]">
-            </field>
+        <record model="ir.actions.server" id="station_detail_act_window">
+			<field name="name">车站基本信息</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_station_detail"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
 		</record>
 
 		<record model="ir.actions.client" id="key_manage_act_window_1">

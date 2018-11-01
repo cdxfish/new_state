@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class StationStaffing(models.Model):
     _name = 'funenc_xa_station.station_staffing'
     _description = u'信号系统'
+    _inherit = 'fuenc_station.station_base'
 
     staff_no = fields.Char(string='工号')
     staff_name = fields.Char(string='名字')
