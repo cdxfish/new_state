@@ -586,7 +586,7 @@
 		<!--/>-->
 
 		<menuitem id="funenc_station_integrated_manageme" icon="&#xe628;" name="综合管理" sequence="3"
-				  groups="module_category_comprehensive"
+				 
 		/>
 		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
 				parent="funenc_station_integrated_manageme" groups="system_equipment_use_list" sequence="6"></menuitem>
@@ -830,7 +830,7 @@
 
 
 
-
+        <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
 
 		<menuitem id="xa_station_station_master_111" name="预设值班站长"
 				  parent="person_management_menu_"
@@ -936,7 +936,7 @@
 				  <!--parent="add_station_certificate_menu_parent"></menuitem>-->
 
 
-		<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>
+
 
 
 		<menuitem name="人员信息"  action="per_management_act" id="per_management_menu" parent="person_management_menu_"
