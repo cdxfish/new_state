@@ -585,14 +585,14 @@
 				  <!--action="funenc_station_index_action"-->
 		<!--/>-->
 
-		<menuitem id="funenc_station_integrated_management" icon="&#xe628;" name="综合管理" sequence="3"
+		<menuitem id="funenc_station_integrated_manageme" icon="&#xe628;" name="综合管理" sequence="3"
 				  groups="module_category_comprehensive"
 		/>
 		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
-				parent="funenc_station_integrated_management" groups="system_equipment_use_list" sequence="6"></menuitem>
+				parent="funenc_station_integrated_manageme" groups="system_equipment_use_list" sequence="6"></menuitem>
 
 		<menuitem id="transient_break_management_menu" name="工器具故障管理" action="transient_break_management_act"
-				  parent="funenc_station_integrated_management" groups="system_equipment_fault_management" sequence="7"></menuitem>
+				  parent="funenc_station_integrated_manageme" groups="system_equipment_fault_management" sequence="7"></menuitem>
 
 
 
@@ -622,7 +622,7 @@
 		<!--<menuitem id="train_menu_role_group_1" name="角色组" parent="plan_menu_username_manage_1"  action="train_rec_check_boxes"/>-->
 
         <menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="1"
-		          parent="funenc_station_integrated_management"
+		          parent="funenc_station_integrated_manageme"
 		          action="station_detail_act_window" groups="system_station"
 		/>
 
@@ -631,35 +631,35 @@
 		          <!--parent="integrated_management_station_detail"/>-->
 
 		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
-				   <!--parent="funenc_station_integrated_management"-->
+				   <!--parent="funenc_station_integrated_manageme"-->
 				   <!--action="station_detail_ground_traffic"-->
 
 		 <!--/>-->
 
 		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
-		           <!--parent="funenc_station_integrated_management"-->
+		           <!--parent="funenc_station_integrated_manageme"-->
 				   <!--action="funenc_station_civil_engineering"-->
 
 		 <!--/>-->
 
 		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
-		           <!--parent="funenc_station_integrated_management"-->
+		           <!--parent="funenc_station_integrated_manageme"-->
 				   <!--action="funenc_station_line_turnout"-->
 		 <!--/>-->
 
 		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
-		           <!--parent="funenc_station_integrated_management"-->
+		           <!--parent="funenc_station_integrated_manageme"-->
 				   <!--action="funenc_station_signal_system"-->
 
 		 <!--/>-->
 
 		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
-		           <!--parent="funenc_station_integrated_management"-->
+		           <!--parent="funenc_station_integrated_manageme"-->
 				   <!--action="funenc_station_station_staffing"-->
 		 <!--/>-->
 
 		 <!--<menuitem id="station_detail_7" name="消防逃生图" sequence="7"-->
-				   <!--parent="funenc_station_integrated_management"-->
+				   <!--parent="funenc_station_integrated_manageme"-->
 		           <!--action="funenc_station_station_exit"-->
 		 <!--/>-->
 
@@ -692,12 +692,12 @@
 
 
 		<!--<menuitem id="station_scheduling_list" name="排班列表"-->
-				  <!--parent="funenc_station_integrated_management"-->
+				  <!--parent="funenc_station_integrated_manageme"-->
 				  <!--sequence="2" action="key_manage_act_window_1"-->
 		<!--/>-->
 
 		<menuitem id="station_scheduling_list" name="排班列表"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  sequence="2" action="xa_station_sheduling_manage_list_action"
 		/>
 
@@ -707,12 +707,12 @@
 		<!--/>-->
 
 		<menuitem id="xa_station_sheduling_manage" name="排班管理"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="xa_station_sheduling_manage_1_action" groups="system_scheduling_management" sequence="8"
 		/>
 
 		<menuitem id="xa_station_sheduling_manage11111" name="排班管理11111"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"
 		/>
 
@@ -728,21 +728,21 @@
 
 
 		<menuitem id="xa_station_sheduling_manage22" name="考勤汇总"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="funenc_xa_station.xa_station_punch_clock_client_action22"  sequence="8"
 		/>
 
 		<menuitem id="xa_station_sheduling_manage11111111111" name="排班汇总"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111111111" sequence="8"
 		/>
 
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  groups="system_attendance_management" sequence="9" action="create_funenc_xa_station_leave_1"
 		/>
 		<menuitem id="xa_station_leave_list_1" name="请假列表"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="xa_station_leave_list_action"
 		/>
 		<record model="ir.actions.act_window" id="xa_station_clock_list_action111">
@@ -752,7 +752,7 @@
 		</record>
 
         <menuitem id="xa_station_clock_1111" name="打卡记录"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="xa_station_clock_list_action111"
 		/>
         <!--<menuitem id="xa_station_overtime_list_1" name="加班记录"-->
@@ -760,7 +760,7 @@
 				  <!--action="xa_station_overtime_list_action"-->
 		<!--/>-->
 		<menuitem id="xa_station_change_shifts_1" name="换班申请"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  action="xa_station_change_shifts_action" sequence="11"
 				  groups="system_change_shifts"
 		/>
@@ -768,11 +768,11 @@
 
 
 		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
-				  parent="funenc_station_integrated_management"  sequence="4" action="xa_station_consumables_apply_action"
+				  parent="funenc_station_integrated_manageme"  sequence="4" action="xa_station_consumables_apply_action"
 		/>
 
 		<menuitem id="funenc_xa_station_consumables_manage_fu" name="(缺)耗材申请列表"
-				  parent="funenc_station_integrated_management"
+				  parent="funenc_station_integrated_manageme"
 				  groups="system_consumables_apply_list" sequence="5" action="xa_station_consumables_apply_action"
 		/>
 
@@ -821,12 +821,12 @@
 				  groups="system_change_shifts_list"
 		/>
 
-		<menuitem id="xa_station_train_working_1" name="交接班"
-				  parent="xa_station_production_manage_1"
-				  action="xa_station_train_working_action"
-				  sequence="1"
-				  groups="system_fuenc_tester"
-		/>
+		<!--<menuitem id="xa_station_train_working_1" name="交接班"-->
+				  <!--parent="xa_station_production_manage_1"-->
+				  <!--action="xa_station_train_working_action"-->
+				  <!--sequence="1"-->
+				  <!--groups="system_fuenc_tester"-->
+		<!--/>-->
 
 
 
@@ -915,7 +915,7 @@
 
 
 
-		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_management"
+		<menuitem id="operation_menu_son_id" name="规章制度" parent="funenc_station_integrated_manageme"
 				  action="operation_act_id" sequence="2" groups="system_rules_and_regulations"></menuitem>
 
 
@@ -926,7 +926,7 @@
 
 		<menuitem name="档案资料" id="add_station_certificate_menu_parent"
 				  groups="system_files"
-				  parent="funenc_station_integrated_management" sequence="3" action="station_certificate_button_server"></menuitem>
+				  parent="funenc_station_integrated_manageme" sequence="3" action="station_certificate_button_server"></menuitem>
 
 
         <!--<menuitem id="add_station_certificate_menu" action="station_certificate_act_id_3" name="车站证件"-->
@@ -946,7 +946,7 @@
 
 
 		<!--<menuitem id="check_evaluate_menu_parent"  name="考评指标库"-->
-				  <!--parent="funenc_station_integrated_management" action="check_evaluate_act"></menuitem>-->
+				  <!--parent="funenc_station_integrated_manageme" action="check_evaluate_act"></menuitem>-->
 
 		<!--<menuitem id="check_evaluate_menu" name="考评指标" action="check_evaluate_act"-->
 				  <!--parent="check_evaluate_menu_parent"></menuitem>-->
@@ -955,7 +955,7 @@
 				  <!--parent="check_evaluate_menu_parent"></menuitem>-->
 
 		<menuitem id="check_management_menu_parent"  name="考评管理"
-		  parent="funenc_station_integrated_management"
+		  parent="funenc_station_integrated_manageme"
 				  groups="system_review_management" action="check_record_act" sequence="10"></menuitem>
 
 	   <!--<menuitem id="check_record_menu" name="考评记录" action="check_record_act"-->
