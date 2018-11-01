@@ -59,31 +59,12 @@ odoo.define('change_shifts_clint', function (require) {
                     methods: {
                         shift_shift: function(){
 
-                        self._rpc({
-                              model: 'funenc_xa_station.production_change_shifts',
-                              method:'get_views'
-
-                            }).then(function(data){
-
-                                self.do_action({
-                                                    name: '\u94a5\u5319\u65b0\u5efa',
-                                                    type: 'ir.actions.act_window',
-                                                    res_model: 'funenc_xa_station.production_change_shifts',
-                                                    views: [[data.list_views, 'tree'],[data.form_views,'form']],
-                                                    target: 'new',
-                                                    domain: data.domain
-                                                })
-
-
-                            });
-
-
                         },
 
-                        take_over: function(){
+//                        take_over: function(){
 //                            self._rpc({
 //                                model: 'funenc_xa_station.production_change_shifts',
-//                                method: 'get_views',
+//                                method: 'get_views'
 //
 //                            }).then(function (data) {
 //                                    self.do_action({
@@ -94,12 +75,12 @@ odoo.define('change_shifts_clint', function (require) {
 //                                                    target: 'new',
 //                                                    domain: data.domain
 //                                                })
-//                              }
-
-                        },
+//                              };
+//
+//                        },
 
                         handleClick(tab, event) {
-
+                            console.log(tab, event);
                         },
 
 
