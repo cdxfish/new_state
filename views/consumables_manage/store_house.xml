@@ -2,13 +2,28 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="create_store_house_1">
+            <field name="name">创建仓库</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_store_house"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_store_house"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">仓库</field>
+            <field name="code">
+                action = model.create_store_house()
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="funenc_xa_station_store_house_list">
 			<field name="name">funenc_xa_station_store_house_list</field>
 			<field name="model">funenc_xa_station.store_house</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree limit="15" create="0" class="noOpen">
                     <field name="store_house_department_id" string="仓库所属部门"  options="{'no_create':True}"/>
 					<field name="name" string="仓库名称"/>
+					<widget string="操作" name="treebtns" template="widget_edit_delete"/>
                 </tree>
 			</field>
 		</record>

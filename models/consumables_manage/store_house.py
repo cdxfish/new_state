@@ -17,3 +17,34 @@ class StoreHouse(models.Model):
             return
 
         return self.env.user.dingtalk_user.departments[0].id
+
+    @api.model
+    def create_store_house(self):
+        context = dict(self.env.context or {})
+        return {
+            'name': '仓库创建',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'funenc_xa_station.store_house',
+            'context': context,
+            'target': 'new',
+        }
+
+
+    def edit(self):
+        context = dict(self.env.context or {})
+        return {
+            'name': '耗材库存编辑',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'funenc_xa_station.store_house',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': self.id,
+            'target': 'new',
+        }
+
+    def delete(self):
+        self.unlink()
