@@ -1,7 +1,6 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
-
 class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
     _description = u'耗材出库'
@@ -15,6 +14,32 @@ class delivery_storage(models.Model):
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
     consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
 
+    @api.multi
+    def get_day_plan_publish_action(self):
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_list').id
+        return {
+            'name': '耗材入库',
+            'type': 'ir.actions.act_window',
+            # 'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.delivery_storage',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                                          [
+                                              {
+                                                  'title': '耗材入库',
+                                                  'action' : 'funenc_xa_station.xa_station_consumables_delivery_storage',
+                                                  'group' : 'funenc_xa_station.consumables_management_consumables_storage',
+                                                  },
+                                              {
+                                                  'title': '耗材出库',
+                                                  'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
+                                                  },
+                                          ]
+                                      }''',
+            'context': self.env.context,
+        }
 
     def default_department_id(self):
         if self.env.user.id != 1:

@@ -237,23 +237,33 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_consumables_warehousing_action">
-          <field name="name">耗材入库</field>
-          <field name="res_model">funenc_xa_station.consumables_warehousing</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
 
-		<record model="ir.actions.act_window" id="xa_station_consumables_delivery_storage">
-          <field name="name">耗材入库</field>
-          <field name="res_model">funenc_xa_station.delivery_storage</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<record model="ir.actions.server" id="xa_station_consumables_warehousing_action">
+			<field name="name">耗材出库</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_consumables_warehousing"/>
+			<field name="code">
+				action = model.crkjl()
+			</field>
+		</record>
+
+
+		<record model="ir.actions.server" id="xa_station_consumables_delivery_storage">
+			<field name="name">耗材出库</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_delivery_storage"/>
+			<field name="code">
+				action = model.get_day_plan_publish_action()
+			</field>
+		</record>
 
 		<record model="ir.actions.act_window" id="xa_station_store_house_action">
           <field name="name">仓库设置</field>
           <field name="res_model">funenc_xa_station.store_house</field>
 		  <field name="view_mode">tree,form</field>
         </record>
+
+
 		<record model="ir.actions.act_window" id="xa_station_consumables_apply_action">
           <field name="name">耗材申请</field>
           <field name="res_model">funenc_xa_station.consumables_apply</field>
@@ -452,10 +462,10 @@
 		   	<field name="top_widget_options">
                     {'tabs':
                         [
-						{'title': '考勤汇总(缺失)',
-					   'action':  'funenc_xa_station.good_deeds_act',
-						'group':'funenc_xa_station.table_attendance_total',
-					   },
+						<!--{'title': '考勤汇总',-->
+					   <!--'action':  'xa_station_punch_clock_client_action22',-->
+						<!--'group':'funenc_xa_station.table_attendance_total',-->
+					   <!--},-->
 					   {
 						   'title': '请假记录',
 						   'action2' : 'funenc_xa_station.create_funenc_xa_station_leave_1',
@@ -489,10 +499,10 @@
 		   	<field name="top_widget_options">
                     {'tabs':
                         [
-						{'title': '考勤汇总(缺失)',
-					   'action':  'funenc_xa_station.good_deeds_act',
-						'group':'funenc_xa_station.table_attendance_total',
-					   },
+						<!--{'title': '考勤汇总',-->
+					   <!--'action':  'xa_station_punch_clock_client_action22',-->
+						<!--'group':'funenc_xa_station.table_attendance_total',-->
+					   <!--},-->
 					   {
 						   'title': '请假记录',
 						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
@@ -586,6 +596,7 @@
 		<!--/>-->
 
 		<menuitem id="funenc_station_integrated_manageme" icon="&#xe628;" name="综合管理" sequence="3"
+
 		/>
 		<menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act"
 				parent="funenc_station_integrated_manageme" groups="system_equipment_use_list" sequence="6"></menuitem>
@@ -705,15 +716,15 @@
 				  <!--action="xa_station_sheduling_manage_list_action"-->
 		<!--/>-->
 
-		<menuitem id="xa_station_sheduling_manage" name="排班管理"
-				  parent="funenc_station_integrated_manageme"
-				  action="xa_station_sheduling_manage_1_action" groups="system_scheduling_management" sequence="8"
-		/>
+		<!--<menuitem id="xa_station_sheduling_manage" name="排班管理"-->
+				  <!--parent="funenc_station_integrated_manageme"-->
+				  <!--action="xa_station_sheduling_manage_1_action" groups="system_scheduling_management" sequence="8"-->
+		<!--/>-->
 
-		<menuitem id="xa_station_sheduling_manage11111" name="排班管理11111"
-				  parent="funenc_station_integrated_manageme"
-				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"
-		/>
+		<!--<menuitem id="xa_station_sheduling_manage11111" name="排班管理11111"-->
+				  <!--parent="funenc_station_integrated_manageme"-->
+				  <!--action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"-->
+		<!--/>-->
 
 		<record model="ir.actions.client" id="xa_station_sheduling_manage_1_action11111111111">
           <field name="name">排班汇总</field>
@@ -767,37 +778,30 @@
 
 
 		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
-				  parent="funenc_station_integrated_manageme"  sequence="4" action="xa_station_consumables_apply_action"
+				  parent="funenc_station_integrated_manageme"  sequence="4" action="xa_station_consumables_inventory_action"
 		/>
 
-		<menuitem id="funenc_xa_station_consumables_manage_fu" name="(缺)耗材申请列表"
+		<menuitem id="funenc_xa_station_consumables_manage_fu" name="耗材申请列表"
 				  parent="funenc_station_integrated_manageme"
 				  groups="system_consumables_apply_list" sequence="5" action="xa_station_consumables_apply_action"
 		/>
 
 
 
-		<menuitem id="xa_station_store_house_1" name="仓库设置"
-				  parent="funenc_xa_station_consumables_manage"
-				  action="xa_station_store_house_action"
-		/>
-		<menuitem id="xa_station_consumables_warehousing_1" name="耗材入库"
-				  parent="funenc_xa_station_consumables_manage"
-				  action="xa_station_consumables_warehousing_action"
-		/>
-		<menuitem id="xa_station_consumables_apply_1" name="耗材申请"
-				  parent="funenc_xa_station_consumables_manage"
-				  action="xa_station_consumables_apply_action" sequence="5"
-		/>
+		<!--<menuitem id="xa_station_store_house_1" name="仓库设置"-->
+				  <!--parent="funenc_xa_station_consumables_manage"-->
+				  <!--action="xa_station_store_house_action"-->
+		<!--/>-->
+		<!--<menuitem id="xa_station_consumables_apply_1" name="耗材申请"-->
+				  <!--parent="funenc_xa_station_consumables_manage"-->
+				  <!--action="xa_station_consumables_apply_action" sequence="5"-->
+		<!--/>-->
 
-		<menuitem id="xa_station_delivery_storage_1" name="耗材出库"
-				  parent="funenc_xa_station_consumables_manage"
-				  action="xa_station_consumables_delivery_storage"
-		/>
-		<menuitem id="xa_station_consumables_inventory_1" name="耗材库存"
-				  parent="funenc_xa_station_consumables_manage"
-				  action="xa_station_consumables_inventory_action"
-		/>
+		<!--<menuitem id="xa_station_consumables_inventory_1" name="耗材管理11111"-->
+				  <!--parent="funenc_xa_station_consumables_manage"-->
+				  <!--action="xa_station_consumables_inventory_action"-->
+		<!--/>-->
+
 		<menuitem id="xa_station_production_manage_1" name="生产管理"
 				   sequence="1"
 		/>
@@ -813,23 +817,10 @@
 		/>
 
 
-		<menuitem id="xa_station_consumables_inventory_1" name="交接班列表"
-				  parent="xa_station_production_manage_1"
-				  action="xa_station_station_master_action"
-				  sequence="2"
-				  groups="system_change_shifts_list"
-		/>
-
-		<!--<menuitem id="xa_station_train_working_1" name="交接班"-->
-				  <!--parent="xa_station_production_manage_1"-->
-				  <!--action="xa_station_train_working_action"-->
-				  <!--sequence="1"-->
-				  <!--groups="system_fuenc_tester"-->
-		<!--/>-->
 		<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>
 
 
-
+        <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
 
 		<menuitem id="xa_station_station_master_111" name="预设值班站长"
 				  parent="person_management_menu_"
@@ -881,7 +872,7 @@
         <!--</record>-->
 
 		<menuitem id="xa_station_zbzz" name="交接班列表"
-				  parent="xa_station_jjb"
+				  parent="xa_station_production_manage_1"
 				  action="xa_station_train_working_action"
 		/>
 
@@ -890,7 +881,7 @@
           <field name="tag">change_shifts_clint</field>
         </record>
 		<menuitem id="xa_station_jjb1" name="交接班"
-				  parent="xa_station_jjb"
+				  parent="xa_station_production_manage_1"
 				  action="xa_station_xa_station_jjb1_action"
 		/>
 

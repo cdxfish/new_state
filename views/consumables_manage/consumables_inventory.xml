@@ -2,8 +2,50 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.server" id="create_consumables_inventory_button11">
+            <field name="name">耗材入库</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">耗材申请</field>
+            <field name="code">
+                action = model.rk()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="create_consumables_inventory_button12">
+            <field name="name">耗材申请</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">耗材申请</field>
+            <field name="code">
+                action = model.sq()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="create_consumables_inventory_button13">
+            <field name="name">出入库记录</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">耗材申请</field>
+            <field name="code">
+                action = model.crkjl()
+            </field>
+        </record>
+
         <!--<record model="ir.actions.server" id="create_consumables_inventory_button">-->
-        <!--<field name="name">创建耗材申请</field>-->
+        <!--<field name="name">耗材入库</field>-->
         <!--<field name="state">code</field>-->
         <!--<field name="type">ir.actions.server</field>-->
         <!--<field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>-->
@@ -20,11 +62,12 @@
             <field name="name">funenc_xa_station_consumables_inventory_list</field>
             <field name="model">funenc_xa_station.consumables_inventory</field>
             <field name="arch" type="xml">
-                <tree limit="15">
+                <tree limit="15" create="0">
                     <field name="inventory_department_id" string="库存部门"/>
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="store_house" string="库房位置"/>
                     <field name="inventory_count" string="库存数量"/>
+                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
                 </tree>
             </field>
         </record>
@@ -35,10 +78,12 @@
             <field name="arch" type="xml">
                 <form>
                     <div class="container-fluid">
-                        <field name="inventory_department_id" string="库存部门"/>
-                        <field name="consumables_type" string="耗材类型"/>
-                        <field name="store_house" string="库房位置"/>
-                        <field name="inventory_count" string="库存数量"/>
+                        <group>
+                            <field name="inventory_department_id" string="库存部门"/>
+                            <field name="consumables_type" string="耗材类型"/>
+                            <field name="store_house" string="库房位置"/>
+                            <field name="inventory_count" string="库存数量"/>
+                        </group>
                     </div>
                 </form>
             </field>
