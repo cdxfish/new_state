@@ -39,7 +39,7 @@
                         <group>
                             <!--attrs="{'readonly':[('is_admin','!=',1)]}"-->
                             <field name="consumables_department_id" string="站点"
-                                   groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"
+                                    options="{'no_create':True}"
                                    context="{'consumables_department_id':consumables_department_id}"/>
                             <field name="consumables_type_id" string="耗材类型"/>
                             <field name="store_house_id" string="库房名称"

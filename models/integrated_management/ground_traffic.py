@@ -5,6 +5,7 @@ class GroundTraffic(models.Model):
     _name = 'funenc_xa_station.ground_traffic'
     _description = u'地面交通'
     _rec_name = 'ground_environment_ids'
+    _inherit = 'fuenc_station.station_base'
 
     ground_environment_ids = fields.One2many('funenc_xa_station.ground_environment','ground_traffic_id',string='地面环境')
     bus_lines =  fields.One2many('funenc_xa_station.bus_line','ground_traffic_id',string='交通线路表')

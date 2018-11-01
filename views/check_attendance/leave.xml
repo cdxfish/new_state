@@ -37,8 +37,8 @@
 			<field name="model">funenc_xa_station.leave</field>
 			<field name="arch" type="xml">
 				<tree limit="15"  class="noOpen" create="0" search_ex_template="leave_search_button">
-					<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
-                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
+					<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
+                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" />
                             <field name="leave_user_id" string="请假员工"/>
                             <field name="jobnumber" string="工号" readonly="1"/>
 							<field name="position" string="职位" readonly="1"/>
@@ -61,8 +61,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester" domain="[('department_hierarchy','=',2)]"/>
-                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester" context="{'site_id':site_id}"/>
+                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  domain="[('department_hierarchy','=',2)]"/>
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  context="{'site_id':site_id}"/>
                             <field name="leave_user_id" string="请假员工" domain="[('departments','=',site_id)]" options="{'no_create':True,'no_open':True}"/>
                             <field name="jobnumber" string="工号" readonly="1"/>
 							<field name="position" string="职位" readonly="1"/>
