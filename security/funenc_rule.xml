@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data update="0">
+  <data>
 
       <!--<record id="funenc_xa_station_motorized_user_group_site" model="ir.rule">-->
             <!--<field name="name">xa_station_机动人员(站点)</field>-->

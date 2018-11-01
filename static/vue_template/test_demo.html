@@ -1,148 +1,55 @@
 <div id="app">
-    <!--<el-row type="flex" align="middle" justify="end">-->
-        <!--<el-button type="primary" size="mini" @click="save">保存</el-button>-->
-    <!--</el-row>-->
     <el-row>
-        <span>本月班表</span><span style="color: #AAAAAA;margin-bottom: 10px">(具体班次规则进入排班列表查看详情)</span>
+        <h1>交接班</h1> <br>
     </el-row>
-    <el-row type="flex" align="middle" style="margin-bottom: 20px">
-        <el-col :span="24">
-            <el-table
-                    size="mini"
-                    :data="group_table_data"
-                    style="width: 100%">
-                <el-table-column
-                        label="序号"
-                        type="index"
-                        align="center"
-                        width="50">
-                </el-table-column>
-                <!--<el-table-column-->
-                        <!--prop="group_name"-->
-                        <!--label="班组名称"-->
-                        <!--align="center">-->
-                <!--</el-table-column>-->
-                <el-table-column
-                        prop="user_name"
-                        label="人员名称"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        prop="work_number"
-                        align="center"
-                        label="工号">
-                </el-table-column>
-                <el-table-column
-                        prop="position"
-                        align="center"
-                        label="岗位">
-                </el-table-column>
-                <el-table-column v-for="(item, index) in days"
-                                 align="center"
-                                 :label="item">
-                    <template slot-scope="scope">
-                        <el-select size="mini" v-model="scope.row.shift_value[index].shift" placeholder="请选择班次">
-                            <el-option
-                                    v-for="item in shift_options"
-                                    :key="item.id"
-                                    :label="item.label"
-                                    :value="item.id">
-                            </el-option>
-                        </el-select>
-                    </template>
-                </el-table-column>
+    姓名:
+    线路:
+    站点:
+    工号:
+    岗位：
 
-            </el-table>
-        </el-col>
+    <el-row>
+
+        <el-button type="primary" plain @click="shift_shift">交班</el-button>
+        <el-button type="primary" plain @click="take_over">接班</el-button>
     </el-row>
 
-    <!--<el-row>-->
-        <!--<span>机动人员班表</span><span style="color: #AAAAAA;margin-bottom: 10px">(选择班次可进行修改)</span>-->
-    <!--</el-row>-->
-    <!--<el-row type="flex" align="middle" style="margin-bottom: 20px">-->
-        <!--<el-col :span="24">-->
-            <!--<el-table-->
-                    <!--size="mini"-->
-                    <!--:data="motorized_group_table_data"-->
-                    <!--style="width: 100%">-->
-                <!--<el-table-column-->
-                        <!--label="序号"-->
-                        <!--type="index"-->
-                        <!--align="center"-->
-                        <!--width="50">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="user_name"-->
-                        <!--label="人员名称"-->
-                        <!--align="center">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="work_number"-->
-                        <!--align="center"-->
-                        <!--label="工号">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="position"-->
-                        <!--align="center"-->
-                        <!--label="岗位">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column v-for="(item, index) in days"-->
-                                 <!--align="center"-->
-                                 <!--:label="item">-->
-                    <!--<template slot-scope="scope">-->
-                        <!--<el-select size="mini" v-model="scope.row.shift_value[index].shift" placeholder="请选择班次"-->
+    <template>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="历史交班信息" name="first">
+                <el-table :data="shift_shift_data" stripe style="width: 100%">
 
-                        <!--&gt;-->
-                            <!--<el-option-->
-                                    <!--v-for="item in shift_options"-->
-                                    <!--:key="item.id"-->
-                                    <!--:label="item.label"-->
-                                    <!--:value="item.id"-->
-                            <!--&gt;-->
-                            <!--</el-option>-->
-                        <!--</el-select>-->
-                    <!--</template>-->
-                <!--</el-table-column>-->
-            <!--</el-table>-->
-        <!--</el-col>-->
-    <!--</el-row>-->
+                    <el-table-column prop="index" label="序号" width="180">
+                    </el-table-column>
+                    <el-table-column prop="shift_shift_date" label="交班时间" width="180">
+                    </el-table-column>
+                    <el-table-column prop="take_over_user" label="接班人">
+                    </el-table-column>
+                    <el-table-column prop="job_no" label="工号">
+                    </el-table-column>
+                    <el-table-column prop="take_over_date" label="接班时间">
+                    </el-table-column>
 
-    <!--<el-row>-->
-        <!--<span>本月班次</span>-->
-    <!--</el-row>-->
-    <!--<el-row type="flex" align="middle">-->
-        <!--<el-col :span="24">-->
-            <!--<el-table-->
-                    <!--size="mini"-->
-                    <!--:data="total_group_table_data"-->
-                    <!--style="width: 100%">-->
-                <!--<el-table-column-->
-                        <!--label="序号"-->
-                        <!--type="index"-->
-                        <!--align="center"-->
-                        <!--width="50">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="group_name"-->
-                        <!--align="center"-->
-                        <!--label="班组人员">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="group_name"-->
-                        <!--align="center"-->
-                        <!--label="工号">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                        <!--prop="position"-->
-                        <!--align="center"-->
-                        <!--label="岗位">-->
-                <!--</el-table-column>-->
-                 <!--<el-table-column-->
-                        <!--prop="position"-->
-                        <!--align="center"-->
-                        <!--label="岗位">-->
-                <!--</el-table-column>-->
-            <!--</el-table>-->
-        <!--</el-col>-->
-    <!--</el-row>-->
+                </el-table>
+
+            </el-tab-pane>
+            <el-tab-pane label="历史接班信息" name="second">
+                <el-table :data="shift_shift_data" stripe style="width: 100%">
+
+                    <el-table-column prop="index" label="序号" width="180">
+                    </el-table-column>
+                    <el-table-column prop="shift_shift_date" label="交班时间" width="180">
+                    </el-table-column>
+                    <el-table-column prop="take_over_user" label="接班人">
+                    </el-table-column>
+                    <el-table-column prop="job_no" label="工号">
+                    </el-table-column>
+                    <el-table-column prop="take_over_date" label="接班时间">
+                    </el-table-column>
+                </el-table>
+            </el-tab-pane>
+        </el-tabs>
+    </template>
+
+
 </div>

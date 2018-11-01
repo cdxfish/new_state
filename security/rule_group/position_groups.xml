@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+      <record model="ir.module.category" id="module_position11">
+            <field name="name">职位</field>
+        </record>
+
+      <record model="res.groups" id="module_cstatio_nmaster">
+            <field name="name">值班站长</field>
+            <field name="category_id" ref="module_position11"/>
+        </record>
+      <record model="res.groups" id="module_man_on_duty">
+            <field name="name">行车值班员</field>
+            <field name="category_id" ref="module_position11"/>
+        </record>
+      <record model="res.groups" id="module_passenger_transport">
+            <field name="name">客运值班员</field>
+            <field name="category_id" ref="module_position11"/>
+        </record>
+      <record model="res.groups" id="module_depot">
+            <field name="name">站务员</field>
+            <field name="category_id" ref="module_position11"/>
+        </record>
+
+      <record model="res.groups" id="module_ticket_business">
+            <field name="name">票亭岗</field>
+            <field name="category_id" ref="module_position11"/>
+        </record>
+
+    </data>
+</odoo>

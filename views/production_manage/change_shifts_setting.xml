@@ -41,7 +41,7 @@
                                     <field name="preparedness_name" string="备品名称"/>
                                     <field name="unit" string="单位"/>
                                     <field name="remarks" string="备注"/>
-                                    <field name="type" eval="station_master"/>
+                                    <!--<field name="type" eval="station_master"/>-->
                                 </tree>
 
                             </field>
@@ -87,7 +87,7 @@
                                     <field name="preparedness_name" string="备品名称"/>
                                     <field name="unit" string="单位"/>
                                     <field name="remarks" string="备注"/>
-                                    <field name="type" eval="station_master"/>
+                                    <!--<field name="type" eval="station_master"/>-->
                                 </tree>
                             </field>
                         </div>
@@ -186,7 +186,7 @@
                                     <field name="preparedness_name" string="备品名称"/>
                                     <field name="unit" string="单位"/>
                                     <field name="remarks" string="备注"/>
-                                    <field name="type" eval="station_master"/>
+                                    <!--<field name="type" eval="station_master"/>-->
                                 </tree>
 
                             </field>
