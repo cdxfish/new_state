@@ -28,7 +28,7 @@
             <field name="name">新增规章</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
-                <tree class="noOpen" create="0">
+                <tree class="noOpen" create="0" search_ex_template="regulations_management_search_button">
                     <field name="id" string="序号"></field>
                     <field name="profession_kind"></field>
                     <field name="rank_kind"></field>

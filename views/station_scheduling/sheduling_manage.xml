@@ -32,7 +32,7 @@
 			<field name="name">funenc_xa_station_sheduling_manage_list</field>
 			<field name="model">funenc_xa_station.sheduling_manage</field>
 			<field name="arch" type="xml">
-				<tree limit="15" create="0" class="noOpen">
+				<tree limit="15" create="0" class="noOpen" search_ex_template="sheduling_management_search_button">
                     <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  groups="funenc_xa_station.system_fuenc_tester"/>
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"  groups="funenc_xa_station.system_fuenc_tester"/>
 					<field name="show_class_group_name" string="班组"/>

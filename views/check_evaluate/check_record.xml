@@ -46,7 +46,7 @@
             <field name="name">check_record_tree</field>
             <field name="model">funenc_xa_station.check_record</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="check_record_search_button">
                     <field name="line_id"></field>
                     <field name="site_id"></field>
                     <field name="job_number"></field>

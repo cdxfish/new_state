@@ -14,4 +14,32 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="class_delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
+
+    <t t-name="regulations_management_search_button">
+        <div class="form-inline custom_search_box">
+            <div class="container-fluid">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
+                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">线路:</label>
+                    <div for="line_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
+                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">站点:</label>
+                    <div for="site_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
+                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">专业分类:</label>
+                    <div for="profession_kind" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
+                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">级别分类:</label>
+                    <div for="rank_kind" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px;">
+                    <button type="button" class="btn btn-default search_extend_apply">
+                        搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
 </templates>

@@ -19,7 +19,7 @@
 			<field name="name">funenc_xa_station_change_shifts_list</field>
 			<field name="model">funenc_xa_station.change_shifts</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree limit="15" class="noOpen" search_ex_template="change_shifts_search_button">
                     <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"
                            options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"

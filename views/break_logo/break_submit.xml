@@ -32,7 +32,7 @@
             <field name="name">故障提报</field>
             <field name="model">funenc_xa_station.break_submit</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" class="noOpen">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="break_submit_search_button">
                     <field name="line_id"></field>
                     <field name="site_id" ></field>
                     <field name="break_describe"></field>

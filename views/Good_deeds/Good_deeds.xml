@@ -44,7 +44,7 @@
             <field name="name">好人好事</field>
             <field name="model">fuenc_station.good_deeds</field>
             <field name="arch" type="xml">
-                <tree edit="0" create="0" class="noOpen">
+                <tree edit="0" create="0" class="noOpen" search_ex_template="search_good_deeds_button">
                     <field name="id" string="序号"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>

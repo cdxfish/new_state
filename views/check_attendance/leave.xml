@@ -36,7 +36,7 @@
 			<field name="name">funenc_xa_station_leave_list</field>
 			<field name="model">funenc_xa_station.leave</field>
 			<field name="arch" type="xml">
-				<tree limit="15"  class="noOpen" create="0">
+				<tree limit="15"  class="noOpen" create="0" search_ex_template="leave_search_button">
 					<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
                             <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" groups="funenc_xa_station.system_fuenc_tester"/>
                             <field name="leave_user_id" string="请假员工"/>

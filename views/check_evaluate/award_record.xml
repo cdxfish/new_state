@@ -46,11 +46,11 @@
             <field name="name">award_record</field>
             <field name="model">funenc_xa_station.award_record</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="award_record_search_button">
                     <field name="line_id"></field>
                     <field name="site_id"></field>
                     <field name="jobnumber"></field>
-                    <field name="staff"></field>
+                    <field name="staff" options="{'no_create':True,'no_open':True}"></field>
                     <field name="position"></field>
                     <field name="award_money"></field>
                     <field name="award_target_kind"></field>

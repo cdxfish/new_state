@@ -1017,10 +1017,10 @@
 			  groups="system_shifts" action="xa_station_car_line_action"
 		/>
 
-	<!--<menuitem id="xa_station_change_shifts_setting_1_fu" name="(缺)交接班-车站特殊卡预设"-->
-				  <!--parent="system_configuration"-->
-			  <!--groups="system_station_card" sequence="2" action="prude_newpaper_type_server"-->
-		<!--/>-->
+	<menuitem id="xa_station_change_shifts_setting_1_fu" name="交接班-车站特殊卡预设"
+				  parent="system_configuration"
+			  groups="system_station_card" sequence="2" action="xa_station_special_card_preset_action"
+		/>
 	<menuitem id="prude_newpaper_type_menu" groups="system_production_events" name="生产日报-生产事件设置" action="prude_newpaper_type_server"
               parent="system_configuration" sequence="3"></menuitem>
 
