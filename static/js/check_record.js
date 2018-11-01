@@ -52,8 +52,7 @@ odoo.define('funenc_xa_check', function (require) {
                        return {
                                 tableData:self.user_data,
                                 value6:'时间选择',
-                                tabValue:''
-
+                                tabValue:'',
                        };
                     },
 
@@ -82,9 +81,12 @@ odoo.define('funenc_xa_check', function (require) {
                                                                      self._rpc({
                                                                             model:'funenc_xa_station.check_collect',
                                                                             method:'get_action',
+                                                                            group:'funenc_xa_station.table_evaluation_total'
                                                                          }).then(function(data){
-//                                                                            console.log(data);
                                                                             self.do_action(data);
+//                                                                            that.check = data.group;
+                                                                            console.log('999999999',that.check);
+
                                                                             });
 
                                                         }else if(that.tabValue==4){

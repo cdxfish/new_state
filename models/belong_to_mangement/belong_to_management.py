@@ -21,13 +21,13 @@ class BelongToManagement(models.Model):
     write_person = fields.Char(string='填报人',
                                default=lambda self: self.default_name_id())
     job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
-    change_state = fields.Selection([('add', '加'), ('reduce', '减')],required=True)
+    change_state = fields.Selection([('add', '加'), ('reduce', '减')], default='reduce')
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
     load_file_test = fields.Many2many('ir.attachment', 'funenc_management_',
                                       'attachment_id', 'meeting_dateils_id', string='图片上传')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
-    browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片')
+    browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片',default='zero')
 
     #在创建的时候改变分数的正负数
     @api.model
@@ -36,8 +36,8 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-        if vals['load_file_test'][1][2]['datas']:
-            vals['browse_image_invisible'] == 'one'
+        if vals['load_file_test']:
+            vals['browse_image_invisible'] = 'one'
         return super(BelongToManagement, self).create(vals)
 
     @get_domain
@@ -179,3 +179,5 @@ class BelongToManagement(models.Model):
             'flags': {'initial_mode': 'readonly'},
             'target': 'new',
         }
+
+

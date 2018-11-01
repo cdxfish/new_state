@@ -13,6 +13,8 @@ class ConsumablesType(models.Model):
     child_ids = fields.One2many('funenc_xa_station.consumables_type', 'prent_id', string='子耗材分类')
 
 
+
+
     @api.model
     def create_consumables_type(self):
         context = dict(self.env.context or {})
@@ -43,3 +45,25 @@ class ConsumablesType(models.Model):
         }
     def delete(self):
         self.unlink()
+
+    #用来测试层级选择
+    @api.model
+    def get_equipment_class(self, id=False):
+        '''
+        获取分组
+        :return:
+        '''
+        rst = []
+        class_a = self.env['funenc_xa_station.consumables_type'].search_read([('prent_id', '=', id)],
+                                                                        fields=['child_ids','consumables_type'])
+        for record in class_a:
+            vals = {
+                'value': record['id'],
+                'label': record['consumables_type'],
+            }
+            children = self.get_equipment_class(record['id'])
+            if children:
+                vals['children'] = children
+            rst.append(vals)
+        return rst
+

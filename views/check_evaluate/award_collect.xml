@@ -42,10 +42,6 @@
           <field name="tag">funenc_xa_award</field>
         </record>
 
-        <!--<menuitem id="funenc_xa_award_act" name="奖励汇总"-->
-				  <!--action="funenc_xa_award"-->
-		<!--/>-->
-
         <!--<record id="award_collect_act" model="ir.actions.act_window">-->
             <!--<field name="name">award_collect_act</field>-->
             <!--<field name="res_model">funenc_xa_station.award_collect</field>-->

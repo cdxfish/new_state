@@ -39,7 +39,7 @@
                         <group>
                             <field name="to_department_id" string="目标部门" readonly="1"/>
                             <field name="department_id" string="申请部门" readonly="1"/>
-                            <field name="consumables_type" string="耗材类型"/>
+                            <field name="consumables_type" string="耗材类型" widget="cascader_widget"/>
                             <field name="consumables_count" string="申请数量"/>
                         </group>
                         <footer>

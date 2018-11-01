@@ -18,7 +18,7 @@ odoo.define("cascader_widget", function (require) {
         self._rpc({
           model: 'vue_template_manager.template_manage',
           method: 'get_template_content',
-          args: ['repairManageForXian', 'cascader'],
+          args: ['funenc_xa_station', 'caseder_class'],
         }).then(function (vals) {
           setTimeout(function () {
             self.$el.append(vals)
@@ -26,14 +26,15 @@ odoo.define("cascader_widget", function (require) {
               el: '#cascader_widget',
               data: function () {
                 return {
-                  options: []
+                  options: [],
+                  sel_value:[]
                 };
               },
 
               mounted: function () {
                 var now_vue = this;
                 self._rpc({
-                  model: 'repair_manage.equipment_class',
+                  model: 'funenc_xa_station.consumables_type',
                   method: 'get_equipment_class',
                   args: [],
                 }).then(function (vals) {
@@ -57,7 +58,13 @@ odoo.define("cascader_widget", function (require) {
 
         })
       }
+
+
     }
+
+  });
+
+
   registry.add('cascader_widget', cascader_widget);
 
   return {
