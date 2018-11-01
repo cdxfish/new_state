@@ -2,7 +2,7 @@
 <odoo>
 	<data>
 
-		<record model="ir.actions.server" id="create_funenc_xa_station_leave_1">
+		<record model="ir.actions.server" id="xa_station_leave_list_action">
 			<field name="name">新增请假</field>
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>

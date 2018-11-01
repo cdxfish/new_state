@@ -23,12 +23,10 @@ class CheckCollect(models.Model):
 
     @api.model
     def get_group(self):
-        user_id = self.env.user.dingtalk_user.id
-        group_list = self.env['res.groups'].search([('name','=','考评汇总')])
-
-
-
-        return  group_list
+        if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_total')
+        else:
+            return
 
 
 

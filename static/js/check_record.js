@@ -19,7 +19,10 @@ odoo.define('funenc_xa_check', function (require) {
             model:'funenc_xa_station.check_collect',
             method:'get_group'
       }).then(function(data){
-        console.log("pppppppp",data )
+        if(data == true){
+            data = true;
+
+        };
       });
 
       self.user_data = [];   // 部门初始化变量
@@ -61,7 +64,8 @@ odoo.define('funenc_xa_check', function (require) {
                                 tableData:self.user_data,
                                 value6:'时间选择',
                                 tabValue:'',
-                                check:''
+                                check:'',
+                                data:'',
                        };
                     },
 
