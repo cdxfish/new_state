@@ -59,5 +59,12 @@
 				</form>
 			</field>
 		</record>
+
+		<record model="ir.actions.act_window" id="xa_station_arrange_class_manage_action">
+          <field name="name">排班规则</field>
+          <field name="res_model">funenc_xa_station.arrange_class_manage</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
     </data>
 </odoo>

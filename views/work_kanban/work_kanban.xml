@@ -2,19 +2,19 @@
 <odoo>
     <data>
 
-        <record model="ir.actions.server" id="create_work_kanban_button">
-            <field name="name">新增发送任务</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_funenc_xa_station_work_kanban"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_work_kanban"/>
-            <field name="binding_type">action_button</field>
-            <field name="binding_action">工作看板</field>
-            <field name="code">
-                action = model.create_work_kanban()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="create_work_kanban_button">-->
+            <!--<field name="name">新增发送任务</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_funenc_xa_station_work_kanban"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_funenc_xa_station_work_kanban"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">工作看板</field>-->
+            <!--<field name="code">-->
+                <!--action = model.create_work_kanban()-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.ui.view" id="funenc_xa_station_work_kanban_list">
             <field name="name">funenc_xa_station_work_kanban_list</field>
@@ -26,7 +26,8 @@
                     <field name="task_type_id" string="任务类型"/>
                    <field name="task_describe" string="任务描述"/>
                     <field name="task_priority" string="任务优先级"/>
-                    <field name="task_end_time" string="到期时间"/>
+                    <!--<field name="task_end_time" string="到期时间"/>-->
+                   <field name="task_state" string="任务完成情况"/>
                     <widget string="操作" name="treebtns" template="widget_edit_delete"/>
                 </tree>
             </field>
@@ -89,7 +90,8 @@
                                 <field name="task_type_id" string="任务类型"/>
                                 <field name="task_describe" string="任务描述"/>
                                 <field name="task_state" string="任务状态" readonly="1"/>
-                                <field name="task_feedback" string="任务反馈"/>
+                                <field name="task_type" invisible="1"/>
+                                <!--<field name="task_feedback" string="任务反馈" attrs="{'invisible':[('task_type','=','receive_task')]}"/>-->
                             </group>
                             <!--<notebook>-->
                                 <!--<page string="任务完成情况">-->
@@ -109,14 +111,75 @@
                                     string='确定'
                                     class='btn-primary'
                                     type='object'
-                                    arrts="{'invisible':[('task_type','=','send_task'),('is_send','!=',1)]}"
                             />
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_work_kanban_list_2">
+            <field name="name">funenc_xa_station_work_kanban_list</field>
+            <field name="model">funenc_xa_station.work_kanban</field>
+            <field name="arch" type="xml">
+               <tree limit="15" class="noOpen" search_ex_template="work_kanban_search_button">
+                   <field name="task_originator_id" string="任务发起人"/>
+                   <field name="originator_time" string="任务发起时间"/>
+                    <field name="task_type_id" string="任务类型"/>
+                   <field name="task_describe" string="任务描述"/>
+                    <field name="task_priority" string="任务优先级"/>
+                    <!--<field name="task_end_time" string="到期时间"/>-->
+                   <field name="task_state" string="任务完成情况"/>
+                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_work_kanban_form_2">
+            <field name="name">funenc_xa_station_work_kanban_form</field>
+            <field name="model">funenc_xa_station.work_kanban</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <sheet>
+                            <group string="任务详情(发起的任务)">
+                                <field name="task_originator_id" string="任务发起人"
+                                       options="{'no_create':True,'no_open':True}" readonly="1"/>
+                                <field name="originator_time" string="任务发起时间" readonly="1"/>
+                                <field name="task_send_user_ids" string="任务接收人"
+                                       context="{'tree_view_ref':'cdtct_dingtalk.users_list'}"
+                                       readonly="1"
+                                       options="{'no_create':True,'no_open':True}"
+                                />
+                                <!--widget="many2many_tags"-->
+                                <field name="task_start_time" string="任务开始时间" readonly="1"/>
+                                <field name="task_end_time" string="任务结束时间" readonly="1"/>
+                                <field name="task_priority" string="优先级" readonly="1"/>
+                                <field name="task_type_id" string="任务类型" readonly="1"/>
+                                <field name="task_describe" string="任务描述" readonly="1"/>
+                                <field name="task_state" string="任务状态" readonly="1"/>
+                                <field name="task_type" invisible="1"/>
+
+                            </group>
+                            <group string="任务反馈">
+                                 <field name="task_feedback" />
+                            </group>
+                        </sheet>
+                        <footer>
                             <button name='check_task_complete'
-                                    string='确认完成任务'
+                                    string='确定完成任务'
                                     class='btn-primary'
                                     type='object'
-                                    arrts="{'invisible':[('task_type','!=','receive_state'),('is_send','!=',1)]}"
                             />
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
                         </footer>
                     </div>
                 </form>
@@ -135,6 +198,25 @@
                                   (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station_work_kanban_form')})
                 ]"/>
         </record>
+
+        <record model="ir.actions.server" id="xa_station_work_kanban_2_action">
+			<field name="name">工作看板列表</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_work_kanban"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+        <record model="ir.actions.server" id="xa_station_work_kanban_3_action">
+			<field name="name">工作看板</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_work_kanban"/>
+			<field name="code">
+				action = model.my_work_kanban()
+			</field>
+		</record>
+
 
         <!--<menuitem id="xa_station_work_kanban_2" name="工作看板"-->
                   <!--parent="funenc_xa_station.xa_station_work_kanban_1"-->

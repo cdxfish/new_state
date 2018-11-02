@@ -13,17 +13,13 @@ odoo.define('change_shifts_clint', function (require) {
             this._super(parent, record, node);
             this.vue_data = {
                     activeName: 'first',
-                    user:'',
+                    user:{},
                     change_shifts_ids:[
-//                    {
-//                    index: 1,
-//                    shift_shift_date:'2010-10-10',
-//                    take_over_user: '张三',
-//                    job_no:001,
-//                    take_over_date: '2010-10-11'
-//                    }
                     ],
-                    take_over_from_ids:[]
+                    take_over_from_ids:[],
+                    domain:[],
+                    views:[],
+                    jb_form:1
 
 
                 };
@@ -36,11 +32,15 @@ odoo.define('change_shifts_clint', function (require) {
 
                     return self._rpc({
                         model: 'funenc_xa_station.production_change_shifts',
-                        method: 'get_change_shifts_data',
+                        method: 'get_change_shifts_data'
                     }).then(function(data){
-//                        self.vue_data.user:data.user,
-//                        self.vue_data.change_shifts_ids:data.change_shifts_ids,
-//                        self.vue_data.take_over_from_ids:data.take_over_from_ids
+                        console.log(data.jb_form)
+                          self.vue_data.user=data.user
+                          self.vue_data.change_shifts_ids = data.change_shifts_ids,
+                          self.vue_data.take_over_from_ids = data.take_over_from_ids,
+                           self.vue_data.domain = data.domain,
+                           self.vue_data.views = data.views,
+                           self.vue_data.jb_form = data.jb_form
 
                     })
             },
@@ -63,31 +63,30 @@ odoo.define('change_shifts_clint', function (require) {
 
                     methods: {
                         shift_shift: function(){
-                            console.log(tab, event);
+                            // 交班创建
+                            console.log(self.vue_data.jb_form)
+                            self.do_action({
+                                                name: '\u521b\u5efa',
+                                                type: 'ir.actions.act_window',
+                                                res_model: 'funenc_xa_station.production_change_shifts',
+                                                views: [[self.vue_data.jb_form, 'form']],
+                                                target: 'new'
+                                            });
+
+
 
                         },
 
-                        take_over: function(){
-                            console.log(11);
-
-                                self._rpc({
-                                                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                                                method: 'get_sites',
-                                                kwargs: {line_id: line_id}
-                                            }).then(function(data){
-
+                        take_over_1: function(){
+                            // 接班
                                                   self.do_action({
-                                                            name: '\u94a5\u5319\u501f\u7528',
+                                                            name: '\u5f85\u63a5\u73ed\u5217\u8868',
                                                             type: 'ir.actions.act_window',
-                                                            res_model: 'funenc.xa.station.borrow.record',
-                                                            views: [[false, 'form']],
-                                                            target: 'new'
+                                                            res_model: 'funenc_xa_station.production_change_shifts',
+                                                            views: [[self.vue_data.views, 'list']],
+                                                            target: 'new',
+                                                            domain:self.vue_data.domain
                                                         });
-
-
-
-
-                                            })
 
 
                         },
@@ -96,6 +95,21 @@ odoo.define('change_shifts_clint', function (require) {
                             console.log(tab, event);
                         },
 
+
+                        handleEdit(index, row) {
+
+                           self.do_action({
+                                                name: '\u8be6\u60c5',
+                                                type: 'ir.actions.act_window',
+                                                res_model: 'funenc_xa_station.production_change_shifts',
+                                                views: [[self.vue_data.views, 'list']],
+                                                target: 'new',
+                                                flags: {'initial_mode': 'edit'},
+			                                    res_id: row['id']
+                                            });
+
+
+                        },
 
 
                     }

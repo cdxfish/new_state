@@ -145,7 +145,7 @@
 
     <t t-name="station_detail">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="station_detail" >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="station_detail" >详情</button>
         </div>
     </t>
 

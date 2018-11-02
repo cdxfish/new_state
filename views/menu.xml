@@ -18,7 +18,7 @@
 		<!--</record>-->
 
 		<record model="ir.actions.server" id="funenc_station_index_action">
-			<field name="name">网站首页</field>
+			<field name="name">上下班打卡</field>
 			<field name ="state">code</field>
 			<field name="model_id" ref="model_funenc_xa_station_generate_qr"/>
 			<field name="code">
@@ -568,9 +568,6 @@
 		<!--/>-->
 		<!--<menuitem id="others_manage" icon="&#xe621;" name="系统及其他" sequence="6"-->
 		<!--/>-->
-		<!--<menuitem id="funenc_station_index" icon="&#xe628;" name="PC首页" sequence="1"-->
-				  <!--action="funenc_station_index_action"-->
-		<!--/>-->
 
 		<menuitem id="funenc_station_integrated_manageme" icon="&#xe628;" name="综合管理" sequence="3"
 
@@ -667,10 +664,6 @@
 				  <!--action="xa_motorized_user_action"-->
 		<!--/>-->
 
-		<!--<menuitem id="station_arrange_manage" name="排班规则管理"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_station_arrange_manage_action"-->
-		<!--/>-->
 
 		<!--<menuitem id="xa_station_conflict_rule" name="冲突规则管理"-->
 				  <!--parent="station_scheduling_settings"-->
@@ -783,10 +776,17 @@
 				   sequence="1"
 		/>
 
+		<menuitem id="funenc_station_index" icon="&#xe628;" name="PC首页" sequence="1"
+				  parent="xa_station_production_manage_1"
+				  action="funenc_station_index_action"
+		/>
+
 		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
 				  parent="xa_station_production_manage_1" sequence="5"
-				  groups="system_work_kanban" action="xa_station_task_type_action"
+				  groups="system_work_kanban" action="xa_station_work_kanban_3_action"
 		/>
+
+
 
 		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="工作任务列表"
 				  parent="xa_station_production_manage_1"
@@ -798,6 +798,11 @@
 
 
         <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
+
+		<menuitem id="station_arrange_manage" name="排班规则管理"
+				  parent="person_management_menu_"
+				  action="xa_station_arrange_class_manage_action"
+		/>
 
 		<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"
 				  parent="system_configuration" sequence="1"
@@ -1025,6 +1030,7 @@
 				  parent="system_configuration" action="xa_scheduling_settings" sequence="11"
 			  groups="system_scheduling_management_type"
 		/>
+
 
 	<menuitem id="station_scheduling_settings_fu" name="考评管理-考评指标库设置"
 				  parent="system_configuration" action="check_evaluate_act" sequence="12"
