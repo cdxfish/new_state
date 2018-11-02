@@ -13,7 +13,8 @@ odoo.define('change_shifts_clint', function (require) {
             this._super(parent, record, node);
             this.vue_data = {
                     activeName: 'first',
-                    shift_shift_data:[
+                    user:'',
+                    change_shifts_ids:[
 //                    {
 //                    index: 1,
 //                    shift_shift_date:'2010-10-10',
@@ -21,24 +22,28 @@ odoo.define('change_shifts_clint', function (require) {
 //                    job_no:001,
 //                    take_over_date: '2010-10-11'
 //                    }
-                    ]
+                    ],
+                    take_over_from_ids:[]
 
 
                 };
 
         },
 
-//        willStart: function () {
-//
-//                    var self= this;
-//
-//                    return self._rpc({
-//                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-//                        method: 'get_line_id',
-//                    }).then(function(data){
-//                        self.vue_data.line_options = data
-//                    })
-//            },
+        willStart: function () {
+
+                    var self= this;
+
+                    return self._rpc({
+                        model: 'funenc_xa_station.production_change_shifts',
+                        method: 'get_change_shifts_data',
+                    }).then(function(data){
+//                        self.vue_data.user:data.user,
+//                        self.vue_data.change_shifts_ids:data.change_shifts_ids,
+//                        self.vue_data.take_over_from_ids:data.take_over_from_ids
+
+                    })
+            },
         start: function () {
             var self = this;
             self._rpc({
@@ -58,26 +63,34 @@ odoo.define('change_shifts_clint', function (require) {
 
                     methods: {
                         shift_shift: function(){
+                            console.log(tab, event);
 
                         },
 
-//                        take_over: function(){
-//                            self._rpc({
-//                                model: 'funenc_xa_station.production_change_shifts',
-//                                method: 'get_views'
-//
-//                            }).then(function (data) {
-//                                    self.do_action({
-//                                                    name: '\u94a5\u5319\u65b0\u5efa',
-//                                                    type: 'ir.actions.act_window',
-//                                                    res_model: 'funenc_xa_station.production_change_shifts',
-//                                                    views: [[data.list_views, 'tree'],[data.form_views,'form']],
-//                                                    target: 'new',
-//                                                    domain: data.domain
-//                                                })
-//                              };
-//
-//                        },
+                        take_over: function(){
+                            console.log(11);
+
+                                self._rpc({
+                                                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                                                method: 'get_sites',
+                                                kwargs: {line_id: line_id}
+                                            }).then(function(data){
+
+                                                  self.do_action({
+                                                            name: '\u94a5\u5319\u501f\u7528',
+                                                            type: 'ir.actions.act_window',
+                                                            res_model: 'funenc.xa.station.borrow.record',
+                                                            views: [[false, 'form']],
+                                                            target: 'new'
+                                                        });
+
+
+
+
+                                            })
+
+
+                        },
 
                         handleClick(tab, event) {
                             console.log(tab, event);

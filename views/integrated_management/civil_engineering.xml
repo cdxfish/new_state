@@ -2,78 +2,79 @@
 <odoo>
     <data>
 
-		<record model="ir.actions.server" id="funenc_station_civil_engineering">
-		    <field name="name">土建结构</field>
-		    <field name="type">ir.actions.server</field>
-		    <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
-		    <field name="condition">True</field>
-		    <field name="state">code</field>
-		    <field name="code">
-		        action = model.return_act_window('土建结构', 'funenc_xa_station.civil_engineering',
-				'funenc_xa_station.funenc_xa_station_civil_engineering_list', 'funenc_xa_station.funenc_xa_station_civil_engineering_form')
-		    </field>
-		</record>
+        <record model="ir.actions.server" id="funenc_station_civil_engineering">
+            <field name="name">土建结构</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.return_act_window('土建结构', 'funenc_xa_station.civil_engineering',
+                'funenc_xa_station.funenc_xa_station_civil_engineering_list',
+                'funenc_xa_station.funenc_xa_station_civil_engineering_form')
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="funenc_xa_station_civil_engineering_list">
-			<field name="name">funenc_xa_station_civil_engineering_list</field>
-			<field name="model">funenc_xa_station.civil_engineering</field>
-			<field name="arch" type="xml">
-				<tree >
-					<field name="essential_information_ids" string="基本信息"/>
-					<field name="private_channel_ids" string="专用通道信息"/>
-				</tree>
-			</field>
-		</record>
+            <field name="name">funenc_xa_station_civil_engineering_list</field>
+            <field name="model">funenc_xa_station.civil_engineering</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="essential_information_ids" string="基本信息"/>
+                    <field name="private_channel_ids" string="专用通道信息"/>
+                </tree>
+            </field>
+        </record>
 
 
         <record model="ir.ui.view" id="funenc_xa_station_civil_engineering_form">
-			<field name="name">funenc_xa_station_civil_engineering_form</field>
-			<field name="model">funenc_xa_station.civil_engineering</field>
-			<field name="arch" type="xml">
-				<form >
-					<div class="form-group">
-
-						<div class="text-center ">
-							<h1> 基本信息 </h1>
-						</div>
-					   <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
-                       <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" />
-						<div class="text-center ">
-							<field name="essential_information_ids">
-								<tree editable="top" class="noOpen">
-									<field name="type" string="类别"/>
-									<field name="content" string="内容"/>
-								</tree>
-                                <!--<form>-->
-                                    <!--<group>-->
-                                        <!--<field name="entrance_exit" string="出入口"/>-->
-                                        <!--<field name="one_grade_information" string="一级信息"/>-->
-                                        <!--<field name="two_grade_information" string="二级信息"/>-->
-                                        <!--<field name="three_grade_information" string="三级信息"/>-->
-                                    <!--</group>-->
-								<!--</form>-->
-							</field>
-						</div>
+            <field name="name">funenc_xa_station_civil_engineering_form</field>
+            <field name="model">funenc_xa_station.civil_engineering</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="form-group">
 
                         <div class="text-center ">
-							<h1> 专用通道信息 </h1>
-						</div>
-						<div class="text-center ">
-							<field name="private_channel_ids">
-								<tree editable="top" class="noOpen">
-									<field name="name" string="通道名称"/>
-									<field name="channel_width" string="宽度(m)"/>
-									<field name="remarks" string="说明"/>
-								</tree>
-							</field>
-						</div>
+                            <h1>基本信息</h1>
+                        </div>
+                        <field name="line_id" string="线路" invisible="1"/>
+                        <field name="site_id" string="站点" invisible="1"/>
+                        <div class="text-center ">
+                            <field name="essential_information_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="type" string="类别"/>
+                                    <field name="content" string="内容"/>
+                                </tree>
+                                <!--<form>-->
+                                <!--<group>-->
+                                <!--<field name="entrance_exit" string="出入口"/>-->
+                                <!--<field name="one_grade_information" string="一级信息"/>-->
+                                <!--<field name="two_grade_information" string="二级信息"/>-->
+                                <!--<field name="three_grade_information" string="三级信息"/>-->
+                                <!--</group>-->
+                                <!--</form>-->
+                            </field>
+                        </div>
 
-					</div>
+                        <div class="text-center ">
+                            <h1>专用通道信息</h1>
+                        </div>
+                        <div class="text-center ">
+                            <field name="private_channel_ids">
+                                <tree editable="top" class="noOpen">
+                                    <field name="name" string="通道名称"/>
+                                    <field name="channel_width" string="宽度(m)"/>
+                                    <field name="remarks" string="说明"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                    </div>
 
 
-				</form>
-			</field>
-		</record>
+                </form>
+            </field>
+        </record>
 
     </data>
 </odoo>

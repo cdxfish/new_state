@@ -209,16 +209,16 @@ class StationIndex(models.Model):
 
                 work_time = 0
                 add_work_time = 0
-                sick_leave = 0 # 病假
+                sick_leave = 0  # 病假
                 maternity_leave = 0  # 孕假
-                compassionate_leave = 0 # 事件
-                year_leave = 0 # 年假
-                marry_leave = 0 # 婚假
-                maternited_leave = 0 # 产假
-                nursing_leave = 0 # 护理假
-                funeral_leave = 0 # 丧假
-                job_injury_leave = 0 # 工伤假
-                absenteeism = 0 # 旷工
+                compassionate_leave = 0  # 事件
+                year_leave = 0  # 年假
+                marry_leave = 0  # 婚假
+                maternited_leave = 0  # 产假
+                nursing_leave = 0  # 护理假
+                funeral_leave = 0  # 丧假
+                job_injury_leave = 0  # 工伤假
+                absenteeism = 0  # 旷工
                 for count_user in compute_users:
                     clock_start_time = count_user.get('clock_start_time')
                     clock_end_time = count_user.get('clock_end_time')
@@ -253,16 +253,15 @@ class StationIndex(models.Model):
                         elif leave_id.get('leave_type') == 'marital_leave':
                             marry_leave = marry_leave + 1
                         elif leave_id.get('leave_type') == 'maternity_eave_1':
-                            maternited_leave = maternited_leave +1
+                            maternited_leave = maternited_leave + 1
                         elif leave_id.get('leave_type') == 'nursing':
                             nursing_leave = nursing_leave + 1
                         elif leave_id.get('leave_type') == 'funeral_leave':
                             funeral_leave = funeral_leave + 1
                         elif leave_id.get('leave_type') == 'injury_leave':
-                            job_injury_leave =  job_injury_leave + 1
+                            job_injury_leave = job_injury_leave + 1
                         # elif leave_id.get('leave_type') == 'leave_office':
                         #     pass
-
 
                 count_dic['night_work_time'] = work_time  # 夜班
                 count_dic['sick_leave'] = add_work_time  # 加班
@@ -430,6 +429,40 @@ class generate_qr(models.Model):
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
+    count_user = fields.Integer(seting='人员数量', compute='_compute_count_user')
+
+    def station_detail(self):
+
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_detail_form').id
+        res_id = self.env['funenc_xa_station.station_detail'].search([('site_id', '=', self.id)]),
+        return {
+            'name': '车站详情',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_id': res_id[0].id if res_id else None,
+            'res_model': 'funenc_xa_station.station_detail',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                                                      [
+                                                          {
+                                                              'title': '车站详情',
+                                                              'action' : 'funenc_xa_station.station_detai_action',
+                                                              'group' : 'funenc_xa_station.module_category_comprehensive',
+                                                              'context':1,
+                                                              },
+                                                          {
+                                                              'title': '耗材出库',
+                                                              'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
+                                                              },
+                                                      ]
+                                                  }''',
+            'context': self.env.context,
+        }
+
+    def _compute_count_user(self):
+        for this in self:
+            this.count_user = sum(this.users.ids)
 
     @api.model
     def get_xa_departments(self):
@@ -500,3 +533,4 @@ class inherit_department(models.Model):
             return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
         except Exception:
             return []
+

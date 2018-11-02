@@ -27,6 +27,8 @@
                         <div class="text-center ">
                             <h1>车站线路平面图</h1>
                         </div>
+                        <field name="line_id" string="线路" invisible="1"/>
+                        <field name="site_id" string="站点" invisible="1"/>
                         <div class="text-center ">
                             <field name="line_map_ids">
                                 <tree >

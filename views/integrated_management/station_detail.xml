@@ -41,6 +41,8 @@
 						<div class="text-center ">
 							<h1> 车站性质 </h1>
 						</div>
+						<field name="line_id" string="线路" invisible="1"/>
+                        <field name="site_id" string="站点" invisible="1"/>
 						<div class="text-center ">
 							<field name="station_nature" />
 						</div>
@@ -86,6 +88,33 @@
 				</form>
 			</field>
 		</record>
+
+		<record model="ir.ui.view" id="site_station_detail">
+			<field name="name">车站详情列表</field>
+			<field name="model">cdtct_dingtalk.cdtct_dingtalk_department</field>
+			<field name="arch" type="xml">
+				<tree create="0" class="noOpen">
+					<!--<field name="line_id" string="线路"/>-->
+					<field name="name" string="站点"/>
+					<field name="count_user" string="人员数量"/>
+					<widget string="操作" name="treebtns" template="station_detail"/>
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!--tab action-->
+		   <record model="ir.actions.server" id="station_detai_action">
+			<field name="name">耗材出库</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_station_detail"/>
+			<field name="code">
+				action = model.tab_action()
+			</field>
+		</record>
+		<!--end tab action-->
+
 	
 	</data>
 </odoo>
