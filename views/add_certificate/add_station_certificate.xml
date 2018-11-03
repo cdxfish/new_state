@@ -78,7 +78,7 @@
                                     <field name="site_id" options="{'no_create':True,'no_open':True}"
                                     domain="[('department_hierarchy','=',3)]"></field>
                                     <field name="certificate_time"></field>
-                                     <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
+                                     <field name="load_file_test" widget="many2many_binary" string="上传证件照片">
                                             <tree>
                                                 <field name="datas_fname"/>
                                             </tree>

@@ -206,7 +206,7 @@
                              <label for="load_file_test" string="图片详情"/>
                           </div>
                          <div class="col-md-3">
-                            <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
+                            <field name="load_file_test" widget="many2many_binary" string="上传证件照片">
                                 <tree>
                                     <field name="datas_fname"/>
                                 </tree>

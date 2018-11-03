@@ -142,7 +142,7 @@
                                      <label for="load_file_test" string="图片附件"/>
                                   </div>
                                  <div class="col-md-10">
-                                     <field name="load_file_test" widget="one2many_image_read_widget">
+                                     <field name="load_file_test" widget="many2many_binary">
                                         <tree>
                                             <field name="datas_fname"/>
                                         </tree>
@@ -153,7 +153,7 @@
 
                            <div class="row">
                                <div class="col-md-12">
-                                  <div class="col-md-1">
+                                  <div class="col-md-2">
                                      <label for="mp_play_many" string="视屏附件："/>
                                   </div>
                                  <div class="col-md-3">
