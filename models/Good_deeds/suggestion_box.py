@@ -18,7 +18,7 @@ class SuggestionBox(models.Model):
     open_site = fields.Char(string='发生地点')
     suggestion_title = fields.Char(string='意见标题')
     suggestion_details = fields.Text(string='意见详情')
-    write_person = fields.Char(string='填报人')
+    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
     write_time = fields.Date(string='填报时间',default=datetime.now().strftime("%Y-%m-%d"))
     passengers_name = fields.Char(string='乘客姓名')
     audit_state = fields.Selection(key,string='审核状态', default='one_audit')
@@ -41,6 +41,14 @@ class SuggestionBox(models.Model):
     rectification_method = fields.Text(string='整改方法')
     according_opinion = fields.Text(string='定则意见及依据')
     duty_general = fields.Text(string='最终定性及定责')
+
+    #自动获取登录人的姓名
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.name
 
     @api.model
     @get_domain

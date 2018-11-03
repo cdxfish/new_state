@@ -29,7 +29,7 @@ class SpecialMoney(models.Model):
     deputy_director = fields.Char(string='分部主任')
     main_director = fields.Char(string='部门领导')
     write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    write_person = fields.Datetime(string='填报人')
+    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
     audit_flow = fields.Char(string='审核流程')
     apply_why = fields.Text(string='申请原因')
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
@@ -38,6 +38,13 @@ class SpecialMoney(models.Model):
     load_file_test = fields.Binary(string='身份证照片')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
+
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.name
 
     # 创建一条新的记录
     def new_increase_record(self):

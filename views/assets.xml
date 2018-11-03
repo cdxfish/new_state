@@ -24,11 +24,10 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/punch_clock_client.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/caseder_class.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/test.js"/>
-<<<<<<< HEAD
+
                 <script type="text/javascript" src="/funenc_xa_station/static/js/browse_image_in_tree.js"/>
-=======
+
                 <script type="text/javascript" src="/funenc_xa_station/static/js/extend_theme_form.js"/>
->>>>>>> e618a32fe79b784b12a50fb81630c047f1f71ae3
             </xpath>
         </template>
     </data>

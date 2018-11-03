@@ -77,15 +77,15 @@
             <div class="container-fluid">
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                                     <span class="search_label" style="float:left;">线路:</span>
-                                    <span for="line_id" class="form-widget-item  col-xs-8" ></span>
+                                    <span for="line_id" class="col-xs-8" ></span>
                                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                                     <span class="search_label" style="float:left;">站点:</span>
-                                    <span for="site_id" class="form-widget-item  col-xs-8" ></span>
+                                    <span for="site_id" class="col-xs-8" ></span>
                                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                                     <span class="search_label" style="float:left;">证件名称:</span>
-                                    <span for="name" class="form-widget-item  col-xs-8"></span>
+                                    <span for="name" class="col-xs-8"></span>
                                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">
