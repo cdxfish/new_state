@@ -25,9 +25,16 @@
 			<ul class="layui-tab-title">
 				<t t-foreach="widget.tabs" t-as="tab">
 					<t t-if="tab['display'] == 'true'">
-						<li t-att-action="tab.action" t-att-action2="tab.action2">
-							<t t-esc="tab.title" />
-						</li>
+						<t t-if="tab['is_this'] == 'true'">
+							<li t-att-action="tab.action" t-att-action2="tab.action2" class="layui-this">
+								<t t-esc="tab.title" />
+							</li>
+						</t>
+						<t t-else="">
+							<li t-att-action="tab.action" t-att-action2="tab.action2">
+								<t t-esc="tab.title" />
+							</li>
+						</t>
 					</t>
 				</t>
 

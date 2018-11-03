@@ -13,11 +13,11 @@ odoo.define("multi_action_tab", function (require) {
 
     var g_tab_id = 12345
 
-    function get_group_tab(self) {
+    function get_group_tab(self, action_id) {
         return self._rpc({
             model: 'funenc_xa_station.return.view.function',
             method: 'return_tab_with_group',
-            args: [self.tabs]
+            args: [self.tabs, action_id]
         })
     }
 
@@ -35,6 +35,7 @@ odoo.define("multi_action_tab", function (require) {
             this.control_pannel = parent
             this.action_manager = action_manager
             this.action_descript = action_descript
+            this.action_id = action_descript.context.params.action;
 //            alert(widget_type)
             if (widget_type == 'top') {
                 this.options = pyeval.eval('context',
@@ -47,7 +48,7 @@ odoo.define("multi_action_tab", function (require) {
         },
         renderElement: function () {
             var self = this;
-            $.when(get_group_tab(this)).then(function (data) {
+            $.when(get_group_tab(this, this.action_id)).then(function (data) {
                 var $el;
                 self.tabs = data;
                 if (self.template) {
@@ -58,21 +59,21 @@ odoo.define("multi_action_tab", function (require) {
                 self.replaceElement($el);
             })
         },
+
         start: function () {
             var self = this
-            self.$el.addClass("layui-tab-brief")
 
             this.tabs = self.tabs;
+            setTimeout(function () {
+                layui.use('element', function () {
+                    var element = layui.element;
+                    element.on('tab(' + self.tab_id + ")", function (data) {
+                        var tab = $(this);
+                        if (tab.attr('action')) {
+                            self.do_action(tab.attr('action'))
 
-            layui.use('element', function () {
-                var element = layui.element;
-                element.on('tab(' + self.tab_id + ")", function (data) {
-                    var tab = $(this);
-                    if (tab.attr('action')) {
-                        self.do_action(tab.attr('action'))
-
-                    } else if (tab.attr('action2')) {
-                        self.do_action(tab.attr('action2'))
+                        } else if (tab.attr('action2')) {
+                            self.do_action(tab.attr('action2'))
 
 //          console.log("domains:"+JSON.stringify(tab.domains))
 //
@@ -87,11 +88,12 @@ odoo.define("multi_action_tab", function (require) {
 //                groupbys: []
 //              });
 //            }
-                    } else {
-                        console.log('yu must set the action or the domain in the option');
-                    }
+                        } else {
+                            console.log('yu must set the action or the domain in the option');
+                        }
+                    });
                 });
-            });
+            })
         }
     });
 
