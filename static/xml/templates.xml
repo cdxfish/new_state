@@ -247,7 +247,7 @@
             <div class="container-fluid">
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">日期筛选:</span>
-                    <span for="write_date" class="form-widget-item  col-xs-8"></span>
+                    <span for="write_date" class="col-xs-8"></span>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>

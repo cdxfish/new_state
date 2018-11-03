@@ -38,17 +38,17 @@
     <t t-name="transceiver_seeting_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
-                    <span for="line_id" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
-                    <span for="site_id" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="site_id" class="col-xs-8"></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">工器具编码:</span>
-                    <span for="transient_number" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="transient_number" class="col-xs-8"></span>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply" >
@@ -64,27 +64,27 @@
             <div class="container-fluid">
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">日期筛选:</span>
-                    <span for="repair_time" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="repair_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
-                    <span for="line_id" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="line_id" class="col-xs-8" ></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
-                    <span for="site_id" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="site_id" class="col-xs-8" ></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">状态:</span>
-                    <span for="state" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="state" class=" col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">工器具分类:</span>
-                    <span for="transceiver_type" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="transceiver_type" class="col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">工器具编码:</span>
-                    <span for="transceive_number" class="form-widget-item  col-xs-8" style="width:200px"></span>
+                    <span for="transceive_number" class=" col-xs-8" ></span>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">

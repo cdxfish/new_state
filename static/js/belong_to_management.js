@@ -117,14 +117,10 @@ odoo.define('belong_to_management', function (require) {
 
                         },
 
-<<<<<<< HEAD
-                              search_data_record: function(){
-                                if (vue.datetime != '时间选择'){
-=======
+
                         search_data_record: function () {
 
                             if (vue.datetime != '时间选择') {
->>>>>>> e618a32fe79b784b12a50fb81630c047f1f71ae3
                                 self._rpc({
                                     model: 'funenc_xa_station.belong_to_summary',
                                     method: 'search_date_record_now',
@@ -158,7 +154,6 @@ odoo.define('belong_to_management', function (require) {
 
 //                              },
 //                          修改数据
-<<<<<<< HEAD
 //                            onchange_data: function(index, row){
 //                                    self.do_action({
 //                                                type: 'ir.actions.act_window',
@@ -215,8 +210,6 @@ odoo.define('belong_to_management', function (require) {
                           }
                          },
 
-
-=======
                         onchange_data: function (index, row) {
                             self.do_action({
                                 type: 'ir.actions.act_window',
@@ -254,7 +247,6 @@ odoo.define('belong_to_management', function (require) {
                                 oReq.send(params1);
                             }
                         },
->>>>>>> e618a32fe79b784b12a50fb81630c047f1f71ae3
 
 
                     },
