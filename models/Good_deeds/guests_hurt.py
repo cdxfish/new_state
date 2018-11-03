@@ -27,6 +27,7 @@ class GuestsHurt(models.Model):
     claim = fields.Selection([('one','是'),('zero','否')],string='是否索赔')
     claim_money = fields.Integer(string='索赔金额')
     event_details = fields.Text(string='事件详情')
+    equiment_details = fields.Text(string='设备状态')
     claim_state = fields.Selection([('one','已赔付'),('zero','未赔付')],string='索赔状态',default='zero')
     audit_state = fields.Selection(key,string='审核状态', default='one_audit')
     audit_flow = fields.Char(string='审核流程')

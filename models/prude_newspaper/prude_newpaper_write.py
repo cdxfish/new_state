@@ -16,7 +16,7 @@ class PrudeNewpaperWrite(models.Model):
     _name = 'funenc_xa_staion.prude_newpaper_write'
     _inherit = 'fuenc_station.station_base'
 
-    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型')
+    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True)
     event_stype_name = fields.Char(compute='_compute_event_stype_name')
     event_content = fields.Text(string='事件内容',compute='_event_content',store=True)
     event_content_create = fields.Text(string='事件内容')
@@ -64,17 +64,23 @@ class PrudeNewpaperWrite(models.Model):
         old_time = self.env['funenc_xa_station.date_time'].search_read([])
         if old_time:
             if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
+                self.env['funenc_xa_station.date_time'].search([]).unlink()
                 raise exceptions.ValidationError('提交警告一天只能提交一次')
-
             else:
                 item = {
                     'date_time_limit': open_time
                 }
                 self.env['funenc_xa_station.date_time'].sudo().create(item)
-                item={
-                    'date_time_limit':new_time
-                }
-                self.env['funenc_xa_station.date_time'].sudo().create(item)
+
+        else:
+            item = {
+                'date_time_limit': open_time
+            }
+            self.env['funenc_xa_station.date_time'].sudo().create(item)
+            # item={
+            #     'date_time_limit':new_time
+            # }
+            # self.env['funenc_xa_station.date_time'].sudo().create(item)
 
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
@@ -85,21 +91,21 @@ class PrudeNewpaperWrite(models.Model):
             #     [('site_id', '=', va['site_id']['name'])],['id'])
             # event_stype = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
             #     [('event_stype', '=', va['event_stype']['prude_event_type'])],['id'])
-            if va['event_stype'][1] == '边门进出情况':
-                stype = 'enter_come'
-            elif va['event_stype'][1] == '票务、AFC故障及异常情况':
-                stype = 'ticket_acf'
-            elif va['event_stype'][1] == '日票、预制单程票售卖情况':
-                stype = 'ticket_sales'
-            elif va['event_stype'][1] == '其他设备故障情况':
-                stype = 'other_brenk'
-            elif va['event_stype'][1] == '其他设备故障情况':
-                stype = 'normal'
+            # if va['event_stype'][1] == '边门进出情况':
+            #     stype = 'enter_come'
+            # elif va['event_stype'][1] == '票务、AFC故障及异常情况':
+            #     stype = 'ticket_acf'
+            # elif va['event_stype'][1] == '日票、预制单程票售卖情况':
+            #     stype = 'ticket_sales'
+            # elif va['event_stype'][1] == '其他设备故障情况':
+            #     stype = 'other_brenk'
+            # elif va['event_stype'][1] == '普通事件':
+            #     stype = 'normal'
 
             va_value = {
                     'line_id' : va['line_id'][1],
                     'site_id' : va['site_id'][1],
-                    'event_stype' : stype,
+                    'event_stype_name' : va['event_stype'][1],
                     'event_content' : va['event_content'],
                     'event_content_create' : va.get('event_content_create'),
                     'open_time' : va.get('open_time'),
@@ -156,12 +162,14 @@ class PrudeNewpaperWrite(models.Model):
 
     #修改生产日报
     def prude_newpaper_type_onchange(self):
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form_modify').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             'res_id':self.id,
+            "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -200,10 +208,34 @@ class PrudeNewpaperWrite(models.Model):
         else:
             self.event_content = self.event_content_create
 
+     #修改当前的记录将新的值负值给对应的字段
+    def save_current_record(self):
+        print(self)
+        if self.event_stype_name == '边门进出情况':
+            self.event_content = str('进边门人数')+str(self.Enter_person_count) +','+ str('出边门人数') + str(self.come_person_count)
+
+        elif self.event_stype_name == '票务、AFC故障及异常情况':
+            self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
+                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+
+        elif self.event_stype_name == '日票、预制单程票售卖情况':
+            self.event_content = '2元'+':'+self.two_money+'、'+'3元'+':'+str(self.three_money)+'、4元'+':'\
+                                 +str(self.four_money)+'、5元'+':'+str(self.five_money)+'、6元'+':'+str(self.six_money) \
+                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money or 0)
+
+        elif self.event_stype_name == '其他设备故障情况':
+            self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
+                                 +'、故障情况:' + str(self.brenk_state)
+
+        else:
+            self.event_content = self.event_content_create
+
 
 class DateTimeLimit(models.Model):
     _name = 'funenc_xa_station.date_time'
 
     date_time_limit = fields.Datetime(string='时间限制')
+
+
 
 

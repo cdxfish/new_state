@@ -2,11 +2,11 @@
     <el-row>
         <h1>交接班</h1> <br>
     </el-row>
-    姓名:{{user.name}}
-    线路:{{user.line_id}}
-    站点:{{user.departemnt_name}}
-    工号:{{user.jobnumber}}
-    岗位：{{user.position}}
+    姓名:
+    线路:
+    站点:
+    工号:
+    岗位：
 
     <el-row>
 
@@ -17,34 +17,34 @@
     <template>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="历史交班信息" name="first">
-                <el-table :data="change_shifts_ids" stripe style="width: 100%">
+                <el-table :data="shift_shift_data" stripe style="width: 100%">
 
-                    <!--<el-table-column prop="index" label="序号" width="180">-->
+                    <el-table-column prop="index" label="序号" width="180">
                     </el-table-column>
-                    <el-table-column prop="change_shifts_time" label="交班时间" width="180">
+                    <el-table-column prop="shift_shift_date" label="交班时间" width="180">
                     </el-table-column>
-                    <el-table-column prop="take_over_from_user_id" label="接班人">
+                    <el-table-column prop="take_over_user" label="接班人">
                     </el-table-column>
                     <el-table-column prop="job_no" label="工号">
                     </el-table-column>
-                    <el-table-column prop="take_over_from_time" label="接班时间">
+                    <el-table-column prop="take_over_date" label="接班时间">
                     </el-table-column>
 
                 </el-table>
 
             </el-tab-pane>
             <el-tab-pane label="历史接班信息" name="second">
-                <el-table :data="take_over_from_ids" stripe style="width: 100%">
+                <el-table :data="shift_shift_data" stripe style="width: 100%">
 
-                    <!--<el-table-column prop="index" label="序号" width="180">-->
+                    <el-table-column prop="index" label="序号" width="180">
                     </el-table-column>
-                    <el-table-column prop="change_shifts_time" label="交班时间" width="180">
+                    <el-table-column prop="shift_shift_date" label="交班时间" width="180">
                     </el-table-column>
-                    <el-table-column prop="take_over_from_user_id" label="接班人">
+                    <el-table-column prop="take_over_user" label="接班人">
                     </el-table-column>
                     <el-table-column prop="job_no" label="工号">
                     </el-table-column>
-                    <el-table-column prop="take_over_from_time" label="接班时间">
+                    <el-table-column prop="take_over_date" label="接班时间">
                     </el-table-column>
                 </el-table>
             </el-tab-pane>

@@ -46,12 +46,12 @@ class production_change_shifts(models.Model):
         if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
             list_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')
             form_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form')
-            domain = [('production_state', '=', 'station_master')]
+            domain = [('production_state','=','station_master')]
             # 值班站长
             return {
-                'list_views': list_views,
-                'form_views': form_views,
-                'domain': domain
+                'list_views':list_views,
+                'form_views':form_views,
+                'domain':domain
             }
         elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
             # 行车
@@ -125,8 +125,7 @@ class production_change_shifts(models.Model):
             'value': {'ticketing_key_type_2_ids': default_data}
         }
 
-    ticketing_key_type_2_ids = fields.One2many('funenc_xa_station.ticketing_key_type_2', 'production_change_shifts_id',
-                                               string='票务钥匙使用情况')
+    ticketing_key_type_2_ids = fields.One2many('funenc_xa_station.ticketing_key_type_2', 'production_change_shifts_id', string='票务钥匙使用情况')
 
     prefabricate_ticket_type_2_ids = fields.One2many('funenc_xa_station.prefabricate_ticket_type_2',
                                                      'production_change_shifts_id', string='车票使用情况')
@@ -137,7 +136,6 @@ class production_change_shifts(models.Model):
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='交班人',
                                             default=lambda self: self.default_user())
     take_over_from_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='接班人')
-    job_no = fields.Char("工号", related='take_over_from_user_id.jobnumber')
     on_duty_time = fields.Datetime(string='当班时间')
     change_shifts_time = fields.Datetime(string='交班时间')
     #####
@@ -371,58 +369,11 @@ class production_change_shifts(models.Model):
         pass
 
     def submit(self):
-        self.state = 'change_shifts'  # 待接班
+        self.state = 'change_shifts'  #  待接班
 
     def take_over(self):
         self.state = 'take_over_from'  # 已接班
 
-    @api.model
-    def get_change_shifts_data(self):
-
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
-            # 值班站长
-            position = 'station_master'
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
-            # 行车
-            position = 'train_working'
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
-            # 客运
-            position = 'passenger_transport'
-        elif self.env.user.has_group('funenc_xa_station.module_depot'):
-            # 站务
-            position = 'station_service'
-        else:
-            # 票务
-            position = 'ticket_booth'
-
-        if self.env.user.id == 1:
-            user_dic = {
-                'name': '', 'line_id': '', 'departemnt_name': '', 'jobnumber': '', 'position': ''
-            }
-        else:
-            ding_user = self.env.user.dingtalk_user
-            user_dic = self.env.user.dingtalk_user.read(['name', 'line_id', 'departemnt_name', 'jobnumber', 'position'])
-            if user_dic:
-
-                user_dic['line_id'] = user_dic['line_id'][1] if user_dic['line_id'] else ''
-
-                return user_dic
-            else:
-                user_dic = {
-                    'name': '', 'line_id': '', 'departemnt_name': '', 'jobnumber': '', 'position': ''
-                }
-
-        change_shifts_ids = self.search_read([('production_state', '=', position), ('state', '=', 'change_shifts')],
-                                             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-                                              'take_over_from_time'])  # 待接班
-        take_over_from_ids = self.search_read([('production_state', '=', position), ('state', '=', 'take_over_from')],
-                                              ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-                                              'take_over_from_time'])  # 已接班
-        return {
-            'change_shifts_ids':change_shifts_ids,
-            'take_over_from_ids':take_over_from_ids,
-            'user':user_dic
-        }
     @api.model
     def create(self, vals):
 

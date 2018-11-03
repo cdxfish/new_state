@@ -54,27 +54,27 @@
     <t t-name="break_submit_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">日期筛选:</label>
-                    <div for="deal_time" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">处理时间:</span>
+                    <span for="deal_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">站点:</label>
-                    <div for="line_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">线路:</span>
+                    <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">归属站点:</label>
-                    <div for="site_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">站点:</span>
+                    <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">故障类型:</label>
-                    <div for="break_type" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">故障类型:</span>
+                    <span for="break_type" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">处理情况:</label>
-                    <div for="deal_situation" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">处理情况:</span>
+                    <span for="deal_situation" class="col-xs-8"></span>
                 </div>
-                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px;">
+                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">
                         搜索
                     </button>
@@ -86,23 +86,23 @@
     <t t-name="break_logo_management_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">申报日期:</label>
-                    <div for="apply_time" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">申报时间:</span>
+                    <span for="apply_time" class="col-xs-8" ></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">线路:</label>
-                    <div for="line_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">线路:</span>
+                    <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">站点:</label>
-                    <div for="site_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">站点:</span>
+                    <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-                    <label class="search_label col-lg-6 col-md-6 col-sm-6 col-xs-6">状态:</label>
-                    <div for="state" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">状态:</span>
+                    <span for="state" class="col-xs-8"></span>
                 </div>
-                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px;">
+                <div class="col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px;height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">
                         搜索
                     </button>

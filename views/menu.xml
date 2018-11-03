@@ -783,6 +783,12 @@
 				   sequence="1"
 		/>
 
+
+		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="1"
+				  parent="xa_station_production_manage_1"
+				  action="funenc_station_index_action"
+		/>
+
 		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
 				  parent="xa_station_production_manage_1" sequence="5"
 				  groups="system_work_kanban" action="xa_station_task_type_action"
@@ -799,39 +805,34 @@
 
         <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
 
-		<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"
-				  parent="system_configuration" sequence="1"
-			      groups="system_shifts"
-		/>
-
 		<menuitem id="xa_station_station_master_111" name="预设值班站长"
-				  parent="xa_station_change_shifts_setting_1"
+				  parent="person_management_menu_"
 				  action="xa_station_station_master_action11"
 		/>
 
-		<menuitem id="xa_station_car_line_111" name="行车值班员"
-				  parent="xa_station_change_shifts_setting_1"
+		<menuitem id="xa_station_car_line_111" name="行车值班员1"
+				  parent="person_management_menu_"
 				  action="xa_station_car_line_action11"
 		/>
 
-		<menuitem id="xa_station_passenger_transport_11" name="客运值班员"
-				  parent="xa_station_change_shifts_setting_1"
+		<menuitem id="xa_station_passenger_transport_11" name="客运值班员1"
+				  parent="person_management_menu_"
 				  action="xa_station_passenger_transport_action11"
 		/>
 
-		<menuitem id="xa_station_station_service_1" name="站务员"
-				  parent="xa_station_change_shifts_setting_1"
+		<menuitem id="xa_station_station_service_1" name="站务员1"
+				  parent="person_management_menu_"
 				  action="xa_station_station_service_action11"
 		/>
 
-		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
-				  parent="xa_station_change_shifts_setting_1"
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗1"
+				  parent="person_management_menu_"
 				  action="xa_station_ticket_booth_action11"
 		/>
        <!--xin-->
-		<!--<menuitem id="xa_station_jjb" name="交接班xxx"-->
-				  <!--parent="person_management_menu_"-->
-		<!--/>-->
+		<menuitem id="xa_station_jjb" name="交接班xxx"
+				  parent="person_management_menu_"
+		/>
 
 		<record model="ir.actions.act_window" id="xa_station_train_working_action">
 			<field name="name">值班站长</field>
@@ -926,9 +927,13 @@
 		<!--<menuitem id="award_standard_menu" action="award_standard_act" name="奖励标准"-->
 				  <!--parent="check_evaluate_menu_parent"></menuitem>-->
 
-		<menuitem id="check_management_menu_parent"  name="考评管理"
+		<menuitem id="check_management_menu_parent"  name="考评记录"
 		  parent="funenc_station_integrated_manageme"
 				  groups="system_review_management" action="check_record_act" sequence="10"></menuitem>
+
+		<menuitem id="check_management_menu_parent_summary"  name="考评汇总"
+		  parent="funenc_station_integrated_manageme"
+				  groups="system_review_management" action="funenc_xa_check" sequence="10"></menuitem>
 
 	   <!--<menuitem id="check_record_menu" name="考评记录" action="check_record_act"-->
 				 <!--parent="check_management_menu_parent"></menuitem>-->
@@ -965,7 +970,7 @@
 	<!--<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="passenger_service"></menuitem>-->
 
 	<menuitem id="prude_newspaper_menu" name="生产日报" action="prude_newspaper_act"
-			  parent="xa_station_production_manage_1" sequence="3" groups="system_fuenc_site"></menuitem>
+			  parent="xa_station_production_manage_1" sequence="3" groups="funenc_xa_station.system_fuenc_site"></menuitem>
 
 
 
@@ -985,10 +990,10 @@
 
 	<menuitem  name="系统配置" id="system_configuration" sequence="5"></menuitem>
 
-	<!--<menuitem id="xa_station_change_shifts_setting_1" name="(缺)交接班-交接班设置"-->
-				  <!--parent="system_configuration" sequence="1"-->
-			  <!--groups="system_shifts" action="xa_station_car_line_action"-->
-		<!--/>-->
+	<menuitem id="xa_station_change_shifts_setting_1" name="(缺)交接班-交接班设置"
+				  parent="system_configuration" sequence="1"
+			  groups="system_shifts" action="xa_station_car_line_action"
+		/>
 
 	<menuitem id="xa_station_change_shifts_setting_1_fu" name="交接班-车站特殊卡预设"
 				  parent="system_configuration"

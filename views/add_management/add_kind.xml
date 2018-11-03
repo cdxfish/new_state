@@ -35,7 +35,7 @@
             <field name="name"></field>
             <field name="model">xian_metro.professional</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="professional_kind"></field>

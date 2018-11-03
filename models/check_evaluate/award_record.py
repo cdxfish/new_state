@@ -97,19 +97,9 @@ class AwardRecord(models.Model):
                                   'group':'funenc_xa_station.table_evaluation_record',
                                   },
                                   {
-                                      'title': '考评汇总',
-                                      'action2' : 'funenc_xa_station.funenc_xa_check',
-                                      'group' : 'funenc_xa_station.table_evaluation_total',
-                                      },
-                                  {
                                       'title': '奖励记录',
                                       'action2':  'funenc_xa_station.award_record_act',
                                       'group' : 'funenc_xa_station.table_reward_record',
-                                      },
-                                 {
-                                      'title': '奖励汇总',
-                                      'action2':  'funenc_xa_station.funenc_xa_award',
-                                      'group' : 'funenc_xa_station.table_reward_total',
                                       },
                               ]
                           }''',

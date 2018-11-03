@@ -63,51 +63,47 @@
             <field name="name">属地管理</field>
             <field name="model">funenc_xa_station.belong_to_management</field>
             <field name="arch" type="xml">
-                <form>
-                    <div class="container-fluid">
+                <form creata="0" edit="0" class="noOpen">
                     <div class="row">
-                       <div class="col-md-4">
-                          <div class="col-md-3">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
                              <label for="line_id" string="线路"/>
                           </div>
-                         <div class="col-md-9">
+                         <div class="col-md-8">
                              <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
-                       <div class="col-md-4">
-                          <div class="col-md-3">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
                              <label for="site_id" string="站点"/>
                           </div>
-                         <div class="col-md-9">
+                         <div class="col-md-8">
                              <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
 
                     <div class="row">
-                       <div class="col-md-8">
-                          <div class="col-md-2">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
                              <label for="post_check" string="检查岗位"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-8">
                              <field name="post_check"/>
                           </div>
                        </div>
-                    </div>
 
-                    <div class="row">
-                       <div class="col-md-8">
-                          <div class="col-md-2">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
                              <label for="check_time" string="检查时间"/>
                           </div>
-                         <div class="col-md-10">
-                             <field name="check_time"/>
+                         <div class="col-md-8">
+                             <field name="check_time" required="1"/>
                           </div>
                        </div>
                     </div>
-
                     <div class="row">
-                       <div class="col-md-8">
+                       <div class="col-md-12">
                           <div class="col-md-2">
                              <label for="check_state" string="检查情况"/>
                           </div>
@@ -117,7 +113,7 @@
                        </div>
                     </div>
                     <div class="row">
-                       <div class="col-md-8">
+                       <div class="col-md-12">
                           <div class="col-md-2">
                              <label for="find_problem" string="发现问题"/>
                           </div>
@@ -128,7 +124,7 @@
                     </div>
 
                     <div class="row">
-                       <div class="col-md-8">
+                       <div class="col-md-12">
                           <div class="col-md-2">
                              <label for="reference_according" string="考核依据"/>
                           </div>
@@ -139,16 +135,16 @@
                     </div>
 
                     <div class="row">
-                       <div class="col-md-4">
-                          <div class="col-md-3">
+                       <div class="col-md-6">
+                          <div class="col-md-4">
                              <label for="change_state" string="评分"/>
                           </div>
-                         <div class="col-md-9">
+                         <div class="col-md-8">
                              <field name="change_state" widget="radio" options="{'horizontal': true}"/>
                           </div>
                        </div>
-                        <div class="col-md-4">
-                            <div class="col-md-9">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
                             <field name="check_score"/>
                           </div>
                        </div>
@@ -163,7 +159,7 @@
                     <!--</div>-->
 
                     <div class="row">
-                       <div class="col-md-8">
+                       <div class="col-md-12">
                           <div class="col-md-2">
                              <label for="note" string="备注"/>
                           </div>
@@ -172,13 +168,13 @@
                           </div>
                        </div>
                     </div>
-                    </div>
+
                     <div class="row">
                            <div class="col-md-12">
-                              <div class="col-md-1">
+                              <div class="col-md-2">
                                  <label for="load_file_test" string="照片"/>
                               </div>
-                             <div class="col-md-11">
+                             <div class="col-md-10">
                                  <field name="load_file_test" widget="one2many_image_read_widget">
                                     <tree>
                                         <field name="datas_fname"/>
@@ -198,10 +194,10 @@
                 <form edit="0" create="0">
                     <div class="row">
                            <div class="col-md-12">
-                              <div class="col-md-1">
+                              <div class="col-md-2">
                                  <label for="load_file_test" string="照片"/>
                               </div>
-                             <div class="col-md-11">
+                             <div class="col-md-8">
                                  <field name="load_file_test" widget="one2many_image_read_widget">
                                     <tree>
                                         <field name="datas_fname"/>

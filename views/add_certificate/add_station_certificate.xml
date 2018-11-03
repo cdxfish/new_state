@@ -68,7 +68,7 @@
                     <field  name="name">车站证件管理</field>
                     <field  name="model">station.certificate</field>
                     <field  name="arch"  type="xml">
-                        <form>
+                        <form creata="0" edit="0" class="noOpen">
                             <sheet>
                                 <group  name="group_top">
                                     <field  name="line_id" options="{'no_create':True,'no_open':True}"

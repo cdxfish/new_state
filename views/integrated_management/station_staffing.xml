@@ -23,7 +23,6 @@
 			<field name="arch" type="xml">
 				<form>
                     <group>
-
                         <field name="staff_no" string="工号"/>
                         <field name="line_id" string="所属线路"/>
                         <field name="site_id" string="出口所属车站信息"/>

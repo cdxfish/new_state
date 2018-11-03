@@ -9,9 +9,8 @@ class MeetingDateils(models.Model):
     _inherit = 'fuenc_station.station_base'
 
     meeting_theme = fields.Char(string='会议主题',required=True)
-    meeting_time = fields.Char(string='会议时间',computed='date_change',store=True)
-    start_meet = fields.Datetime(string='会议开始时间',required=True)
-    end_meet = fields.Datetime(string='会议结束时间',required=True)
+    meeting_time = fields.Datetime(string='会议时间')
+    # start_meet = fields.Datetime(string='会议开始时间',required=True)
     compere = fields.Char(string='主持人',required=True)
     join_person = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','meet_detaails_rel',string='参会人员')
     meeting_content = fields.Text(string='会议内容',required=True)
@@ -68,13 +67,13 @@ class MeetingDateils(models.Model):
     def meet_delete_button(self):
         self.env['funenc_xa_station.meeting_dateils'].search([('id','=',self.id)]).unlink()
 
-    @api.constrains('start_meet','end_meet')
-    def date_change(self):
-        for i in self:
-            if str(i.start_meet)[:10] == str(i.end_meet)[:10]:
-                i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)[10:]
-            else:
-                i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)
+    # @api.constrains('start_meet','end_meet')
+    # def date_change(self):
+    #     for i in self:
+    #         if str(i.start_meet)[:10] == str(i.end_meet)[:10]:
+    #             i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)[10:]
+    #         else:
+    #             i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)
 
 
 

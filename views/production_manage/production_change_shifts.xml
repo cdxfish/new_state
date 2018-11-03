@@ -106,7 +106,7 @@
                             <group string="会议记录">
                                 <field name="meeting_ids" string="">
                                     <tree editable="top" class="noOpen">
-                                        <field name="start_meet" string="会议时间"/>
+                                        <field name="meeting_time" string="会议时间"/>
                                         <field name="meeting_site" string="会议地点"/>
                                         <field name="compere" string="主持人"/>
                                         <field name="join_person" string="参会人员"/>
