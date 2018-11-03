@@ -10,11 +10,12 @@
                         <el-date-picker
                                 v-model="datetime"
                                 type="month"
+                                size="small"
                                 placeholder="选择月">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="linei" placeholder="线路" @change="search_line_data">
+                        <el-select v-model="linei" size="small" placeholder="线路" @change="search_line_data">
                             <el-option
                                     v-for="item in lines"
                                     :key="item.id"
@@ -25,7 +26,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="site" placeholder="站点">
+                        <el-select v-model="site" size="small" placeholder="站点">
                             <el-option
                                     v-for="item in sites"
                                     :key="item.id"
@@ -35,12 +36,12 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-input v-model="input" placeholder="请输入人名\工号进行搜索"></el-input>
+                        <el-input v-model="input" size="small" placeholder="请输入人名\工号进行搜索"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" width="180" @click="search_data_record">搜索
+                        <el-button type="primary" icon="el-icon-search" size="small" @click="search_data_record">搜索
                         </el-button>
-                        <el-button type="primary" icon="el-icon-caret-bottom" width="180"
+                        <el-button type="primary" icon="el-icon-caret-bottom" size="small"
                                    @click="import_excel_belong_to_management">导出
                         </el-button>
                     </el-form-item>
