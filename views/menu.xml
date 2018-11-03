@@ -478,7 +478,7 @@
                         [
 					   {
 						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.create_funenc_xa_station_leave_1',
+						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
 						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
 					   {
