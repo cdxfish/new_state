@@ -783,10 +783,6 @@
 				   sequence="1"
 		/>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1eaf4b67bff1a599ad92eaad404f9f60278195bf
 		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="1"
 				  parent="xa_station_production_manage_1"
 				  action="funenc_station_index_action"

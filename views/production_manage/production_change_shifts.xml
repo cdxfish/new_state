@@ -28,7 +28,7 @@
                     <field name="before_on_duty" string="班前情况"/>
                     <field name="complete_task" string="工作完成情况"/>
                     <field name="after_work" string="班后总结"/>
-                    <field name="state"  string="状态"/>
+                    <field name="state" string="状态"/>
                     <!--<widget string="操作" name="treebtns" template="production_change_shifts_widget_edit_delete"/>-->
                 </tree>
             </field>
@@ -115,9 +115,9 @@
                                 </field>
                             </group>
                             <group string="备品交接">
-                                <field name="master_to_production_change_ids" string="">
+                                <field name="my_change_ids" string="">
                                     <tree editable="top" class="noOpen" create="0">
-                                        <field name="station_master_id" string="备品名称" readonly="1"/>
+                                        <field name="name" string="备品名称" readonly="1"/>
                                         <field name="unit" string="单位"/>
                                         <field name="count" string="数量"/>
                                         <field name="state" string="状态"/>
@@ -149,13 +149,13 @@
                                     attrs="{'invisible':[('state','in',['take_over_from'])]}"
 
                             />
-                             <button name='take_over'
+                            <button name='take_over'
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
 
-                             />
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -357,15 +357,10 @@
                         </sheet>
                         <sheet>
                             <group string="备品交接">
-<<<<<<< HEAD
+
                                 <field name="my_change_ids" string="">
                                     <tree editable="top" class="noOpen">
-                                        <field name="name" string="备品名称"/>
-=======
-                                <field name="master_to_production_change_ids" string="">
-                                    <tree editable="top" class="noOpen">
-                                        <field name="station_master_id" string="备品名称"/>
->>>>>>> 1eaf4b67bff1a599ad92eaad404f9f60278195bf
+                                         <field name="name" string="备品名称"/>
                                         <field name="unit" string="单位"/>
                                         <field name="count" string="数量"/>
                                         <field name="state" string="状态"/>
@@ -629,11 +624,11 @@
                         <group string="特殊卡号">
                             <field string="" name="special_card_preset_ids">
                                 <tree>
-                                    <field name="card_number" string="借出卡号" />
-                                    <field name="user_id" string="借用人" />
-                                    <field name="borrow_time" string="借用时间" />
-                                    <field name="return_user_id" string="归还人" />
-                                    <field name="return_time" string="归还时间" />
+                                    <field name="card_number" string="借出卡号"/>
+                                    <field name="user_id" string="借用人"/>
+                                    <field name="borrow_time" string="借用时间"/>
+                                    <field name="return_user_id" string="归还人"/>
+                                    <field name="return_time" string="归还时间"/>
                                 </tree>
                             </field>
                         </group>
@@ -642,14 +637,14 @@
                             <field string="" name="ticketing_key_type_2_ids">
                                 <tree>
                                     <field name="name" string="钥匙名称" readonly="1"/>
-                                    <field name="number" string="随身携带数量" />
-                                    <field name="cabinet" string="票柜存放数量" />
-                                    <field name="spare" string="备用数量" />
+                                    <field name="number" string="随身携带数量"/>
+                                    <field name="cabinet" string="票柜存放数量"/>
+                                    <field name="spare" string="备用数量"/>
                                 </tree>
                             </field>
                         </group>
                         <group>
-                            <field string="备注" name="remarks" />
+                            <field string="备注" name="remarks"/>
                         </group>
                         <footer>
                             <button name='production_change_shifts_save'
