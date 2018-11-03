@@ -969,7 +969,7 @@
 	<!--<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="passenger_service"></menuitem>-->
 
 	<menuitem id="prude_newspaper_menu" name="生产日报" action="prude_newspaper_act"
-			  parent="xa_station_production_manage_1" sequence="3" groups="funenc_xa_station.system_fuenc_site"></menuitem>
+			  parent="xa_station_production_manage_1" sequence="3" groups="system_fuenc_site"></menuitem>
 
 
 

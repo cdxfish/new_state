@@ -252,7 +252,7 @@
                          <label for="load_file_test" string="生份证照片"/>
                       </div>
                      <div class="col-md-11">
-                            <field name="load_file_test" filename="file_name"></field>
+                            <field name="load_file_test" filename="file_name" required="1"></field>
                          <field name="file_name" invisible="1"></field>
 
                       </div>

@@ -109,10 +109,10 @@
                    <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
-                             <label for="claim_state" string="是否索赔"/>
+                             <label for="claim" string="是否索赔"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="claim_state"/>
+                             <field name="claim"/>
                           </div>
                        </div>
                        <div class="col-md-6">

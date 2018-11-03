@@ -50,6 +50,7 @@ class SpecialMoney(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.special_money',
             'context': self.env.context,
+            'target':'new',
         }
 
     @api.model
@@ -158,6 +159,5 @@ class SpecialMoney(models.Model):
             "type": "ir.actions.act_url",
             'res_id': self.id,
             "url": '/funenc_xa_station/special_money_xlsx?id=%s'%(id_id),
-
             "target": "new",
         }

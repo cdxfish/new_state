@@ -133,7 +133,6 @@ odoo.define('belong_to_management', function (require) {
                               },
 
                               search_data_record: function(){
-
                                 if (vue.datetime != '时间选择'){
                                 self._rpc({
                                            model: 'funenc_xa_station.belong_to_summary',
@@ -165,16 +164,34 @@ odoo.define('belong_to_management', function (require) {
 
 //                              },
 //                          修改数据
-                            onchange_data: function(index, row){
-                                    self.do_action({
-                                                type: 'ir.actions.act_window',
-                                                res_model: 'funenc_xa_station.belong_to_summary',
-                                                res_id: row['id'],
-                                                views: [[false, 'form']],
-                                                target:"new"
-                                            });
+//                            onchange_data: function(index, row){
+//                                    self.do_action({
+//                                                type: 'ir.actions.act_window',
+//                                                res_model: 'funenc_xa_station.belong_to_summary',
+//                                                res_id: row['id'],
+//                                                views: [[false, 'form']],
+//                                            });
+//
+//                              },
+
+
+                            onchange_data: function(){
+                                if (vue.datetime != '时间选择'){
+                                self._rpc({
+                                           model: 'funenc_xa_station.belong_to_summary',
+                                           method:'search_details_button',
+                                           kwargs: {date: vue.datetime,
+                                                    line:vue.linei,
+                                                    site:vue.site,
+                                                    person_id:vue.input}
+                                                }).then(function(data){
+                                                      self.do_action(data);
+                                                    });
+
+                                                };
 
                               },
+
                          import_excel_belong_to_management(){
                              if (this.tableData){
                             var url='/funenc_xa_station/belong_to_management_import';

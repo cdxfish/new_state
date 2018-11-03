@@ -3,6 +3,8 @@
 
 import odoo.exceptions as msg
 from odoo import models, fields, api
+from ..get_domain import get_domain
+
 
 
 key=[('enter_come','边门进出情况')
@@ -41,6 +43,8 @@ class PrudeNewspaper(models.Model):
     c_type = fields.Char(string='区分')
 
 
+
+
     @api.one
     @api.depends('event_stype')
     def _compute_event_stype_name(self):
@@ -49,12 +53,14 @@ class PrudeNewspaper(models.Model):
 
     #页面跳转的信息填报
     @api.model
-    def information_write(self):
+    @get_domain
+    def information_write(self,domain):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_tree').id
         return {
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
+            'domain': domain,
             'view_mode': 'form',
             "views": [[view_form, "tree"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
@@ -93,20 +99,20 @@ class PrudeNewspaper(models.Model):
     @api.depends('event_stype')
     def _event_content(self):
         if self.event_stype.prude_event_type == '边门进出情况':
-            self.event_content = str('进边门人数')+str(self.Enter_person_count) +','+ str('出边门人数') + str(self.come_person_count)
+            self.event_content = str('进边门人数')+str(self.Enter_person_count or '') +','+ str('出边门人数') + str(self.come_person_count or '')
 
         elif self.event_stype.prude_event_type == '票务、AFC故障及异常情况':
-            self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
-                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+            self.event_content = str('设备名称')+':'+str(self.equipment_name or '') + str('、故障时间：')+str(self.brenk_time or '') + \
+                str('、故障报修时间')+':'+str(self.brenk_repair_time or '')+'、'+str('故障情况')+':'+str(self.brenk_state or '')
 
         elif self.event_stype.prude_event_type == '日票、预制单程票售卖情况':
-            self.event_content = '2元'+':'+self.two_money+'、'+'3元'+':'+str(self.three_money)+'、4元'+':'\
-                                 +str(self.four_money)+'、5元'+':'+str(self.five_money)+'、6元'+':'+str(self.six_money) \
-                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money or 0)
+            self.event_content = '2元'+':'+str(self.two_money or 0)+'、'+'3元'+':'+str(self.three_money or 0)+'、4元'+':'\
+                                 +str(self.four_money or 0)+'、5元'+':'+str(self.five_money or 0)+'、6元'+':'+str(self.six_money or 0) \
+                                 +'、7元'+':'+str(self.seven_money or 0)+'、8元'+':'+str(self.eight_money or 0)
 
         elif self.event_stype.prude_event_type == '其他设备故障情况':
-            self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
-                                 +'、故障情况:' + str(self.brenk_state)
+            self.event_content = '故障发时间：'+str(self.brenk_time or '')+'、故障报修时间:'+str(self.brenk_repair_time or '')\
+                                 +'、故障情况:' + str(self.brenk_state or '')
 
         else:
             self.event_content = self.event_content_create
@@ -129,25 +135,39 @@ class PrudeNewspaper(models.Model):
 
     # 修改页面当前记录的时候整合数据
     def save_current_record(self):
-        print(self)
         if self.event_stype_name == '边门进出情况':
-            self.event_content = str('进边门人数')+str(self.Enter_person_count) +','+ str('出边门人数') + str(self.come_person_count)
+            self.event_content = str('进边门人数')+str(self.Enter_person_count or '') +','+ str('出边门人数') + str(self.come_person_count or '')
 
         elif self.event_stype_name == '票务、AFC故障及异常情况':
-            self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
-                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+            self.event_content = str('设备名称' or '')+':'+str(self.equipment_name or '') + str('、故障时间：')+str(self.brenk_time or '') + \
+                str('、故障报修时间')+':'+str(self.brenk_repair_time or '')+'、'+str('故障情况')+':'+str(self.brenk_state or '')
 
         elif self.event_stype_name == '日票、预制单程票售卖情况':
-            self.event_content = '2元'+':'+self.two_money+'、'+'3元'+':'+str(self.three_money)+'、4元'+':'\
-                                 +str(self.four_money)+'、5元'+':'+str(self.five_money)+'、6元'+':'+str(self.six_money) \
-                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money or 0)
+            self.event_content = '2元'+':'+str(self.two_money or '')+'、'+'3元'+':'+str(self.three_money or '')+'、4元'+':'\
+                                 +str(self.four_money or '')+'、5元'+':'+str(self.five_money or '')+'、6元'+':'+str(self.six_money or '') \
+                                 +'、7元'+':'+str(self.seven_money or '')+'、8元'+':'+str(self.eight_money or '')
 
         elif self.event_stype_name == '其他设备故障情况':
-            self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
-                                 +'、故障情况:' + str(self.brenk_state)
+            self.event_content = '故障发时间：'+str(self.brenk_time or '')+'、故障报修时间:'+str(self.brenk_repair_time or '')\
+                                 +'、故障情况:' + str(self.brenk_state or '')
 
         else:
             self.event_content = self.event_content_create
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.prude_newspaper_tree_view').id
+        return {
+            'name': '生产日报',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.prude_newspaper',
+            'context': self.env.context,
+        }
 
 
 

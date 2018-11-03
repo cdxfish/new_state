@@ -15,9 +15,15 @@ class BelongToSummary(models.Model):
     mouth_score = fields.Integer(string='本月评分')
     check_count = fields.Integer(string='检查次数')
 
+    @api.model
+    def default_look_record(self):
+        mouth = datetime.datetime.now()
+        print(mouth)
+
 
     @api.model
     def belong_to_method(self):
+        self.env.user.name
         return
 
     @api.model
@@ -124,6 +130,31 @@ class BelongToSummary(models.Model):
                 if ii['post_check'] == 'clean':
                     ii['post_check'] = '保洁'
             return record_list
+
+    @api.model
+    def search_details_button(self,date,line,site,person_id):
+        date = date[:10]
+        d = datetime.datetime.strptime(date, '%Y-%m-%d')
+        delta = datetime.timedelta(days=8)
+        open_time = d + delta
+        date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
+
+        # domain = self.env['funenc_xa_station.belong_to_management'].search([('line_id','=',line),('site_id','=',site)])
+
+
+
+        view_tree = self.env.ref('funenc_xa_station.belong_to_management_tree').id
+        return {
+            'name': '属地汇总',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': "[('line_id','=',%s),('site_id','=',%s),('check_time','=',%s)]" % (int(line), int(site)),
+            "views": [[view_tree, "list"]],
+            'res_model': 'funenc_xa_station.belong_to_management',
+            'context': self.env.context,
+        }
+
 
 
 

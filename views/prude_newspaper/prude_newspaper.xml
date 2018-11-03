@@ -249,12 +249,11 @@
         <record model="ir.actions.server" id="prude_newspaper_act">
         <field name="name">生产日报</field>
         <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="model_id" ref="model_funenc_xa_station_prude_newspaper"/>
         <field name="condition">True</field>
         <field name="state">code</field>
         <field name="code">
-            action = model.return_act_window('生产日报', 'funenc_xa_station.prude_newspaper',
-            'funenc_xa_station.prude_newspaper_tree_view', 'funenc_xa_station.prude_newspaper_form_view')
+                    action = model.get_day_plan_publish_action()
         </field>
         </record>
 

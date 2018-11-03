@@ -49,11 +49,11 @@
                     <field name="position"></field>
                     <field name="apply_time"></field>
                     <field name="break_details"></field>
-                    <field name="before_break_img" widget="image" class="oe_avatar" options="{'size': [90, 90]}"></field>
+                    <field name="before_break_img" widget="browse_image_in_tree" class="oe_avatar" options="{'size': [90, 90]}"></field>
                     <field name="state"></field>
                     <field name="repair_time"></field>
                     <field name="repair_manufacturer"></field>
-                    <field name="after_break_img" widget="image" class="oe_avatar" options="{'size': [90, 90]}"></field>
+                    <field name="after_break_img" widget="browse_image_in_tree" class="oe_avatar" options="{'size': [90, 90]}"></field>
                     <widget  name="treebtns" template="break_log_button" />
                 </tree>
             </field>

@@ -163,6 +163,7 @@ class SuggestionBox(models.Model):
             'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
+            'target':'new',
         }
 
     #编辑form页面的责任部门意见

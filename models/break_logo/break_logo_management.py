@@ -3,13 +3,14 @@
 
 from odoo import api,models,fields
 from ..get_domain import get_domain
+from datetime import datetime
 
 class BreakLogManage(models.Model):
     _name = 'funenc_xa_station.break_log_manage'
     _inherit = 'fuenc_station.station_base'
 
     position = fields.Char(string='位置')
-    apply_time =fields.Date(string='申请时间')
+    apply_time =fields.Date(string='申请时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     break_details = fields.Text(string='故障描述')
     before_break_img = fields.Binary(string='故障图片')
     state =fields.Selection([('one','已修复'),('zero','未处理')],string='状态',default='zero')

@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields
 from datetime import datetime
+from ..get_domain import get_domain
 
 class MeetingDateils(models.Model):
     _name = 'funenc_xa_station.meeting_dateils'
@@ -23,12 +24,14 @@ class MeetingDateils(models.Model):
     shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
     # 创建一条新的记录
-    def new_increase_record(self):
+    @get_domain
+    def new_increase_record(self,domain):
         view_form = self.env.ref('funenc_xa_station.meeting_details_form').id
         return {
             'name': '会议记录',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
+            'domain':domain,
             'res_model': 'funenc_xa_station.meeting_dateils',
             'target': 'new',
         }
@@ -74,6 +77,21 @@ class MeetingDateils(models.Model):
     #             i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)[10:]
     #         else:
     #             i.meeting_time = str(i.start_meet) + ' ——' + str(i.end_meet)
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.meeting_details_tree').id
+        return {
+            'name': '会议记录',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.meeting_dateils',
+            'context': self.env.context,
+        }
 
 
 

@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields
 import json
+from datetime import datetime
 
 from ..get_domain import get_domain
 
@@ -17,7 +18,7 @@ class BreakSubmit(models.Model):
     equipment_number = fields.Char(string='设备编码')
     equipment_post = fields.Char(string='设备位置')
     break_type = fields.Many2one('funenc_xa_staion.break_type_increase', string='故障类型')
-    submit_time = fields.Datetime(string='提报时间')
+    submit_time = fields.Datetime(string='提报时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况',default='zero')
     deal_results = fields.Char(string='处理结果')
     deal_time = fields.Datetime(string='处理时间')
