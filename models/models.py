@@ -364,8 +364,58 @@ class generate_qr(models.Model):
     def init_data(self):
         self.create_qrcode()
         context = dict(self.env.context or {})
+<<<<<<< HEAD
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_list').id
         if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
+=======
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
+        ding_user = self.env.user.dingtalk_user[0]
+        department = ding_user.departments[0]
+        if department.department_hierarchy == 3:
+            str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
+            obj =self.search([('create_date','=',str_now_date)])
+            if obj:
+
+                return {
+                    'name': '上下班打卡',
+                    'type': 'ir.actions.act_window',
+                    "views": [[view_form, "form"]],
+                    'res_model': 'funenc_xa_station.generate_qr',
+                    'context': context,
+                    'res_id': obj.id,
+                    'target': 'current',
+                }
+            else:
+
+                ding_user = self.env.user.dingtalk_user[0]
+                department = ding_user.departments[0]
+                file = os.path.dirname(os.path.dirname(__file__))
+                if department.department_hierarchy == 3:
+                    # 获取本机计算机名称
+                    hostname = socket.gethostname()
+                    # 获取本机ip
+                    ip = socket.gethostbyname(hostname)
+                    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
+                                       border=4, )
+                    qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+                    print('http://{}/fuenc_station/index/'.format(ip))
+                    img = qr.make_image()
+                    file_name = file + "/static/images/work_{}.png".format(department.id)
+                    img.save(file_name)
+                    imgs = open(file_name, 'rb')
+                    datas = imgs.read()
+                    file_b64 = base64.b64encode(datas)
+                    os.remove(file_name)
+                    obj = self.create({'work_qr': file_b64})
+                    file_name = file + "/static/images/off_work_{}.png".format(department.id)
+                    qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
+                    img.save(file_name)
+                    obj.update({'off_work_qr': file_name})
+                    imgs.close()
+                    os.remove(file_name)
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_generate_qr_list').id
+        if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
+>>>>>>> ead68ad8d94aa5fa9cfa419669c8d7aae7b5430f
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             context['work_qr'] = '/funenc_xa_station/static/images/work_{}.png'.format(department.id)
@@ -410,6 +460,7 @@ class generate_qr(models.Model):
                 obj.update({'off_work_qr': file_name})
 
 
+<<<<<<< HEAD
 # def create_qrcode_1():
 #         '''
 #         二维码生成
@@ -428,6 +479,8 @@ class generate_qr(models.Model):
 #         img.save("../static/images/advanceduse.png")
 # create_qrcode_1()
 
+=======
+>>>>>>> ead68ad8d94aa5fa9cfa419669c8d7aae7b5430f
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
 
