@@ -24,8 +24,16 @@ class ReturnViewFunction(models.AbstractModel):
         }
 
     @api.model
-    def return_tab_with_group(self, tab_data):
+    def return_tab_with_group(self, tab_data, action_id):
+        self._cr.execute('''SELECT module, name FROM ir_model_data WHERE module = 'funenc_xa_station' AND 
+        model = 'ir.actions.server' AND res_id = %s''' % action_id)
+        result = self._cr.fetchall()
         for tab in tab_data:
+            if len(result) == 1 and (tab.get('action', '') == '{}.{}'.format(result[0][0], result[0][1]) or
+                                     tab.get('action2', '') == '{}.{}'.format(result[0][0], result[0][1])):
+                tab['is_this'] = 'true'
+            else:
+                tab['is_this'] = 'false'
             if tab.get('group', '') != '':
                 if self.user_has_groups(tab['group']) is True:
                     tab['display'] = 'true'
