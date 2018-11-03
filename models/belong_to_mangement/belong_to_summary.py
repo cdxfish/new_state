@@ -96,7 +96,7 @@ class BelongToSummary(models.Model):
         elif person_id:
             date = date[:10]
             d = datetime.datetime.strptime(date, '%Y-%m-%d')
-            delta = datetime.timedelta(days=8)
+            delta = datetime.timedelta(hours=8)
             open_time = d + delta
             date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
             # print(date,line,site,person_id)
@@ -135,13 +135,11 @@ class BelongToSummary(models.Model):
     def search_details_button(self,date,line,site,person_id):
         date = date[:10]
         d = datetime.datetime.strptime(date, '%Y-%m-%d')
-        delta = datetime.timedelta(days=8)
+        delta = datetime.timedelta(hours=8)
         open_time = d + delta
         date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
 
         # domain = self.env['funenc_xa_station.belong_to_management'].search([('line_id','=',line),('site_id','=',site)])
-
-
 
         view_tree = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
@@ -149,7 +147,7 @@ class BelongToSummary(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain': "[('line_id','=',%s),('site_id','=',%s),('check_time','=',%s)]" % (int(line), int(site)),
+            'domain': "[('line_id','=',%s),('site_id','=',%s)]" % (int(line), int(site)),
             "views": [[view_tree, "list"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,

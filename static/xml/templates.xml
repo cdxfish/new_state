@@ -103,6 +103,12 @@
         </div>
     </t>
 
+     <t t-name="station_detail">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="station_detail" >详情</button>
+        </div>
+    </t>
+
     <!--请假删除编辑-->
     <t t-name="funenc_xa_station_leave_widget_edit">
         <div class="layui-btn-group">
