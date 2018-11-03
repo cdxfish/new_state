@@ -356,14 +356,15 @@ class generate_qr(models.Model):
     '''
       生成二维码 用于上下班打卡
     '''
-    name = fields.Char(string='',default="上下班二维码")
+    name = fields.Char(string='', default="上下班二维码")
     _name = 'funenc_xa_station.generate_qr'
     _inherit = 'fuenc_station.station_base'
     work_qr = fields.Binary(string='上班二维码')
     off_work_qr = fields.Binary(string='下班二维码')
+    add_date = fields.Date(string='今天二维码时间')
 
     def init_data(self):
-        if self.env.user.id ==1:
+        if self.env.user.id == 1:
             return {
                 'name': '钥匙创建',
                 'type': 'ir.actions.act_window',
@@ -371,10 +372,8 @@ class generate_qr(models.Model):
                 'view_mode': 'form',
                 'res_model': 'funenc.xa.station.key.detail',
                 'context': self.env.context,
-                # 'flags': {'initial_mode': 'edit'},
                 'target': 'new',
             }
-
 
         self.create_qrcode()
         context = dict(self.env.context or {})
@@ -383,7 +382,8 @@ class generate_qr(models.Model):
         department = ding_user.departments[0]
         if department.department_hierarchy == 3:
 
-            obj =self.search([('create_date','=',datetime.datetime.now())])
+            obj = self.search([('site_id', '=',department.id )])
+
             if obj:
 
                 return {
@@ -417,6 +417,7 @@ class generate_qr(models.Model):
                     file_b64 = base64.b64encode(datas)
                     os.remove(file_name)
                     obj = self.create({'work_qr': file_b64})
+
                     file_name = file + "/static/images/off_work_{}.png".format(department.id)
                     qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
                     img.save(file_name)
@@ -583,4 +584,3 @@ class inherit_department(models.Model):
             return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
         except Exception:
             return []
-

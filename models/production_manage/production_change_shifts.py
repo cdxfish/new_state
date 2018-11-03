@@ -193,6 +193,26 @@ class production_change_shifts(models.Model):
 
     preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态')  # 备品状态
 
+
+    @api.onchange('check_project_ids')
+    def onchange_check_project_ids(self):
+        # 预设行车
+        if not self.preparedness_1_ids:
+            obj = self.env['funenc_xa_station.car_line'].search([])[0]
+            inst_ids = obj.check_project_ids
+            default_data = []
+            for inst_id in inst_ids:
+
+                default_data.append((0, 0, {'context': inst_id.context}))
+
+            return {
+                'value': {'check_project_ids': default_data}
+            }
+
+        else:
+            return
+
+
     @api.onchange('preparedness_1_ids')
     def onchange_preparedness_1_ids(self):
         if not self.preparedness_1_ids:
@@ -290,16 +310,33 @@ class production_change_shifts(models.Model):
     @api.onchange('my_change_ids')
     def onchange_my_change_ids(self):
         if not self.my_change_ids:
-            station_master = self.env['funenc_xa_station.station_master'].search([])[0]
-            default_data = []
-            for inst_id in station_master.preparedness_ids:
-                default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+            position = self.get_position()
+            if position == 'station_master':
+                station_master = self.env['funenc_xa_station.station_master'].search([])[0]
+                default_data = []
+                for inst_id in station_master.preparedness_ids:
+                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
 
-            return {
-                'value': {'my_change_ids': default_data}
-            }
+                return {
+                    'value': {'my_change_ids': default_data}
+                }
+            else:
+                obj = self.env['funenc_xa_station.car_line'].search([])[0]
+                inst_ids = obj.preparedness_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+
+                return {
+                    'value': {'my_change_ids': default_data}
+                }
         else:
             return
+
+
+
+
+
 
     @api.model
     def default_production(self):
