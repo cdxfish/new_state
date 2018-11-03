@@ -13,7 +13,7 @@
 		<!--</record>-->
 		<!--<record id="funenc_station_index_action" model="ir.actions.act_window">-->
 			<!--<field name="name">网站首页</field>-->
-			<!--<field name="res_model">funenc_xa_station2.generate_qr</field>-->
+			<!--<field name="res_model">funenc_xa_station.generate_qr</field>-->
 			<!--<field name="view_mode">form</field>-->
 		<!--</record>-->
 
@@ -54,7 +54,7 @@
 
 		<!--<record id="funenc_station_civil_engineering" model="ir.actions.act_window">-->
 			<!--<field name="name">土建结构</field>-->
-			<!--<field name="res_model">funenc_xa_station2.civil_engineering</field>-->
+			<!--<field name="res_model">funenc_xa_station.civil_engineering</field>-->
 			<!--<field name="view_mode">tree,form</field>-->
 		<!--</record>-->
 
@@ -164,8 +164,8 @@
 			<!--<field name="view_mode">tree,form</field>-->
             <!--<field name="limit">10</field>-->
             <!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station2.cdtct_dingtalk_users_list')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station2.cdtct_dingtalk_users_form')})]">-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_list')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.cdtct_dingtalk_users_form')})]">-->
             <!--</field>-->
 		<!--</record>-->
 
@@ -215,7 +215,7 @@
 
 		<!--<record model="ir.actions.act_window" id="xa_station_leave_list_action">-->
           <!--<field name="name">请假列表</field>-->
-          <!--<field name="res_model">funenc_xa_station2.leave</field>-->
+          <!--<field name="res_model">funenc_xa_station.leave</field>-->
 		  <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 
@@ -227,7 +227,7 @@
 
 		<!--<record model="ir.actions.act_window" id="xa_station_change_shifts_action">-->
           <!--<field name="name">换班</field>-->
-          <!--<field name="res_model">funenc_xa_station2.change_shifts</field>-->
+          <!--<field name="res_model">funenc_xa_station.change_shifts</field>-->
 		  <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 
@@ -284,11 +284,11 @@
 
 		<!--<record model="ir.actions.act_window" id="xa_station_train_working_action">-->
 			<!--<field name="name">行车员交接班</field>-->
-			<!--<field name="res_model">funenc_xa_station2.production_change_shifts</field>-->
+			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
 			<!--<field name="view_mode">tree,form</field>-->
 			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station2.production_change_shifts_train_working_list')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station2.production_change_train_working_shifts_form')})]">-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form')})]">-->
 			<!--</field>-->
         <!--</record>-->
 		<!--无-->
@@ -517,7 +517,7 @@
 
 		<!--<record model="ir.actions.act_window" id="xa_station_conflict_rule_action">-->
           <!--<field name="name">冲突规则管理</field>-->
-          <!--<field name="res_model">funenc_xa_station2.conflict_rule</field>-->
+          <!--<field name="res_model">funenc_xa_station.conflict_rule</field>-->
 		  <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 
@@ -700,7 +700,7 @@
 
 		<!--<menuitem id="xa_station_sheduling_manage11111" name="排班管理11111"-->
 				  <!--parent="funenc_station_integrated_manageme"-->
-				  <!--action="funenc_xa_station2.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"-->
+				  <!--action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"-->
 		<!--/>-->
 
 		<record model="ir.actions.client" id="xa_station_sheduling_manage_1_action11111111111">
@@ -848,11 +848,11 @@
 
 		<!--<record model="ir.actions.act_window" id="xa_station_xczby_action111">-->
 			<!--<field name="name">行车值班员</field>-->
-			<!--<field name="res_model">funenc_xa_station2.production_change_shifts</field>-->
+			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
 			<!--<field name="view_mode">tree,form</field>-->
 			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station2.production_change_shifts_train_working_list11')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station2.production_change_train_working_shifts_form11')})]">-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list11')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form11')})]">-->
 			<!--</field>-->
         <!--</record>-->
 

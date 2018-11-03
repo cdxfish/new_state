@@ -16,7 +16,7 @@ class PrudeNewpaperWrite(models.Model):
     _name = 'funenc_xa_staion.prude_newpaper_write'
     _inherit = 'fuenc_station.station_base'
 
-    event_stype = fields.Many2one('funenc_xa_station2.prude_newpaper_type',string='事件类型',required=True)
+    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True)
     event_stype_name = fields.Char(compute='_compute_event_stype_name')
     event_content = fields.Text(string='事件内容',compute='_event_content',store=True)
     event_content_create = fields.Text(string='事件内容')
@@ -61,26 +61,26 @@ class PrudeNewpaperWrite(models.Model):
         d = datetime.datetime.strptime(new_time, '%Y-%m-%d %H:%M:%S')
         delta = datetime.timedelta(hours=8)
         open_time = d + delta
-        old_time = self.env['funenc_xa_station2.date_time'].search_read([])
+        old_time = self.env['funenc_xa_station.date_time'].search_read([])
         if old_time:
             if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
-                self.env['funenc_xa_station2.date_time'].search([]).unlink()
+                self.env['funenc_xa_station.date_time'].search([]).unlink()
                 raise exceptions.ValidationError('提交警告一天只能提交一次')
             else:
                 item = {
                     'date_time_limit': open_time
                 }
-                self.env['funenc_xa_station2.date_time'].sudo().create(item)
+                self.env['funenc_xa_station.date_time'].sudo().create(item)
 
         else:
             item = {
                 'date_time_limit': open_time
             }
-            self.env['funenc_xa_station2.date_time'].sudo().create(item)
+            self.env['funenc_xa_station.date_time'].sudo().create(item)
             # item={
             #     'date_time_limit':new_time
             # }
-            # self.env['funenc_xa_station2.date_time'].sudo().create(item)
+            # self.env['funenc_xa_station.date_time'].sudo().create(item)
 
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
@@ -128,25 +128,25 @@ class PrudeNewpaperWrite(models.Model):
                     'brenk_state' : va.get('brenk_state'),
                 }
             #创建记录
-            self.env['funenc_xa_station2.prude_newspaper'].sudo().create(va_value)
+            self.env['funenc_xa_station.prude_newspaper'].sudo().create(va_value)
         self.env['funenc_xa_staion.prude_newpaper_write'].search([]).unlink()
-        # self.env['funenc_xa_station2.date_time'].search([]).unlink()
+        # self.env['funenc_xa_station.date_time'].search([]).unlink()
 
-        view_form = self.env.ref('funenc_xa_station2.prude_newspaper_tree_view').id
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_tree_view').id
         return {
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "tree"]],
-            'res_model': 'funenc_xa_station2.prude_newspaper',
+            'res_model': 'funenc_xa_station.prude_newspaper',
             'context': self.env.context,
         }
 
     #新创建一条记录
     @get_domain
     def information_daynewpaper_write(self,domain):
-        view_form = self.env.ref('funenc_xa_station2.prude_newspaper_write_form').id
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
@@ -162,7 +162,7 @@ class PrudeNewpaperWrite(models.Model):
 
     #修改生产日报
     def prude_newpaper_type_onchange(self):
-        view_form = self.env.ref('funenc_xa_station2.prude_newspaper_write_form_modify').id
+        view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form_modify').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
@@ -232,7 +232,7 @@ class PrudeNewpaperWrite(models.Model):
 
 
 class DateTimeLimit(models.Model):
-    _name = 'funenc_xa_station2.date_time'
+    _name = 'funenc_xa_station.date_time'
 
     date_time_limit = fields.Datetime(string='时间限制')
 

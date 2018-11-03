@@ -59,7 +59,7 @@ class xian_metro(models.Model):
         file_name = params.get('file_name', self.file_name)
         if file_binary:
             url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
-                'funenc_xa_station2', file_name, base64.b64decode(file_binary))
+                'funenc_xa_station', file_name, base64.b64decode(file_binary))
             params['url'] = url
             params['file_name'] = file_name
         # url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
@@ -78,7 +78,7 @@ class xian_metro(models.Model):
             }
 
     def file_kind_load(self):
-        view_form = self.env.ref('funenc_xa_station2.add_operation_form_test').id
+        view_form = self.env.ref('funenc_xa_station.add_operation_form_test').id
         return {
             'name': '新增规范',
             'type': 'ir.actions.act_window',

@@ -32,7 +32,7 @@ class UserInherit(models.Model):
             department_id = ding_user.departments[0]
             if department_id.department_hierarchy == 2:
                 line_id = ding_user.line_id.id
-                class_groups = self.env['funenc_xa_station2.class_group'].search([('line_id','=', line_id)])
+                class_groups = self.env['funenc_xa_station.class_group'].search([('line_id','=', line_id)])
                 centrality_motorized_user_ids = [] # 中心级别任务 机动人员
                 for class_group in class_groups:
                     for user_id in class_group.group_user_ids:
@@ -59,7 +59,7 @@ class UserInherit(models.Model):
 
             else:
                 department_id = department_id.id
-                class_groups = self.env['funenc_xa_station2.class_group'].search([('site_id', '=', department_id)])
+                class_groups = self.env['funenc_xa_station.class_group'].search([('site_id', '=', department_id)])
                 centrality_motorized_user_ids = []  # 车站级别 在组内人员
                 for class_group in class_groups:
                     for user_id in class_group.group_user_ids:
@@ -93,7 +93,7 @@ class UserInherit(models.Model):
     #     :param site_id: 站点id
     #     :return:
     #     '''
-    #     self.env['funenc_xa_station2.class_group'].search([('site_id', '=', site_id)])
+    #     self.env['funenc_xa_station.class_group'].search([('site_id', '=', site_id)])
 
 
 

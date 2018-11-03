@@ -212,7 +212,7 @@
 
         <!--<record id="belong_to_management_act" model="ir.actions.act_window">-->
             <!--<field name="name">属地管理</field>-->
-            <!--<field name="res_model">funenc_xa_station2.belong_to_management</field>-->
+            <!--<field name="res_model">funenc_xa_station.belong_to_management</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
     </data>

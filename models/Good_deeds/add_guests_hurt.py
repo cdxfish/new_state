@@ -50,7 +50,7 @@ class AddGuestsHurt(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station2.add_guests_hurt_tree').id
+        view_tree = self.env.ref('funenc_xa_station.add_guests_hurt_tree').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -89,7 +89,7 @@ class AddGuestsHurt(models.Model):
         self.env['fuenc_xa_station.add_guests_hurt'].search([('id','=',self.id)]).unlink()
 
     def good_details_button(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -104,7 +104,7 @@ class AddGuestsHurt(models.Model):
         }
 
     def create_guests_action(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -117,7 +117,7 @@ class AddGuestsHurt(models.Model):
         }
 
     def guests_details_action(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -132,7 +132,7 @@ class AddGuestsHurt(models.Model):
         }
 
     def good_details_button(self):
-        view_form = self.env.ref('funenc_xa_station2.add_guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.add_guests_hurt_details').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',

@@ -15,7 +15,7 @@ class GoodDeeds(models.Model):
     _name = 'fuenc_station.good_deeds'
     _inherit = 'fuenc_station.station_base'
 
-    type = fields.Many2one('funenc_xa_station2.good_deeds_type',string='类型')
+    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
     open_time = fields.Datetime(string='发生时间')
     open_site =fields.Char(string='发生地点')
     related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员')
@@ -31,7 +31,7 @@ class GoodDeeds(models.Model):
 
     # 创建一条新的记录
     def new_increase_record(self):
-        view_form = self.env.ref('funenc_xa_station2.good_deeds_from').id
+        view_form = self.env.ref('funenc_xa_station.good_deeds_from').id
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
@@ -47,7 +47,7 @@ class GoodDeeds(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station2.good_deeds_tree').id
+        view_tree = self.env.ref('funenc_xa_station.good_deeds_tree').id
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
@@ -61,23 +61,23 @@ class GoodDeeds(models.Model):
             "top_widget_options": '''{'tabs':
                         [
                             {'title': '好人好事',
-                            'action':  'funenc_xa_station2.good_deeds_act',
-                            'group':'funenc_xa_station2.table_good_actions',
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions',
                             },
                             {
                                 'title': '客伤',
-                                'action2' : 'funenc_xa_station2.guests_hurt_act',
-                                'group' : 'funenc_xa_station2.table_people_wound',
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound',
                                 },
                             {
                                 'title': '乘客意见箱',
-                                'action2':  'funenc_xa_station2.suggestion_box_act',
-                                'group' : 'funenc_xa_station2.table_people_message',
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message',
                                 },
                            {
                                 'title': '特殊赔偿金',
-                                'action2':  'funenc_xa_station2.special_money_act',
-                                'group' : 'funenc_xa_station2.table_special_compensation',
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation',
                                 },
                         ]
                     }''',
@@ -127,7 +127,7 @@ class GoodDeeds(models.Model):
 
     #修改按钮
     def onchange_button_action(self):
-        view_form = self.env.ref('funenc_xa_station2.good_deeds_from').id
+        view_form = self.env.ref('funenc_xa_station.good_deeds_from').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -143,7 +143,7 @@ class GoodDeeds(models.Model):
 
     #详情页面
     def good_details_button(self):
-        view_form = self.env.ref('funenc_xa_station2.good_deeds_state').id
+        view_form = self.env.ref('funenc_xa_station.good_deeds_state').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',

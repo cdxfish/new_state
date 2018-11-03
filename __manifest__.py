@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "funenc_xa_station2",
+    'name': "funenc_xa_station",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as

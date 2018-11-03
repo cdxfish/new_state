@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 
 class FuencStation(http.Controller):
-    @http.route('/funenc_xa_station2/check_collect/', type='http', auth='none')
+    @http.route('/funenc_xa_station/check_collect/', type='http', auth='none')
     def index(self, **kw):
         try:
             payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f',
@@ -19,7 +19,7 @@ class FuencStation(http.Controller):
             res = requests.post(url, json=payload).json()
             openid = res.get('openid')
             user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId', '=', openid)])
-            arrange_order_id = self.env['funenc_xa_station2.sheduling_record'].search(
+            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
                 [('site_id', '=', user_id.departments[0].id),
                  ('user_id', '=', user_id.id),
                  ('sheduling_date', '=', datetime.datetime.now())])
@@ -38,7 +38,7 @@ class FuencStation(http.Controller):
 
         return "打卡成功"
 
-    @http.route('/funenc_xa_station2/off_work/', type='http', auth='none')
+    @http.route('/funenc_xa_station/off_work/', type='http', auth='none')
     def off_work(self, **kw):
         try:
             payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f',
@@ -50,7 +50,7 @@ class FuencStation(http.Controller):
             openid = res.get('openid')
             user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId', '=', openid)])
 
-            arrange_order_id = self.env['funenc_xa_station2.sheduling_record'].search(
+            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
                 [('site_id', '=', user_id.departments[0].id),
                  ('user_id', '=', user_id.id),
                  ('sheduling_date', '=', datetime.datetime.now())])
@@ -90,9 +90,9 @@ class FuencStation(http.Controller):
         # &t=%s % int(round(time.time()))
 
         return http.local_redirect(
-            '/funenc_xa_station2/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
+            '/funenc_xa_station/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
 
-    @http.route('/funenc_xa_station2/training_plan_get_code', type='http', auth='none')
+    @http.route('/funenc_xa_station/training_plan_get_code', type='http', auth='none')
     def get_code(self, **kw):
         training_plan_id = kw.get('training_plan_id')
         code = kw.get('code')
@@ -115,20 +115,20 @@ class FuencStation(http.Controller):
                         line_id = user.line_id.id
                         site_id = user.departments[0].id
                         #  打卡
-                        personnel_situation = http.request.env['funenc_xa_station2.personnel_situation'].sudo().create({
+                        personnel_situation = http.request.env['funenc_xa_station.personnel_situation'].sudo().create({
                             'training_plan_id': training_plan_id,
                             'sign_in_time': current_time,
                             'user_id': user.id
                         })
 
-                        training_plan = http.request.env['funenc_xa_station2.training_plan'].sudo().search(
+                        training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search(
                             [('id', '=', training_plan_id)])
                         site_training_results = http.request.env[
-                            'funenc_xa_station2.site_training_results'].sudo().search([('site_id', '=', site_id),
+                            'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
                                                                                       ('training_plan_id', '=',
                                                                                        training_plan_id)])
                         if not site_training_results:
-                            create = http.request.env['funenc_xa_station2.site_training_results'].sudo().create({
+                            create = http.request.env['funenc_xa_station.site_training_results'].sudo().create({
                                 'line_id': line_id,
                                 'site_id': site_id,
                                 'training_person_time': 1,
@@ -179,9 +179,9 @@ class FuencStation(http.Controller):
         # &t=%s % int(round(time.time()))
 
         return http.local_redirect(
-            '/funenc_xa_station2/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
+            '/funenc_xa_station/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
 
-    @http.route('/funenc_xa_station2/get_code', type='http', auth='none')
+    @http.route('/funenc_xa_station/get_code', type='http', auth='none')
     def get_code_1(self, **kw):
         training_plan_id = kw.get('drill_plan_id')
         code = kw.get('code')
@@ -189,7 +189,7 @@ class FuencStation(http.Controller):
 
         try:
             # 生成签到
-            check_in = http.request.env['funenc_xa_station2.drill_plan_sign_in'].sudo().search(
+            check_in = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().search(
                 [('sign_user_id', '=', user.id), ('drill_plan_sign_in_id', '=', training_plan_id)])
 
             if check_in:
@@ -197,12 +197,12 @@ class FuencStation(http.Controller):
 
 
             # 签到人员统计
-            drill_plan = http.request.env['funenc_xa_station2.drill_plan'].sudo().search(
+            drill_plan = http.request.env['funenc_xa_station.drill_plan'].sudo().search(
                 [('id', '=', training_plan_id)])
 
             if user.departments[0].id in drill_plan.partake_site_ids.ids:
 
-                obj = http.request.env['funenc_xa_station2.drill_plan_sign_in'].sudo().create({
+                obj = http.request.env['funenc_xa_station.drill_plan_sign_in'].sudo().create({
                     'sign_in_time': datetime.datetime.now(),
                     'sign_user_id': user.id,
                     'drill_plan_sign_in_id': training_plan_id,

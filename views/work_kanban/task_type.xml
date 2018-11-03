@@ -59,7 +59,7 @@
         </record>
 
         <!--<menuitem id="xa_station_task_type_1" name="任务事件设置"-->
-				  <!--parent="funenc_xa_station2.xa_station_work_kanban_1"-->
+				  <!--parent="funenc_xa_station.xa_station_work_kanban_1"-->
 				  <!--action="xa_station_task_type_action"-->
 		<!--/>-->
 

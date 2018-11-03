@@ -9,4 +9,4 @@ class ImageBrowse(models.Model):
     _name = 'image_browse_model'
 
     image_browse = fields.Binary(string='文件')
-    blong_to_manage = fields.Many2one('funenc_xa_station2.belong_to_management',string='对应属地管理的图片')
+    blong_to_manage = fields.Many2one('funenc_xa_station.belong_to_management',string='对应属地管理的图片')

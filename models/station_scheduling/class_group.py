@@ -8,7 +8,7 @@ class ClassGroup(models.Model):
         班组管理
     '''
 
-    _name = 'funenc_xa_station2.class_group'
+    _name = 'funenc_xa_station.class_group'
     _inherit = 'fuenc_station.station_base'
     _description = u'班组管理'
 
@@ -16,7 +16,7 @@ class ClassGroup(models.Model):
     group_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'class_group_dingtalk_user_1_ref',
                                       'class_group_id', 'ding_talk_user_id', string='班组人员')
 
-    arrange_class_manage_ids =  fields.One2many('funenc_xa_station2.arrange_class_manage', 'arrange_class_obj', string='排班规则对应')
+    arrange_class_manage_ids =  fields.One2many('funenc_xa_station.arrange_class_manage', 'arrange_class_obj', string='排班规则对应')
 
     @api.model
     def create(self, vals):
@@ -39,7 +39,7 @@ class ClassGroup(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.class_group',
+            'res_model': 'funenc_xa_station.class_group',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -54,7 +54,7 @@ class ClassGroup(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.class_group',
+            'res_model': 'funenc_xa_station.class_group',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,

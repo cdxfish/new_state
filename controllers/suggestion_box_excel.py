@@ -13,7 +13,7 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class CheckRecord(http.Controller):
-    @http.route('/funenc_xa_station2/suggestion_box', type='http', auth='public')
+    @http.route('/funenc_xa_station/suggestion_box', type='http', auth='public')
     def import_excel(self, **kw):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作
@@ -23,7 +23,7 @@ class CheckRecord(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station2.suggestion_box'].search([])
+        records = request.env['funenc_xa_station.suggestion_box'].search([])
         if len(records) > 0:
             for record in records:
                 if record.id:

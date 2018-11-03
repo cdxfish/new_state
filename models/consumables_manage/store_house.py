@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 
 class StoreHouse(models.Model):
-    _name = 'funenc_xa_station2.store_house'
+    _name = 'funenc_xa_station.store_house'
     _description = u'仓库管理'
 
     store_house_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='仓库所属部门',
@@ -26,7 +26,7 @@ class StoreHouse(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.store_house',
+            'res_model': 'funenc_xa_station.store_house',
             'context': context,
             'target': 'new',
         }
@@ -39,7 +39,7 @@ class StoreHouse(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.store_house',
+            'res_model': 'funenc_xa_station.store_house',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,

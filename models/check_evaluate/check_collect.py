@@ -5,8 +5,8 @@ from odoo import api, models, fields
 import datetime
 
 class CheckCollect(models.Model):
-    _name = 'funenc_xa_station2.check_collect'
-    _inherit = 'funenc_xa_station2.check_record'
+    _name = 'funenc_xa_station.check_collect'
+    _inherit = 'funenc_xa_station.check_record'
 
 
     @api.model
@@ -17,35 +17,35 @@ class CheckCollect(models.Model):
             'name': '考评汇总',
             'type': 'ir.actions.client',
             'tag':'funenc_xa_check',
-            'res_model': 'funenc_xa_station2.award_record',
+            'res_model': 'funenc_xa_station.award_record',
             'context': self.env.context,
         }
 
     @api.model
     def get_group_2(self):
-        if self.user_has_groups('funenc_xa_station2.table_evaluation_total'):
-            return self.user_has_groups('funenc_xa_station2.table_evaluation_total')
+        if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_total')
         else:
             return
 
     @api.model
     def get_group_1(self):
-        if self.user_has_groups('funenc_xa_station2.table_evaluation_record'):
-            return self.user_has_groups('funenc_xa_station2.table_evaluation_record')
+        if self.user_has_groups('funenc_xa_station.table_evaluation_record'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_record')
         else:
             return
 
     @api.model
     def get_group_3(self):
-        if self.user_has_groups('funenc_xa_station2.table_reward_record'):
-            return self.user_has_groups('funenc_xa_station2.table_reward_record')
+        if self.user_has_groups('funenc_xa_station.table_reward_record'):
+            return self.user_has_groups('funenc_xa_station.table_reward_record')
         else:
             return
 
     @api.model
     def get_group_4(self):
-        if self.user_has_groups('funenc_xa_station2.table_reward_total'):
-            return self.user_has_groups('funenc_xa_station2.table_reward_total')
+        if self.user_has_groups('funenc_xa_station.table_reward_total'):
+            return self.user_has_groups('funenc_xa_station.table_reward_total')
         else:
             return
 
@@ -53,16 +53,16 @@ class CheckCollect(models.Model):
 
     @api.model
     def check_record_method(self):
-        # data = self.env['funenc_xa_station2.check_record'].search([]).mapped('job_number')
+        # data = self.env['funenc_xa_station.check_record'].search([]).mapped('job_number')
         # data1 = set(data)
         # data2 = list(data1)
         # list_temp = []
         #
         # for i, item in enumerate(data2):
         #
-        #     count = self.env['funenc_xa_station2.check_record'].search_count([('job_number','=',item)])
-        #     record = self.env['funenc_xa_station2.check_record'].search_read([('job_number','=',item)])[0]
-        #     grade = self.env['funenc_xa_station2.check_record'].search_read([('job_number', '=', item)])
+        #     count = self.env['funenc_xa_station.check_record'].search_count([('job_number','=',item)])
+        #     record = self.env['funenc_xa_station.check_record'].search_read([('job_number','=',item)])[0]
+        #     grade = self.env['funenc_xa_station.check_record'].search_read([('job_number', '=', item)])
         #     sure_grede = sum(record1.get('sure_grede') for record1 in grade)
         #     record['comment_count'] = count
         #     record['mouth_grade'] = 100 + sure_grede
@@ -79,7 +79,7 @@ class CheckCollect(models.Model):
         date_one = (startTime + datetime.timedelta(days=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
 
-        date_time = self.env['funenc_xa_station2.check_record'].search_read([])
+        date_time = self.env['funenc_xa_station.check_record'].search_read([])
         date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
         for list1 in date_list:
@@ -109,7 +109,7 @@ class CheckCollect(models.Model):
                 #
                 # for i, item in enumerate(data2):
                 #
-                #     count = self.env['funenc_xa_station2.check_record'].search_count([('job_number','=',item)])[0]
+                #     count = self.env['funenc_xa_station.check_record'].search_count([('job_number','=',item)])[0]
 
         return [record.get(key) for key in record]
 

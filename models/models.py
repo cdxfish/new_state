@@ -79,7 +79,7 @@ class StationIndex(models.Model):
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='员工', required=True)
     jobnumber = fields.Char(related='user_id.jobnumber', string="工号")
     position = fields.Text(related='user_id.position', string="职位")
-    arrange_order_id = fields.Many2one('funenc_xa_station2.arrange_order', string='班次')
+    arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
     time_length = fields.Float(related='arrange_order_id.save_work_time', string='计划时长(h)')
     clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点')
     clock_start_time = fields.Datetime(string='上班打卡时间')
@@ -235,7 +235,7 @@ class StationIndex(models.Model):
 
                     add_work_time = add_work_time + int(count_user.get('festival_overtime'))  # 加班
                     # 请假
-                    leave_id = self.env['funenc_xa_station2.leave'].search_read([('leave_user_id', '=', key_user_id), (
+                    leave_id = self.env['funenc_xa_station.leave'].search_read([('leave_user_id', '=', key_user_id), (
                         'leave_start_time', '<=', count_user.get('time')), (
                                                                                      'leave_end_time', '>=',
                                                                                      count_user.get('time'))],
@@ -366,21 +366,73 @@ class generate_qr(models.Model):
         self.create_qrcode()
         context = dict(self.env.context or {})
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
-        ding_user = self.env.user.dingtalk_user[0]
-        department = ding_user.departments[0]
-        if department.department_hierarchy == 3:
-            str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
-            obj = self.search([('site_id', '=', department.id)])
-            if obj.add_date == str_now_date:
-                return {
-                    'name': '上下班打卡',
-                    'type': 'ir.actions.act_window',
-                    "views": [[view_form, "form"]],
-                    'res_model': 'funenc_xa_station.generate_qr',
-                    'context': context,
-                    'res_id': obj.id,
-                    'target': 'current',
-                }
+        if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
+            ding_user = self.env.user.dingtalk_user[0]
+            department = ding_user.departments[0]
+            if department.department_hierarchy == 3:
+                str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
+                obj = self.search([('site_id', '=', department.id)])
+                if obj.add_date == str_now_date:
+                    return {
+                        'name': '上下班打卡',
+                        'type': 'ir.actions.act_window',
+                        "views": [[view_form, "form"]],
+                        'res_model': 'funenc_xa_station.generate_qr',
+                        'context': context,
+                        'res_id': obj.id,
+                        'target': 'current',
+                    }
+                else:
+
+                    ding_user = self.env.user.dingtalk_user[0]
+                    department = ding_user.departments[0]
+                    file = os.path.dirname(os.path.dirname(__file__))
+                    if department.department_hierarchy == 3:
+                        # 获取本机计算机名称
+                        hostname = socket.gethostname()
+                        # 获取本机ip
+                        ip = socket.gethostbyname(hostname)
+                        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
+                                           border=4, )
+                        qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+                        print('http://{}/fuenc_station/index/'.format(ip))
+                        img = qr.make_image()
+                        file_name = file + "/static/images/work_{}.png".format(department.id)
+                        img.save(file_name)
+                        imgs = open(file_name, 'rb')
+                        datas = imgs.read()
+                        file_b64 = base64.b64encode(datas)
+                        os.remove(file_name)
+                        obj = self.create({'work_qr': file_b64})
+                        file_name = file + "/static/images/off_work_{}.png".format(department.id)
+                        qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
+                        img.save(file_name)
+                        obj.update({'off_work_qr': file_name})
+                        imgs.close()
+                        os.remove(file_name)
+            view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_generate_qr_list').id
+            if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
+                ding_user = self.env.user.dingtalk_user[0]
+                department = ding_user.departments[0]
+                context['work_qr'] = '/funenc_xa_station/static/images/work_{}.png'.format(department.id)
+                context['off_work_qr'] = '/funenc_xa_station/static/images/off_work_{}.png'.format(department.id)
+            obj = self.search([])[0]
+            return {
+                'name': '网站首页',
+                'type': 'ir.actions.act_window',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc.xa.station.borrow.record',
+                'context': context,
+                'res_id': obj.id,
+                'target': 'current',
+            }
+
+    def create_qrcode(self):
+        '''
+        二维码生成
+        '''
+        if self.env.user.id == 1:
+            return
         else:
             
             ding_user = self.env.user.dingtalk_user[0]
@@ -414,8 +466,6 @@ class generate_qr(models.Model):
             if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
                 ding_user = self.env.user.dingtalk_user[0]
                 department = ding_user.departments[0]
-                context['work_qr'] = '/funenc_xa_station2/static/images/work_{}.png'.format(department.id)
-                context['off_work_qr'] = '/funenc_xa_station2/static/images/off_work_{}.png'.format(department.id)
             obj = self.search([])[0]
             return {
                 'name': '网站首页',
@@ -457,6 +507,27 @@ def create_qrcode(self):
             obj.update({'off_work_qr': file_name})
 
 
+<<<<<<< HEAD
+# def create_qrcode_1():
+#         '''
+#         二维码生成
+#         :param filename:
+#         :return:
+#         '''
+#
+#         # 获取本机计算机名称
+#         hostname = socket.gethostname()
+#         # 获取本机ip
+#         ip = socket.gethostbyname(hostname)
+#         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
+#         qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+#         print('http://{}/fuenc_station/index/'.format(ip))
+#         img = qr.make_image()
+#         img.save("../static/images/advanceduse.png")
+# create_qrcode_1()
+
+=======
+>>>>>>> ead68ad8d94aa5fa9cfa419669c8d7aae7b5430f
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
 

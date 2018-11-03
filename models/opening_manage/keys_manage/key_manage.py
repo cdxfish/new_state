@@ -26,7 +26,7 @@ class KeyManage(models.Model):
     @api.model
     def borrow_key(self):
         context = dict(self.env.context)
-        view_form = self.env.ref('funenc_xa_station2.borrow_record_form_1').id
+        view_form = self.env.ref('funenc_xa_station.borrow_record_form_1').id
         context['borrow_member'] = self.env.user.id
         return {
             'name': '钥匙借用',
@@ -42,7 +42,7 @@ class KeyManage(models.Model):
     @api.model
     def return_key(self):
         context = dict(self.env.context)
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_form').id
         return {
             'name': '钥匙归还',
             'type': 'ir.actions.act_window',
@@ -56,8 +56,8 @@ class KeyManage(models.Model):
     # 借用记录
     @api.model
     def borrow_record(self):
-        view_tree = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_list').id
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_form').id
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_form').id
         return {
             'name': '借用记录',
             "type": "ir.actions.act_window",
@@ -122,10 +122,10 @@ class KeyManage(models.Model):
 
     @api.model
     def get_key_view_ids(self):
-        borrow_record_form_1 = self.env.ref('funenc_xa_station2.borrow_record_form_1').id
-        borrow_record_form = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_form').id
+        borrow_record_form_1 = self.env.ref('funenc_xa_station.borrow_record_form_1').id
+        borrow_record_form = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_form').id
 
-        borrow_record_list = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_list').id
+        borrow_record_list = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
 
         return {'borrow_record_form_1': borrow_record_form_1,
                 'borrow_record_form': borrow_record_form,

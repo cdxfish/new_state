@@ -4,7 +4,7 @@
 from odoo import fields, models, api
 
 class ReserverManagement(models.Model):
-    _name = 'funenc_xa_station2.reserver_management'
+    _name = 'funenc_xa_station.reserver_management'
     _inherit = 'fuenc_station.station_base'
 
     r_date = fields.Date(string='日期')
@@ -34,11 +34,11 @@ class ReserverManagement(models.Model):
     note = fields.Text(string='备注')
     Person_charge_account = fields.Char(string='记账人')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts',string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts',string='交接班')
 
     @api.model
     def reserver_money_method(self):
-        # lol = self.env['funenc_xa_station2.reserver_management'].search_read([])
+        # lol = self.env['funenc_xa_station.reserver_management'].search_read([])
         return
 
 
@@ -47,7 +47,7 @@ class ReserverManagement(models.Model):
             ''
             'name': '储备金管理',
             'type': 'ir.actions.act_window',
-            'res_model': 'funenc_xa_station2.reserver_management',
+            'res_model': 'funenc_xa_station.reserver_management',
             'res_id': self.id,
             'flags': {'initial_mode': 'readonly'},
         }
@@ -115,5 +115,5 @@ class ReserverManagement(models.Model):
     @api.model
 
     def search_record(self,date):
-        lol = self.env['funenc_xa_station2.reserver_management'].search_read([('site_id','=',date)])
+        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',date)])
         return lol

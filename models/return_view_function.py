@@ -4,7 +4,7 @@ from .get_domain import get_domain
 
 
 class ReturnViewFunction(models.AbstractModel):
-    _name = 'funenc_xa_station2.return.view.function'
+    _name = 'funenc_xa_station.return.view.function'
     _description = '返回视图数据表'
 
     @api.model
@@ -38,7 +38,7 @@ class ReturnViewFunction(models.AbstractModel):
     @api.model
     def get_groups_with_id(self):
         group_ids = tuple(self.env.user.groups_id.ids)
-        self._cr.execute("""SELECT module ||'.'|| name FROM ir_model_data WHERE module='funenc_xa_station2' AND 
+        self._cr.execute("""SELECT module ||'.'|| name FROM ir_model_data WHERE module='funenc_xa_station' AND 
         res_id IN %s""" % str(group_ids))
         result = [i[0] for i in self._cr.fetchall()]
         return {self._uid: result}

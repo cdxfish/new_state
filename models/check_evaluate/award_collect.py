@@ -5,8 +5,8 @@ from odoo import api, models, fields
 import datetime
 
 class AwardCollect(models.Model):
-    _name = 'funenc_xa_station2.award_collect'
-    # _inherit = 'funenc_xa_station2.award_record'
+    _name = 'funenc_xa_station.award_collect'
+    # _inherit = 'funenc_xa_station.award_record'
 
     line_road = fields.Char(string='线路')
     station_site = fields.Char(string='站点')
@@ -21,23 +21,23 @@ class AwardCollect(models.Model):
             'name': '奖励汇总',
             'type': 'ir.actions.client',
             'tag':'funenc_xa_award',
-            'res_model': 'funenc_xa_station2.award_record',
+            'res_model': 'funenc_xa_station.award_record',
             'context': self.env.context,
         }
 
 
     @api.model
     def award_record_method(self):
-        # data = self.env['funenc_xa_station2.award_record'].search([]).mapped('jobnumber')
+        # data = self.env['funenc_xa_station.award_record'].search([]).mapped('jobnumber')
         # data1 = set(data)
         # data2 = list(data1)
         # list_temp = []
         #
         # for i, item in enumerate(data2):
         #
-        #     count = self.env['funenc_xa_station2.award_record'].search_count([('jobnumber','=',item)])
-        #     record = self.env['funenc_xa_station2.award_record'].search_read([('jobnumber','=',item)])[0]
-        #     grade = self.env['funenc_xa_station2.award_record'].search_read([('jobnumber', '=', item)])
+        #     count = self.env['funenc_xa_station.award_record'].search_count([('jobnumber','=',item)])
+        #     record = self.env['funenc_xa_station.award_record'].search_read([('jobnumber','=',item)])[0]
+        #     grade = self.env['funenc_xa_station.award_record'].search_read([('jobnumber', '=', item)])
         #     sure_grede = sum(record1.get('award_money') for record1 in grade)
         #     record['comment_count'] = count
         #     record['award_money'] = sure_grede
@@ -53,7 +53,7 @@ class AwardCollect(models.Model):
 
         record = {}
 
-        date_time = self.env['funenc_xa_station2.award_record'].search_read([])
+        date_time = self.env['funenc_xa_station.award_record'].search_read([])
         date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
         for list1 in date_list:
@@ -75,28 +75,28 @@ class AwardCollect(models.Model):
 
     @api.model
     def get_group_2(self):
-        if self.user_has_groups('funenc_xa_station2.table_evaluation_total'):
-            return self.user_has_groups('funenc_xa_station2.table_evaluation_total')
+        if self.user_has_groups('funenc_xa_station.table_evaluation_total'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_total')
         else:
             return
 
     @api.model
     def get_group_1(self):
-        if self.user_has_groups('funenc_xa_station2.table_evaluation_record'):
-            return self.user_has_groups('funenc_xa_station2.table_evaluation_record')
+        if self.user_has_groups('funenc_xa_station.table_evaluation_record'):
+            return self.user_has_groups('funenc_xa_station.table_evaluation_record')
         else:
             return
 
     @api.model
     def get_group_3(self):
-        if self.user_has_groups('funenc_xa_station2.table_reward_record'):
-            return self.user_has_groups('funenc_xa_station2.table_reward_record')
+        if self.user_has_groups('funenc_xa_station.table_reward_record'):
+            return self.user_has_groups('funenc_xa_station.table_reward_record')
         else:
             return
 
     @api.model
     def get_group_4(self):
-        if self.user_has_groups('funenc_xa_station2.table_reward_total'):
-            return self.user_has_groups('funenc_xa_station2.table_reward_total')
+        if self.user_has_groups('funenc_xa_station.table_reward_total'):
+            return self.user_has_groups('funenc_xa_station.table_reward_total')
         else:
             return

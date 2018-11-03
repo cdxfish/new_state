@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from odoo import models, fields, api
 
-MODULE_NAME = 'funenc_xa_station2'
+MODULE_NAME = 'funenc_xa_station'
 CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive','module_position11',
                     'module_category_people', 'module_category_setting', 'module_category_jurisdiction']
 CACHE_LIST = []
@@ -56,7 +56,7 @@ class PositionSettings(models.Model):
         # 获取已选择节点
         checked_groups_ids = self.browse(group_id).implied_ids.filtered(lambda x: len(x.child_ids) == 0).ids
         template = self.env['vue_template_manager.template_manage'].get_template_content(
-            'funenc_xa_station2', 'group_config')
+            'funenc_xa_station', 'group_config')
         rst = dict(cats=CACHE_LIST, template=template, checked_groups_ids=checked_groups_ids)
         return rst
 
@@ -70,7 +70,7 @@ class PositionSettings(models.Model):
         :param implied_ids: 选中的group_id
         :return:
         '''
-        category_id = self.env.ref('funenc_xa_station2.module_category_custom_groups')
+        category_id = self.env.ref('funenc_xa_station.module_category_custom_groups')
         category_id.ensure_one()
         if open_type == 'add':
             self.create({'name': group_name, 'category_id': category_id.id, 'implied_ids': [(6, 0, implied_ids)]})

@@ -143,7 +143,7 @@
 
         <!--<record id="check_record_act" model="ir.actions.act_window">-->
             <!--<field name="name">check_record_act</field>-->
-            <!--<field name="res_model">funenc_xa_station2.check_record</field>-->
+            <!--<field name="res_model">funenc_xa_station.check_record</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 

@@ -2,7 +2,7 @@
 from odoo import models, fields, api
 
 class StationStaffing(models.Model):
-    _name = 'funenc_xa_station2.station_staffing'
+    _name = 'funenc_xa_station.station_staffing'
     _description = u'信号系统'
     _inherit = 'fuenc_station.station_base'
 

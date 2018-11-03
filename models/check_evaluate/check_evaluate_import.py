@@ -96,7 +96,7 @@ class ImportManagement(models.Model):
                     item['check_standard'] ='party'
                 elif item['check_standard']  == '综合管理':
                     item['check_standard'] ='integrated'
-                self.env['funenc_xa_station2.check_standard'].sudo().create(item)
+                self.env['funenc_xa_station.check_standard'].sudo().create(item)
             self.env['evaluate_import'].search([]).unlink()
 
         except ConnectionError as err:

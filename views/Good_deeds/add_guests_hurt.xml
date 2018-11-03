@@ -21,7 +21,7 @@
             <!--<field name="binding_model_id" ref="model_fuenc_xa_station_guests_hurt"/>-->
             <!--<field name="binding_xml_id">guests_hurt_tree</field>-->
             <!--<field name="binding_type">action_button</field>-->
-            <!--<field name="url">/funenc_xa_station2/guests_hurt</field>-->
+            <!--<field name="url">/funenc_xa_station/guests_hurt</field>-->
             <!--<field name="target">new</field>-->
         <!--</record>-->
 
