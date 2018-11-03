@@ -7,7 +7,7 @@ import json
 from ..get_domain import get_domain
 
 class BreakSubmit(models.Model):
-    _name = 'funenc_xa_station2.break_submit'
+    _name = 'funenc_xa_station.break_submit'
 
     _inherit = 'fuenc_station.station_base'
 
@@ -27,14 +27,14 @@ class BreakSubmit(models.Model):
 
     # 创建一条新的记录
     def new_increase_record(self):
-        view_form = self.env.ref('funenc_xa_station2.break_submit_form').id
+        view_form = self.env.ref('funenc_xa_station.break_submit_form').id
         return {
             'name': '故障列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
             'target':'new',
         }
@@ -43,14 +43,14 @@ class BreakSubmit(models.Model):
     def deal_button_action(self):
 
         self.write({'deal_situation':'one'})
-        view_form = self.env.ref('funenc_xa_station2.break_submit_deal_form').id
+        view_form = self.env.ref('funenc_xa_station.break_submit_deal_form').id
         return {
             'name': '故障列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
             'res_id':self.id,
             'target':'new',
@@ -58,14 +58,14 @@ class BreakSubmit(models.Model):
 
     # 修改当前的一条记录
     def onchange_record_button_act(self):
-        view_form = self.env.ref('funenc_xa_station2.break_submit_form').id
+        view_form = self.env.ref('funenc_xa_station.break_submit_form').id
         return {
             'name': '故障列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id':self.id,
@@ -74,14 +74,14 @@ class BreakSubmit(models.Model):
 
     # 编辑当前的一条记录
     def edit_button_subit_act(self):
-        view_form = self.env.ref('funenc_xa_station2.break_submit_edit_form').id
+        view_form = self.env.ref('funenc_xa_station.break_submit_edit_form').id
         return {
             'name': '故障列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'flags': {'initial_mode': 'edit'},
             'context': self.env.context,
             'res_id':self.id,
@@ -91,7 +91,7 @@ class BreakSubmit(models.Model):
 
     # 删除当前的一条记录
     def break_delete_action(self):
-        self.env['funenc_xa_station2.break_submit'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station.break_submit'].search([('id', '=', self.id)]).unlink()
 
     @api.model
     def get_break_submit_list(self):
@@ -166,7 +166,7 @@ class BreakSubmit(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station2.break_submit_tree').id
+        view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -174,20 +174,20 @@ class BreakSubmit(models.Model):
             'view_mode': 'form',
             'domain':domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
         }
 
     #浏览当前记录的图片
     def browse_image_button_act(self):
-        view_form = self.env.ref('funenc_xa_station2.browse_image_button_submit_act').id
+        view_form = self.env.ref('funenc_xa_station.browse_image_button_submit_act').id
         return {
             'name': '查看图片',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.break_submit',
+            'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,

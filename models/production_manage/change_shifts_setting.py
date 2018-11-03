@@ -11,7 +11,7 @@ from odoo import models, fields, api
 
 
 class preparedness(models.Model):
-    _name = 'funenc_xa_station2.preparedness'
+    _name = 'funenc_xa_station.preparedness'
     _description = u'备品'
     _rec_name = 'preparedness_name'
 
@@ -27,17 +27,17 @@ class preparedness(models.Model):
     remarks = fields.Text(string='备注')
     type = fields.Selection(selection=KEY, string='备品类型')
 
-    station_master_id = fields.Many2one('funenc_xa_station2.station_master', string='')
-    car_line_id = fields.Many2one('funenc_xa_station2.car_line', string='')
-    station_service_id = fields.Many2one('funenc_xa_station2.station_service', string='')
-    ticket_booth_id = fields.Many2one('funenc_xa_station2.ticket_booth_id', string='')
-    passenger_transport_id = fields.Many2one('funenc_xa_station2.passenger_transport', string='')
+    station_master_id = fields.Many2one('funenc_xa_station.station_master', string='')
+    car_line_id = fields.Many2one('funenc_xa_station.car_line', string='')
+    station_service_id = fields.Many2one('funenc_xa_station.station_service', string='')
+    ticket_booth_id = fields.Many2one('funenc_xa_station.ticket_booth_id', string='')
+    passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport', string='')
 
-    station_master_to_shifts_ids = fields.One2many('funenc_xa_station2.station_master_to_production_change_shifts',
+    station_master_to_shifts_ids = fields.One2many('funenc_xa_station.station_master_to_production_change_shifts',
                                                    'station_master_id', string='交接班')
 
 class preparedness_1(models.Model):
-    _name = 'funenc_xa_station2.preparedness_1'
+    _name = 'funenc_xa_station.preparedness_1'
     _description = u'票务和站务备品'
     _rec_name = 'preparedness_name'
 
@@ -48,37 +48,37 @@ class preparedness_1(models.Model):
     error_name = fields.Char(string='异常情况')
     explain = fields.Char(string='说明')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts',srting='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts',srting='交接班')
 
 
 
 class train_working(models.Model):
-    _name = 'funenc_xa_station2.check_project'
+    _name = 'funenc_xa_station.check_project'
     _description = u'运营前检查项目'
 
     context = fields.Text(string='工作中填写内容')
     remarks = fields.Char(string='备注')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
-    car_line_id = fields.Many2one('funenc_xa_station2.car_line', string='')
+    car_line_id = fields.Many2one('funenc_xa_station.car_line', string='')
     check_project_to_production_change_shifts_ids = fields.One2many(
-        'funenc_xa_station2.check_project_to_production_change_shifts', 'check_project_id', string='交接班中间表')
+        'funenc_xa_station.check_project_to_production_change_shifts', 'check_project_id', string='交接班中间表')
 
 
 
 class train_working_2(models.Model):
-    _name = 'funenc_xa_station2.train_working_2'
+    _name = 'funenc_xa_station.train_working_2'
     _description = u'运营前检查交接班中间表'
 
-    production_change_shifts1_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts1_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
     context = fields.Text(string='工作中填写内容')
     check_situation = fields.Char(string='检查情况')
     check_time = fields.Datetime(string='检查时间')
 
 
 class train_working_1(models.Model):
-    _name = 'funenc_xa_station2.train_working_1'
+    _name = 'funenc_xa_station.train_working_1'
     _description = u'运营前检查项目'
 
     context = fields.Text(string='运营前检查项目')
@@ -91,22 +91,22 @@ class train_working_1(models.Model):
     tcm = fields.Char(srting='tcm')
     plane_ticket = fields.Char(srting='互联网机票')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
-    passenger_transport_id = fields.Many2one('funenc_xa_station2.passenger_transport', string='')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
+    passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport', string='')
 
 
 class prefabricate_ticket_type(models.Model):
-    _name = 'funenc_xa_station2.prefabricate_ticket_type'
+    _name = 'funenc_xa_station.prefabricate_ticket_type'
     _description = u'预制票类型'
 
     name = fields.Char(string='预制票名称')
     remarks = fields.Char(string='备注')
 
-    passenger_transport_id = fields.Many2one('funenc_xa_station2.passenger_transport', string='')
+    passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport', string='')
 
 
 class prefabricate_ticket_type_2(models.Model):
-    _name = 'funenc_xa_station2.prefabricate_ticket_type_2'
+    _name = 'funenc_xa_station.prefabricate_ticket_type_2'
     _description = u'预制票类型'
 
     name = fields.Char(string='票种')
@@ -119,10 +119,10 @@ class prefabricate_ticket_type_2(models.Model):
     this_lass = fields.Char(string='本班结存')
     remarks = fields.Char(string='备注')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 class preparedness_2(models.Model):
-    _name = 'funenc_xa_station2.preparedness_2'
+    _name = 'funenc_xa_station.preparedness_2'
     _description = u'预制票类型'
 
     name = fields.Char(string='备品名称')
@@ -132,22 +132,22 @@ class preparedness_2(models.Model):
     damage = fields.Char(string='损坏数量')
     scrap = fields.Char(string='报废数量')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts',string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts',string='交接班')
 
 
 class ticketing_key_type(models.Model):
-    _name = 'funenc_xa_station2.ticketing_key_type'
+    _name = 'funenc_xa_station.ticketing_key_type'
     _description = u'票务钥匙类型'
 
     name = fields.Char(string='钥匙名称')
     remarks = fields.Char(string='备注')
 
-    passenger_transport_id = fields.Many2one('funenc_xa_station2.passenger_transport', string='')
+    passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport', string='')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 class ticketing_key_type_2(models.Model):
-    _name = 'funenc_xa_station2.ticketing_key_type_2'
+    _name = 'funenc_xa_station.ticketing_key_type_2'
     _description = u'票务钥匙类型'
 
     name = fields.Char(string='钥匙名称')
@@ -156,19 +156,19 @@ class ticketing_key_type_2(models.Model):
     spare = fields.Char(string='备用数量')
     remarks = fields.Char(string='备注')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 
 #################
 
 
 class station_master(models.Model):
-    _name = 'funenc_xa_station2.station_master'
+    _name = 'funenc_xa_station.station_master'
     _description = u'预设值班站长'
 
-    preparedness_ids = fields.One2many('funenc_xa_station2.preparedness', 'station_master_id', string='备品交接')
+    preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'station_master_id', string='备品交接')
 
-    # station_master_to_shifts_ids = fields.One2many('funenc_xa_station2.station_master_to_production_change_shifts',
+    # station_master_to_shifts_ids = fields.One2many('funenc_xa_station.station_master_to_production_change_shifts',
     #                                                'station_master_id', string='交接班')
 
     @api.model
@@ -188,13 +188,13 @@ class station_master(models.Model):
     @api.model
     def init_data(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_station_master_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_master_form').id
 
         dic = {
             'name': '预设值班站长',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.station_master',
+            'res_model': 'funenc_xa_station.station_master',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -207,21 +207,21 @@ class station_master(models.Model):
 
 
 class car_line(models.Model):
-    _name = 'funenc_xa_station2.car_line'
+    _name = 'funenc_xa_station.car_line'
     _description = u'预设行车值班员'
 
-    check_project_ids = fields.One2many('funenc_xa_station2.check_project', 'car_line_id', string='运营前检查')
-    preparedness_ids = fields.One2many('funenc_xa_station2.preparedness', 'car_line_id', string='备品交接')
+    check_project_ids = fields.One2many('funenc_xa_station.check_project', 'car_line_id', string='运营前检查')
+    preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'car_line_id', string='备品交接')
 
     def init_data(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_car_line_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_car_line_form').id
 
         dic = {
             'name': '预设',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.car_line',
+            'res_model': 'funenc_xa_station.car_line',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -234,20 +234,20 @@ class car_line(models.Model):
 
 
 class station_service(models.Model):
-    _name = 'funenc_xa_station2.station_service'
+    _name = 'funenc_xa_station.station_service'
     _description = u'预设站务'
 
-    preparedness_ids = fields.One2many('funenc_xa_station2.preparedness', 'station_service_id', string='')
+    preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'station_service_id', string='')
 
     def init_data(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_station_service_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_service_form').id
 
         dic = {
             'name': '预设',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.station_service',
+            'res_model': 'funenc_xa_station.station_service',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -260,20 +260,20 @@ class station_service(models.Model):
 
 
 class ticket_booth(models.Model):
-    _name = 'funenc_xa_station2.ticket_booth'
+    _name = 'funenc_xa_station.ticket_booth'
     _description = u'预设票务'
 
-    preparedness_ids = fields.One2many('funenc_xa_station2.preparedness', 'ticket_booth_id', string='')
+    preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'ticket_booth_id', string='')
 
     def init_data(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_ticket_booth_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_ticket_booth_form').id
 
         dic = {
             'name': '预设',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.ticket_booth',
+            'res_model': 'funenc_xa_station.ticket_booth',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -286,25 +286,25 @@ class ticket_booth(models.Model):
 
 
 class passenger_transport(models.Model):
-    _name = 'funenc_xa_station2.passenger_transport'
+    _name = 'funenc_xa_station.passenger_transport'
     _description = u'预设值客运值班员'
 
-    check_project_ids = fields.One2many('funenc_xa_station2.train_working_1', 'passenger_transport_id', string='运营前检查')
-    preparedness_ids = fields.One2many('funenc_xa_station2.preparedness', 'passenger_transport_id', string='备品')
-    prefabricate_ticket_type_ids = fields.One2many('funenc_xa_station2.prefabricate_ticket_type',
+    check_project_ids = fields.One2many('funenc_xa_station.train_working_1', 'passenger_transport_id', string='运营前检查')
+    preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'passenger_transport_id', string='备品')
+    prefabricate_ticket_type_ids = fields.One2many('funenc_xa_station.prefabricate_ticket_type',
                                                    'passenger_transport_id', string='预制票类型')
-    ticketing_key_type_ids = fields.One2many('funenc_xa_station2.ticketing_key_type', 'passenger_transport_id',
+    ticketing_key_type_ids = fields.One2many('funenc_xa_station.ticketing_key_type', 'passenger_transport_id',
                                              string='钥匙类型')
 
     def init_data(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_passenger_transport_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_passenger_transport_form').id
 
         dic = {
             'name': '预设',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.passenger_transport',
+            'res_model': 'funenc_xa_station.passenger_transport',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -317,7 +317,7 @@ class passenger_transport(models.Model):
 
 
 class special_card_preset(models.Model):
-    _name = 'funenc_xa_station2.special_card_preset'
+    _name = 'funenc_xa_station.special_card_preset'
     _description = u'特殊卡预设'
     _inherit = 'fuenc_station.station_base'
     _rec_name = 'card_number'
@@ -331,8 +331,8 @@ class special_card_preset(models.Model):
     return_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='归还人')
     return_time = fields.Datetime(string='归还人')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station2.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 
 class spare_gold(models.Model):
-    _name = 'funenc_xa_station2.spare_gold'
+    _name = 'funenc_xa_station.spare_gold'

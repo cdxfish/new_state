@@ -13,7 +13,7 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class CheckRecord(http.Controller):
-    @http.route('/funenc_xa_station2/transient_break_management', type='http', auth='public')
+    @http.route('/funenc_xa_station/transient_break_management', type='http', auth='public')
     def import_excel(self, **kw):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作
@@ -23,7 +23,7 @@ class CheckRecord(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station2.transient_break_management'].search([])
+        records = request.env['funenc_xa_station.transient_break_management'].search([])
         if len(records) > 0:
             for record in records:
                 if record.transceiver_type:

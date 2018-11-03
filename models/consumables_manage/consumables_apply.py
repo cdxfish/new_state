@@ -3,7 +3,7 @@ from odoo import models, fields, api
 from ..get_domain import get_domain
 
 class StoreHouse(models.Model):
-    _name = 'funenc_xa_station2.consumables_apply'
+    _name = 'funenc_xa_station.consumables_apply'
     _description = u'耗材申请'
 
     to_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标部门', default=lambda
@@ -11,7 +11,7 @@ class StoreHouse(models.Model):
     to_parent_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标父部门')
     department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门', default=lambda
         self: self.default_department_id())
-    consumables_type = fields.Many2one('funenc_xa_station2.consumables_type',string='耗材类型', required=True)
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材类型', required=True)
     consumables_count = fields.Integer(string='申请数量')
     is_apply = fields.Selection(string='是否已开始申请', selection=[('yes', '是'), ('no', '否')],default="no")
 
@@ -23,7 +23,7 @@ class StoreHouse(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.consumables_apply',
+            'res_model': 'funenc_xa_station.consumables_apply',
             'context': context,
             'target': 'new',
         }
@@ -36,7 +36,7 @@ class StoreHouse(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.consumables_apply',
+            'res_model': 'funenc_xa_station.consumables_apply',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -71,37 +71,37 @@ class StoreHouse(models.Model):
                   'consumables_apply_id': self.id,
 
                   }
-        self.env['funenc_xa_station2.delivery_storage'].create(values)
+        self.env['funenc_xa_station.delivery_storage'].create(values)
 
         self.is_apply = 'yes'
 
     @api.model
     @get_domain
     def get_day_plan_publish_action(self, domain):
-        view_tree = self.env.ref('funenc_xa_station2.funenc_xa_station_consumables_inventory_list').id
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_inventory_list').id
         return {
             'name': '耗材入库',
             'type': 'ir.actions.act_window',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station2.consumables_inventory',
+            'res_model': 'funenc_xa_station.consumables_inventory',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                                [
                                    {'title': '耗材入库',
-                                   'action':  'funenc_xa_station2.xa_station_consumables_inventory_action',
-                                   'group':'funenc_xa_station2.consumables_management_consumables_storage',
+                                   'action':  'funenc_xa_station.xa_station_consumables_inventory_action',
+                                   'group':'funenc_xa_station.consumables_management_consumables_storage',
                                    },
                                    {
                                        'title': '耗材申请',
-                                       'action2' : 'funenc_xa_station2.xa_station_consumables_apply_action',
-                                       'group' : 'funenc_xa_station2.consumables_management_consumables_apply',
+                                       'action2' : 'funenc_xa_station.xa_station_consumables_apply_action',
+                                       'group' : 'funenc_xa_station.consumables_management_consumables_apply',
                                        },
                                    {
                                        'title': '出入库记录',
-                                       'action2':  'funenc_xa_station2.award_record_act',
-                                       'group' : 'funenc_xa_station2.consumables_management_consumables_record',
+                                       'action2':  'funenc_xa_station.award_record_act',
+                                       'group' : 'funenc_xa_station.consumables_management_consumables_record',
                                        },
                                ]
                            }''',

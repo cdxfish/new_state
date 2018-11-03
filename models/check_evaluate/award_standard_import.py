@@ -74,7 +74,7 @@ class ImportAward(models.Model):
 
         try:
             for i, item in enumerate(one_sheet_content):
-                self.env['funenc_xa_station2.award_standard'].sudo().create(item)
+                self.env['funenc_xa_station.award_standard'].sudo().create(item)
 
         except ConnectionError as err:
             print(err)

@@ -49,7 +49,7 @@ class GuestsHurt(models.Model):
     #     file_name = params.get('file_name', self.file_name)
     #     if file_binary:
     #         url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
-    #             'funenc_xa_station2', file_name, base64.b64decode(file_binary.mp_play))
+    #             'funenc_xa_station', file_name, base64.b64decode(file_binary.mp_play))
     #         params['url'] = url
     #         params['file_name'] = file_name
     #     return super(GuestsHurt, self).create(params)
@@ -66,7 +66,7 @@ class GuestsHurt(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station2.guests_hurt_tree').id
+        view_tree = self.env.ref('funenc_xa_station.guests_hurt_tree').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -80,23 +80,23 @@ class GuestsHurt(models.Model):
             "top_widget_options": '''{'tabs':
                         [
                             {'title': '好人好事',
-                            'action':  'funenc_xa_station2.good_deeds_act',
-                            'group':'funenc_xa_station2.table_good_actions'
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions'
                             },
                             {
                                 'title': '客伤',
-                                'action2' : 'funenc_xa_station2.guests_hurt_act',
-                                'group' : 'funenc_xa_station2.table_people_wound'
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound'
                                 },
                             {
                                 'title': '乘客意见箱',
-                                'action2':  'funenc_xa_station2.suggestion_box_act',
-                                'group' : 'funenc_xa_station2.table_people_message'
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message'
                                 },
                            {
                                 'title': '特殊赔偿金',
-                                'action2':  'funenc_xa_station2.special_money_act',
-                                'group' : 'funenc_xa_station2.table_special_compensation'
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation'
                                 },
                         ]
                     }''',
@@ -145,7 +145,7 @@ class GuestsHurt(models.Model):
     #查看详情
 
     def good_details_button(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -161,7 +161,7 @@ class GuestsHurt(models.Model):
 
     #新建一条记录
     def create_guests_action(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -176,7 +176,7 @@ class GuestsHurt(models.Model):
 
     #查看详情
     def guests_details_action(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_details').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_details').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -192,7 +192,7 @@ class GuestsHurt(models.Model):
 
     #form表格中的新增
     def add_guests_button_action(self):
-        view_form = self.env.ref('funenc_xa_station2.add_guests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.add_guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -207,7 +207,7 @@ class GuestsHurt(models.Model):
 
     #tree视图中的修改按钮
     def onchange_button_action(self):
-        view_form = self.env.ref('funenc_xa_station2.guests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.guests_hurt_form').id
         return {
             'name': '客伤',
             'type': 'ir.actions.act_window',
@@ -229,7 +229,7 @@ class GuestsHurt(models.Model):
 
     # 新增一条跟进记录
     def complaints_suer_button(self):
-        view_form = self.env.ref('funenc_xa_station2.add_aguests_hurt_form').id
+        view_form = self.env.ref('funenc_xa_station.add_aguests_hurt_form').id
         return {
             'name': '跟进记录',
             'type': 'ir.actions.act_window',

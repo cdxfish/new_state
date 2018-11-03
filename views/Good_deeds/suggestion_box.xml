@@ -698,7 +698,7 @@
 
         <!--<record id="suggestion_box_act" model="ir.actions.act_window">-->
             <!--<field name="name">乘客意见箱</field>-->
-            <!--<field name="res_model">funenc_xa_station2.suggestion_box</field>-->
+            <!--<field name="res_model">funenc_xa_station.suggestion_box</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

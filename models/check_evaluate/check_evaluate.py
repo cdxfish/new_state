@@ -6,7 +6,7 @@ from odoo import api, fields, models
 import xlwt
 
 class CheckStandard(models.Model):
-    _name = 'funenc_xa_station2.check_standard'
+    _name = 'funenc_xa_station.check_standard'
     _rec_name = 'check_project'
 
     key = [('safety','安全管理')
@@ -40,26 +40,26 @@ class CheckStandard(models.Model):
     # 权限server考评指标隐藏还是显示
     @api.model
     def get_day_plan_publish_action(self):
-        view_tree = self.env.ref('funenc_xa_station2.check_evaluate_tree').id
+        view_tree = self.env.ref('funenc_xa_station.check_evaluate_tree').id
         return {
             'name': '考评指标',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station2.check_standard',
+            'res_model': 'funenc_xa_station.check_standard',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                              [
                                  {'title': '考评指标',
-                                 'action':  'funenc_xa_station2.check_evaluate_act',
-                                 'group':'funenc_xa_station2.table_reward_index',
+                                 'action':  'funenc_xa_station.check_evaluate_act',
+                                 'group':'funenc_xa_station.table_reward_index',
                                  },
                                  {
                                      'title': '奖励指标',
-                                     'action2' : 'funenc_xa_station2.award_standard_act',
-                                     'group' : 'funenc_xa_station2.table_reward_index',
+                                     'action2' : 'funenc_xa_station.award_standard_act',
+                                     'group' : 'funenc_xa_station.table_reward_index',
                                      },
                              ]
                          }''',
@@ -72,7 +72,7 @@ class CheckStandard(models.Model):
             'type':'ir.actions.act_window',
             'view_type':'form',
             'view_mode':'form',
-            'res_model':'funenc_xa_station2.check_standard',
+            'res_model':'funenc_xa_station.check_standard',
             'context':self.env.context,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -84,7 +84,7 @@ class CheckStandard(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.check_standard',
+            'res_model': 'funenc_xa_station.check_standard',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -92,7 +92,7 @@ class CheckStandard(models.Model):
         }
 
     def check_evaluate_delete(self):
-        self.env['funenc_xa_station2.check_standard'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station.check_standard'].search([('id', '=', self.id)]).unlink()
 
     def check_evaluate_import(self):
         return {

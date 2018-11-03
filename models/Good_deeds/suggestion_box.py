@@ -12,7 +12,7 @@ key = [('one_audit','待初审'),
 
 class SuggestionBox(models.Model):
     _inherit = 'fuenc_station.station_base'
-    _name = 'funenc_xa_station2.suggestion_box'
+    _name = 'funenc_xa_station.suggestion_box'
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
@@ -45,7 +45,7 @@ class SuggestionBox(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station2.suggestion_box_tree').id
+        view_tree = self.env.ref('funenc_xa_station.suggestion_box_tree').id
         return {
             'name': '乘客意见箱',
             'type': 'ir.actions.act_window',
@@ -53,29 +53,29 @@ class SuggestionBox(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                         [
                             {'title': '好人好事',
-                            'action':  'funenc_xa_station2.good_deeds_act',
-                            'group':'funenc_xa_station2.table_good_actions',
+                            'action':  'funenc_xa_station.good_deeds_act',
+                            'group':'funenc_xa_station.table_good_actions',
                             },
                             {
                                 'title': '客伤',
-                                'action2' : 'funenc_xa_station2.guests_hurt_act',
-                                'group' : 'funenc_xa_station2.table_people_wound',
+                                'action2' : 'funenc_xa_station.guests_hurt_act',
+                                'group' : 'funenc_xa_station.table_people_wound',
                                 },
                             {
                                 'title': '乘客意见箱',
-                                'action2':  'funenc_xa_station2.suggestion_box_act',
-                                'group' : 'funenc_xa_station2.table_people_message',
+                                'action2':  'funenc_xa_station.suggestion_box_act',
+                                'group' : 'funenc_xa_station.table_people_message',
                                 },
                            {
                                 'title': '特殊赔偿金',
-                                'action2':  'funenc_xa_station2.special_money_act',
-                                'group' : 'funenc_xa_station2.table_special_compensation',
+                                'action2':  'funenc_xa_station.special_money_act',
+                                'group' : 'funenc_xa_station.table_special_compensation',
                                 },
                         ]
                     }''',
@@ -88,49 +88,49 @@ class SuggestionBox(models.Model):
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
-        self.env['funenc_xa_station2.suggestion_box'].write(values)
+        self.env['funenc_xa_station.suggestion_box'].write(values)
 
     def test_btn_through(self):
         values = {
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'through')
-        self.env['funenc_xa_station2.suggestion_box'].write(values)
+        self.env['funenc_xa_station.suggestion_box'].write(values)
 
     def good_rejected(self):
         values = {
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'rejected')
-        self.env['funenc_xa_station2.suggestion_box'].write(values)
+        self.env['funenc_xa_station.suggestion_box'].write(values)
 
     def test_btn_rejected(self):
         values = {
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'one_audit')
-        self.env['funenc_xa_station2.suggestion_box'].write(values)
+        self.env['funenc_xa_station.suggestion_box'].write(values)
 
     def good_delete(self):
-        self.env['funenc_xa_station2.suggestion_box'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station.suggestion_box'].search([('id', '=', self.id)]).unlink()
 
     def test_btn_rejected(self):
         values = {
             'audit_state': self.audit_state,
         }
         self.audit_state = self.env.context.get('audit_state', 'one_audit')
-        self.env['funenc_xa_station2.suggestion_box'].write(values)
+        self.env['funenc_xa_station.suggestion_box'].write(values)
 
     #修改整条记录
     def onchange_button_action(self):
-        view_form = self.env.ref('funenc_xa_station2.suggestion_box_form').id
+        view_form = self.env.ref('funenc_xa_station.suggestion_box_form').id
         return {
             'name': '意见箱',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -139,42 +139,42 @@ class SuggestionBox(models.Model):
 
     #查看整条记录的详情
     def guests_details_action(self):
-        view_form = self.env.ref('funenc_xa_station2.suggestion_box_act_details').id
+        view_form = self.env.ref('funenc_xa_station.suggestion_box_act_details').id
         return {
             'name': '意见箱',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
         }
 
     def create_suggest(self):
-        view_form = self.env.ref('funenc_xa_station2.suggestion_box_form').id
+        view_form = self.env.ref('funenc_xa_station.suggestion_box_form').id
         return {
             'name': '乘客意见箱',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
         }
 
     #编辑form页面的责任部门意见
     def new_create_opnion(self):
-        view_form = self.env.ref('funenc_xa_station2.duty_derpament_opnion_form').id
+        view_form = self.env.ref('funenc_xa_station.duty_derpament_opnion_form').id
         return {
             'name': '乘客意见箱',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'res_id':self.id,
             'flags': {'initial_mode': 'edit'},
@@ -184,14 +184,14 @@ class SuggestionBox(models.Model):
 
     #责任form页面的投诉定性
     def complaints_suer_button(self):
-        view_form = self.env.ref('funenc_xa_station2.complaints_sure').id
+        view_form = self.env.ref('funenc_xa_station.complaints_sure').id
         return {
             'name': '乘客意见箱',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.suggestion_box',
+            'res_model': 'funenc_xa_station.suggestion_box',
             'context': self.env.context,
             'res_id': self.id,
             'flags': {'initial_mode': 'edit'},

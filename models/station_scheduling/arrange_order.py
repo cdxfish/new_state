@@ -10,7 +10,7 @@ class arrange_order(models.Model):
      班次管理
     '''
 
-    _name = 'funenc_xa_station2.arrange_order'
+    _name = 'funenc_xa_station.arrange_order'
     _inherit = 'fuenc_station.station_base'
     _description = u'班次管理'
     _order = 'sort asc'
@@ -101,7 +101,7 @@ class arrange_order(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.arrange_order',
+            'res_model': 'funenc_xa_station.arrange_order',
             'context': self.env.context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -113,7 +113,7 @@ class arrange_order(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.arrange_order',
+            'res_model': 'funenc_xa_station.arrange_order',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -125,7 +125,7 @@ class arrange_order(models.Model):
         self.env.cr.execute(sel_sql)
         select_ids = self.env.cr.dictfetchall()
         if not select_ids:
-            self.env['funenc_xa_station2.arrange_order'].search([('id', '=', self.id)]).unlink()
+            self.env['funenc_xa_station.arrange_order'].search([('id', '=', self.id)]).unlink()
 
         else:
             raise msg.Warning('此班次正在使用，若要删除请不要在排班规则中使用次班次')

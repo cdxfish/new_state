@@ -10,7 +10,7 @@ import base64
 
 
 class drill_plan(models.Model):
-    _name = 'funenc_xa_station2.drill_plan'
+    _name = 'funenc_xa_station.drill_plan'
     _description = u'演练计划'
     _inherit = 'fuenc_station.station_base'
 
@@ -31,13 +31,13 @@ class drill_plan(models.Model):
     drill_plan_qr = fields.Binary(string='二维码')
 
     # 演练结果
-    drill_result_ids = fields.One2many('funenc_xa_station2.drill_result', 'drill_plan_id', string='演练结果')
+    drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果')
 
     # 人员签到
-    sign_in_ids = fields.One2many('funenc_xa_station2.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况')
+    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况')
 
     #站点演练
-    site_drill_plan_ids = fields.One2many('funenc_xa_station2.site_drill_plan','drill_plan_id',string='') #  子
+    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='') #  子
 
     @api.model
     def create(self, vals):
@@ -72,7 +72,7 @@ class drill_plan(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.drill_plan',
+            'res_model': 'funenc_xa_station.drill_plan',
             'context': context,
             'target': 'new',
         }
@@ -84,7 +84,7 @@ class drill_plan(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.drill_plan',
+            'res_model': 'funenc_xa_station.drill_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -102,14 +102,14 @@ class drill_plan(models.Model):
         # record_ids = self.search([
         #     ()
         # ]).ids
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_drill_plan_form_2').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_drill_plan_form_2').id
         return {
             'name': '演练详情',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station2.drill_plan',
+            'res_model': 'funenc_xa_station.drill_plan',
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
@@ -129,7 +129,7 @@ class drill_plan(models.Model):
             insert_id.append((self_id,1,partake_site_id.id))
             line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                 [('departmentId', '=', partake_site_id.parentid)]).id
-            self.env['funenc_xa_station2.drill_result'].create({
+            self.env['funenc_xa_station.drill_result'].create({
                 'line_id': line_id,
                 'site_id': partake_site_id.id,
                 'drill_plan_id': self.id
@@ -171,19 +171,19 @@ class drill_plan(models.Model):
 
 
 class drill_result(models.Model):
-    _name = 'funenc_xa_station2.drill_result'
+    _name = 'funenc_xa_station.drill_result'
     _description = u'演练结果'
     _inherit = 'fuenc_station.station_base'
 
     people_number = fields.Integer(string='参与演练人数')
     state = fields.Selection(string='状态', selection=[('already_filled', '已填写'), ('unfilled', '未填写')])
 
-    drill_plan_id = fields.Many2one('funenc_xa_station2.drill_plan', string='演练计划相关')
+    drill_plan_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练计划相关')
     drill_time = fields.Date(string='演练时间', related='drill_plan_id.drill_time',store=True)
 
 
 class drill_plan_sign_in(models.Model):
-    _name = 'funenc_xa_station2.drill_plan_sign_in'
+    _name = 'funenc_xa_station.drill_plan_sign_in'
     _description = u'演练计划签到情况'
 
     sign_in_time = fields.Datetime(string='签到时间')
@@ -193,10 +193,10 @@ class drill_plan_sign_in(models.Model):
     jobnumber = fields.Char(related='sign_user_id.jobnumber', string="工号")
     position = fields.Text(related='sign_user_id.position', string="职位")
 
-    drill_plan_sign_in_id = fields.Many2one('funenc_xa_station2.drill_plan', string='演练相关')
+    drill_plan_sign_in_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练相关')
 
     # 站点演练签到
-    site_drill_plan_id = fields.Many2one('funenc_xa_station2.site_drill_plan',string='站点演练签到相关')
+    site_drill_plan_id = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练签到相关')
 
     #  委外人员
     is_alien = fields.Integer(string='外人')  # 1 为外人 其他为签到

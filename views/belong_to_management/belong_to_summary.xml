@@ -2,7 +2,7 @@
     <data>
         <!--<record id="belong_to_summary_tree" model="ir.ui.view">-->
             <!--<field name="name">属地管理</field>-->
-            <!--<field name="model">funenc_xa_station2.belong_to_summary</field>-->
+            <!--<field name="model">funenc_xa_station.belong_to_summary</field>-->
             <!--<field name="arch" type="xml">-->
                 <!--<tree>-->
                     <!--<field name="line_id"></field>-->
@@ -23,7 +23,7 @@
 
         <!--<record model="ir.actions.act_window" id="belong_to_summary_act1">-->
             <!--<field name="name">属地管理汇总</field>-->
-            <!--<field name="res_model">funenc_xa_station2.belong_to_summary</field>-->
+            <!--<field name="res_model">funenc_xa_station.belong_to_summary</field>-->
             <!--<field name="view_mode">tree</field>-->
         <!--</record>-->
 

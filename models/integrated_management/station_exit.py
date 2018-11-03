@@ -2,7 +2,7 @@
 from odoo import models, fields, api
 
 class CivilEngineering(models.Model):
-    _name = 'funenc_xa_station2.station_exit'
+    _name = 'funenc_xa_station.station_exit'
     _description = u'安全出口图'
     _inherit = 'fuenc_station.station_base'
 
@@ -16,13 +16,13 @@ class CivilEngineering(models.Model):
 
     def station_exit_see(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_station_exit_see_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_exit_see_form').id
         return {
             'name': '图片查看',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.station_exit',
+            'res_model': 'funenc_xa_station.station_exit',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,

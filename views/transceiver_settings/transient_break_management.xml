@@ -274,7 +274,7 @@
 
         <!--<record id="transient_break_management_act" model="ir.actions.act_window">-->
             <!--<field name="name">工器具故障管理</field>-->
-            <!--<field name="res_model">funenc_xa_station2.transient_break_management</field>-->
+            <!--<field name="res_model">funenc_xa_station.transient_break_management</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

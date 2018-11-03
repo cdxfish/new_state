@@ -180,7 +180,7 @@
 
         <!--<record id="transceiver_settings_act" model="ir.actions.act_window">-->
             <!--<field name="name">工器具使用列表</field>-->
-            <!--<field name="res_model">funenc_xa_station2.transceiver_settings</field>-->
+            <!--<field name="res_model">funenc_xa_station.transceiver_settings</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

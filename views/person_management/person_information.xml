@@ -687,7 +687,7 @@
 			<!--<field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>-->
 			<!--<field name="view_mode">form</field>-->
         <!--</record>-->
-        <!--<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station2.funenc_station"></menuitem>-->
+        <!--<menuitem  name="人员管理系统" id="person_management_menu_" parent="funenc_xa_station.funenc_station"></menuitem>-->
         <!--<menuitem name="人员信息详情" action="person_information_act" id="person_info_menu" parent="person_management_menu_"-->
                   <!--sequence="2"></menuitem>-->
     </data>

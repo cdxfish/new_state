@@ -4,7 +4,7 @@
 from odoo import api, models, fields
 
 class AwardStandard(models.Model):
-    _name = 'funenc_xa_station2.award_standard'
+    _name = 'funenc_xa_station.award_standard'
     _rec_name = 'award_project'
     award_standard_default = fields.Char(string='指标类型',default='奖励标准',readonly=True)
     award_standard_kind = fields.Char(string='奖励指标类')
@@ -17,26 +17,26 @@ class AwardStandard(models.Model):
     #群信server奖励指标隐藏还是显示
     @api.model
     def get_day_plan_publish_action(self):
-        view_tree = self.env.ref('funenc_xa_station2.award_standard_tree').id
+        view_tree = self.env.ref('funenc_xa_station.award_standard_tree').id
         return {
             'name': '奖励指标',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station2.award_standard',
+            'res_model': 'funenc_xa_station.award_standard',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                              [
                                  {'title': '考评指标',
-                                 'action':  'funenc_xa_station2.check_evaluate_act',
-                                 'group':'funenc_xa_station2.table_reward_index',
+                                 'action':  'funenc_xa_station.check_evaluate_act',
+                                 'group':'funenc_xa_station.table_reward_index',
                                  },
                                  {
                                      'title': '奖励指标',
-                                     'action2' : 'funenc_xa_station2.award_standard_act',
-                                     'group' : 'funenc_xa_station2.table_reward_index',
+                                     'action2' : 'funenc_xa_station.award_standard_act',
+                                     'group' : 'funenc_xa_station.table_reward_index',
                                      },
                              ]
                          }''',
@@ -49,7 +49,7 @@ class AwardStandard(models.Model):
             'type':'ir.actions.act_window',
             'view_type':'form',
             'view_mode':'form',
-            'res_model':'funenc_xa_station2.award_standard',
+            'res_model':'funenc_xa_station.award_standard',
             # 'res_id':'',
             'context':self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -62,7 +62,7 @@ class AwardStandard(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station2.award_standard',
+            'res_model': 'funenc_xa_station.award_standard',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -70,7 +70,7 @@ class AwardStandard(models.Model):
         }
 
     def award_delete(self):
-        self.env['funenc_xa_station2.award_standard'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station.award_standard'].search([('id', '=', self.id)]).unlink()
 
     def award_standard_import(self):
         return{

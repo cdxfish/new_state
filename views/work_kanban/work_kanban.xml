@@ -137,7 +137,7 @@
         </record>
 
         <!--<menuitem id="xa_station_work_kanban_2" name="工作看板"-->
-                  <!--parent="funenc_xa_station2.xa_station_work_kanban_1"-->
+                  <!--parent="funenc_xa_station.xa_station_work_kanban_1"-->
                   <!--action="xa_station_work_kanban_2_action"-->
         <!--/>-->
 

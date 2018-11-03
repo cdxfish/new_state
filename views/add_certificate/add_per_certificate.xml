@@ -359,10 +359,10 @@
                     <!--{'tabs':-->
                         <!--[-->
                             <!--{'title': '人员证件',-->
-                            <!--'action':  'funenc_xa_station2.person_certificate_act'},-->
+                            <!--'action':  'funenc_xa_station.person_certificate_act'},-->
                             <!--{-->
                                 <!--'title': '车站证件',-->
-                                <!--'action2': 'funenc_xa_station2.station_certificate_act_id_3'},-->
+                                <!--'action2': 'funenc_xa_station.station_certificate_act_id_3'},-->
                         <!--]-->
                     <!--}-->
                 <!--</field>-->

@@ -260,7 +260,7 @@
 
         <!--<record model="ir.actions.act_window" id="prude_newspaper_act">-->
             <!--<field name="name">生产日报</field>-->
-            <!--<field name="res_model">funenc_xa_station2.prude_newspaper</field>-->
+            <!--<field name="res_model">funenc_xa_station.prude_newspaper</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 
