@@ -382,8 +382,8 @@ class generate_qr(models.Model):
         ding_user = self.env.user.dingtalk_user[0]
         department = ding_user.departments[0]
         if department.department_hierarchy == 3:
-
-            obj =self.search([('create_date','=',datetime.datetime.now())])
+            str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
+            obj =self.search([('create_date','=',str_now_date)])
             if obj:
 
                 return {
@@ -459,23 +459,6 @@ class generate_qr(models.Model):
                 os.remove(file_name)
 
 
-# def create_qrcode_1():
-#         '''
-#         二维码生成
-#         :param filename:
-#         :return:
-#         '''
-#
-#         # 获取本机计算机名称
-#         hostname = socket.gethostname()
-#         # 获取本机ip
-#         ip = socket.gethostbyname(hostname)
-#         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
-#         qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-#         print('http://{}/fuenc_station/index/'.format(ip))
-#         img = qr.make_image()
-#         img.save("../static/images/advanceduse.png")
-# create_qrcode_1()
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
