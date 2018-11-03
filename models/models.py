@@ -364,11 +364,11 @@ class generate_qr(models.Model):
     def init_data(self):
         self.create_qrcode()
         context = dict(self.env.context or {})
-<<<<<<< HEAD
+
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_list').id
         if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
-=======
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
+
+            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
         ding_user = self.env.user.dingtalk_user[0]
         department = ding_user.departments[0]
         if department.department_hierarchy == 3:
@@ -413,9 +413,8 @@ class generate_qr(models.Model):
                     obj.update({'off_work_qr': file_name})
                     imgs.close()
                     os.remove(file_name)
-        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_generate_qr_list').id
-        if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
->>>>>>> ead68ad8d94aa5fa9cfa419669c8d7aae7b5430f
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_list').id
+        if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             context['work_qr'] = '/funenc_xa_station/static/images/work_{}.png'.format(department.id)
@@ -460,7 +459,6 @@ class generate_qr(models.Model):
                 obj.update({'off_work_qr': file_name})
 
 
-<<<<<<< HEAD
 # def create_qrcode_1():
 #         '''
 #         二维码生成
@@ -479,8 +477,7 @@ class generate_qr(models.Model):
 #         img.save("../static/images/advanceduse.png")
 # create_qrcode_1()
 
-=======
->>>>>>> ead68ad8d94aa5fa9cfa419669c8d7aae7b5430f
+
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
 

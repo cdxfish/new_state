@@ -783,14 +783,12 @@
 				   sequence="1"
 		/>
 
-<<<<<<< HEAD
+
 		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="1"
 				  parent="xa_station_production_manage_1"
 				  action="funenc_station_index_action"
 		/>
 
-=======
->>>>>>> 27f8d4eaa2189e15e9c8f16be732fba3c4991123
 		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
 				  parent="xa_station_production_manage_1" sequence="5"
 				  groups="system_work_kanban" action="xa_station_task_type_action"
