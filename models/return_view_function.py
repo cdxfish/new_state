@@ -25,15 +25,21 @@ class ReturnViewFunction(models.AbstractModel):
 
     @api.model
     def return_tab_with_group(self, tab_data, action_id):
-        self._cr.execute('''SELECT module, name FROM ir_model_data WHERE module = 'funenc_xa_station' AND 
-        model = 'ir.actions.server' AND res_id = %s''' % action_id)
-        result = self._cr.fetchall()
+        self._cr.execute('''SELECT module, name FROM ir_model_data WHERE 
+        (module = 'funenc_xa_station' AND model = 'ir.actions.server' AND res_id = %s) OR
+        (module = 'funenc_xa_station' AND model = 'ir.actions.act_window' AND res_id = %s)''' % (action_id, action_id))
+        results = self._cr.fetchall()
         for tab in tab_data:
-            if len(result) == 1 and (tab.get('action', '') == '{}.{}'.format(result[0][0], result[0][1]) or
-                                     tab.get('action2', '') == '{}.{}'.format(result[0][0], result[0][1])):
-                tab['is_this'] = 'true'
-            else:
+            if len(results) == 0:
                 tab['is_this'] = 'false'
+            else:
+                for result in results:
+                    if (tab.get('action', '') == '{}.{}'.format(result[0], result[1]) or
+                            tab.get('action2', '') == '{}.{}'.format(result[0], result[1])):
+                        tab['is_this'] = 'true'
+                        break
+                else:
+                    tab['is_this'] = 'false'
             if tab.get('group', '') != '':
                 if self.user_has_groups(tab['group']) is True:
                     tab['display'] = 'true'

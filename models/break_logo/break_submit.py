@@ -25,6 +25,15 @@ class BreakSubmit(models.Model):
     load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_station_break_submit_dateils_ir_attachment_rel',
                                       'attachment_id', 'meeting_dateils_id', string='图片上传')
     url = fields.Char(string='七牛路径')  # app 上传路径 自己转换
+    browse_image_invisible = fields.Selection([('one', '有图片'), ('zero', '没有图片')], string='显示还是隐藏图片', default='zero')
+
+    #在创建的时候改变分数的正负数
+    # @api.model
+    # def create(self, vals):
+    #     if vals['load_file_test'][1]:
+    #         vals['browse_image_invisible'] = 'one'
+    #         return super(BreakSubmit, self).create(vals)
+    #     return super(BreakSubmit, self).create(vals)
 
     # 创建一条新的记录
     def new_increase_record(self):

@@ -291,7 +291,7 @@
                                      <div class="col-md-10">
                                          <!--<label for="certificate_money" string="上传证件照片"/>-->
                                          <div class="x_panel form_sec">
-                                            <field name="load_file_test" widget="one2many_binary">
+                                            <field name="load_file_test" widget="many2many_binary">
                                                 <tree>
                                                     <field name="datas_fname"/>
                                                 </tree>

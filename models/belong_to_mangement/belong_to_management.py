@@ -4,6 +4,7 @@
 from odoo import api, models, fields
 from .. get_domain import get_domain
 import odoo.exceptions as warning
+from dateutil.relativedelta import relativedelta
 
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
