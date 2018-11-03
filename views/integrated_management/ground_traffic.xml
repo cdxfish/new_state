@@ -22,7 +22,10 @@
 						<div class="text-center ">
 							<h1> 地面环境 </h1>
 						</div>
-						<div class="text-center ">
+						<field name="line_id" invisible="1"/>
+						<field name="site_id" invisible="1"/>
+
+						<div class="text-center">
 							<field name="ground_environment_ids">
 								<tree editable="top" class="noOpen">
 									<field name="entrance_exit" string="出入口"/>

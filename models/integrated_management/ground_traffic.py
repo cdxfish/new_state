@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields
 
 class GroundTraffic(models.Model):
     _name = 'funenc_xa_station.ground_traffic'
     _description = u'地面交通'
-    _rec_name = 'ground_environment_ids'
+    # _rec_name = 'ground_environment_ids'
     _inherit = 'fuenc_station.station_base'
 
     ground_environment_ids = fields.One2many('funenc_xa_station.ground_environment','ground_traffic_id',string='地面环境')

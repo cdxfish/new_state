@@ -68,31 +68,19 @@ odoo.define('funenc_xa_award', function (require) {
       }
     },
 
-    renderElement: function(){
-      var self = this;
-      var $el = $('<div id="funenc_xa_award"></div>');
-      self.replaceElement($el);
-    },
-
     start: function () {
       var self = this;
-
-      self._rpc({
+      $.when(self._rpc({
           model: 'funenc_xa_station.award_collect',
           method:'award_record_method'
-
-        }).then(function(data){
-          self.user_data=data;
-        });
-
-      this._rpc({
+        }), this._rpc({
           model: 'vue_template_manager.template_manage',
           method: 'get_template_content',
           kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_award'}
-      }).then(function (res) {
-           self.$el.append(res);
-           setTimeout(function () {
-               var vue = new Vue({
+      })).then(function (user_data, res) {
+          self.user_data = user_data;
+          self.replaceElement($(res));
+          var vue = new Vue({
                     el: '#funenc_xa_award',
                     data() {
                        return {
@@ -201,12 +189,7 @@ odoo.define('funenc_xa_award', function (require) {
                     },
 
                     });
-
-            },1000);
-
-
-
-      });
+      })
     },
 
 

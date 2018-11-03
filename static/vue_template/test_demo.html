@@ -2,23 +2,23 @@
     <el-row>
         <h1>交接班</h1> <br>
     </el-row>
-    姓名:{{user.name}}
-    线路:{{user.line_id}}
-    站点:{{user.department_name}}
-    工号:{{user.jobnumber}}
-    岗位：{{user.position}}
+    <el-row type="flex" style="margin-bottom: 20px">
+        姓名:{{user.name}}
+        线路:{{user.line_id}}
+        站点:{{user.department_name}}
+        工号:{{user.jobnumber}}
+        岗位：{{user.position}}
+    </el-row>
 
-
-    <el-row>
-
-        <el-button type="primary" plain @click="shift_shift">交班</el-button>
-        <el-button type="primary" plain @click="take_over_1">接班</el-button>
+    <el-row style="margin-bottom: 20px">
+        <el-button type="primary" size="small" @click="shift_shift">交班</el-button>
+        <el-button type="primary" size="small" @click="take_over_1">接班</el-button>
     </el-row>
 
     <template>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="历史交班信息" name="first">
-                <el-table :data="change_shifts_ids" stripe style="width: 100%">
+                <el-table :data="change_shifts_ids" border="true" size="mini" stripe style="width: 100%">
 
                     <!--<el-table-column prop="index" label="序号" width="180">-->
                     </el-table-column>
@@ -42,7 +42,7 @@
 
             </el-tab-pane>
             <el-tab-pane label="历史接班信息" name="second">
-                <el-table :data="take_over_from_ids" stripe style="width: 100%">
+                <el-table :data="take_over_from_ids" border="true" size="mini" stripe style="width: 100%">
 
                     <!--<el-table-column prop="index" label="序号" width="180">-->
                     </el-table-column>

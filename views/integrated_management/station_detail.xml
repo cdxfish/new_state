@@ -41,6 +41,8 @@
 						<div class="text-center ">
 							<h1> 车站性质 </h1>
 						</div>
+						<field name="line_id" invisible="1"/>
+						<field name="site_id" invisible="1"/>
 						<div class="text-center ">
 							<field name="station_nature" />
 						</div>

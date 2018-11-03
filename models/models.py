@@ -375,55 +375,37 @@ class generate_qr(models.Model):
                 'target': 'new',
             }
 
-        self.create_qrcode()
-        context = dict(self.env.context or {})
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
         ding_user = self.env.user.dingtalk_user[0]
         department = ding_user.departments[0]
+        str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
         if department.department_hierarchy == 3:
 
-            obj = self.search([('site_id', '=',department.id )])
+            obj = self.search([('site_id', '=', department.id)])
 
             if obj:
 
-                return {
-                    'name': '上下班打卡',
-                    'type': 'ir.actions.act_window',
-                    "views": [[view_form, "form"]],
-                    'res_model': 'funenc_xa_station.generate_qr',
-                    'context': context,
-                    'res_id': obj.id,
-                    'target': 'current',
-                }
+                if obj.str_now_date == str_now_date:
+
+                    return {
+                        'name': '上下班打卡',
+                        'type': 'ir.actions.act_window',
+                        "views": [[view_form, "form"]],
+                        'res_model': 'funenc_xa_station.generate_qr',
+                        'res_id': obj.id,
+                        'target': 'current',
+                    }
+                else:
+                    obj.write({
+
+                    })
             else:
 
-                ding_user = self.env.user.dingtalk_user[0]
-                department = ding_user.departments[0]
                 file = os.path.dirname(os.path.dirname(__file__))
+                file_name = file + "/static/images/off_work_{}.png".format(department.id)
                 if department.department_hierarchy == 3:
-                    # 获取本机计算机名称
-                    hostname = socket.gethostname()
-                    # 获取本机ip
-                    ip = socket.gethostbyname(hostname)
-                    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
-                                       border=4, )
-                    qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                    print('http://{}/fuenc_station/index/'.format(ip))
-                    img = qr.make_image()
-                    file_name = file + "/static/images/work_{}.png".format(department.id)
-                    img.save(file_name)
-                    imgs = open(file_name, 'rb')
-                    datas = imgs.read()
-                    file_b64 = base64.b64encode(datas)
-                    os.remove(file_name)
-                    obj = self.create({'work_qr': file_b64})
+                    pass
 
-                    file_name = file + "/static/images/off_work_{}.png".format(department.id)
-                    qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
-                    img.save(file_name)
-                    obj.update({'off_work_qr': file_name})
-                    imgs.close()
-                    os.remove(file_name)
 
     def create_qrcode(self):
         '''
@@ -435,6 +417,7 @@ class generate_qr(models.Model):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             file = os.path.dirname(os.path.dirname(__file__))
+            file_name = file + "/static/images/work_{}.png".format(department.id)
             if department.department_hierarchy == 3:
                 # 获取本机计算机名称
                 hostname = socket.gethostname()
@@ -443,9 +426,8 @@ class generate_qr(models.Model):
                 qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
                                    border=4, )
                 qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                print('http://{}/fuenc_station/index/'.format(ip))
                 img = qr.make_image()
-                file_name = file + "/static/images/work_{}.png".format(department.id)
+
                 img.save(file_name)
                 imgs = open(file_name, 'rb')
                 datas = imgs.read()
@@ -459,24 +441,30 @@ class generate_qr(models.Model):
                 imgs.close()
                 os.remove(file_name)
 
+    def create_qrcode_1(self,add_data,file_name):
+        '''
+        二维码生成
+        '''
+        # add_data = http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}
+        # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
+        file = os.path.dirname(os.path.dirname(__file__))
+        qr_file = os.path.dirname(os.path.dirname(file))
+        # 获取本机计算机名称
+        hostname = socket.gethostname()
+        # 获取本机ip
+        ip = socket.gethostbyname(hostname)
+        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
+        qr.add_data(add_data)
+        img = qr.make_image()
+        img.save(file_name)
+        imgs = open(file_name, 'rb')
+        datas = imgs.read()
+        file_b64 = base64.b64encode(datas)
+        imgs.close()
+        os.remove(file_name)
 
-# def create_qrcode_1():
-#         '''
-#         二维码生成
-#         :param filename:
-#         :return:
-#         '''
-#
-#         # 获取本机计算机名称
-#         hostname = socket.gethostname()
-#         # 获取本机ip
-#         ip = socket.gethostbyname(hostname)
-#         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
-#         qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-#         print('http://{}/fuenc_station/index/'.format(ip))
-#         img = qr.make_image()
-#         img.save("../static/images/advanceduse.png")
-# create_qrcode_1()
+        return file_b64
+
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'

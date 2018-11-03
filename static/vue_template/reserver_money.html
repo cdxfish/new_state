@@ -3,7 +3,7 @@
 	 <el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<template>
-			  <el-select v-model="linei" placeholder="线路" @change="search_line_data">
+			  <el-select v-model="linei" size="small" placeholder="线路" @change="search_line_data">
 				<el-option
 				  v-for="item in lines"
 				  :key="item.id"
@@ -14,7 +14,7 @@
 			  </el-select>
 			</template>
 			<template>
-			  <el-select v-model="site" placeholder="站点" @change="search_site_data">
+			  <el-select v-model="site" size="small" placeholder="站点" @change="search_site_data">
 				<el-option
 				  v-for="item in sites"
 				  :key="item.id"
@@ -28,7 +28,7 @@
 				<!--<el-button type="primary" icon="el-icon-circle-plus-outline" width="180"-->
 						   <!--@click="add_record">新增记录</el-button>-->
 			    <!--<el-button type="primary" icon="el-icon-upload2" width="180" >导入</el-button>-->
-				<el-button type="primary" width="180"
+				<el-button type="primary" size="small"
 						   @click="import_excel_reserves">导出</el-button>
 			  </div>
 		 	<br/>
