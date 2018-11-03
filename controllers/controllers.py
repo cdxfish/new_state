@@ -8,17 +8,21 @@ _logger = logging.getLogger(__name__)
 
 
 class FuencStation(http.Controller):
-    @http.route('/funenc_xa_station/check_collect/', type='http', auth='none')
-    def index(self, **kw):
+
+    @http.route('/funenc_xa_station/redirect/check_collect', type='http', auth='none')
+    def redirect_check_collect(self,**kw):
+        if kw.get('type') == 'work':
+
+            return http.local_redirect(
+                '/funenc_xa_station/static/html/get_work_code.html?site_id={}'.format(kw.get('site_id')))
+        else:
+            pass
+    @http.route('/funenc_xa_station/check_collect', type='http', auth='none')
+    def check_collect(self, **kw):
         try:
-            payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f',
-                       'appsecret': '7E4S7vJhcnDQ4jUwCuCbHo7qkisscY5Yq8dP0gW0dsFYs0USp4bw8WuhLFa19trr'}
-            _resp = requests.get('https://oapi.dingtalk.com/sns/gettoken', params=payload).json()
-            url = 'https://oapi.dingtalk.com/sns/get_persistent_code?access_token={}'.format(_resp.get('access_token'))
-            payload = {'tmp_auth_code': ''}
-            res = requests.post(url, json=payload).json()
-            openid = res.get('openid')
-            user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId', '=', openid)])
+            code = kw.get('code')
+            user_id = self.get_code(code)
+
             arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
                 [('site_id', '=', user_id.departments[0].id),
                  ('user_id', '=', user_id.id),
@@ -74,15 +78,6 @@ class FuencStation(http.Controller):
             'object': obj
         })
 
-    # @http.route('controllers/training_plan/punch_the_clock', type='http', auth='none')
-    # def punch_the_clock(self):
-    #     '''
-    #     培训打卡
-    #     :param kw:
-    #     :return:
-    #     '''
-    #
-    #     return "打卡成功"
 
     @http.route('/controllers/training_plan/punch_the_clock', type='http', auth='none')
     def training_plan_local_redirect_1(self, **kw):

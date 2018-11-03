@@ -818,6 +818,8 @@
 
 
 		<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>
+		<menuitem  name="预设交接班" id="person_management_menu_" sequence="8"></menuitem>
+
 
 
         <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
@@ -827,22 +829,22 @@
 				  action="xa_station_station_master_action11"
 		/>
 
-		<menuitem id="xa_station_car_line_111" name="行车值班员1"
+		<menuitem id="xa_station_car_line_111" name="行车值班员"
 				  parent="person_management_menu_"
 				  action="xa_station_car_line_action11"
 		/>
 
-		<menuitem id="xa_station_passenger_transport_11" name="客运值班员1"
+		<menuitem id="xa_station_passenger_transport_11" name="客运值班员"
 				  parent="person_management_menu_"
 				  action="xa_station_passenger_transport_action11"
 		/>
 
-		<menuitem id="xa_station_station_service_1" name="站务员1"
+		<menuitem id="xa_station_station_service_1" name="站务员"
 				  parent="person_management_menu_"
 				  action="xa_station_station_service_action11"
 		/>
 
-		<menuitem id="xa_station_ticket_booth_1" name="票亭岗1"
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
 				  parent="person_management_menu_"
 				  action="xa_station_ticket_booth_action11"
 		/>

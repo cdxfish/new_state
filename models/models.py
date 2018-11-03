@@ -382,10 +382,25 @@ class generate_qr(models.Model):
         if department.department_hierarchy == 3:
 
             obj = self.search([('site_id', '=', department.id)])
+            # 获取本机计算机名称
+            hostname = socket.gethostname()
+            # 获取本机ip
+            ip = socket.gethostbyname(hostname)
+
+
+            file = os.path.dirname(os.path.dirname(__file__))
+
+            work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
+                                                                                                         department.id)
+            print(work_add_data)
+            work_file_name = file + "/static/images/work_{}.png".format(str_now_date[:10])
+            off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(ip,
+                                                                                                             department.id)
+            off_work_name = file + "/static/images/off_work_{}.png".format(str_now_date[:10])
 
             if obj:
 
-                if obj.str_now_date == str_now_date:
+                if obj.add_date == str_now_date:
 
                     return {
                         'name': '上下班打卡',
@@ -396,63 +411,39 @@ class generate_qr(models.Model):
                         'target': 'current',
                     }
                 else:
+                    work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
+
+                    off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
                     obj.write({
+
+                        'work_qr': work_b64,
+                        'off_work_qr': off_work_b64,
+                        'add_date': datetime.datetime.now()
 
                     })
             else:
 
-                file = os.path.dirname(os.path.dirname(__file__))
-                file_name = file + "/static/images/off_work_{}.png".format(department.id)
-                if department.department_hierarchy == 3:
-                    pass
+                work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
+
+                off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
+
+                self.create({
+                    'work_qr': work_b64,
+                    'off_work_qr': off_work_b64,
+                    'add_date': datetime.datetime.now()
+                })
 
 
-    def create_qrcode(self):
+    def create_qrcode_1(self, add_data, file_name):
+
         '''
         二维码生成
         '''
-        if self.env.user.id == 1:
-            return
-        else:
-            ding_user = self.env.user.dingtalk_user[0]
-            department = ding_user.departments[0]
-            file = os.path.dirname(os.path.dirname(__file__))
-            file_name = file + "/static/images/work_{}.png".format(department.id)
-            if department.department_hierarchy == 3:
-                # 获取本机计算机名称
-                hostname = socket.gethostname()
-                # 获取本机ip
-                ip = socket.gethostbyname(hostname)
-                qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
-                                   border=4, )
-                qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                img = qr.make_image()
 
-                img.save(file_name)
-                imgs = open(file_name, 'rb')
-                datas = imgs.read()
-                file_b64 = base64.b64encode(datas)
-                os.remove(file_name)
-                obj = self.create({'work_qr': file_b64})
-                file_name = file + "/static/images/off_work_{}.png".format(department.id)
-                qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
-                img.save(file_name)
-                obj.update({'off_work_qr': file_name})
-                imgs.close()
-                os.remove(file_name)
-
-    def create_qrcode_1(self,add_data,file_name):
-        '''
-        二维码生成
-        '''
         # add_data = http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}
         # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
-        file = os.path.dirname(os.path.dirname(__file__))
-        qr_file = os.path.dirname(os.path.dirname(file))
         # 获取本机计算机名称
-        hostname = socket.gethostname()
         # 获取本机ip
-        ip = socket.gethostbyname(hostname)
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
         qr.add_data(add_data)
         img = qr.make_image()
@@ -461,7 +452,7 @@ class generate_qr(models.Model):
         datas = imgs.read()
         file_b64 = base64.b64encode(datas)
         imgs.close()
-        os.remove(file_name)
+        # os.remove(file_name)
 
         return file_b64
 
