@@ -50,7 +50,7 @@
             <field name="name">工器具使用列表</field>
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
@@ -69,7 +69,7 @@
             <field name="name">工器具使用列表</field>
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                         <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-4">
@@ -159,7 +159,7 @@
             <field name="name">工器具使用列表</field>
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
-                <form create="0" edit="0">
+                <form create="0" edit="0" class="noOpen">
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-2">

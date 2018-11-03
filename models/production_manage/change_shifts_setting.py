@@ -33,7 +33,8 @@ class preparedness(models.Model):
     ticket_booth_id = fields.Many2one('funenc_xa_station.ticket_booth_id', string='')
     passenger_transport_id = fields.Many2one('funenc_xa_station.passenger_transport', string='')
 
-
+    station_master_to_shifts_ids = fields.One2many('funenc_xa_station.station_master_to_production_change_shifts',
+                                                   'station_master_id', string='交接班')
 
 class preparedness_1(models.Model):
     _name = 'funenc_xa_station.preparedness_1'
@@ -333,3 +334,5 @@ class special_card_preset(models.Model):
     production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
 
+class spare_gold(models.Model):
+    _name = 'funenc_xa_station.spare_gold'

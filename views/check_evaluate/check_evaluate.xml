@@ -110,7 +110,7 @@
             <field name="name">check_evaluate_tree</field>
             <field name="model">funenc_xa_station.check_standard</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="check_standard"></field>

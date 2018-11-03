@@ -10,12 +10,12 @@ class BelongToManagement(models.Model):
     _inherit = 'fuenc_station.station_base'
 
     post_check = fields.Selection([('guard', '保安'), ('check', '安检'), ('clean', '保洁')], string='岗位检查')
-    check_time = fields.Datetime(string='检测时间', required=True)
-    check_state = fields.Text(string='检测情况', required=True)
+    check_time = fields.Datetime(string='检测时间')
+    check_state = fields.Text(string='检测情况')
     find_problem = fields.Text(string='发现问题')
     reference_according = fields.Char(string='参考依据')
     local_image = fields.Binary(string='现场照片')
-    check_score = fields.Float(string='考核分值', required=True)
+    check_score = fields.Float(string='考核分值',)
     note = fields.Char(string='备注')
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char(string='填报人',
@@ -36,7 +36,7 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-        if vals['load_file_test']:
+        if vals['load_file_test'][0][2]:
             vals['browse_image_invisible'] = 'one'
         return super(BelongToManagement, self).create(vals)
 

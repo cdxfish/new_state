@@ -63,7 +63,7 @@
             <field name="name">乘客意见箱</field>
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-2">
@@ -288,7 +288,7 @@
             <field name="name">意见箱</field>
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <h2>基本信息</h2>
                     <div class="row">
                        <div class="col-md-6">
@@ -670,7 +670,7 @@
             <field name="name">投诉定性</field>
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-3">

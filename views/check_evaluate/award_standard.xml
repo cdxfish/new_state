@@ -102,7 +102,7 @@
             <field name="name">award_standard</field>
             <field name="model" >funenc_xa_station.award_standard</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="award_standard_default"></field>

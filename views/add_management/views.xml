@@ -69,7 +69,7 @@
             <field name="name">新增规章制度</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group name="group_top">
                             <group name="group_right">
@@ -97,7 +97,7 @@
             <field name="name">新增规章制度</field>
             <field name="model">xian_metro.xian_metro</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group string="点击下载">
                             <field name="details" filename="file_name"></field>

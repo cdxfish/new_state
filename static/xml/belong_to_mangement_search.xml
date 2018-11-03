@@ -5,24 +5,21 @@
 	<t t-name="blong_to_management_search">
 		<div class="form-inline custom_search_box">
 			<div class="container-fluid">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">线路:</label>
-					<div for="line_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+				<div class="col-lg-2 " style="margin-bottom:5px; height:40px; line-height:40px;">
+					<div class="search_label" style="float:left;width:auto;">线路:</div>
+					<div for="line_id" class="col-xs-8" style="float:left;"></div>
 				</div>
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">站点:</label>
-					<div for="site_id" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
+				<div class="col-lg-2 " style="margin-bottom:5px; ; height:40px; line-height:40px;" >
+					<span class="search_label" style="float:left;">站点:</span>
+					<span for="site_id" class=" col-xs-8" style=""/>
 				</div>
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:300px;">
-					<label class="search_label col-lg-3 col-md-4 col-sm-4 col-xs-4">日期:</label>
-					<div for="check_time" class="form-widget-item col-md-5 col-sm-5 col-xs-8"/>
-				</div>
-				<div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px;">
+                <div class="col-lg-2 " style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">日期:</span>
+                    <span for="check_time" class="col-xs-8"></span>
+                </div>
+				<div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
 					<button type="button" class="btn btn-default search_extend_apply">
 						搜索
-					</button>
-					<button type="button" class="btn btn-default search_extend_reset">
-						重置
 					</button>
 				</div>
 			</div>

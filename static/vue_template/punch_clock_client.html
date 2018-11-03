@@ -9,8 +9,8 @@
                     <el-date-picker
                             v-model="month"
                             type="month"
+                            size="small"
                             placeholder="选择月份">
-
                     </el-date-picker>
                 </el-col>
             </el-row>
@@ -144,6 +144,7 @@
                 <el-table-column
                         prop="user_name"
                         align="center"
+                        type="expand"
                         label="班组人员">
                 </el-table-column>
                 <el-table-column

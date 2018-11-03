@@ -2,7 +2,7 @@
 <odoo>
 	<data>
 
-        <record model="ir.ui.view" id="funenc_xa_station_generate_qr_form">
+        <record model="ir.ui.view" id="funenc_xa_station_generate_qr_list">
 			<field name="name">funenc_xa_station_generate_qr_list</field>
 			<field name="model">funenc_xa_station.generate_qr</field>
 			<field name="arch" type="xml">
@@ -10,11 +10,11 @@
                     <div class="form-group">
                         <div class="text-center">
                             <h1>上班二维码</h1>
-                             <field name="work_qr" readonly="1"/>
+                             <field name="work_qr" />
                         </div>
                         <div class="text-center ">
                              <h1>下班二维码</h1>
-                             <field name="off_work_qr" readonly="1"/>
+                             <img src="${context.work_qr}"  alt="下班二维码"/>
 
                         </div>
                     </div>

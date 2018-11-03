@@ -62,7 +62,7 @@
             <field name="name">好人好事</field>
             <field name="model">fuenc_station.good_deeds</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <div class="container-fluid">
                         <div class="row">
                            <div class="col-md-6">
@@ -185,7 +185,7 @@
             <field name="name">好人好事详情</field>
             <field name="model">fuenc_station.good_deeds</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                         <h1>基本信息</h1>
                         <div class="row">
                            <div class="col-md-6">

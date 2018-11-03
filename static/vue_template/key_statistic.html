@@ -1,38 +1,76 @@
-<el-row>
-  <el-button type="primary" plain @click="create_key">创建钥匙</el-button>
-  <el-button type="primary" plain @click="key_borrow_record">钥匙借用</el-button>
-  <el-button type="primary" plain @click="key_return">钥匙归还</el-button>
-  <el-button type="primary" plain @click="key_borrow_record_list">借用记录</el-button>
-</el-row>
-<br />
 <div id="funenc_xa_station">
-     <template>
-  <el-table :data="tableData" stripe style="width: 100%">
-
-    <el-table-column prop="index" label="序号" width="180" >
-    </el-table-column>
-    <el-table-column prop="line_id" label="线路" width="180">
-    </el-table-column>
-    <el-table-column prop="key_type" label="钥匙类型">
-    </el-table-column>
-    <el-table-column prop="site_id" label="归属站点">
-    </el-table-column>
-    <el-table-column prop="key_total" label="钥匙总量">
-    </el-table-column>
-    <el-table-column prop="master_number" label="主钥匙数量">
-    </el-table-column>
-    <el-table-column prop="copy_number" label="备用钥匙数量">
-    </el-table-column>
-     <el-table-column prop="borrow_number" label="借出数量">
-    </el-table-column>
-     <el-table-column prop="destroy_number" label="损耗数量">
-    </el-table-column>
-
-  </el-table>
-</template>
-
-
+    <el-row type="flex" align="middle">
+        <el-form :inline="true" class="demo-form-inline">
+            <el-form-item>
+                <span style="font-size: 13px">线路：</span>
+                <el-select v-model="line" filterable placeholder="请选择线路" size="small">
+                    <el-option v-for="item in lines" :key="item.id" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <span style="font-size: 13px">归属站点：</span>
+                <el-select v-model="station" filterable placeholder="请选择归属站点" size="small">
+                    <el-option v-for="item in stations" :key="item.id" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <span style="font-size: 13px">钥匙分类：</span>
+                <el-select v-model="key" filterable placeholder="请选择钥匙分类" size="small">
+                    <el-option v-for="item in keys" :key="item.id" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button size="small" type="primary" @click="onSubmit">搜索</el-button>
+            </el-form-item>
+        </el-form>
+    </el-row>
+    <el-row>
+        <el-button type="primary" size="small" @click="create_key">创建钥匙</el-button>
+        <el-button type="primary" size="small" @click="key_borrow_record">钥匙借用</el-button>
+        <el-button type="primary" size="small" @click="key_return">钥匙归还</el-button>
+        <el-button type="primary" size="small" @click="key_borrow_record_list">借用记录</el-button>
+    </el-row>
+    <br />
+    <el-row style="margin-bottom: 20px">
+        <template>
+            <el-table border="true" :data="tableData" stripe size="mini" style="width: 100%">
+                <el-table-column prop="index" align="center" label="序号" width="50" type="index">
+                </el-table-column>
+                <el-table-column prop="line_id" align="center" label="线路">
+                </el-table-column>
+                <el-table-column prop="key_type" align="center" label="钥匙类型">
+                </el-table-column>
+                <el-table-column prop="site_id" align="center" label="归属站点">
+                </el-table-column>
+                <el-table-column prop="key_total" align="center" label="钥匙总量">
+                </el-table-column>
+                <el-table-column prop="master_number" align="center" label="主钥匙数量" >
+                </el-table-column>
+                <el-table-column prop="copy_number" align="center" label="备用钥匙数量" > 
+                </el-table-column>
+                <el-table-column prop="borrow_number" align="center" label="借出数量" >
+                </el-table-column>
+                <el-table-column prop="destroy_number" align="center" label="损耗数量" >
+                </el-table-column>
+                <el-table-column align="center" label="操作" >
+                        <template slot-scope="scope">
+                                <el-button type="danger" size="small" @click="details(scope.row)">查看详情</el-button>
+                        </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </el-row>
+    <el-row type="flex" justify="end">
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :total="total"
+            :page-size="20"
+            layout="prev, pager, next, jumper">
+        </el-pagination>
+        </div>
+    </el-row>
 </div>
-
-
-
