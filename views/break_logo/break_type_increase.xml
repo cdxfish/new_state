@@ -16,7 +16,7 @@
             <field name="name">故障类型设置</field>
             <field name="model">funenc_xa_staion.break_type_increase</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="break_type"></field>

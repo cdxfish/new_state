@@ -13,7 +13,7 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class BelongToManageImport(http.Controller):
-    @http.route('/funenc_xa_station/belong_to_management_import', type='http', auth='public')
+    @http.route('/funenc_xa_station2/belong_to_management_import', type='http', auth='public')
     def import_excel(self, **kw):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作
@@ -22,7 +22,7 @@ class BelongToManageImport(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station.belong_to_management'].search([])
+        records = request.env['funenc_xa_station2.belong_to_management'].search([])
         if len(records) > 0:
             for record in records:
                 if record.line_id.name:

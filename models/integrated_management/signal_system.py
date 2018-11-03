@@ -2,16 +2,16 @@
 from odoo import models, fields, api
 
 class SignalSystem(models.Model):
-    _name = 'funenc_xa_station.signal_system'
+    _name = 'funenc_xa_station2.signal_system'
     _description = u'信号系统'
     _inherit = 'fuenc_station.station_base'
 
     name= fields.Char(string='', default=' ')
-    signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine', 'signal_system_id', string='信号机位置编号')
+    signal_machine_ids = fields.One2many('funenc_xa_station2.signal_machine', 'signal_system_id', string='信号机位置编号')
 
 
 class SignalMachine(models.Model):
-    _name = 'funenc_xa_station.signal_machine'
+    _name = 'funenc_xa_station2.signal_machine'
     _description = u'信号机'
     _rec_name = ''
 
@@ -21,4 +21,4 @@ class SignalMachine(models.Model):
     type = fields.Char(string='类型')
     excursus = fields.Char(string='附记')
 
-    signal_system_id = fields.Many2one('funenc_xa_station.signal_system')
+    signal_system_id = fields.Many2one('funenc_xa_station2.signal_system')

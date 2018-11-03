@@ -117,7 +117,7 @@
 
         <!--<record model="ir.actions.act_window" id="xa_station_site_drill_plan_action_1">-->
         <!--<field name="name">演练计划</field>-->
-        <!--<field name="res_model">funenc_xa_station.site_drill_plan</field>-->
+        <!--<field name="res_model">funenc_xa_station2.site_drill_plan</field>-->
         <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

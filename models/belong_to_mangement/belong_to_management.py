@@ -6,16 +6,16 @@ from .. get_domain import get_domain
 import odoo.exceptions as warning
 
 class BelongToManagement(models.Model):
-    _name = 'funenc_xa_station.belong_to_management'
+    _name = 'funenc_xa_station2.belong_to_management'
     _inherit = 'fuenc_station.station_base'
 
     post_check = fields.Selection([('guard', '保安'), ('check', '安检'), ('clean', '保洁')], string='岗位检查')
-    check_time = fields.Datetime(string='检测时间', required=True)
-    check_state = fields.Text(string='检测情况', required=True)
+    check_time = fields.Datetime(string='检测时间')
+    check_state = fields.Text(string='检测情况')
     find_problem = fields.Text(string='发现问题')
     reference_according = fields.Char(string='参考依据')
     local_image = fields.Binary(string='现场照片')
-    check_score = fields.Float(string='考核分值', required=True)
+    check_score = fields.Float(string='考核分值',)
     note = fields.Char(string='备注')
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char(string='填报人',
@@ -36,14 +36,14 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-        if vals['load_file_test']:
+        if vals['load_file_test'][0][2]:
             vals['browse_image_invisible'] = 'one'
         return super(BelongToManagement, self).create(vals)
 
     @get_domain
     @api.model
     def get_day_plan_publish_action(self,domain):
-        view_form = self.env.ref('funenc_xa_station.belong_to_management_tree').id
+        view_form = self.env.ref('funenc_xa_station2.belong_to_management_tree').id
         return {
             'name': '属地管理属地管理',
             'type': 'ir.actions.act_window',
@@ -51,7 +51,7 @@ class BelongToManagement(models.Model):
             'view_mode': 'form',
             'domain':domain,
             "views": [[view_form, "tree"]],
-            'res_model': 'funenc_xa_station.belong_to_management',
+            'res_model': 'funenc_xa_station2.belong_to_management',
             'context': self.env.context,
         }
 
@@ -72,14 +72,14 @@ class BelongToManagement(models.Model):
     #创建新记录
     @api.model
     def create_belong_to_action(self):
-        # view_form = self.env.ref('funenc_xa_station.belong_to_management_form').id
+        # view_form = self.env.ref('funenc_xa_station2.belong_to_management_form').id
         return {
             'name': '属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             # "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.belong_to_management',
+            'res_model': 'funenc_xa_station2.belong_to_management',
             'context': self.env.context,
             'target':'new',
         }
@@ -92,7 +92,7 @@ class BelongToManagement(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.belong_to_management',
+            'res_model': 'funenc_xa_station2.belong_to_management',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -101,7 +101,7 @@ class BelongToManagement(models.Model):
 
     # 删除当前的记录
     def delete_action(self):
-        self.env['funenc_xa_station.belong_to_management'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station2.belong_to_management'].search([('id', '=', self.id)]).unlink()
 
     @api.model
     def get_belong_to_management(self):
@@ -166,14 +166,14 @@ class BelongToManagement(models.Model):
 
     #查看现场图片
     def browse_image_button_act(self):
-        view_form = self.env.ref('funenc_xa_station.browse_iamge_form').id
+        view_form = self.env.ref('funenc_xa_station2.browse_iamge_form').id
         return {
             'name': '属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.belong_to_management',
+            'res_model': 'funenc_xa_station2.belong_to_management',
             'context': self.env.context,
             'res_id': self.id,
             'flags': {'initial_mode': 'readonly'},

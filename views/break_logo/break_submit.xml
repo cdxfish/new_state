@@ -437,7 +437,7 @@
 
         <!--<record id="break_submit_act" model="ir.actions.act_window">-->
             <!--<field name="name">故障提报</field>-->
-            <!--<field name="res_model">funenc_xa_station.break_submit</field>-->
+            <!--<field name="res_model">funenc_xa_station2.break_submit</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 

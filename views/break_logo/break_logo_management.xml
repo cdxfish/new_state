@@ -63,14 +63,14 @@
             <field name="name">故障标识管理</field>
             <field name="model">funenc_xa_station.break_log_manage</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                         <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-4">
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id"/>
+                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -78,7 +78,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id"/>
+                                     <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                         </div>
@@ -109,7 +109,7 @@
                                  <label for="before_break_img" string="故障图片" />
                               </div>
                              <div class="col-md-8">
-                                 <field name="before_break_img"/>
+                                 <field name="before_break_img" required="1"/>
                               </div>
                            </div>
                         </div>
@@ -121,7 +121,7 @@
             <field name="name">故障标识管理</field>
             <field name="model">funenc_xa_station.break_log_manage</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                         <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-4">
@@ -179,7 +179,7 @@
                                  <label for="after_break_img" string="修复后图片" />
                               </div>
                              <div class="col-md-8">
-                                 <field name="after_break_img"/>
+                                 <field name="after_break_img" required="1"/>
                               </div>
                            </div>
                         </div>
@@ -189,7 +189,7 @@
 
         <!--<record id="break_log_manage_act" model="ir.actions.act_window">-->
             <!--<field name="name">故障标识管理</field>-->
-            <!--<field name="res_model">funenc_xa_station.break_log_manage</field>-->
+            <!--<field name="res_model">funenc_xa_station2.break_log_manage</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

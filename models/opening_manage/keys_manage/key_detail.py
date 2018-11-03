@@ -98,8 +98,8 @@ class KeyDetail(models.Model):
     def key_detail_state_change_start(self):
         context = {}
         context['state_now'] = 'normal'
-        # view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_borrow_record_list').id
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_start').id
+        # view_tree = self.env.ref('funenc_xa_station2.funenc_xa_station_borrow_record_list').id
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_key_detail_operate_remark_form_start').id
         return {
             'name': '操作说明',
             "type": "ir.actions.act_window",
@@ -116,7 +116,7 @@ class KeyDetail(models.Model):
     def key_detail_state_change_fixed(self):
         context = {}
         context['search_default_state_now'] = 'fixed'
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_fixed').id
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_key_detail_operate_remark_form_fixed').id
         return {
             'name': '操作说明',
             "type": "ir.actions.act_window",
@@ -130,7 +130,7 @@ class KeyDetail(models.Model):
 
     @api.multi
     def key_detail_state_change_destroyed(self):
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_destroyed').id
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_key_detail_operate_remark_form_destroyed').id
         return {
             'name': '操作说明',
             "type": "ir.actions.act_window",
@@ -148,7 +148,7 @@ class KeyDetail(models.Model):
         context = {}
         context['state_now'] = 'normal'
         view_form = self.env.ref(
-            'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_recovery').id
+            'funenc_xa_station2.funenc_xa_station_key_detail_operate_remark_form_recovery').id
         return {
             'name': '操作说明',
             "type": "ir.actions.act_window",
@@ -165,7 +165,7 @@ class KeyDetail(models.Model):
         context = {}
         context['state_now'] = 'error'
         view_form = self.env.ref(
-            'funenc_xa_station.funenc_xa_station_key_detail_operate_remark_form_error').id
+            'funenc_xa_station2.funenc_xa_station_key_detail_operate_remark_form_error').id
         return {
             'name': '操作说明',
             "type": "ir.actions.act_window",

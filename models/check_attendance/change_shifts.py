@@ -12,7 +12,7 @@ KEY = [('send', '待确认'),
 
 
 class ChangeShifts(models.Model):
-    _name = 'funenc_xa_station.change_shifts'
+    _name = 'funenc_xa_station2.change_shifts'
     _description = '换班'
     _inherit = 'fuenc_station.station_base'
 
@@ -21,13 +21,13 @@ class ChangeShifts(models.Model):
     position = fields.Text(related='application_user_id.position', string="职位")
     application_time = fields.Datetime(string='申请时间')
     change_shifts_time = fields.Datetime(string='换班时间')
-    personal_change_shifts = fields.Many2one('funenc_xa_station.arrange_order', string='个人班次')  # 个人班次
-    personal_change_shifts_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='个人班次')
+    personal_change_shifts = fields.Many2one('funenc_xa_station2.arrange_order', string='个人班次')  # 个人班次
+    personal_change_shifts_1 = fields.Many2one('funenc_xa_station2.sheduling_record', string='个人班次')
 
     # show_personal_change_shifts = fields.Char(string='显示个人班次')  #显示个人班次
 
-    change_shifts_group = fields.Many2one('funenc_xa_station.arrange_order', string='换班班次')  # 换班班次
-    change_shifts_group_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='换班班次')  # 换班班次
+    change_shifts_group = fields.Many2one('funenc_xa_station2.arrange_order', string='换班班次')  # 换班班次
+    change_shifts_group_1 = fields.Many2one('funenc_xa_station2.sheduling_record', string='换班班次')  # 换班班次
 
     # show_change_shifts_group = fields.Char(string='显示换班班次') # 显示换班班次
 
@@ -43,15 +43,15 @@ class ChangeShifts(models.Model):
 
     # change_shifts_state = fields.Selection(selection=[('send', '发起的'), ('receive', '接收的')])
     #
-    # parent_id = fields.Many2one('funenc_xa_station.change_shifts', string='父')  # 发起的
-    # child_ids = fields.One2many('funenc_xa_station.change_shifts', 'parent_id', seing='子')  # 收到的
+    # parent_id = fields.Many2one('funenc_xa_station2.change_shifts', string='父')  # 发起的
+    # child_ids = fields.One2many('funenc_xa_station2.change_shifts', 'parent_id', seing='子')  # 收到的
 
     state = fields.Selection(KEY, default='send')
 
     @api.model
     @get_domain
     def get_day_plan_publish_action(self, domain):
-        view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
+        view_tree = self.env.ref('funenc_xa_station2.break_submit_tree').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -59,7 +59,7 @@ class ChangeShifts(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station.change_shifts',
+            'res_model': 'funenc_xa_station2.change_shifts',
             'context': self.env.context,
         }
 
@@ -122,7 +122,7 @@ class ChangeShifts(models.Model):
 
             ding_user = self.env.user.dingtalk_user
             personal_change_shifts_1 = kw.get('personal_change_shifts_1')
-            sheduling_record = self.env['funenc_xa_station.sheduling_record'].search(
+            sheduling_record = self.env['funenc_xa_station2.sheduling_record'].search(
                 [('id', '=', personal_change_shifts_1)])
             if sheduling_record:
                 kw['application_user_id'] = ding_user.id
@@ -239,7 +239,7 @@ class ChangeShifts(models.Model):
 
 
 class ChangeShiftsTime(models.Model):
-    _name = 'funenc_xa_station.change_shifts_time'
+    _name = 'funenc_xa_station2.change_shifts_time'
     _description = '换班时间间隔'
     _inherit = 'fuenc_station.station_base'
 
@@ -252,7 +252,7 @@ class ChangeShiftsTime(models.Model):
             'name': '换班时间间隔设置',
             'type': 'ir.actions.act_window',
             "views": [[False, "tree"], [False, "form"]],
-            'res_model': 'funenc_xa_station.change_shifts_time',
+            'res_model': 'funenc_xa_station2.change_shifts_time',
             'context': context,
             'target': 'current',
         }

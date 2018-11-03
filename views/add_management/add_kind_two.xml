@@ -33,7 +33,7 @@
             <field name="name"></field>
             <field name="model">add_class.add_class</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="class_kind"></field>

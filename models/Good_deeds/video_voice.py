@@ -18,8 +18,8 @@ class VideoVoice(models.Model):
     add_guest_play_mp4 = fields.Many2one('fuenc_station.good_deeds',string='增加好人好事附件')
     add_guest_play_mp3 = fields.Many2one('fuenc_station.good_deeds',string='增加好人好事录音附件')
     good_deeds_play = fields.Many2one('fuenc_station.good_deeds',string='好人好事录音附件')
-    suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱视屏附件')
-    suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
+    suggest_box_video = fields.Many2one('funenc_xa_station2.suggestion_box',string='乘客意见箱视屏附件')
+    suggest_box_audio = fields.Many2one('funenc_xa_station2.suggestion_box',string='乘客意见箱音频附件')
 
     @api.model
     def create(self, params):
@@ -28,7 +28,7 @@ class VideoVoice(models.Model):
         file_name = params.get('file_name', self.file_name)
         if file_binary:
             url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
-                'funenc_xa_station', file_name, base64.b64decode(file_binary))
+                'funenc_xa_station2', file_name, base64.b64decode(file_binary))
             params['url'] = url
             params['file_name'] = file_name
         return super(VideoVoice, self).create(params)
@@ -43,7 +43,7 @@ class VideoVoice(models.Model):
             }
 
     def load_file(self):
-        load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
+        load_file_form = self.env.ref('funenc_xa_station2.video_voice_load').id
         return {
             'name': '视屏文件',
             'type': 'ir.actions.act_window',

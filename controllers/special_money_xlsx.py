@@ -15,10 +15,10 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class SpecialMoneyXlsx(http.Controller):
-    @http.route('/funenc_xa_station/special_money_xlsx', type='http', auth='public')
+    @http.route('/funenc_xa_station2/special_money_xlsx', type='http', auth='public')
     def import_excel(self, **kw):
         id_id = kw.get('id')
-        record = request.env['funenc_xa_station.special_money'].search([('id','=',int(id_id))])
+        record = request.env['funenc_xa_station2.special_money'].search([('id','=',int(id_id))])
         event_details = record.event_details
         if record.deal_result=='one_audit':
             deal_result ='待初核'

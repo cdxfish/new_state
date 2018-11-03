@@ -12,7 +12,7 @@
                                       <!--]-->
             <!--</field>-->
             <!--<field name="groups"-->
-                   <!--eval="[(6,0, [ref('funenc_xa_station.system_fuenc_site')])]"/>-->
+                   <!--eval="[(6,0, [ref('funenc_xa_station2.system_fuenc_site')])]"/>-->
             <!--<field name="perm_read" eval="True"/>-->
             <!--<field name="perm_write" eval="True"/>-->
             <!--<field name="perm_create" eval="True"/>-->
@@ -26,7 +26,7 @@
             <!--<field name="domain_force">[(1,'=',1)]-->
             <!--</field>-->
             <!--<field name="groups"-->
-                   <!--eval="[(6,0, [ref('funenc_xa_station.system_fuenc_site')])]"/>-->
+                   <!--eval="[(6,0, [ref('funenc_xa_station2.system_fuenc_site')])]"/>-->
             <!--<field name="perm_read" eval="True"/>-->
             <!--<field name="perm_write" eval="True"/>-->
             <!--<field name="perm_create" eval="True"/>-->
@@ -44,7 +44,7 @@
                                        <!--]-->
             <!--</field>-->
             <!--<field name="groups"-->
-                   <!--eval="[(6,0, [ref('funenc_xa_station.system_fuenc_centrality')])]"/>-->
+                   <!--eval="[(6,0, [ref('funenc_xa_station2.system_fuenc_centrality')])]"/>-->
             <!--<field name="perm_read" eval="True"/>-->
             <!--<field name="perm_write" eval="True"/>-->
             <!--<field name="perm_create" eval="True"/>-->

@@ -16,7 +16,7 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class SpecialMoneyXlsx(http.Controller):
-    @http.route('/funenc_xa_station/break_logo', type='http', auth='public')
+    @http.route('/funenc_xa_station2/break_logo', type='http', auth='public')
     def import_excel(self, **kw):
 
         #创建一个目录文件
@@ -40,7 +40,7 @@ class SpecialMoneyXlsx(http.Controller):
         worksheet.merge_range(0,12,0,15,'修复后照片')
 
         #获取当前的记录内容
-        record = request.env['funenc_xa_station.break_log_manage'].search([])
+        record = request.env['funenc_xa_station2.break_log_manage'].search([])
         row = 0
         column = 1
 

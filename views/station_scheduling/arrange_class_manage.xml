@@ -19,7 +19,7 @@
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
 			<field name="model_id" ref="model_funenc_xa_station_arrange_class_manage"/>
-			<!--<field name="binding_xml_id">funenc_xa_station.xa_scheduling_class_group_settings</field>-->
+			<!--<field name="binding_xml_id">funenc_xa_station2.xa_scheduling_class_group_settings</field>-->
 			<field name="condition">True</field>
 			<field name="binding_model_id" ref="model_funenc_xa_station_arrange_class_manage"/>
 			<field name="binding_type">action_button</field>
@@ -59,12 +59,5 @@
 				</form>
 			</field>
 		</record>
-
-		<record model="ir.actions.act_window" id="xa_station_arrange_class_manage_action">
-          <field name="name">排班规则</field>
-          <field name="res_model">funenc_xa_station.arrange_class_manage</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
-
     </data>
 </odoo>

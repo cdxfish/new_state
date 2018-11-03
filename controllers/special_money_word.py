@@ -26,7 +26,7 @@ class ModelToTable:
 
 class SpecialMoney(http.Controller):
 
-    @http.route('/funenc_xa_station/special_money_word', type="http", auth='public', cors="*")
+    @http.route('/funenc_xa_station2/special_money_word', type="http", auth='public', cors="*")
     def download_excel(self, **kw):
         base_dir = os.path.dirname(__file__)
         mtdocx = ModelToTable()

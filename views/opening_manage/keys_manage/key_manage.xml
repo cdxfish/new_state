@@ -10,7 +10,7 @@
 		<!--<field name="state">code</field>-->
 		<!--<field name="code">-->
 		    <!--action = model.return_act_window('钥匙管理', 'funenc.xa.station.key.manage',-->
-		    <!--'funenc_xa_station.funenc_xa_station_change_shifts_list', 'funenc_xa_station.funenc_xa_station_change_shifts_form')-->
+		    <!--'funenc_xa_station2.funenc_xa_station_change_shifts_list', 'funenc_xa_station2.funenc_xa_station_change_shifts_form')-->
 		<!--</field>-->
 		<!--</record>-->
 

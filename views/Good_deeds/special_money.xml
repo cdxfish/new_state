@@ -45,7 +45,7 @@
             <!--<field name="binding_model_id" ref="model_funenc_xa_station_special_money"/>-->
             <!--<field name="binding_xml_id">special_money_tree</field>-->
             <!--<field name="binding_type">action_button</field>-->
-            <!--<field name="url">/funenc_xa_station/special_money_xlsx</field>-->
+            <!--<field name="url">/funenc_xa_station2/special_money_xlsx</field>-->
             <!--<field name="target">new</field>-->
         <!--</record>-->
 
@@ -483,7 +483,7 @@
 
         <!--<record id="special_money_act" model="ir.actions.act_window">-->
             <!--<field name="name">特殊储备金</field>-->
-            <!--<field name="res_model">funenc_xa_station.special_money</field>-->
+            <!--<field name="res_model">funenc_xa_station2.special_money</field>-->
             <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 

@@ -12,7 +12,7 @@ key = [('one_audit','待初审'),
 
 
 class SpecialMoney(models.Model):
-    _name = 'funenc_xa_station.special_money'
+    _name = 'funenc_xa_station2.special_money'
     _inherit = 'fuenc_station.station_base'
 
     open_time = fields.Datetime(string='发生时间')
@@ -41,21 +41,21 @@ class SpecialMoney(models.Model):
 
     # 创建一条新的记录
     def new_increase_record(self):
-        view_form = self.env.ref('funenc_xa_station.special_money_form').id
+        view_form = self.env.ref('funenc_xa_station2.special_money_form').id
         return {
             'name': '特殊赔偿金',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.special_money',
+            'res_model': 'funenc_xa_station2.special_money',
             'context': self.env.context,
         }
 
     @api.model
     @get_domain
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station.special_money_tree').id
+        view_tree = self.env.ref('funenc_xa_station2.special_money_tree').id
         return {
             'name': '特殊赔偿金',
             'type': 'ir.actions.act_window',
@@ -63,29 +63,29 @@ class SpecialMoney(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station.special_money',
+            'res_model': 'funenc_xa_station2.special_money',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                         [
                             {'title': '好人好事',
-                            'action':  'funenc_xa_station.good_deeds_act',
-                            'group':'funenc_xa_station.table_good_actions'
+                            'action':  'funenc_xa_station2.good_deeds_act',
+                            'group':'funenc_xa_station2.table_good_actions'
                             },
                             {
                                 'title': '客伤',
-                                'action2' : 'funenc_xa_station.guests_hurt_act',
-                                'group' : 'funenc_xa_station.table_people_wound'
+                                'action2' : 'funenc_xa_station2.guests_hurt_act',
+                                'group' : 'funenc_xa_station2.table_people_wound'
                                 },
                             {
                                 'title': '乘客意见箱',
-                                'action2':  'funenc_xa_station.suggestion_box_act',
-                                'group' : 'funenc_xa_station.table_people_message'
+                                'action2':  'funenc_xa_station2.suggestion_box_act',
+                                'group' : 'funenc_xa_station2.table_people_message'
                                 },
                            {
                                 'title': '特殊赔偿金',
-                                'action2':  'funenc_xa_station.special_money_act',
-                                'group' : 'funenc_xa_station.table_special_compensation'
+                                'action2':  'funenc_xa_station2.special_money_act',
+                                'group' : 'funenc_xa_station2.table_special_compensation'
                                 },
                         ]
                     }''',
@@ -93,14 +93,14 @@ class SpecialMoney(models.Model):
         }
 
     def special_details_action(self):
-        view_form = self.env.ref('funenc_xa_station.special_money_details').id
+        view_form = self.env.ref('funenc_xa_station2.special_money_details').id
         return {
             'name': '特殊赔偿金详情',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.special_money',
+            'res_model': 'funenc_xa_station2.special_money',
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
             'res_id': self.id,
@@ -111,41 +111,41 @@ class SpecialMoney(models.Model):
             'deal_result': self.deal_result,
         }
         self.deal_result = self.env.context.get('deal_result', 'two_audit')
-        self.env['funenc_xa_station.special_money'].write(values)
+        self.env['funenc_xa_station2.special_money'].write(values)
 
     def test_btn_through(self):
         values = {
             'deal_result': self.deal_result,
         }
         self.deal_result = self.env.context.get('deal_result', 'through')
-        self.env['funenc_xa_station.special_money'].write(values)
+        self.env['funenc_xa_station2.special_money'].write(values)
 
     def good_rejected(self):
         values = {
             'deal_result': self.deal_result,
         }
         self.deal_result = self.env.context.get('deal_result', 'rejected')
-        self.env['funenc_xa_station.special_money'].write(values)
+        self.env['funenc_xa_station2.special_money'].write(values)
 
     def test_btn_rejected(self):
         values = {
             'deal_result': self.deal_result,
         }
         self.deal_result = self.env.context.get('deal_result', 'one_audit')
-        self.env['funenc_xa_station.special_money'].write(values)
+        self.env['funenc_xa_station2.special_money'].write(values)
 
     def good_delete(self):
-        self.env['funenc_xa_station.special_money'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station2.special_money'].search([('id', '=', self.id)]).unlink()
 
     def onchange_button_action(self):
-        view_form = self.env.ref('funenc_xa_station.special_money_form').id
+        view_form = self.env.ref('funenc_xa_station2.special_money_form').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.special_money',
+            'res_model': 'funenc_xa_station2.special_money',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -157,7 +157,7 @@ class SpecialMoney(models.Model):
         return {
             "type": "ir.actions.act_url",
             'res_id': self.id,
-            "url": '/funenc_xa_station/special_money_xlsx?id=%s'%(id_id),
+            "url": '/funenc_xa_station2/special_money_xlsx?id=%s'%(id_id),
 
             "target": "new",
         }

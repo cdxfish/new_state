@@ -102,7 +102,7 @@
             <field name="name">award_standard</field>
             <field name="model" >funenc_xa_station.award_standard</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="award_standard_default"></field>
@@ -120,7 +120,7 @@
 
         <!--<record id="award_standard_act" model="ir.actions.act_window">-->
             <!--<field name="name">award_standard_act</field>-->
-            <!--<field name="res_model">funenc_xa_station.award_standard</field>-->
+            <!--<field name="res_model">funenc_xa_station2.award_standard</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 

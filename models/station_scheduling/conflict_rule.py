@@ -5,7 +5,7 @@ from odoo import models, fields, api
 
 
 class ConflictRule(models.Model):
-    _name = 'funenc_xa_station.conflict_rule'
+    _name = 'funenc_xa_station2.conflict_rule'
     _description = '冲突规则'
     _order = 'conflict_rule_index asc'
     _inherit = 'fuenc_station.station_base'
@@ -29,7 +29,7 @@ class ConflictRule(models.Model):
                 'name': '冲突规则',
                 'type': 'ir.actions.act_window',
                 "views": [[False, 'tree']],
-                'res_model': 'funenc_xa_station.conflict_rule',
+                'res_model': 'funenc_xa_station2.conflict_rule',
                 'context': self.env.context,
                 'target': 'current',
             }
@@ -64,7 +64,7 @@ class ConflictRule(models.Model):
                 'name': '冲突规则',
                 'type': 'ir.actions.act_window',
                 "views": [[False, 'tree']],
-                'res_model': 'funenc_xa_station.conflict_rule',
+                'res_model': 'funenc_xa_station2.conflict_rule',
                 'context': self.env.context,
                 'target': 'current',
                 'domain': [('site_id','=', site_id)]
@@ -82,12 +82,12 @@ class ConflictRule(models.Model):
 
         if self.is_certificate == 1:
 
-            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_conflict_rule_form_4').id
+            view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_conflict_rule_form_4').id
             return {
                 'name': '证书设置',
                 'type': 'ir.actions.act_window',
                 "views": [[view_form, "form"]],
-                'res_model': 'funenc_xa_station.conflict_rule',
+                'res_model': 'funenc_xa_station2.conflict_rule',
                 'context': context,
                 'flags': {'initial_mode': 'edit'},
                 'target': 'new',
@@ -96,15 +96,15 @@ class ConflictRule(models.Model):
 
         else:
             if self.conflict_rule_index ==1:
-                view_form = self.env.ref('funenc_xa_station.funenc_xa_station_conflict_rule_form_1').id
+                view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_conflict_rule_form_1').id
             else:
-                view_form = self.env.ref('funenc_xa_station.funenc_xa_station_conflict_rule_form_2').id
+                view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_conflict_rule_form_2').id
 
             return {
                 'name': '条件修改',
                 'type': 'ir.actions.act_window',
                 "views": [[view_form, "form"]],
-                'res_model': 'funenc_xa_station.conflict_rule',
+                'res_model': 'funenc_xa_station2.conflict_rule',
                 'context': context,
                 'flags': {'initial_mode': 'edit'},
                 'target': 'new',
@@ -134,7 +134,7 @@ class conflict_rule_station_certificate(models.Model):
     _name = 'conflict_rule_station_certificate_ref'
     _description = '冲突规则人员证件中间表'
 
-    conflict_rule_id = fields.Many2one('funenc_xa_station.conflict_rule', string='冲突规则关联')
+    conflict_rule_id = fields.Many2one('funenc_xa_station2.conflict_rule', string='冲突规则关联')
     station_certificate_id = fields.Many2one('person.certificate', string='人员证件关联', required= True)
     station_certificate_count = fields.Integer(string='数量')
 

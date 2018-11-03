@@ -5,7 +5,7 @@ from odoo import api, models, fields
 
 
 class TransientBreakManagement(models.Model):
-    _name = 'funenc_xa_station.transient_break_management'
+    _name = 'funenc_xa_station2.transient_break_management'
     # _inherit = 'fuenc_station.station_base'
 
     transceiver_type = fields.Char(string='工器具类型')
@@ -27,18 +27,18 @@ class TransientBreakManagement(models.Model):
 
     #修复
     def repair_image(self):
-        self.env['funenc_xa_station.transceiver_settings'].search([('id','=',int(self.id_id))]).write({
+        self.env['funenc_xa_station2.transceiver_settings'].search([('id','=',int(self.id_id))]).write({
           'state':'one'
         })
         self.write({'state': 'one'})
-        view_form = self.env.ref('funenc_xa_station.transient_break_management_form').id
+        view_form = self.env.ref('funenc_xa_station2.transient_break_management_form').id
         return {
             'name': '工器具使用列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transient_break_management',
+            'res_model': 'funenc_xa_station2.transient_break_management',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -47,14 +47,14 @@ class TransientBreakManagement(models.Model):
 
     #修改
     def change_onchange(self):
-        view_form = self.env.ref('funenc_xa_station.transient_break_management_form_button').id
+        view_form = self.env.ref('funenc_xa_station2.transient_break_management_form_button').id
         return {
             'name': '工器具故障',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transient_break_management',
+            'res_model': 'funenc_xa_station2.transient_break_management',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -63,18 +63,18 @@ class TransientBreakManagement(models.Model):
 
     #删除
     def management_delete(self):
-        self.env['funenc_xa_station.transient_break_management'].search([('id','=',self.id)]).unlink()
+        self.env['funenc_xa_station2.transient_break_management'].search([('id','=',self.id)]).unlink()
 
     #查看故障前的图片
     def before_action(self):
-        view_form = self.env.ref('funenc_xa_station.transceiver_settings_before_button').id
+        view_form = self.env.ref('funenc_xa_station2.transceiver_settings_before_button').id
         return {
             'name': '工器具故障',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transceiver_settings',
+            'res_model': 'funenc_xa_station2.transceiver_settings',
             'res_id':int(self.id_id),
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},
@@ -83,14 +83,14 @@ class TransientBreakManagement(models.Model):
 
     #查看修复后的图片
     def after_action(self):
-        view_form = self.env.ref('funenc_xa_station.transient_break_management_before_image').id
+        view_form = self.env.ref('funenc_xa_station2.transient_break_management_before_image').id
         return {
             'name': '工器具故障',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transient_break_management',
+            'res_model': 'funenc_xa_station2.transient_break_management',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'readonly'},

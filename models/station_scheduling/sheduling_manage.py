@@ -8,28 +8,28 @@ import calendar
 
 
 class ShedulingManage(models.Model):
-    _name = 'funenc_xa_station.sheduling_manage'
+    _name = 'funenc_xa_station2.sheduling_manage'
     _description = '排班管理'
     _inherit = 'fuenc_station.station_base'
 
     sheduling_start_time = fields.Date(string='开始时间', required=True)
     sheduling_end_time = fields.Date(string='结束时间', required=True)
-    class_group_ids = fields.Many2many('funenc_xa_station.class_group', 'sheduling_manage_class_group_2_ref',
+    class_group_ids = fields.Many2many('funenc_xa_station2.class_group', 'sheduling_manage_class_group_2_ref',
                                        'sheduling_manage_id', 'class_group_id', string='选择班组'
                                        )
-    arrange_order_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_2_ref',
+    arrange_order_ids = fields.Many2many('funenc_xa_station2.arrange_order', 'sheduling_manage_arrange_order_2_ref',
                                          'sheduling_manage_id', 'arrange_order_id', string='班组班次'
                                          )
     motorized_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'sheduling_manage_ding_user_6_ref',
                                           'sheduling_manage_id', 'ding_user_id', string='机动人员选择'
                                           )
-    motorized_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_3_ref',
+    motorized_ids = fields.Many2many('funenc_xa_station2.arrange_order', 'sheduling_manage_arrange_order_3_ref',
                                      'sheduling_manage_id', 'arrange_order_id', string='机动人员班次'
                                      )
-    sheduling_arrange_order_ids = fields.Many2many('funenc_xa_station.arrange_order',
+    sheduling_arrange_order_ids = fields.Many2many('funenc_xa_station2.arrange_order',
                                                    'sheduling_manage_arrange_order_4_ref',
                                                    'sheduling_manage_id', 'arrange_order_id', string='班组排班规则')
-    motorized_rule_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_5_ref',
+    motorized_rule_ids = fields.Many2many('funenc_xa_station2.arrange_order', 'sheduling_manage_arrange_order_5_ref',
                                           'sheduling_manage_id', 'arrange_order_id', string='机动人员排班规则')
     current_rule = fields.Text(string='当前冲突规则')
     # , default = lambda self: self.default_current_rule()
@@ -46,7 +46,7 @@ class ShedulingManage(models.Model):
             return
 
         site_id = self.env.user.dingtalk_user.departments[0].id
-        conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
+        conflict_rule_dics = self.env['funenc_xa_station2.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
                                                                                        'enable')
                                                                                       ]
@@ -95,7 +95,7 @@ class ShedulingManage(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',
                 'view_mode': 'form',
-                'res_model': 'funenc_xa_station.sheduling_manage',
+                'res_model': 'funenc_xa_station2.sheduling_manage',
                 'context': context,
                 # 'flags': {'initial_mode': 'edit'},
                 'target': 'new',
@@ -107,7 +107,7 @@ class ShedulingManage(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',
                 'view_mode': 'form',
-                'res_model': 'funenc_xa_station.sheduling_manage',
+                'res_model': 'funenc_xa_station2.sheduling_manage',
                 'context': context,
                 # 'flags': {'initial_mode': 'edit'},
                 'target': 'new',
@@ -124,7 +124,7 @@ class ShedulingManage(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',
                 'view_mode': 'form',
-                'res_model': 'funenc_xa_station.sheduling_manage',
+                'res_model': 'funenc_xa_station2.sheduling_manage',
                 'context': context,
                 'flags': {'initial_mode': 'edit'},
                 'res_id': self.id,
@@ -137,7 +137,7 @@ class ShedulingManage(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',
                 'view_mode': 'form',
-                'res_model': 'funenc_xa_station.sheduling_manage',
+                'res_model': 'funenc_xa_station2.sheduling_manage',
                 'context': context,
                 'flags': {'initial_mode': 'edit'},
                 'res_id': self.id,
@@ -160,7 +160,7 @@ class ShedulingManage(models.Model):
     #         return
     #
     #     site_id = self.env.user.dingtalk_user.departments[0].id
-    #     conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
+    #     conflict_rule_dics = self.env['funenc_xa_station2.conflict_rule'].search_read([('site_id', '=', site_id),
     #                                                                                   ('conflict_rule_state', '=',
     #                                                                                    'enable'),
     #                                                                                   ('is_certificate', '=', 2)
@@ -395,7 +395,7 @@ class ShedulingManage(models.Model):
         # site_id = self.env.user.dingtalk_user.departments[0].id
         line_id = self.line_id.id
         site_id = self.site_id.id
-        conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
+        conflict_rule_dics = self.env['funenc_xa_station2.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
                                                                                        'enable'),
                                                                                       ('is_certificate', '=', 2)
@@ -637,13 +637,13 @@ class ShedulingManage(models.Model):
 
         show_data['days'] = show_time_days
 
-        sel_groups = self.env['funenc_xa_station.sheduling_record'].search_read(
+        sel_groups = self.env['funenc_xa_station2.sheduling_record'].search_read(
             [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time)],
             order='sheduling_date asc')
 
         show_data['day_table_data'] = self.get_data_1(sel_groups)
         sheuling_datas = self.get_data(sel_groups)
-        arrange_orders = self.env['funenc_xa_station.arrange_order'].search([('site_id', '=', site_id)],order='id asc')
+        arrange_orders = self.env['funenc_xa_station2.arrange_order'].search([('site_id', '=', site_id)],order='id asc')
 
         show_data['arrange_orders'] = [arrange_order.name for arrange_order in arrange_orders]
         # show_data['total_table_data'] =
@@ -728,14 +728,14 @@ class ShedulingManage(models.Model):
 
         #  数据太多不能循环用orm
         # 班组
-        sel_groups = self.env['funenc_xa_station.sheduling_record'].search_read(
+        sel_groups = self.env['funenc_xa_station2.sheduling_record'].search_read(
             [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
              ('order_type', '=', 'order_group')], order='sheduling_date asc')
 
         show_data['group_table_data'] = self.get_data(sel_groups)
 
         # 机动
-        motorizeds = self.env['funenc_xa_station.sheduling_record'].search_read(
+        motorizeds = self.env['funenc_xa_station2.sheduling_record'].search_read(
             [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
              ('order_type', '=', 'motorized_group')])
         show_data['motorized_group_table_data'] = self.get_data(motorizeds)
@@ -743,7 +743,7 @@ class ShedulingManage(models.Model):
 
         shift_options = []
 
-        arrange_orders = self.env['funenc_xa_station.arrange_order'].search_read([('site_id', '=', site_id)],
+        arrange_orders = self.env['funenc_xa_station2.arrange_order'].search_read([('site_id', '=', site_id)],
                                                                                  ['id', 'name'])
         for arrange_order in arrange_orders:
             tmp = {
@@ -900,7 +900,7 @@ class ShedulingManage(models.Model):
                 shift_values = sheduling_record.get('shift_value')
                 for record in shift_values:
                     if isinstance(record.get('shift'), int):
-                        self.env['funenc_xa_station.sheduling_record'].browse(
+                        self.env['funenc_xa_station2.sheduling_record'].browse(
                             [int(record.get('sheduling_record_id'))]).write({
                             'arrange_order_id': int(record.get('shift'))
                         })
@@ -911,13 +911,13 @@ class ShedulingManage(models.Model):
 
 
 class ShedulingRecordr(models.Model):
-    _name = 'funenc_xa_station.sheduling_record'
+    _name = 'funenc_xa_station2.sheduling_record'
     _description = '排班记录'
     _inherit = 'fuenc_station.station_base'
     _order = 'id asc'
 
-    class_group_id = fields.Many2one('funenc_xa_station.class_group', string='班组')
-    arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
+    class_group_id = fields.Many2one('funenc_xa_station2.class_group', string='班组')
+    arrange_order_id = fields.Many2one('funenc_xa_station2.arrange_order', string='班次')
     time_interval = fields.Char(related='arrange_order_id.time', string='班次时间')
     sheduling_date = fields.Date(string='排班时间')
     order_type = fields.Selection(selection=[('order_group', '班组'), ('motorized_group', '机动人员')], string='班组类型')

@@ -19,7 +19,7 @@
 			<field name="state">code</field>
 			<field name="type">ir.actions.server</field>
 			<field name="model_id" ref="model_funenc_xa_station_arrange_order"/>
-			<!--<field name="binding_xml_id">funenc_xa_station.xa_scheduling_class_group_settings</field>-->
+			<!--<field name="binding_xml_id">funenc_xa_station2.xa_scheduling_class_group_settings</field>-->
 			<field name="condition">True</field>
 			<field name="binding_model_id" ref="model_funenc_xa_station_arrange_order"/>
 			<field name="binding_type">action_button</field>
@@ -34,8 +34,6 @@
 			<field name="model">funenc_xa_station.arrange_order</field>
 			<field name="arch" type="xml">
 				<tree limit="15" create="0" class="noOpen">
-					<field name="line_id" string="线路"/>
-					<field string="站点" name="site_id"/>
 					<field name="name" string="班次名字"/>
 					<field name="time" string="班次时间"/>
 					<field name="work_time" string="工作时长"/>

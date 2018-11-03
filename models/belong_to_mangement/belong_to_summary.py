@@ -6,7 +6,7 @@ from odoo import api, models, fields
 import datetime
 
 class BelongToSummary(models.Model):
-    _name = 'funenc_xa_station.belong_to_summary'
+    _name = 'funenc_xa_station2.belong_to_summary'
 
     line_id = fields.Char(string='线路')
     site_id = fields.Char(string='站点')
@@ -57,7 +57,7 @@ class BelongToSummary(models.Model):
             # print(date,line,site,person_id)
             # print(date_new)
             record = {}
-            line = self.env['funenc_xa_station.belong_to_management'].search_read([('site_id','=',site)]
+            line = self.env['funenc_xa_station2.belong_to_management'].search_read([('site_id','=',site)]
                         ,['line_id','site_id','post_check','summary_score','check_time','check_score'])
             date_list = [check_record for check_record in line if check_record.get('check_time')[:7] == date_new[:7]]
 
@@ -96,7 +96,7 @@ class BelongToSummary(models.Model):
             # print(date,line,site,person_id)
             # print(date_new)
             record = {}
-            line = self.env['funenc_xa_station.belong_to_management'].search_read(['|',('write_person', '=', person_id),
+            line = self.env['funenc_xa_station2.belong_to_management'].search_read(['|',('write_person', '=', person_id),
                                                                                    ('job_number', '=', person_id)])
             date_list = [check_record for check_record in line if check_record.get('check_time')[:7] == date_new[:7]]
 

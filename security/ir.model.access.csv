@@ -84,6 +84,7 @@ funenc_xa_station_83,model_funenc_xa_station_work_kanban,model_funenc_xa_station
 funenc_xa_station_84,model_funenc_xa_station_store_house,model_funenc_xa_station_store_house,,1,1,1,1
 funenc_xa_station_85,model_fuenc_station_station_base,model_fuenc_station_station_base,,1,1,1,1
 funenc_xa_station_86,model_fuenc_station_clock_record,model_fuenc_station_clock_record,,1,1,1,1
+<<<<<<< HEAD
 funenc_xa_station_87,model_funenc_xa_station_car_line,model_funenc_xa_station_car_line,,1,1,1,1
 funenc_xa_station_88,model_funenc_xa_station_station_master,model_funenc_xa_station_station_master,,1,1,1,1
 funenc_xa_station_89,model_funenc_xa_station_check_project,model_funenc_xa_station_check_project,,1,1,1,1
@@ -101,3 +102,10 @@ funenc_xa_station_100,model_funenc_xa_station_ticketing_key_type_2,model_funenc_
 funenc_xa_station_101,model_funenc_xa_station_tail_box,model_funenc_xa_station_tail_box,,1,1,1,1
 funenc_xa_station_102,model_funenc_xa_station_spare_gold,model_funenc_xa_station_spare_gold,,1,1,1,1
 funenc_xa_station_103,model_funenc_xa_station_generate_qr,model_funenc_xa_station_generate_qr,,1,1,1,1
+=======
+funenc_xa_station_87,model_funenc_xa_station_check_record_add,model_funenc_xa_station_check_record_add,,1,1,1,1
+funenc_xa_station_88,model_funenc_xa_station_suggestion_box,model_funenc_xa_station_suggestion_box,,1,1,1,1
+funenc_xa_station_89,model_funenc_xa_station_station_master,model_funenc_xa_station_station_master,,1,1,1,1
+funenc_xa_station_90,model_add_class_add_class,model_add_class_add_class,,1,1,1,1
+funenc_xa_station_91,model_xian_metro_professional,model_xian_metro_professional,,1,1,1,1
+>>>>>>> 27f8d4eaa2189e15e9c8f16be732fba3c4991123

@@ -110,7 +110,7 @@
             <field name="name">check_evaluate_tree</field>
             <field name="model">funenc_xa_station.check_standard</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="check_standard"></field>
@@ -135,7 +135,7 @@
 
         <!--<record id="check_evaluate_act" model="ir.actions.act_window">-->
             <!--<field name="name">check_evaluate_act</field>-->
-            <!--<field name="res_model">funenc_xa_station.check_standard</field>-->
+            <!--<field name="res_model">funenc_xa_station2.check_standard</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 

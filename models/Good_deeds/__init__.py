@@ -6,3 +6,4 @@ from . import special_money
 from . import Good_deeds_type
 from . import video_voice
 from . import suggestion_box_type
+from . import image_browse

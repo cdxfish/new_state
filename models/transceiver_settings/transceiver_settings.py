@@ -5,7 +5,7 @@ from odoo import api, models, fields
 from datetime import datetime
 
 class TransceiverSettings(models.Model):
-    _name = 'funenc_xa_station.transceiver_settings'
+    _name = 'funenc_xa_station2.transceiver_settings'
     _inherit = 'fuenc_station.station_base'
 
     transient_type = fields.Char(string='工器具类型')
@@ -19,14 +19,14 @@ class TransceiverSettings(models.Model):
 
     # 创建一条新的记录
     def new_increase_record(self):
-        view_form = self.env.ref('funenc_xa_station.transceiver_settings_form').id
+        view_form = self.env.ref('funenc_xa_station2.transceiver_settings_form').id
         return {
             'name': '新增工器具',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transceiver_settings',
+            'res_model': 'funenc_xa_station2.transceiver_settings',
             'context': self.env.context,
             'target':'new',
         }
@@ -45,15 +45,15 @@ class TransceiverSettings(models.Model):
             'break_describe':self.break_descrip
         }
         self.write({'state':'zero'})
-        self.env['funenc_xa_station.transient_break_management'].sudo().create(dic)
-        view_form = self.env.ref('funenc_xa_station.transceiver_settings_form_warranty').id
+        self.env['funenc_xa_station2.transient_break_management'].sudo().create(dic)
+        view_form = self.env.ref('funenc_xa_station2.transceiver_settings_form_warranty').id
         return {
             'name': '工器具使用列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transceiver_settings',
+            'res_model': 'funenc_xa_station2.transceiver_settings',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -62,14 +62,14 @@ class TransceiverSettings(models.Model):
 
     #修改按钮
     def professional_edit(self):
-        view_form = self.env.ref('funenc_xa_station.transceiver_settings_form_warranty').id
+        view_form = self.env.ref('funenc_xa_station2.transceiver_settings_form_warranty').id
         return {
             'name': '工器具使用列表',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.transceiver_settings',
+            'res_model': 'funenc_xa_station2.transceiver_settings',
             'res_id':self.id,
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -78,4 +78,4 @@ class TransceiverSettings(models.Model):
 
     #删除记录
     def management_delete(self):
-        self.env['funenc_xa_station.transceiver_settings'].search([('id','=',self.id)]).unlink()
+        self.env['funenc_xa_station2.transceiver_settings'].search([('id','=',self.id)]).unlink()
