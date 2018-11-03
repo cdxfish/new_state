@@ -628,7 +628,7 @@
 		<!--/>-->
 
          <menuitem id="station_list" name="车站详情列表" sequence="1"
-		          parent="xa_station_production_manage_1"
+		          parent="funenc_station_integrated_manageme"
 		/>
 
 		<menuitem id="station_detail_1" name="车站详情" sequence="1"
@@ -700,6 +700,26 @@
 				  <!--parent="funenc_station_integrated_manageme"-->
 				  <!--sequence="2" action="key_manage_act_window_1"-->
 		<!--/>-->
+
+		<menuitem id="xa_station_change_shifts_setting_1" name="交接班设置"
+				  parent="xa_station_production_manage_1"
+		/>
+		<menuitem id="xa_station_station_master_1" name="值班站长"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_master_action"
+		/>
+		<menuitem id="xa_station_car_line_1" name="行车值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_car_line_action"
+		/>
+		<menuitem id="xa_station_passenger_transport_1" name="客运值班员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_passenger_transport_action"
+		/>
+		<menuitem id="xa_station_station_service_1" name="站务员"
+				  parent="xa_station_change_shifts_setting_1"
+				  action="xa_station_station_service_action"
+		/>
 
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_manageme"
@@ -806,52 +826,52 @@
 				  action="funenc_station_index_action"
 		/>
 
-		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作看板"
+		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作任务列表"
 				  parent="xa_station_production_manage_1" sequence="5"
-				  groups="system_work_kanban" action="xa_station_task_type_action"
+				  groups="system_work_kanban" action="xa_station_work_kanban_3_action"
 		/>
 
-		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="工作任务列表"
+		<menuitem id="funenc_xa_station.xa_station_work_kanba" name="工作看板"
 				  parent="xa_station_production_manage_1"
 				  groups="system_work_project_list" sequence="6" action="xa_station_work_kanban_2_action"
 		/>
 
 
 		<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>
-		<menuitem  name="预设交接班" id="person_management_menu_" sequence="8"></menuitem>
+
+		<menuitem  name="预设交接班" id="change_shifts_menu_" sequence="8"
+		           parent="system_configuration"
+		></menuitem>
 
 
 
         <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
 
 		<menuitem id="xa_station_station_master_111" name="预设值班站长"
-				  parent="person_management_menu_"
+				  parent="change_shifts_menu_"
 				  action="xa_station_station_master_action11"
 		/>
 
 		<menuitem id="xa_station_car_line_111" name="行车值班员"
-				  parent="person_management_menu_"
+				  parent="change_shifts_menu_"
 				  action="xa_station_car_line_action11"
 		/>
 
 		<menuitem id="xa_station_passenger_transport_11" name="客运值班员"
-				  parent="person_management_menu_"
+				  parent="change_shifts_menu_"
 				  action="xa_station_passenger_transport_action11"
 		/>
 
 		<menuitem id="xa_station_station_service_1" name="站务员"
-				  parent="person_management_menu_"
+				  parent="change_shifts_menu_"
 				  action="xa_station_station_service_action11"
 		/>
 
 		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
-				  parent="person_management_menu_"
+				  parent="change_shifts_menu_"
 				  action="xa_station_ticket_booth_action11"
 		/>
        <!--xin-->
-		<menuitem id="xa_station_jjb" name="交接班xxx"
-				  parent="person_management_menu_"
-		/>
 
 		<record model="ir.actions.act_window" id="xa_station_train_working_action">
 			<field name="name">值班站长</field>
