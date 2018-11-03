@@ -360,6 +360,7 @@ class production_change_shifts(models.Model):
                 'res_model': 'funenc_xa_station.production_change_shifts',
                 'context': context,
                 'target': 'new',
+                'flags': {'initial_mode': 'edit'},
             }
         elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
             # 行车
@@ -371,6 +372,7 @@ class production_change_shifts(models.Model):
                 'res_model': 'funenc_xa_station.production_change_shifts',
                 'context': context,
                 'target': 'new',
+                'flags': {'initial_mode': 'edit'},
             }
         elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
             # 客运
@@ -382,6 +384,7 @@ class production_change_shifts(models.Model):
                 'res_model': 'funenc_xa_station.production_change_shifts',
                 'context': context,
                 'target': 'new',
+                'flags': {'initial_mode': 'edit'},
             }
         elif self.env.user.has_group('funenc_xa_station.module_depot'):
             # 站务
@@ -393,6 +396,7 @@ class production_change_shifts(models.Model):
                 'res_model': 'funenc_xa_station.production_change_shifts',
                 'context': context,
                 'target': 'new',
+                'flags': {'initial_mode': 'edit'},
             }
         else:
             # 票务
@@ -404,6 +408,7 @@ class production_change_shifts(models.Model):
                 'res_model': 'funenc_xa_station.production_change_shifts',
                 'context': context,
                 'target': 'new',
+                'flags': {'initial_mode': 'edit'},
             }
 
     def edit(self):
