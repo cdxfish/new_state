@@ -188,10 +188,10 @@
                    <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
-                             <label for="event_details" string="设备状态"/>
+                             <label for="equiment_details" string="设备状态"/>
                           </div>
                          <div class="col-md-11">
-                             <field name="event_details"/>
+                             <field name="equiment_details"/>
                           </div>
                        </div>
                     </div>

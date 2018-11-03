@@ -4,7 +4,7 @@ import datetime
 
 
 class ChangeShifts(models.Model):
-    _name = 'funenc_xa_station.change_shifts'
+    _name = 'funenc_xa_station2.change_shifts'
     _description = '换班'
     _inherit = 'fuenc_station.station_base'
 
@@ -13,7 +13,7 @@ class ChangeShifts(models.Model):
     position = fields.Text(related='application_user_id.position', string="职位")
     application_time = fields.Datetime(string='申请时间')
     change_shifts_time = fields.Datetime(string='换班时间')
-    change_shifts_group = fields.Many2one('funenc_xa_station.arrange_order', string='换班班次')  # 换班班次
+    change_shifts_group = fields.Many2one('funenc_xa_station2.arrange_order', string='换班班次')  # 换班班次
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='换班对象')
     change_shifts_jobnumber = fields.Char(related='change_shifts_user_id.jobnumber', string="工号")
     is_agree = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='换班对象是否同意', default='no')
@@ -81,7 +81,7 @@ class ChangeShifts(models.Model):
 
 
 class ChangeShiftsTime(models.Model):
-    _name = 'funenc_xa_station.change_shifts_time'
+    _name = 'funenc_xa_station2.change_shifts_time'
     _description = '换班时间间隔'
     _inherit = 'fuenc_station.station_base'
 
@@ -94,11 +94,11 @@ class ChangeShiftsTime(models.Model):
             'name': '换班时间间隔设置',
             'type': 'ir.actions.act_window',
             "views": [[False, "tree"], [False, "form"]],
-            'res_model': 'funenc_xa_station.change_shifts_time',
+            'res_model': 'funenc_xa_station2.change_shifts_time',
             'context': context,
             'target': 'current',
         }
-        if self.env.user.has_group('funenc_xa_station.system_fuenc_site'):
+        if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             obj = self.search([('site_id', '=', department.id)])

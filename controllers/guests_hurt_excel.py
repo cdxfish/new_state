@@ -13,7 +13,7 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class GuestsHurt(http.Controller):
-    @http.route('/funenc_xa_station/guests_hurt', type='http', auth='public')
+    @http.route('/funenc_xa_station2/guests_hurt', type='http', auth='public')
     def import_excel(self, **kw):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作

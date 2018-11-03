@@ -19,7 +19,7 @@ class AddStationCertificate(models.Model):
     @get_domain
     @api.model
     def get_day_plan_publish_action(self,domain):
-        view_tree = self.env.ref('funenc_xa_station.add_station_certificate_tree').id
+        view_tree = self.env.ref('funenc_xa_station2.add_station_certificate_tree').id
         return {
             'name': '车站证件',
             'type': 'ir.actions.act_window',
@@ -33,13 +33,13 @@ class AddStationCertificate(models.Model):
             "top_widget_options": '''{'tabs':
                                 [
                                     {'title': '车站证件管理',
-                                    'action':  'funenc_xa_station.station_certificate_button_server',
-                                    'group':'funenc_xa_station.table_car_certificates',
+                                    'action':  'funenc_xa_station2.station_certificate_button_server',
+                                    'group':'funenc_xa_station2.table_car_certificates',
                                     },
                                     {
                                         'title': '人员证件管理',
-                                        'action2' : 'funenc_xa_station.person_certificate_server',
-                                        'group' : 'funenc_xa_station.table_people_certificates',
+                                        'action2' : 'funenc_xa_station2.person_certificate_server',
+                                        'group' : 'funenc_xa_station2.table_people_certificates',
                                         },
                                 ]
                             }''',
@@ -48,7 +48,7 @@ class AddStationCertificate(models.Model):
 
     @api.model
     def station_certificate_type(self):
-        view_form = self.env.ref('funenc_xa_station.add_station_certificate_form').id
+        view_form = self.env.ref('funenc_xa_station2.add_station_certificate_form').id
         return {
             'name': '车站证件',
             'type': 'ir.actions.act_window',
@@ -59,7 +59,7 @@ class AddStationCertificate(models.Model):
         }
 
     def station_cer_edit(self):
-        view_form = self.env.ref('funenc_xa_station.add_station_certificate_form').id
+        view_form = self.env.ref('funenc_xa_station2.add_station_certificate_form').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -76,7 +76,7 @@ class AddStationCertificate(models.Model):
 
 
     def station_details(self):
-        view_form = self.env.ref('funenc_xa_station.add_station_certificate_details').id
+        view_form = self.env.ref('funenc_xa_station2.add_station_certificate_details').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
@@ -91,7 +91,7 @@ class AddStationCertificate(models.Model):
         self.env['station.certificate'].search([('id', '=', self.id)]).unlink()
 
     def station_load(self):
-        view_form = self.env.ref('funenc_xa_station.add_station_certificate_form_load').id
+        view_form = self.env.ref('funenc_xa_station2.add_station_certificate_form_load').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',

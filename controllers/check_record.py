@@ -23,7 +23,7 @@ class CheckRecord(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station.check_record'].search([])
+        records = request.env['funenc_xa_station2.check_record'].search([])
         if len(records) > 0:
             for record in records:
                 if record.line_id.name:

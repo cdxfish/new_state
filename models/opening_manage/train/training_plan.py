@@ -8,7 +8,7 @@ import base64
 
 
 class training_plan(models.Model):
-    _name = 'funenc_xa_station.training_plan'
+    _name = 'funenc_xa_station2.training_plan'
     _description = u'培训计划'
     _rec_name = 'training_plan_project'
 
@@ -18,7 +18,7 @@ class training_plan(models.Model):
     training_plan_mode = fields.Char(string='培训形式')
     training_plan_major = fields.Char(string='培训专业')
     training_plan_place = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='培训地点')
-    training_plan_time = fields.One2many('funenc_xa_station.select_datetime','training_plan_id',string='培训时间')
+    training_plan_time = fields.One2many('funenc_xa_station2.select_datetime','training_plan_id',string='培训时间')
     lecturer = fields.Char(string='授课人')
     training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')])
     remarks = fields.Char(string='备注')
@@ -27,18 +27,18 @@ class training_plan(models.Model):
     state = fields.Selection(selection=[('not_started','未开始'),('underway','正在进行'),('finished','已结束')],default="not_started")
 
     #  站点培训成果
-    site_training_results_ids = fields.One2many('funenc_xa_station.site_training_results','training_plan_id',string='培训成果')
+    site_training_results_ids = fields.One2many('funenc_xa_station2.site_training_results','training_plan_id',string='培训成果')
 
     # 集中培训 培训成果
-    training_plan_to_situation_ids = fields.One2many('funenc_xa_station.training_to_situation','training_plan_id',string='培训情况'
+    training_plan_to_situation_ids = fields.One2many('funenc_xa_station2.training_to_situation','training_plan_id',string='培训情况'
                                                      )
     # 集中培训效果评价
-    training_effect_to_training_plan_ids = fields.One2many('funenc_xa_station.training_effect_to_training_plan',
+    training_effect_to_training_plan_ids = fields.One2many('funenc_xa_station2.training_effect_to_training_plan',
                                                            'training_plan_id', string='')
 
 
     # 签到
-    sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id',string='集中签到')
+    sign_in_user_ids = fields.One2many('funenc_xa_station2.personnel_situation', 'training_plan_id',string='集中签到')
 
 
     def create_qrcode(self):
@@ -73,7 +73,7 @@ class training_plan(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.training_plan',
+            'res_model': 'funenc_xa_station2.training_plan',
             'context': context,
             'target': 'current',
         }
@@ -85,7 +85,7 @@ class training_plan(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.training_plan',
+            'res_model': 'funenc_xa_station2.training_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'target': 'current',
@@ -107,18 +107,18 @@ class training_plan(models.Model):
 
         if training_plan_id.training_plan_type == 'concentrate':
             # 集中培训培训情况预设
-            concentrate_training_situations = self.env['funenc_xa_station.concentrate_training_situation'].search([]).ids
+            concentrate_training_situations = self.env['funenc_xa_station2.concentrate_training_situation'].search([]).ids
             for concentrate_training_situation in concentrate_training_situations:
-                self.env['funenc_xa_station.training_to_situation'].create(
+                self.env['funenc_xa_station2.training_to_situation'].create(
                     {'training_plan_id':training_plan_id.id,
                      'project_id':concentrate_training_situation
                     }
                 )
 
             # 集中培训培训效果预设
-            training_effect_ids = self.env['funenc_xa_station.training_effect'].search([]).ids
+            training_effect_ids = self.env['funenc_xa_station2.training_effect'].search([]).ids
             for training_effect_id in training_effect_ids:
-                self.env['funenc_xa_station.training_effect_to_training_plan'].create(
+                self.env['funenc_xa_station2.training_effect_to_training_plan'].create(
                     {'training_plan_id': training_plan_id.id,
                      'training_effect_id': training_effect_id
                      }
@@ -134,17 +134,17 @@ class training_plan(models.Model):
     def button_details(self):
         context = dict(self.env.context or {})
         if self.training_plan_type == 'site':
-            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_training_plan_form_1').id
+            view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_training_plan_form_1').id
         else:
             #  集中培训
-            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_training_plan_form_2').id
+            view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_training_plan_form_2').id
 
         return{
             'name': '培训计划详情',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.training_plan',
+            'res_model': 'funenc_xa_station2.training_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -158,16 +158,16 @@ class SelectDatetime(models.Model):
      多选选择时间
     '''
 
-    _name = 'funenc_xa_station.select_datetime'
+    _name = 'funenc_xa_station2.select_datetime'
 
     name = fields.Datetime(string='培训时间')
-    training_plan_id = fields.Many2one('funenc_xa_station.training_plan',string='培训计划相关')
+    training_plan_id = fields.Many2one('funenc_xa_station2.training_plan',string='培训计划相关')
 
 class site_training_results(models.Model):
     '''
      站点培训成果
     '''
-    _name = 'funenc_xa_station.site_training_results'
+    _name = 'funenc_xa_station2.site_training_results'
     _inherit = 'fuenc_station.station_base'
 
     course_hours = fields.Char(string='培训课时')
@@ -178,15 +178,15 @@ class site_training_results(models.Model):
     questions = fields.Text(string='问题及整改')
 
     ####
-    training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训计划')
-    user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'site_training_results_id', string='人员情况')
+    training_plan_id = fields.Many2one('funenc_xa_station2.training_plan', string='培训计划')
+    user_ids = fields.One2many('funenc_xa_station2.personnel_situation', 'site_training_results_id', string='人员情况')
 
 
 class PersonnelSituation(models.Model):
     '''
     签到人员情况
     '''
-    _name = 'funenc_xa_station.personnel_situation'
+    _name = 'funenc_xa_station2.personnel_situation'
 
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
     sign_in_time = fields.Datetime(string='签到时间')
@@ -196,10 +196,10 @@ class PersonnelSituation(models.Model):
     jobnumber = fields.Char(related='user_id.jobnumber')
 
     # 培训关联
-    training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训关联')
+    training_plan_id = fields.Many2one('funenc_xa_station2.training_plan', string='培训关联')
 
     ### 站点培训关联
-    site_training_results_id = fields.Many2one('funenc_xa_station.site_training_results', string='站点培训关联')
+    site_training_results_id = fields.Many2one('funenc_xa_station2.site_training_results', string='站点培训关联')
 
 
     @api.constrains('training_result')
@@ -219,10 +219,10 @@ class training_plan_to_situation(models.Model):
     '''
      培训计划和培训情况中间表
     '''
-    _name = 'funenc_xa_station.training_to_situation'
-    training_plan_id = fields.Many2one('funenc_xa_station.training_plan',string='培训计划')
+    _name = 'funenc_xa_station2.training_to_situation'
+    training_plan_id = fields.Many2one('funenc_xa_station2.training_plan',string='培训计划')
 
-    project_id = fields.Many2one('funenc_xa_station.concentrate_training_situation', string='培训情况')
+    project_id = fields.Many2one('funenc_xa_station2.concentrate_training_situation', string='培训情况')
     describe = fields.Char(string='描述')
 
 
@@ -230,12 +230,12 @@ class concentrate_training_situation(models.Model):
     '''
     集中培训  培训情况
     '''
-    _name = 'funenc_xa_station.concentrate_training_situation'
+    _name = 'funenc_xa_station2.concentrate_training_situation'
     _rec_name = 'project'
 
     project = fields.Char(string='项目')
 
-    training_plan_to_situation_ids = fields.One2many('funenc_xa_station.training_to_situation','project_id' ,string='')
+    training_plan_to_situation_ids = fields.One2many('funenc_xa_station2.training_to_situation','project_id' ,string='')
 
 
 
@@ -243,24 +243,24 @@ class TrainingEffect(models.Model):
     '''
     集中培训 培训效果
     '''
-    _name = 'funenc_xa_station.training_effect'
+    _name = 'funenc_xa_station2.training_effect'
     _description = '培训效果评价'
     _rec_name = 'evaluation_project'
 
     evaluation_project = fields.Char(string='评估项目')
     evaluation_project_total_score = fields.Integer(string='评估项目总分')
-    training_effect_to_training_plan_ids = fields.One2many('funenc_xa_station.training_effect_to_training_plan','training_effect_id',string='')
+    training_effect_to_training_plan_ids = fields.One2many('funenc_xa_station2.training_effect_to_training_plan','training_effect_id',string='')
 
 
 class training_effect_to_training_plan(models.Model):
     '''
     培训计划和评分中间表
     '''
-    _name = 'funenc_xa_station.training_effect_to_training_plan'
+    _name = 'funenc_xa_station2.training_effect_to_training_plan'
 
-    training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训计划')
+    training_plan_id = fields.Many2one('funenc_xa_station2.training_plan', string='培训计划')
 
-    training_effect_id = fields.Many2one('funenc_xa_station.training_effect', string='培训效果评分')
+    training_effect_id = fields.Many2one('funenc_xa_station2.training_effect', string='培训效果评分')
     evaluation_project = fields.Char(string='评估项目',related='training_effect_id.evaluation_project')
     evaluation_project_total_score = fields.Integer(string='评估项目总分',related='training_effect_id.evaluation_project_total_score')
     total_score = fields.Integer(string='评价得分')

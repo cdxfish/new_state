@@ -57,7 +57,7 @@
             <field name="name">second_form</field>
             <field name="model">person_management.person_second</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>

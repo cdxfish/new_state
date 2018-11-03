@@ -6,10 +6,9 @@ import datetime
 
 
 class work_kanban(models.Model):
-    _name = 'funenc_xa_station.work_kanban'
+    _name = 'funenc_xa_station2.work_kanban'
     _description = u'工作看板'
     _rec_name = 'task_originator_id'
-    # _inherit = 'fuenc_station.station_base'
 
     task_originator_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='任务发起人')
     originator_time = fields.Datetime(string='发起时间')
@@ -18,7 +17,7 @@ class work_kanban(models.Model):
     task_start_time = fields.Datetime(string='任务开始时间')
     task_end_time = fields.Datetime(string='任务结束时间')
     task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')])
-    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型')
+    task_type_id = fields.Many2one('funenc_xa_station2.task_type', string='任务类型')
     task_type = fields.Selection(selection=[('send_task', '发起的任务'), ('receive_task', '收到的任务')],
                                  default="send_task")  # 区分接收的任务还是发送的任务分类
     is_send = fields.Integer(string='任务是否发送')
@@ -27,23 +26,22 @@ class work_kanban(models.Model):
                                   default="not_completed")  # 发送任务状态
 
     ####
-    parent_id = fields.Many2one('funenc_xa_station.work_kanban', string='发起任务')
-    child_ids = fields.One2many('funenc_xa_station.work_kanban', 'parent_id', string='接收任务情况')
+    parent_id = fields.Many2one('funenc_xa_station2.work_kanban', string='发起任务')
+    child_ids = fields.One2many('funenc_xa_station2.work_kanban', 'parent_id', string='接收任务情况')
     task_feedback = fields.Char(string='任务反馈')
     receive_task_state = fields.Selection(selection=[('receive_state', '接收状态'), ('completed', '已完成')])  # 接收任务状态
     completed_time = fields.Datetime(string='接收任务完成时间')
     task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
 
-
     @api.model
     def create_work_kanban(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form').id
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_work_kanban_form').id
         return {
             'name': '新增任务发起',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.work_kanban',
+            'res_model': 'funenc_xa_station2.work_kanban',
             'context': context,
             'target': 'new',
         }
@@ -55,7 +53,7 @@ class work_kanban(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.work_kanban',
+            'res_model': 'funenc_xa_station2.work_kanban',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -232,67 +230,3 @@ class work_kanban(models.Model):
             return {'receive_task_state': 'completed'}
         else:
             return {'receive_task_state': 'receive_state'}
-
-    @api.multi
-    def init_data(self):
-        context = dict(self.env.context or {})
-        context['group_by']= 'task_type'
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form').id
-        list = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_list').id
-        # kabna_id =self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_kanban').id
-        if self.env.user.id == 1:
-            domain= [('id','<',1)]
-        else:
-            ding_user = self.env.user.dingtalk_user
-        #     if department_id.department_hierarchy ==1:
-        #         domain=[]
-        #     elif department_id.department_hierarchy == 2:
-        #         domain=[]
-        #     else:
-        #         domain = []
-
-            domain = ['|',('task_originator_id','=',ding_user.id),('task_send_user_ids','=',ding_user.id)]
-
-        return {
-            'name': '新增任务发起',
-            'type': 'ir.actions.act_window',
-            "views": [[list,'tree'],[view_form,'form']],
-            'res_model': 'funenc_xa_station.work_kanban',
-            'context': context,
-            'target': 'current',
-            'domain':domain
-        }
-
-    @api.multi
-    def  my_work_kanban(self):
-        context = dict(self.env.context or {})
-        context['group_by'] = 'task_type'
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form_2').id
-        list = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_list_2').id
-        # kabna_id =self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_kanban').id
-        if self.env.user.id == 1:
-            domain = []
-        else:
-            ding_user = self.env.user.dingtalk_user
-            #     if department_id.department_hierarchy ==1:
-            #         domain=[]
-            #     elif department_id.department_hierarchy == 2:
-            #         domain=[]
-            #     else:
-            #         domain = []
-
-            domain = ['|',
-                      '&', ('task_originator_id', '=', ding_user.id), ('task_state','=','not_completed'),
-                      ('task_send_user_ids', '=', ding_user.id),('receive_task_state','=','completed')
-
-                      ]
-
-        return {
-            'name': '新增任务发起',
-            'type': 'ir.actions.act_window',
-            "views": [[list, 'tree'], [view_form, 'form']],
-            'res_model': 'funenc_xa_station.work_kanban',
-            'context': context,
-            'target': 'current',
-            'domain': domain
-        }

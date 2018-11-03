@@ -14,7 +14,6 @@
     <t t-name="browse_image_button">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object"  name="browse_image_button_act"
-                    t-if="widget.record.data.browse_image_invisible == one"
                     >现场照片</button>
         </div>
     </t>

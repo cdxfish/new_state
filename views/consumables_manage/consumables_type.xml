@@ -22,9 +22,9 @@
 			<field name="arch" type="xml">
 				<tree limit="15" create="0" class="noOpen">
                     <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"-->
-                           <!--groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
+                           <!--groups="funenc_xa_station2.system_fuenc_tester" options="{'no_create':True}"/>-->
                     <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"-->
-                           <!--groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
+                           <!--groups="funenc_xa_station2.system_fuenc_tester" options="{'no_create':True}"/>-->
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="prent_id" string="父耗材分类"/>
 					<widget string="操作" name="treebtns" template="consumables_type_widget_edit_delete"/>
@@ -39,8 +39,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-                            <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}"/>-->
-                            <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" groups="funenc_xa_station.system_fuenc_tester" options="{'no_create':True}" context="{'site_id':site_id}"/>-->
+                            <!--<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" groups="funenc_xa_station2.system_fuenc_tester" options="{'no_create':True}"/>-->
+                            <!--<field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" groups="funenc_xa_station2.system_fuenc_tester" options="{'no_create':True}" context="{'site_id':site_id}"/>-->
 						    <field name="consumables_type" string="耗材类型" />
                             <field name="prent_id" string="父耗材分类" domain="[('id','!=',context.get('self_id'))]"/>
                         </group>

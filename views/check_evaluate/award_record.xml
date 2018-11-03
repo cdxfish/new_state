@@ -68,7 +68,7 @@
             <field name="name">award_record</field>
             <field name="model">funenc_xa_station.award_record</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]"
@@ -101,7 +101,7 @@
             <field name="name">award_record</field>
             <field name="model">funenc_xa_station.award_record</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]"
@@ -125,7 +125,7 @@
 
         <!--<record model="ir.actions.act_window" id="award_record_act">-->
             <!--<field name="name">奖励记录</field>-->
-            <!--<field name="res_model">funenc_xa_station.award_record</field>-->
+            <!--<field name="res_model">funenc_xa_station2.award_record</field>-->
             <!--<field name="view_mode">tree,kanban,form</field>-->
         <!--</record>-->
 

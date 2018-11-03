@@ -79,7 +79,7 @@ class StationIndex(models.Model):
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='员工', required=True)
     jobnumber = fields.Char(related='user_id.jobnumber', string="工号")
     position = fields.Text(related='user_id.position', string="职位")
-    arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
+    arrange_order_id = fields.Many2one('funenc_xa_station2.arrange_order', string='班次')
     time_length = fields.Float(related='arrange_order_id.save_work_time', string='计划时长(h)')
     clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点')
     clock_start_time = fields.Datetime(string='上班打卡时间')
@@ -209,16 +209,16 @@ class StationIndex(models.Model):
 
                 work_time = 0
                 add_work_time = 0
-                sick_leave = 0  # 病假
+                sick_leave = 0 # 病假
                 maternity_leave = 0  # 孕假
-                compassionate_leave = 0  # 事件
-                year_leave = 0  # 年假
-                marry_leave = 0  # 婚假
-                maternited_leave = 0  # 产假
-                nursing_leave = 0  # 护理假
-                funeral_leave = 0  # 丧假
-                job_injury_leave = 0  # 工伤假
-                absenteeism = 0  # 旷工
+                compassionate_leave = 0 # 事件
+                year_leave = 0 # 年假
+                marry_leave = 0 # 婚假
+                maternited_leave = 0 # 产假
+                nursing_leave = 0 # 护理假
+                funeral_leave = 0 # 丧假
+                job_injury_leave = 0 # 工伤假
+                absenteeism = 0 # 旷工
                 for count_user in compute_users:
                     clock_start_time = count_user.get('clock_start_time')
                     clock_end_time = count_user.get('clock_end_time')
@@ -235,7 +235,7 @@ class StationIndex(models.Model):
 
                     add_work_time = add_work_time + int(count_user.get('festival_overtime'))  # 加班
                     # 请假
-                    leave_id = self.env['funenc_xa_station.leave'].search_read([('leave_user_id', '=', key_user_id), (
+                    leave_id = self.env['funenc_xa_station2.leave'].search_read([('leave_user_id', '=', key_user_id), (
                         'leave_start_time', '<=', count_user.get('time')), (
                                                                                     'leave_end_time', '>=',
                                                                                     count_user.get('time'))],
@@ -253,15 +253,16 @@ class StationIndex(models.Model):
                         elif leave_id.get('leave_type') == 'marital_leave':
                             marry_leave = marry_leave + 1
                         elif leave_id.get('leave_type') == 'maternity_eave_1':
-                            maternited_leave = maternited_leave + 1
+                            maternited_leave = maternited_leave +1
                         elif leave_id.get('leave_type') == 'nursing':
                             nursing_leave = nursing_leave + 1
                         elif leave_id.get('leave_type') == 'funeral_leave':
                             funeral_leave = funeral_leave + 1
                         elif leave_id.get('leave_type') == 'injury_leave':
-                            job_injury_leave = job_injury_leave + 1
+                            job_injury_leave =  job_injury_leave + 1
                         # elif leave_id.get('leave_type') == 'leave_office':
                         #     pass
+
 
                 count_dic['night_work_time'] = work_time  # 夜班
                 count_dic['sick_leave'] = add_work_time  # 加班
@@ -356,73 +357,29 @@ class generate_qr(models.Model):
     '''
       生成二维码 用于上下班打卡
     '''
-    name = fields.Char(string='',default="上下班二维码")
-    _name = 'funenc_xa_station.generate_qr'
-    _inherit = 'fuenc_station.station_base'
+    _name = 'funenc_xa_station2.generate_qr'
     work_qr = fields.Binary(string='上班二维码')
     off_work_qr = fields.Binary(string='下班二维码')
 
     def init_data(self):
-        if self.env.user.id ==1:
-            return {
-                'name': '钥匙创建',
-                'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'form',
-                'res_model': 'funenc.xa.station.key.detail',
-                'context': self.env.context,
-                # 'flags': {'initial_mode': 'edit'},
-                'target': 'new',
-            }
-
-
         self.create_qrcode()
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
-        ding_user = self.env.user.dingtalk_user[0]
-        department = ding_user.departments[0]
-        if department.department_hierarchy == 3:
-
-            obj =self.search([('create_date','=',datetime.datetime.now())])
-            if obj:
-
-                return {
-                    'name': '上下班打卡',
-                    'type': 'ir.actions.act_window',
-                    "views": [[view_form, "form"]],
-                    'res_model': 'funenc_xa_station.generate_qr',
-                    'context': context,
-                    'res_id': obj.id,
-                    'target': 'current',
-                }
-            else:
-
-                ding_user = self.env.user.dingtalk_user[0]
-                department = ding_user.departments[0]
-                file = os.path.dirname(os.path.dirname(__file__))
-                if department.department_hierarchy == 3:
-                    # 获取本机计算机名称
-                    hostname = socket.gethostname()
-                    # 获取本机ip
-                    ip = socket.gethostbyname(hostname)
-                    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
-                                       border=4, )
-                    qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                    print('http://{}/fuenc_station/index/'.format(ip))
-                    img = qr.make_image()
-                    file_name = file + "/static/images/work_{}.png".format(department.id)
-                    img.save(file_name)
-                    imgs = open(file_name, 'rb')
-                    datas = imgs.read()
-                    file_b64 = base64.b64encode(datas)
-                    os.remove(file_name)
-                    obj = self.create({'work_qr': file_b64})
-                    file_name = file + "/static/images/off_work_{}.png".format(department.id)
-                    qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
-                    img.save(file_name)
-                    obj.update({'off_work_qr': file_name})
-                    imgs.close()
-                    os.remove(file_name)
+        view_form = self.env.ref('funenc_xa_station2.funenc_xa_station_generate_qr_list').id
+        if self.env.user.has_group('funenc_xa_station2.system_fuenc_site'):
+            ding_user = self.env.user.dingtalk_user[0]
+            department = ding_user.departments[0]
+            context['work_qr'] = '/funenc_xa_station2/static/images/work_{}.png'.format(department.id)
+            context['off_work_qr'] = '/funenc_xa_station2/static/images/off_work_{}.png'.format(department.id)
+        obj = self.search([])[0]
+        return {
+            'name': '网站首页',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc.xa.station.borrow.record',
+            'context': context,
+            'res_id': obj.id,
+            'target': 'current',
+        }
 
     def create_qrcode(self):
         '''
@@ -441,22 +398,16 @@ class generate_qr(models.Model):
                 ip = socket.gethostbyname(hostname)
                 qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
                                    border=4, )
-                qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+                qr.add_data('http://{}:8069/funenc_xa_station2/check_collect/'.format(ip))
                 print('http://{}/fuenc_station/index/'.format(ip))
                 img = qr.make_image()
                 file_name = file + "/static/images/work_{}.png".format(department.id)
                 img.save(file_name)
-                imgs = open(file_name, 'rb')
-                datas = imgs.read()
-                file_b64 = base64.b64encode(datas)
-                os.remove(file_name)
-                obj = self.create({'work_qr': file_b64})
+                obj = self.create({'work_qr': file_name})
                 file_name = file + "/static/images/off_work_{}.png".format(department.id)
-                qr.add_data('http://{}:8069//funenc_xa_station/off_work/'.format(ip))
+                qr.add_data('http://{}:8069//funenc_xa_station2/off_work/'.format(ip))
                 img.save(file_name)
                 obj.update({'off_work_qr': file_name})
-                imgs.close()
-                os.remove(file_name)
 
 
 # def create_qrcode_1():
@@ -471,7 +422,7 @@ class generate_qr(models.Model):
 #         # 获取本机ip
 #         ip = socket.gethostbyname(hostname)
 #         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
-#         qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
+#         qr.add_data('http://{}:8069/funenc_xa_station2/check_collect/'.format(ip))
 #         print('http://{}/fuenc_station/index/'.format(ip))
 #         img = qr.make_image()
 #         img.save("../static/images/advanceduse.png")
@@ -479,40 +430,6 @@ class generate_qr(models.Model):
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
-    count_user = fields.Integer(seting='人员数量', compute='_compute_count_user')
-
-    def station_detail(self):
-
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_detail_form').id
-        res_id = self.env['funenc_xa_station.station_detail'].search([('site_id', '=', self.id)]),
-        return {
-            'name': '车站详情',
-            'type': 'ir.actions.act_window',
-            "views": [[view_form, "form"]],
-            'res_id': res_id[0].id if res_id else None,
-            'res_model': 'funenc_xa_station.station_detail',
-            "top_widget": "multi_action_tab",
-            "top_widget_key": "driver_manage_tab",
-            "top_widget_options": '''{'tabs':
-                                                      [
-                                                          {
-                                                              'title': '车站详情',
-                                                              'action' : 'funenc_xa_station.station_detai_action',
-                                                              'group' : 'funenc_xa_station.module_category_comprehensive',
-                                                              'context':1,
-                                                              },
-                                                          {
-                                                              'title': '耗材出库',
-                                                              'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
-                                                              },
-                                                      ]
-                                                  }''',
-            'context': self.env.context,
-        }
-
-    def _compute_count_user(self):
-        for this in self:
-            this.count_user = sum(this.users.ids)
 
     @api.model
     def get_xa_departments(self):
@@ -583,4 +500,3 @@ class inherit_department(models.Model):
             return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
         except Exception:
             return []
-

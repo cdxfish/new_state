@@ -3,14 +3,14 @@ from odoo import models, fields, api
 
 
 class ConsumablesType(models.Model):
-    _name = 'funenc_xa_station.consumables_type'
+    _name = 'funenc_xa_station2.consumables_type'
     # _inherit = 'fuenc_station.station_base'
     _description = u'耗材分类'
     _rec_name = 'consumables_type'
 
     consumables_type = fields.Char('耗材分类',required= True)
-    prent_id = fields.Many2one('funenc_xa_station.consumables_type',string='父耗材分类')
-    child_ids = fields.One2many('funenc_xa_station.consumables_type', 'prent_id', string='子耗材分类')
+    prent_id = fields.Many2one('funenc_xa_station2.consumables_type',string='父耗材分类')
+    child_ids = fields.One2many('funenc_xa_station2.consumables_type', 'prent_id', string='子耗材分类')
 
 
 
@@ -23,7 +23,7 @@ class ConsumablesType(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.consumables_type',
+            'res_model': 'funenc_xa_station2.consumables_type',
             'context': context,
             # 'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -37,7 +37,7 @@ class ConsumablesType(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.consumables_type',
+            'res_model': 'funenc_xa_station2.consumables_type',
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -54,7 +54,7 @@ class ConsumablesType(models.Model):
         :return:
         '''
         rst = []
-        class_a = self.env['funenc_xa_station.consumables_type'].search_read([('prent_id', '=', id)],
+        class_a = self.env['funenc_xa_station2.consumables_type'].search_read([('prent_id', '=', id)],
                                                                         fields=['child_ids','consumables_type'])
         for record in class_a:
             vals = {

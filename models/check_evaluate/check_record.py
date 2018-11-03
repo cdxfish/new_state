@@ -9,7 +9,7 @@ import threading
 
 
 class CheckRecord(models.Model):
-    _name = 'funenc_xa_station.check_record'
+    _name = 'funenc_xa_station2.check_record'
     _inherit = 'fuenc_station.station_base'
 
     key = [('check_parment', '考核分部（室）分值')
@@ -29,12 +29,12 @@ class CheckRecord(models.Model):
     check_target = fields.Selection(related='check_project.check_standard', string='考评指标')
     problem_kind = fields.Char(related='check_project.problem_kind', string='问题类型')
     check_kind = fields.Selection(key, string='考核类别')
-    check_project = fields.Many2one('funenc_xa_station.check_standard', string='考核项目')
+    check_project = fields.Many2one('funenc_xa_station2.check_standard', string='考核项目')
     incident_describe = fields.Text(string='事件描述')
     check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
     check_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
     check_time = fields.Datetime(string='考评时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    associated_add = fields.One2many('funenc_xa_station.check_record_add', 'associated', string='新增考评人员')
+    associated_add = fields.One2many('funenc_xa_station2.check_record_add', 'associated', string='新增考评人员')
     all_score = fields.Float(string='总分值', default=100)
     mouth_grade = fields.Float(string='本月评分')
     grade_degree = fields.Float(string='考评次数', default=1)
@@ -58,7 +58,7 @@ class CheckRecord(models.Model):
     @api.model
     @get_domain
     def get_action(self, domain):
-        view_tree = self.env.ref('funenc_xa_station.check_record_tree').id
+        view_tree = self.env.ref('funenc_xa_station2.check_record_tree').id
         context = self.env.context
         return {
             'name': '考评管理',
@@ -67,30 +67,30 @@ class CheckRecord(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "list"]],
-            'res_model': 'funenc_xa_station.check_record',
+            'res_model': 'funenc_xa_station2.check_record',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "target": "current",
             "top_widget_options": '''{'tabs':
                                    [
                                        {'title': '考评记录',
-                                       'action':  'funenc_xa_station.check_record_act',
-                                       'group':'funenc_xa_station.table_evaluation_record',
+                                       'action':  'funenc_xa_station2.check_record_act',
+                                       'group':'funenc_xa_station2.table_evaluation_record',
                                        },
                                        {
                                            'title': '考评汇总',
-                                           'action2' : 'funenc_xa_station.funenc_xa_check',
-                                           'group' : 'funenc_xa_station.table_evaluation_total',
+                                           'action2' : 'funenc_xa_station2.funenc_xa_check',
+                                           'group' : 'funenc_xa_station2.table_evaluation_total',
                                            },
                                        {
                                            'title': '奖励记录',
-                                           'action2':  'funenc_xa_station.award_record_act',
-                                           'group' : 'funenc_xa_station.table_reward_record',
+                                           'action2':  'funenc_xa_station2.award_record_act',
+                                           'group' : 'funenc_xa_station2.table_reward_record',
                                            },
                                       {
                                            'title': '奖励汇总',
-                                           'action2':  'funenc_xa_station.funenc_xa_award',
-                                           'group' : 'funenc_xa_station.table_reward_total',
+                                           'action2':  'funenc_xa_station2.funenc_xa_award',
+                                           'group' : 'funenc_xa_station2.table_reward_total',
                                            },
                                    ]
                                }''',
@@ -100,7 +100,7 @@ class CheckRecord(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self, domain):
-        view_tree = self.env.ref('funenc_xa_station.check_record_tree').id
+        view_tree = self.env.ref('funenc_xa_station2.check_record_tree').id
         return {
             'name': '考评管理',
             'type': 'ir.actions.act_window',
@@ -108,29 +108,19 @@ class CheckRecord(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station.check_record',
+            'res_model': 'funenc_xa_station2.check_record',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                            [
                                {'title': '考评记录',
-                               'action':  'funenc_xa_station.check_record_act',
-                               'group':'funenc_xa_station.table_evaluation_record',
+                               'action':  'funenc_xa_station2.check_record_act',
+                               'group':'funenc_xa_station2.table_evaluation_record',
                                },
                                {
-                                   'title': '考评汇总',
-                                   'action2' : 'funenc_xa_station.funenc_xa_check',
-                                   'group' : 'funenc_xa_station.table_evaluation_total',
-                                   },
-                               {
                                    'title': '奖励记录',
-                                   'action2':  'funenc_xa_station.award_record_act',
-                                   'group' : 'funenc_xa_station.table_reward_record',
-                                   },
-                              {
-                                   'title': '奖励汇总',
-                                   'action2':  'funenc_xa_station.funenc_xa_award',
-                                   'group' : 'funenc_xa_station.table_reward_total',
+                                   'action2':  'funenc_xa_station2.award_record_act',
+                                   'group' : 'funenc_xa_station2.table_reward_record',
                                    },
                            ]
                        }''',
@@ -178,7 +168,7 @@ class CheckRecord(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.check_record',
+            'res_model': 'funenc_xa_station2.check_record',
             # 'res_id':'',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
@@ -264,15 +254,15 @@ class CheckRecord(models.Model):
             print('系统错误')
 
     def check_record_delete(self):
-        self.env['funenc_xa_station.check_record'].search([('id', '=', self.id)]).unlink()
+        self.env['funenc_xa_station2.check_record'].search([('id', '=', self.id)]).unlink()
 
     def check_record_change(self):
-        view_form = self.env.ref('funenc_xa_station.check_record_form_modify').id
+        view_form = self.env.ref('funenc_xa_station2.check_record_form_modify').id
         return {
             'name': '考评记录',
             'type': 'ir.actions.act_window',
             "views": [[view_form, "form"]],
-            'res_model': 'funenc_xa_station.check_record',
+            'res_model': 'funenc_xa_station2.check_record',
             'res_id': self.id,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
@@ -288,7 +278,7 @@ class AddResponsibility(models.Model):
         , ('loca_per_score', '当事人考核分值')
            ]
 
-    _name = 'funenc_xa_station.check_record_add'
+    _name = 'funenc_xa_station2.check_record_add'
 
     # 用来作为关联字段来获取分数
     def __default_reference_grade(self):
@@ -303,7 +293,7 @@ class AddResponsibility(models.Model):
     grade = fields.Float(string='评分')
     chose_grade = fields.Selection([('add', '加'), ('subtraction', '减')], string='评分', default='subtraction')
     incident_describe = fields.Text(string='事件描述')
-    associated = fields.Many2one('funenc_xa_station.check_record', string='关联字段没有实际意义',
+    associated = fields.Many2one('funenc_xa_station2.check_record', string='关联字段没有实际意义',
                                  default=__default_reference_grade)
 
     @api.onchange('check_kind')
@@ -311,7 +301,7 @@ class AddResponsibility(models.Model):
         if self.check_kind:
             a = self.associated
             # 获取当前选项的分数
-            score = self.env['funenc_xa_station.check_standard'].search_read(
+            score = self.env['funenc_xa_station2.check_standard'].search_read(
                 [('check_project', '=', self.associated.check_project.check_project)], [self.check_kind])[0].get(
                 self.check_kind)
             self.reference_grade = score

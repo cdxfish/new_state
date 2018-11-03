@@ -64,7 +64,7 @@
             <field name="name">生产日报</field>
             <field name="model">funenc_xa_staion.prude_newpaper_write</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-2">
@@ -254,6 +254,211 @@
                 </form>
             </field>
         </record>
+
+       <record id="prude_newspaper_write_form_modify" model="ir.ui.view">
+            <field name="name">生产日报</field>
+            <field name="model">funenc_xa_staion.prude_newpaper_write</field>
+            <field name="arch" type="xml">
+                <form creata="0" edit="0" class="noOpen">
+                    <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="line_id" string="线路:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" readonly="1"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="site_id" string="站点:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" readonly="1"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="event_stype" string="事件类型:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="event_stype" options="{'no_create':True,'no_open':True}" context="{'event_stype':event_stype}" readonly="1"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="open_time" string="发生时间:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="open_time"/>
+                              </div>
+                           </div>
+                        </div>
+                        <field name="event_stype_name" invisible="1"></field>
+                        <div class="row" attrs="{'invisible':[('event_stype_name', '!=','边门进出情况')]}">
+                           <div class="col-md-6" >
+                              <div class="col-md-2">
+                                 <label for="Enter_person_count" string="进边门人数:" />
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="Enter_person_count"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="come_person_count" string="出边门人数:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="come_person_count"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible':[('event_stype_name', '!=','票务、AFC故障及异常情况')]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="equipment_name" string="设备名称:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="equipment_name"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="equipment_count" string="设备编号:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="equipment_count"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible': [('event_stype_name', 'not in', ['票务、AFC故障及异常情况','其他设备故障情况'])]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="brenk_time" string="故障时间:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="brenk_time"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="brenk_repair_time" string="故障报修时间:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="brenk_repair_time"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible':[('event_stype_name', '!=','日票、预制单程票售卖情况')]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="two_money" string="2元:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="two_money"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="three_money" string="3元:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="three_money"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible':[('event_stype_name', '!=','日票、预制单程票售卖情况')]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="four_money" string="4元:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="four_money"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="five_money" string="5元:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="five_money"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible':[('event_stype_name', '!=','日票、预制单程票售卖情况')]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="six_money" string="6元:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="six_money"/>
+                              </div>
+                           </div>
+                           <div class="col-md-6" attrs="{'invisible':[('event_stype_name', '!=','日票、预制单程票售卖情况')]}">
+                              <div class="col-md-2">
+                                 <label for="seven_money" string="7元:"/>
+                              </div>
+                                 <div class="col-md-10">
+                                     <field name="seven_money"/>
+                              </div>
+                           </div>
+                        </div>
+
+                      <div class="row" attrs="{'invisible':[('event_stype_name', '!=','日票、预制单程票售卖情况')]}">
+                           <div class="col-md-6">
+                              <div class="col-md-2">
+                                 <label for="eight_money" string="8元:"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="eight_money"/>
+                              </div>
+                           </div>
+                        </div>
+
+
+                        <div class="row" attrs="{'invisible': [('event_stype_name', 'not in', ['票务、AFC故障及异常情况','其他设备故障情况'])]}">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="brenk_state" string="故障情况:"/>
+                              </div>
+                             <div class="col-md-11">
+                                 <field name="brenk_state"/>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible': [('event_stype_name', 'in', ['票务、AFC故障及异常情况','其他设备故障情况','日票、预制单程票售卖情况','边门进出情况'])]}">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="event_content_create" string="事件内容:"/>
+                              </div>
+                             <div class="col-md-11">
+                                 <field name="event_content_create"/>
+                              </div>
+                           </div>
+                        </div>
+                        <footer>
+                            <button name='save_current_record'
+                                    string='保存'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+
+                </form>
+            </field>
+        </record>
+
 
         <!--<record model="ir.actions.act_window" id="prude_newspaper_write_act">-->
             <!--<field name="name">日报填写</field>-->

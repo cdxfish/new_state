@@ -68,7 +68,7 @@
                     <field  name="name">车站证件管理</field>
                     <field  name="model">station.certificate</field>
                     <field  name="arch"  type="xml">
-                        <form>
+                        <form creata="0" edit="0" class="noOpen">
                             <sheet>
                                 <group  name="group_top">
                                     <field  name="line_id" options="{'no_create':True,'no_open':True}"
@@ -138,11 +138,11 @@
                     <!--{'tabs':-->
                         <!--[-->
                             <!--{'title': '车站证件管理',-->
-                            <!--'action':  'funenc_xa_station.station_certificate_act_id_3',-->
-                            <!--'group': 'funenc_xa_station.test_group'},-->
+                            <!--'action':  'funenc_xa_station2.station_certificate_act_id_3',-->
+                            <!--'group': 'funenc_xa_station2.test_group'},-->
                             <!--{-->
                                 <!--'title': '人员证件管理',-->
-                                <!--'action2':  'funenc_xa_station.person_certificate_act'}-->
+                                <!--'action2':  'funenc_xa_station2.person_certificate_act'}-->
                         <!--]-->
                     <!--}-->
                 <!--</field>-->

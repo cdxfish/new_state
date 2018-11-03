@@ -53,13 +53,12 @@
             <field name="name">会议记录</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
-                <form>
+                <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
-                            <field name="start_meet"></field>
-                            <field name="end_meet"></field>
+                            <field name="meeting_time"></field>
                             <field name="meeting_site"></field>
                             <field name="compere"></field>
                             <field name="meeting_theme"></field>
@@ -91,7 +90,7 @@
             <field name="name">详情</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
-                    <form>
+                    <form creata="0" edit="0" class="noOpen">
                     <div>
                         <h1>基本信息</h1>
                     </div>

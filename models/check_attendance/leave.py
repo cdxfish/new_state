@@ -8,7 +8,7 @@ from ..get_domain import get_domain
 
 
 class Leave(models.Model):
-    _name = 'funenc_xa_station.leave'
+    _name = 'funenc_xa_station2.leave'
     _description = '请假模型'
     _inherit = 'fuenc_station.station_base'
 
@@ -46,7 +46,7 @@ class Leave(models.Model):
     @api.model
     @get_domain
     def get_day_plan_publish_action(self, domain):
-        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_leave_list').id
+        view_tree = self.env.ref('funenc_xa_station2.funenc_xa_station_leave_list').id
         return {
             'name': '请假记录',
             'type': 'ir.actions.act_window',
@@ -54,25 +54,25 @@ class Leave(models.Model):
             'view_mode': 'form',
             'domain': domain,
             "views": [[view_tree, "tree"]],
-            'res_model': 'funenc_xa_station.leave',
+            'res_model': 'funenc_xa_station2.leave',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
                            [
                                {
                                    'title': '请假记录',
-                                   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-                                   'group' : 'funenc_xa_station.table_leave_record',
+                                   'action2' : 'funenc_xa_station2.xa_station_leave_list_action',
+                                   'group' : 'funenc_xa_station2.table_leave_record',
                                },
                                {
                                    'title': '打卡记录',
-                                   'action2':  'funenc_xa_station.xa_station_clock_list_action',
-                                   'group' : 'funenc_xa_station.table_card_record',
+                                   'action2':  'funenc_xa_station2.xa_station_clock_list_action',
+                                   'group' : 'funenc_xa_station2.table_card_record',
                                },
                               {
                                    'title': '加班记录',
-                                   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
-                                   'group' : 'funenc_xa_station.table_overtime_record',
+                                   'action2':  'funenc_xa_station2.xa_station_overtime_list_action',
+                                   'group' : 'funenc_xa_station2.table_overtime_record',
                                },
                            ]
                        }''',
@@ -86,7 +86,7 @@ class Leave(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.leave',
+            'res_model': 'funenc_xa_station2.leave',
             'context': self.env.context,
             'target': 'new',
         }
@@ -97,7 +97,7 @@ class Leave(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'funenc_xa_station.leave',
+            'res_model': 'funenc_xa_station2.leave',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
@@ -116,11 +116,11 @@ class Leave(models.Model):
     def save(self):
         leave_user_id = self.leave_user_id  # 请假人
         site_id = leave_user_id.departments[0].id
-        vacation_id = self.env['funenc_xa_station.sheduling_record'].search(
+        vacation_id = self.env['funenc_xa_station2.sheduling_record'].search(
             [('site_id', '=', site_id), ('is_vacation', '=', 1)]).id  # 休假
         leave_start_time = self.leave_start_time  # 请假开始时间
         leave_end_time = self.leave_end_time  # 请假结束时间
-        sheduling_records = self.env['funenc_xa_station.sheduling_record'].search(
+        sheduling_records = self.env['funenc_xa_station2.sheduling_record'].search(
             [('sheduling_date', '>=', leave_start_time), ('sheduling_date', '<=', leave_end_time)])
         for sheduling_record in sheduling_records:
             # if sheduling_record.arrange_order_id.is_vacation == 1:
