@@ -22,6 +22,8 @@
 			<field name="arch" type="xml">
 				<form >
                     <group>
+						<field name="line_id" invisible="1"/>
+						<field name="site_id" invisible="1"/>
                         <field name="position" string="位置"/>
                         <field name="station_master_id" string="站长"/>
                         <field name="station_mobile" string="电话"/>
@@ -36,6 +38,8 @@
 			<field name="model">funenc_xa_station.station_exit</field>
 			<field name="arch" type="xml">
 				<form >
+					    <field name="line_id" invisible="1"/>
+						<field name="site_id" invisible="1"/>
                         <field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
 				</form>
 			</field>

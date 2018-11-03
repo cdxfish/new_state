@@ -402,34 +402,10 @@ class generate_qr(models.Model):
             else:
 
                 file = os.path.dirname(os.path.dirname(__file__))
+                file_name = file + "/static/images/off_work_{}.png".format(department.id)
                 if department.department_hierarchy == 3:
-                    # 获取本机计算机名称
-                    hostname = socket.gethostname()
-                    # 获取本机ip
-                    ip = socket.gethostbyname(hostname)
-                    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
-                                       border=4, )
-                    qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                    img = qr.make_image()
-                    file_name = file + "/static/images/work_{}.png".format(department.id)
-                    img.save(file_name)
-                    imgs = open(file_name, 'rb')
-                    work_datas = imgs.read()
-                    work_file_b64 = base64.b64encode(work_datas)
-                    os.remove(file_name)
-                    off_work_file_name = file + "/static/images/off_work_{}_{}.png".format(str_now_date[:6],department.id)
-                    qr.add_data('http://{}:8069/funenc_xa_station/off_work/'.format(ip))
-                    img.save(off_work_file_name)
-                    imgs = open(off_work_file_name, 'rb')
-                    off_work_datas = imgs.read()
-                    off_work_file_b64 = base64.b64encode(off_work_datas)
+                    pass
 
-                    self.create({'work_qr': work_file_b64, 'str_now_date': datetime.datetime.now(),
-                                 'off_work_qr': off_work_file_b64})
-
-                    imgs.close()
-                    os.remove(file_name)
-                    os.remove(off_work_file_name)
 
     def create_qrcode(self):
         '''
@@ -441,6 +417,7 @@ class generate_qr(models.Model):
             ding_user = self.env.user.dingtalk_user[0]
             department = ding_user.departments[0]
             file = os.path.dirname(os.path.dirname(__file__))
+            file_name = file + "/static/images/work_{}.png".format(department.id)
             if department.department_hierarchy == 3:
                 # 获取本机计算机名称
                 hostname = socket.gethostname()
@@ -449,9 +426,8 @@ class generate_qr(models.Model):
                 qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,
                                    border=4, )
                 qr.add_data('http://{}:8069/funenc_xa_station/check_collect/'.format(ip))
-                print('http://{}/fuenc_station/index/'.format(ip))
                 img = qr.make_image()
-                file_name = file + "/static/images/work_{}.png".format(department.id)
+
                 img.save(file_name)
                 imgs = open(file_name, 'rb')
                 datas = imgs.read()
@@ -464,6 +440,30 @@ class generate_qr(models.Model):
                 obj.update({'off_work_qr': file_name})
                 imgs.close()
                 os.remove(file_name)
+
+    def create_qrcode_1(self,add_data,file_name):
+        '''
+        二维码生成
+        '''
+        # add_data = http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}
+        # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
+        file = os.path.dirname(os.path.dirname(__file__))
+        qr_file = os.path.dirname(os.path.dirname(file))
+        # 获取本机计算机名称
+        hostname = socket.gethostname()
+        # 获取本机ip
+        ip = socket.gethostbyname(hostname)
+        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
+        qr.add_data(add_data)
+        img = qr.make_image()
+        img.save(file_name)
+        imgs = open(file_name, 'rb')
+        datas = imgs.read()
+        file_b64 = base64.b64encode(datas)
+        imgs.close()
+        os.remove(file_name)
+
+        return file_b64
 
 
 class inherit_department(models.Model):
