@@ -63,14 +63,15 @@ class PrudeNewpaperWrite(models.Model):
         open_time = d + delta
         old_time = self.env['funenc_xa_station.date_time'].search_read([])
         if old_time:
-            if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
-                self.env['funenc_xa_station.date_time'].search([]).unlink()
-                raise exceptions.ValidationError('提交警告一天只能提交一次')
-            else:
-                item = {
-                    'date_time_limit': open_time
-                }
-                self.env['funenc_xa_station.date_time'].sudo().create(item)
+            # if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
+            #     self.env['funenc_xa_station.date_time'].search([]).unlink()
+            #     raise exceptions.ValidationError('提交警告一天只能提交一次')
+            # else:
+            #     item = {
+            #         'date_time_limit': open_time
+            #     }
+            #     self.env['funenc_xa_station.date_time'].sudo().create(item)
+            pass
 
         else:
             item = {
@@ -138,21 +139,21 @@ class PrudeNewpaperWrite(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
+            'domain': [('create_uid', '=', self.env.user.id)],
             "views": [[view_form, "tree"]],
             'res_model': 'funenc_xa_station.prude_newspaper',
             'context': self.env.context,
         }
 
     #新创建一条记录
-    @get_domain
-    def information_daynewpaper_write(self,domain):
+    def information_daynewpaper_write(self):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form').id
         return{
             'name': '生产日报',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain':[('create_user','=',self.env.user.id)],
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,
@@ -164,7 +165,7 @@ class PrudeNewpaperWrite(models.Model):
     def prude_newpaper_type_onchange(self):
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_write_form_modify').id
         return{
-            'name': '生产日报',
+            'name': '日报填写',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -172,8 +173,6 @@ class PrudeNewpaperWrite(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,
-            'flags': {'initial_mode': 'edit'},
-            'target':'new',
         }
 
     def prude_newpaper_type_selete(self):
@@ -190,11 +189,11 @@ class PrudeNewpaperWrite(models.Model):
     @api.depends('event_stype')
     def _event_content(self):
         if self.event_stype.prude_event_type == '边门进出情况':
-            self.event_content = str('进边门人数')+str(self.Enter_person_count) +','+ str('出边门人数') + str(self.come_person_count)
+            self.event_content = str('进边门人数')+str(self.Enter_person_count or '') +','+ str('出边门人数') + str(self.come_person_count)
 
         elif self.event_stype.prude_event_type == '票务、AFC故障及异常情况':
-            self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
-                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+            self.event_content = str('设备名称')+':'+str(self.equipment_name or '') + str('、故障时间：')+str(self.brenk_time or '') + \
+                str('、故障报修时间' or '')+':'+str(self.brenk_repair_time or '')+'、'+str('故障情况' or '')+':'+str(self.brenk_state or '')
 
         elif self.event_stype.prude_event_type == '日票、预制单程票售卖情况':
             self.event_content = '2元'+':'+str(self.two_money or 0)+'、'+'3元'+':'+str(self.three_money or 0)+'、4元'+':'\
@@ -202,33 +201,47 @@ class PrudeNewpaperWrite(models.Model):
                                  +'、7元'+':'+str(self.seven_money or 0)+'、8元'+':'+str(self.eight_money or 0)
 
         elif self.event_stype.prude_event_type == '其他设备故障情况':
-            self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
-                                 +'、故障情况:' + str(self.brenk_state)
+            self.event_content = '故障发时间：'+str(self.brenk_time or '')+'、故障报修时间:'+str(self.brenk_repair_time or '')\
+                                 +'、故障情况:' + str(self.brenk_state or '')
 
         else:
             self.event_content = self.event_content_create
 
      #修改当前的记录将新的值负值给对应的字段
     def save_current_record(self):
-        print(self)
         if self.event_stype_name == '边门进出情况':
-            self.event_content = str('进边门人数')+str(self.Enter_person_count) +','+ str('出边门人数') + str(self.come_person_count)
+            self.event_content = str('进边门人数')+str(self.Enter_person_count or '') +','+ str('出边门人数') + str(self.come_person_count or '')
 
         elif self.event_stype_name == '票务、AFC故障及异常情况':
-            self.event_content = str('设备名称')+':'+str(self.equipment_name) + str('、故障时间：')+str(self.brenk_time) + \
-                str('、故障报修时间')+':'+str(self.brenk_repair_time)+'、'+str('故障情况')+':'+str(self.brenk_state)
+            self.event_content = str('设备名称' or '')+':'+str(self.equipment_name or '') + str('、故障时间：')+str(self.brenk_time or '') + \
+                str('、故障报修时间')+':'+str(self.brenk_repair_time or '')+'、'+str('故障情况')+':'+str(self.brenk_state or '')
 
         elif self.event_stype_name == '日票、预制单程票售卖情况':
-            self.event_content = '2元'+':'+self.two_money+'、'+'3元'+':'+str(self.three_money)+'、4元'+':'\
-                                 +str(self.four_money)+'、5元'+':'+str(self.five_money)+'、6元'+':'+str(self.six_money) \
-                                 +'、7元'+':'+str(self.seven_money)+'、8元'+':'+str(self.eight_money or 0)
+            self.event_content = '2元'+':'+str(self.two_money or '')+'、'+'3元'+':'+str(self.three_money or '')+'、4元'+':'\
+                                 +str(self.four_money or '')+'、5元'+':'+str(self.five_money or '')+'、6元'+':'+str(self.six_money or '') \
+                                 +'、7元'+':'+str(self.seven_money or '')+'、8元'+':'+str(self.eight_money or '')
 
         elif self.event_stype_name == '其他设备故障情况':
-            self.event_content = '故障发时间：'+str(self.brenk_time)+'、故障报修时间:'+str(self.brenk_repair_time)\
-                                 +'、故障情况:' + str(self.brenk_state)
+            self.event_content = '故障发时间：'+str(self.brenk_time or '')+'、故障报修时间:'+str(self.brenk_repair_time or '')\
+                                 +'、故障情况:' + str(self.brenk_state or '')
 
         else:
             self.event_content = self.event_content_create
+
+    @api.model
+    @get_domain
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.prude_newspaper_write_tree').id
+        return {
+            'name': '生产',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.prude_newspaper',
+            'context': self.env.context,
+        }
 
 
 class DateTimeLimit(models.Model):

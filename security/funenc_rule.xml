@@ -2,22 +2,104 @@
 <odoo>
   <data>
 
-      <!--<record id="funenc_xa_station_motorized_user_group_site" model="ir.rule">-->
-            <!--<field name="name">xa_station_机动人员(站点)</field>-->
-            <!--<field name="model_id" ref="model_cdtct_dingtalk_cdtct_dingtalk_users"/>-->
-            <!--<field name="active" eval="True"/>-->
-            <!--<field name="domain_force">['|','|','&amp;',-->
-                                          <!--('line_id','=',user.dingtalk_user[0].line_id.id),('departments','in', user.dingtalk_user[0].id),-->
-                                          <!--('create_uid','=',user.id),( 'person_second_ids', 'in', [person_second_id.id for person_second_id in user.dingtalk_user[0].person_second_ids ] )-->
-                                      <!--]-->
-            <!--</field>-->
-            <!--<field name="groups"-->
-                   <!--eval="[(6,0, [ref('funenc_xa_station.system_fuenc_site')])]"/>-->
-            <!--<field name="perm_read" eval="True"/>-->
-            <!--<field name="perm_write" eval="True"/>-->
-            <!--<field name="perm_create" eval="True"/>-->
-            <!--<field name="perm_unlink" eval="True"/>-->
-        <!--</record>-->
+      <record id="funenc_xa_station_motorized_user_group_site" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_civil_engineering"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_1" model="ir.rule">
+            <field name="name">只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_ground_traffic"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_2" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_line_turnout"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_3" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_signal_system"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_4" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_station_detail"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_5" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_station_exit"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+      <record id="funenc_xa_station_motorized_user_group_site_6" model="ir.rule">
+            <field name="name">车站详情只能看自己站点</field>
+            <field name="model_id" ref="model_funenc_xa_station_station_staffing"/>
+            <field name="active" eval="True"/>
+            <field name="domain_force">[
+                                          ('site_id','=',user.dingtalk_user[0].departments[0].id)
+                                      ]
+            </field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
 
       <!--<record id="funenc_xa_station_motorized_user_group_system" model="ir.rule">-->
             <!--<field name="name">xa_station_机动人员(部门)</field>-->

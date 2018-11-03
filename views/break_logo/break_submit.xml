@@ -87,7 +87,7 @@
                                          <label for="break_type" string="故障类型"/>
                                       </div>
                                      <div class="col-md-10" >
-                                         <field name="break_type">
+                                         <field name="break_type" options="{'no_create':True,'no_open':True}">
                                          </field>
                                     </div>
                                  </div>

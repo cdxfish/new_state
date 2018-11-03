@@ -21,12 +21,11 @@
         <record model="ir.actions.server" id="meeting_details_act">
         <field name="name">会议记录</field>
         <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="model_id" ref="model_funenc_xa_station_meeting_dateils"/>
         <field name="condition">True</field>
         <field name="state">code</field>
         <field name="code">
-            action = model.return_act_window('会议记录', 'funenc_xa_station.meeting_dateils',
-            'funenc_xa_station.meeting_details_tree', 'funenc_xa_station.meeting_details_form')
+                action = model.get_day_plan_publish_action()
         </field>
         </record>
 
@@ -35,7 +34,6 @@
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
                 <tree edit="0" create="0" class="noOpen" search_ex_template="meet_details_search_button">
-                    <field name="id" string="序号" ></field>
                     <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                     <field name="meeting_theme" widget="text" options="{'max_width': '200px'}"></field>
@@ -220,12 +218,12 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="meeting_details_act">
-            <field name="name">会议记录</field>
-            <field name="res_model">funenc_xa_station.meeting_dateils</field>
-            <field name="view_mode">tree,kanban,form</field>
-            <field name=""></field>
-        </record>
+        <!--<record model="ir.actions.act_window" id="meeting_details_act">-->
+            <!--<field name="name">会议记录</field>-->
+            <!--<field name="res_model">funenc_xa_station.meeting_dateils</field>-->
+            <!--<field name="view_mode">tree,kanban,form</field>-->
+            <!--<field name=""></field>-->
+        <!--</record>-->
 
         <!--<menuitem id="meeting_details_menu" action="meeting_details_act" name="会议记录"></menuitem>-->
     </data>

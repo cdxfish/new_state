@@ -44,42 +44,49 @@
 			<field name="name">借用记录</field>
 			<field name="res_model">funenc.xa.station.borrow.record</field>
 			<field name="view_mode">tree,form</field>
+
 		</record>
 
 		<record id="station_detail_ground_traffic" model="ir.actions.act_window">
 			<field name="name">地面交通</field>
 			<field name="res_model">funenc_xa_station.ground_traffic</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
 		</record>
 
-		<!--<record id="funenc_station_civil_engineering" model="ir.actions.act_window">-->
-			<!--<field name="name">土建结构</field>-->
-			<!--<field name="res_model">funenc_xa_station.civil_engineering</field>-->
-			<!--<field name="view_mode">tree,form</field>-->
-		<!--</record>-->
+		<record id="funenc_station_civil_engineering" model="ir.actions.act_window">
+			<field name="name">土建结构</field>
+			<field name="res_model">funenc_xa_station.civil_engineering</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
+		</record>
 
 		<record id="funenc_station_signal_system" model="ir.actions.act_window">
 			<field name="name">信号系统</field>
 			<field name="res_model">funenc_xa_station.signal_system</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
 		</record>
 
 		<record id="funenc_station_line_turnout" model="ir.actions.act_window">
 			<field name="name">线路、道岔</field>
 			<field name="res_model">funenc_xa_station.line_turnout</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
 		</record>
 
 		<record id="funenc_station_station_staffing" model="ir.actions.act_window">
 			<field name="name">人员配置</field>
 			<field name="res_model">funenc_xa_station.station_staffing</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
 		</record>
 
 		<record id="funenc_station_station_exit" model="ir.actions.act_window">
 			<field name="name">消防逃生图</field>
 			<field name="res_model">funenc_xa_station.station_exit</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
 		</record>
 
 		<record id="xa_scheduling_settings" model="ir.actions.act_window">
@@ -223,6 +230,13 @@
           <field name="name">排班列表</field>
           <field name="res_model">funenc_xa_station.sheduling_manage</field>
 		  <field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="xa_station_station_detail_action">
+          <field name="name">车站详情</field>
+          <field name="res_model">funenc_xa_station.station_detail</field>
+		  <field name="view_mode">tree,form</field>
+			<field name="context">{'group_by':'site_id'}</field>
         </record>
 
 		<!--<record model="ir.actions.act_window" id="xa_station_change_shifts_action">-->
@@ -608,47 +622,51 @@
 		<!--<menuitem id="train_menu_username_1" name="账号设置" parent="plan_menu_username_manage_1"  action="person_account_rec_mgmt"/>-->
 		<!--<menuitem id="train_menu_role_group_1" name="角色组" parent="plan_menu_username_manage_1"  action="train_rec_check_boxes"/>-->
 
-        <menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="1"
-		          parent="funenc_station_integrated_manageme"
-		          action="station_detail_act_window" groups="system_station"
+        <!--<menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="1"-->
+		          <!--parent="funenc_station_integrated_manageme"-->
+		          <!--action="station_detail_act_window" groups="system_station"-->
+		<!--/>-->
+
+         <menuitem id="station_list" name="车站详情列表" sequence="1"
+		          parent="xa_station_production_manage_1"
 		/>
 
+		<menuitem id="station_detail_1" name="车站详情" sequence="1"
+				  action="xa_station_station_detail_action"
+		          parent="station_list"/>
 
-		<!--<menuitem id="station_detail_1" name="车站详情" sequence="1"-->
-		          <!--parent="integrated_management_station_detail"/>-->
+		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
+				   parent="station_list"
+				   action="station_detail_ground_traffic"
 
-		 <!--<menuitem id="station_detail_2" name="地面交通" sequence="2"-->
-				   <!--parent="funenc_station_integrated_manageme"-->
-				   <!--action="station_detail_ground_traffic"-->
+		 />
 
-		 <!--/>-->
+		 <menuitem id="station_detail_3" name="土建结构" sequence="3"
+		           parent="station_list"
+				   action="funenc_station_civil_engineering"
 
-		 <!--<menuitem id="station_detail_3" name="土建结构" sequence="3"-->
-		           <!--parent="funenc_station_integrated_manageme"-->
-				   <!--action="funenc_station_civil_engineering"-->
+		 />
 
-		 <!--/>-->
+		 <menuitem id="station_detail_4" name="线路、道岔" sequence="4"
+		           parent="station_list"
+				   action="funenc_station_line_turnout"
+		 />
 
-		 <!--<menuitem id="station_detail_4" name="线路、道岔" sequence="4"-->
-		           <!--parent="funenc_station_integrated_manageme"-->
-				   <!--action="funenc_station_line_turnout"-->
-		 <!--/>-->
+		 <menuitem id="station_detail_5" name="信号系统" sequence="5"
+		           parent="station_list"
+				   action="funenc_station_signal_system"
 
-		 <!--<menuitem id="station_detail_5" name="信号系统" sequence="5"-->
-		           <!--parent="funenc_station_integrated_manageme"-->
-				   <!--action="funenc_station_signal_system"-->
+		 />
 
-		 <!--/>-->
+		 <menuitem id="station_detail_6" name="人员配置" sequence="6"
+		           parent="station_list"
+				   action="funenc_station_station_staffing"
+		 />
 
-		 <!--<menuitem id="station_detail_6" name="人员配置" sequence="6"-->
-		           <!--parent="funenc_station_integrated_manageme"-->
-				   <!--action="funenc_station_station_staffing"-->
-		 <!--/>-->
-
-		 <!--<menuitem id="station_detail_7" name="消防逃生图" sequence="7"-->
-				   <!--parent="funenc_station_integrated_manageme"-->
-		           <!--action="funenc_station_station_exit"-->
-		 <!--/>-->
+		 <menuitem id="station_detail_7" name="消防逃生图" sequence="7"
+				   parent="station_list"
+		           action="funenc_station_station_exit"
+		 />
 
 
 
@@ -800,6 +818,8 @@
 
 
 		<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>
+		<menuitem  name="预设交接班" id="person_management_menu_" sequence="8"></menuitem>
+
 
 
         <menuitem  name="人员管理" id="person_management_menu_" sequence="8" />
@@ -809,22 +829,22 @@
 				  action="xa_station_station_master_action11"
 		/>
 
-		<menuitem id="xa_station_car_line_111" name="行车值班员1"
+		<menuitem id="xa_station_car_line_111" name="行车值班员"
 				  parent="person_management_menu_"
 				  action="xa_station_car_line_action11"
 		/>
 
-		<menuitem id="xa_station_passenger_transport_11" name="客运值班员1"
+		<menuitem id="xa_station_passenger_transport_11" name="客运值班员"
 				  parent="person_management_menu_"
 				  action="xa_station_passenger_transport_action11"
 		/>
 
-		<menuitem id="xa_station_station_service_1" name="站务员1"
+		<menuitem id="xa_station_station_service_1" name="站务员"
 				  parent="person_management_menu_"
 				  action="xa_station_station_service_action11"
 		/>
 
-		<menuitem id="xa_station_ticket_booth_1" name="票亭岗1"
+		<menuitem id="xa_station_ticket_booth_1" name="票亭岗"
 				  parent="person_management_menu_"
 				  action="xa_station_ticket_booth_action11"
 		/>
@@ -969,7 +989,7 @@
 	<!--<menuitem id="Good_deeds_type_menu" name="好人好事类型设置" action="Good_deeds_type_act" parent="passenger_service"></menuitem>-->
 
 	<menuitem id="prude_newspaper_menu" name="生产日报" action="prude_newspaper_act"
-			  parent="xa_station_production_manage_1" sequence="3" groups="funenc_xa_station.system_fuenc_site"></menuitem>
+			  parent="xa_station_production_manage_1" sequence="3" groups="system_fuenc_site"></menuitem>
 
 
 

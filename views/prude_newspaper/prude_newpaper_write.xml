@@ -8,8 +8,7 @@
         <field name="condition">True</field>
         <field name="state">code</field>
         <field name="code">
-            action = model.return_act_window('生产日报填写', 'funenc_xa_staion.prude_newpaper_write',
-            'funenc_xa_station.prude_newspaper_write_tree', 'funenc_xa_station.prude_newspaper_write_form')
+            action = model.get_day_plan_publish_action()
         </field>
         </record>
 

@@ -39,7 +39,10 @@
                         <el-input v-model="input" size="small" placeholder="请输入人名\工号进行搜索"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" size="small" @click="search_data_record">搜索
+
+                        <el-button
+                                v-if="datetime && linei && site"
+                        type="primary" icon="el-icon-search" size="small" @click="search_data_record">搜索
                         </el-button>
                         <el-button type="primary" icon="el-icon-caret-bottom" size="small"
                                    @click="import_excel_belong_to_management">导出

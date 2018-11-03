@@ -19,7 +19,7 @@ class GuestsHurt(models.Model):
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
-    write_person  = fields.Char(string='填报人')
+    write_person  = fields.Char(string='填报人',default=lambda self: self.default_person_id())
     guests_name = fields.Char(string='乘客姓名')
     guests_grede = fields.Selection([('man','男'),('woman','女')],string='乘客性别')
     guests_age = fields.Char(string='乘客年龄')
@@ -43,6 +43,12 @@ class GuestsHurt(models.Model):
     mp_play_many = fields.One2many('video_voice_model','guests_mp_play_one',string='视频附件')
     mp3_play_many = fields.One2many('video_voice_model','guests_mp3_play',string='视频附件')
 
+    # 自动获取记录人的姓名
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+        return self.env.user.dingtalk_user.name
     # @api.model
     # def create(self, params):
     #     file_binary = params['mp_play_many.']

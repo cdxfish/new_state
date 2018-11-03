@@ -19,13 +19,13 @@
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                                    <span class="search_label" style="float:left;">线路:</span>
-                                    <span for="line_id" class="col-xs-8" ></span>
-                                </div>
+                    <span class="search_label" style="float:left;">线路:</span>
+                    <span for="line_id" class="col-xs-8"></span>
+                </div>
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                                    <span class="search_label" style="float:left;">站点:</span>
-                                    <span for="site_id" class="form-widget-item  col-xs-8"></span>
-                                </div>
+                    <span class="search_label" style="float:left;">站点:</span>
+                    <span for="site_id" class="col-xs-8"></span>
+                </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">专业分类:</span>
                     <span for="profession_kind" class="col-xs-8"></span>
