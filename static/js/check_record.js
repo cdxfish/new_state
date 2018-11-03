@@ -3,7 +3,7 @@ odoo.define('funenc_xa_check', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
 
-    var construct_id = 12155555;
+    var construct_id = 121555551;
 
     var funenc_xa_check = Widget.extend({
         app: undefined,
@@ -26,6 +26,14 @@ odoo.define('funenc_xa_check', function (require) {
                     self.data_2 = false;
                 }
                 ;
+            });
+            self.user_line = [];
+
+            self._rpc({
+                model: 'funenc_xa_station.check_collect',
+                method: 'add_count_line'
+            }).then(function (data) {
+                self.user_line =data
             });
 
             self._rpc({
@@ -85,7 +93,8 @@ odoo.define('funenc_xa_check', function (require) {
                 model: 'funenc_xa_station.check_collect',
                 method: 'check_record_method'
 
-            }), this._rpc({
+            }),
+            this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_check'}
@@ -104,20 +113,43 @@ odoo.define('funenc_xa_check', function (require) {
                             show_2: self.data_2,
                             show_3: self.data_3,
                             show_4: self.data_4,
+                            linei: '',
+                            site: '',
+                            lines: self.user_line,
+                            sites: '',
+                            person: '',
+                            datetime: '时间选择',
+                            input: '',
+
                         };
                     },
                     methods: {
 
                         // 点击进入方法
-                        search_time: function () {
+//                        search_time: function () {
+//
+//                            if (vue.value6 != '时间选择') {
+//                                self._rpc({
+//                                    model: 'funenc_xa_station.check_collect',
+//                                    method: 'search_record_method',
+//                                    kwargs: {date: vue.value6}
+//                                }).then(function (data) {
+//                                    vue.tableData = data;
+//                                });
+//
+//                            }
+//                            ;
+//
+//                        },
 
-                            if (vue.value6 != '时间选择') {
+                        search_line_data: function (line_value) {
+                            if (vue.lines != '') {
                                 self._rpc({
                                     model: 'funenc_xa_station.check_collect',
-                                    method: 'search_record_method',
-                                    kwargs: {date: vue.value6}
+                                    method: 'search_site',
+                                    kwargs: {date: line_value}
                                 }).then(function (data) {
-                                    vue.tableData = data;
+                                    vue.sites = data;
                                 });
 
                             }
@@ -167,6 +199,26 @@ odoo.define('funenc_xa_check', function (require) {
                                 });
 
                             }
+                        },
+
+                        search_data_record: function () {
+                            if (vue.datetime != '时间选择') {
+                                self._rpc({
+                                    model: 'funenc_xa_station.check_collect',
+                                    method: 'search_record_method',
+                                    kwargs: {
+                                        date: vue.datetime,
+                                        line: vue.linei,
+                                        site: vue.site,
+                                        person_id: vue.input
+                                    }
+                                }).then(function (data) {
+                                    vue.tableData = data;
+                                });
+
+                            }
+                            ;
+
                         },
 
                         import_excel() {

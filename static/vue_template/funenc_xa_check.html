@@ -11,20 +11,53 @@
                 </el-tabs>
             </div>
             <div>
-                <div class="block" style="margin-bottom:20px">
-                    <span class="demonstration">选择时间：</span>
-                    <el-date-picker
-                            v-model="value6"
-                            type="month"
-                            size="small"
-                            placeholder="选择月">
-                    </el-date-picker>
-                    <el-button type="primary" size="small" icon="el-icon-search" @click="search_time">搜索
-                    </el-button>
-                    <el-button type="primary" icon="el-icon-caret-bottom" size="small" @click="import_excel">
-                        导出
-                    </el-button>
-                </div>
+           <div class="block">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item>
+                        <el-date-picker
+                                v-model="datetime"
+                                type="month"
+                                size="small"
+                                placeholder="选择月">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="linei" size="small" placeholder="线路" @change="search_line_data">
+                            <el-option
+                                    v-for="item in lines"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="site" size="small" placeholder="站点">
+                            <el-option
+                                    v-for="item in sites"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-input v-model="input" size="small" placeholder="请输入人名\工号进行搜索"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+
+                        <el-button
+                                v-if="datetime && linei && site"
+                        type="primary" icon="el-icon-search" size="small" @click="search_data_record">搜索
+                        </el-button>
+                        <el-button type="primary" icon="el-icon-caret-bottom" size="small"
+                                   @click="import_excel">导出
+                        </el-button>
+                    </el-form-item>
+
+                </el-form>
+            </div>
                 <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
 
                     <el-table-column prop="line_id" label="线路" width="180">
@@ -32,6 +65,8 @@
                     <el-table-column prop="site_id" label="站点" width="180">
                     </el-table-column>
                     <el-table-column prop="job_number" label="工号">
+                    </el-table-column>
+                    <el-table-column prop="job_number" label="员工">
                     </el-table-column>
                     <el-table-column prop="position" label="职位">
                     </el-table-column>

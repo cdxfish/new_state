@@ -279,11 +279,11 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="open_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
@@ -303,11 +303,11 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="drill_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
@@ -326,15 +326,15 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="show_sheduling_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">
                         搜索
                     </button>
@@ -350,15 +350,15 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="application_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">人员搜索:</span>
                     <span for="leave_user_id" class="col-xs-8"></span>
                 </div>
@@ -378,15 +378,15 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">人员搜索:</span>
                     <span for="user_id" class="col-xs-8"></span>
                 </div>
@@ -406,15 +406,15 @@
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">人员搜索:</span>
                     <span for="user_id" class="col-xs-8"></span>
                 </div>
@@ -457,13 +457,33 @@
     <t t-name="special_car_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <button type="button" class="btn btn-default search_extend_apply">
+                        搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="consumables_search_button_button">
+        <div class="form-inline custom_search_box">
+            <div class="container-fluid">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">所属部门:</span>
+                    <span for="inventory_department_id" class="col-xs-8"></span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">耗材分类:</span>
+                    <span for="consumables_type" class="col-xs-8"></span>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">

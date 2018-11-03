@@ -49,6 +49,22 @@ class CheckCollect(models.Model):
         else:
             return
 
+    @api.model
+    def search_site(self, date):
+        site_parent = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('id', '=', date)],
+                                                                                       ['departmentId'])
+        site_son = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read(
+            [('parentid', '=', site_parent[0]['departmentId'])], ['name'])
+
+        return site_son
+
+    #获取当前线路
+    @api.model
+    def add_count_line(self):
+        line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy', '=', 2)],
+                                                                               ['id', 'name'])
+        return line
+
 
 
     @api.model
@@ -73,43 +89,50 @@ class CheckCollect(models.Model):
             return
 
     @api.model
-    def search_record_method(self, date):
+    def search_record_method(self, date,line,site,person_id):
 
         startTime = datetime.datetime.strptime(date[:10], '%Y-%m-%d')
         date_one = (startTime + datetime.timedelta(days=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
+        if not person_id:
+            date_time = self.env['funenc_xa_station.check_record'].search_read([('site_id','=',site)])
+            date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
-        date_time = self.env['funenc_xa_station.check_record'].search_read([])
-        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
+            for list1 in date_list:
+                record[list1.get('job_number')] = list1
+            # count  得分
+            for list2 in record:
+                i = 0
+                fs = 0
+                for list3 in date_list:
+                    if list2 == list3.get('job_number'):
+                        i = i +1
+                        fs = fs + list3.get('sure_grede')
+                record[list2].update({'comment_count':i})
+                record[list2].update({'mouth_grade': fs + 100})
+                record[list2].update({'line_id':list3.get('line_id')[1]})
+                record[list2].update({'site_id':list3.get('site_id')[1]})
+        elif person_id:
+            date_time = self.env['funenc_xa_station.check_record'].search_read(['|',('write_person', '=', person_id),
+                                                                                   ('check_number', '=', person_id)])
+            date_list = [check_record for check_record in date_time if
+                         check_record.get('check_time')[:7] == date_one[:7]]
 
-        for list1 in date_list:
-            record[list1.get('job_number')] = list1
-        # count  得分
-        for list2 in record:
-            i = 0
-            fs = 0
-            for list3 in date_list:
-                if list2 == list3.get('job_number'):
-                    i = i +1
-                    fs = fs + list3.get('sure_grede')
-            record[list2].update({'comment_count':i})
-            record[list2].update({'mouth_grade': fs + 100})
-            record[list2].update({'line_id':list3.get('line_id')[1]})
-            record[list2].update({'site_id':list3.get('site_id')[1]})
+            for list1 in date_list:
+                record[list1.get('job_number')] = list1
+            # count  得分
+            for list2 in record:
+                i = 0
+                fs = 0
+                for list3 in date_list:
+                    if list2 == list3.get('job_number'):
+                        i = i + 1
+                        fs = fs + list3.get('sure_grede')
+                record[list2].update({'comment_count': i})
+                record[list2].update({'mouth_grade': fs + 100})
+                record[list2].update({'line_id': list3.get('line_id')[1]})
+                record[list2].update({'site_id': list3.get('site_id')[1]})
 
-
-
-
-
-
-
-                # check_record_no = set(check_record. get('job_number') for check_record in date_list)
-                #
-                # data2 = list(check_record_no)
-                #
-                # for i, item in enumerate(data2):
-                #
-                #     count = self.env['funenc_xa_station.check_record'].search_count([('job_number','=',item)])[0]
 
         return [record.get(key) for key in record]
 
