@@ -103,6 +103,14 @@
         </div>
     </t>
 
+    <t t-name="kanban_detail_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="detail" >查看</button>
+            <!--<button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>-->
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
+        </div>
+    </t>
+
      <t t-name="station_detail">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object"  name="station_detail" >详情</button>
