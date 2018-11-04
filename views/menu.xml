@@ -1029,7 +1029,7 @@
 
 	<menuitem  name="系统配置" id="system_configuration" sequence="5"></menuitem>
 
-	<menuitem id="xa_station_change_shifts_setting_1" name="(缺)交接班-交接班设置"
+	<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"
 				  parent="system_configuration" sequence="1"
 			  groups="system_shifts" action="xa_station_car_line_action"
 		/>
@@ -1050,7 +1050,7 @@
 	<menuitem id="Good_deeds_type_menu" groups="system_passenger_service_type" name="客运服务-好人好事类型设置" action="Good_deeds_type_act"
 			  parent="system_configuration" sequence="6"></menuitem>
 
-	<menuitem id="suggest_box_type_menu" groups="system_passenger_service_message_type" name="客运服务——意见箱类型设置" action="suggest_box_type_act"
+	<menuitem id="suggest_box_type_menu" groups="system_passenger_service_message_type" name="客运服务-意见箱类型设置" action="suggest_box_type_act"
 			  parent="system_configuration" sequence="7"></menuitem>
 
 	<menuitem id="keys_types" action="key_type_act_window" groups="system_key_management_type" name="钥匙管理-钥匙类型设置" sequence="8"

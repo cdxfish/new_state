@@ -29,10 +29,10 @@ class PrudeNewpaper(models.Model):
             'target': 'new',
         }
 
-    @get_domain
+    # @get_domain
     @api.model
-    def fixed_model(self, domain):
-        print(domain)
+    def fixed_model(self):
+        # print(domain)
         value =[
             {'prude_event_type':'边门进出情况','note':'','c_type':'1'},
             {'prude_event_type':'票务、AFC故障及异常情况','note':'','c_type':'2'},
@@ -47,7 +47,7 @@ class PrudeNewpaper(models.Model):
             'name': '换班时间间隔设置',
             'type': 'ir.actions.act_window',
             "views": [[False, "tree"], [False, "form"]],
-            "domain": domain,
+            # "domain": domain,
             'res_model': 'funenc_xa_station.prude_newpaper_type',
             'target': 'current',
         }
