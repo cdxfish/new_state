@@ -43,13 +43,19 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_3'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_3 = true;
         }else{
             self.data_3 = false;
         };
       });
+
+      self._rpc({
+                model: 'funenc_xa_station.check_collect',
+                method: 'add_count_line'
+            }).then(function (data) {
+                self.user_line =data
+            });
 
       self._rpc({
             model:'funenc_xa_station.award_collect',
@@ -92,6 +98,13 @@ odoo.define('funenc_xa_award', function (require) {
                                 show_2:self.data_2,
                                 show_3:self.data_3,
                                 show_4:self.data_4,
+                                linei: '',
+                                site: '',
+                                lines: self.user_line,
+                                sites: '',
+                                person: '',
+                                datetime: '时间选择',
+                                input: '',
 
                        };
                     },
@@ -112,6 +125,41 @@ odoo.define('funenc_xa_award', function (require) {
                                                 };
 
                               },
+
+                  search_line_data: function (line_value) {
+                            if (vue.lines != '') {
+                                self._rpc({
+                                    model: 'funenc_xa_station.check_collect',
+                                    method: 'search_site',
+                                    kwargs: {date: line_value}
+                                }).then(function (data) {
+                                    vue.sites = data;
+                                });
+
+                            }
+                            ;
+
+                        },
+
+                  search_data_record: function () {
+                            if (vue.datetime != '时间选择') {
+                                self._rpc({
+                                    model: 'funenc_xa_station.award_collect',
+                                    method: 'search_award_method',
+                                    kwargs: {
+                                        date: vue.datetime,
+                                        line: vue.linei,
+                                        site: vue.site,
+                                        person_id: vue.input
+                                    }
+                                }).then(function (data) {
+                                    vue.tableData = data;
+                                });
+
+                            }
+                            ;
+
+                        },
 
 //                          tab页面的跳转功能
                            handleSelect: function(){
@@ -152,7 +200,7 @@ odoo.define('funenc_xa_award', function (require) {
 
                                },
 
-                       import_award(){
+                       import_excel(){
                           if (this.tableData){
                             var url='/fuenc_xa_station/award_collect_download';
                             var params= {"exl_data":this.tableData};

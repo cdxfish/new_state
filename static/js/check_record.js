@@ -30,7 +30,7 @@ odoo.define('funenc_xa_check', function (require) {
             self.user_line = [];
 
             self._rpc({
-                model: 'funenc_xa_station.check_collect',
+                model: 'funenc_xa_station.award_collect',
                 method: 'add_count_line'
             }).then(function (data) {
                 self.user_line =data
@@ -145,7 +145,7 @@ odoo.define('funenc_xa_check', function (require) {
                         search_line_data: function (line_value) {
                             if (vue.lines != '') {
                                 self._rpc({
-                                    model: 'funenc_xa_station.check_collect',
+                                    model: 'funenc_xa_station.award_collect',
                                     method: 'search_site',
                                     kwargs: {date: line_value}
                                 }).then(function (data) {
