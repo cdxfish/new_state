@@ -21,6 +21,7 @@ class ReturnViewFunction(models.AbstractModel):
             "views": [[view_tree_id, "tree"], [form_tree_id, 'form']],
             'res_model': model,
             'context': self.env.context,
+            'target':'new',
         }
 
     @api.model
