@@ -877,15 +877,25 @@
 		/>
        <!--xin-->
 
-		<record model="ir.actions.act_window" id="xa_station_train_working_action">
-			<field name="name">值班站长</field>
-			<field name="res_model">funenc_xa_station.production_change_shifts</field>
-			<field name="view_mode">tree,form</field>
-			<field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form')})]">
+		<!--<record model="ir.actions.act_window" id="xa_station_train_working_action">-->
+			<!--<field name="name">值班站长</field>-->
+			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
+			<!--<field name="view_mode">tree,form</field>-->
+			<!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')}),-->
+            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form')})]">-->
+			<!--</field>-->
+        <!--</record>-->
+
+		<record model="ir.actions.server" id="xa_station_train_working_action">
+			<field name="name">交接班列表</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_production_change_shifts"/>
+			<field name="code">
+				action = model.production_change_shifts_list()
 			</field>
-        </record>
+		</record>
+
 
 		<!--<record model="ir.actions.act_window" id="xa_station_xczby_action111">-->
 			<!--<field name="name">行车值班员</field>-->
