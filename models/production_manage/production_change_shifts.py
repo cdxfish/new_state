@@ -2,6 +2,7 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
+from ..get_domain import get_domain
 
 KEY = [('station_master', '站长'),
        ('train_working', '行车'),
@@ -193,7 +194,6 @@ class production_change_shifts(models.Model):
 
     preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态')  # 备品状态
 
-
     @api.onchange('check_project_ids')
     def onchange_check_project_ids(self):
         # 预设行车
@@ -202,7 +202,6 @@ class production_change_shifts(models.Model):
             inst_ids = obj.check_project_ids
             default_data = []
             for inst_id in inst_ids:
-
                 default_data.append((0, 0, {'context': inst_id.context}))
 
             return {
@@ -211,7 +210,6 @@ class production_change_shifts(models.Model):
 
         else:
             return
-
 
     @api.onchange('preparedness_1_ids')
     def onchange_preparedness_1_ids(self):
@@ -282,8 +280,9 @@ class production_change_shifts(models.Model):
     # 基本北荣
 
     flight_ticket = fields.Char(string='本班票款')
-    special_card_preset_id = fields.Many2one('funenc_xa_station.special_card_preset', string='特殊卡号')
-    special_card_preset_no = fields.Char(string='特殊工作卡卡数')
+    special_card_preset_id = fields.Many2many('funenc_xa_station.special_card_preset', 'production_card_rel',
+                                              'production_id', 'card_id', string='特殊卡号')
+    special_card_preset_no = fields.Char(string='特殊工作卡卡数', compute='compute_special_card_preset_no')
     spare_gold_notes = fields.Char(string='备用金本班结存(纸币)')
     spare_gold_coin = fields.Char(string='备用金本班结存(硬币)')
     spare_gold_total = fields.Char(string='备用金本班结存(总计)')
@@ -303,9 +302,31 @@ class production_change_shifts(models.Model):
 
     remarks = fields.Text(string='备注')
 
-    spare_gold_ids = fields.One2many('funenc_xa_station.spare_gold', 'production_change_shifts_id',string='备用金配出')
-    tail_box_ids = fields.One2many('funenc_xa_station.tail_box','production_change_shifts_id',string='库包/尾箱交接')
+    spare_gold_ids = fields.One2many('funenc_xa_station.spare_gold', 'production_change_shifts_id', string='备用金配出')
+    tail_box_ids = fields.One2many('funenc_xa_station.tail_box', 'production_change_shifts_id', string='库包/尾箱交接')
 
+    @get_domain
+    def production_change_shifts_list(self, domain):
+        context = dict(self.env.context or {})
+        domain.append(('state', '!=', 'draft'))
+
+        form_views = self.get_form_id()
+        tree = self.env.ref('funenc_xa_station.production_change_shifts_train_working_list11').id
+
+        return {
+            'name': '交接班详情',
+            'type': 'ir.actions.act_window',
+            'views': [[tree, 'tree'], [form_views, 'from']],
+            'res_model': 'funenc_xa_station.production_change_shifts',
+            'context': context,
+            'target': 'current',
+            'domain': domain
+        }
+
+    @api.depends('special_card_preset_id')
+    def compute_special_card_preset_no(self):
+        for this in self:
+            this.special_card_preset_no = len(this.special_card_preset_id.ids)
 
     @api.onchange('my_change_ids')
     def onchange_my_change_ids(self):
@@ -332,11 +353,6 @@ class production_change_shifts(models.Model):
                 }
         else:
             return
-
-
-
-
-
 
     @api.model
     def default_production(self):
@@ -430,11 +446,22 @@ class production_change_shifts(models.Model):
         self.unlink()
 
     def production_change_shifts_save(self):
-        pass
+        return {
+            'name': '交接班',
+            'type': 'ir.actions.client',
+            'tag': 'change_shifts_clint',
+            'target': 'current',
+        }
 
     def submit(self):
         self.state = 'change_shifts'  # 待接班
         self.change_shifts_time = datetime.datetime.now()
+        return {
+            'name': '交接班',
+            'type': 'ir.actions.client',
+            'tag': 'change_shifts_clint',
+            'target': 'current',
+        }
 
     def take_over(self):
         if self.env.user.id == 1:
@@ -494,7 +521,8 @@ class production_change_shifts(models.Model):
         user_dic['position'] = ding_user.position
 
         change_shifts_ids = self.search_read(
-            [('production_state', '=', position), ('state', '=', 'change_shifts'), ('site_id', '=', department.id)],
+            [('production_state', '=', position), ('state', 'in', ['change_shifts', 'draft']),
+             ('site_id', '=', department.id)],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
              'take_over_from_time'])  # 待接班
         take_over_from_ids = self.search_read([('production_state', '=', position), ('state', '=', 'take_over_from')],

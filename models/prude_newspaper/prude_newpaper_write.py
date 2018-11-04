@@ -104,8 +104,8 @@ class PrudeNewpaperWrite(models.Model):
             #     stype = 'normal'
 
             va_value = {
-                    'line_id' : va['line_id'][1],
-                    'site_id' : va['site_id'][1],
+                    'line_id' : va['line_id'][0],
+                    'site_id' : va['site_id'][0],
                     'event_stype_name' : va['event_stype'][1],
                     'event_content' : va['event_content'],
                     'event_content_create' : va.get('event_content_create'),
@@ -173,6 +173,7 @@ class PrudeNewpaperWrite(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_staion.prude_newpaper_write',
             'context': self.env.context,
+            'target':'new',
         }
 
     def prude_newpaper_type_selete(self):

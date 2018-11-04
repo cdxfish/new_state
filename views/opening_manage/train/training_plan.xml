@@ -258,12 +258,13 @@
         <record model="ir.actions.server" id="xa_station_training_plan_action">
         <field name="name">训练计划</field>
         <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_funenc_xa_station_return_view_function"/>
+        <field name="model_id" ref="model_funenc_xa_station_training_plan"/>
         <field name="condition">True</field>
         <field name="state">code</field>
         <field name="code">
-            action = model.return_act_window('训练计划', 'funenc_xa_station.training_plan',
-            'funenc_xa_station.funenc_xa_station_training_plan_list', 'funenc_xa_station.funenc_xa_station_training_plan_form')
+            action = model.return_domain_list()
+            <!--action = model.return_act_window('训练计划', 'funenc_xa_station.training_plan',-->
+            <!--'funenc_xa_station.funenc_xa_station_training_plan_list', 'funenc_xa_station.funenc_xa_station_training_plan_form')-->
         </field>
         </record>
         <record model="ir.actions.act_window" id="xa_station_site_training_results_action">

@@ -13,6 +13,8 @@ class delivery_storage(models.Model):
     store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory','delivery_storage_id',string='出库仓库')
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
     consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
+    outgoing_way = fields.Selection([('person','个人'),('organization','组织')],string='出库对象',default='person')
+    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
 
     @api.multi
     def get_day_plan_publish_action(self):
@@ -91,21 +93,24 @@ class delivery_storage(models.Model):
             'target': 'new',
         }
 
+    def consumables_export_search_button(self):
+        pass
+
     def delivery_storage_save(self):
         sel_inventory_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)  # 出库数量
-        if self.consumables_count == sel_inventory_count:
-            values ={'consumables_department_id': self.delivery_storage_department.id,
-                     'consumables_type_id': self.consumables_type.id,
-                     'warehousing_count': sel_inventory_count
+        # if self.consumables_count == sel_inventory_count:
+        values ={'consumables_department_id': self.delivery_storage_department.id,
+                 'consumables_type_id': self.consumables_type.id,
+                 'warehousing_count': sel_inventory_count
 
-            }
+        }
 
-            self.env['funenc_xa_station.consumables_warehousing'].create(values)
-            self.is_delivery = 'yes'
-            for store_house_id in self.store_house_ids:
-                store_house_id.inventory_count = store_house_id.inventory_count - sel_inventory_count
-        else:
-            raise msg.Warning('出库数量必须和选择的出库数量相等')
+        self.env['funenc_xa_station.consumables_warehousing'].create(values)
+        self.is_delivery = 'yes'
+        for store_house_id in self.store_house_ids:
+            store_house_id.inventory_count = store_house_id.inventory_count - sel_inventory_count
+        # else:
+            # raise msg.Warning('出库数量必须和选择的出库数量相等')
 
 class delivery_storage_to_consumables_inventory(models.Model):
 

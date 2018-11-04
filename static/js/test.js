@@ -9,7 +9,6 @@ odoo.define('change_shifts_clint', function (require) {
 
     var change_shifts_clint = Widget.extend({
         init: function (parent, record, node) {
-            console.log(record.params.show_data)
             this._super(parent, record, node);
             this.vue_data = {
                     activeName: 'first',
@@ -102,7 +101,7 @@ odoo.define('change_shifts_clint', function (require) {
                                                 name: '\u8be6\u60c5',
                                                 type: 'ir.actions.act_window',
                                                 res_model: 'funenc_xa_station.production_change_shifts',
-                                                views: [[self.vue_data.views, 'list']],
+                                                views: [[self.vue_data.jb_form, 'form']],
                                                 target: 'new',
                                                 flags: {'initial_mode': 'edit'},
 			                                    res_id: row['id']

@@ -11,7 +11,7 @@ class StoreHouse(models.Model):
     consumables_type_id = fields.Many2one('funenc_xa_station.consumables_type', string='耗材类型', required=True)
     store_house_id = fields.Many2one('funenc_xa_station.store_house', string='入库名称')
     warehousing_count = fields.Integer(string='入库数量')
-    warehousing_parent = fields.Selection(selection=[('purchase', '采购'), ('organize', '组织')], string='采购方式',
+    warehousing_parent = fields.Selection(selection=[('purchase', '采购'), ('organize', '领用')], string='采购方式',
                                           default='organize')
     warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='采购部门')
 
