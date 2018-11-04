@@ -45,8 +45,8 @@ class training_plan(models.Model):
         '''
         二维码生成
         '''
-        file = os.path.dirname(os.path.dirname(__file__))
-        qr_file = os.path.dirname(os.path.dirname(file))
+        # file = os.path.dirname(os.path.dirname(__file__))
+        # qr_file = os.path.dirname(os.path.dirname(file))
         # 获取本机计算机名称
         hostname = socket.gethostname()
         # 获取本机ip
@@ -54,7 +54,7 @@ class training_plan(models.Model):
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
         qr.add_data('http://{}:8069/controllers/training_plan/punch_the_clock?training_plan_id={}'.format(ip, self.id))
         img = qr.make_image()
-        file_name = qr_file + "/static/images/punch_the_clock_{}.png".format(self.id)
+        file_name =  "/static/images/punch_the_clock_{}.png".format(self.id)
         img.save(file_name)
         imgs = open(file_name, 'rb')
         datas = imgs.read()
@@ -150,6 +150,21 @@ class training_plan(models.Model):
             'res_id': self.id,
             'target': 'current',
             "views": [[view_form, "form"]],
+        }
+
+    @api.model
+    def return_domain_list(self):
+        context = dict(self.env.context or {})
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_training_plan_list').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_training_plan_form').id
+        return {
+            'name': '培训计划详情',
+            'type': 'ir.actions.act_window',
+            'res_model': 'funenc_xa_station.training_plan',
+            'context': context,
+            'target': 'current',
+            "views": [[view_tree, "tree"],[view_form, "form"]],
+
         }
 
 

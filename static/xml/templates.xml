@@ -46,6 +46,15 @@
         </div>
     </t>
 
+    <!--培训计划按钮-->
+    <t t-name="key_detail_widget_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="details" >编辑</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+
     <!--班次删除编辑-->
     <t t-name="arrange_order_widget_edit_delete">
         <div class="layui-btn-group">

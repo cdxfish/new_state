@@ -25,7 +25,7 @@ class drill_plan(models.Model):
                              )
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'drill_plan_ding_department_rel_1',
                                         'drill_plan_id', 'ding_department_id', string='参与站点',
-                                        domain=[('department_hierarchy', '=', 3)])
+                                        domain=[('department_hierarchy', '=', 3)],required=True)
     is_release = fields.Integer(string='是否已经发布')
     release_time = fields.Datetime(string='发布时间')
     drill_plan_qr = fields.Binary(string='二维码')
