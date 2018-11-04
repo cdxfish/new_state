@@ -28,6 +28,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/browse_image_in_tree.js"/>
 
                 <script type="text/javascript" src="/funenc_xa_station/static/js/extend_theme_form.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/caseder_class_scheduling.js"/>
             </xpath>
         </template>
     </data>

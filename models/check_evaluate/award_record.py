@@ -108,20 +108,21 @@ class AwardRecord(models.Model):
 
     @api.model
     def create(self, vals):
-        record = vals['award_record_add']
-        for i in record:
-            key = {
-                'line_id':vals['line_id'],
-                'site_id':vals['site_id'],
-                'award_target_kind':vals['award_target_kind'],
-                'award_project':vals['award_project'],
-                'check_project':vals['check_project'],
-                'award_money_kind':vals['award_money_kind'],
-                'award_money':i[2]['award_money'],
-                'incident_describe':i[2]['incident_describe'],
-                'staff':i[2]['staff'],
-            }
-            super(AwardRecord, self).create(key)
+        record = vals.get('award_record_add')
+        if record:
+            for i in record:
+                key = {
+                    'line_id':vals['line_id'],
+                    'site_id':vals['site_id'],
+                    'award_target_kind':vals['award_target_kind'],
+                    'award_project':vals['award_project'],
+                    'check_project':vals['check_project'],
+                    'award_money_kind':vals['award_money_kind'],
+                    'award_money':i[2]['award_money'],
+                    'incident_describe':i[2]['incident_describe'],
+                    'staff':i[2]['staff'],
+                }
+                super(AwardRecord, self).create(key)
 
         #用来和人员信息表关联
         vals['relevance'] = vals['staff']

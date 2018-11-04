@@ -37,6 +37,22 @@ class site_drill_plan(models.Model):
     # 签到
     sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'site_drill_plan_id', string='站点签到')
 
+    state = fields.Selection(selection=[('fill_in','填写'),('unfilled','未填写')])
+    fill_in_date = fields.Datetime(string='填写时间')
+    fill_in_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='填写人')
+
+    @api.multi
+    def write(self, vals):
+        for drill_result_id in self.drill_plan_id.drill_result_ids :
+            if drill_result_id.site_id.id  == self.position.id:
+                drill_result_id.fill_in_user  = self.env.user.dingtalk_user.id
+                drill_result_id.fill_in_date = datetime.datetime.now()
+                drill_result_id.state = 'already_filled'
+
+
+        return super(site_drill_plan,self).write(vals)
+
+
     def edit(self):
         context = dict(self.env.context or {})
         drill_situation_ids = self.env['funenc_xa_station.drill_situation'].search([]).ids
