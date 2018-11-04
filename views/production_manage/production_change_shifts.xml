@@ -323,17 +323,6 @@
                             </group>
                         </sheet>
                         <sheet>
-                            <!--<group string="备品交接">-->
-                                <!--<field name="master_to_production_change_ids" string="">-->
-                                    <!--<tree editable="top" class="noOpen">-->
-                                        <!--<field name="name" string="备品名称" />-->
-                                        <!--<field name="unit" string="单位" />-->
-                                        <!--<field name="count" string="数量"/>-->
-                                        <!--<field name="state" string="状态"/>-->
-                                        <!--<field name="remarks" string="备注"/>-->
-                                    <!--</tree>-->
-                                <!--</field>-->
-                            <!--</group>-->
                             <group string="行车有关事项交接">
                                 <field name="driving_handover" string="行车有关事项交接"/>
                             </group>
