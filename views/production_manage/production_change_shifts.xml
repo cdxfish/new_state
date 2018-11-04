@@ -448,7 +448,7 @@
                                             <div class="form-group">
                                                 <span class="widget-label  col-md-4  col-sm-6  col-xs-12">特殊卡号:</span>
                                                 <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="special_card_preset_id" string="特殊卡号"/>
+                                                    <field name="special_card_preset_id" string="特殊卡号" widget="many2many_tags" options="{'no_create':True,'no_open':True}"/>
                                                 </div>
                                             </div>
                                         </div>
