@@ -170,9 +170,9 @@
             </field>
         </record>
 
-        <menuitem id="xa_station_site_drill_plan_menu" name="站点演练详情"
-                  action="xa_station_site_drill_plan_action_1" parent="opening_manage" sequence="5"
-        />
+        <!--<menuitem id="xa_station_site_drill_plan_menu" name="站点演练详情"-->
+                  <!--action="xa_station_site_drill_plan_action_1" parent="opening_manage" sequence="5"-->
+        <!--/>-->
 
     </data>
 </odoo>
