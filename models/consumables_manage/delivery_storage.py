@@ -95,6 +95,9 @@ class delivery_storage(models.Model):
             'target': 'new',
         }
 
+    def consumables_export_search_button(self):
+        pass
+
     def delivery_storage_save(self):
         sel_inventory_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)  # 出库数量
         if self.consumables_count == sel_inventory_count:
