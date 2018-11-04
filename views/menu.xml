@@ -897,16 +897,6 @@
 		</record>
 
 
-		<!--<record model="ir.actions.act_window" id="xa_station_xczby_action111">-->
-			<!--<field name="name">行车值班员</field>-->
-			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
-			<!--<field name="view_mode">tree,form</field>-->
-			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list11')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form11')})]">-->
-			<!--</field>-->
-        <!--</record>-->
-
 		<menuitem id="xa_station_zbzz" name="交接班列表"
 				  parent="xa_station_production_manage_1"
 				  action="xa_station_train_working_action"

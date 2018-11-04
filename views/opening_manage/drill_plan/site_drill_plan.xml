@@ -25,10 +25,10 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="drill_project" string="演练项目"/>
-                            <field name="release_time" string="发布时间"/>
-                            <field name="line_id" string="发布站点"/>
-                            <field name="site_id" string="发布线路"/>
+                            <field name="drill_project" string="演练项目" readonly="1"/>
+                            <field name="release_time" string="发布时间" readonly="1"/>
+                            <field name="line_id" string="发布站点" readonly="1"/>
+                            <field name="site_id" string="发布线路" readonly="1"/>
                         </group>
 
                         <group string="演练情况">
@@ -161,14 +161,14 @@
         <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.server" id="xa_station_site_drill_plan_action_1">
-            <field name="name">站点演练详情</field>
-            <field name="state">code</field>
-            <field name="model_id" ref="model_funenc_xa_station_site_drill_plan"/>
-            <field name="code">
-                action = model.init_data()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="xa_station_site_drill_plan_action_1">-->
+            <!--<field name="name">站点演练详情</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="model_id" ref="model_funenc_xa_station_site_drill_plan"/>-->
+            <!--<field name="code">-->
+                <!--action = model.init_data()-->
+            <!--</field>-->
+        <!--</record>-->
 
         <!--<menuitem id="xa_station_site_drill_plan_menu" name="站点演练详情"-->
                   <!--action="xa_station_site_drill_plan_action_1" parent="opening_manage" sequence="5"-->

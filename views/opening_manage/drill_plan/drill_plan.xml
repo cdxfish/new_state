@@ -59,16 +59,16 @@
                             <field name="drill_plan" string="演练方案" widget="many2many_binary"
                                    attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_hierarchy" string="演练层级" attrs="{'readonly':[('is_release','=',1)]}"/>
-                            <field name="state" string="状态" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="state" string="状态" attrs="{'readonly':[('is_release','=',1)]}" invisible="1"/>
                             <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
                                    options="{'no_create':True,'no_open':True}"
                                    attrs="{'readonly':[('is_release','=',1)]}"/>
                         </group>
                         <footer>
-                            <button name='drill_plan_save'
-                                    string='保存'
-                                    class='btn-primary'
-                                    type='object'/>
+                            <!--<button name='drill_plan_save'-->
+                                    <!--string='保存'-->
+                                    <!--class='btn-primary'-->
+                                    <!--type='object'/>-->
                             <button name='drill_plan_start'
                                     string='发布'
                                     class='btn-primary'
