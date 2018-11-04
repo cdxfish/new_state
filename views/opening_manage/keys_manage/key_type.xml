@@ -52,6 +52,7 @@
 							<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
                             <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" />
 							<field name="name" string="钥匙类型"/>
+							<field name="prent_id" string="父类型"></field>
 							<field name="remarks" string="备注"/>
 						</group>
 					</div>

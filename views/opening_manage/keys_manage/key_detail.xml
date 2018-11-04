@@ -40,7 +40,7 @@
 						<group>
 							<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
                             <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"  context="{'site_id':site_id}"/>
-							<field name="key_type_id" string="钥匙类型" domain="[('site_id','=', site_id)]"/>
+							<field name="key_type_id" string="钥匙类型" widget="cascader_widget_class_sheduling"/>
 							<field name="key_no" string="钥匙编号" placeholder="多个编号之间换行"/>
 							<field name="name" string="钥匙名称"/>
 							<field name="key_position" string="对应位置"/>

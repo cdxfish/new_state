@@ -20,7 +20,7 @@
             <field name="name">funenc_xa_station_consumables_apply_list</field>
             <field name="model">funenc_xa_station.consumables_apply</field>
             <field name="arch" type="xml">
-                <tree limit="15" create="0" class="noOpen">
+                <tree limit="15" create="0" class="noOpen" search_ex_template="consumbles_apply_search_button_button">
                     <field name="to_department_id" string="目标部门"/>
                     <field name="department_id" string="申请部门"/>
                     <field name="consumables_type" string="耗材类型"/>

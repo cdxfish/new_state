@@ -9,6 +9,8 @@ class KeyType(models.Model):
 	_inherit = 'fuenc_station.station_base'
 	
 	name = fields.Char(string='钥匙类型', required=True)
+	prent_id = fields.Many2one('funenc.xa.station.key.type', string='父耗材分类')
+	child_ids = fields.One2many('funenc.xa.station.key.type', 'prent_id', string='子耗材分类')
 	remarks = fields.Text(string='备注')
 
 	
@@ -41,3 +43,24 @@ class KeyType(models.Model):
 	
 	def key_type_delete(self):
 		self.env['funenc.xa.station.key.type'].search([('id', '=', self.id)]).unlink()
+
+	# 用来测试层级选择
+	@api.model
+	def get_equipment_class(self, id=False):
+		'''
+        获取分组
+        :return:
+        '''
+		rst = []
+		class_a = self.env['funenc.xa.station.key.type'].search_read([('prent_id', '=', id)],
+																			 fields=['child_ids', 'name'])
+		for record in class_a:
+			vals = {
+				'value': record['id'],
+				'label': record['name'],
+			}
+			children = self.get_equipment_class(record['id'])
+			if children:
+				vals['children'] = children
+			rst.append(vals)
+		return rst

@@ -113,7 +113,7 @@ class CheckCollect(models.Model):
                 record[list2].update({'line_id':list3.get('line_id')[1]})
                 record[list2].update({'site_id':list3.get('site_id')[1]})
         elif person_id:
-            date_time = self.env['funenc_xa_station.check_record'].search_read(['|',('write_person', '=', person_id),
+            date_time = self.env['funenc_xa_station.check_record'].search_read(['|',('staff', '=', person_id),
                                                                                    ('check_number', '=', person_id)])
             date_list = [check_record for check_record in date_time if
                          check_record.get('check_time')[:7] == date_one[:7]]
@@ -132,6 +132,7 @@ class CheckCollect(models.Model):
                 record[list2].update({'mouth_grade': fs + 100})
                 record[list2].update({'line_id': list3.get('line_id')[1]})
                 record[list2].update({'site_id': list3.get('site_id')[1]})
+                record[list2].update({'staff': list3.get('staff')[1]})
 
 
         return [record.get(key) for key in record]

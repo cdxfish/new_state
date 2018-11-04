@@ -502,4 +502,24 @@
         </div>
     </t>
 
+    <t t-name="consumbles_apply_search_button_button">
+        <div class="form-inline custom_search_box">
+            <div class="container-fluid">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">目标部门:</span>
+                    <span for="to_department_id" class="col-xs-8"></span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">申请部门:</span>
+                    <span for="department_id" class="col-xs-8"></span>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <button type="button" class="btn btn-default search_extend_apply">
+                        搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
 </templates>

@@ -41,7 +41,7 @@
                             <field name="consumables_department_id" string="站点"
                                     options="{'no_create':True}"
                                    context="{'consumables_department_id':consumables_department_id}"/>
-                            <field name="consumables_type_id" string="耗材类型"/>
+                            <field name="consumables_type_id" string="耗材类型" widget="cascader_widget"/>
                             <field name="store_house_id" string="库房名称"
                                    domain="[('store_house_department_id','=',consumables_department_id)]"/>
                             <field name="warehousing_count" string="入库数量"/>
