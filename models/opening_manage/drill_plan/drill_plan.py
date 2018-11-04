@@ -149,8 +149,8 @@ class drill_plan(models.Model):
         '''
         二维码生成
         '''
-        file = os.path.dirname(os.path.dirname(__file__))
-        qr_file = os.path.dirname(os.path.dirname(file))
+        # file = os.path.dirname(os.path.dirname(__file__))
+        # qr_file = os.path.dirname(os.path.dirname(file))
         # 获取本机计算机名称
         hostname = socket.gethostname()
         # 获取本机ip
@@ -158,7 +158,9 @@ class drill_plan(models.Model):
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
         qr.add_data('http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}'.format(ip, self.id))
         img = qr.make_image()
-        file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
+        # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
+        file_name ="drill_plan_{}.png".format(self.id)
+
         img.save(file_name)
         imgs = open(file_name, 'rb')
         datas = imgs.read()
