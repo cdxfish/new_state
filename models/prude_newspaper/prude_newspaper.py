@@ -15,9 +15,7 @@ key=[('enter_come','边门进出情况')
 
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
-    # _inherit = 'fuenc_station.station_base'
-    line_id = fields.Char(string='线路')
-    site_id = fields.Char(string='站点')
+    _inherit = 'fuenc_station.station_base'
     event_stype = fields.Selection(key, string='事件类型')
     event_stype_name = fields.Char(string='事件类型名称')
     event_content = fields.Text(string='事件内容')
@@ -168,6 +166,7 @@ class PrudeNewspaper(models.Model):
             'res_model': 'funenc_xa_station.prude_newspaper',
             'context': self.env.context,
         }
+
 
 
 
