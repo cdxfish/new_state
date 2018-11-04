@@ -17,6 +17,13 @@
 			<!--<field name="view_mode">form</field>-->
 		<!--</record>-->
 
+		<menuitem id="xa_station_production_manage_1" name="生产管理"
+				   sequence="1"
+		/>
+
+		<menuitem  name="系统配置" id="system_configuration" sequence="5"></menuitem>
+
+
 		<record model="ir.actions.server" id="funenc_station_index_action">
 			<field name="name">网站首页</field>
 			<field name ="state">code</field>
@@ -817,9 +824,6 @@
 				  <!--action="xa_station_consumables_inventory_action"-->
 		<!--/>-->
 
-		<menuitem id="xa_station_production_manage_1" name="生产管理"
-				   sequence="1"
-		/>
 
 		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="1"
 				  parent="xa_station_production_manage_1"
@@ -1027,7 +1031,7 @@
 	<menuitem id="break_submit_menu" name="故障列表" groups="system_fault_list" action="break_submit_act" parent="opening_manage" sequence="3"></menuitem>
 
 
-	<menuitem  name="系统配置" id="system_configuration" sequence="5"></menuitem>
+
 
 	<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"
 				  parent="system_configuration" sequence="1"
