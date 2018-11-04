@@ -135,8 +135,8 @@
 
     <t t-name="widget_edit_delete">
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="warehouse_export" >出库</button>
             <button class="layui-btn layui-btn-sm" type="object"  name="edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
         </div>
     </t>
     <!--演练计划-->
