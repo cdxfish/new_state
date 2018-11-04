@@ -105,9 +105,10 @@
                                     <field name="line_id" string="线路" readonly="1"/>
                                     <field name="site_id" string="站点" readonly="1"/>
                                     <field name="people_number" string="参与人次" readonly="1"/>
-                                    <!--<field name="drill_hierarchy" string="状态"/>-->
-                                    <!--<field name="state" string="填写人"/>-->
-                                    <!--<field name="state" string="填写时间"/>-->
+                                    <field name="state" string="状态"/>
+                                    <field name="fill_in_user" string="填写人"/>
+                                    <field name="fill_in_date" string="填写时间"/>
+                                    <widget string="操作" name="treebtns" template="edit"/>
                                 </tree>
 
                             </field>

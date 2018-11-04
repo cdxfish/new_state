@@ -45,7 +45,7 @@
                         <group string="意见及整改">
                             <field name="proposal_rectification_ids">
 
-                                <tree>
+                                <tree editable="top" class="noOpen">
                                     <field name="proposal_user_id" string="意见填写人"/>
                                     <field name="jobnumber" string="工号"/>
                                     <field name="proposal_time" string="意见填写时间"/>
