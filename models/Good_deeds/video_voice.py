@@ -20,6 +20,7 @@ class VideoVoice(models.Model):
     good_deeds_play = fields.Many2one('fuenc_station.good_deeds',string='好人好事录音附件')
     suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱视屏附件')
     suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
+    site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
 
     @api.model
     def create(self, params):

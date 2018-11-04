@@ -42,6 +42,45 @@
 
                         </group>
 
+                                         <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-2">
+                                 <label for="load_file_test" string="图片附件"/>
+                              </div>
+                             <div class="col-md-10">
+                                 <field name="load_file_test" widget="many2many_binary">
+                                    <tree>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                              </div>
+                           </div>
+                    </div>
+                   <div class="row">
+                               <div class="col-md-12">
+                                  <div class="col-md-2">
+                                     <label for="site_drill_video" string="视屏附件："/>
+                                  </div>
+                                 <div class="col-md-3">
+                                    <field name="site_drill_video">
+                                        <tree>
+                                            <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                            <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                    <field name="file_name" invisible="1"/>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                  </div>
+                               </div>
+                    </div>
+
                         <group string="意见及整改">
                             <field name="proposal_rectification_ids">
 

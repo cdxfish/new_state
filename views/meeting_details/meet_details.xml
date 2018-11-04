@@ -51,7 +51,7 @@
             <field name="name">会议记录</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
-                <form creata="0" edit="0" class="noOpen">
+                <form creata="0" edit="0" class="noOpen" delete="0">
                     <sheet>
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
@@ -88,7 +88,7 @@
             <field name="name">详情</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
-                    <form creata="0" edit="0" class="noOpen">
+                    <form creata="0" edit="0" class="noOpen" delete="0">
                     <div>
                         <h1>基本信息</h1>
                     </div>

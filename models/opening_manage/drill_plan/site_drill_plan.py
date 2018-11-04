@@ -26,7 +26,10 @@ class site_drill_plan(models.Model):
     position = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='所在位置')
 
     #  照片
+    load_file_test = fields.Many2many('ir.attachment','good_site_drill_ir_attachment_rel',
+                                         'attachment_id','meeting_dateils_id', string='图片上传')
     #  视频
+    site_drill_video = fields.One2many('video_voice_model','site_drill_plan_audio',string='视屏')
 
     site_drill_plan_to_drill_situation_ids = fields.One2many('funenc_xa_station.site_drill_plan_to_drill_situation',
                                                              'site_drill_plan_id', string='预设', ondelete='set null', )

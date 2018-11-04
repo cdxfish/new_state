@@ -274,3 +274,19 @@ class KeyDetail(models.Model):
             "target": "current",
 
         }
+    @api.model
+    def browse_key_details(self,line_id,site_id,key_type,key_total,master_number,copy_number,borrow_number,destroy_number):
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_key_detail_list').id
+        return {
+            'name': '钥匙详情',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "list"]],
+            'domain':[('line_id','=',line_id),('site_id','=',site_id)],
+            'res_model': 'funenc.xa.station.key.detail',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+        }
+
+

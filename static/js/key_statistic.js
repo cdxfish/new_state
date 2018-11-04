@@ -62,7 +62,20 @@ odoo.define('key_statistic', function (require) {
                             console.log(this.currentPage)
                         },
                         details: function(row){
-                            console.log(row)
+                                   self._rpc({
+                                    model: 'funenc.xa.station.key.detail',
+                                    method: 'browse_key_details',
+                                    kwargs:{'line_id':row.line_id,
+                                            'site_id':row.site_id,
+                                            'key_type':row.key_type,
+                                            'key_total':row.key_total,
+                                            'master_number':row.master_number,
+                                            'copy_number':row.copy_number,
+                                            'borrow_number':row.borrow_number,
+                                            'destroy_number':row.destroy_number}
+                                    }).then(function(data) {
+                                            self.do_action(data);
+                                        });
                         },
                         // 钥匙创建
                         create_key: function () {
