@@ -13,6 +13,10 @@ class delivery_storage(models.Model):
     store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory','delivery_storage_id',string='出库仓库')
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
     consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
+    outgoing_way = fields.Selection(string='出库方式',selection=[('组织','组织'),('个人',('个人'))])
+
+    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
+    department_name = fields
 
     @api.multi
     def get_day_plan_publish_action(self):

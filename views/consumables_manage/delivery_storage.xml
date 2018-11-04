@@ -47,6 +47,10 @@
                                     <field name="inventory_count" string="库存数量" readonly="1"/>
                                     <field name="consumables_type" />
                                     <field name="sel_inventory_count" string="选择出库数量"/>
+                                    <field name="inventory_count" string="组织"/>
+                                    <field name="consumables_type" string="个人"/>
+                                    <field name="inventory_count" string="姓名"/>
+                                    <field name="consumables_type" />
                                 </tree>
                             </field>
                         </group>
