@@ -8,7 +8,7 @@
             <field name="model">funenc_xa_station.site_drill_plan</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0">
-                    <field name="drill_project" string="演练项目"/>
+                    <field name="drill_plan_id" string="演练项目"/>
                     <field name="release_time" string="发布时间"/>
                     <field name="line_id" string="发布站点"/>
                     <field name="site_id" string="发布线路"/>
@@ -45,7 +45,7 @@
                         <group string="意见及整改">
                             <field name="proposal_rectification_ids">
 
-                                <tree>
+                                <tree editable="top" class="noOpen">
                                     <field name="proposal_user_id" string="意见填写人"/>
                                     <field name="jobnumber" string="工号"/>
                                     <field name="proposal_time" string="意见填写时间"/>
@@ -88,9 +88,10 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="proposal_user_id" string="意见填写人" options="{'no_create':True,'no_open':True}"/>
+                            <field name="rectification_user_id" string="意见填写人" options="{'no_create':True,'no_open':True}"/>
                             <field name="jobnumber" string="工号" readonly="1"/>
-                            <field name="proposal_question" string="存在问题及整改建议"/>
+                            <field name="proposal_time" string="意见填写时间" readonly="1"/>
+                            <field name="proposal_question" string="存在问题及整改建议" />
                         </group>
                     </div>
                 </form>
@@ -105,9 +106,9 @@
                     <div class="container-fluid">
                         <group>
                             <field name="rectification_user_id" string="意见填写人" options="{'no_create':True,'no_open':True}"/>
-                            name="drill_project" string="演练项目" readonly="1"/>
-                            <field name="rectification_no" string="工号" readonly="1"/>
-                            <field name="rectification_question" string="整改情况" />
+                            <field name="jobnumber" string="工号" readonly="1"/>
+                            <field name="proposal_time" string="意见填写时间" readonly="1"/>
+                            <field name="proposal_question" string="存在问题及整改建议" />
                         </group>
                     </div>
                 </form>
@@ -115,11 +116,11 @@
         </record>
 
 
-        <!--<record model="ir.actions.act_window" id="xa_station_site_drill_plan_action_1">-->
-        <!--<field name="name">演练计划</field>-->
-        <!--<field name="res_model">funenc_xa_station.site_drill_plan</field>-->
-        <!--<field name="view_mode">tree,form</field>-->
-        <!--</record>-->
+        <record model="ir.actions.act_window" id="xa_station_site_drill_plan_action_1">
+        <field name="name">演练计划</field>
+        <field name="res_model">funenc_xa_station.site_drill_plan</field>
+        <field name="view_mode">tree,form</field>
+        </record>
 
         <record model="ir.actions.server" id="xa_station_site_drill_plan_action_1">
             <field name="name">站点演练详情</field>

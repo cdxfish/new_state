@@ -177,9 +177,31 @@ class drill_result(models.Model):
 
     people_number = fields.Integer(string='参与演练人数')
     state = fields.Selection(string='状态', selection=[('already_filled', '已填写'), ('unfilled', '未填写')])
+    fill_in_date = fields.Datetime(string='填写时间')
+    fill_in_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='填写人')
 
     drill_plan_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练计划相关')
     drill_time = fields.Date(string='演练时间', related='drill_plan_id.drill_time',store=True)
+
+
+    def edit(self):
+        context = dict(self.env.context or {})
+        id = None
+        for site_drill_plan_id in self.drill_plan_id.site_drill_plan_ids:
+            if self.site_id.id == site_drill_plan_id.position.id:
+                id = site_drill_plan_id.id
+
+        return {
+            'name': '站点演练编辑',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'funenc_xa_station.site_drill_plan',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'res_id': id,
+            'target': 'new',
+        }
 
 
 class drill_plan_sign_in(models.Model):
