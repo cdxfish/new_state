@@ -31,7 +31,7 @@ class ShedulingManage(models.Model):
                                                    'sheduling_manage_id', 'arrange_order_id', string='班组排班规则')
     motorized_rule_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_5_ref',
                                           'sheduling_manage_id', 'arrange_order_id', string='机动人员排班规则')
-    current_rule = fields.Text(string='当前冲突规则')
+    current_rule = fields.Text(string='当前冲突规则',default = lambda self: self.default_current_rule())
     # , default = lambda self: self.default_current_rule()
     # sort = fields.Integer(string='排序', default=1)
 
@@ -46,6 +46,7 @@ class ShedulingManage(models.Model):
             return
 
         site_id = self.env.user.dingtalk_user.departments[0].id
+
         conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
                                                                                        'enable')
@@ -55,9 +56,8 @@ class ShedulingManage(models.Model):
         current_rule = ''
         for conflict_rule_dic in conflict_rule_dics:
             current_rule = current_rule + (
-                    conflict_rule_dic.get('conflict_rule_content', '') + conflict_rule_dic.get('conflict_rule',
-                                                                                               '') + '\n')
-
+                    conflict_rule_dic.get('conflict_rule_content', '') + (conflict_rule_dic.get('conflict_rule',
+                                                                                               '') or '*0') + '\n')
         return current_rule
 
     @api.constrains('class_group_ids', 'arrange_order_ids', 'sheduling_start_time', 'sheduling_end_time')
