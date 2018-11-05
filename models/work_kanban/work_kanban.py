@@ -11,14 +11,16 @@ class work_kanban(models.Model):
     _rec_name = 'task_originator_id'
     # _inherit = 'fuenc_station.station_base'
 
-    task_originator_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='任务发起人')
-    originator_time = fields.Datetime(string='发起时间')
+    task_originator_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='任务发起人', readonly=True,
+                                         default=lambda self: self.default_task_originator_id())
+    originator_time = fields.Datetime(string='发起时间', required=True)
     task_send_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'work_kanban_user_rel_1',
-                                          'work_kanban_id', 'ding_user_id', string='任务接收人')
-    task_start_time = fields.Datetime(string='任务开始时间')
-    task_end_time = fields.Datetime(string='任务结束时间')
-    task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')])
-    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型')
+                                          'work_kanban_id', 'ding_user_id', string='任务接收人', required=True)
+    task_start_time = fields.Datetime(string='任务开始时间', required=True)
+    task_end_time = fields.Datetime(string='任务结束时间', required=True)
+    task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')],
+                                     required=True)
+    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True)
     task_type = fields.Selection(selection=[('send_task', '发起的任务'), ('receive_task', '收到的任务')],
                                  default="send_task")  # 区分接收的任务还是发送的任务分类
     is_send = fields.Integer(string='任务是否发送')
@@ -35,9 +37,16 @@ class work_kanban(models.Model):
     task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
 
     @api.model
+    def default_task_originator_id(self):
+        if self.env.user.id == 1:
+            return
+        else:
+            return self.env.user.dingtalk_user.id
+
+    @api.model
     def create_work_kanban(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form').id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_create_form').id
         return {
             'name': '新增任务发起',
             'type': 'ir.actions.act_window',
@@ -58,12 +67,11 @@ class work_kanban(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'target': 'new',
-            'res_id':self.id
+            'res_id': self.id
         }
 
     def delete(self):
         self.unlink()
-
 
     def detail(self):
         context = dict(self.env.context or {})
@@ -126,7 +134,7 @@ class work_kanban(models.Model):
         if flag:
             self.parent_id.task_state = 'completed'
             self.parent_id.child_ids.write({
-                'task_state':'completed'
+                'task_state': 'completed'
             })
 
     #   app

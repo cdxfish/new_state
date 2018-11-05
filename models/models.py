@@ -439,11 +439,6 @@ class generate_qr(models.Model):
         '''
         二维码生成
         '''
-
-        # add_data = http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}
-        # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
-        # 获取本机计算机名称
-        # 获取本机ip
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
         qr.add_data(add_data)
         img = qr.make_image()
