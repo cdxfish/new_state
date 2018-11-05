@@ -2,19 +2,19 @@
 <odoo>
 	<data>
 
-		<record model="ir.actions.server" id="xa_station_leave_list_action">
-			<field name="name">新增请假</field>
-			<field name="state">code</field>
-			<field name="type">ir.actions.server</field>
-			<field name="model_id" ref="model_funenc_xa_station_leave"/>
-			<field name="condition">True</field>
-			<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>
-			<field name="binding_type">action_button</field>
-			<field name="binding_action">请假列表</field>
-			<field name="code">
-				 action = model.get_day_plan_publish_action()
-			</field>
-		</record>
+		<!--<record model="ir.actions.server" id="xa_station_leave_list_action">-->
+			<!--<field name="name">新增请假</field>-->
+			<!--<field name="state">code</field>-->
+			<!--<field name="type">ir.actions.server</field>-->
+			<!--<field name="model_id" ref="model_funenc_xa_station_leave"/>-->
+			<!--<field name="condition">True</field>-->
+			<!--<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>-->
+			<!--<field name="binding_type">action_button</field>-->
+			<!--<field name="binding_action">请假列表</field>-->
+			<!--<field name="code">-->
+				 <!--action = model.get_day_plan_publish_action()-->
+			<!--</field>-->
+		<!--</record>-->
 
 		<!--<record model="ir.actions.server" id="xa_station_leave_list_action">-->
 		    <!--<field name="name">请假列表</field>-->

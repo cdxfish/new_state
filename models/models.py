@@ -388,15 +388,15 @@ class generate_qr(models.Model):
             ip = socket.gethostbyname(hostname)
 
 
-            file = os.path.dirname(os.path.dirname(__file__))
+            # file = os.path.dirname(os.path.dirname(__file__))
 
             work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
                                                                                                          department.id)
             print(work_add_data)
-            work_file_name = file + "/static/images/work_{}.png".format(str_now_date[:10])
+            work_file_name = "/static/images/work_{}.png".format(str_now_date[:10])
             off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(ip,
                                                                                                              department.id)
-            off_work_name = file + "/static/images/off_work_{}.png".format(str_now_date[:10])
+            off_work_name =  "/static/images/off_work_{}.png".format(str_now_date[:10])
 
             if obj:
 

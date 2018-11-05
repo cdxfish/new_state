@@ -6,6 +6,8 @@
             <field name="model">funenc_xa_station.signal_system</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
                     <field name="signal_machine_ids" string="信号机位置编号"/>
                 </tree>
             </field>

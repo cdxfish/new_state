@@ -7,7 +7,7 @@
                     group="funenc_xa_station.meet_record_details_button">详情</button>
             <button class="layui-btn layui-btn-sm" type="object" hidden="hidden" name="meet_change_button"
                     group="funenc_xa_station.meet_record_Modify_button">修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" group="funenc_xa_station.meet_record_delete_button"
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  hidden="hidden" group="funenc_xa_station.meet_record_delete_button"
                       name="meet_delete_button" confirm="您确定要删除该条记录吗？" >删除</button>
         </div>
     </t>
