@@ -25,7 +25,7 @@
 					<field name="conflict_rule_content" string="内容"/>
                     <field name="conflict_rule" string="条件"/>
                     <field name="conflict_rule_state" invisible="1"/>
-                    <widget string="状态" name="treebtns" template="conflict_rule_widget_enable"/>
+                    <!--<widget string="状态" name="treebtns" template="conflict_rule_widget_enable"/>-->
                     <widget string="操作" name="treebtns" template="conflict_rule_widget_edit"/>
                 </tree>
 			</field>

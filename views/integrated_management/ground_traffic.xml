@@ -6,6 +6,8 @@
 			<field name="model">funenc_xa_station.ground_traffic</field>
 			<field name="arch" type="xml">
 				<tree >
+					<field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
 					<field name="ground_environment_ids" string="地面环境"/>
 					<field name="bus_lines" string="交通线路表"/>
 				</tree>

@@ -23,6 +23,8 @@
 			<field name="model">funenc_xa_station.station_detail</field>
 			<field name="arch" type="xml">
 				<tree >
+					<field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
 					<field name="station_nature" string="车站性质"/>
 					<field name="station_position" string="车站位置"/>
 					<field name="station_exit_information" string="出口信息"/>
