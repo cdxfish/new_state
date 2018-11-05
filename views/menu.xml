@@ -676,57 +676,87 @@
 		 />
 
 
+        <!--暂时-->
 
-		<!--<menuitem id="station_scheduling_settings_1" name="排班设置"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_scheduling_settings"-->
+		<record model="ir.actions.act_window" id="xa_station_scheduling_action_2">
+          <field name="name">班次管理</field>
+          <field name="res_model">funenc_xa_station.arrange_order</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+		<record model="ir.actions.act_window" id="xa_station_scheduling_action_3">
+          <field name="name">班组管理</field>
+          <field name="res_model">funenc_xa_station.class_group</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+		<record model="ir.actions.client" id="xa_station_scheduling_action_4">
+          <field name="name">机动人员管理</field>
+          <field name="tag">funenc_xa_motorized_users</field>
+        </record>
+		<!--<record model="ir.actions.act_window" id="xa_station_scheduling_action_5">-->
+          <!--<field name="name">冲突规则管理</field>-->
+          <!--<field name="res_model">funenc_xa_station.conflict_rule</field>-->
+		  <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+		<record model="ir.actions.act_window" id="xa_station_scheduling_action_6">
+          <field name="name">排班规则管理</field>
+          <field name="res_model">funenc_xa_station.arrange_class_manage</field>
+		  <field name="view_mode">tree,form</field>
+        </record>
+
+
+          <menuitem id="xa_station_scheduling_1" name="排班设置"
+				  parent="system_configuration"
+		/>
+
+		 <menuitem id="xa_station_scheduling_2" name="班次管理"
+				  parent="xa_station_scheduling_1"
+				   action="xa_station_scheduling_action_2"
+		/>
+		 <menuitem id="xa_station_scheduling_3" name="班组管理"
+				  parent="xa_station_scheduling_1"
+				   action="xa_station_scheduling_action_3"
+		/>
+		 <menuitem id="xa_station_scheduling_4" name="机动人员管理"
+				  parent="xa_station_scheduling_1"
+				   action="xa_station_scheduling_action_4"
+		/>
+		 <menuitem id="xa_station_scheduling_5" name="冲突规则管理"
+				  parent="xa_station_scheduling_1"
+				   action="xa_station_conflict_rule_action"
+		/>
+		 <menuitem id="xa_station_scheduling_6" name="排班规则管理"
+				  parent="xa_station_scheduling_1"
+				   action="xa_station_scheduling_action_6"
+		/>
+
+		<!--end暂时-->
+
+
+
+		<menuitem id="station_scheduling_list" name="排班列表"
+				  parent="funenc_station_integrated_manageme"
+				  sequence="2" action="key_manage_act_window_1"
+		/>
+
+		<!--<menuitem id="xa_station_change_shifts_setting_1" name="交接班设置"-->
+				  <!--parent="xa_station_production_manage_1"-->
 		<!--/>-->
-
-		<!--<menuitem id="station_scheduling_class_group" name="班组设置"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_scheduling_class_group_settings"-->
+		<!--<menuitem id="xa_station_station_master_1" name="值班站长"-->
+				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--action="xa_station_station_master_action"-->
 		<!--/>-->
-
-        <!--<menuitem id="station_scheduling_motorized_user" name="机动人员管理"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_motorized_user_action"-->
+		<!--<menuitem id="xa_station_car_line_1" name="行车值班员"-->
+				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--action="xa_station_car_line_action"-->
 		<!--/>-->
-
-		<!--<menuitem id="station_arrange_manage" name="排班规则管理"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_station_arrange_manage_action"-->
+		<!--<menuitem id="xa_station_passenger_transport_1" name="客运值班员"-->
+				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--action="xa_station_passenger_transport_action"-->
 		<!--/>-->
-
-		<!--<menuitem id="xa_station_conflict_rule" name="冲突规则管理"-->
-				  <!--parent="station_scheduling_settings"-->
-				  <!--action="xa_station_conflict_rule_action"-->
-		/>
-
-
-		<!--<menuitem id="station_scheduling_list" name="排班列表"-->
-				  <!--parent="funenc_station_integrated_manageme"-->
-				  <!--sequence="2" action="key_manage_act_window_1"-->
+		<!--<menuitem id="xa_station_station_service_1" name="站务员"-->
+				  <!--parent="xa_station_change_shifts_setting_1"-->
+				  <!--action="xa_station_station_service_action"-->
 		<!--/>-->
-
-		<menuitem id="xa_station_change_shifts_setting_1" name="交接班设置"
-				  parent="xa_station_production_manage_1"
-		/>
-		<menuitem id="xa_station_station_master_1" name="值班站长"
-				  parent="xa_station_change_shifts_setting_1"
-				  action="xa_station_station_master_action"
-		/>
-		<menuitem id="xa_station_car_line_1" name="行车值班员"
-				  parent="xa_station_change_shifts_setting_1"
-				  action="xa_station_car_line_action"
-		/>
-		<menuitem id="xa_station_passenger_transport_1" name="客运值班员"
-				  parent="xa_station_change_shifts_setting_1"
-				  action="xa_station_passenger_transport_action"
-		/>
-		<menuitem id="xa_station_station_service_1" name="站务员"
-				  parent="xa_station_change_shifts_setting_1"
-				  action="xa_station_station_service_action"
-		/>
 
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_manageme"
@@ -773,24 +803,12 @@
 				  parent="funenc_station_integrated_manageme"
 				  groups="system_attendance_management" sequence="9" action="xa_station_clock_list_action"
 		/>
-		<!--<menuitem id="xa_station_leave_list_1" name="请假列表"-->
-				  <!--parent="funenc_station_integrated_manageme"-->
-				  <!--action="xa_station_leave_list_action"-->
-		<!--/>-->
 		<record model="ir.actions.act_window" id="xa_station_clock_list_action111">
             <field name="name">打卡记录</field>
             <field name="res_model">fuenc_station.clock_record</field>
             <field name="view_mode">tree</field>
 		</record>
 
-        <!--<menuitem id="xa_station_clock_1111" name="打卡记录"-->
-				  <!--parent="funenc_station_integrated_manageme"-->
-				  <!--action="xa_station_clock_list_action111"-->
-		<!--/>-->
-        <!--<menuitem id="xa_station_overtime_list_1" name="加班记录"-->
-				  <!--parent="funenc_xa_station_check_attendance"-->
-				  <!--action="xa_station_overtime_list_action"-->
-		<!--/>-->
 		<menuitem id="xa_station_change_shifts_1" name="换班申请"
 				  parent="funenc_station_integrated_manageme"
 				  action="xa_station_change_shifts_action" sequence="11"
@@ -896,16 +914,6 @@
 			</field>
 		</record>
 
-
-		<!--<record model="ir.actions.act_window" id="xa_station_xczby_action111">-->
-			<!--<field name="name">行车值班员</field>-->
-			<!--<field name="res_model">funenc_xa_station.production_change_shifts</field>-->
-			<!--<field name="view_mode">tree,form</field>-->
-			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.production_change_shifts_train_working_list11')}),-->
-            <!--(0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.production_change_train_working_shifts_form11')})]">-->
-			<!--</field>-->
-        <!--</record>-->
 
 		<menuitem id="xa_station_zbzz" name="交接班列表"
 				  parent="xa_station_production_manage_1"
@@ -1043,10 +1051,10 @@
 
 
 
-	<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"
-				  parent="system_configuration" sequence="1"
-			  groups="system_shifts" action="xa_station_car_line_action"
-		/>
+	<!--<menuitem id="xa_station_change_shifts_setting_1" name="交接班-交接班设置"-->
+				  <!--parent="system_configuration" sequence="1"-->
+			  <!--groups="system_shifts" action="xa_station_car_line_action"-->
+		<!--/>-->
 
 	<menuitem id="xa_station_change_shifts_setting_1_fu" name="交接班-车站特殊卡预设"
 				  parent="system_configuration"
@@ -1079,10 +1087,10 @@
 			  groups="system_consumables_management_type"
 	/>
 
-	<menuitem id="station_scheduling_settings" name="排班管理-排班设置"
-				  parent="system_configuration" action="xa_scheduling_settings" sequence="11"
-			  groups="system_scheduling_management_type"
-		/>
+	<!--<menuitem id="station_scheduling_settings" name="排班管理-排班设置"-->
+				  <!--parent="system_configuration" action="xa_scheduling_settings" sequence="11"-->
+			  <!--groups="system_scheduling_management_type"-->
+		<!--/>-->
 
 	<menuitem id="station_scheduling_settings_fu" name="考评管理-考评指标库设置"
 				  parent="system_configuration" action="check_evaluate_act" sequence="12"

@@ -2,19 +2,19 @@
 <odoo>
 	<data>
 
-        <record model="ir.actions.server" id="create_delivery_storage_button1111">
-            <field name="name">创建打卡记录</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_fuenc_station_clock_record"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_fuenc_station_clock_record"/>
-            <field name="binding_type">action_button</field>
-            <field name="binding_action">打卡记录</field>
-            <field name="code">
-                action = model.create_clock_record()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="create_delivery_storage_button1111">-->
+            <!--<field name="name">创建打卡记录</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_fuenc_station_clock_record"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_fuenc_station_clock_record"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">打卡记录</field>-->
+            <!--<field name="code">-->
+                <!--action = model.create_clock_record()-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.ui.view" id="fuenc_station_clock_record_list">
 			<field name="name">fuenc_station_clock_record_list</field>
@@ -41,7 +41,7 @@
 			<field name="name">fuenc_station_clock_record_list</field>
 			<field name="model">fuenc_station.clock_record</field>
 			<field name="arch" type="xml">
-				<tree limit="15"  class="noOpen" search_ex_template="work_overtime_search_button">
+				<tree limit="15"  class="noOpen" search_ex_template="work_overtime_search_button" create="0">
                     <field name="time" string="日期"/>
                     <field name="line_id" string="线路"/>
                     <field name="site_id" string="站点" />

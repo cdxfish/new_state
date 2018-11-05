@@ -19,6 +19,8 @@
 			<field name="model">funenc_xa_station.civil_engineering</field>
 			<field name="arch" type="xml">
 				<tree >
+					<field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
 					<field name="essential_information_ids" string="基本信息"/>
 					<field name="private_channel_ids" string="专用通道信息"/>
 				</tree>

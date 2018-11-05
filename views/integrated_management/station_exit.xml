@@ -8,6 +8,8 @@
 			<field name="model">funenc_xa_station.station_exit</field>
 			<field name="arch" type="xml">
 				<tree >
+					<field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
 					<field name="position" string="位置"/>
 					<field name="station_master_id" string="站长"/>
 					<field name="station_mobile" string="电话"/>

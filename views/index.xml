@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-	<data>
+    <data>
 
         <record model="ir.ui.view" id="funenc_xa_station_generate_qr_form">
-			<field name="name">funenc_xa_station_generate_qr_list</field>
-			<field name="model">funenc_xa_station.generate_qr</field>
-			<field name="arch" type="xml">
-				<form>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <h1>上班二维码</h1>
-                             <field name="work_qr" widget="image"/>
-                        </div>
-                        <div class="text-center ">
-                             <h1>下班二维码</h1>
-                             <field  name="off_work_qr" widget="image"/>
+            <field name="name">funenc_xa_station_generate_qr_list</field>
+            <field name="model">funenc_xa_station.generate_qr</field>
+            <field name="arch" type="xml">
+                <form>
 
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-6  col-xs-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <span class="widget-label  col-md-4  col-sm-6  col-xs-12">上班二维码:
+                                        </span>
+                                        <div class="col-md-8  col-sm-6  col-xs-12">
+                                             <field name="work_qr" widget="image" options="{'size': [180, 180]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-6  col-xs-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <span class="widget-label  col-md-4  col-sm-6  col-xs-12">下班二维码:
+                                        </span>
+                                        <div class="col-md-8  col-sm-6  col-xs-12">
+                                             <field name="off_work_qr" widget="image" options="{'size': [180, 180]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
-			</field>
-		</record>
+            </field>
+        </record>
 
     </data>
 </odoo>

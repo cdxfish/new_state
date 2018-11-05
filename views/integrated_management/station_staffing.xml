@@ -6,6 +6,8 @@
 			<field name="model">funenc_xa_station.station_staffing</field>
 			<field name="arch" type="xml">
 				<tree >
+					<field name="line_id" string="线路" />
+					<field name="site_id" string="站点" />
 					<field name="staff_no" string="工号"/>
 					<field name="line_id" string="所属线路"/>
 					<field name="site_id" string="出口所属车站信息"/>

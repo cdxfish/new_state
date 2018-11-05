@@ -25,7 +25,7 @@ class drill_plan(models.Model):
                              )
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'drill_plan_ding_department_rel_1',
                                         'drill_plan_id', 'ding_department_id', string='参与站点',
-                                        domain=[('department_hierarchy', '=', 3)])
+                                        domain=[('department_hierarchy', '=', 3)],required=True)
     is_release = fields.Integer(string='是否已经发布')
     release_time = fields.Datetime(string='发布时间')
     drill_plan_qr = fields.Binary(string='二维码')
@@ -175,8 +175,11 @@ class drill_plan(models.Model):
 class drill_result(models.Model):
     _name = 'funenc_xa_station.drill_result'
     _description = u'演练结果'
-    _inherit = 'fuenc_station.station_base'
 
+    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点',
+                              )
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路',
+                             )
     people_number = fields.Integer(string='参与演练人数')
     state = fields.Selection(string='状态', selection=[('already_filled', '已填写'), ('unfilled', '未填写')])
     fill_in_date = fields.Datetime(string='填写时间')
@@ -191,7 +194,15 @@ class drill_result(models.Model):
         id = None
         for site_drill_plan_id in self.drill_plan_id.site_drill_plan_ids:
             if self.site_id.id == site_drill_plan_id.position.id:
-                id = site_drill_plan_id.id
+                id = site_drill_plan_id
+
+        drill_situation_ids = self.env['funenc_xa_station.drill_situation'].search([]).ids
+        if not id.site_drill_plan_to_drill_situation_ids:
+            for drill_situation_id in drill_situation_ids:
+                id.env['funenc_xa_station.site_drill_plan_to_drill_situation'].create({
+                    'site_drill_plan_id': id.id,
+                    'drill_situation_id': drill_situation_id
+                })
 
         return {
             'name': '站点演练编辑',
@@ -201,7 +212,7 @@ class drill_result(models.Model):
             'res_model': 'funenc_xa_station.site_drill_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
-            'res_id': id,
+            'res_id': id.id,
             'target': 'new',
         }
 
