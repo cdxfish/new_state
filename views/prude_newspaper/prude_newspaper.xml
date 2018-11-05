@@ -69,10 +69,10 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-2">
-                                 <label for="event_stype_name" string="事件类型:"/>
+                                 <label for="event_stype" string="事件类型:"/>
                               </div>
                              <div class="col-md-10">
-                                 <field name="event_stype_name" readonly="1"/>
+                                 <field name="event_stype" readonly="1"/>
                               </div>
                            </div>
                            <div class="col-md-6">
