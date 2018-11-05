@@ -181,7 +181,7 @@ class KeyDetail(models.Model):
         values = {
             'key_no': self.key_no,
             'type': self.key_type_id.name,
-            'station': self.site.id,
+            'station': self.site_id.id,
             'name': self.name,
             'position': self.key_position,
             'is_main': self.is_main,
@@ -196,7 +196,7 @@ class KeyDetail(models.Model):
         values = {
             'key_no': self.key_no,
             'type': self.key_type_id.name,
-            'station': self.site.id,
+            'station': self.site_id.id,
             'name': self.name,
             'position': self.key_position,
             'is_main': self.is_main,
