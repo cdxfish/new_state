@@ -104,7 +104,7 @@
                             </group>
                         </sheet>
                         <footer>
-                            <button name='production_change_shifts_save'
+                             <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
@@ -115,7 +115,7 @@
                                     string='立即交班'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state','in',['take_over_from'])]}"
+                                    attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
 
                             />
                              <button name='take_over'
@@ -331,17 +331,32 @@
                             </group>
                             <group string="其他事项交接">
                                 <field name="other_handover" string="其他事项交接"/>
+                                <field name="state" invisible="1"/>
+
                             </group>
                         </sheet>
                         <footer>
-                            <button name='production_change_shifts_save'
+                              <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
+
+                            />
                             <button name='submit'
-                                    string='提交'
+                                    string='立即交班'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
+
+                            />
+                             <button name='take_over'
+                                    string='接班'
+                                    class='btn-primary'
+                                    type='object'
+                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+
+                             />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -393,20 +408,36 @@
                                         <field name="error_name" string="异常情况"/>
                                         <field name="explain" string="说明"/>
 
+
                                     </tree>
                                 </field>
                                 <field name="production_state" invisible="1"/>
+                                 <field name="state" invisible="1"/>
+
                             </group>
                         </sheet>
                         <footer>
-                            <button name='production_change_shifts_save'
+                              <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
+
+                            />
                             <button name='submit'
-                                    string='提交'
+                                    string='立即交班'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
+
+                            />
+                             <button name='take_over'
+                                    string='接班'
+                                    class='btn-primary'
+                                    type='object'
+                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+
+                             />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -624,16 +655,30 @@
                         </group>
                         <group>
                             <field string="备注" name="remarks" />
+                            <field name="state" invisible="1"/>
                         </group>
                         <footer>
-                            <button name='production_change_shifts_save'
+                             <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
+
+                            />
                             <button name='submit'
-                                    string='提交'
+                                    string='立即交班'
                                     class='btn-primary'
-                                    type='object'/>
+                                    type='object'
+                                    attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
+
+                            />
+                             <button name='take_over'
+                                    string='接班'
+                                    class='btn-primary'
+                                    type='object'
+                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+
+                             />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
