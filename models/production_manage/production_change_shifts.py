@@ -571,14 +571,27 @@ class production_change_shifts(models.Model):
         form_views = self.get_form_id()
 
         return {
-            'name': '交接班详情',
-            'type': 'ir.actions.act_window',
-            'views': [[form_views, 'from']],
-            'res_model': 'funenc_xa_station.production_change_shifts',
-            'context': context,
-            'flags': {'initial_mode': 'edit'},
+            'name': '操作说明',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.production_change_shifts",
+            "res_id": self.id,
+            "views": [[form_views, "form"]],
+            # "domain": [()],
             'target': 'new',
+            'context': context,
         }
+
+        # return {
+        #     'name': '交接班详情',
+        #     'type': 'ir.actions.act_window',
+        #     'res_model': 'funenc_xa_station.production_change_shifts',
+        #     'views': [[form_views, 'from']],
+        #     'context': context,
+        #     'flags': {'initial_mode': 'edit'},
+        #     'target': 'new',
+        #     'res_id': self.id
+        # }
+
 
 
 class put_question(models.Model):
