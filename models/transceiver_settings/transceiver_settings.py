@@ -8,7 +8,7 @@ class TransceiverSettings(models.Model):
     _name = 'funenc_xa_station.transceiver_settings'
     _inherit = 'fuenc_station.station_base'
 
-    transient_type = fields.Char(string='工器具类型')
+    transient_type = fields.Many2one('funenc_xa_station.consumables_type',string='工器具类型')
     transient_name = fields.Char(string='工器具名称' )
     transient_number = fields.Char(string='工器具编号',_sql_constraints = [ ('check_uniq_cph', 'unique(transient_number)', '编号已经存在！')])
     post = fields.Char(string='位置')
