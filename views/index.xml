@@ -27,7 +27,7 @@
                                         <span class="widget-label  col-md-4  col-sm-6  col-xs-12">下班二维码:
                                         </span>
                                         <div class="col-md-8  col-sm-6  col-xs-12">
-                                             <field name="off_work_qr" widget="image" options="{'size': [180, 180]}"/>
+                                             <field name="off_work_qr" widget="image" options="{'size': [270, 270]}"/>
                                         </div>
                                     </div>
                                 </div>
