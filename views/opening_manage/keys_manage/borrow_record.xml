@@ -18,7 +18,7 @@
 			<field name="name">funenc_xa_station_borrow_record_list</field>
 			<field name="model">funenc.xa.station.borrow.record</field>
 			<field name="arch" type="xml">
-				<tree limit="15">
+				<tree limit="15" class="noOpen" create="0">
 					<field name="key_no"/>
 					<field name="line_id"/>
 					<field name="type"/>
