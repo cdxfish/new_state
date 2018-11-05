@@ -5,7 +5,7 @@
 			<field name="name">funenc_xa_station_station_staffing_list</field>
 			<field name="model">funenc_xa_station.station_staffing</field>
 			<field name="arch" type="xml">
-				<tree >
+				<tree search_ex_template="station_staffing_search_button">
 					<field name="line_id" string="线路" />
 					<field name="site_id" string="站点" />
 					<field name="staff_no" string="工号"/>

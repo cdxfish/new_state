@@ -17,8 +17,8 @@
         <record model="ir.ui.view" id="funenc_xa_station_civil_engineering_list">
 			<field name="name">funenc_xa_station_civil_engineering_list</field>
 			<field name="model">funenc_xa_station.civil_engineering</field>
-			<field name="arch" type="xml">
-				<tree >
+			<field name="arch" type="xml" >
+				<tree search_ex_template="civil_engineering_search_button">
 					<field name="line_id" string="线路" />
 					<field name="site_id" string="站点" />
 					<field name="essential_information_ids" string="基本信息"/>

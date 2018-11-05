@@ -55,7 +55,7 @@
                         <group>
                             <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                             <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
-                            <field name="transient_type"></field>
+                            <field name="transient_type" widget="cascader_widget"></field>
                             <field name="transient_name"></field>
                             <field name="transient_number"></field>
                             <field name="post" string="工器具位置"></field>

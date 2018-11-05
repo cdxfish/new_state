@@ -5,7 +5,7 @@
             <field name="name">funenc_xa_station_line_turnout_list</field>
             <field name="model">funenc_xa_station.line_turnout</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree search_ex_template="line_turnout_search_button_button">
                     <field name="line_id" string="线路" />
 					<field name="site_id" string="站点" />
                     <field name="line_map_ids" string="车站线路平面图"/>
