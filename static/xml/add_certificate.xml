@@ -3,10 +3,10 @@
 	<!--修改与删除按钮和删除-->
     <t t-name="add_certificate">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="station_cer_edit"
+            <button class="layui-btn layui-btn-sm" type="object"  name="station_cer_edit" hidden="hidden"
             group='funenc_xa_station.archives_station_certificate_modify'>修改</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="station_cer_delete"
-                    confirm="您确定要删除该条记录吗？" group='funenc_xa_station.archives_station_certificate_delete'>删除</button>
+                    confirm="您确定要删除该条记录吗？" hidden="hidden" group='funenc_xa_station.archives_station_certificate_delete'>删除</button>
             <button type="object" name="station_load" class="layui-btn layui-btn-sm" >下载</button>
         </div>
     </t>
@@ -19,9 +19,9 @@
     	<!--修改与删除按钮和删除-->
     <t t-name="person_certificate">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="person_cer_edit"
+            <button class="layui-btn layui-btn-sm" type="object"  name="person_cer_edit" hidden="hidden"
                     group='funenc_xa_station.archives_person_certificate_modify' >修改</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="person_cer_delete" confirm="您确定要删除该条记录吗？"
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="person_cer_delete" confirm="您确定要删除该条记录吗？" hidden="hidden"
             group='funenc_xa_station.archives_person_certificate_delete'>删除</button>
             <button type="object"  name="book_details_load" class="layui-btn layui-btn-sm" >下载</button>
         </div>
