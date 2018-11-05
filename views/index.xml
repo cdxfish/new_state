@@ -10,7 +10,7 @@
 
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-8 col-sm-6  col-xs-12">
+                            <div class="col-md-6 col-sm-6  col-xs-6">
                                 <div class="row">
                                     <div class="form-group">
                                         <span class="widget-label  col-md-4  col-sm-6  col-xs-12">上班二维码:
@@ -21,7 +21,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8 col-sm-6  col-xs-12">
+                            <div class="col-md-6 col-sm-6  col-xs-6">
                                 <div class="row">
                                     <div class="form-group">
                                         <span class="widget-label  col-md-4  col-sm-6  col-xs-12">下班二维码:

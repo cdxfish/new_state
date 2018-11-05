@@ -862,7 +862,7 @@
 		<!--<menuitem  name="人员管理" id="person_management_menu_" sequence="8"></menuitem>-->
 
 		<menuitem  name="预设交接班" id="change_shifts_menu_" sequence="8"
-		           parent="system_configuration"
+		           parent="system_configuration" groups="system_fuenc_tester"
 		></menuitem>
 
 
