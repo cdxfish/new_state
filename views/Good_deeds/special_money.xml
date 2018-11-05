@@ -101,7 +101,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="open_time"/>
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -294,7 +294,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="open_time"/>
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-3">
@@ -302,7 +302,7 @@
                              <label for="write_time" string="填报时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="write_time"/>
+                             <field name="write_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-3">

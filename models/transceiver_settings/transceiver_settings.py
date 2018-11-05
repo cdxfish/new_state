@@ -17,6 +17,21 @@ class TransceiverSettings(models.Model):
     load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_transceiver_attachment_rel',
                                      'attachment_id', 'meeting_dateils_id', string='图片上传')
 
+
+    # @api.model
+    # def create(self, vals):
+    #     re_id = vals.get('transient_type')
+    #     lis = []
+    #     record = self.env['funenc_xa_station.consumables_type'].search_read(
+    #         [('id', '=', re_id)], ['consumables_type', 'prent_id'])
+    #     if record[0]['consumables_type']:
+    #         lis.append(record[0]['consumables_type'])
+    #         re_id = record[0]['prent_id']
+    #         return self.create()
+    #     else:
+    #         print(lis)
+
+
     # 创建一条新的记录
     def new_increase_record(self):
         view_form = self.env.ref('funenc_xa_station.transceiver_settings_form').id

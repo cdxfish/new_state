@@ -93,7 +93,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="open_time"/>
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -296,7 +296,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="open_time" readonly="1"/>
+                             <field name="open_time" readonly="1" />
                           </div>
                        </div>
                        <div class="col-md-3">
