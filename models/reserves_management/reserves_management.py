@@ -113,7 +113,12 @@ class ReserverManagement(models.Model):
         return site_son
 
     @api.model
-
     def search_record(self,date):
-        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',date)])
-        return lol
+
+        production_change_shifts = self.env['funenc_xa_station.production_change_shifts'].search([('site_id','=',date)])
+        data = []
+        for production_change_shift in production_change_shifts:
+            data = data +  production_change_shift.reserver_management_ids.read()
+
+
+        return data

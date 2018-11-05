@@ -504,7 +504,7 @@ class production_change_shifts(models.Model):
                 'change_shifts_ids': '',
                 'take_over_from_ids': '',
                 'user': '',
-                'domain': '',
+                'domain': [('state','=','change_shifts')],
                 'views': '',
                 'jb_form': ''
             }
@@ -512,8 +512,7 @@ class production_change_shifts(models.Model):
         ding_user = self.env.user.dingtalk_user
         department = ding_user.departments[0]
         domain = [('site_id', '=', department.id), ('production_state', '=', position),
-                  ('change_shifts_user_id', '!=', ding_user.id)]
-        # ['name', 'line_id', 'departemnt_name', 'jobnumber', 'position']
+                  ('change_shifts_user_id', '!=', ding_user.id),('state','=','change_shifts')]
         user_dic['name'] = ding_user.name
         user_dic['line_id'] = ding_user.line_id.name
         user_dic['department_name'] = ding_user.department_name

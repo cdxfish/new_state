@@ -66,18 +66,18 @@
                 <form creata="0" edit="0" class="noOpen">
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="line_id" string="线路"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="site_id" string="站点"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
@@ -85,18 +85,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="open_time" string="发生时间"/>
                           </div>
-                         <div class="col-md-10">
-                             <field name="open_time"/>
+                         <div class="col-md-9">
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="open_site" string="发生地点"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="open_site"/>
                           </div>
                        </div>
@@ -104,18 +104,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="event_type" string="事件类别"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="event_type"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="passengers_name" string="乘客姓名"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="passengers_name"/>
                           </div>
                        </div>
@@ -123,18 +123,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="passengers_phone" string="乘客电话"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="passengers_phone"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="main_parment" string="主办部门"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="main_parment"/>
                           </div>
                        </div>
@@ -142,18 +142,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="help_parment" string="协办部门"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="help_parment"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="deal_requirements" string="处理要求"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="deal_requirements"/>
                           </div>
                        </div>
@@ -161,18 +161,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="access_time" string="回访时间"/>
                           </div>
-                         <div class="col-md-10">
-                             <field name="access_time"/>
+                         <div class="col-md-9">
+                             <field name="access_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="Satisfied" string="乘客是否满意"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="Satisfied"/>
                           </div>
                        </div>
@@ -292,18 +292,18 @@
                     <h2>基本信息</h2>
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="line_id" string="线路"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="line_id"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3">
                              <label for="site_id" string="站点"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="site_id"/>
                           </div>
                        </div>
@@ -315,7 +315,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-7">
-                             <field name="open_time"/>
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-3">
@@ -323,7 +323,7 @@
                              <label for="write_time" string="填报时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="write_time"/>
+                             <field name="write_time" style="width: 100%"/>
                           </div>
                        </div>
                         <div class="col-md-3">
@@ -401,7 +401,7 @@
                                  <label for="access_time" string="回访时间"/>
                               </div>
                              <div class="col-md-6">
-                                 <field name="access_time"/>
+                                 <field name="access_time" style="width: 100%"/>
                               </div>
                          </div>
                         <div class="col-md-3">
@@ -518,7 +518,7 @@
                              <label for="recovery_time" string="回复时间"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="recovery_time"/>
+                             <field name="recovery_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-4">
@@ -609,7 +609,7 @@
                              <label for="recovery_time" string="回复时间"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="recovery_time"/>
+                             <field name="recovery_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">

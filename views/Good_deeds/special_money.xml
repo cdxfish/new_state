@@ -78,18 +78,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="line_id" string="线路"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="site_id"/>
                           </div>
                        </div>
@@ -97,18 +97,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="open_time" string="发生时间"/>
                           </div>
-                         <div class="col-md-10">
-                             <field name="open_time"/>
+                         <div class="col-md-9">
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="open_site" string="发生地点"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="open_site"/>
                           </div>
                        </div>
@@ -116,18 +116,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="involving_money" string="涉及金额"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="involving_money"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="event_type" string="事件类型"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="event_type"/>
                           </div>
                        </div>
@@ -135,18 +135,18 @@
 
                     <div class="row">
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="passengers_name" string="乘客姓名"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="passengers_name"/>
                           </div>
                        </div>
                        <div class="col-md-6">
-                          <div class="col-md-2">
+                          <div class="col-md-3" style="padding-right: 0px">
                              <label for="passengers_phone" string="乘客电话"/>
                           </div>
-                         <div class="col-md-10">
+                         <div class="col-md-9">
                              <field name="passengers_phone"/>
                           </div>
                        </div>
@@ -200,10 +200,10 @@
 
                     <div class="row">
                        <div class="col-md-12">
-                          <div class="col-md-1">
+                           <div class="col-md-2">
                              <label for="event_details" string="事件详情"/>
                           </div>
-                         <div class="col-md-11">
+                         <div class="col-md-10">
                              <field name="event_details"/>
                           </div>
                        </div>
@@ -211,10 +211,10 @@
 
                     <div class="row">
                        <div class="col-md-12">
-                          <div class="col-md-1">
+                          <div class="col-md-2" style="padding-right: 0px">
                              <label for="survey_situation" string="调查情况"/>
                           </div>
-                         <div class="col-md-11">
+                         <div class="col-md-10">
                              <field name="survey_situation"/>
                           </div>
                        </div>
@@ -222,10 +222,10 @@
 
                     <div class="row">
                        <div class="col-md-12">
-                          <div class="col-md-1">
+                          <div class="col-md-2" style="padding-right: 0px">
                              <label for="apply_why" string="申请原因"/>
                           </div>
-                         <div class="col-md-11">
+                         <div class="col-md-10">
                              <field name="apply_why"/>
                           </div>
                        </div>
@@ -248,10 +248,10 @@
 
                 <div class="row">
                    <div class="col-md-12">
-                      <div class="col-md-1">
+                      <div class="col-md-2" style="padding-right: 0px">
                          <label for="load_file_test" string="生份证照片"/>
                       </div>
-                     <div class="col-md-11">
+                     <div class="col-md-10">
                             <field name="load_file_test" filename="file_name" required="1"></field>
                          <field name="file_name" invisible="1"></field>
 
@@ -294,7 +294,7 @@
                              <label for="open_time" string="发生时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="open_time"/>
+                             <field name="open_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-3">
@@ -302,7 +302,7 @@
                              <label for="write_time" string="填报时间"/>
                           </div>
                          <div class="col-md-6">
-                             <field name="write_time"/>
+                             <field name="write_time" style="width: 100%"/>
                           </div>
                        </div>
                        <div class="col-md-3">

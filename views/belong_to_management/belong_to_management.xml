@@ -98,7 +98,7 @@
                                 <label for="check_time" string="检查时间"/>
                             </div>
                             <div class="col-md-8">
-                                <field name="check_time" required="1"/>
+                                <field name="check_time" required="1" style="width: 100%"/>
                             </div>
                         </div>
                     </div>

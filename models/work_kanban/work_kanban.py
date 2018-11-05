@@ -32,9 +32,17 @@ class work_kanban(models.Model):
     parent_id = fields.Many2one('funenc_xa_station.work_kanban', string='发起任务')
     child_ids = fields.One2many('funenc_xa_station.work_kanban', 'parent_id', string='接收任务情况')
     task_feedback = fields.Char(string='任务反馈')
-    receive_task_state = fields.Selection(selection=[('receive_state', '接收状态'), ('completed', '已完成')])  # 接收任务状态
+    receive_task_state = fields.Selection(selection=[('receive_state', '未完成'), ('completed', '已完成')])  # 接收任务状态
     completed_time = fields.Datetime(string='接收任务完成时间')
     task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
+
+
+    @api.model
+    def create(self, vals):
+
+        vals['originator_time'] =  datetime.datetime.now()
+
+        return super(work_kanban,self).create(vals)
 
     @api.model
     def default_task_originator_id(self):
@@ -75,7 +83,11 @@ class work_kanban(models.Model):
 
     def detail(self):
         context = dict(self.env.context or {})
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form').id
+        if self.task_type == 'receive_task':
+            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form_2').id
+        else:
+
+            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_work_kanban_form').id
         return {
             'name': '工作看板编辑',
             'type': 'ir.actions.act_window',
