@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+
+
         <record model="ir.ui.view" id="funenc_xa_station_station_exit_list">
 			<field name="name">funenc_xa_station_station_exit_list</field>
 			<field name="model">funenc_xa_station.station_exit</field>

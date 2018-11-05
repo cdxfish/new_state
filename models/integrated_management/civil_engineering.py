@@ -11,6 +11,20 @@ class CivilEngineering(models.Model):
     essential_information_ids = fields.One2many('funenc_xa_station.essential_information','civil_engineering_id',string='基本信息')
     private_channel_ids = fields.One2many('funenc_xa_station.private_channel','civil_engineering_id',string='专用通道信息')
 
+    #用来筛选当前站点
+    def search_record_local(self):
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_civil_engineering_list').id
+        return {
+            'name': '土建结构',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.civil_engineering',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+        }
+
 
 class EssentialInformation(models.Model):
     _name = 'funenc_xa_station.essential_information'
