@@ -86,27 +86,23 @@ class PrudeNewpaperWrite(models.Model):
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
         for va in values:
-            # line_id = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
-            #     [('line_id', '=', va['line_id']['name'])],['id'])
-            # site_id = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
-            #     [('site_id', '=', va['site_id']['name'])],['id'])
             # event_stype = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
             #     [('event_stype', '=', va['event_stype']['prude_event_type'])],['id'])
-            # if va['event_stype'][1] == '边门进出情况':
-            #     stype = 'enter_come'
-            # elif va['event_stype'][1] == '票务、AFC故障及异常情况':
-            #     stype = 'ticket_acf'
-            # elif va['event_stype'][1] == '日票、预制单程票售卖情况':
-            #     stype = 'ticket_sales'
-            # elif va['event_stype'][1] == '其他设备故障情况':
-            #     stype = 'other_brenk'
-            # elif va['event_stype'][1] == '普通事件':
-            #     stype = 'normal'
+            if va['event_stype'][1] == '边门进出情况':
+                stype = 'enter_come'
+            elif va['event_stype'][1] == '票务、AFC故障及异常情况':
+                stype = 'ticket_acf'
+            elif va['event_stype'][1] == '日票、预制单程票售卖情况':
+                stype = 'ticket_sales'
+            elif va['event_stype'][1] == '其他设备故障情况':
+                stype = 'other_brenk'
+            elif va['event_stype'][1] == '普通事件':
+                stype = 'normal'
 
             va_value = {
                     'line_id' : va['line_id'][0],
                     'site_id' : va['site_id'][0],
-                    'event_stype_name' : va['event_stype'][1],
+                    'event_stype' : stype,
                     'event_content' : va['event_content'],
                     'event_content_create' : va.get('event_content_create'),
                     'open_time' : va.get('open_time'),
