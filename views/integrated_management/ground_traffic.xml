@@ -4,8 +4,8 @@
         <record model="ir.ui.view" id="funenc_xa_station_ground_traffic_list">
 			<field name="name">funenc_xa_station_ground_traffic</field>
 			<field name="model">funenc_xa_station.ground_traffic</field>
-			<field name="arch" type="xml">
-				<tree >
+			<field name="arch" type="xml" >
+				<tree search_ex_template="ground_traffic_search_button">
 					<field name="line_id" string="线路" />
 					<field name="site_id" string="站点" />
 					<field name="ground_environment_ids" string="地面环境"/>
