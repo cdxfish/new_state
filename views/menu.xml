@@ -843,7 +843,7 @@
 		<!--/>-->
 
 
-		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="1"
+		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="4"
 				  parent="xa_station_production_manage_1"
 				  action="funenc_station_index_action"
 		/>

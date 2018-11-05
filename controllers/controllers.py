@@ -11,20 +11,23 @@ class FuencStation(http.Controller):
 
     @http.route('/funenc_xa_station/redirect/check_collect', type='http', auth='none')
     def redirect_check_collect(self,**kw):
+        print('check_collect_redirect')
         if kw.get('type') == 'work':
 
             return http.local_redirect(
                 '/funenc_xa_station/static/html/get_work_code.html?site_id={}'.format(kw.get('site_id')))
         else:
-            pass
+            return http.local_redirect(
+                '/funenc_xa_station/static/html/get_off_work_code.html?site_id={}'.format(kw.get('site_id')))
     @http.route('/funenc_xa_station/check_collect', type='http', auth='none')
     def check_collect(self, **kw):
         try:
             code = kw.get('code')
+            site_id = kw.get('site_id')
             user_id = self.get_code(code)
 
-            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
-                [('site_id', '=', user_id.departments[0].id),
+            arrange_order_id = http.request.env['funenc_xa_station.sheduling_record'].sudo().search(
+                [('site_id', '=', site_id),
                  ('user_id', '=', user_id.id),
                  ('sheduling_date', '=', datetime.datetime.now())])
             values = {'line_id': user_id.line_id.id,
@@ -32,30 +35,25 @@ class FuencStation(http.Controller):
                       'time': datetime.datetime.now(),
                       'user_id': user_id.id,
                       'arrange_order_id': arrange_order_id.id,
-                      'clock_site': user_id.departments[0].id,
+                      'clock_site': site_id,
                       'clock_start_time': datetime.datetime.now(),
                       'is_overtime': 'no'
                       }
-            self.env['fuenc_station.clock_record'].create(values)
+            http.request.env['fuenc_station.clock_record'].sudo().create(values)
         except Exception as e:
             print(e)
 
         return "打卡成功"
 
-    @http.route('/funenc_xa_station/off_work/', type='http', auth='none')
+    @http.route('/funenc_xa_station/off_work', type='http', auth='none')
     def off_work(self, **kw):
         try:
-            payload = {'appid': 'ding4484e57b2688826335c2f4657eb6378f',
-                       'appsecret': '7E4S7vJhcnDQ4jUwCuCbHo7qkisscY5Yq8dP0gW0dsFYs0USp4bw8WuhLFa19trr'}
-            _resp = requests.get('https://oapi.dingtalk.com/sns/gettoken', params=payload).json()
-            url = 'https://oapi.dingtalk.com/sns/get_persistent_code?access_token={}'.format(_resp.get('access_token'))
-            payload = {'tmp_auth_code': ''}
-            res = requests.post(url, json=payload).json()
-            openid = res.get('openid')
-            user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('openId', '=', openid)])
+            code = kw.get('code')
+            user_id = self.get_code(code)
+            site_id = kw.get('site_id')
 
-            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].search(
-                [('site_id', '=', user_id.departments[0].id),
+            arrange_order_id = http.request.env['funenc_xa_station.sheduling_record'].sudo().search(
+                [('site_id', '=', site_id),
                  ('user_id', '=', user_id.id),
                  ('sheduling_date', '=', datetime.datetime.now())])
             values = {'line_id': user_id.line_id.id,
@@ -63,14 +61,14 @@ class FuencStation(http.Controller):
                       'time': datetime.datetime.now(),
                       'user_id': user_id.id,
                       'arrange_order_id': arrange_order_id.id,
-                      'clock_site': user_id.departments[0].id,
+                      'clock_site': site_id,
                       'clock_end_time': datetime.datetime.now()
                       }
-            self.env['fuenc_station.clock_record'].create(values)
+            http.request.env['fuenc_station.clock_record'].sudo().create(values)
         except Exception as e:
-            print(e)
+            return '下班打卡失败'
 
-        return http.local_redirect('/fnt_fm1212/static/home_pc.html?t=%s' % int(round(time.time())))
+        return '下班打卡成功'
 
     @http.route('/fuenc_station/fuenc_station/objects/<model("fuenc_station.fuenc_station"):obj>/', auth='public')
     def object(self, obj, **kw):
