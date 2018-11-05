@@ -78,14 +78,12 @@ class consumables_inventory(models.Model):
             'target': 'new',
             'context': context
         }
-    @get_domain
     @api.multi
-    def crkjl(self,domain):
+    def crkjl(self):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_warehousing_list').id
         return {
             'name': '耗材入库',
             'type': 'ir.actions.act_window',
-            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.consumables_warehousing',
             "top_widget": "multi_action_tab",
