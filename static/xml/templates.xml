@@ -107,7 +107,7 @@
     <t t-name="sheduling_manage_widget_enable_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_clint" >查看</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_edit" >编辑</button>
+            <!--<button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_edit" >编辑</button>-->
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="sheduling_manage_delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>
         </div>
     </t>
