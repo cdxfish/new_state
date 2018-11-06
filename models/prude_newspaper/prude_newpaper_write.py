@@ -64,8 +64,8 @@ class PrudeNewpaperWrite(models.Model):
         all_record = self.env['funenc_xa_station.date_time'].search_read([])
         if all_record:
             for date_record in all_record:
-                if str(open_time)[:10] == date_record['date_time_limit'][:10]:
-                    if self.env.user.dingtalk_user.jobnumber == date_record.get('landing_job_number'):
+                if str(open_time)[:10] == date_record['date_time_limit'][:10]: #判断记录有没有当天提交的记录
+                    if self.env.user.dingtalk_user.jobnumber == date_record.get('landing_job_number'):#判断当前人提交过没有
                         raise exceptions.ValidationError('提交警告一天只能提交一次')
 
         item = {
@@ -77,6 +77,7 @@ class PrudeNewpaperWrite(models.Model):
 
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
+        #将select转化成为字符串
         for va in values:
             # event_stype = self.env['funenc_xa_staion.prude_newpaper_write'].sudo().search_read(
             #     [('event_stype', '=', va['event_stype']['prude_event_type'])],['id'])
