@@ -45,7 +45,7 @@
         <div class="layui-btn-group">
             <button type="object"  name="onchange_record" class="layui-btn layui-btn-sm"
             >修改</button>
-            <button type="object"  name="onchange_record" class="layui-btn layui-btn-sm layui-btn-danger"
+            <button type="object"  name="delete_record" class="layui-btn layui-btn-sm layui-btn-danger"
                     confirm="您确定要删除该条记录吗？"
             >删除</button>
         </div>

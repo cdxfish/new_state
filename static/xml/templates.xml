@@ -188,19 +188,19 @@
     <t t-name="work_kanban_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-2 "  >
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:10px; line-height:10px;" >
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="originator_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 " >
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:10px; line-height:10px;">
                     <span class="search_label" style="float:left;">任务类型:</span>
                     <span for="task_type_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 " >
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:50px;">
                     <span class="search_label" style="float:left;">完成情况:</span>
                     <span for="task_state" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 " >
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">发起人:</span>
                     <span for="task_originator_id" class="col-xs-8"></span>
                 </div>
