@@ -8,7 +8,7 @@ class AddStationCertificate(models.Model):
     name = fields.Char(string='证件名称')
     # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
     # station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
-    certificate_time = fields.Char(string='证件有效期')
+    certificate_time = fields.Date(string='证件有效期')
     file_name = fields.Char(string="File Name")
     certificate_number = fields.Char(string='证件号码')
     station_agent = fields.Char(string='站长')

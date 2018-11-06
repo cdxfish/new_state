@@ -21,9 +21,14 @@
             <field name="model">funenc_xa_station.delivery_storage</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen">
-                    <field name="delivery_storage_department" string="申请部门"/>
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="consumables_count" string="出库数量"/>
+                    <field name="delivery_storage_date" string="出库时间"/>
+
+                    <field name="department_id" string="部门"/>
+                    <field name="store_house_ids" string="库房名称"/>
+                    <field name="outgoing_way" string="出库对象"/>
+
                     <field name="is_delivery" invisible="1" />
                     <widget string="操作" name="treebtns" template="delivery_storage_widget_edit_delete"/>
                 </tree>
@@ -37,10 +42,9 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="department_id" string="申请部门"></field>
                             <field name="consumables_type" string="耗材类型" widget="cascader_widget"/>
                             <field name="consumables_count" string="出库数量"/>
-                            <!--<field name="store_house_ids" >-->
+                            <field name="store_house_ids" >
                                 <!--<tree editable="top" class="noOpen">-->
                                     <!--<field name="consumables_inventory_id" string="库房名称" domain="[('consumables_type','=',consumables_type)]"/>-->
                                     <!--<field name="inventory_count" string="库存数量" readonly="1"/>-->
@@ -50,10 +54,11 @@
                                     <!--<field name="outgoing_user" string="个人姓名"/>-->
                                     <!--<field name="consumables_type" />-->
                                 <!--</tree>-->
-                            <!--</field>-->
-                           <field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>
-                            <field name="outgoing_user" string="个人姓名" attrs="{'invisible':[('outgoing_user', '!=','person')]}"/>
-                            <field name="delivery_storage_department" string="出库部门" attrs="{'invisible':[('outgoing_user', '!=','organization')]}"/>
+                            </field>
+                            <field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>
+                            <field name="outgoing_user" string="个人姓名" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
+                            <field name="department_name" string="部门名称" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
+                             <field name="department_id" string="部门" attrs="{'invisible':[('outgoing_way', '!=','组织')]}"/>
                         </group>
                         <footer>
                             <button name='delivery_storage_save'
