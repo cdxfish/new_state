@@ -227,11 +227,34 @@
                 </field>
         </record>
 
-		<!--<record model="ir.actions.act_window" id="xa_station_leave_list_action">-->
-          <!--<field name="name">请假列表</field>-->
-          <!--<field name="res_model">funenc_xa_station.leave</field>-->
-		  <!--<field name="view_mode">tree,form</field>-->
-        <!--</record>-->
+		<record model="ir.actions.act_window" id="xa_station_leave_list_action">
+          <field name="name">请假列表</field>
+          <field name="res_model">funenc_xa_station.leave</field>
+		  <field name="view_mode">tree,form</field>
+			<field name="top_widget">multi_action_tab</field>
+			<field name="top_widget_key">driver_manage_tab</field>
+		   	<field name="top_widget_options">
+                    {'tabs':
+                        [
+					   {
+						   'title': '请假记录',
+						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'group' : 'funenc_xa_station.table_leave_record',
+						   },
+					   {
+						   'title': '打卡记录',
+						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
+						   'group' : 'funenc_xa_station.table_card_record',
+						   },
+					  {
+						   'title': '加班记录',
+						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
+						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+                        ]
+                    }
+			</field>
+        </record>
 
 		<record model="ir.actions.act_window" id="xa_station_sheduling_manage_list_action">
           <field name="name">排班列表</field>
