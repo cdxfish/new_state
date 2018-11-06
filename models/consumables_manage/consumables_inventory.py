@@ -9,7 +9,7 @@ class consumables_inventory(models.Model):
     _description = u'耗材库存'
     _rec_name = 'store_house'
     inventory_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='库存部门')
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材类型')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
     store_house = fields.Many2one('funenc_xa_station.store_house', string='库房位置')
     inventory_count = fields.Integer(string='库存数量')
     storage_to_consumables_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory',
