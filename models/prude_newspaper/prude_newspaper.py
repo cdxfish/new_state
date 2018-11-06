@@ -16,8 +16,8 @@ key=[('enter_come','边门进出情况')
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
     _inherit = 'fuenc_station.station_base'
-    event_stype = fields.Selection(key, string='事件类型')
-    event_stype_name = fields.Char(string='事件类型名称')
+    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True)
+    event_stype_name = fields.Char(string='事件类型名称',compute='_compute_event_stype_name')
     event_content = fields.Text(string='事件内容')
     event_content_create = fields.Text(string='事件内容')
     open_time = fields.Datetime(string='发生时间')
@@ -39,6 +39,13 @@ class PrudeNewspaper(models.Model):
     brenk_repair_time = fields.Datetime(string='故障报修时间')
     brenk_state = fields.Text(string='故障情况')
     c_type = fields.Char(string='区分')
+
+    #关联页面的显示效果
+    @api.one
+    @api.depends('event_stype')
+    def _compute_event_stype_name(self):
+        if self.event_stype:
+            self.event_stype_name = self.event_stype.prude_event_type
 
 
 
