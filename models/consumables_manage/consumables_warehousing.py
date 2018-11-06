@@ -1,6 +1,6 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
-
+import datetime
 
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_warehousing'
@@ -14,6 +14,8 @@ class StoreHouse(models.Model):
     warehousing_parent = fields.Selection(selection=[('purchase', '采购'), ('organize', '领用')], string='采购方式',
                                           default='organize')
     warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='采购部门')
+    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='采购人')
+    consumables_warehousing_date = fields.Date(string='入库时间')
 
 
     @api.model
@@ -72,6 +74,7 @@ class StoreHouse(models.Model):
                       'store_house': self.store_house_id.id,
                       'inventory_count': self.warehousing_count
                       }
+            self.consumables_warehousing_date = datetime.datetime.now()
             self.env['funenc_xa_station.consumables_inventory'].create(values)
 
 

@@ -527,7 +527,6 @@ class production_change_shifts(models.Model):
         take_over_from_ids = self.search_read([('change_shifts_user_id', '=', ding_user.id),('production_state', '=', position), ('state', '=', 'take_over_from')],
                                               ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
                                                'take_over_from_time'])  # 已接班
-
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
         jb_form = self.get_form_id()
         return {

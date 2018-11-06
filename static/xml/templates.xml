@@ -22,9 +22,9 @@
             <button class="layui-btn layui-btn-sm" type="object"  name="key_detail_state_change_start"
             t-if="widget.record.data.state_now == 'fixed'"
             >启用</button>
-            <button class="layui-btn layui-btn-sm" type="object"  name="key_detail_state_change_fixed"
-            t-if="widget.record.data.state_now == 'normal'"
-            >锁定</button>
+            <!--<button class="layui-btn layui-btn-sm" type="object"  name="key_detail_state_change_fixed"-->
+            <!--t-if="widget.record.data.state_now == 'normal'"-->
+            <!--&gt;锁定</button>-->
             <button class="layui-btn layui-btn-sm" type="object"  name="key_detail_state_change_destroyed"
             t-if="widget.record.data.state_now != 'destroyed'"
             >报废</button>
