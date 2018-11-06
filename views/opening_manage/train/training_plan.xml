@@ -45,8 +45,8 @@
                         <div class="oe_button_box" name="button_box">
                             <button type="object" name="button_details" class="oe_stat_button"
                                     icon="fa-pencil-square-o"
-                                    attrs="{'invisible':[('state', '=','not_started')]}"
                                     >
+                                <!--attrs="{'invisible':[('state', '=','not_started')]}"-->
                                 <span>培训详情</span>
                                 <!--<field string="培训详情" name="configuration_count" widget="statinfo" />-->
                             </button>

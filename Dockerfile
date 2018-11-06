@@ -9,11 +9,13 @@ ADD layui_theme /mnt/extra-addons/layui_theme
 ADD vue_template_manager /mnt/extra-addons/vue_template_manager
 # xa_station
 ADD cdtct_dingtalk /mnt/extra-addons/cdtct_dingtalk
+ADD qiniu_service /mnt/extra-addons/qiniu_service
 
 # 删除多余文件
 RUN rm -rf /mnt/extra-addons/funenc_xa_station/layui_theme
 RUN rm -rf /mnt/extra-addons/funenc_xa_station/vue_template_manager
 RUN rm -rf /mnt/extra-addons/funenc_xa_station/cdtct_dingtalk
+RUN rm -rf /mnt/extra-addons/funenc_xa_station/qiniu_service
 
 # 安装其它依赖
 ADD requirements.txt /opt/sources/requirements.txt

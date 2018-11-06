@@ -8,8 +8,9 @@ import base64
 
 class xian_metro(models.Model):
     _name = 'xian_metro.xian_metro'
-    _inherit = 'fuenc_station.station_base'
-
+    # _inherit = 'fuenc_station.station_base'
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
+    site_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'xian_metro_site_id_rel','xian_metro_id','site_id',string='站点')
     profession_kind = fields.Many2one('xian_metro.professional', string='专业分类')
     rank_kind = fields.Many2one('add_class.add_class', string='级别分类')
     rules_id = fields.Char(string='规章编号',_sql_constraints = [ ('check_uniq_cph', 'unique(rules_id)', '编号已经存在！')])

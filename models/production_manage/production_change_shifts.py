@@ -468,9 +468,8 @@ class production_change_shifts(models.Model):
             return
         else:
             #####
-            take_over_from_time = fields.Datetime(string='接班时间')
             self.state = 'take_over_from'  # 已接班
-            self.take_over_from_user_id = self.env.user.dingtalk_user.line_id.id
+            self.take_over_from_user_id = self.env.user.dingtalk_use.id
             self.take_over_from_time = datetime.datetime.now()
 
     def get_position(self):
@@ -504,7 +503,7 @@ class production_change_shifts(models.Model):
                 'change_shifts_ids': '',
                 'take_over_from_ids': '',
                 'user': '',
-                'domain': [('state','=','change_shifts')],
+                'domain': [('state', '=', 'change_shifts')],
                 'views': '',
                 'jb_form': ''
             }
@@ -512,21 +511,23 @@ class production_change_shifts(models.Model):
         ding_user = self.env.user.dingtalk_user
         department = ding_user.departments[0]
         domain = [('site_id', '=', department.id), ('production_state', '=', position),
-                  ('change_shifts_user_id', '!=', ding_user.id),('state','=','change_shifts')]
+                  ('change_shifts_user_id', '!=', ding_user.id), ('state', '=', 'change_shifts')]
         user_dic['name'] = ding_user.name
         user_dic['line_id'] = ding_user.line_id.name
         user_dic['department_name'] = ding_user.department_name
         user_dic['jobnumber'] = ding_user.jobnumber
         user_dic['position'] = ding_user.position
-
+        # ('state', 'in', ['change_shifts', 'draft']),
         change_shifts_ids = self.search_read(
-            [('production_state', '=', position), ('state', 'in', ['change_shifts', 'draft']),
+            [('production_state', '=', position),
              ('change_shifts_user_id', '=', ding_user.id)],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
              'take_over_from_time'])  # 待接班
-        take_over_from_ids = self.search_read([('change_shifts_user_id', '=', ding_user.id),('production_state', '=', position), ('state', '=', 'take_over_from')],
-                                              ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-                                               'take_over_from_time'])  # 已接班
+        take_over_from_ids = self.search_read(
+            [('take_over_from_user_id', '=', ding_user.id), ('production_state', '=', position),
+             ('state', '=', 'take_over_from')],
+            ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
+             'take_over_from_time'])  # 已接班
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
         jb_form = self.get_form_id()
         return {
@@ -589,7 +590,6 @@ class production_change_shifts(models.Model):
         #     'target': 'new',
         #     'res_id': self.id
         # }
-
 
 
 class put_question(models.Model):

@@ -479,7 +479,7 @@
                                             <div class="form-group">
                                                 <span class="widget-label  col-md-4  col-sm-6  col-xs-12">特殊卡号:</span>
                                                 <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="special_card_preset_id" string="特殊卡号" widget="many2many_tags" options="{'no_create':True,'no_open':True}"/>
+                                                    <field name="special_card_preset_id" string="特殊卡号" widget="many2many_tags" options="{'no_create':True,'no_open':True}"></field>
                                                 </div>
                                             </div>
                                         </div>
@@ -619,7 +619,7 @@
                         </group>
                         <group string="特殊工作卡借用记录">
                             <field string="" name="special_card_preset_ids">
-                                <tree>
+                                <tree editable="top" class="noOpen">
                                     <field name="card_number" string="借出卡号" />
                                     <field name="user_id" string="借用人" />
                                     <field name="borrow_time" string="借用时间" />
@@ -641,7 +641,7 @@
                         </group>
                         <group string="库包/尾箱交接">
                             <field string="" name="tail_box_ids">
-                                <tree create="0" class="noOpen" editable="top">
+                                <tree  class="noOpen" editable="top">
                                     <field name="tail_box"  />
                                     <field name="no" />
                                     <field name="count" />
