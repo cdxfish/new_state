@@ -8,6 +8,16 @@
             </button>
         </div>
     </t>
+
+
+
+    <t t-name="consumables_apply_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="apply" >处理</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="delete" confirm="您确定要删除吗？" >删除</button>
+        </div>
+    </t>
+
     <!--钥匙类型修改与删除按钮-->
     <t t-name="key_widget_type_edit_delete">
         <div class="layui-btn-group">
@@ -181,30 +191,36 @@
             <button class="layui-btn layui-btn-sm"
                     t-if="widget.record.data.is_delivery == 'yes'"
             >已出库</button>
-            <!--<button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>-->
+        </div>
+    </t>
+
+    <t t-name="consumables_out_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="out" >出库</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="edit" >编辑</button>
         </div>
     </t>
 
     <t t-name="work_kanban_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;" >
+                <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;" >
                     <span class="search_label" style="float:left;">日期筛选:</span>
                     <span for="originator_time" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">任务类型:</span>
                     <span for="task_type_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">完成情况:</span>
                     <span for="task_state" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">发起人:</span>
+                <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">发起人员:</span>
                     <span for="task_originator_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-md-2 col-sm-12 col-xs-12" style="margin-bottom:5px;height:40px; line-height:40px;">
+                <div class="col-md-3 col-sm-12 col-xs-12" style="margin-bottom:5px;height:40px; line-height:40px;">
                     <button type="button" class="btn btn-default search_extend_apply">
                         搜索
                     </button>

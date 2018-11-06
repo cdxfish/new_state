@@ -95,7 +95,7 @@ class PrudeNewpaperWrite(models.Model):
             va_value = {
                     'line_id' : va['line_id'][0],
                     'site_id' : va['site_id'][0],
-                    'event_stype' : stype,
+                    'event_stype' : va['event_stype'][0],
                     'event_content' : va['event_content'],
                     'event_content_create' : va.get('event_content_create'),
                     'open_time' : va.get('open_time'),

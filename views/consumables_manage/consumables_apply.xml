@@ -21,11 +21,16 @@
             <field name="model">funenc_xa_station.consumables_apply</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen" search_ex_template="consumbles_apply_search_button_button">
-                    <field name="to_department_id" string="目标部门"/>
+                    <field name="consumables_type" string="耗材名称"/>
+                    <field name="create_date" string="申请时间"/>
                     <field name="department_id" string="申请部门"/>
-                    <field name="consumables_type" string="耗材类型"/>
                     <field name="consumables_count" string="申请数量"/>
-                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                    <field name="apply_user_id" string="申请人"/>
+                    <field name="state" string="状态"/>
+                    <field name="manage_user" string="处理人"/>
+                    <field name="manage_time" string="处理时间"/>
+
+                    <widget string="操作" name="treebtns" template="consumables_apply_edit_delete"/>
                 </tree>
             </field>
         </record>

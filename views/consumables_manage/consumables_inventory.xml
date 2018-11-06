@@ -67,7 +67,7 @@
                     <field name="consumables_type" string="耗材类型"/>
                     <field name="store_house" string="库房位置"/>
                     <field name="inventory_count" string="库存数量"/>
-                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                    <widget string="操作" name="treebtns" template="consumables_out_edit"/>
                 </tree>
             </field>
         </record>
