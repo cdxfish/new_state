@@ -167,222 +167,20 @@ class ShedulingManage(models.Model):
             'params': {'show_data': show_data}
         }
 
-    # @api.model
-    # def sheduling_start(self):
-    #     '''
-    #      排班开始  生成排班记录
-    #     :return:
-    #     '''
-    #     # if not self:
-    #     #     self = self.search([('id', '=', res_id)])
-    #     # res_user = self.env.user
-    #     # if res_user.id == 1:
-    #     #     return
-    #
-    #     # site_id = self.env.user.dingtalk_user.departments[0].id
-    #     line_id = self.line_id.id
-    #     site_id = self.site_id.id
-    #     conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
-    #                                                                                   ('conflict_rule_state', '=',
-    #                                                                                    'enable'),
-    #                                                                                   ('is_certificate', '=', 2)
-    #                                                                                   ], ['save_conflict_rule'],
-    #                                                                                  order='conflict_rule_index asc')
-    #     class_interval = conflict_rule_dics[0].get('save_conflict_rule')  # 版与班之间的间隔 >= h
-    #     rest_day = conflict_rule_dics[1].get('save_conflict_rule')  # 每人连续休息时间 <= d
-    #     night_shift = conflict_rule_dics[2].get('save_conflict_rule')  # 第二天必须排休  1d
-    #
-    #     # ding_user = res_user.dingtalk_user
-    #     show_position = self.line_id.name + '-' + self.site_id.name
-    #     show_sheduling_time = self.show_sheduling_time
-    #     show_arrange_order_name = self.show_arrange_order_name
-    #     current_rule = self.current_rule
-    #
-    #     class_group_ids = self.class_group_ids  # 班组
-    #     arrange_order_ids = self.arrange_order_ids.read()  # 班次
-    #     night_index = -1000  # 夜班下标
-    #     for index, arrange_order_id_1 in enumerate(arrange_order_ids):
-    #         if arrange_order_id_1.get('end_time_select') == 'next_day':
-    #             night_index = index
-    #
-    #     arrange_order_3 = arrange_order_ids[:-1]  # 排班班次
-    #     start_time = self.sheduling_start_time  # 排班开始时间
-    #     start_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d')
-    #     end_time = self.sheduling_end_time  # 排班结束时间
-    #     days = (datetime.datetime.strptime(end_time, '%Y-%m-%d') - start_datetime).days + 1
-    #     time_days = []  # 排班显示时间
-    #     for day in range(days):
-    #         str_to_datetime = start_datetime + datetime.timedelta(days=day)
-    #         time_days.append(str_to_datetime)
-    #
-    #     group_data = []  # 班组排班
-    #     for class_group_id in class_group_ids:
-    #         class_group_name = class_group_id.name
-    #         group_user_ids = class_group_id.group_user_ids.read(['name', 'position', 'id'])  # 班组人员
-    #         for i, group_user_id in enumerate(group_user_ids):
-    #             # group_user_id['index'] = i + 1
-    #             # group_user_id['user_name'] = group_user_id.get('name')
-    #             # group_user_id['position'] = group_user_id.get('position')
-    #
-    #             work_time = 0  # 工作总时长
-    #             last_work_time = 0  # 上次工作时长
-    #             # last_class_group_index = 0 # 上次班次 下标
-    #             last_is_night_shift = False  # 上次工作是否是夜班
-    #             night_rest_time = 0  # 夜班休息次数
-    #             continuous_rest_time = 0  # 连续休息时长
-    #             next_work_time = 0  # 下次工作日期范围
-    #             for j, time_day in enumerate(time_days):
-    #                 data = []  # 班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
-    #                 data.append(line_id)
-    #                 data.append(site_id)
-    #                 data.append(group_user_id.get('id'))
-    #                 data.append(class_group_id.id)
-    #                 data.append(time_day.strftime('%Y-%m-%d'))
-    #                 data.append('order_group')
-    #                 data.append(arrange_order_ids[0].get('save_work_time', 0))
-    #                 if j == 0:
-    #                     data.append(arrange_order_ids[0].get('id'))
-    #                     work_time = work_time + arrange_order_ids[0].get('save_work_time')
-    #                     last_work_time = arrange_order_ids[0].get('save_work_time')
-    #                     if arrange_order_ids[0].get('end_time_select') == 'next_day':  # 第一次排班是否是夜班
-    #                         night_rest_time = night_shift
-    #                         last_is_night_shift = True
-    #                         next_work_time = 0
-    #                     else:
-    #                         last_is_night_shift = False
-    #
-    #                         if next_work_time + class_interval < 24:
-    #                             next_work_time = next_work_time + class_interval
-    #                         else:
-    #                             next_work_time = abs(next_work_time + class_interval - 24)
-    #                     # arrange_order_ids = arrange_order_ids[-1:] + [arrange_order_ids[0]] # 班次重新排序
-    #                 else:
-    #                     if last_is_night_shift:  # 上次是否是夜班
-    #                         # 这里有问题  夜班不一定设置进去了的 所以班次应该固定
-    #                         data.append(arrange_order_ids[-1].get('id'))
-    #                         last_work_time = 0
-    #                         night_rest_time = night_rest_time - 1
-    #                         if night_rest_time == 0:
-    #                             last_is_night_shift = False
-    #
-    #                     else:
-    #                         for arrange_order in arrange_order_ids[:-1]:
-    #                             if int(arrange_order.get('time')[:2] or 0) >= next_work_time:
-    #                                 data.append(arrange_order.get('id'))
-    #                                 last_work_time = arrange_order.get('save_work_time')
-    #                                 work_time = work_time + arrange_order.get('save_work_time')
-    #                                 if arrange_order.get('end_time_select') == 'next_day':
-    #                                     night_rest_time = night_shift
-    #                                     last_is_night_shift = True
-    #                                     next_work_time = 0
-    #                                 else:
-    #                                     last_is_night_shift = False
-    #
-    #                                     if next_work_time + class_interval < 24:
-    #                                         next_work_time = next_work_time + class_interval
-    #                                     else:
-    #                                         next_work_time = abs(next_work_time + class_interval - 24)
-    #
-    #                                 break
-    #                 group_data.append(tuple(data))
-    #
-    #             # group_data.append(group_user_id)
-    #         # 上组人员 班次除开休班排最后
-    #         lens = len(arrange_order_ids)
-    #         if lens > 2:
-    #             tail = [arrange_order_ids.pop(lens - 1)]
-    #             arrange_order_ids = arrange_order_ids[1:] + [arrange_order_ids[0]] + tail  # 班组与班次轮排
-    #             if night_index != -1000:
-    #                 night_index = night_index - 1
-    #                 if night_index == -1:
-    #                     night_index = lens - 2
-    #
-    #     motorized_data = []  # 机动人员排班
-    #     motorized_user_ids = self.motorized_user_ids.read()
-    #     motorized_ids = self.motorized_ids.read()
-    #
-    #     # motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users()
-    #     # set([motorized_user_id.get('id') for motorized_user_id in motorized_user_ids]) -
-    #
-    #     for i, group_user_id in enumerate(motorized_user_ids):
-    #
-    #         work_time = 0  # 工作总时长
-    #         last_work_time = 0  # 上次工作时长
-    #         # last_class_group_index = 0 # 上次班次 下标
-    #         last_is_night_shift = False  # 上次工作是否是夜班
-    #         night_rest_time = 0  # 夜班休息次数
-    #         continuous_rest_time = 0  # 连续休息时长
-    #         next_work_time = 0  # 下次工作日期范围
-    #         for j, time_day in enumerate(time_days):
-    #             data_2 = []  # (line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)
-    #             data_2.append(line_id)
-    #             data_2.append(site_id)
-    #             data_2.append(group_user_id.get('id'))
-    #             data_2.append(time_day.strftime('%Y-%m-%d'))
-    #             data_2.append('motorized_group')
-    #             data_2.append(arrange_order_ids[0].get('save_work_time', 0))
-    #             if j == 0:
-    #                 data_2.append(motorized_ids[0].get('id'))
-    #                 work_time = work_time + motorized_ids[0].get('save_work_time')
-    #                 last_work_time = motorized_ids[0].get('save_work_time')
-    #                 # last_class_group_index = 0
-    #                 if motorized_ids[0].get('end_time_select') == 'next_day':  # 第一次排班是否是夜班
-    #                     night_rest_time = night_shift
-    #                     last_is_night_shift = True
-    #                     next_work_time = 0
-    #                 else:
-    #                     last_is_night_shift = False
-    #
-    #                     if next_work_time + class_interval < 24:
-    #                         next_work_time = next_work_time + class_interval
-    #                     else:
-    #                         next_work_time = abs(next_work_time + class_interval - 24)
-    #                 # arrange_order_ids = arrange_order_ids[-1:] + [arrange_order_ids[0]] # 班次重新排序
-    #             else:
-    #                 if last_is_night_shift:  # 上次是否是夜班
-    #                     # 这里有问题  夜班不一定设置进去了的 所以班次应该固定
-    #                     data_2.append(motorized_ids[-1].get('id'))
-    #                     last_work_time = 0
-    #                     night_rest_time = night_rest_time - 1
-    #                     if night_rest_time == 0:
-    #                         last_is_night_shift = False
-    #
-    #                 else:
-    #                     for arrange_order in motorized_ids[:-1]:
-    #                         if int(arrange_order.get('time')[:2] or 0) >= next_work_time:
-    #                             data_2.append(arrange_order.get('id'))
-    #                             last_work_time = arrange_order.get('save_work_time')
-    #                             work_time = work_time + arrange_order.get('save_work_time')
-    #                             if arrange_order.get('end_time_select') == 'next_day':
-    #                                 night_rest_time = night_shift
-    #                                 last_is_night_shift = True
-    #                                 next_work_time = 0
-    #                             else:
-    #                                 last_is_night_shift = False
-    #
-    #                                 if next_work_time + class_interval < 24:
-    #                                     next_work_time = next_work_time + class_interval
-    #                                 else:
-    #                                     next_work_time = abs(next_work_time + class_interval - 24)
-    #
-    #                             break
-    #             motorized_data.append(tuple(data_2))
-    #     if str(group_data)[1:-1]:
-    #         insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
-    #                      "values{}".format(str(group_data)[1:-1])
-    #         self.env.cr.execute(insert_sql)
-    #     if str(motorized_data)[1:-1]:
-    #         insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
-    #                      "values{}".format(str(motorized_data)[1:-1])
-    #         self.env.cr.execute(insert_sql)
-    #
-    #     show_data = self.get_sheuling_list(site_id, start_time, end_time)
-    #
-    #     return show_data
-
     @api.model
     def sheduling_start(self):
+        '''
+         排班开始  生成排班记录
+        :return:
+        '''
+        # if not self:
+        #     self = self.search([('id', '=', res_id)])
+        # res_user = self.env.user
+        # if res_user.id == 1:
+        #     return
 
+        # site_id = self.env.user.dingtalk_user.departments[0].id
+        line_id = self.line_id.id
         site_id = self.site_id.id
         conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
                                                                                       ('conflict_rule_state', '=',
@@ -394,18 +192,20 @@ class ShedulingManage(models.Model):
         rest_day = conflict_rule_dics[1].get('save_conflict_rule')  # 每人连续休息时间 <= d
         night_shift = conflict_rule_dics[2].get('save_conflict_rule')  # 第二天必须排休  1d
 
+        # ding_user = res_user.dingtalk_user
         show_position = self.line_id.name + '-' + self.site_id.name
         show_sheduling_time = self.show_sheduling_time
         show_arrange_order_name = self.show_arrange_order_name
         current_rule = self.current_rule
-        sheduling_arrange_order_ids = self.sheduling_arrange_order_ids  # 班组人员规则规则
-        motorized_rule_ids = self.motorized_rule_ids  # 机动规则规则
 
         class_group_ids = self.class_group_ids  # 班组
-        arrange_order_ids = self.arrange_order_ids  # 班次
-        motorized_user_ids = self.motorized_user_ids  # 机动人员
-        motorized_ids = self.motorized_ids  # 机动人员班次
+        arrange_order_ids = self.arrange_order_ids.read()  # 班次
+        night_index = -1000  # 夜班下标
+        for index, arrange_order_id_1 in enumerate(arrange_order_ids):
+            if arrange_order_id_1.get('end_time_select') == 'next_day':
+                night_index = index
 
+        arrange_order_3 = arrange_order_ids[:-1]  # 排班班次
         start_time = self.sheduling_start_time  # 排班开始时间
         start_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d')
         end_time = self.sheduling_end_time  # 排班结束时间
@@ -415,52 +215,252 @@ class ShedulingManage(models.Model):
             str_to_datetime = start_datetime + datetime.timedelta(days=day)
             time_days.append(str_to_datetime)
 
-        problem = Problem()
-        # problem.addVariables(['[1,2,3]', '[4,5,6]'], [1, 2])
-        # 构建排班
-        if sheduling_arrange_order_ids:  # 有临时班组规则
-            # 类型为班组
-            for sheduling_arrange_order_id in sheduling_arrange_order_ids:
-                arrange_class_type = sheduling_arrange_order_id.arrange_class_type  # 班次s
-                arrange_class_obj = sheduling_arrange_order_id.arrange_class_obj  # 班组s
-                arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in arrange_class_obj],
-                                                            [arrange_class.id for arrange_class in
-                                                             arrange_class_type])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-                # 班组要转换成对应的人
+        group_data = []  # 班组排班
+        for class_group_id in class_group_ids:
+            class_group_name = class_group_id.name
+            group_user_ids = class_group_id.group_user_ids.read(['name', 'position', 'id'])  # 班组人员
+            for i, group_user_id in enumerate(group_user_ids):
+                # group_user_id['index'] = i + 1
+                # group_user_id['user_name'] = group_user_id.get('name')
+                # group_user_id['position'] = group_user_id.get('position')
 
+                work_time = 0  # 工作总时长
+                last_work_time = 0  # 上次工作时长
+                # last_class_group_index = 0 # 上次班次 下标
+                last_is_night_shift = False  # 上次工作是否是夜班
+                night_rest_time = 0  # 夜班休息次数
+                continuous_rest_time = 0  # 连续休息时长
+                next_work_time = 0  # 下次工作日期范围
+                for j, time_day in enumerate(time_days):
+                    data = []  # 班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
+                    data.append(line_id)
+                    data.append(site_id)
+                    data.append(group_user_id.get('id'))
+                    data.append(class_group_id.id)
+                    data.append(time_day.strftime('%Y-%m-%d'))
+                    data.append('order_group')
+                    data.append(arrange_order_ids[0].get('save_work_time', 0))
+                    if j == 0:
+                        data.append(arrange_order_ids[0].get('id'))
+                        work_time = work_time + arrange_order_ids[0].get('save_work_time')
+                        last_work_time = arrange_order_ids[0].get('save_work_time')
+                        if arrange_order_ids[0].get('end_time_select') == 'next_day':  # 第一次排班是否是夜班
+                            night_rest_time = night_shift
+                            last_is_night_shift = True
+                            next_work_time = 0
+                        else:
+                            last_is_night_shift = False
 
+                            if next_work_time + class_interval < 24:
+                                next_work_time = next_work_time + class_interval
+                            else:
+                                next_work_time = abs(next_work_time + class_interval - 24)
+                        # arrange_order_ids = arrange_order_ids[-1:] + [arrange_order_ids[0]] # 班次重新排序
+                    else:
+                        if last_is_night_shift:  # 上次是否是夜班
+                            # 这里有问题  夜班不一定设置进去了的 所以班次应该固定
+                            data.append(arrange_order_ids[-1].get('id'))
+                            last_work_time = 0
+                            night_rest_time = night_rest_time - 1
+                            if night_rest_time == 0:
+                                last_is_night_shift = False
 
+                        else:
+                            for arrange_order in arrange_order_ids[:-1]:
+                                if int(arrange_order.get('time')[:2] or 0) >= next_work_time:
+                                    data.append(arrange_order.get('id'))
+                                    last_work_time = arrange_order.get('save_work_time')
+                                    work_time = work_time + arrange_order.get('save_work_time')
+                                    if arrange_order.get('end_time_select') == 'next_day':
+                                        night_rest_time = night_shift
+                                        last_is_night_shift = True
+                                        next_work_time = 0
+                                    else:
+                                        last_is_night_shift = False
 
-        else:  # 无临时排班规则
-            # 类型为班组
-            arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in class_group_ids],
-                                                        [arrange_class.id for arrange_class in
-                                                         arrange_order_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-            # 班组要转换成对应的人
-        if motorized_rule_ids:  # 机动人员规则
-            # 类型为机动人员
-            for motorized_rule_id in motorized_rule_ids:
-                arrange_class_type = motorized_rule_id.arrange_class_type  # 班次s
-                arrange_class_obj = motorized_rule_id.arrange_class_obj  # 班组s
-                arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in arrange_class_obj],
-                                                            [arrange_class.id for arrange_class in
-                                                             arrange_class_type])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-                # 班组要转换成对应的人
+                                        if next_work_time + class_interval < 24:
+                                            next_work_time = next_work_time + class_interval
+                                        else:
+                                            next_work_time = abs(next_work_time + class_interval - 24)
 
-        else:  # 无临时机动人员规则
-            # 类型为机动人员
-            arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in motorized_user_ids],
-                                                        [arrange_class.id for arrange_class in
-                                                         motorized_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-            # 班组要转换成对应的人
+                                    break
+                    group_data.append(tuple(data))
 
-        #  最后把构建的数据插入 模型 funenc_xa_station.sheduling_record
-        # sheduling_date 排班日期为排班当天
-        # 排班类型 sheduling_date order_type('order_group', '班组'), ('motorized_group', '机动人员')
+                # group_data.append(group_user_id)
+            # 上组人员 班次除开休班排最后
+            lens = len(arrange_order_ids)
+            if lens > 2:
+                tail = [arrange_order_ids.pop(lens - 1)]
+                arrange_order_ids = arrange_order_ids[1:] + [arrange_order_ids[0]] + tail  # 班组与班次轮排
+                if night_index != -1000:
+                    night_index = night_index - 1
+                    if night_index == -1:
+                        night_index = lens - 2
+
+        motorized_data = []  # 机动人员排班
+        motorized_user_ids = self.motorized_user_ids.read()
+        motorized_ids = self.motorized_ids.read()
+
+        # motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users()
+        # set([motorized_user_id.get('id') for motorized_user_id in motorized_user_ids]) -
+
+        for i, group_user_id in enumerate(motorized_user_ids):
+
+            work_time = 0  # 工作总时长
+            last_work_time = 0  # 上次工作时长
+            # last_class_group_index = 0 # 上次班次 下标
+            last_is_night_shift = False  # 上次工作是否是夜班
+            night_rest_time = 0  # 夜班休息次数
+            continuous_rest_time = 0  # 连续休息时长
+            next_work_time = 0  # 下次工作日期范围
+            for j, time_day in enumerate(time_days):
+                data_2 = []  # (line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)
+                data_2.append(line_id)
+                data_2.append(site_id)
+                data_2.append(group_user_id.get('id'))
+                data_2.append(time_day.strftime('%Y-%m-%d'))
+                data_2.append('motorized_group')
+                data_2.append(arrange_order_ids[0].get('save_work_time', 0))
+                if j == 0:
+                    data_2.append(motorized_ids[0].get('id'))
+                    work_time = work_time + motorized_ids[0].get('save_work_time')
+                    last_work_time = motorized_ids[0].get('save_work_time')
+                    # last_class_group_index = 0
+                    if motorized_ids[0].get('end_time_select') == 'next_day':  # 第一次排班是否是夜班
+                        night_rest_time = night_shift
+                        last_is_night_shift = True
+                        next_work_time = 0
+                    else:
+                        last_is_night_shift = False
+
+                        if next_work_time + class_interval < 24:
+                            next_work_time = next_work_time + class_interval
+                        else:
+                            next_work_time = abs(next_work_time + class_interval - 24)
+                    # arrange_order_ids = arrange_order_ids[-1:] + [arrange_order_ids[0]] # 班次重新排序
+                else:
+                    if last_is_night_shift:  # 上次是否是夜班
+                        # 这里有问题  夜班不一定设置进去了的 所以班次应该固定
+                        data_2.append(motorized_ids[-1].get('id'))
+                        last_work_time = 0
+                        night_rest_time = night_rest_time - 1
+                        if night_rest_time == 0:
+                            last_is_night_shift = False
+
+                    else:
+                        for arrange_order in motorized_ids[:-1]:
+                            if int(arrange_order.get('time')[:2] or 0) >= next_work_time:
+                                data_2.append(arrange_order.get('id'))
+                                last_work_time = arrange_order.get('save_work_time')
+                                work_time = work_time + arrange_order.get('save_work_time')
+                                if arrange_order.get('end_time_select') == 'next_day':
+                                    night_rest_time = night_shift
+                                    last_is_night_shift = True
+                                    next_work_time = 0
+                                else:
+                                    last_is_night_shift = False
+
+                                    if next_work_time + class_interval < 24:
+                                        next_work_time = next_work_time + class_interval
+                                    else:
+                                        next_work_time = abs(next_work_time + class_interval - 24)
+
+                                break
+                motorized_data.append(tuple(data_2))
+        if str(group_data)[1:-1]:
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+                         "values{}".format(str(group_data)[1:-1])
+            self.env.cr.execute(insert_sql)
+        if str(motorized_data)[1:-1]:
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+                         "values{}".format(str(motorized_data)[1:-1])
+            self.env.cr.execute(insert_sql)
 
         show_data = self.get_sheuling_list(site_id, start_time, end_time)
 
         return show_data
+
+    # @api.model
+    # def sheduling_start(self):
+    #
+    #     site_id = self.site_id.id
+    #     conflict_rule_dics = self.env['funenc_xa_station.conflict_rule'].search_read([('site_id', '=', site_id),
+    #                                                                                   ('conflict_rule_state', '=',
+    #                                                                                    'enable'),
+    #                                                                                   ('is_certificate', '=', 2)
+    #                                                                                   ], ['save_conflict_rule'],
+    #                                                                                  order='conflict_rule_index asc')
+    #     class_interval = conflict_rule_dics[0].get('save_conflict_rule')  # 版与班之间的间隔 >= h
+    #     rest_day = conflict_rule_dics[1].get('save_conflict_rule')  # 每人连续休息时间 <= d
+    #     night_shift = conflict_rule_dics[2].get('save_conflict_rule')  # 第二天必须排休  1d
+    #
+    #     show_position = self.line_id.name + '-' + self.site_id.name
+    #     show_sheduling_time = self.show_sheduling_time
+    #     show_arrange_order_name = self.show_arrange_order_name
+    #     current_rule = self.current_rule
+    #     sheduling_arrange_order_ids = self.sheduling_arrange_order_ids  # 班组人员规则规则
+    #     motorized_rule_ids = self.motorized_rule_ids  # 机动规则规则
+    #
+    #     class_group_ids = self.class_group_ids  # 班组
+    #     arrange_order_ids = self.arrange_order_ids  # 班次
+    #     motorized_user_ids = self.motorized_user_ids  # 机动人员
+    #     motorized_ids = self.motorized_ids  # 机动人员班次
+    #
+    #     start_time = self.sheduling_start_time  # 排班开始时间
+    #     start_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d')
+    #     end_time = self.sheduling_end_time  # 排班结束时间
+    #     days = (datetime.datetime.strptime(end_time, '%Y-%m-%d') - start_datetime).days + 1
+    #     time_days = []  # 排班显示时间
+    #     for day in range(days):
+    #         str_to_datetime = start_datetime + datetime.timedelta(days=day)
+    #         time_days.append(str_to_datetime)
+    #
+    #     problem = Problem()
+    #     # problem.addVariables(['[1,2,3]', '[4,5,6]'], [1, 2])
+    #     # 构建排班
+    #     if sheduling_arrange_order_ids:  # 有临时班组规则
+    #         # 类型为班组
+    #         for sheduling_arrange_order_id in sheduling_arrange_order_ids:
+    #             arrange_class_type = sheduling_arrange_order_id.arrange_class_type  # 班次s
+    #             arrange_class_obj = sheduling_arrange_order_id.arrange_class_obj  # 班组s
+    #             arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in arrange_class_obj],
+    #                                                         [arrange_class.id for arrange_class in
+    #                                                          arrange_class_type])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
+    #             # 班组要转换成对应的人
+    #
+    #
+    #
+    #
+    #     else:  # 无临时排班规则
+    #         # 类型为班组
+    #         arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in class_group_ids],
+    #                                                     [arrange_class.id for arrange_class in
+    #                                                      arrange_order_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
+    #         # 班组要转换成对应的人
+    #     if motorized_rule_ids:  # 机动人员规则
+    #         # 类型为机动人员
+    #         for motorized_rule_id in motorized_rule_ids:
+    #             arrange_class_type = motorized_rule_id.arrange_class_type  # 班次s
+    #             arrange_class_obj = motorized_rule_id.arrange_class_obj  # 班组s
+    #             arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in arrange_class_obj],
+    #                                                         [arrange_class.id for arrange_class in
+    #                                                          arrange_class_type])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
+    #             # 班组要转换成对应的人
+    #
+    #     else:  # 无临时机动人员规则
+    #         # 类型为机动人员
+    #         arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in motorized_user_ids],
+    #                                                     [arrange_class.id for arrange_class in
+    #                                                      motorized_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
+    #         # 班组要转换成对应的人
+    #
+    #     #  最后把构建的数据插入 模型 funenc_xa_station.sheduling_record
+    #     # sheduling_date 排班日期为排班当天
+    #     # 排班类型 sheduling_date order_type('order_group', '班组'), ('motorized_group', '机动人员')
+    #
+    #     show_data = self.get_sheuling_list(site_id, start_time, end_time)
+    #
+    #     return show_data
 
     @api.model
     def get_cline_data(self, site_id, start_time):
