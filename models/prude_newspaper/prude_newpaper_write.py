@@ -61,27 +61,19 @@ class PrudeNewpaperWrite(models.Model):
         d = datetime.datetime.strptime(new_time, '%Y-%m-%d %H:%M:%S')
         delta = datetime.timedelta(hours=8)
         open_time = d + delta
-        old_time = self.env['funenc_xa_station.date_time'].search_read([])
-        if old_time:
-            # if str(open_time)[:10] == old_time[-1]['date_time_limit'][:10]:
-            #     self.env['funenc_xa_station.date_time'].search([]).unlink()
-            #     raise exceptions.ValidationError('提交警告一天只能提交一次')
-            # else:
-            #     item = {
-            #         'date_time_limit': open_time
-            #     }
-            #     self.env['funenc_xa_station.date_time'].sudo().create(item)
-            pass
+        all_record = self.env['funenc_xa_station.date_time'].search_read([])
+        if all_record:
+            for date_record in all_record:
+                if str(open_time)[:10] == date_record['date_time_limit'][:10]:
+                    if self.env.user.dingtalk_user.jobnumber == date_record.get('landing_job_number'):
+                        raise exceptions.ValidationError('提交警告一天只能提交一次')
 
-        else:
-            item = {
-                'date_time_limit': open_time
-            }
-            self.env['funenc_xa_station.date_time'].sudo().create(item)
-            # item={
-            #     'date_time_limit':new_time
-            # }
-            # self.env['funenc_xa_station.date_time'].sudo().create(item)
+        item = {
+            'date_time_limit': open_time,
+            'landing_person':self.env.user.dingtalk_user.name,
+            'landing_job_number':self.env.user.dingtalk_user.jobnumber,
+        }
+        self.env['funenc_xa_station.date_time'].sudo().create(item)
 
         values = self.env['funenc_xa_staion.prude_newpaper_write'].search_read([])
 
@@ -124,10 +116,10 @@ class PrudeNewpaperWrite(models.Model):
                     'brenk_repair_time' : va.get('brenk_repair_time'),
                     'brenk_state' : va.get('brenk_state'),
                 }
+
             #创建记录
             self.env['funenc_xa_station.prude_newspaper'].sudo().create(va_value)
         self.env['funenc_xa_staion.prude_newpaper_write'].search([]).unlink()
-        # self.env['funenc_xa_station.date_time'].search([]).unlink()
 
         view_form = self.env.ref('funenc_xa_station.prude_newspaper_tree_view').id
         return {
@@ -245,6 +237,9 @@ class DateTimeLimit(models.Model):
     _name = 'funenc_xa_station.date_time'
 
     date_time_limit = fields.Datetime(string='时间限制')
+    landing_person = fields.Char(string='登录人的名字')
+    landing_job_number = fields.Char(string='登录人的工号')
+
 
 
 
