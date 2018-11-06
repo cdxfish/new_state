@@ -283,7 +283,7 @@ class KeyDetail(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             "views": [[view_form, "list"]],
-            'domain':[('line_id','=',line_id),('site_id','=',site_id)],
+            'domain':[('line_id','=',line_id),('site_id','=',site_id),('key_type_id','=',key_type)],
             'res_model': 'funenc.xa.station.key.detail',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},

@@ -1,5 +1,6 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
+import datetime
 
 class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
@@ -14,9 +15,9 @@ class delivery_storage(models.Model):
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
     consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
     outgoing_way = fields.Selection(string='出库方式',selection=[('组织','组织'),('个人',('个人'))])
-
+    delivery_storage_date = fields.Date(string='出库时间')
     outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
-    department_name = fields
+    department_name = fields.Char(related='outgoing_user.department_name', string='部门名')
 
     @api.multi
     def get_day_plan_publish_action(self):
@@ -109,6 +110,7 @@ class delivery_storage(models.Model):
 
             self.env['funenc_xa_station.consumables_warehousing'].create(values)
             self.is_delivery = 'yes'
+            self.delivery_storage_date = datetime.datetime.now()
             for store_house_id in self.store_house_ids:
                 store_house_id.inventory_count = store_house_id.inventory_count - sel_inventory_count
         else:

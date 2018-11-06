@@ -21,6 +21,9 @@
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen">
                     <field name="consumables_type_id" string="耗材名称"/>
+                    <field name="warehousing_count" string="入库数量"/>
+                    <field name="consumables_warehousing_date" string="入库时间"/>
+                    <field name="consumables_department_id" string="部门名称"/>
                     <field name="store_house_id" string="库房名称"/>
                     <field name="warehousing_parent" string="采购来源"/>
                     <field name="warehousing_department_id" string="采购部门"
@@ -38,7 +41,7 @@
                     <div class="container-fluid">
                         <group>
                             <!--attrs="{'readonly':[('is_admin','!=',1)]}"-->
-                            <field name="consumables_department_id" string="站点"
+                            <field name="consumables_department_id" string="部门"
                                     options="{'no_create':True}"
                                    context="{'consumables_department_id':consumables_department_id}"/>
                             <field name="consumables_type_id" string="耗材类型" widget="cascader_widget"/>

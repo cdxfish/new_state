@@ -40,8 +40,8 @@
                             <field  name="certificate_time"></field>
                             <widget  string="证件详情"  name="treebtns"  template="details_certificate"/>
                             <field  name="certificate_number"></field>
-                            <field  name="station_agent"></field>
-                            <field  name="station_agent_phone"></field>
+                            <!--<field  name="station_agent"></field>-->
+                            <!--<field  name="station_agent_phone"></field>-->
                             <widget  string="操作"  name="treebtns"  template="add_certificate"/>
                         </tree>
                     </field>
