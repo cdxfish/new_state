@@ -181,7 +181,13 @@
             <button class="layui-btn layui-btn-sm"
                     t-if="widget.record.data.is_delivery == 'yes'"
             >已出库</button>
-            <!--<button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除该钥匙类型吗？" >删除</button>-->
+        </div>
+    </t>
+
+    <t t-name="consumables_out_edit">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object" name="out" >出库</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="edit" >编辑</button>
         </div>
     </t>
 

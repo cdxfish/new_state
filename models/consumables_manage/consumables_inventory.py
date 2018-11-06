@@ -105,8 +105,7 @@ class consumables_inventory(models.Model):
         }
 
     #出库编辑按钮
-    # @api.model
-    def warehouse_export(self):
+    def out(self):
             context = {}
             view_form = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_form').id
             va ={'delivery_storage_department':self.inventory_department_id,
@@ -117,7 +116,6 @@ class consumables_inventory(models.Model):
                 "type": "ir.actions.act_window",
                 "res_model": "funenc_xa_station.delivery_storage",
                 "views": [[view_form, "form"]],
-                'res_id':self.id,
                 'target': 'new',
                 'context': context
             }

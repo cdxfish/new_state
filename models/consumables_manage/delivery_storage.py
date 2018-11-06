@@ -14,10 +14,14 @@ class delivery_storage(models.Model):
     store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory','delivery_storage_id',string='出库仓库')
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
     consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
-    outgoing_way = fields.Selection(string='出库方式',selection=[('组织','组织'),('个人',('个人'))])
+    outgoing_way = fields.Selection(string='出库方式',selection=[('组织','组织'),('个人',('个人'))],default="组织")
     delivery_storage_date = fields.Date(string='出库时间')
-    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
-    department_name = fields.Char(related='outgoing_user.department_name', string='部门名')
+    outgoing_user_name = fields.Char(string='个人姓名')
+    department_name = fields.Char(string='部门名')
+
+    @api.constrains
+    def consumables_count(self):
+        self.consumables_count = sum(store_house_id.sel_inventory_count for store_house_id in  self.store_house_ids)
 
     @api.multi
     def get_day_plan_publish_action(self):
@@ -128,5 +132,5 @@ class delivery_storage_to_consumables_inventory(models.Model):
     delivery_storage_id = fields.Many2one('funenc_xa_station.delivery_storage',string='出库关联')
     consumables_inventory_id = fields.Many2one('funenc_xa_station.consumables_inventory',string='库存关联')
     inventory_count = fields.Integer(string='库存数量', related='consumables_inventory_id.inventory_count')
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材类型',related='consumables_inventory_id.consumables_type')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称',related='consumables_inventory_id.consumables_type')
     sel_inventory_count = fields.Integer(string='选择出库数量')

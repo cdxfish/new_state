@@ -22,7 +22,7 @@
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen">
                     <field name="consumables_type" string="耗材类型"/>
-                    <field name="consumables_count" string="出库数量"/>
+                    <!--<field name="consumables_count" string="出库数量"/>-->
                     <field name="delivery_storage_date" string="出库时间"/>
 
                     <field name="department_id" string="部门"/>
@@ -42,21 +42,21 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="consumables_type" string="耗材类型" widget="cascader_widget"/>
-                            <field name="consumables_count" string="出库数量"/>
-                            <field name="store_house_ids" >
-                                <!--<tree editable="top" class="noOpen">-->
-                                    <!--<field name="consumables_inventory_id" string="库房名称" domain="[('consumables_type','=',consumables_type)]"/>-->
-                                    <!--<field name="inventory_count" string="库存数量" readonly="1"/>-->
-                                    <!--<field name="consumables_type" />-->
-                                    <!--<field name="sel_inventory_count" string="选择出库数量"/>-->
+                            <field name="department_id" string="部门" readonly="1" context="{'department_id':department_id}"/>
+                            <field name="consumables_type" string="耗材名称" widget="cascader_widget" />
+                            <!--<field name="consumables_count" string="出库数量"/>-->
+                            <field name="store_house_ids" string="出库库房" >
+                                <tree editable="top" class="noOpen">
+                                    <field name="consumables_inventory_id" string="库房名称"/>
+                                    <field name="inventory_count" string="库存数量" readonly="1"/>
+                                    <!--<field name="consumables_type" string='耗材名称'/>-->
+                                    <field name="sel_inventory_count" string="选择出库数量"/>
                                     <!--<field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>-->
                                     <!--<field name="outgoing_user" string="个人姓名"/>-->
-                                    <!--<field name="consumables_type" />-->
-                                <!--</tree>-->
+                                </tree>
                             </field>
                             <field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>
-                            <field name="outgoing_user" string="个人姓名" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
+                            <field name="outgoing_user_name" string="个人姓名" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
                             <field name="department_name" string="部门名称" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
                              <field name="department_id" string="部门" attrs="{'invisible':[('outgoing_way', '!=','组织')]}"/>
                         </group>
