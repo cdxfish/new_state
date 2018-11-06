@@ -224,12 +224,12 @@
                                                </div>
                                               <div class="col-md-3">
                                                   <div class="col-md-4">
-                                                     <label for="phone" string="电话号码"/>
+                                                     <label for="emergency_contact" string="紧急联系人电话号码"/>
                                                      <!--<field name="phone"/>-->
                                                   </div>
                                                  <div class="col-md-8">
-                                                     <!--<label for="phone" string="电话号码"/>-->
-                                                     <field name="phone"/>
+                                                     <!--<label for="phone" string="紧急联系人电话号码"/>-->
+                                                     <field name="emergency_contact"/>
                                                   </div>
                                               </div>
                                               <div class="col-md-3">

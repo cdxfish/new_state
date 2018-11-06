@@ -478,7 +478,7 @@
         </record>
 
 		<record model="ir.actions.act_window" id="task_type_action">
-          <field name="name">任务时间设置</field>
+          <field name="name">任务事件设置</field>
           <field name="res_model">funenc_xa_station.task_type</field>
 		  <field name="view_mode">tree,form</field>
         </record>

@@ -37,7 +37,7 @@
                     <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                     <field name="meeting_theme" widget="text" options="{'max_width': '200px'}"></field>
-                    <field name="meeting_time" widget="text" options="{'max_width': '200px'}"></field>
+                    <field name="meeting_time"></field>
                     <field name="compere" widget="text" options="{'max_width': '200px'}"></field>
                     <field name="meeting_site" widget="text" options="{'max_width': '200px'}"></field>
                     <field name="recorder" widget="text" options="{'max_width': '200px'}"></field>
