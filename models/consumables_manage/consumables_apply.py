@@ -14,6 +14,12 @@ class StoreHouse(models.Model):
     consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材名称', required=True)
     consumables_count = fields.Integer(string='申请数量')
     is_apply = fields.Selection(string='是否已开始申请', selection=[('yes', '是'), ('no', '否')],default="no")
+    apply_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='申请人')
+    state = fields.Selection(selection=[('已处理','已处理'),('未处理','未处理')],default="未处理")
+    manage_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='处理人')
+    manage_time = fields.Datetime('处理时间')
+
+    storage_id = fields.Integer(string='耗材出库id')
 
     @api.model
     def create_consumables_apply(self):
@@ -30,7 +36,6 @@ class StoreHouse(models.Model):
 
     def edit(self):
         context = dict(self.env.context or {})
-        context['self_id'] = self.id
         return {
             'name': '耗材申请编辑',
             'type': 'ir.actions.act_window',
@@ -41,6 +46,21 @@ class StoreHouse(models.Model):
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
             'target': 'new',
+        }
+
+    def apply(self):
+        context = dict(self.env.context or {})
+        context['apply_id'] = self.id
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_form_2').id
+        return {
+            'name': '耗材出库',
+            'type': 'ir.actions.act_window',
+            'res_model': 'funenc_xa_station.delivery_storage',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+            "views": [[view_form, "form"]],
+            'res_id':self.storage_id
         }
 
     def delete(self):
@@ -64,16 +84,19 @@ class StoreHouse(models.Model):
     def consumables_apply_save(self):
         if self.consumables_count == 0:
             raise msg.Warning('申请数量不能为0')
-        values = {'delivery_storage_department': self.to_department_id.id,
-                  # 'consumables_type': self.consumables_type.id,
+        values = {'department_id':self.to_department_id.id,
+                  'delivery_storage_department': self.department_id.id,
+                  'consumables_type': self.consumables_type.id,
                   'consumables_count': self.consumables_count,
                   'is_delivery': 'no',
                   'consumables_apply_id': self.id,
 
                   }
-        self.env['funenc_xa_station.delivery_storage'].create(values)
-
+        obj = self.env['funenc_xa_station.delivery_storage'].create(values)
+        self.storage_id = obj.id
         self.is_apply = 'yes'
+        self.apply_user_id = self.env.user.dingtalk_user.id  if self.env.user.id!=1 else None
+
 
     @api.model
     @get_domain

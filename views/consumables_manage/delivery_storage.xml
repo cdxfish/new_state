@@ -43,25 +43,27 @@
                     <div class="container-fluid">
                         <group>
                             <field name="department_id" string="部门" readonly="1" context="{'department_id':department_id}"/>
-                            <field name="consumables_type" string="耗材名称" widget="cascader_widget" />
-                            <!--<field name="consumables_count" string="出库数量"/>-->
-                            <field name="store_house_ids" string="出库库房" >
-                                <tree editable="top" class="noOpen">
-                                    <field name="consumables_inventory_id" string="库房名称"/>
-                                    <field name="inventory_count" string="库存数量" readonly="1"/>
+                            <field name="consumables_type" string="耗材名称" widget="cascader_widget" domain="[('consumables_type','=',department_id)]"/>
+                            <field name="consumables_count" string="出库数量"/>
+                            <field name="store_house_id" string="出库库房" />
+                            <!--domain="[('store_house_department_id','=',department_id)]"-->
+                            <!--<field name="store_house_ids" string="出库库房" >-->
+                                <!--<tree editable="top" class="noOpen">-->
+                                    <!--<field name="consumables_inventory_id" string="库房名称" />-->
+                                    <!--<field name="inventory_count" string="库存数量" readonly="1"/>-->
                                     <!--<field name="consumables_type" string='耗材名称'/>-->
-                                    <field name="sel_inventory_count" string="选择出库数量"/>
-                                    <!--<field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>-->
-                                    <!--<field name="outgoing_user" string="个人姓名"/>-->
-                                </tree>
-                            </field>
+                                    <!--<field name="sel_inventory_count" string="选择出库数量"/>-->
+                                    <!--&lt;!&ndash;<field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="outgoing_user" string="个人姓名"/>&ndash;&gt;-->
+                                <!--</tree>-->
+                            <!--</field>-->
                             <field name="outgoing_way" string="出库对象" widget="radio" options="{'horizontal': true}"/>
                             <field name="outgoing_user_name" string="个人姓名" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
                             <field name="department_name" string="部门名称" attrs="{'invisible':[('outgoing_way', '!=','个人')]}"/>
-                             <field name="department_id" string="部门" attrs="{'invisible':[('outgoing_way', '!=','组织')]}"/>
+                             <field name="department_name" string="部门" attrs="{'invisible':[('outgoing_way', '!=','组织')]}"/>
                         </group>
                         <footer>
-                            <button name='delivery_storage_save'
+                            <button name='delivery_storage_save1'
                                     string='确定出库'
                                     class='btn-primary'
                                     type='object'/>
@@ -73,5 +75,34 @@
                 </form>
             </field>
         </record>
+
+
+
+        <record model="ir.ui.view" id="funenc_xa_station_delivery_storage_form_2">
+            <field name="name">funenc_xa_station_delivery_storage_form</field>
+            <field name="model">funenc_xa_station.delivery_storage</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <field name="delivery_storage_department" string="申请部门" readonly="1" />
+                            <field name="consumables_type" string="耗材名称" widget="cascader_widget" readonly="1"/>
+                            <field name="consumables_count" string="出库数量"/>
+                            <field name="store_house_id" string="出库库房" />
+                        </group>
+                        <footer>
+                            <button name='delivery_storage_save1'
+                                    string='确定出库'
+                                    class='btn-primary'
+                                    type='object'/>
+                            <button string='取消'
+                                    class='btn-default'
+                                    special='cancel'/>
+                        </footer>
+                    </div>
+                </form>
+            </field>
+        </record>
+
     </data>
 </odoo>

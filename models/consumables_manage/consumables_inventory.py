@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 from ..get_domain import get_domain
 
+
 class consumables_inventory(models.Model):
     _name = 'funenc_xa_station.consumables_inventory'
     _description = u'耗材库存'
@@ -15,10 +16,10 @@ class consumables_inventory(models.Model):
     storage_to_consumables_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory',
                                                  'consumables_inventory_id', string='')
     inventory_department_id_son = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='库存部门')
-    outgoing_way = fields.Selection([('person','个人'),('organization','组织')],string='出库对象')
-    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
+    outgoing_way = fields.Selection([('person', '个人'), ('organization', '组织')], string='出库对象')
+    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='个人姓名')
     inventory_export = fields.Integer(string='库存数量')
-
+    department_name = fields.Char(string='部门名称')
 
     @api.model
     def create_consumables_inventory(self):
@@ -78,6 +79,7 @@ class consumables_inventory(models.Model):
             'target': 'new',
             'context': context
         }
+
     @api.multi
     def crkjl(self):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_warehousing_list').id
@@ -104,19 +106,15 @@ class consumables_inventory(models.Model):
             'context': self.env.context,
         }
 
-    #出库编辑按钮
+    # 出库编辑按钮
     def out(self):
-            context = {}
-            view_form = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_form').id
-            va ={'delivery_storage_department':self.inventory_department_id,
-
-            }
-            return {
-                'name': '出库',
-                "type": "ir.actions.act_window",
-                "res_model": "funenc_xa_station.delivery_storage",
-                "views": [[view_form, "form"]],
-                'target': 'new',
-                'context': context
-            }
-
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_form').id
+        return {
+            'name': '出库',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.delivery_storage",
+            "views": [[view_form, "form"]],
+            'target': 'new',
+            'context': context
+        }
