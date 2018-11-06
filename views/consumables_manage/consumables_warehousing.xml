@@ -42,15 +42,17 @@
                         <group>
                             <!--attrs="{'readonly':[('is_admin','!=',1)]}"-->
                             <field name="consumables_department_id" string="部门"
-                                    options="{'no_create':True}"
+                                   options="{'no_create':True,'no_open':True}"
+                                   readonly="1"
                                    context="{'consumables_department_id':consumables_department_id}"/>
-                            <field name="consumables_type_id" string="耗材类型" widget="cascader_widget"/>
+                            <field name="consumables_type_id" string="耗材名称" widget="cascader_widget"/>
                             <field name="store_house_id" string="库房名称"
                                    domain="[('store_house_department_id','=',consumables_department_id)]"/>
                             <field name="warehousing_count" string="入库数量"/>
                             <field name="warehousing_parent" string="采购来源"/>
                             <field name="warehousing_department_id" string="采购部门" options="{'no_create':True}"
-                                   attrs="{'required':[('warehousing_parent','=','purchase')],'invisible':[('warehousing_parent','!=','purchase')]}"/>
+                                   attrs="{'invisible':[('warehousing_parent','!=','purchase')]}"/>
+                            <field name="outgoing_user" string="领用人" attrs="{'invisible':[('warehousing_parent','!=','organize')]}"/>
 
                         </group>
                         <footer>

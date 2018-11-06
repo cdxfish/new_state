@@ -28,10 +28,10 @@ class ShedulingManage(models.Model):
                                      'sheduling_manage_id', 'arrange_order_id', string='机动人员班次'
                                      )
     sheduling_arrange_order_ids = fields.Many2many('funenc_xa_station.arrange_class_manage',
-                                                   'sheduling_manage_arrange_class_manage_4_ref',
+                                                   'sheduling_manage_arrange_class_manage_9_ref',
                                                    'sheduling_manage_id', 'arrange_class_manage_id', string='班组排班规则')
     motorized_rule_ids = fields.Many2many('funenc_xa_station.arrange_class_manage',
-                                          'sheduling_manage_arrange_order_5_ref',
+                                          'sheduling_manage_arrange_order_9_ref',
                                           'sheduling_manage_id', 'arrange_class_manage_id', string='机动人员排班规则')
     current_rule = fields.Text(string='当前冲突规则', default=lambda self: self.default_current_rule())
 

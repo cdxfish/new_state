@@ -11,7 +11,7 @@ class StoreHouse(models.Model):
     to_parent_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标父部门')
     department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门', default=lambda
         self: self.default_department_id())
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材类型', required=True)
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材名称', required=True)
     consumables_count = fields.Integer(string='申请数量')
     is_apply = fields.Selection(string='是否已开始申请', selection=[('yes', '是'), ('no', '否')],default="no")
 
