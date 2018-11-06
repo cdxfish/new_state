@@ -134,7 +134,7 @@
                              <label for="load_file_test" string="故障图片"/>
                           </div>
                          <div class="col-md-10">
-                                <field name="load_file_test" widget="many2many_image_read_widget">
+                                <field name="load_file_test" widget="many2many_binary">
                                 <tree>
                                     <field name="datas_fname"/>
                                 </tree>
