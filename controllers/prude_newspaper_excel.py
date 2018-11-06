@@ -24,19 +24,30 @@ class CheckRecord(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station.prude_newspaper'].search([])
+        records = request.env['funenc_xa_station.prude_newspaper'].search(
+            [('site_id','=',request.env.user.dingtalk_user.departments.id)]) #获取当前线路的日报记录
         if len(records) > 0:
             for record in records:
-                if record.line_id:
-                    worksheet.write(row, 0, record.line_id)
+                if record.line_id.name:
+                    worksheet.write(row, 0, record.line_id.name)
                 else:
                     worksheet.write(row, 0, '')
-                if record.site_id:
-                    worksheet.write(row, 1, record.site_id)
+                if record.site_id.name:
+                    worksheet.write(row, 1, record.site_id.name)
                 else:
                     worksheet.write(row, 1, "")
                 if record.event_stype:
-                    worksheet.write(row, 2, record.event_stype)
+                    if record.event_stype == 'enter_come':
+                        event_stype = '边门进出情况'
+                    elif record.event_stype == 'ticket_acf':
+                        event_stype = '票务、AFC故障及异常情况'
+                    elif record.event_stype == 'ticket_sales':
+                        event_stype = '日票、预制单程票售卖情况'
+                    elif record.event_stype == 'other_brenk':
+                        event_stype = '其他设备故障情况'
+                    elif record.event_stype == 'normal':
+                        event_stype = '普通事件'
+                    worksheet.write(row, 2, event_stype)
                 else:
                     worksheet.write(row, 2, "")
                 if record.event_content:
