@@ -91,7 +91,7 @@ odoo.define('change_shifts_clint', function (require) {
                         },
 
                         handleClick(tab, event) {
-                            console.log(tab, event);
+                            console.log(event);
                         },
 
 
