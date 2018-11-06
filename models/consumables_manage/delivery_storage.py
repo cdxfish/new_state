@@ -114,7 +114,9 @@ class delivery_storage(models.Model):
             for store_house_id in self.store_house_ids:
                 store_house_id.inventory_count = store_house_id.inventory_count - sel_inventory_count
         else:
-            raise msg.Warning('出库数量必须和选择的出库数量相等')
+            self.is_delivery = 'yes'
+            self.delivery_storage_date = datetime.datetime.now()
+            # raise msg.Warning('出库数量必须和选择的出库数量相等')
 
 class delivery_storage_to_consumables_inventory(models.Model):
 

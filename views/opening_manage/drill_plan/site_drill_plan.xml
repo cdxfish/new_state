@@ -111,6 +111,10 @@
                                     <field name="jobnumber" string="工号"/>
                                     <field name="position" string="职位"/>
                                 </tree>
+                                <form>
+                                    <field name="sign_user_id" string="姓名"/>
+                                    <field name="position" string="职位"/>
+                                </form>
                             </field>
 
                         </group>
