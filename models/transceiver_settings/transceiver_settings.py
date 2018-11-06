@@ -53,8 +53,8 @@ class TransceiverSettings(models.Model):
             'transceiver_type':self.transient_type,
             'transceive_name':self.transient_name,
             'transceive_number':self.transient_number,
-            'line_id':self.line_id.name,
-            'site_id':self.site_id.name,
+            'line_id':self.line_id.id,
+            'site_id':self.site_id.id,
             'post':self.post,
             'apply_time':datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'break_describe':self.break_descrip
