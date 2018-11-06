@@ -6,13 +6,13 @@ from odoo import api, models, fields
 
 class TransientBreakManagement(models.Model):
     _name = 'funenc_xa_station.transient_break_management'
-    # _inherit = 'fuenc_station.station_base'
+    _inherit = 'fuenc_station.station_base'
 
     transceiver_type = fields.Char(string='工器具类型')
     transceive_name = fields.Char(string='工器具名称')
     transceive_number = fields.Char(string='工器具编号',_sql_constraints = [ ('check_uniq_cph', 'unique(transceive_number)', '编号已经存在！')])
-    line_id = fields.Char(string='线路')
-    site_id = fields.Char(string='站点')
+    # line_id = fields.Char(string='线路')
+    # site_id = fields.Char(string='站点')
     post = fields.Char(string='位置')
     apply_time = fields.Datetime(string='申报时间')
     break_describe = fields.Char(string='故障描述')
