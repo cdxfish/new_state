@@ -67,11 +67,11 @@
                     <span for="repair_time" class="col-xs-8"></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">线路:</span>
+                    <span class="search_label" style="float:left;">所属线路:</span>
                     <span for="line_id" class="col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">站点:</span>
+                    <span class="search_label" style="float:left;">所属站点:</span>
                     <span for="site_id" class="col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
@@ -79,11 +79,11 @@
                     <span for="state" class=" col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">工器具分类:</span>
+                    <span class="search_label" style="float:left;">器具分类:</span>
                     <span for="transceiver_type" class="col-xs-8" ></span>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">工器具编码:</span>
+                    <span class="search_label" style="float:left;">器具编码:</span>
                     <span for="transceive_number" class=" col-xs-8" ></span>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; width:200px; height:40px; line-height:40px;">

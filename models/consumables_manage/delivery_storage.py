@@ -9,7 +9,7 @@ class delivery_storage(models.Model):
     department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门',default=lambda
         self: self.default_department_id())
     delivery_storage_department = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='出库申请部门')
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材类型')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
     consumables_count = fields.Integer(string='出库数量')
     store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory','delivery_storage_id',string='出库仓库')
     is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")

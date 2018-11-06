@@ -23,7 +23,7 @@ class SpecialMoney(models.Model):
     involving_money = fields.Integer(string='涉及金额')
     passengers_name = fields.Char(string='乘客姓名')
     passengers_phone = fields.Char(string='乘客电话')
-    passengers_ID = fields.Char(string='乘客生份证')
+    passengers_ID = fields.Char(string='乘客身份证')
     deal_person = fields.Char(string='处理人员')
     webmaster = fields.Char(string='站长')
     deputy_director = fields.Char(string='分部主任')

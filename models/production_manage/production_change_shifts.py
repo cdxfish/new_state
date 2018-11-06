@@ -469,7 +469,7 @@ class production_change_shifts(models.Model):
         else:
             #####
             self.state = 'take_over_from'  # 已接班
-            self.take_over_from_user_id = self.env.user.dingtalk_use.id
+            self.take_over_from_user_id = self.env.user.dingtalk_user.id
             self.take_over_from_time = datetime.datetime.now()
 
     def get_position(self):
