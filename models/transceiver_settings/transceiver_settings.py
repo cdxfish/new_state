@@ -50,7 +50,7 @@ class TransceiverSettings(models.Model):
     def warranty_action(self):
         dic={
             'id_id':self.id,
-            'transceiver_type':self.transient_type,
+            'transceiver_type':self.transient_type.id,
             'transceive_name':self.transient_name,
             'transceive_number':self.transient_number,
             'line_id':self.line_id.id,

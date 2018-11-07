@@ -7,7 +7,7 @@ import xlwt
 
 class CheckStandard(models.Model):
     _name = 'funenc_xa_station.check_standard'
-    _rec_name = 'check_project'
+    _rec_name = 'check_standard'
 
     key = [('safety','安全管理')
         ,('technology','技术管理')
@@ -23,8 +23,8 @@ class CheckStandard(models.Model):
 
 
     check_standard = fields.Selection(key,string='考核指标')
-    problem_kind = fields.Char(string='问题类型',required=True)
-    check_project = fields.Text(string='考核项目',required=True)
+    problem_kind = fields.Many2one('problem_kind_record',string='问题类型')
+    check_project = fields.Many2one('check_project_record',string='考核项目')
     check_parment = fields.Char(string='考核分部（室）分值')
     loca_per_score = fields.Char(string='当事人考核分值')
     relate_per_score = fields.Char(string='相关负责人考核分数')
@@ -108,6 +108,22 @@ class CheckStandard(models.Model):
 
     def impotr_evaluate_file(self):
         self.env['evaluate_import'].search([]).import_xls_bill()
+
+
+
+class ProblemKindRecord(models.Model):
+    _name = 'problem_kind_record'
+    # _rec_name = 'name'
+
+    name = fields.Char(string='问题类型')
+
+
+class CheckProjectRecord(models.Model):
+    _name = 'check_project_record'
+    # _rec_name = 'name'
+
+    name = fields.Char(string='考核项目')
+    _sql_constraints = [('name_unique', 'UNIQUE(name)', "填写的检查项目必须唯一")]
 
 
 

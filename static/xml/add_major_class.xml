@@ -18,19 +18,19 @@
     <t t-name="regulations_management_search_button">
         <div class="form-inline custom_search_box">
             <div class="container-fluid">
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">线路:</span>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">所属线路:</span>
                     <span for="line_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
-                    <span class="search_label" style="float:left;">站点:</span>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">所属站点:</span>
                     <span for="site_id" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">专业分类:</span>
                     <span for="profession_kind" class="col-xs-8"></span>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:5px; height:40px; line-height:40px;">
                     <span class="search_label" style="float:left;">级别分类:</span>
                     <span for="rank_kind" class="col-xs-8"></span>
                 </div>
