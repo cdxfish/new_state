@@ -393,10 +393,10 @@ class generate_qr(models.Model):
             work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
                                                                                                          department.id)
             print(work_add_data)
-            work_file_name = file + "/static/images/work_{}.png".format(str_now_date[:10])
+            work_file_name = file + "work_{}.png".format(str_now_date[:10])
             off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(ip,
                                                                                                              department.id)
-            off_work_name = file + "/static/images/off_work_{}.png".format(str_now_date[:10])
+            off_work_name = file + "off_work_{}.png".format(str_now_date[:10])
 
             if obj:
 
