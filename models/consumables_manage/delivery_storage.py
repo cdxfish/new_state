@@ -2,22 +2,30 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
 
+
 class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
     _description = u'耗材出库'
 
-    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门',default=lambda
+    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门', default=lambda
         self: self.default_department_id())
     delivery_storage_department = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='出库申请部门')
     consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
     consumables_count = fields.Integer(string='出库数量')
-    store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory','delivery_storage_id',string='出库仓库')
-    is_delivery = fields.Selection(selection=[('yes','已出库'),('no','未出库')],default="no")
-    consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply',string='申请出库关联')
-    outgoing_way = fields.Selection(string='出库方式',selection=[('组织','组织'),('个人',('个人'))])
+    store_house_id = fields.Many2one('funenc_xa_station.consumables_inventory', string='库房名称')
+    store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory',
+                                      'delivery_storage_id', string='出库仓库')
+    is_delivery = fields.Selection(selection=[('yes', '已出库'), ('no', '未出库')], default="no")
+    consumables_apply_id = fields.Many2one('funenc_xa_station.consumables_apply', string='申请出库关联')
+    outgoing_way = fields.Selection(string='出库方式', selection=[('组织', '组织'), ('个人', ('个人'))], default="组织")
     delivery_storage_date = fields.Date(string='出库时间')
-    outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='个人姓名')
-    department_name = fields.Char(related='outgoing_user.department_name', string='部门名')
+    outgoing_user_name = fields.Char(string='个人姓名')
+    department_name = fields.Char(string='部门名')
+
+
+    # @api.constrains
+    # def consumables_count(self):
+    #     self.consumables_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)
 
     @api.multi
     def get_day_plan_publish_action(self):
@@ -48,7 +56,7 @@ class delivery_storage(models.Model):
 
     def default_department_id(self):
         if self.env.user.id != 1:
-            return  self.env.user.dingtalk_user.departments[0].id
+            return self.env.user.dingtalk_user.departments[0].id
         else:
             return
 
@@ -101,32 +109,49 @@ class delivery_storage(models.Model):
 
     def delivery_storage_save(self):
         sel_inventory_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)  # 出库数量
-        if self.consumables_count == sel_inventory_count:
-            values ={'consumables_department_id': self.delivery_storage_department.id,
-                     'consumables_type_id': self.consumables_type.id,
-                     'warehousing_count': sel_inventory_count
+        self.is_delivery = 'yes'
+        self.delivery_storage_date = datetime.datetime.now()
 
-            }
+        # for store_house_id in self.store_house_ids:
+        #     store_house_id.consumables_inventory_id.write({
+        #         'inventory_export': store_house_id.consumables_inventory_id - store_house_id.sel_inventory_count
+        #     })
 
-            self.env['funenc_xa_station.consumables_warehousing'].create(values)
-            self.is_delivery = 'yes'
-            self.delivery_storage_date = datetime.datetime.now()
-            for store_house_id in self.store_house_ids:
-                store_house_id.inventory_count = store_house_id.inventory_count - sel_inventory_count
-        else:
-            self.is_delivery = 'yes'
-            self.delivery_storage_date = datetime.datetime.now()
-            # raise msg.Warning('出库数量必须和选择的出库数量相等')
+        for store_house_id in self.store_house_ids:
+            store_house_id.inventory_count = store_house_id.inventory_count - store_house_id.sel_inventory_count
+
+    def delivery_storage_save1(self):
+        context =dict(self.env.context or {})
+        self.is_delivery = 'yes'
+        self.delivery_storage_date = datetime.datetime.now()
+        consumables_inventory =self.env['funenc_xa_station.consumables_inventory'].search(
+            [('inventory_department_id', '=', self.department_id.id),
+             ('consumables_type', '=', self.consumables_type.id)])
+        consumables_inventory.inventory_count = consumables_inventory.inventory_count - self.consumables_count
+
+        # if  self.delivery_storage_department:
+        #     self.env['funenc_xa_station.consumables_apply'].browse(int(context.get('apply_id')))
+
+
 
 class delivery_storage_to_consumables_inventory(models.Model):
-
     '''
      出库库存中间表
     '''
 
     _name = 'funenc_xa_station.delivery_storage_to_consumables_inventory'
-    delivery_storage_id = fields.Many2one('funenc_xa_station.delivery_storage',string='出库关联')
-    consumables_inventory_id = fields.Many2one('funenc_xa_station.consumables_inventory',string='库存关联')
+    delivery_storage_id = fields.Many2one('funenc_xa_station.delivery_storage', string='出库关联')
+    consumables_inventory_id = fields.Many2one('funenc_xa_station.consumables_inventory', string='库存关联'
+                                               )
     inventory_count = fields.Integer(string='库存数量', related='consumables_inventory_id.inventory_count')
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材类型',related='consumables_inventory_id.consumables_type')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称',
+                                       related='consumables_inventory_id.consumables_type')
     sel_inventory_count = fields.Integer(string='选择出库数量')
+
+    # @api.onchange('consumables_inventory_id')
+    # def get_doamin(self):
+    #     if self.env.user.id == 1:
+    #         return []
+    #     else:
+    #         return {'domain': {'consumables_inventory_id': [
+    #             ('inventory_department_id', '=', self.env.user.dingtalk_user.departments[0].id)]}}
