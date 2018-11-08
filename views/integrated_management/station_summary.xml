@@ -7,32 +7,175 @@
                 <form>
                     <notebook>
                         <page string="车站详情">
-                            <div class="text-center ">
-                                <group>
-                                    <field name="station_detail">
+                            <group>
+                                <field name="station_nature" string="车站性质"/>
+                                <field name="station_position" string="车站位置"/>
 
-                                        <tree >
-                                            <field name="line_id"></field>
-                                            <field name="site_id"></field>
-                                            <field name="station_nature"></field>
-                                            <field name="station_position"></field>
-                                            <field name="station_exit_information"></field>
-                                        </tree>
-                                    </field>
-                                </group>
-                            </div>
-                        </page>
-                        <page string="地面交通">
-                            <div class="text-center">
-                                <field name="ground_traffic">
-                                    <tree>
-                                        <field name="line_id"></field>
-                                        <field name="site_id"></field>
-                                        <field name="ground_environment_ids"></field>
-                                        <field name="bus_lines"></field>
+                                <field name="station_exit_information">
+                                    <tree class="noOpen" editable="top">
+                                        <field name="exit_no" string="出口编号"/>
+                                        <field name="exit_width" string="宽度"/>
+                                        <field name="position" string="位置"/>
+                                        <field name="remarks" string="备注说明"/>
                                     </tree>
                                 </field>
-                            </div>
+                                <field name="station_map_images">
+                                    <tree>
+                                        <field name="name" string="名字"/>
+                                        <field name="image" string="图片信息" widget="image"
+                                               options="{&quot;size&quot;: [200, 200]}"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="name" string="名字"/>
+                                            <field name="image" string="图片信息" widget="image"/>
+
+                                        </group>
+
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="地面交通">
+                            <group>
+
+
+                                <field name="ground_environment_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="entrance_exit" string="出入口"/>
+                                        <field name="one_grade_information" string="一级信息"/>
+                                        <field name="two_grade_information" string="二级信息"/>
+                                        <field name="three_grade_information" string="三级信息"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="entrance_exit" string="出入口"/>
+                                            <field name="one_grade_information" string="一级信息"/>
+                                            <field name="two_grade_information" string="二级信息"/>
+                                            <field name="three_grade_information" string="三级信息"/>
+                                        </group>
+                                    </form>
+                                </field>
+
+                                <field name="bus_lines">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="entrance_exit" string="出入口"/>
+                                        <field name="bus_station" string="公交站点"/>
+                                        <field name="distance" string="距离"/>
+                                        <field name="go_to" string="运行方向"/>
+                                        <field name="bus_line" string="公交线路"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="entrance_exit" string="出入口"/>
+                                            <field name="bus_station" string="公交站点"/>
+                                            <field name="distance" string="距离"/>
+                                            <field name="go_to" string="运行方向"/>
+                                            <field name="bus_line" string="公交线路"/>
+                                        </group>
+                                    </form>
+                                </field>
+
+                            </group>
+
+
+                        </page>
+                        <page string="土建结构">
+                            <group>
+
+                                <field name="essential_information_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="type" string="类别"/>
+                                        <field name="content" string="内容"/>
+                                    </tree>
+                                </field>
+
+                                <field name="private_channel_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="name" string="通道名称"/>
+                                        <field name="channel_width" string="宽度(m)"/>
+                                        <field name="remarks" string="说明"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+
+                        </page>
+                        <page string="线路道岔">
+                            <group>
+                                <field name="line_map_ids">
+                                    <tree>
+                                        <field name="name" string="名称"/>
+                                        <field name="image" string="图片" widget="image"
+                                               options="{&quot;size&quot;: [200, 200]}"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="name" string="名称"/>
+                                            <field name="image" string="图片" widget="image"/>
+
+                                        </group>
+                                    </form>
+                                </field>
+
+                                <field name="turnout_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="turnout_no" string="道岔编号"/>
+                                        <field name="turnout_no_1" string="道岔辙岔号"/>
+                                        <field name="chain_mode" string="联锁方式"/>
+                                        <field name="key_Safekeeping" string="钥匙保管地点"/>
+                                        <field name="operation_staff" string="操纵人员"/>
+                                        <field name="allow_speed" string="侧向允许通过速度km/h"/>
+                                        <field name="position_distance" string="位置里程"/>
+                                    </tree>
+                                </field>
+
+                                <field name="liaison_station_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="service_channel" string="联络通道"/>
+                                        <field name="position_distance" string="位置/里程"/>
+                                        <field name="interval" string="区间"/>
+                                        <field name="remarks" string="备注"/>
+                                    </tree>
+                                </field>
+
+                                <field name="operating_line_ids">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="position" string="位置"/>
+                                        <field name="equipment" string="设备"/>
+                                        <field name="departure_point" string="设计起点里程"/>
+                                        <field name="destination" string="终点"/>
+                                        <field name="length" string="长度"/>
+                                        <field name="line_id" string="线别"/>
+                                        <field name="purpose" string="用途"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+                        </page>
+                        <page string="车站设备">
+
+                        </page>
+                        <page string="人员配置">
+
+                        </page>
+                        <page string="消防逃生图">
+                            <group>
+                                <field name="exit_maps">
+                                    <tree>
+                                        <field name="station_master_id" string="站长"/>
+                                        <field name="station_mobile" string="电话"/>
+                                        <field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
+                                    </tree>
+                                    <form>
+                                        <field name="station_master_id" string="站长"/>
+                                        <field name="station_mobile" string="电话"/>
+                                        <field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
+                                    </form>
+                                </field>
+
+
+                            </group>
                         </page>
                     </notebook>
                 </form>
@@ -44,5 +187,7 @@
             <field name="res_model">funenc_xa_station.station_summary</field>
             <field name="view_mode">form</field>
         </record>
+
+
     </data>
 </odoo>
