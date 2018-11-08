@@ -8,6 +8,7 @@ import datetime
 class site_drill_plan(models.Model):
     _name = 'funenc_xa_station.site_drill_plan'
     _description = u'站点演练详情'
+    _rec_name = 'position'
 
     # 基本信息
     drill_plan_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练计划')  # 父
@@ -76,7 +77,7 @@ class site_drill_plan(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
-            'target': 'new',
+            'target': 'current',
         }
 
     def delete(self):
@@ -124,6 +125,7 @@ class proposal_rectification(models.Model):
     _description = '站点演练整改以及意见'
 
     # 意见及整改
+    name = fields.Char(string='意见及整改',default="意见及整改")
     proposal_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='意见填写人')
     jobnumber = fields.Char(string="工号", related='proposal_user_id.jobnumber')
     proposal_time = fields.Datetime(string='意见填写时间')
@@ -146,8 +148,9 @@ class proposal_rectification(models.Model):
             "res_model": "funenc_xa_station.proposal_rectification",
             "res_id": self.id,
             "views": [[view_form, "form"]],
-            'target': 'new',
-            'context': self.env.context
+            'target': 'current',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
         }
 
     def rectification(self):
@@ -158,8 +161,9 @@ class proposal_rectification(models.Model):
             "res_model": "funenc_xa_station.proposal_rectification",
             "res_id": self.id,
             "views": [[view_form, "form"]],
-            'target': 'new',
-            'context': self.env.context
+            'target': 'current',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
         }
 
     def edit_save(self):

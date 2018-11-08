@@ -54,47 +54,7 @@
 
 		</record>
 
-		<record id="station_detail_ground_traffic" model="ir.actions.act_window">
-			<field name="name">地面交通</field>
-			<field name="res_model">funenc_xa_station.ground_traffic</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
 
-		<record id="funenc_station_civil_engineering" model="ir.actions.act_window">
-			<field name="name">土建结构</field>
-			<field name="res_model">funenc_xa_station.civil_engineering</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
-
-		<record id="funenc_station_signal_system" model="ir.actions.act_window">
-			<field name="name">信号系统</field>
-			<field name="res_model">funenc_xa_station.signal_system</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
-
-		<record id="funenc_station_line_turnout" model="ir.actions.act_window">
-			<field name="name">线路、道岔</field>
-			<field name="res_model">funenc_xa_station.line_turnout</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
-
-		<record id="funenc_station_station_staffing" model="ir.actions.act_window">
-			<field name="name">人员配置</field>
-			<field name="res_model">funenc_xa_station.station_staffing</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
-
-		<record id="funenc_station_station_exit" model="ir.actions.act_window">
-			<field name="name">消防逃生图</field>
-			<field name="res_model">funenc_xa_station.station_exit</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-		</record>
 
 		<record id="xa_scheduling_settings" model="ir.actions.act_window">
 			<field name="name">班次管理</field>
@@ -262,12 +222,6 @@
 		  <field name="view_mode">tree,form</field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_station_detail_action">
-          <field name="name">车站详情</field>
-          <field name="res_model">funenc_xa_station.station_detail</field>
-		  <field name="view_mode">tree,form</field>
-			<field name="context">{'group_by':'site_id'}</field>
-        </record>
 
 		<!--<record model="ir.actions.act_window" id="xa_station_change_shifts_action">-->
           <!--<field name="name">换班</field>-->
@@ -575,14 +529,14 @@
 		</record>
 
 
-        <record model="ir.actions.server" id="station_detail_act_window">
-			<field name="name">车站基本信息</field>
-			<field name ="state">code</field>
-			<field name="model_id" ref="model_funenc_xa_station_station_detail"/>
-			<field name="code">
-				action = model.init_data()
-			</field>
-		</record>
+        <!--<record model="ir.actions.server" id="station_detail_act_window">-->
+			<!--<field name="name">车站基本信息</field>-->
+			<!--<field name ="state">code</field>-->
+			<!--<field name="model_id" ref="model_funenc_xa_station_station_detail"/>-->
+			<!--<field name="code">-->
+				<!--action = model.init_data()-->
+			<!--</field>-->
+		<!--</record>-->
 
 		<record model="ir.actions.client" id="key_manage_act_window_1">
           <field name="name">钥匙管理</field>
@@ -665,38 +619,7 @@
 				  action="funenc_xa_station.statio_summary_act"
 		          parent="station_list"/>
 
-		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
-				   parent="station_list"
-				   action="station_detail_ground_traffic"
 
-		 />
-
-		 <menuitem id="station_detail_3" name="土建结构" sequence="3"
-		           parent="station_list"
-				   action="funenc_station_civil_engineering"
-
-		 />
-
-		 <menuitem id="station_detail_4" name="线路、道岔" sequence="4"
-		           parent="station_list"
-				   action="funenc_station_line_turnout"
-		 />
-
-		 <menuitem id="station_detail_5" name="信号系统" sequence="5"
-		           parent="station_list"
-				   action="funenc_station_signal_system"
-
-		 />
-
-		 <menuitem id="station_detail_6" name="人员配置" sequence="6"
-		           parent="station_list"
-				   action="funenc_station_station_staffing"
-		 />
-
-		 <menuitem id="station_detail_7" name="消防逃生图" sequence="7"
-				   parent="station_list"
-		           action="funenc_station_station_exit"
-		 />
 
 
         <!--暂时-->

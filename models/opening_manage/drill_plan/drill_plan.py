@@ -13,6 +13,7 @@ class drill_plan(models.Model):
     _name = 'funenc_xa_station.drill_plan'
     _description = u'演练计划'
     _inherit = 'fuenc_station.station_base'
+    _rec_name = 'drill_project'
 
     drill_project = fields.Char(string='演练项目', required=True)
     drill_time = fields.Date(string='演练时间', required=True)
@@ -87,7 +88,7 @@ class drill_plan(models.Model):
             'res_model': 'funenc_xa_station.drill_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
-            'target': 'new',
+            'target': 'current',
             'res_id': self.id,
         }
 
@@ -175,6 +176,7 @@ class drill_plan(models.Model):
 class drill_result(models.Model):
     _name = 'funenc_xa_station.drill_result'
     _description = u'演练结果'
+    _rec_name = 'line_id'
 
     site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点',
                               )
@@ -213,7 +215,7 @@ class drill_result(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': id.id,
-            'target': 'new',
+            'target': 'current',
         }
 
 
