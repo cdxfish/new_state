@@ -16,10 +16,10 @@ class AwardRecord(models.Model):
     staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
     position = fields.Text(related='staff.position',string='职位')
     award_money = fields.Char(string='奖励金额')
-    award_target_kind = fields.Char(string='奖励指标类')
-    award_project = fields.Many2one('funenc_xa_station.award_standard',string='奖励项目')
-    check_project = fields.Char(string='考核项目')
-    award_money_kind = fields.Char(related='award_project.award_standard',string='参考奖励')
+    award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类')
+    award_project = fields.Many2one('award_award_project',string='奖励项目')
+    check_project = fields.Many2one('award_check_project',string='考核项目')
+    award_money_kind = fields.Char(string='参考奖励')
     incident_describe = fields.Char(string='事件描述')
     check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
     check_time = fields.Datetime(string='考评时间',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -27,6 +27,59 @@ class AwardRecord(models.Model):
     award_money = fields.Float(string='奖励金额')
     award_degree = fields.Integer(string='奖励次数',default=1)
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段')
+
+    #在修改奖励指标类的时候返回奖励项目
+    @api.onchange('award_target_kind')
+    def get_award_project(self):
+        res = {}
+        if not self.award_target_kind:
+            res['domain'] = {'award_project': [(1, '=', 1)]}
+
+            return res
+        else:
+            record = self.env['funenc_xa_station.award_standard'].search(
+                [('award_standard_kind', '=', self.award_target_kind.id)])
+
+            ids = [i['award_project'][0].id for i in record]
+
+            res['domain'] = {'award_project': [('id', 'in', ids)]}
+            res['value'] = {'award_project': None}
+
+            return res
+    #在修改奖励项目返回考核项目的值
+    @api.onchange('award_project')
+    def get_check_project(self):
+        res = {}
+        if not self.award_target_kind:
+            res['domain'] = {'award_project': [(1, '=', 1)]}
+
+            return res
+        else:
+            record = self.env['funenc_xa_station.award_standard'].search(
+                [('award_project','=',self.award_project.id)])
+
+            ids = [i['check_project'][0].id for i in record]
+
+            res['domain'] = {'check_project': [('id', 'in', ids)]}
+            res['value'] = {'check_project': None}
+
+            return res
+
+    #在修改考核项目的时候返回参考奖励的值
+    @api.onchange('check_project')
+    def get_refer_check_value(self):
+        res = {}
+        if not self.award_target_kind:
+            res['domain'] = {'award_project': [(1, '=', 1)]}
+
+            return res
+        else:
+            record = self.env['funenc_xa_station.award_standard'].search_read(
+                [('check_project','=',self.check_project.id)],['award_standard'])
+
+            self.award_money_kind = record[0].get('award_standard')
+
+
 
     #自动获取登录人的姓名
     @api.model

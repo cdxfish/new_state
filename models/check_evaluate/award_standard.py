@@ -7,9 +7,9 @@ class AwardStandard(models.Model):
     _name = 'funenc_xa_station.award_standard'
     _rec_name = 'award_project'
     award_standard_default = fields.Char(string='指标类型',default='奖励标准',readonly=True)
-    award_standard_kind = fields.Char(string='奖励指标类')
-    award_project = fields.Char(string='奖励项目')
-    check_project = fields.Char(string='考核项目')
+    award_standard_kind = fields.Many2one('award_standard_object',string='奖励指标类')
+    award_project = fields.Many2one('award_award_project',string='奖励项目')
+    check_project = fields.Many2one('award_check_project',string='考核项目')
     award_standard = fields.Char(string='奖励标准')
     support_file = fields.Char(string='支持文件')
     comment = fields.Char(string='备注')
@@ -86,3 +86,23 @@ class AwardStandard(models.Model):
 
     def import_award_file(self):
         self.env['award_import'].search([]).import_xls_bill()
+
+class AwardStandardObject(models.Model):
+    _name = 'award_standard_object'
+
+    name = fields.Char('奖励指标类')
+    _sql_constraints = [('name_unique', 'unique(name)', "填写的奖励指标类必须唯一")]
+
+
+class AwardProject(models.Model):
+    _name = 'award_award_project'
+
+    name = fields.Char(string='奖励项目')
+    _sql_constraints = [('name_unique', 'unique(name)', "填写的奖励项目必须唯一")]
+
+
+class CheckProject(models.Model):
+    _name = 'award_check_project'
+
+    name= fields.Char(string='考核项目')
+    _sql_constraints = [('name_unique', 'unique(name)', "填写的考核项目必须唯一")]

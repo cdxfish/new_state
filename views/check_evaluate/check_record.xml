@@ -78,7 +78,7 @@
                             <field name="site_id" domain="[('department_hierarchy','=',3)]"
                                    options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_target"></field>
-                            <field name="problem_kind"></field>
+                            <field name="problem_kind" options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
                             <field name="staff" options="{'no_create':True,'no_open':True}"></field>
                             <field name="job_number"></field>

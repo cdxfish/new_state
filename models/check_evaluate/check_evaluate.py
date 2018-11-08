@@ -2,14 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 import xlwt
 
-class CheckStandard(models.Model):
-    _name = 'funenc_xa_station.check_standard'
-    _rec_name = 'check_standard'
-
-    key = [('safety','安全管理')
+key = [('safety','安全管理')
         ,('technology','技术管理')
         ,('road','施工管理')
         ,('ticket','票务管理')
@@ -20,7 +17,9 @@ class CheckStandard(models.Model):
         ,('party','党务管理')
         ,('integrated','综合管理')]
 
-
+class CheckStandard(models.Model):
+    _name = 'funenc_xa_station.check_standard'
+    _rec_name = 'check_standard'
 
     check_standard = fields.Selection(key,string='考核指标')
     problem_kind = fields.Many2one('problem_kind_record',string='问题类型')
@@ -118,7 +117,17 @@ class ProblemKindRecord(models.Model):
     # _rec_name = 'name'
 
     name = fields.Char(string='问题类型')
-    one_manys = fields.One2many('funenc_xa_station.check_standard','problem_kind',string='关联')
+    check_standard = fields.Selection(key, string='考核指标类型')
+    # one_manys = fields.One2many('funenc_xa_station.check_standard','problem_kind',string='关联')
+
+    @api.constrains('name')
+    def constrains_name(self):
+        for record in self:
+            if len(self.search([
+                ('check_standard', '=', record.check_standard),
+                ('name', '=', record.name)
+            ])) > 0:
+                raise ValidationError('同一考核指标下问题类型不能重复')
 
 class CheckProjectRecord(models.Model):
     _name = 'check_project_record'

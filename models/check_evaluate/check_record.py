@@ -59,15 +59,15 @@ class CheckRecord(models.Model):
         else:
             record = self.env['funenc_xa_station.check_standard'].search_read([('check_standard','=',self.check_target)])
             print(record)
-            ids = []
+            # ids = []
             delete_repeat = []
-            # ids = [equipment['problem_kind'][0] for equipment in record if equipment['']]
-            for i in record:
-                i_record = i.get('problem_kind')[1]
-                i_record_id = i.get('problem_kind')[0]
-                if i_record not in delete_repeat:
-                    delete_repeat.append(i_record)
-                    ids.append(i_record_id)
+            ids = [equipment['problem_kind'][0] for equipment in record]
+            # for i in record:
+            #     i_record = i.get('problem_kind')[1]
+            #     i_record_id = i.get('problem_kind')[0]
+            #     if i_record not in delete_repeat:
+            #         delete_repeat.append(i_record)
+            #         ids.append(i_record_id)
 
 
 
@@ -84,13 +84,10 @@ class CheckRecord(models.Model):
             res['domain'] = {'check_project': [(1, '=', 1)]}
 
             return res
-        record = self.env['funenc_xa_station.check_standard'].search([('check_standard','=',self.check_target)])
-        for i in record:
-            i.problem_kind
-            print()
+        record = self.env['funenc_xa_station.check_standard'].search(
+            [('check_standard','=',self.check_target),('problem_kind','=',self.problem_kind.id)])
 
-
-        ids = [i['check_project'][0] for i in record]
+        ids = [i['check_project'][0].id for i in record]
 
         res['domain'] = {'check_project': [('id', 'in', ids)]}
         res['value'] = {'check_project': None}
@@ -251,27 +248,27 @@ class CheckRecord(models.Model):
         record = self.env['funenc_xa_station.check_standard'].search_read([('check_project', '=', self.check_project.id)])
         if self.check_kind == 'check_parment':
             check_kind1 = record[0].get('check_parment')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'relate_per_score':
             check_kind1 = record[0].get('relate_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'station_per_score':
             check_kind1 = record[0].get('station_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'technology_score':
             check_kind1 = record[0].get('technology_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'management_score':
             check_kind1 = record[0].get('management_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'loca_per_score':
             check_kind1 = record[0].get('loca_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
         else:
             return {'value': {'grade': 0}}
 
@@ -286,27 +283,27 @@ class CheckRecord(models.Model):
             [('check_project', '=', self.check_project.id)])
         if self.check_kind == 'check_parment':
             check_kind1 = record[0].get('check_parment')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'relate_per_score':
             check_kind1 = record[0].get('relate_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'station_per_score':
             check_kind1 = record[0].get('station_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'technology_score':
             check_kind1 = record[0].get('technology_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'management_score':
             check_kind1 = record[0].get('management_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
         elif self.check_kind == 'loca_per_score':
             check_kind1 = record[0].get('loca_per_score')
-            return {'value': {'grade': check_kind1}}
+            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
         else:
             return {'value': {'grade': 0}}
 
@@ -373,7 +370,7 @@ class AddResponsibility(models.Model):
             a = self.associated
             # 获取当前选项的分数
             score = self.env['funenc_xa_station.check_standard'].search_read(
-                [('check_project', '=', self.associated.check_project.check_project)], [self.check_kind])[0].get(
+                [('check_project', '=', self.associated.check_project.id)], [self.check_kind])[0].get(
                 self.check_kind)
             self.reference_grade = score
             self.grade = score
