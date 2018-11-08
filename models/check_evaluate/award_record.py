@@ -56,7 +56,7 @@ class AwardRecord(models.Model):
             return res
         else:
             record = self.env['funenc_xa_station.award_standard'].search(
-                [('award_project','=',self.award_project.id)])
+                [('award_project','=',self.award_project.id),('award_standard_kind', '=', self.award_target_kind.id)])
 
             ids = [i['check_project'][0].id for i in record]
 
@@ -75,9 +75,10 @@ class AwardRecord(models.Model):
             return res
         else:
             record = self.env['funenc_xa_station.award_standard'].search_read(
-                [('check_project','=',self.check_project.id)],['award_standard'])
-
-            self.award_money_kind = record[0].get('award_standard')
+                [('check_project','=',self.check_project.id),('award_project','=',self.award_project.id)
+                    ,('award_standard_kind', '=', self.award_target_kind.id)],['award_standard'])
+            if record:
+                self.award_money_kind = record[0].get('award_standard')
 
 
 

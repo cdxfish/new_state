@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
+from odoo.exceptions import ValidationError
 
 class AwardStandard(models.Model):
     _name = 'funenc_xa_station.award_standard'
@@ -13,6 +14,17 @@ class AwardStandard(models.Model):
     award_standard = fields.Char(string='奖励标准')
     support_file = fields.Char(string='支持文件')
     comment = fields.Char(string='备注')
+
+    @api.model
+    def create(self, vals):
+        kind = vals.get('award_standard_kind')
+        award = vals.get('award_project')
+        check = vals.get('check_project')
+        record = self.env['funenc_xa_station.award_standard'].search(
+            [('award_standard_kind','=',kind),('award_project','=',award),('check_project','=',check)])
+        if record:
+            raise ValidationError('相同的考核指标已近存在了')
+        return super(AwardStandard,self).create(vals)
 
     #群信server奖励指标隐藏还是显示
     @api.model
