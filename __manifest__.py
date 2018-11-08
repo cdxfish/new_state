@@ -109,12 +109,13 @@
         'views/work_kanban/work_kanban.xml',
 
         'views/work_kanban/task_type.xml',
-
+        'views/integrated_management/station_summary.xml',
         'views/index.xml',
         'views/menu.xml',
         'views/opening_manage/train/training_plan.xml',
         'views/opening_manage/drill_plan/drill_plan.xml',
         'views/opening_manage/drill_plan/site_drill_plan.xml',
+
 
     ],
     # only loaded in demonstration mode

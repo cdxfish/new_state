@@ -13,6 +13,7 @@ class station_detail(models.Model):
     current_location = fields.Char(string='当前位置')
     station_exit_information = fields.One2many('funenc_xa_station.station_exit_information','station_id', string='出口信息')
     station_map_images = fields.One2many('funenc_xa_station.station_map_images', 'station_detail_id', string='地面信息图',required= True)
+    contact_re = fields.Many2one('funenc_xa_station.station_summary',string='关联车站详情')
 
 
 

@@ -10,6 +10,7 @@ class CivilEngineering(models.Model):
 
     essential_information_ids = fields.One2many('funenc_xa_station.essential_information','civil_engineering_id',string='基本信息')
     private_channel_ids = fields.One2many('funenc_xa_station.private_channel','civil_engineering_id',string='专用通道信息')
+    contact_re = fields.Many2one('funenc_xa_station.station_summary',string='关联车站详情')
 
     #用来筛选当前站点
     def search_record_local(self):

@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="statio_summary_form">
+            <field name="name">车站详情</field>
+            <field name="model">funenc_xa_station.station_summary</field>
+            <field name="arch" type="xml">
+                <form>
+                    <notebook>
+                        <page string="车站详情">
+                            <div class="text-center ">
+                                <group>
+                                    <field name="station_detail">
+
+                                        <tree >
+                                            <field name="line_id"></field>
+                                            <field name="site_id"></field>
+                                            <field name="station_nature"></field>
+                                            <field name="station_position"></field>
+                                            <field name="station_exit_information"></field>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </div>
+                        </page>
+                        <page string="地面交通">
+                            <div class="text-center">
+                                <field name="ground_traffic">
+                                    <tree>
+                                        <field name="line_id"></field>
+                                        <field name="site_id"></field>
+                                        <field name="ground_environment_ids"></field>
+                                        <field name="bus_lines"></field>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="statio_summary_act">
+            <field name="name">详情</field>
+            <field name="res_model">funenc_xa_station.station_summary</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

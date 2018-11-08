@@ -59,8 +59,17 @@ class CheckRecord(models.Model):
         else:
             record = self.env['funenc_xa_station.check_standard'].search_read([('check_standard','=',self.check_target)])
             print(record)
+            ids = []
+            delete_repeat = []
+            # ids = [equipment['problem_kind'][0] for equipment in record if equipment['']]
+            for i in record:
+                i_record = i.get('problem_kind')[1]
+                i_record_id = i.get('problem_kind')[0]
+                if i_record not in delete_repeat:
+                    delete_repeat.append(i_record)
+                    ids.append(i_record_id)
 
-            ids = [equipment['problem_kind'][0] for equipment in record]
+
 
             res['domain'] = {'problem_kind': [('id', 'in', ids)]}
             res['value'] = {'problem_kind': None}
@@ -75,8 +84,11 @@ class CheckRecord(models.Model):
             res['domain'] = {'check_project': [(1, '=', 1)]}
 
             return res
-        record = self.env['funenc_xa_station.check_standard'].search_read([('problem_kind','=',self.problem_kind.id)])
-        print(record)
+        record = self.env['funenc_xa_station.check_standard'].search([('check_standard','=',self.check_target)])
+        for i in record:
+            i.problem_kind
+            print()
+
 
         ids = [i['check_project'][0] for i in record]
 

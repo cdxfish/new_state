@@ -36,6 +36,8 @@ class CheckStandard(models.Model):
     technology_serve_director = fields.Char(string='技术服务室分管服务主任/副主任')
     duty_director = fields.Char(string='责任分部主任/副主任')
     comment = fields.Text(string='备注')
+    _sql_constraints = [('name_unique', 'unique(check_project)', "填写的检查项目必须唯一")]
+
 
     # 权限server考评指标隐藏还是显示
     @api.model
@@ -116,14 +118,14 @@ class ProblemKindRecord(models.Model):
     # _rec_name = 'name'
 
     name = fields.Char(string='问题类型')
-
+    one_manys = fields.One2many('funenc_xa_station.check_standard','problem_kind',string='关联')
 
 class CheckProjectRecord(models.Model):
     _name = 'check_project_record'
     # _rec_name = 'name'
 
     name = fields.Char(string='考核项目')
-    _sql_constraints = [('name_unique', 'UNIQUE(name)', "填写的检查项目必须唯一")]
+    _sql_constraints = [('name_unique', 'unique(name)', "填写的检查项目必须唯一")]
 
 
 
