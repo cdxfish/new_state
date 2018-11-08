@@ -9,6 +9,7 @@ class GroundTraffic(models.Model):
 
     ground_environment_ids = fields.One2many('funenc_xa_station.ground_environment','ground_traffic_id',string='地面环境')
     bus_lines =  fields.One2many('funenc_xa_station.bus_line','ground_traffic_id',string='交通线路表')
+    contact_re = fields.Many2one('funenc_xa_station.station_summary',string='关联车站详情字段')
 
 
 class BusLine(models.Model):

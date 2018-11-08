@@ -662,7 +662,7 @@
 		/>
 
 		<menuitem id="station_detail_1" name="车站详情" sequence="1"
-				  action="xa_station_station_detail_action"
+				  action="funenc_xa_station.statio_summary_act"
 		          parent="station_list"/>
 
 		 <menuitem id="station_detail_2" name="地面交通" sequence="2"
