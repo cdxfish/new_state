@@ -458,36 +458,25 @@ class inherit_department(models.Model):
 
     def station_detail(self):
 
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_station_detail_form').id
-        res_id = self.env['funenc_xa_station.station_detail'].search([('site_id', '=', self.id)]),
-        return {
+        view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
+        res_id = self.env['funenc_xa_station.station_summary'].search([('site_id', '=', self.id)])
+        dic = {
             'name': '车站详情',
             'type': 'ir.actions.act_window',
+            'res_model': 'funenc_xa_station.station_summary',
             "views": [[view_form, "form"]],
-            'res_id': res_id[0].id if res_id else None,
-            'res_model': 'funenc_xa_station.station_detail',
-            "top_widget": "multi_action_tab",
-            "top_widget_key": "driver_manage_tab",
-            "top_widget_options": '''{'tabs':
-                                                      [
-                                                          {
-                                                              'title': '车站详情',
-                                                              'action' : 'funenc_xa_station.station_detai_action',
-                                                              'group' : 'funenc_xa_station.module_category_comprehensive',
-                                                              'context':1,
-                                                              },
-                                                          {
-                                                              'title': '耗材出库',
-                                                              'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
-                                                              },
-                                                      ]
-                                                  }''',
             'context': self.env.context,
+            'target': 'current',
+            'res_id': res_id[0].id if res_id else None
         }
+
+        return dic
 
     def _compute_count_user(self):
         for this in self:
-            this.count_user = sum(this.users.ids)
+            if  this.department_hierarchy == 3:
+                print(this.users.ids)
+                this.count_user = len(this.users.ids)
 
     @api.model
     def get_xa_departments(self):

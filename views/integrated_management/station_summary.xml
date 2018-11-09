@@ -154,6 +154,17 @@
 
                         </page>
                         <page string="车站设备">
+                            <group>
+                                <field name="station_equipment_ids">
+                                    <tree>
+                                        <field name="name" string="设备名称"/>
+                                        <field name="count" string="设备数量"/>
+                                        <field name="position" string="设备位置"/>
+                                        <field name="remarks" string="备注"/>
+                                    </tree>
+
+                                </field>
+                            </group>
 
                         </page>
                         <page string="人员配置">
@@ -170,7 +181,7 @@
                                     <form>
                                         <field name="station_master_id" string="站长"/>
                                         <field name="station_mobile" string="电话"/>
-                                        <field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
+                                        <field name="exit_map" string="新增消防逃生图" widget="many2many_binary"/>
                                     </form>
                                 </field>
 
@@ -181,6 +192,20 @@
                 </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="site_station_detail">
+			<field name="name">车站人员列表</field>
+			<field name="model">cdtct_dingtalk.cdtct_dingtalk_department</field>
+			<field name="arch" type="xml">
+				<tree search_ex_template="station_staffing_search_button">
+					<!--<field name="line_id" string="线路" />-->
+					<field name="name" string="站点" />
+					<field name="count_user" string="人员数量"/>
+                     <widget string="操作" name="treebtns" template="station_detail"/>
+
+				</tree>
+			</field>
+		</record>
 
         <record model="ir.actions.act_window" id="statio_summary_act">
             <field name="name">详情</field>

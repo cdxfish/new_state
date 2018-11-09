@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import  models, fields
+from odoo import  models, fields,api
 
 
 class StationSummary(models.Model):
     _name = 'funenc_xa_station.station_summary'
     _inherit = 'fuenc_station.station_base'
+    _rec_name = 'station_nature'
 
     # 车站详情
     station_nature = fields.Text(string='车站性质')
@@ -34,5 +35,41 @@ class StationSummary(models.Model):
     # 消防逃生图
     exit_maps = fields.One2many('funenc_xa_station.station_exit','station_summary_id',string='消防逃生图')
 
+    # 车站设备
+    station_equipment_ids = fields.One2many('funenc_xa_station.station_equipment','station_summary_id',string='车站设备')
 
+    @api.model
+    def init_data(self):
 
+        if self.env.user.id == 1:
+            site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([
+                ('department_hierarchy', '=', 3)
+            ]).ids
+        else:
+            ding_user = self.env.user.dingtalk_user
+            department_id = ding_user.departments[0]
+            if department_id.department_hierarchy == 1:
+                site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([
+                    ('department_hierarchy', '=', 3)
+                ]).ids
+            elif department_id.department_hierarchy == 2:
+                site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('parentid', '=', department_id.departmentId)]).ids
+            else:
+                view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
+                res_id = self.search([('site_id', '=', department_id.id)])
+                return {
+                    'name': '借用记录',
+                    "type": "ir.actions.act_window",
+                    "res_model": "funenc_xa_station.station_summary",
+                    "views": [[view_form, "form"]],
+                    'res_id': res_id.id or None
+                }
+        view_list = self.env.ref('funenc_xa_station.site_station_detail').id
+        return {
+            'name': '车站详情',
+            "type": "ir.actions.act_window",
+            "res_model": "cdtct_dingtalk.cdtct_dingtalk_department",
+            "views": [[view_list, "tree"]],
+            "domain": [('id', 'in', site_ids)],
+        }

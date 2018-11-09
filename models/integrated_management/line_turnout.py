@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
-class LineTurnout(models.Model):
-    _name = 'funenc_xa_station.line_turnout'
-    _description = u'线路道岔'
-
-
-
 
 
 class LineMap(models.Model):
