@@ -35,7 +35,21 @@ class CheckStandard(models.Model):
     technology_serve_director = fields.Char(string='技术服务室分管服务主任/副主任')
     duty_director = fields.Char(string='责任分部主任/副主任')
     comment = fields.Text(string='备注')
-    _sql_constraints = [('name_unique', 'unique(check_project)', "填写的检查项目必须唯一")]
+    _sql_constraints = [('name_unique', 'unique(check_project)', "填写的考核项目已经存在")]
+
+    #用来限制同一个考核指标型下面的问题类型不能重复
+    @api.onchange('problem_kind')
+    def constrains_name(self):
+        res = {}
+        if not self.problem_kind:
+            res['domain'] = {'problem_kind': [(1, '=', 1)]}
+
+            return res
+        if len(self.env['funenc_xa_station.check_standard'].search([
+            ('check_standard', '=', self.check_standard),
+            ('problem_kind', '=', self.problem_kind.id)
+        ])) > 0:
+            raise ValidationError('同一考核指标下问题类型不能重复')
 
 
     # 权限server考评指标隐藏还是显示
@@ -117,24 +131,15 @@ class ProblemKindRecord(models.Model):
     # _rec_name = 'name'
 
     name = fields.Char(string='问题类型')
-    check_standard = fields.Selection(key, string='考核指标类型')
+    # check_standard = fields.Selection(key, string='考核指标类型')
     # one_manys = fields.One2many('funenc_xa_station.check_standard','problem_kind',string='关联')
-
-    @api.constrains('name')
-    def constrains_name(self):
-        for record in self:
-            if len(self.search([
-                ('check_standard', '=', record.check_standard),
-                ('name', '=', record.name)
-            ])) > 0:
-                raise ValidationError('同一考核指标下问题类型不能重复')
 
 class CheckProjectRecord(models.Model):
     _name = 'check_project_record'
     # _rec_name = 'name'
 
     name = fields.Char(string='考核项目')
-    _sql_constraints = [('name_unique', 'unique(name)', "填写的检查项目必须唯一")]
+    _sql_constraints = [('name_unique', 'unique(name)', "填写的考核项目必须唯一")]
 
 
 

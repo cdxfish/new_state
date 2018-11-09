@@ -54,20 +54,20 @@ class CheckRecord(models.Model):
     @api.onchange('check_target')
     def get_problem_record(self):
         res = {}
+        if self.check_target and self.problem_kind and self.check_project:
+            re = self.env['funenc_xa_station.check_standard'].search([
+                ('check_standard','=',self.check_target),
+                ('problem_kind','=',self.problem_kind.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not re:
+                res['value'] = {'problem_kind':None,'check_project':None}
+                return res
         if  not self.check_target:
             return {}
-        else:
+        elif not self.check_project:
             record = self.env['funenc_xa_station.check_standard'].search_read([('check_standard','=',self.check_target)])
-            print(record)
-            # ids = []
-            delete_repeat = []
             ids = [equipment['problem_kind'][0] for equipment in record]
-            # for i in record:
-            #     i_record = i.get('problem_kind')[1]
-            #     i_record_id = i.get('problem_kind')[0]
-            #     if i_record not in delete_repeat:
-            #         delete_repeat.append(i_record)
-            #         ids.append(i_record_id)
 
 
 
@@ -80,19 +80,56 @@ class CheckRecord(models.Model):
     @api.onchange('problem_kind')
     def get_project_record(self):
         res = {}
+        res = {}
+        if self.check_target and self.problem_kind and self.check_project:
+            re = self.env['funenc_xa_station.check_standard'].search([
+                ('check_standard','=',self.check_target),
+                ('problem_kind','=',self.problem_kind.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not re:
+                res['value'] = {'check_target':None,'problem_kind':None,'check_project':None}
+                return res
         if not self.problem_kind:
             res['domain'] = {'check_project': [(1, '=', 1)]}
 
             return res
-        record = self.env['funenc_xa_station.check_standard'].search(
-            [('check_standard','=',self.check_target),('problem_kind','=',self.problem_kind.id)])
+        elif not self.check_project:
+            record = self.env['funenc_xa_station.check_standard'].search(
+                [('check_standard','=',self.check_target),('problem_kind','=',self.problem_kind.id)])
 
-        ids = [i['check_project'][0].id for i in record]
+            ids = [i['check_project'][0].id for i in record]
 
-        res['domain'] = {'check_project': [('id', 'in', ids)]}
-        res['value'] = {'check_project': None}
+            res['domain'] = {'check_project': [('id', 'in', ids)]}
+            res['value'] = {'check_project': None}
 
-        return  res
+            return  res
+
+    #当问题类型和考核指标都为空的时候选择考核项目直接返回问题类型和考核指标
+    @api.onchange('check_project')
+    def get_standard_problem(self):
+        res = {}
+        if self.check_target and self.problem_kind and self.check_project:
+            re = self.env['funenc_xa_station.check_standard'].search([
+                ('check_standard','=',self.check_target),
+                ('problem_kind','=',self.problem_kind.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not re:
+                res['value'] = {'check_target':None,'problem_kind':None}
+                return res
+        res = {}
+        if not self.check_project:
+            res['domain'] = {'check_project': [(1, '=', 1)]}
+
+            return res
+        elif not self.problem_kind or  not self.check_target:
+            record = self.env['funenc_xa_station.check_standard'].search(
+                [('check_project', '=', self.check_project.id)])
+            if record:
+                self.problem_kind = record.problem_kind.id
+                self.check_target = record.check_standard
+
 
 
     # 自动获取登录人的姓名
@@ -207,6 +244,10 @@ class CheckRecord(models.Model):
                     'chose_grade': i_re[2]['chose_grade'],
                 }
                 super(CheckRecord, self).create(key)
+        self.env['funenc_xa_station.check_standard'].search([
+                                                    ('check_standard','=',vals.get('check_target')),
+                                                    ('check_standard','=',vals.get('check_target')),
+                                                     ])
 
         # 将数据转接到人员信息
         vals['relevance'] = vals['staff']
@@ -246,31 +287,32 @@ class CheckRecord(models.Model):
 
             return res
         record = self.env['funenc_xa_station.check_standard'].search_read([('check_project', '=', self.check_project.id)])
-        if self.check_kind == 'check_parment':
-            check_kind1 = record[0].get('check_parment')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+        if record:
+            if self.check_kind == 'check_parment':
+                check_kind1 = record[0].get('check_parment')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'relate_per_score':
-            check_kind1 = record[0].get('relate_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'relate_per_score':
+                check_kind1 = record[0].get('relate_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'station_per_score':
-            check_kind1 = record[0].get('station_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'station_per_score':
+                check_kind1 = record[0].get('station_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'technology_score':
-            check_kind1 = record[0].get('technology_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'technology_score':
+                check_kind1 = record[0].get('technology_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'management_score':
-            check_kind1 = record[0].get('management_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'management_score':
+                check_kind1 = record[0].get('management_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'loca_per_score':
-            check_kind1 = record[0].get('loca_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
-        else:
-            return {'value': {'grade': 0}}
+            elif self.check_kind == 'loca_per_score':
+                check_kind1 = record[0].get('loca_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            else:
+                return {'value': {'grade': 0}}
 
     @api.onchange('check_kind')
     def parment_sure_grede(self):
@@ -281,31 +323,32 @@ class CheckRecord(models.Model):
             return res
         record = self.env['funenc_xa_station.check_standard'].search_read(
             [('check_project', '=', self.check_project.id)])
-        if self.check_kind == 'check_parment':
-            check_kind1 = record[0].get('check_parment')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+        if record:
+            if self.check_kind == 'check_parment':
+                check_kind1 = record[0].get('check_parment')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'relate_per_score':
-            check_kind1 = record[0].get('relate_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'relate_per_score':
+                check_kind1 = record[0].get('relate_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'station_per_score':
-            check_kind1 = record[0].get('station_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'station_per_score':
+                check_kind1 = record[0].get('station_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'technology_score':
-            check_kind1 = record[0].get('technology_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'technology_score':
+                check_kind1 = record[0].get('technology_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'management_score':
-            check_kind1 = record[0].get('management_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            elif self.check_kind == 'management_score':
+                check_kind1 = record[0].get('management_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
 
-        elif self.check_kind == 'loca_per_score':
-            check_kind1 = record[0].get('loca_per_score')
-            return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
-        else:
-            return {'value': {'grade': 0}}
+            elif self.check_kind == 'loca_per_score':
+                check_kind1 = record[0].get('loca_per_score')
+                return {'value': {'grade': check_kind1,'sure_grede':check_kind1}}
+            else:
+                return {'value': {'grade': 0}}
 
     def write_data_to_excel(self):
         one_row = ['线路', '站点', '工号', '考核人员', '职位', '评分分值', '考评指标', '问题类型', '考核类别', '考核项目', '事件描述', \
