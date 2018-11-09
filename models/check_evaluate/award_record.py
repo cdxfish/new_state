@@ -16,9 +16,9 @@ class AwardRecord(models.Model):
     staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
     position = fields.Text(related='staff.position',string='职位')
     award_money = fields.Char(string='奖励金额')
-    award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类')
-    award_project = fields.Many2one('award_award_project',string='奖励项目')
-    check_project = fields.Many2one('award_check_project',string='考核项目')
+    award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类',required=True)
+    award_project = fields.Many2one('award_award_project',string='奖励项目',required=True)
+    check_project = fields.Many2one('award_check_project',string='考核项目',required=True)
     award_money_kind = fields.Char(string='参考奖励')
     incident_describe = fields.Char(string='事件描述')
     check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
@@ -32,11 +32,20 @@ class AwardRecord(models.Model):
     @api.onchange('award_target_kind')
     def get_award_project(self):
         res = {}
+        if self.award_target_kind and self.award_project and self.check_project:
+            record = self.env['funenc_xa_station.award_standard'].search([
+                ('award_standard_kind','=',self.award_target_kind.id),
+                ('award_project','=',self.award_project.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not record:
+                res['value'] = {'award_project': None, 'check_project': None}
+                return res
         if not self.award_target_kind:
             res['domain'] = {'award_project': [(1, '=', 1)]}
 
             return res
-        else:
+        elif not self.check_project:
             record = self.env['funenc_xa_station.award_standard'].search(
                 [('award_standard_kind', '=', self.award_target_kind.id)])
 
@@ -50,11 +59,21 @@ class AwardRecord(models.Model):
     @api.onchange('award_project')
     def get_check_project(self):
         res = {}
+        if self.award_target_kind and self.award_project and self.check_project:
+            record = self.env['funenc_xa_station.award_standard'].search([
+                ('award_standard_kind','=',self.award_target_kind.id),
+                ('award_project','=',self.award_project.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not record:
+                res['value'] = {'award_target_kind': None, 'award_project': None, 'check_project': None}
+                return res
+
         if not self.award_target_kind:
             res['domain'] = {'award_project': [(1, '=', 1)]}
 
             return res
-        else:
+        elif not self.check_project:
             record = self.env['funenc_xa_station.award_standard'].search(
                 [('award_project','=',self.award_project.id),('award_standard_kind', '=', self.award_target_kind.id)])
 
@@ -69,16 +88,26 @@ class AwardRecord(models.Model):
     @api.onchange('check_project')
     def get_refer_check_value(self):
         res = {}
-        if not self.award_target_kind:
-            res['domain'] = {'award_project': [(1, '=', 1)]}
+        if self.award_target_kind and self.award_project and self.check_project:
+            record = self.env['funenc_xa_station.award_standard'].search([
+                ('award_standard_kind','=',self.award_target_kind.id),
+                ('award_project','=',self.award_project.id),
+                ('check_project','=',self.check_project.id)
+            ])
+            if not record:
+                res['value'] = {'award_target_kind': None, 'award_project': None,}
+                return res
+        if not self.check_project:
+            res['domain'] = {'check_project': [(1, '=', 1)]}
 
             return res
-        else:
+        elif not self.award_target_kind or self.award_project:
             record = self.env['funenc_xa_station.award_standard'].search_read(
-                [('check_project','=',self.check_project.id),('award_project','=',self.award_project.id)
-                    ,('award_standard_kind', '=', self.award_target_kind.id)],['award_standard'])
+                [('check_project','=',self.check_project.id)])
             if record:
                 self.award_money_kind = record[0].get('award_standard')
+                self.award_target_kind = record[0]['award_standard_kind'][0]
+                self.award_project = record[0]['award_project'][0]
 
 
 

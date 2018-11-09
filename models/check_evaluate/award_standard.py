@@ -8,12 +8,13 @@ class AwardStandard(models.Model):
     _name = 'funenc_xa_station.award_standard'
     _rec_name = 'award_project'
     award_standard_default = fields.Char(string='指标类型',default='奖励标准',readonly=True)
-    award_standard_kind = fields.Many2one('award_standard_object',string='奖励指标类')
-    award_project = fields.Many2one('award_award_project',string='奖励项目')
-    check_project = fields.Many2one('award_check_project',string='考核项目')
+    award_standard_kind = fields.Many2one('award_standard_object',string='奖励指标类',required=True)
+    award_project = fields.Many2one('award_award_project',string='奖励项目',required=True)
+    check_project = fields.Many2one('award_check_project',string='考核项目',required=True)
     award_standard = fields.Char(string='奖励标准')
     support_file = fields.Char(string='支持文件')
     comment = fields.Char(string='备注')
+    _sql_constraints = [('name_unique', 'unique(check_project)', "填写的考核项目必须唯一")]
 
     @api.model
     def create(self, vals):
