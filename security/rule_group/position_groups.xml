@@ -19,7 +19,7 @@
             <field name="category_id" ref="module_position11"/>
         </record>
       <record model="res.groups" id="module_depot">
-            <field name="name">站务员</field>
+            <field name="name">站台岗</field>
             <field name="category_id" ref="module_position11"/>
         </record>
 

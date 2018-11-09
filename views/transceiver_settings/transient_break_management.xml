@@ -112,7 +112,7 @@
                              <label for="repair_time" string="修复时间"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="repair_time"/>
+                             <field name="repair_time" style="width:100%;"/>
                           </div>
                        </div>
                     </div>
@@ -176,7 +176,7 @@
                              <label for="transceiver_type" string="工器具类型"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="transceiver_type" />
+                             <field name="transceiver_type" readonly="1"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -212,7 +212,7 @@
                              <label for="repair_time" string="修复时间"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="repair_time"/>
+                             <field name="repair_time" style="width:100%;"/>
                           </div>
                        </div>
                     </div>
@@ -234,7 +234,7 @@
                              <label for="load_file_test" string="故障后图片"/>
                           </div>
                          <div class="col-md-10">
-                                <field name="load_file_test" widget="one2many_image_read_widget">
+                                <field name="load_file_test" widget="many2many_binary">
                                 <tree>
                                     <field name="datas_fname"/>
                                 </tree>

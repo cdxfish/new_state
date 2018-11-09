@@ -1,24 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
-class LineTurnout(models.Model):
-    _name = 'funenc_xa_station.line_turnout'
-    _description = u'线路道岔'
-    _inherit = 'fuenc_station.station_base'
-    # _rec_name = 'type'
-    name = fields.Char(string='土建结构', default='土建结构')
-    line_map_ids = fields.One2many('funenc_xa_station.line_map', 'line_turnout_id', string='车站线路平面图')
-    turnout_ids = fields.One2many('funenc_xa_station.turnout', 'line_turnout_id', string='道岔')
-    liaison_station_ids = fields.One2many('funenc_xa_station.liaison_station', 'line_turnout_id', string='联络站基本信息' )
-    operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路')
 
-
-    def test(self):
-        a = self.env['ir.ui.view'].search(
-            [('model', '=', 'funenc_xa_station.line_turnout'), ('name', '=', 'funenc_xa_station_line_turnout_list')])
-
-        a.write({'groups_id': [(6, 0, [13, 14])]})
-        print(a.groups_id)
 
 class LineMap(models.Model):
     _name = 'funenc_xa_station.line_map'
@@ -28,7 +11,7 @@ class LineMap(models.Model):
     name = fields.Char(string='名称')
     image = fields.Binary(string='图片')
 
-    line_turnout_id = fields.Many2one('funenc_xa_station.line_turnout',string='线路道岔')
+    line_turnout_id = fields.Many2one('funenc_xa_station.station_summary',string='线路道岔')
 
 
 class Turnout(models.Model):
@@ -45,7 +28,7 @@ class Turnout(models.Model):
     position_distance = fields.Char(string='位置里程')
 
 
-    line_turnout_id = fields.Many2one('funenc_xa_station.line_turnout', string='线路道岔')
+    line_turnout_id = fields.Many2one('funenc_xa_station.station_summary', string='线路道岔')
 
 class LiaisonStation(models.Model):
     _name = 'funenc_xa_station.liaison_station'
@@ -57,7 +40,7 @@ class LiaisonStation(models.Model):
     interval = fields.Char(string='区间')
     remarks = fields.Char(string='备注')
 
-    line_turnout_id = fields.Many2one('funenc_xa_station.line_turnout', string='线路道岔')
+    line_turnout_id = fields.Many2one('funenc_xa_station.station_summary', string='线路道岔')
 
 class OperatingLine(models.Model):
     _name = 'funenc_xa_station.operating_line'
@@ -73,4 +56,4 @@ class OperatingLine(models.Model):
     purpose = fields.Char(string='用途')
 
 
-    line_turnout_id = fields.Many2one('funenc_xa_station.line_turnout', string='线路道岔')
+    line_turnout_id = fields.Many2one('funenc_xa_station.station_summary', string='线路道岔')
