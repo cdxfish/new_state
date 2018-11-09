@@ -3,44 +3,15 @@
     <data>
 
 
-        <!--<record model="ir.ui.view" id="funenc_xa_station_station_exit_list">-->
-			<!--<field name="name">funenc_xa_station_station_exit_list</field>-->
-			<!--<field name="model">funenc_xa_station.station_exit</field>-->
-			<!--<field name="arch" type="xml">-->
-				<!--<tree search_ex_template="station_exit_search_button">-->
-					<!--<field name="line_id" string="线路" />-->
-					<!--<field name="site_id" string="站点" />-->
-					<!--<field name="position" string="位置"/>-->
-					<!--<field name="station_master_id" string="站长"/>-->
-					<!--<field name="station_mobile" string="电话"/>-->
-                    <!--<widget string="查看详情" name="treebtns" template="station_exit_widget_type_edit_see"/>-->
-				<!--</tree>-->
-			<!--</field>-->
-		<!--</record>-->
-
-        <!--<record model="ir.ui.view" id="funenc_xa_station_station_exit_form">-->
-			<!--<field name="name">funenc_xa_station_station_exit_form</field>-->
-			<!--<field name="model">funenc_xa_station.station_exit</field>-->
-			<!--<field name="arch" type="xml">-->
-				<!--<form >-->
-                    <!--<group>-->
-						<!--<field name="line_id" invisible="1"/>-->
-						<!--<field name="site_id" invisible="1"/>-->
-                        <!--<field name="position" string="位置"/>-->
-                        <!--<field name="station_master_id" string="站长"/>-->
-                        <!--<field name="station_mobile" string="电话"/>-->
-                        <!--<field name="exit_map" string="消防逃生图" widget="many2many_binary"/>-->
-                    <!--</group>-->
-				<!--</form>-->
-			<!--</field>-->
-		<!--</record>-->
 
         <record model="ir.ui.view" id="funenc_xa_station_station_exit_see_form">
 			<field name="name">funenc_xa_station_station_exit_form</field>
 			<field name="model">funenc_xa_station.station_exit</field>
 			<field name="arch" type="xml">
 				<form >
-                        <field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
+					<group>
+						<field name="exit_map" string="消防逃生图" widget="many2many_binary"/>
+					</group>
 				</form>
 			</field>
 		</record>

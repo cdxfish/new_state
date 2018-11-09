@@ -529,14 +529,14 @@
 		</record>
 
 
-        <!--<record model="ir.actions.server" id="station_detail_act_window">-->
-			<!--<field name="name">车站基本信息</field>-->
-			<!--<field name ="state">code</field>-->
-			<!--<field name="model_id" ref="model_funenc_xa_station_station_detail"/>-->
-			<!--<field name="code">-->
-				<!--action = model.init_data()-->
-			<!--</field>-->
-		<!--</record>-->
+        <record model="ir.actions.server" id="station_detail_act_window">
+			<field name="name">车站基本信息</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_station_summary"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
 
 		<record model="ir.actions.client" id="key_manage_act_window_1">
           <field name="name">钥匙管理</field>
@@ -606,10 +606,10 @@
 		<!--<menuitem id="train_menu_username_1" name="账号设置" parent="plan_menu_username_manage_1"  action="person_account_rec_mgmt"/>-->
 		<!--<menuitem id="train_menu_role_group_1" name="角色组" parent="plan_menu_username_manage_1"  action="train_rec_check_boxes"/>-->
 
-        <!--<menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="1"-->
-		          <!--parent="funenc_station_integrated_manageme"-->
-		          <!--action="station_detail_act_window" groups="system_station"-->
-		<!--/>-->
+        <menuitem id="integrated_management_station_detail" name="车站基本信息" sequence="1"
+		          parent="funenc_station_integrated_manageme"
+		          action="station_detail_act_window" groups="system_station"
+		/>
 
          <menuitem id="station_list" name="车站详情列表" sequence="1"
 		          parent="funenc_station_integrated_manageme"

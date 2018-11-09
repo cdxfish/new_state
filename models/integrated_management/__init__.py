@@ -6,3 +6,4 @@ from . import signal_system
 from . import station_staffing
 from . import station_exit
 from . import station_summary
+from . import station_equipment
