@@ -24,6 +24,18 @@
         </div>
     </t>
 
+    <t t-name="new_increase_cerfiticase_information">
+        <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_cerfiticase_infor" >新建证件</button>
+        </div>
+    </t>
+
+    <t t-name="new_increase_jobt_ranfer_information">
+        <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_jobt_ranfer_infor" >新建转岗</button>
+        </div>
+    </t>
+
     <t t-name="second_details">
         <div class="layui-btn-group">
             <button class="layui-btn" type="object" hidden="hidden" name="second_modification"

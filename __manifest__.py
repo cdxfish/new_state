@@ -107,6 +107,7 @@
         'views/belong_to_management/belong_to_management.xml',
         'views/belong_to_management/belong_to_summary.xml',
         'views/work_kanban/work_kanban.xml',
+        'views/person_management/jobt_ranfer.xml',
 
         'views/work_kanban/task_type.xml',
         'views/integrated_management/station_summary.xml',

@@ -109,6 +109,38 @@ class MainModel(models.Model):
     def import_xls_bill(self):
         self.env['import.management'].search([])[0].import_xls_bill()
 
+    #新增持证信息
+    def new_increase_cerfiticase_infor(self):
+        view_form = self.env.ref('funenc_xa_station.person_certificate_form').id
+        return {
+            'name': '新增证件',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'person.certificate',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
+    #新增转岗信息
+    def new_increase_jobt_ranfer_infor(self):
+        view_form = self.env.ref('funenc_xa_station.jobt_ranfer_form').id
+        return {
+            'name': '新增证件',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'persom_namagement.jobt_ranfer',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
+
+
 
 
 

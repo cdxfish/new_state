@@ -538,9 +538,7 @@
                     </div>
                     <notebook>
                     <page string="持证信息">
-                        <div class="text-center ">
-                            <h1>持证信息</h1>
-                         </div>
+                    <widget  name="treebtns" template="new_increase_cerfiticase_information" string="操作"/>
                     <div class="text-center ">
                         <field name="certificate_info">
                             <tree>
@@ -567,33 +565,18 @@
                     </div>
                     </page>
                     <page string="转岗记录">
-                        <div class="text-center ">
-                            <h1>转岗信息</h1>
-                         </div>
+                    <widget  name="treebtns" template="new_increase_jobt_ranfer_information" string="操作"/>
                     <div class="text-center ">
                         <field name="transfer_info">
                             <tree>
-                                <field name="department"></field>
-                                <field name="line_gauze"></field>
+                                <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
+                                <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="station"></field>
                                 <field name="site_post"></field>
                                 <field name="site_time"></field>
                                 <field name="site_file"></field>
                                 <widget string="操作" name="treebtns" template="person_muddleheaded_information"/>
                             </tree>
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <field name="department"></field>
-                                        <field name="line_gauze"></field>
-                                        <field name="station"></field>
-                                        <field name="site_post"></field>
-                                        <field name="site_time"></field>
-                                        <field name="site_file"></field>
-                                        <field name="relevance" invisible='1'></field>
-                                    </group>
-                                </sheet>
-                            </form>
                         </field>
                         </div>
                    </page>
