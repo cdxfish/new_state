@@ -611,15 +611,6 @@
 		          action="station_detail_act_window" groups="system_station"
 		/>
 
-         <menuitem id="station_list" name="车站详情列表" sequence="1"
-		          parent="funenc_station_integrated_manageme"
-		/>
-
-		<menuitem id="station_detail_1" name="车站详情" sequence="1"
-				  action="funenc_xa_station.statio_summary_act"
-		          parent="station_list"/>
-
-
 
 
         <!--暂时-->
