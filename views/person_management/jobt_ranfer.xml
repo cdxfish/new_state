@@ -6,7 +6,7 @@
             <field name="view_mode">form</field>
             <field name="arch" type="xml">
             <form>
-                <group>
+                <group create="0" edit="0">
                 <field name="line_id" string="所属部门"></field>
                 <field name="site_id" string="所属线网"></field>
                 <field name="station"></field>

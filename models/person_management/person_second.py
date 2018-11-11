@@ -32,6 +32,7 @@ class PersonSecond(models.Model):
                 'view_mode': 'form',
                 'res_model': 'person_management.person_second',
                 'context': self.env.context,
+                'target': 'new'
             }
         ding_user = self.env.user.dingtalk_user[0]
         department = ding_user.departments[0]

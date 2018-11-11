@@ -77,7 +77,7 @@
             <field name="name">person_information_form</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
-                <form>
+                <form create="0" edit="0" class="noOpen">
                     <div creata="0" edit="0" class="noOpen">
                         <h1>员工基础信息</h1>
                     </div>
@@ -107,7 +107,7 @@
                             <!--<field name="second_school_of_graduation"></field>-->
                             <!--<field name="second_major"></field>-->
                         <!--</tree>-->
-                        <form>
+                        <form creata="0" edit="0" class="noOpen">
                             <sheet>
                                 <group>
                                     <div class="container-fluid">
@@ -437,7 +437,7 @@
                                 <!--<field name="join_work_time"></field>-->
                                 <!--<field name="staff_source"></field>-->
                             <!--</tree>-->
-                            <form>
+                            <form creata="0" edit="0" class="noOpen">
                                 <sheet>
                                     <group>
                                     <div class="container-fluid">
