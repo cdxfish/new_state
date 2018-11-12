@@ -34,6 +34,7 @@
 			<field name="model">funenc_xa_station.arrange_class_manage</field>
 			<field name="arch" type="xml">
 				<tree limit="15" create="0" class="noOpen">
+					<field name="name" string="名称"/>
 					<field name="arrange_class_type" string="排班类型" widget="many2many_tags" />
 					<field name="arrange_class_obj" string="对象"/>
 					<field name="remarks" string="备注"/>
@@ -49,8 +50,9 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  options="{'no_create':True,'no_open':True}"/>
-                            <field name="site_id" string="站点"  options="{'no_create':True,'no_open':True}" context="{'site_id':site_id}"/>
+                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  options="{'no_create':True,'no_open':True}" readonly="1"/>
+                            <field name="site_id" string="站点"  options="{'no_create':True,'no_open':True}" context="{'site_id':site_id}" readonly="1"/>
+							<field name="name" string="名称" />
 							<field name="arrange_class_type" string="排班类型" widget="many2many_tags" domain="[('site_id','=',site_id)]"/>
                             <field name="arrange_class_obj" string="对象" domain="[('site_id','=',site_id)]"/>
                             <field name="remarks" string="备注"/>

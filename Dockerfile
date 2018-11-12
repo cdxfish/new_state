@@ -1,4 +1,4 @@
-From registry-vpc.cn-hangzhou.aliyuncs.com/odoomaster/odoo_docker_fix_base
+From registry-vpc.cn-hangzhou.aliyuncs.com/odoomaster/odoo11_update_base
 
 # 拷贝项目本地文件到docker
 ADD . /mnt/extra-addons/funenc_xa_station
@@ -24,5 +24,7 @@ RUN pip3 install -r /opt/sources/requirements.txt
 # 添加配置文件,一定要添加这两句
 COPY odoo.conf /odoo/
 RUN chown -R odoo:odoo /var/lib/odoo
+
+RUN python3 ./etc/entrypoint.py
 
 CMD ["/usr/bin/supervisord"]
