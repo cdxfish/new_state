@@ -39,7 +39,7 @@ class CheckRecord(models.Model):
     check_target = fields.Selection(key_record, string='考评指标',required=True)
     problem_kind = fields.Many2one('problem_kind_record', string='问题类型',required=True)
     check_kind = fields.Selection(key, string='考核类别')
-    check_project = fields.Many2one('check_project_record', string='考核项目',required=True)
+    check_project = fields.Many2one('check_project_record', string='考核项目')
     incident_describe = fields.Text(string='事件描述')
     check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
     check_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
