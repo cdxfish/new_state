@@ -100,16 +100,16 @@
         </record>
 
         <record model="res.groups" id="work_list_details_button">
-            <field name="name">工作任务列表-详情按钮</field>
+            <field name="name">工作任务列表-查看按钮</field>
             <field name="parent_id" ref="system_work_project_list"/>
             <field name="category_id" ref="work_task_page_button_main"/>
         </record>
 
-        <record model="res.groups" id="work_list_modify_button">
-            <field name="name">工作任务列表-修改按钮</field>
-            <field name="parent_id" ref="system_work_project_list"/>
-            <field name="category_id" ref="work_task_page_button_main"/>
-        </record>
+        <!--<record model="res.groups" id="work_list_modify_button">-->
+            <!--<field name="name">工作任务列表-修改按钮</field>-->
+            <!--<field name="parent_id" ref="system_work_project_list"/>-->
+            <!--<field name="category_id" ref="work_task_page_button_main"/>-->
+        <!--</record>-->
 
         <record model="res.groups" id="work_list_delete_button">
             <field name="name">工作任务列表-删除按钮</field>

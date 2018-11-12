@@ -29,7 +29,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" domain="[('department_hierarchy','=',2)]"/>
+                             <field name="site_id" domain="[('department_hierarchy','=',3)]"/>
                           </div>
                        </div>
                     </div>
