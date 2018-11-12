@@ -23,7 +23,7 @@ class CheckStandard(models.Model):
 
     check_standard = fields.Selection(key,string='考核指标',required=True)
     problem_kind = fields.Many2one('problem_kind_record',string='问题类型',required=True)
-    check_project = fields.Many2one('check_project_record',string='考核项目',required=True)
+    check_project = fields.Many2one('check_project_record',string='考核项目')
     check_parment = fields.Char(string='考核分部（室）分值')
     loca_per_score = fields.Char(string='当事人考核分值')
     relate_per_score = fields.Char(string='相关负责人考核分数')
