@@ -454,7 +454,9 @@ class generate_qr(models.Model):
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
+
     count_user = fields.Integer(seting='人员数量', compute='_compute_count_user')
+    user_property_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='人员属性')
 
     def station_detail(self):
 
@@ -547,3 +549,13 @@ class inherit_department(models.Model):
             return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
         except Exception:
             return []
+
+
+class UserInherit(models.Model):
+    '''
+    继承钉钉人员表,新增人员属性字段
+    '''
+    _inherit = 'cdtct_dingtalk.cdtct_dingtalk_users'
+
+    user_property_department_ids = fields.One2many('cdtct_dingtalk.cdtct_dingtalk_department','user_property_id',string='人员属性') # 用于人员调动
+

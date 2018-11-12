@@ -61,7 +61,6 @@ odoo.define('funenc_xa_motorized_users', function (require) {
 
                            // 单击节点
                             handleEdit(index, row) {
-                            alert(row['user_property'])
 
                                self.do_action({
                                                 name: '\u673a\u52a8\u4eba\u5458\u7ba1\u7406',

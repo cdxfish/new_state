@@ -1,0 +1,29 @@
+<div id="app">
+
+    <el-row :gutter="10">
+		<el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+			<div class="grid-content bg-purple">
+				<el-card class="box-card">
+					<div slot="header" class="clearfix">
+						<span style="font-size: 20px;font-weight: 700;">设置人员属性</span>
+					</div>
+					<div class="text item">
+						<el-tree
+								:data="departmentList"
+								show-checkbox
+								node-key="id"
+								ref="tree"
+								highlight-current
+								:default-expanded-keys="[]"
+								:default-checked-keys="[]"
+								:props="defaultProps"
+								@node-click="click_node"
+						>
+						</el-tree>
+					</div>
+				</el-card>
+			</div>
+		</el-col>
+	</el-row>
+
+</div>

@@ -17,6 +17,7 @@ odoo.define('funenc_xa_department_users', function (require) {
                                                 },
 
                                 tableData: [],
+                                multipleSelection: []
 
                 };
             },
@@ -63,6 +64,45 @@ odoo.define('funenc_xa_department_users', function (require) {
 
 
                                  },
+
+                                  handleSelectionChange(val) {
+                                    var arrayObj = new Array()
+                                    for(var i =0;i<val.length;i++)
+                                    {
+                                        arrayObj.push(val[i].id);
+
+                                    };
+                                    this.multipleSelection = arrayObj;
+                                    console.log(self.vue_data.multipleSelection)
+
+
+                                  },
+
+
+                                  toggleSelection(rows) {
+                                    if (rows) {
+                                      rows.forEach(row => {
+                                        this.$refs.multipleTable.toggleRowSelection(row);
+                                      });
+                                    } else {
+                                      this.$refs.multipleTable.clearSelection();
+                                    }
+                                  },
+
+
+                                   settings(index, row) {
+
+                                       self.do_action({
+                                                        name: '\u673a\u52a8\u4eba\u5458\u7ba1\u7406',
+                                                        type: 'ir.actions.act_window',
+                                                        res_model: 'cdtct_dingtalk.cdtct_dingtalk_users',
+                                                        views: [[false, 'form']],
+                                                        target: 'new',
+                                                        flags: {'initial_mode': 'edit'},
+                                                        res_id: row['id']
+                                                    });
+
+                                       }
 
 
 
