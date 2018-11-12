@@ -44,17 +44,7 @@
             <!--</field>-->
         <!--</record>-->
 
-           <record model="ir.actions.act_url" id="to_excel">
-                <field name="name">模块下载</field>
-                <field name="type">ir.actions.act_url</field>
-                <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
-                <!--<field name="binding_xml_id">advice_tree</field>-->
-                <field name="binding_type">action_button</field>
-                <field name="url">/funenc_xa_station/check_evaluate</field>
-                <field name="target">new</field>
-            </record>
-
-            <record model="ir.actions.server" id="check_evaluate_server_4">
+        <record model="ir.actions.server" id="check_evaluate_server_4">
             <field name="name">选择导入文件</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
@@ -80,6 +70,16 @@
             <field name="code">
                 action = model.impotr_evaluate_file()
             </field>
+        </record>
+
+       <record model="ir.actions.act_url" id="check_evaluate_excel">
+            <field name="name">模块下载</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_standard"/>
+            <!--<field name="binding_xml_id">advice_tree</field>-->
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/check_evaluate</field>
+            <field name="target">new</field>
         </record>
 
         <record id="check_evaluate_tree" model="ir.ui.view">

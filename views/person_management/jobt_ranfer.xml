@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="jobt_ranfer_form" model="ir.ui.view">
+            <field name="name">转岗记录</field>
+            <field name="model">persom_namagement.jobt_ranfer</field>
+            <field name="view_mode">form</field>
+            <field name="arch" type="xml">
+            <form>
+                <group create="0" edit="0">
+                <field name="line_id" string="所属部门"></field>
+                <field name="site_id" string="所属线网"></field>
+                <field name="station"></field>
+                <field name="site_post"></field>
+                <field name="site_time"></field>
+                <field name="site_file"></field>
+                </group>
+            </form>
+            </field>
+        </record>
+    </data>
+</odoo>

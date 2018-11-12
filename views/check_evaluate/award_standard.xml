@@ -22,6 +22,7 @@
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="condition">True</field>
+            <field name="sequence" eval="1"></field>
             <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">奖励标准</field>
@@ -43,23 +44,13 @@
                 <!--action = model.new_add_standard()-->
             <!--</field>-->
         <!--</record>-->
-
-           <record model="ir.actions.act_url" id="to_excel">
-            <field name="name">模板下载</field>
-            <field name="type">ir.actions.act_url</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
-            <!--<field name="binding_xml_id">advice_tree</field>-->
-            <field name="binding_type">action_button</field>
-            <field name="url">/funenc_xa_station/award_standard</field>
-            <field name="target">new</field>
-        </record>
-
             <record model="ir.actions.server" id="award_standard_server_4">
             <field name="name">选择导入文件</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="condition">True</field>
+            <!--<field name="sequence" eval="2"></field>-->
             <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">奖励标准</field>
@@ -74,12 +65,24 @@
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="condition">True</field>
+            <!--<field name="sequence" eval="3"></field>-->
             <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
             <field name="binding_type">action_button</field>
             <field name="binding_action">奖励标准</field>
             <field name="code">
                 action = model.import_award_file()
             </field>
+        </record>
+
+        <record model="ir.actions.act_url" id="to_excel">
+            <field name="name">模板下载</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_award_standard"/>
+            <!--<field name="binding_xml_id">advice_tree</field>-->
+            <!--<field name="sequence" eval="4"></field>-->
+            <field name="binding_type">action_button</field>
+            <field name="url">/funenc_xa_station/award_standard</field>
+            <field name="target">new</field>
         </record>
 
         <record id="award_standard_tree" model="ir.ui.view">

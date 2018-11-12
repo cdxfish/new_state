@@ -51,15 +51,15 @@ class CheckAward(http.Controller):
                 else:
                     worksheet.write(row, 5, 0)
                 if record.award_target_kind:
-                    worksheet.write(row, 6, record.award_target_kind)
+                    worksheet.write(row, 6, record.award_target_kind.name)
                 else:
                     worksheet.write(row, 6, "")
                 if record.award_project:
-                    worksheet.write(row, 7, record.award_project)
+                    worksheet.write(row, 7, record.award_project.name)
                 else:
                     worksheet.write(row, 7, "")
                 if record.check_project:
-                    worksheet.write(row, 8, record.check_project)
+                    worksheet.write(row, 8, record.check_project.name)
                 else:
                     worksheet.write(row, 8, "")
                 if record.incident_describe:

@@ -37,12 +37,33 @@ class ImportAward(models.Model):
             cols5 = sheet_data.col_values(5)
             end = sheet_data.nrows
 
+            excel_nrows_foreign_key = {'0': 'award_standard_object',
+                                       '1': 'award_award_project',
+                                       '2': 'award_check_project',
+            }
+            for (k, v) in excel_nrows_foreign_key.items():
+                foreign_key = []
+                for x in range(start, end):
+                    data = sheet_data.cell_value(x, int(k))
+                    if data != '':
+                        foreign_key.append(data)
+                table_name = v
+                for item_value in foreign_key:
+                    if item_value != '':
+                        obj = self.env[table_name] \
+                            .sudo().search([('name', '=', item_value)])
+                        if obj:
+                            continue
+                        else:
+                            result = self.env[table_name] \
+                                .sudo().create({'name': item_value})
+
 
             rows = sheet_data.nrows
             cols = sheet_data.ncols
             one_sheet_content = []
 
-            keys = ('award_standard_default', 'award_standard_kind', 'award_project','check_project','award_standard',
+            keys = ('award_standard_kind', 'award_project','check_project','award_standard',
                     'support_file','comment'
                     )
             for i in range(1, rows):
@@ -70,11 +91,24 @@ class ImportAward(models.Model):
                     one_dict = dict(zip(keys, row_content))
                 one_sheet_content.append(one_dict)
 
-            print(one_sheet_content)
+            # print(one_sheet_content)
 
         try:
             for i, item in enumerate(one_sheet_content):
+                if item['award_standard_kind'] != '':
+                    brand = self.env['award_standard_object'].sudo().search_read(
+                        [('name', '=', item['award_standard_kind'])], fields=['id'])
+                    item['award_standard_kind'] = brand[0]['id']
+                if item['award_project'] != '':
+                    brand = self.env['award_award_project'].sudo().search_read(
+                        [('name', '=', item['award_project'])], fields=['id'])
+                    item['award_project'] = brand[0]['id']
+                if item['check_project'] != '':
+                    brand = self.env['award_check_project'].sudo().search_read(
+                        [('name', '=', item['check_project'])], fields=['id'])
+                    item['check_project'] = brand[0]['id']
                 self.env['funenc_xa_station.award_standard'].sudo().create(item)
+
 
         except ConnectionError as err:
             print(err)

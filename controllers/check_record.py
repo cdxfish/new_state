@@ -75,7 +75,7 @@ class CheckRecord(http.Controller):
                 else:
                     worksheet.write(row, 6, "")
                 if record.problem_kind:
-                    worksheet.write(row, 7, record.problem_kind)
+                    worksheet.write(row, 7, record.problem_kind.name)
                 else:
                     worksheet.write(row, 7, "")
                 if record.check_kind:
@@ -94,8 +94,8 @@ class CheckRecord(http.Controller):
                     worksheet.write(row, 8, kind)
                 else:
                     worksheet.write(row, 8, "")
-                if record.check_project.check_project:
-                    worksheet.write(row, 9, record.check_project.check_project)
+                if record.check_project:
+                    worksheet.write(row, 9, record.check_project.name)
                 else:
                     worksheet.write(row, 9, "")
                 if record.incident_describe:

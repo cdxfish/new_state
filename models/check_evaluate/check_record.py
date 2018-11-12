@@ -36,10 +36,10 @@ class CheckRecord(models.Model):
     grade = fields.Float(string='参考分值', readonly=True)
     chose_grade = fields.Selection([('add', '加'), ('subtraction', '减')], string='评分', default='subtraction')
     sure_grede = fields.Float(string='评分分值')
-    check_target = fields.Selection(key_record, string='考评指标')
-    problem_kind = fields.Many2one('problem_kind_record', string='问题类型')
+    check_target = fields.Selection(key_record, string='考评指标',required=True)
+    problem_kind = fields.Many2one('problem_kind_record', string='问题类型',required=True)
     check_kind = fields.Selection(key, string='考核类别')
-    check_project = fields.Many2one('check_project_record', string='考核项目')
+    check_project = fields.Many2one('check_project_record', string='考核项目',required=True)
     incident_describe = fields.Text(string='事件描述')
     check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
     check_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
@@ -79,7 +79,6 @@ class CheckRecord(models.Model):
     #根据考核指标的变化，从而变化问题类型
     @api.onchange('problem_kind')
     def get_project_record(self):
-        res = {}
         res = {}
         if self.check_target and self.problem_kind and self.check_project:
             re = self.env['funenc_xa_station.check_standard'].search([

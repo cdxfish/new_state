@@ -5,6 +5,10 @@ class AddPersonCertificate(models.Model):
     _name = 'person.certificate'
     _inherit = 'fuenc_station.station_base'
 
+    def _default_associated(self):
+        if self._context.get('active_id', False):
+            return self._context['active_id']
+
     name = fields.Char(string='证件名称')
     # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
     # station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
@@ -26,7 +30,7 @@ class AddPersonCertificate(models.Model):
     train_time = fields.Datetime(string='培训时间')
     url = fields.Char(string='url')
     load_file_test = fields.Many2many('ir.attachment','person_certificate_ir_attachment_rel','person_certificate_id','ir_attachment_id', string='图片上传')
-    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义')
+    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义',default=_default_associated)
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
 
