@@ -17,7 +17,8 @@ odoo.define('funenc_xa_department_users', function (require) {
                                                 },
 
                                 tableData: [],
-                                multipleSelection: []
+                                multipleSelection: [],
+                                default_checked_keys:[]
 
                 };
             },
@@ -50,6 +51,35 @@ odoo.define('funenc_xa_department_users', function (require) {
 
 
                             methods: {
+
+                               handleEdit(index, row) {
+
+                                               self._rpc({
+                                                      model: 'cdtct_dingtalk.cdtct_dingtalk_users',
+                                                      method:'get_user_property_by_user_id',
+                                                      kwargs: {'user_id':row['id']}
+                                                    }).then(function(get_data){
+//                                                      self.vue_data.default_checked_keys=get_data;
+                                                      self.do_action({
+                                                                name: '\u4eba\u5458\u5c5e\u6027\u8bbe\u7f6e',
+                                                                type: 'ir.actions.client',
+                                                                tag: 'settings_user_property',
+                                                                target: 'new',
+                                                                params: {
+                                                                        'params':{
+                                                                                  'departmentList': self.vue_data.departmentList,
+                                                                                  'default_checked_keys': get_data,
+                                                                                  'user_id': row['id']
+                                                                        }
+
+                                                                    }
+
+                                                            });
+                                                    });
+
+
+
+                                  },
 
 
                                 click_node: function(data){
@@ -101,7 +131,7 @@ odoo.define('funenc_xa_department_users', function (require) {
 
                                                     });
 
-                                       }
+                                       },
 
 
 
