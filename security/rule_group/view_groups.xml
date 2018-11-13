@@ -7,7 +7,7 @@
         </record>
 
         <record model="res.groups" id="table_good_actions">
-            <field name="name">好人好事</field>
+            <field name="name">好人好事11</field>
             <field name="parent_id" ref="system_passenger_service"/>
             <field name="category_id" ref="module_passenger_service_interface_display"/>
         </record>

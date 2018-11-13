@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme', 'vue_template_manager','qiniu_service'],
+    'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme', 'vue_template_manager'],
 
     # always loaded
     'data': [
