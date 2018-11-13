@@ -69,7 +69,7 @@
                             </div>
                             <label for="files_accessory" string="文件附件"/>
                             <div class="x_panel form_sec">
-                                <field name="files_accessory" widget="one2many_binary">
+                                <field name="files_accessory" widget="many2many_binary">
                                     <tree>
                                         <field name="datas_fname"/>
                                     </tree>
@@ -201,7 +201,7 @@
                               <div class="layui-col-sm2">
                                   <label for="files_accessory" string="文件："/>
                               </div>
-                             <div class="layui-col-sm10">
+                             <div class="layui-col-sm2">
                                  <field name="files_accessory" widget="one2many_binary">
                                     <tree>
                                         <field name="datas_fname"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <!--交接班按钮-->
         <record model="ir.module.category" id="module_change_class_page_button">
@@ -165,6 +165,12 @@
 
         <record model="res.groups" id="break_list_modify_button">
             <field name="name">故障列表-修改按钮</field>
+            <field name="parent_id" ref="system_fault_list"/>
+            <field name="category_id" ref="break_list_page_button_main"/>
+        </record>
+
+        <record model="res.groups" id="break_list_edit_button">
+            <field name="name">故障列表-编辑按钮</field>
             <field name="parent_id" ref="system_fault_list"/>
             <field name="category_id" ref="break_list_page_button_main"/>
         </record>
