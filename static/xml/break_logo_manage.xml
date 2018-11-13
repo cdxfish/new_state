@@ -33,9 +33,13 @@
             t-if="widget.record.data.deal_situation == 'zero'"
             >修改</button>
             <button type="object"  name="edit_button_subit_act" class="layui-btn layui-btn-sm"
-            t-if="widget.record.data.deal_situation == 'one'"
+                    hidden="hidden"
+                    t-if="widget.record.data.deal_situation == 'one'"
+                    group="funenc_xa_station.break_list_edit_button"
             >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="break_delete_action"
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
+                    name="break_delete_action"
+                    hidden="hidden"
                     group="funenc_xa_station.break_list_delete_button"
                     confirm="您确定要删除该条记录吗？" >删除</button>
         </div>

@@ -10,7 +10,6 @@
                             <group>
                                 <field name="station_nature" string="车站性质"/>
                                 <field name="station_position" string="车站位置"/>
-
                                 <field name="station_exit_information">
                                     <tree class="noOpen" editable="top">
                                         <field name="exit_no" string="出口编号"/>

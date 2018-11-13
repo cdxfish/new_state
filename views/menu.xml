@@ -642,7 +642,10 @@
 
 
           <menuitem id="xa_station_scheduling_1" name="排班设置"
-				  parent="system_configuration"
+				  	parent="system_configuration"
+					groups="system_scheduling_management_type"
+
+
 		/>
 
 		 <menuitem id="xa_station_scheduling_2" name="班次管理"
@@ -698,6 +701,7 @@
 		<menuitem id="station_scheduling_list" name="排班列表"
 				  parent="funenc_station_integrated_manageme"
 				  sequence="2" action="xa_station_sheduling_manage_list_action"
+
 		/>
 
 		<!--<menuitem id="xa_station_sheduling_manage_list" name="排班列表111"-->
@@ -729,6 +733,8 @@
 		<menuitem id="xa_station_sheduling_manage22" name="考勤汇总"
 				  parent="funenc_station_integrated_manageme"
 				  action="funenc_xa_station.xa_station_punch_clock_client_action22"  sequence="8"
+				  groups="system_attendance_management"
+
 		/>
 
 		<menuitem id="xa_station_sheduling_manage11111111111" name="排班汇总"
@@ -756,6 +762,7 @@
 
 		<menuitem id="funenc_xa_station_consumables_manage" name="耗材管理"
 				  parent="funenc_station_integrated_manageme"  sequence="4" action="xa_station_consumables_inventory_action"
+				  groups="system_consumables_management"
 		/>
 
 		<menuitem id="funenc_xa_station_consumables_manage_fu" name="耗材申请列表"

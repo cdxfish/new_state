@@ -298,7 +298,7 @@
                                       </div>
                                      <div class="col-md-9">
                                          <field name="line_id"  domain="[('department_hierarchy','=',2)]"
-                                   options="{'no_create':True,'no_open':True}" >
+                                   options="{'no_create':True,'no_open':True}" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -310,7 +310,7 @@
                                       </div>
                                      <div class="col-md-9">
                                          <field name="site_id" domain="[('department_hierarchy','=',3)]"
-                                   options="{'no_create':True,'no_open':True}" >
+                                   options="{'no_create':True,'no_open':True}" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -318,10 +318,10 @@
                             <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-3">
-                                         <label for="break_type" string="故障类型"/>
+                                         <label for="break_type" string="故障类型" readonly="1"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="break_type" >
+                                         <field name="break_type" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -329,10 +329,10 @@
                             <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-3">
-                                         <label for="equipment_name" string="设备名称"/>
+                                         <label for="equipment_name" string="设备名称" readonly="1"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="equipment_name" >
+                                         <field name="equipment_name" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -340,10 +340,10 @@
                             <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-3">
-                                         <label for="equipment_number" string="设备编码"/>
+                                         <label for="equipment_number" string="设备编码" readonly="1"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="equipment_number" >
+                                         <field name="equipment_number" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -354,7 +354,7 @@
                                          <label for="equipment_post" string="设备位置"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="equipment_post" >
+                                         <field name="equipment_post" readonly="1" >
                                          </field>
                                     </div>
                                  </div>
@@ -365,7 +365,7 @@
                                          <label for="break_describe" string="故障描述"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="break_describe">
+                                         <field name="break_describe" readonly="1">
                                          </field>
                                     </div>
                                  </div>
@@ -376,7 +376,7 @@
                                          <label for="load_file_test" string="照片："/>
                                       </div>
                                      <div class="col-md-9">
-                                         <field name="load_file_test" widget="many2many_binary" />
+                                         <field name="load_file_test" widget="many2many_binary" readonly="1"/>
                                             <!--<tree>-->
                                                 <!--<field name="name" dafault="image" invisible="1"></field>-->
                                                 <!--<field name="datas_fname"/>-->
@@ -395,7 +395,7 @@
                                          <label for="deal_results" string="处理结果"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="deal_results">
+                                         <field name="deal_results" >
                                          </field>
                                     </div>
                                  </div>

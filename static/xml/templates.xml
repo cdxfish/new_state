@@ -13,8 +13,14 @@
 
     <t t-name="consumables_apply_edit_delete">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="apply" >处理</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="apply"
+                    hidden="hidden"
+                    group="funenc_xa_station.consumables_apply_list-deal"
+            >处理</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="delete" confirm="您确定要删除吗？"
+                    hidden="hidden"
+                    group="funenc_xa_station.consumables_apply_list_delete"
+            >删除</button>
         </div>
     </t>
 
@@ -117,8 +123,14 @@
     <t t-name="sheduling_manage_widget_enable_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_clint" >查看</button>
-            <button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"  name="sheduling_manage_delete" confirm="您确定要删除记录吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="sheduling_manage_edit"
+                    hidden="hidden"
+                    group="funenc_xa_station.queue_management_queue_list_edit"
+            >编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
+                    name="sheduling_manage_delete" confirm="您确定要删除记录吗？"
+                    hidden="hidden"
+                    group="funenc_xa_station.queue_management_queue_list_delete">删除</button>
         </div>
     </t>
 
@@ -160,19 +172,28 @@
 
     <t t-name="widget_edit_delete">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="edit" >编辑</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" name="delete" confirm="您确定要删除吗？" >删除</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="edit"
+                    group="funenc_xa_station.train_plan_modify_button"
+                    hidden="hidden"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
+                    name="delete" confirm="您确定要删除吗？"
+                    group="funenc_xa_station.train_plan_delete_button"
+                    hidden="hidden"
+            >删除</button>
         </div>
     </t>
     <!--演练计划-->
     <t t-name="plan_widget_edit_delete">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object"  name="details"
-                    group="funenc_xa-station.train_plan_details_button">详情</button>
+                    hidden="hidden"
+                    group="funenc_xa_station.rehearse_plan_details_button">详情</button>
             <button class="layui-btn layui-btn-sm" type="object"  name="edit"
-                    group="funenc_xa_station.train_plan_modify_button">编辑</button>
+                    hidden="hidden"
+                    group="funenc_xa_station.rehearse_plan_modify_button">修改</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object" hidden="hidden"
-                    name="delete" confirm="您确定要删除吗？"  group="funenc_xa_station.train_plan_delete_button">删除</button>
+                    name="delete" confirm="您确定要删除吗？"  group="funenc_xa_station.rehearse_plan_delete_button">删除</button>
         </div>
     </t>
 
@@ -202,8 +223,12 @@
 
     <t t-name="consumables_out_edit">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="out" >出库</button>
-            <button class="layui-btn layui-btn-sm" type="object"  name="edit" >编辑</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="out"
+                    hidden="hidden"
+                    group="funenc_xa_station.consumables_management_consumables_no_storage">出库</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="edit"
+                    hidden="hidden"
+                    group="funenc_xa_station.consumables_management_consumables_edit">编辑</button>
         </div>
     </t>
 

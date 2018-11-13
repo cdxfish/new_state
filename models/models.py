@@ -453,7 +453,6 @@ class generate_qr(models.Model):
 
 class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
-
     count_user = fields.Integer(seting='人员数量', compute='_compute_count_user')
 
     department_property_users = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users',
@@ -461,7 +460,6 @@ class inherit_department(models.Model):
                                                  string='人员属性部门')
 
     def station_detail(self):
-
         view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
         res_id = self.env['funenc_xa_station.station_summary'].search([('site_id', '=', self.id)])
         dic = {

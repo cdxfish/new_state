@@ -10,6 +10,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.consumables_management_consumables_storage</field>
             <field name="binding_action">耗材申请</field>
             <field name="code">
                 action = model.rk()
@@ -24,6 +25,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.consumables_management_consumables_apply</field>
             <field name="binding_action">耗材申请</field>
             <field name="code">
                 action = model.sq()
@@ -38,6 +40,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_consumables_inventory"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.consumables_management_consumables_record</field>
             <field name="binding_action">耗材申请</field>
             <field name="code">
                 action = model.crkjl()
