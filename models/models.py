@@ -387,15 +387,15 @@ class generate_qr(models.Model):
             # 获取本机ip
             ip = socket.gethostbyname(hostname)
 
-
             file = os.path.dirname(os.path.dirname(__file__))
 
             work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
-                                                                                                         department.id)
+                                                                                                                  department.id)
             print(work_add_data)
             work_file_name = file + "work_{}.png".format(str_now_date[:10])
-            off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(ip,
-                                                                                                             department.id)
+            off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(
+                ip,
+                department.id)
             off_work_name = file + "off_work_{}.png".format(str_now_date[:10])
 
             if obj:
@@ -433,7 +433,6 @@ class generate_qr(models.Model):
                     'add_date': datetime.datetime.now()
                 })
 
-
     def create_qrcode_1(self, add_data, file_name):
 
         '''
@@ -456,7 +455,10 @@ class inherit_department(models.Model):
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_department'
 
     count_user = fields.Integer(seting='人员数量', compute='_compute_count_user')
-    user_property_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='人员属性')
+
+    department_property_users = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department',
+                                                 'dingtalk_users_to_departments', 'department_id', 'ding_user_id',
+                                                 string='人员属性部门')
 
     def station_detail(self):
 
@@ -476,7 +478,7 @@ class inherit_department(models.Model):
 
     def _compute_count_user(self):
         for this in self:
-            if  this.department_hierarchy == 3:
+            if this.department_hierarchy == 3:
                 print(this.users.ids)
                 this.count_user = len(this.users.ids)
 
@@ -550,12 +552,97 @@ class inherit_department(models.Model):
         except Exception:
             return []
 
+    @api.model
+    def save_user_departments(self, user_ids, department_ids):
+        # try:
+        if department_ids and user_ids:
+            # 设置部门
+            ins_data = []
+            for department_id in department_ids:
+                for user_id in user_ids:
+                    # ('department_id','user_id')
+                    data = []
+                    data.append(department_id)
+                    data.append(user_id)
+                    ins_data.append(tuple(data))
+
+            if str(ins_data)[1:-1]:
+                if len(department_ids) == 1:
+                    del_sql = "delete from dingtalk_users_to_departments " \
+                              "where department_id = {}" \
+                        .format(department_ids[0])
+                    self.env.cr.execute(del_sql)
+                else:
+                    del_sql = "delete from dingtalk_users_to_departments " \
+                              "where department_id in {}" \
+                        .format(tuple(department_ids))
+                    self.env.cr.execute(del_sql)
+                ins_sql = "insert into  dingtalk_users_to_departments(department_id,ding_user_id) " \
+                          "values{}" \
+                    .format(str(ins_data)[1:-1])
+                self.env.cr.execute(ins_sql)
+
+        if user_ids and not department_ids:
+            # 清空部门
+            ding_users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].browse(user_ids)
+            for ding_user in ding_users:
+                ding_user.user_property_departments = False
+
+        return '保存成功'
+
+    # except Exception:
+    #
+    #     return '保存失败'
+
 
 class UserInherit(models.Model):
     '''
-    继承钉钉人员表,新增人员属性字段
+    继承钉钉人员表,新增人员属性字段用于人员调动
     '''
     _inherit = 'cdtct_dingtalk.cdtct_dingtalk_users'
 
-    user_property_department_ids = fields.One2many('cdtct_dingtalk.cdtct_dingtalk_department','user_property_id',string='人员属性') # 用于人员调动
+    user_property_departments = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users',
+                                                 'dingtalk_users_to_departments', 'ding_user_id', 'department_id',
+                                                 string='人员属性部门')
 
+    @api.model
+    def get_user_settings_departments(self):
+
+        department_tree = []
+
+        # 客运部
+        parent_department_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].sudo(1).search(
+            [('department_hierarchy', '=', 1)])
+        parent_department = {'label': parent_department_id.name}
+        parent_department['id'] = parent_department_id.id
+
+        # 中心部门
+        gentral_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].sudo(1).search_read(
+            [('parentid', '=', parent_department_id.departmentId)], ['parentid', 'name', 'id', 'departmentId'])
+        child_departments = []
+        for gentral_department_id in gentral_department_ids:
+            department_map = {}
+            department_map['label'] = gentral_department_id.get('name')
+            department_map['id'] = gentral_department_id.get('id')
+
+            gentral_department_department_id = gentral_department_id.get('departmentId')
+
+            site_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].sudo(1).search_read(
+                [('parentid', '=', gentral_department_department_id)], ['parentid', 'name', 'id', 'departmentId'])
+            # 站点部门
+            site_department_list = []
+            for site_department_id in site_department_ids:
+                site_department_map = {}
+                site_department_map['label'] = site_department_id.get('name')
+                site_department_map['id'] = site_department_id.get('id')
+                site_department_list.append(site_department_map)
+            department_map['children'] = site_department_list
+            child_departments.append(department_map)
+        parent_department['children'] = child_departments
+        department_tree.append(parent_department)
+        # 选中部门
+        user_property_department_ids = self.user_property_departments.ids
+
+        return {'department_tree': department_tree,
+                'user_property_department_ids': user_property_department_ids
+                }

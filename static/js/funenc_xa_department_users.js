@@ -93,13 +93,12 @@ odoo.define('funenc_xa_department_users', function (require) {
                                    settings(index, row) {
 
                                        self.do_action({
-                                                        name: '\u673a\u52a8\u4eba\u5458\u7ba1\u7406',
-                                                        type: 'ir.actions.act_window',
-                                                        res_model: 'cdtct_dingtalk.cdtct_dingtalk_users',
-                                                        views: [[false, 'form']],
+                                                        name: '\u4eba\u5458\u5c5e\u6027\u8bbe\u7f6e',
+                                                        type: 'ir.actions.client',
+                                                        tag: 'settings_user_property',
                                                         target: 'new',
-                                                        flags: {'initial_mode': 'edit'},
-                                                        res_id: row['id']
+                                                        params: {'selection_user_ids': self.vue_data.multipleSelection}
+
                                                     });
 
                                        }

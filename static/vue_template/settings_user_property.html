@@ -1,11 +1,12 @@
 <div id="app">
 
     <el-row :gutter="10">
-		<el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+		<el-col >
 			<div class="grid-content bg-purple">
-				<el-card class="box-card">
+				<el-card class="grid-content bg-purple-light">
 					<div slot="header" class="clearfix">
-						<span style="font-size: 20px;font-weight: 700;">设置人员属性</span>
+						<el-button type="primary" size="small" @click="save">保存</el-button>
+						<el-button @click="resetChecked" size="small">清空</el-button>
 					</div>
 					<div class="text item">
 						<el-tree
@@ -14,10 +15,9 @@
 								node-key="id"
 								ref="tree"
 								highlight-current
-								:default-expanded-keys="[]"
-								:default-checked-keys="[]"
+								:default-expanded-keys="default_checked_keys"
+								:default-checked-keys="default_checked_keys"
 								:props="defaultProps"
-								@node-click="click_node"
 						>
 						</el-tree>
 					</div>
