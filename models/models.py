@@ -9,6 +9,7 @@ import base64
 from odoo import http
 import socket, datetime
 import calendar
+from .get_domain import *
 
 
 class fuenc_station(models.Model):
@@ -17,21 +18,20 @@ class fuenc_station(models.Model):
     site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点',
                               default=lambda self: self.default_site_id())
     line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路',
-                              default=lambda self: self.default_line_id())
+                              default=lambda self: self.default_line_id()
+                              )
 
+    @get_line_id
     @api.model
-    def default_line_id(self):
-        if self.env.user.id == 1:
-            return
+    def default_line_id(self, line_id):
 
-        return self.env.user.dingtalk_user.line_id.id
+        return line_id
 
+    @get_site_id
     @api.model
-    def default_site_id(self):
-        if self.env.user.id == 1:
-            return
+    def default_site_id(self, site_id):
 
-        return self.env.user.dingtalk_user.departments[0].id
+        return site_id
 
     @api.constrains('site_id', 'line_id')
     def compute_site_and_line(self):
@@ -53,17 +53,26 @@ class fuenc_station(models.Model):
                 sql = 'update {} set site_id = {}, line_id = {} where id = {}'.format(model, site_id, line_id, self.id)
                 self.env.cr.execute(sql)
 
+    @get_line_id_domain
     @api.onchange('line_id')
-    def change_line_id(self):
+    def change_line_id(self, domain):
         if not self.line_id:
-            return
+            return {
+                'domain': {'line_id': domain
+                           }
+            }
 
-        department_id = self.line_id.departmentId
+        # 根据人员属性过滤
+        line_id = self.line_id
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments.ids
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-            [('parentid', '=', department_id)]).ids
+            [('parentid', '=', line_id.id)]).ids
+        site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
 
-        return {'domain': {'site_id': [('id', 'in', child_department_ids)]}
-                # 'value': {'site_id': None}
+        return {'domain': {'site_id': site_domain,
+                           'line_id': domain
+                           }
                 }
 
 
@@ -553,44 +562,44 @@ class inherit_department(models.Model):
     @api.model
     def save_user_departments(self, user_ids, department_ids):
         # try:
-            if department_ids and user_ids:
-                # 设置部门
-                ins_data = []
-                for department_id in department_ids:
-                    for user_id in user_ids:
-                        # ('department_id','user_id')
-                        data = []
-                        data.append(department_id)
-                        data.append(user_id)
-                        ins_data.append(tuple(data))
+        if department_ids and user_ids:
+            # 设置部门
+            ins_data = []
+            for department_id in department_ids:
+                for user_id in user_ids:
+                    # ('department_id','user_id')
+                    data = []
+                    data.append(department_id)
+                    data.append(user_id)
+                    ins_data.append(tuple(data))
 
-                if str(ins_data)[1:-1]:
-                    if len(user_ids) == 1:
-                        del_sql = "delete from dingtalk_users_to_departments " \
-                                  "where ding_user_id = {}" \
-                            .format(user_ids[0])
-                        self.env.cr.execute(del_sql)
-                    else:
-                        del_sql = "delete from dingtalk_users_to_departments " \
-                                  "where ding_user_id in {}" \
-                            .format(tuple(user_ids))
-                        self.env.cr.execute(del_sql)
-                    ins_sql = "insert into  dingtalk_users_to_departments(department_id,ding_user_id) " \
-                              "values{}" \
-                        .format(str(ins_data)[1:-1])
-                    self.env.cr.execute(ins_sql)
+            if str(ins_data)[1:-1]:
+                if len(user_ids) == 1:
+                    del_sql = "delete from dingtalk_users_to_departments " \
+                              "where ding_user_id = {}" \
+                        .format(user_ids[0])
+                    self.env.cr.execute(del_sql)
+                else:
+                    del_sql = "delete from dingtalk_users_to_departments " \
+                              "where ding_user_id in {}" \
+                        .format(tuple(user_ids))
+                    self.env.cr.execute(del_sql)
+                ins_sql = "insert into  dingtalk_users_to_departments(department_id,ding_user_id) " \
+                          "values{}" \
+                    .format(str(ins_data)[1:-1])
+                self.env.cr.execute(ins_sql)
 
-            if user_ids and not department_ids:
-                # 清空部门
-                ding_users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].browse(user_ids)
-                for ding_user in ding_users:
-                    ding_user.user_property_departments = False
+        if user_ids and not department_ids:
+            # 清空部门
+            ding_users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].browse(user_ids)
+            for ding_user in ding_users:
+                ding_user.user_property_departments = False
 
-            return '保存成功'
+        return '保存成功'
 
-        # except Exception:
-        #
-        #     return '保存失败'
+    # except Exception:
+    #
+    #     return '保存失败'
 
 
 class UserInherit(models.Model):
@@ -644,11 +653,8 @@ class UserInherit(models.Model):
                 }
 
     @api.model
-    def get_user_property_by_user_id(self,user_id):
+    def get_user_property_by_user_id(self, user_id):
         user = self.browse(user_id)
         user_property_departments = user.user_property_departments.ids
 
-
         return user_property_departments
-
-
