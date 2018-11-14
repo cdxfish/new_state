@@ -9,7 +9,7 @@ odoo.define('settings_user_property', function (require) {
                 this._super(parent, record, node);
                 this.vue_data = {
                                 departmentList:[],
-
+                                // 选中的人员
                                 selection_user_ids:record.params.selection_user_ids,
 
                                 defaultProps: {
@@ -18,6 +18,16 @@ odoo.define('settings_user_property', function (require) {
                                                 },
                                 default_checked_keys:[]
                 };
+
+                if(record.params.params){
+                 // 查看人员属性 因为设置人员属性和查看是一个页面所以采用传参方式
+                 this.vue_data.departmentList = record.params.params.departmentList;
+                 this.vue_data.default_checked_keys = record.params.params.default_checked_keys
+                 this.vue_data.selection_user_ids = [record.params.params.user_id]
+
+                }
+
+
             },
 
             willStart: function () {
@@ -28,11 +38,7 @@ odoo.define('settings_user_property', function (require) {
                         model: 'cdtct_dingtalk.cdtct_dingtalk_users',
                         method: 'get_user_settings_departments',
                     }).then(function(data){
-                        console.log(data)
-                        console.log(data.department_tree)
-                        console.log(data.user_property_department_ids)
                         self.vue_data.departmentList = data.department_tree;
-                        self.vue_data.default_checked_keys = data.user_property_department_ids
                     })
             },
 
