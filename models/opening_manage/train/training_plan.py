@@ -91,7 +91,7 @@ class training_plan(models.Model):
             'res_model': 'funenc_xa_station.training_plan',
             'context': context,
             'flags': {'initial_mode': 'edit'},
-            'target': 'current',
+            'target': 'new',
             'res_id': self.id,
         }
 

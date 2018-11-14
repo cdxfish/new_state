@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-from datetime import  datetime
+import  datetime
 from ..get_domain import get_domain
 
 key = [('one_audit','待初审'),
@@ -21,7 +21,7 @@ class GoodDeeds(models.Model):
     related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员')
     # related_person =fields.One2many('fuenc_station.good_deeds','fu_related_person',string='相关人员')
     write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
-    write_time = fields.Date(string='填报时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     audit_state = fields.Selection(key,string='审核状态',default='one_audit')
     event_state = fields.Text(string='事件详情')
     load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
@@ -98,14 +98,29 @@ class GoodDeeds(models.Model):
         values = {
             'audit_state': self.audit_state,
         }
+        local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
+        now_time = d + delta
+
+        primary_audit = '初审'+'    '+str(self.env.user.dingtalk_user.name) + \
+                        '(' + str(now_time) + ')'
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
+        self.audit_flow = self.env.context.get('audit_flow', primary_audit)
         self.env['fuenc_station.good_deeds'].write(values)
 
     def test_btn_through(self):
+        local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
+        now_time = d + delta
         values = {
             'audit_state': self.audit_state,
         }
+        two_audit = self.audit_flow +'    '+ '复审'+'    '+str(self.env.user.dingtalk_user.name) + \
+                    '(' + str(now_time.strftime('%Y-%m-%d %H:%M:%S')) + ')'
         self.audit_state = self.env.context.get('audit_state', 'through')
+        self.audit_flow = self.env.context.get('audit_flow', two_audit)
         self.env['fuenc_station.good_deeds'].write(values)
 
     def good_rejected(self):

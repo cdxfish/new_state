@@ -1,6 +1,6 @@
 # !user/bin/env python3
 # -*- coding: utf-8 -*-
-from datetime import datetime
+import datetime
 from odoo import api,models,fields
 import requests
 import urllib
@@ -23,7 +23,7 @@ class GuestsHurt(models.Model):
     guests_name = fields.Char(string='乘客姓名')
     guests_grede = fields.Selection([('man','男'),('woman','女')],string='乘客性别')
     guests_age = fields.Char(string='乘客年龄')
-    write_time = fields.Date(string='填报时间',default=datetime.now().strftime("%Y-%m-%d"))
+    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime("%Y-%m-%d"))
     claim = fields.Selection([('one','是'),('zero','否')],string='是否索赔')
     claim_money = fields.Integer(string='索赔金额')
     event_details = fields.Text(string='事件详情')
@@ -114,7 +114,15 @@ class GuestsHurt(models.Model):
         values = {
             'audit_state': self.audit_state,
         }
+        local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
+        now_time = d + delta
+
+        primary_audit = '初审'+'    '+str(self.env.user.dingtalk_user.name) + \
+                        '(' + str(now_time) + ')'
         self.audit_state = self.env.context.get('audit_state', 'two_audit')
+        self.audit_flow = self.env.context.get('audit_flow', primary_audit)
         self.env['fuenc_xa_station.guests_hurt'].write(values)
 
     #通过复审按钮
@@ -124,7 +132,15 @@ class GuestsHurt(models.Model):
             values = {
                 'audit_state': i.audit_state,
             }
+            local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+            delta = datetime.timedelta(hours=8)
+            now_time = d + delta
+
+            primary_audit = self.audit_flow  + '复审' + '    ' + str(self.env.user.dingtalk_user.name) + \
+                            '(' + str(now_time) + ')'
             i.audit_state = self.env.context.get('audit_state', 'through')
+            i.audit_flow = self.env.context.get('audit_flow', primary_audit)
             self.env['fuenc_xa_station.guests_hurt'].write(values)
 
     #驳回按钮
