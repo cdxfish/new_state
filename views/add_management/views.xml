@@ -34,8 +34,8 @@
                     <field name="rank_kind"></field>
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
-                    <field name="line_id"></field>
-                    <field name="site_id"></field>
+                    <field name="line_id" options="{'max_width': '200px'}"></field>
+                    <field name="site_id" options="{'max_width': '200px'}"></field>
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>

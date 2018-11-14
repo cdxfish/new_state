@@ -143,7 +143,6 @@
             <button class="layui-btn layui-btn-sm" type="object" name="good_delete_action"
             confirm="您确定要删除该记录吗？"
             >删除</button>
-
         </div>
     </t>
 
@@ -171,6 +170,30 @@
             >下载</button>
         </div>
     </t>
+
+    <t t-name="good_deeds_video_paly_act">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="view_details"
+            >播放</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="load_file"
+            >下载</button>
+        </div>
+    </t>
+
+    <t t-name="image_browse_download_act">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="image_browse_act"
+            >预览</button>
+        </div>
+    </t>
+
+    <t t-name="special_money_attarchment_file">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="view_details"
+            >下载</button>
+        </div>
+    </t>
+
     <t t-name="change_clain_state">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" type="object" name="change_state"

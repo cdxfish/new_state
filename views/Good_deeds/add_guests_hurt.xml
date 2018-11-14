@@ -288,7 +288,7 @@
                              <label for="line_id" string="线路" readonly="1"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="line_id" readonly="1"/>
+                             <field name="line_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -296,7 +296,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="site_id" readonly="1"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>

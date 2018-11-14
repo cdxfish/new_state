@@ -252,7 +252,7 @@
                          <label for="load_file_test" string="生份证照片"/>
                       </div>
                      <div class="col-md-10">
-                            <field name="load_file_test" filename="file_name" required="1"></field>
+                            <field name="load_file_test" filename="file_name" ></field>
                          <field name="file_name" invisible="1"></field>
 
                       </div>
@@ -275,15 +275,15 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="line_id"/>
+                             <field name="line_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
                           <div class="col-md-2">
-                             <label for="site_id" string="站点"/>
+                             <label for="site_id" string="站点" options="{'no_create':True,'no_open':True}"/>
                           </div>
                          <div class="col-md-10">
-                             <field name="site_id"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
@@ -461,7 +461,9 @@
                              <label for="load_file_test" string="生份证照片"/>
                           </div>
                          <div class="col-md-11">
-                                <field name="load_file_test"></field>
+                                <field name="load_file_test" filename="file_name"></field>
+                                <field name="file_name" invisible="1"></field>
+                                <widget string="操作" name="treebtns" template="image_browse_download_act" />
                           </div>
                        </div>
                     </div>
@@ -477,9 +479,35 @@
                        </div>
                     </div>
                     <h1>处理结果</h1><widget string="操作" name="treebtns" template="attarment_load" />
+                   <div class="row">
+                           <div class="col-md-12">
+                              <div class="col-md-1">
+                                 <label for="special_attrchment_deal" string="文件附件："/>
+                              </div>
+                             <div class="col-md-3">
+                                <field name="special_attrchment_deal" readonly="1">
+                                    <tree>
+                                        <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                        <field name="file_name" invisible="1"/>
+                                        <widget  name="treebtns" template="special_money_attarchment_file" string="操作"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                 <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                <field name="file_name" invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                              </div>
+                           </div>
+                        </div>
+
                 </form>
             </field>
         </record>
+
 
         <!--<record id="special_money_act" model="ir.actions.act_window">-->
             <!--<field name="name">特殊储备金</field>-->

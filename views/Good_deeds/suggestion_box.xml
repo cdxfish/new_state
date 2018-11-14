@@ -296,7 +296,7 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-9">
-                             <field name="line_id"/>
+                             <field name="line_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -304,7 +304,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-9">
-                             <field name="site_id"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                     </div>
@@ -417,7 +417,7 @@
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
-                             <label for="suggestion_title" string="意见标题"/>
+                            <label for="suggestion_title" string="意见标题"/>
                           </div>
                          <div class="col-md-11">
                              <field name="suggestion_title"/>
@@ -438,10 +438,10 @@
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
-                             <label for="suggestion_details" string="审核流程"/>
+                             <label for="audit_flow" string="审核流程"/>
                           </div>
                          <div class="col-md-11">
-                             <field name="suggestion_details"/>
+                             <field name="audit_flow"/>
                           </div>
                        </div>
                     </div>

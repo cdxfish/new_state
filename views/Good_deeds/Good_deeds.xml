@@ -161,7 +161,6 @@
                                         <tree>
                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                             <field name="file_name" invisible="1"/>
-                                            <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
                                         </tree>
                                         <form>
                                             <sheet>
@@ -193,7 +192,7 @@
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -201,7 +200,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id"/>
+                                     <field name="site_id" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                         </div>
@@ -328,7 +327,7 @@
                                     <tree>
                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                         <field name="file_name" invisible="1"/>
-                                        <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
+                                        <widget  name="treebtns" template="good_deeds_video_paly_act" string="操作"/>
                                     </tree>
                                     <form>
                                         <sheet>

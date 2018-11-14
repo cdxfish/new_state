@@ -10,7 +10,11 @@ import base64
 class VideoVoice(models.Model):
     _name = 'video_voice_model'
 
-    video = fields.Binary(string='上传文件')
+    def _default_associated(self):
+        if self._context.get('active_id', False):
+            return self._context['active_id']
+
+    video = fields.Binary(string='文件')
     file_name = fields.Char(string='File Name')
     url = fields.Char(string='url')
     guests_mp_play_one = fields.Many2one('fuenc_xa_station.guests_hurt',string='客人受伤视频附件的附件')
@@ -21,6 +25,7 @@ class VideoVoice(models.Model):
     suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱视屏附件')
     suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
     site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
+    special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)
 
     @api.model
     def create(self, params):
@@ -42,6 +47,22 @@ class VideoVoice(models.Model):
                 "url": url,
                 "target": "new"
             }
+
+    def image_button_act(self):
+        load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
+        return {
+            'name': '视屏文件',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[load_file_form, "form"]],
+            'res_model': 'video_voice_model',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'readonly'},
+            'res_id': self.id,
+            'target': 'new',
+        }
+
 
     def load_file(self):
         load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
