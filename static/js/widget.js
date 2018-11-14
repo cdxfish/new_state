@@ -6,8 +6,18 @@ odoo.define("one2many_image_read_widget", function(require) {
 
   var registry = require("web.field_registry");
   var relational_fields = require("web.relational_fields");
+  var AbstractField = require('web.AbstractField');
 
-  var one2many_image_read_widget = relational_fields.FieldOne2Many.extend({
+  var one2many_image_read_widget = AbstractField.extend({
+
+    init: function(parent, name, record, options){
+        console.log(parent)
+        console.log(name)
+        console.log(record)
+        console.log(options)
+        this._super(parent, name, record, options)
+    },
+
     _render: function() {
       var self = this;
       var id = self.record.data.id;
@@ -32,13 +42,15 @@ odoo.define("one2many_image_read_widget", function(require) {
             domain: [['id', "in", img_id_list]]
           })
           .then(function(data) {
-            if (data.length > 0) {
+//          console.log('二狗',img_id_list);
+//          console.log(/web/content/' + attachment.id + '?download=true);
+            if (img_id_list) {
               var $el = $(
                 '<div class="one2many_image_read_widget" style="display: flex; flex-wrap: wrap; justify-content: flex-start"></div>'
               );
-              for (var i in data) {
+              for (var i in img_id_list) {
                 $el.append(
-                  '<img  height="80" width="80" style="margin:4px;background-color: rgba(185, 211, 238,.6)" class="img-rounded" src="data:image/png;base64,' + data[i].datas + '">'
+                  '<img  height="80" width="80" style="margin:4px;background-color: rgba(185, 211, 238,.6)" class="img-rounded" src="/web/content/'+img_id_list[i]+'?download=true">'
                 );
               }
               self.replaceElement($el);

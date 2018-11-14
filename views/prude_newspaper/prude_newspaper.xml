@@ -26,6 +26,7 @@
             <field name="condition">True</field>
             <field name="binding_model_id" ref="model_funenc_xa_station_prude_newspaper"/>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.new_production_newpaper_button</field>
             <field name="binding_action">生产日报</field>
             <field name="code">
                 action = model.information_write()
@@ -38,6 +39,7 @@
             <field name="binding_model_id" ref="model_funenc_xa_station_prude_newspaper"/>
             <field name="binding_xml_id">guests_hurt_tree</field>
             <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.new_production_newpaper_export_button</field>
             <field name="url">/funenc_xa_station/prude_newspaper</field>
             <field name="target">new</field>
         </record>

@@ -26,13 +26,19 @@
 
     <t t-name="new_increase_cerfiticase_information">
         <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_cerfiticase_infor" >新建证件</button>
+        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_cerfiticase_infor"
+                hidden="hidden"
+                group='funenc_xa_station.person_information_datails_new_increase_certificate'
+        >新建证件</button>
         </div>
     </t>
 
     <t t-name="new_increase_jobt_ranfer_information">
         <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_jobt_ranfer_infor" >新建转岗</button>
+        <button class="layui-btn layui-btn-sm" type="object"  name="new_increase_jobt_ranfer_infor"
+                hidden="hidden"
+                group='funenc_xa_station.person_information_datails_new_increase_record'
+        >新建转岗</button>
         </div>
     </t>
 

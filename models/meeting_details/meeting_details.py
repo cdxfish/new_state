@@ -20,7 +20,8 @@ class MeetingDateils(models.Model):
     record_time = fields.Char(string='记录日期',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     load_file_test = fields.Many2many('ir.attachment','funenc_xa_station_meeting_dateils_ir_attachment_rel',
                                          'attachment_id','meeting_dateils_id', string='图片上传')
-    files_accessory = fields.One2many('ir.attachment','res_id', string='文件附件')
+    files_accessory = fields.Many2many('ir.attachment','funenc_xa_station_file_ir_attachment_rel',
+                                      'station_id','file_id', string='文件附件')
     shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
     # 创建一条新的记录

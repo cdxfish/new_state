@@ -507,7 +507,6 @@ class ShedulingManage(models.Model):
         problem = Problem()
         # problem.addVariables(['[1,2,3]', '[4,5,6]'], [1, 2])
         # 构建排班
-        # 此完全采用orm 效率会非常低
         group_data = []
         if sheduling_arrange_order_ids:  # 有临时班组规则
             # 类型为班组

@@ -64,15 +64,12 @@
                             <field name="meeting_content"></field>
                             <label for="load_file_test" string="图片附件"/>
                             <div class="x_panel form_sec">
-                                <field name="load_file_test" widget="one2many_image_read_widget">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
+                                <field name="load_file_test" widget="many2many_binary">
                                 </field>
                             </div>
                             <label for="files_accessory" string="文件附件"/>
                             <div class="x_panel form_sec">
-                                <field name="files_accessory" widget="one2many_binary">
+                                <field name="files_accessory" widget="many2many_binary">
                                     <tree>
                                         <field name="datas_fname"/>
                                     </tree>
@@ -99,7 +96,7 @@
                                  <label for="line_id" string="线路："/>
                               </div>
                              <div class="layui-col-sm8">
-                                 <field name="line_id"/>
+                                 <field name="line_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
                               </div>
                            </div>
                            <div class="layui-col-sm6">
@@ -107,7 +104,7 @@
                                  <label for="site_id" string="站点："/>
                               </div>
                              <div class="layui-col-sm8">
-                                 <field name="site_id"/>
+                                 <field name="site_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
                               </div>
                            </div>
                         </div>
@@ -204,7 +201,7 @@
                               <div class="layui-col-sm2">
                                   <label for="files_accessory" string="文件："/>
                               </div>
-                             <div class="layui-col-sm10">
+                             <div class="layui-col-sm2">
                                  <field name="files_accessory" widget="one2many_binary">
                                     <tree>
                                         <field name="datas_fname"/>
