@@ -18,7 +18,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="video" max_upload_kb="1024000000"></field>
+                            <field name="video" max_upload_kb="1024000000" filename="file_name"></field>
                             <field name="file_name" invisible="1"/>
                         </group>
                     </sheet>

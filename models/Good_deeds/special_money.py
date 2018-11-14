@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api,models,fields
-from datetime import datetime
+import datetime
 from ..get_domain import get_domain
+import base64
 
 key = [('one_audit','待初审'),
        ('two_audit','待复审'),
@@ -14,6 +15,10 @@ key = [('one_audit','待初审'),
 class SpecialMoney(models.Model):
     _name = 'funenc_xa_station.special_money'
     _inherit = 'fuenc_station.station_base'
+
+    def _default_associated(self):
+        if self._context.get('active_id', False):
+            return self._context['active_id']
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
@@ -28,7 +33,7 @@ class SpecialMoney(models.Model):
     webmaster = fields.Char(string='站长')
     deputy_director = fields.Char(string='分部主任')
     main_director = fields.Char(string='部门领导')
-    write_time = fields.Datetime(string='填报时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    write_time = fields.Datetime(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
     audit_flow = fields.Char(string='审核流程')
     apply_why = fields.Text(string='申请原因')
@@ -38,6 +43,30 @@ class SpecialMoney(models.Model):
     load_file_test = fields.Binary(string='身份证照片')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
+    special_attrchment_deal = fields.One2many('video_voice_model','special_money_act',string='附件处理结果')
+    url = fields.Char(string='url')
+
+    @api.model
+    def create(self, params):
+        file_binary = params['load_file_test']
+        file_name = params.get('file_name', self.file_name)
+        if file_binary:
+            url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
+                'funenc_xa_station', file_name, base64.b64decode(file_binary))
+            params['url'] = url
+            params['file_name'] = file_name
+        return super(SpecialMoney, self).create(params)
+
+    def image_browse_act(self):
+        url = self.url
+        if url:
+            return {
+                "type": "ir.actions.act_url",
+                "url": url,
+                "target": "new"
+            }
+
+
 
     @api.model
     def default_person_id(self):
@@ -118,14 +147,30 @@ class SpecialMoney(models.Model):
         values = {
             'deal_result': self.deal_result,
         }
+        local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
+        now_time = d + delta
+
+        primary_audit = '初审' + '    ' + str(self.env.user.dingtalk_user.name) + \
+                        '(' + str(now_time) + ')'
         self.deal_result = self.env.context.get('deal_result', 'two_audit')
+        self.audit_flow = self.env.context.get('audit_flow', primary_audit)
         self.env['funenc_xa_station.special_money'].write(values)
 
     def test_btn_through(self):
         values = {
             'deal_result': self.deal_result,
         }
+        local_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        d = datetime.datetime.strptime(local_time, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
+        now_time = d + delta
+
+        primary_audit = self.audit_flow + '复审' + '    ' + str(self.env.user.dingtalk_user.name) + \
+                        '(' + str(now_time) + ')'
         self.deal_result = self.env.context.get('deal_result', 'through')
+        self.audit_flow = self.env.context.get('audit_flow', primary_audit)
         self.env['funenc_xa_station.special_money'].write(values)
 
     def good_rejected(self):
@@ -168,3 +213,19 @@ class SpecialMoney(models.Model):
             "url": '/funenc_xa_station/special_money_xlsx?id=%s'%(id_id),
             "target": "new",
         }
+
+    # 上传附件文件
+    def onchange_typr_action(self):
+        view_form = self.env.ref('funenc_xa_station.video_voice_form').id
+        return {
+            'name': '附件',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'video_voice_model',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+

@@ -19,10 +19,18 @@ class xian_metro(models.Model):
     # station_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     details = fields.Binary(string='内容')
     file_name = fields.Char(string="File Name")
-    operation_peison = fields.Char(string='操作人')
+    operation_peison = fields.Char(string='操作人',default=lambda self: self.default_person_id())
     operation_time = fields.Datetime(string='操作时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     url = fields.Char(string='url')
     release_time = fields.Date(string='发布实施日期')
+
+    # 自动获取操作人的姓名
+    @api.model
+    def default_person_id(self):
+        if self.env.user.id ==1:
+            return
+
+        return self.env.user.dingtalk_user.name
 
     @api.model
     def xian_metro_type(self):

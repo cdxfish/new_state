@@ -25,6 +25,9 @@ class arrange_order(models.Model):
     sort = fields.Integer(string='排序', default=1)
     is_vacation = fields.Integer(string='是否是休班',default=0)
 
+    order_to_arrange_ids = fields.One2many('arrange_order_to_arrange_class_manage', 'arrange_order_id',
+                                           string='排班类型')
+
     @api.model
     def default_start_work_time(self):
         if self.env.user.id == 1:
