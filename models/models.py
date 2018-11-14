@@ -16,9 +16,10 @@ class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
 
     site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点',
-                              default=lambda self: self.default_site_id())
+                              # default=lambda self: self.default_site_id()
+                              )
     line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路',
-                              default=lambda self: self.default_line_id()
+                              # default=lambda self: self.default_line_id()
                               )
 
     @get_line_id
@@ -67,7 +68,7 @@ class fuenc_station(models.Model):
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments.ids
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-            [('parentid', '=', line_id.id)]).ids
+            [('parentid', '=', line_id.departmentId)]).ids
         site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
 
         return {'domain': {'site_id': site_domain,
