@@ -73,10 +73,8 @@
                 <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
-                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
-                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                             <field name="check_target"></field>
                             <field name="problem_kind" options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
@@ -121,10 +119,8 @@
                 <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
-                            <field name="line_id" domain="[('department_hierarchy','=',2)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
-                            <field name="site_id" domain="[('department_hierarchy','=',3)]"
-                                   options="{'no_create':True,'no_open':True}"></field>
+                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                             <field name="check_target"></field>
                             <field name="problem_kind"></field>
                             <field name="check_project" options="{'no_create':True,'no_open':True}"></field>

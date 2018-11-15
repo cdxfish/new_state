@@ -21,7 +21,7 @@
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id" domain="[('department_hierarchy','=',2)]"/>
+                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -29,7 +29,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" domain="[('department_hierarchy','=',3)]"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"/>
                           </div>
                        </div>
                     </div>

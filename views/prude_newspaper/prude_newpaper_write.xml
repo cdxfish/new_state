@@ -70,7 +70,7 @@
                                  <label for="line_id" string="线路:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -78,7 +78,7 @@
                                  <label for="site_id" string="站点:"/>
                               </div>
                                  <div class="col-md-9">
-                                     <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
+                                     <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"/>
                               </div>
                            </div>
                         </div>
@@ -265,7 +265,7 @@
                                  <label for="line_id" string="线路:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" readonly="1"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -273,7 +273,7 @@
                                  <label for="site_id" string="站点:"/>
                               </div>
                                  <div class="col-md-9">
-                                     <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" readonly="1"/>
+                                     <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1"/>
                               </div>
                            </div>
                         </div>

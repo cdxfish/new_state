@@ -461,6 +461,46 @@
                             </p>
                             <br/>
                         </div>
+                        <group>
+                            <div class="row">
+                               <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="change_shifts_user_id" string="交班人"/>
+                                  </div>
+                                 <div class="col-md-8">
+                                     <field name="change_shifts_user_id" style="width: 100%"/>
+                                  </div>
+                               </div>
+                               <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="change_shifts_time" string="交班时间"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="change_shifts_time"/>
+                                  </div>
+                               </div>
+                                <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="take_over_from_user_id" string="接班人"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="take_over_from_user_id"/>
+                                  </div>
+                               </div>
+                                <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="take_over_from_time" string="接班时间"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="take_over_from_time"/>
+                                  </div>
+                               </div>
+                            </div>
+                            <!--<field name="change_shifts_user_id" string="交班人"></field>-->
+                            <!--<field name="change_shifts_time"></field>-->
+                            <!--<field name="take_over_from_user_id" string="接班人"></field>-->
+                            <!--<field name="take_over_from_time"></field>-->
+                        </group>
                         <group string="基本内容">
                             <div class="container-fluid">
                                 <div class="row">

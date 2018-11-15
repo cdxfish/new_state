@@ -71,12 +71,10 @@
                         <form creata="0" edit="0" class="noOpen">
                             <sheet>
                                 <group  name="group_top">
-                                    <field  name="line_id" options="{'no_create':True,'no_open':True}"
-                                    domain="[('department_hierarchy','=',2)]"></field>
+                                    <field  name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                                     <field  name="name"></field>
                                     <field  name="certificate_number"></field>
-                                    <field name="site_id" options="{'no_create':True,'no_open':True}"
-                                    domain="[('department_hierarchy','=',3)]"></field>
+                                    <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                                     <field name="certificate_time"></field>
                                      <field name="load_file_test" widget="many2many_binary" string="上传证件照片">
                                             <tree>
