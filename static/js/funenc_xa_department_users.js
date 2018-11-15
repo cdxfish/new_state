@@ -40,8 +40,9 @@ odoo.define('funenc_xa_department_users', function (require) {
                     self._rpc({
                         model: 'vue_template_manager.template_manage',
                         method: 'get_template_content',
-                        kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_department_users'}
+                        kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_department_users_1'}
                     }).then(function (el) {
+                        console.log(el)
                         self.replaceElement($(el));
                         new Vue({
                             el: '#funenc_xa_department_users',
