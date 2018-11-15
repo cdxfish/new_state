@@ -37,6 +37,15 @@ class ShedulingManage(models.Model):
     show_rule_name = fields.Char(string='排班规则', default='无')
     show_sheduling_time = fields.Char(string='排班时间')
 
+    @api.onchange('site_id')
+    def onchange_site_id(self):
+        if not self.site_id:
+            return
+        funenc_motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users_by_site_id(self.site_id.id)
+
+        return {'domain': {'motorized_user_ids': [('id', 'in', funenc_motorized_user_ids)]}
+                }
+
     def default_current_rule(self):
         if self.env.user.id == 1:
             return
@@ -81,8 +90,7 @@ class ShedulingManage(models.Model):
     def sheduling_manage_create(self):
         res_user = self.env.user
         context = dict(self.env.context or {})
-        motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users()
-        context['funenc_motorized_user_ids'] = [motorized_user_id.get('id') for motorized_user_id in motorized_user_ids]
+        context['funenc_motorized_user_ids'] = None
 
         if res_user.id == 1:
 
@@ -112,8 +120,7 @@ class ShedulingManage(models.Model):
     def sheduling_manage_edit(self):
         context = dict(self.env.context or {})
         res_user = self.env.user
-        motorized_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users()
-        context['funenc_motorized_user_ids'] = [motorized_user_id.get('id') for motorized_user_id in motorized_user_ids]
+        context['funenc_motorized_user_ids'] =  self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users_by_site_id(self.site_id.id)
         if res_user.id == 1:
             return {
                 'name': '排班详情编辑',
@@ -505,19 +512,18 @@ class ShedulingManage(models.Model):
         motorized_data = []
         if sheduling_arrange_order_id:  # 有临时班组规则
             # 类型为班组
-            tmp_class_order_ids = [order_to_arrange_id.id for order_to_arrange_id in
-                               sheduling_arrange_order_id.order_to_arrange_ids]  # 班次
+            tmp_class_order_ids = [order_to_arrange_id.arrange_order_id.id for order_to_arrange_id in
+                                   sheduling_arrange_order_id.order_to_arrange_ids]  # 班次
 
-
-            tmp_class_group_ids = class_group_ids # 班组
+            tmp_class_group_ids = class_group_ids  # 班组
 
 
 
 
         else:  # 无临时排班规则
             # 类型为班组
-            tmp_class_order_ids = arrange_order_ids.ids   # 班次
-            tmp_class_group_ids = class_group_ids # 班组
+            tmp_class_order_ids = arrange_order_ids.ids  # 班次
+            tmp_class_group_ids = class_group_ids  # 班组
         if tmp_class_order_ids and tmp_class_group_ids:
             for i, time_day in enumerate(time_days):  # 时间
                 # tmp_class_order_ids  # 班次s
@@ -552,9 +558,9 @@ class ShedulingManage(models.Model):
 
         else:  # 无临时机动人员规则
 
-            tmp_class_motorized_ids =  motorized_ids.ids # 机动人员班次
+            tmp_class_motorized_ids = motorized_ids.ids  # 机动人员班次
 
-            tmp_motorized_group_ids =  motorized_user_ids.ids # 机动人员
+            tmp_motorized_group_ids = motorized_user_ids.ids  # 机动人员
 
         if tmp_class_motorized_ids and tmp_motorized_group_ids:
             for i, time_day in enumerate(time_days):  # 时间
