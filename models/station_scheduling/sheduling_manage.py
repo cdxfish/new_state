@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 import datetime
 import calendar
-from constraint import *
 from copy import deepcopy
 
 
@@ -28,12 +27,8 @@ class ShedulingManage(models.Model):
     motorized_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_3_ref',
                                      'sheduling_manage_id', 'arrange_order_id', string='机动人员班次'
                                      )
-    sheduling_arrange_order_ids = fields.Many2many('funenc_xa_station.arrange_class_manage',
-                                                   'sheduling_manage_arrange_class_manage_9_ref',
-                                                   'sheduling_manage_id', 'arrange_class_manage_id', string='班组排班规则')
-    motorized_rule_ids = fields.Many2many('funenc_xa_station.arrange_class_manage',
-                                          'sheduling_manage_arrange_order_9_ref',
-                                          'sheduling_manage_id', 'arrange_class_manage_id', string='机动人员排班规则')
+    sheduling_arrange_order_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='班组排班规则')
+    motorized_rule_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='机动人员排班规则')
     current_rule = fields.Text(string='当前冲突规则', default=lambda self: self.default_current_rule())
 
     #  tree显示字段
@@ -487,8 +482,8 @@ class ShedulingManage(models.Model):
         show_sheduling_time = self.show_sheduling_time
         show_arrange_order_name = self.show_arrange_order_name
         current_rule = self.current_rule
-        sheduling_arrange_order_ids = self.sheduling_arrange_order_ids  # 班组人员规则规则
-        motorized_rule_ids = self.motorized_rule_ids  # 机动规则规则
+        sheduling_arrange_order_id = self.sheduling_arrange_order_id  # 班组人员规则规则
+        motorized_rule_id = self.motorized_rule_id  # 机动规则规则
 
         class_group_ids = self.class_group_ids  # 班组
         arrange_order_ids = self.arrange_order_ids  # 班次
@@ -504,70 +499,90 @@ class ShedulingManage(models.Model):
             str_to_datetime = start_datetime + datetime.timedelta(days=day)
             time_days.append(str_to_datetime.strftime('%Y-%m-%d'))
 
-        problem = Problem()
         # problem.addVariables(['[1,2,3]', '[4,5,6]'], [1, 2])
         # 构建排班
         group_data = []
-        if sheduling_arrange_order_ids:  # 有临时班组规则
+        motorized_data = []
+        if sheduling_arrange_order_id:  # 有临时班组规则
             # 类型为班组
-            for sheduling_arrange_order_id in sheduling_arrange_order_ids:
-                arrange_class_types = list(sheduling_arrange_order_id.arrange_class_type.ids)  # 班次s
-                iden_arrange_class_types = deepcopy(arrange_class_types)  # 最开始的班次   没到本地深拷贝不行
-                arrange_class_obj = sheduling_arrange_order_id.arrange_class_obj  # 班组
-                user_ids = arrange_class_obj.group_user_ids.ids  # 班组人员
-                lens = len(user_ids)
-                if arrange_class_types:
-                    for i, time_day in enumerate(time_days):  # 时间
-                        # 班组   (line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)
-                        print('开始班次', arrange_class_types)
-                        for k, user_id in enumerate(user_ids):
-                            data = []
-                            data.append(line_id)
-                            data.append(site_id)
-                            data.append(user_id)
-                            data.append(time_day)
-                            data.append('order_group')
-                            data.append(0)
-                            data.append(arrange_class_types[0])  # 班次
-                            # print(arrange_class_types)
-                            arrange_class_types = arrange_class_types[1:] + [arrange_class_types[0]]
-                            group_data.append(tuple(data))
-                        print('######')
-                        arrange_class_types = iden_arrange_class_types = iden_arrange_class_types[1:] + [iden_arrange_class_types[0]]
-                        print(arrange_class_types)
+            tmp_class_order_ids = [order_to_arrange_id.id for order_to_arrange_id in
+                               sheduling_arrange_order_id.order_to_arrange_ids]  # 班次
+
+
+            tmp_class_group_ids = class_group_ids # 班组
+
 
 
 
         else:  # 无临时排班规则
             # 类型为班组
-            arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in class_group_ids],
-                                                        [arrange_class.id for arrange_class in
-                                                         arrange_order_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-            # 班组要转换成对应的人
-        # if motorized_rule_ids:  # 机动人员规则
-        #     # 类型为机动人员
-        #     for motorized_rule_id in motorized_rule_ids:
-        #         arrange_class_type = motorized_rule_id.arrange_class_type  # 班次s
-        #         arrange_class_obj = motorized_rule_id.arrange_class_obj  # 班组s
-        #         arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in arrange_class_obj],
-        #                                                     [arrange_class.id for arrange_class in
-        #                                                      arrange_class_type])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-        #         # 班组要转换成对应的人
-        #
-        # else:  # 无临时机动人员规则
-        #     # 类型为机动人员
-        #     arrange_order_groups = problem.addVariables([arrange_class.id for arrange_class in motorized_user_ids],
-        #                                                 [arrange_class.id for arrange_class in
-        #                                                  motorized_ids])  # (['班组a id,班组b id,班组c id], [班次a id, 班次b id])
-        # 班组要转换成对应的人
+            tmp_class_order_ids = arrange_order_ids.ids   # 班次
+            tmp_class_group_ids = class_group_ids # 班组
+        if tmp_class_order_ids and tmp_class_group_ids:
+            for i, time_day in enumerate(time_days):  # 时间
+                # tmp_class_order_ids  # 班次s
+                iden_arrange_class_types = deepcopy(tmp_class_order_ids)
+                # tmp_class_group_ids # 班组
+                # 班组   (line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)
+                for k, group_id in enumerate(tmp_class_group_ids):
+                    for user_id in group_id.group_user_ids:
+                        data = []
+                        data.append(line_id)
+                        data.append(site_id)
+                        data.append(user_id.id)
+                        data.append(group_id.id)
+                        data.append(time_day)
+                        data.append('order_group')
+                        data.append(8)
+                        data.append(tmp_class_order_ids[0])  # 班次
+                        group_data.append(tuple(data))
+                    tmp_class_order_ids = tmp_class_order_ids[1:] + [tmp_class_order_ids[0]]
 
-        #  最后把构建的数据插入 模型 funenc_xa_station.sheduling_record
-        # sheduling_date 排班日期为排班当天
-        # 排班类型 sheduling_date order_type('order_group', '班组'), ('motorized_group', '机动人员')
+                iden_arrange_class_types = iden_arrange_class_types[1:] + [
+                    iden_arrange_class_types[0]]
+                tmp_class_order_ids = iden_arrange_class_types
+
+        if motorized_rule_id:  # 机动人员规则
+            # 类型为机动人员
+
+            tmp_class_motorized_ids = [order_to_arrange_id.arrange_order_id.id for order_to_arrange_id in
+                                       motorized_rule_id.order_to_arrange_ids]  # 机动人员班次
+
+            tmp_motorized_group_ids = motorized_user_ids.ids  # 机动人员
+
+        else:  # 无临时机动人员规则
+
+            tmp_class_motorized_ids =  motorized_ids.ids # 机动人员班次
+
+            tmp_motorized_group_ids =  motorized_user_ids.ids # 机动人员
+
+        if tmp_class_motorized_ids and tmp_motorized_group_ids:
+            for i, time_day in enumerate(time_days):  # 时间
+                iden_arrange_class_types = deepcopy(tmp_class_motorized_ids)
+                for k, user_id in enumerate(tmp_motorized_group_ids):
+                    data = []
+                    data.append(line_id)
+                    data.append(site_id)
+                    data.append(user_id)
+                    data.append(time_day)
+                    data.append('motorized_group')
+                    data.append(8)
+                    data.append(tmp_class_motorized_ids[0])  # 班次
+                    motorized_data.append(tuple(data))
+                    tmp_class_motorized_ids = tmp_class_motorized_ids[1:] + [tmp_class_motorized_ids[0]]
+
+                iden_arrange_class_types = iden_arrange_class_types[1:] + [
+                    iden_arrange_class_types[0]]
+                tmp_class_motorized_ids = iden_arrange_class_types
 
         if str(group_data)[1:-1]:
-            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
                          "values{}".format(str(group_data)[1:-1])
+            self.env.cr.execute(insert_sql)
+
+        if str(motorized_data)[1:-1]:
+            insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,sheduling_date,order_type,work_time,arrange_order_id)" \
+                         "values{}".format(str(motorized_data)[1:-1])
             self.env.cr.execute(insert_sql)
 
         show_data = self.get_sheuling_list(site_id, start_time, end_time)
@@ -759,9 +774,10 @@ class ShedulingManage(models.Model):
             if compute_groups:
                 user_dic = {
                     'group_name': compute_groups[0].get('arrange_order_id')[1] if compute_groups[0].get(
-                        'class_group_id') else '',
+                        'class_group_id') else '无',
                     'shift_value': []
                 }
+                print()
 
                 for day in days:
 
