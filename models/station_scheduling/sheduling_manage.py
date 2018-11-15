@@ -777,6 +777,7 @@ class ShedulingManage(models.Model):
                         'class_group_id') else '无',
                     'shift_value': []
                 }
+                print()
 
                 for day in days:
 
