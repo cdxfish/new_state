@@ -34,25 +34,25 @@ class fuenc_station(models.Model):
 
         return site_id
 
-    @api.constrains('site_id', 'line_id')
-    def compute_site_and_line(self):
-        if self.env.user.id == 1:
-            if not self.line_id:
-                raise msg.Warning('线路不能为空')
-
-            if not self.site_id:
-                raise msg.Warning('车站不能为空')
-        else:
-            ding_user = self.env.user.dingtalk_user[0]
-            department = ding_user.departments[0]
-            if department.department_hierarchy == 3:
-                model = self._table
-
-                site_id = self.env.user.dingtalk_user.departments[0].id
-                line_id = self.env.user.dingtalk_user.line_id.id
-                #   不用orm  因为会递归回调
-                sql = 'update {} set site_id = {}, line_id = {} where id = {}'.format(model, site_id, line_id, self.id)
-                self.env.cr.execute(sql)
+    # @api.constrains('site_id', 'line_id')
+    # def compute_site_and_line(self):
+    #     if self.env.user.id == 1:
+    #         if not self.line_id:
+    #             raise msg.Warning('线路不能为空')
+    #
+    #         if not self.site_id:
+    #             raise msg.Warning('车站不能为空')
+    #     else:
+    #         ding_user = self.env.user.dingtalk_user[0]
+    #         department = ding_user.departments[0]
+    #         if department.department_hierarchy == 3:
+    #             model = self._table
+    #
+    #             site_id = self.env.user.dingtalk_user.departments[0].id
+    #             line_id = self.env.user.dingtalk_user.line_id.id
+    #             #   不用orm  因为会递归回调
+    #             sql = 'update {} set site_id = {}, line_id = {} where id = {}'.format(model, site_id, line_id, self.id)
+    #             self.env.cr.execute(sql)
 
     @get_line_id_domain
     @api.onchange('line_id')
