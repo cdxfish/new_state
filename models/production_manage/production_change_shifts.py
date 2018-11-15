@@ -3,6 +3,7 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
 from ..get_domain import get_domain
+from odoo.exceptions import ValidationError
 
 KEY = [('station_master', '站长'),
        ('train_working', '行车'),
@@ -96,45 +97,56 @@ class production_change_shifts(models.Model):
 
     @api.onchange('preparedness_2_ids')
     def onchange_preparedness_2_ids(self):
-        if not self.preparedness_2_ids:
-            obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
-            inst_ids = obj.preparedness_ids
-            default_data = []
-            for inst_id in inst_ids:
-                default_data.append((0, 0, {'name': inst_id.preparedness_name}))
-            return {
-                'value': {'preparedness_2_ids': default_data}
-            }
-        else:
-            return
+        try:
+            if not self.preparedness_2_ids:
+                obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
+                inst_ids = obj.preparedness_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.preparedness_name}))
+                return {
+                    'value': {'preparedness_2_ids': default_data}
+                }
+            else:
+                return
+        except:
+            raise ValidationError('请检查系统配置中的预设交接班是否配置')
 
     @api.onchange('prefabricate_ticket_type_2_ids')
     def onchange_prefabricate_ticket_type_2_ids(self):
-        if not self.prefabricate_ticket_type_2_ids:
-            obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
-            inst_ids = obj.prefabricate_ticket_type_ids
-            default_data = []
-            for inst_id in inst_ids:
-                default_data.append((0, 0, {'name': inst_id.name}))
-            return {
-                'value': {'prefabricate_ticket_type_2_ids': default_data}
-            }
-        else:
-            return
+        try:
+            if not self.prefabricate_ticket_type_2_ids:
+                obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
+                inst_ids = obj.prefabricate_ticket_type_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.name}))
+                return {
+                    'value': {'prefabricate_ticket_type_2_ids': default_data}
+                }
+
+            else:
+                return
+        except:
+            raise ValidationError('请检查系统配置中的预设交接班是否配置')
+
 
     @api.onchange('ticketing_key_type_2_ids')
     def onchange_ticketing_key_type_2_ids(self):
-        if not self.ticketing_key_type_2_ids:
-            obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
-            inst_ids = obj.ticketing_key_type_ids
-            default_data = []
-            for inst_id in inst_ids:
-                default_data.append((0, 0, {'name': inst_id.name}))
-            return {
-                'value': {'ticketing_key_type_2_ids': default_data}
-            }
-        else:
-            return
+        try:
+            if not self.ticketing_key_type_2_ids:
+                obj = self.env['funenc_xa_station.passenger_transport'].search([])[0]
+                inst_ids = obj.ticketing_key_type_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.name}))
+                return {
+                    'value': {'ticketing_key_type_2_ids': default_data}
+                }
+            else:
+                return
+        except:
+            raise ValidationError('请检查系统配置中的预设交接班是否配置')
 
     ticketing_key_type_2_ids = fields.One2many('funenc_xa_station.ticketing_key_type_2', 'production_change_shifts_id',
                                                string='票务钥匙使用情况')
@@ -197,19 +209,22 @@ class production_change_shifts(models.Model):
     @api.onchange('check_project_ids')
     def onchange_check_project_ids(self):
         # 预设行车
-        if not self.preparedness_1_ids:
-            obj = self.env['funenc_xa_station.car_line'].search([])[0]
-            inst_ids = obj.check_project_ids
-            default_data = []
-            for inst_id in inst_ids:
-                default_data.append((0, 0, {'context': inst_id.context}))
+        try:
+            if not self.preparedness_1_ids:
+                obj = self.env['funenc_xa_station.car_line'].search([])[0]
+                inst_ids = obj.check_project_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'context': inst_id.context}))
 
-            return {
-                'value': {'check_project_ids': default_data}
-            }
+                return {
+                    'value': {'check_project_ids': default_data}
+                }
 
-        else:
-            return
+            else:
+                return
+        except:
+            raise ValidationError('请检查系统配置中的预设交接班是否配置')
 
     @api.onchange('preparedness_1_ids')
     def onchange_preparedness_1_ids(self):
@@ -236,22 +251,25 @@ class production_change_shifts(models.Model):
 
     @api.onchange('preparedness_1_ids')
     def onchange_preparedness_1_ids(self):
-        if not self.preparedness_1_ids:
-            if self.env.user.has_group('funenc_xa_station.module_depot'):
-                # 站务
-                obj = self.env['funenc_xa_station.station_service'].search([])[0]
+        try:
+            if not self.preparedness_1_ids:
+                if self.env.user.has_group('funenc_xa_station.module_depot'):
+                    # 站务
+                    obj = self.env['funenc_xa_station.station_service'].search([])[0]
+                else:
+                    # 票务
+                    obj = self.env['funenc_xa_station.ticket_booth'].search([])[0]
+                inst_ids = obj.preparedness_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'preparedness_name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+                return {
+                    'value': {'preparedness_1_ids': default_data}
+                }
             else:
-                # 票务
-                obj = self.env['funenc_xa_station.ticket_booth'].search([])[0]
-            inst_ids = obj.preparedness_ids
-            default_data = []
-            for inst_id in inst_ids:
-                default_data.append((0, 0, {'preparedness_name': inst_id.preparedness_name, 'unit': inst_id.unit}))
-            return {
-                'value': {'preparedness_1_ids': default_data}
-            }
-        else:
-            return
+                return
+        except:
+            raise ValidationError('请检查系统配置中的预设交接班是否配置')
 
     focus_of_work = fields.Text(string='今日工作重点记录')
     other_work_record = fields.Text(string='其他工作记录')
@@ -332,25 +350,28 @@ class production_change_shifts(models.Model):
     def onchange_my_change_ids(self):
         if not self.my_change_ids:
             position = self.get_position()
-            if position == 'station_master':
-                station_master = self.env['funenc_xa_station.station_master'].search([])[0]
-                default_data = []
-                for inst_id in station_master.preparedness_ids:
-                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+            try:
+                if position == 'station_master':
+                    station_master = self.env['funenc_xa_station.station_master'].search([])[0]
+                    default_data = []
+                    for inst_id in station_master.preparedness_ids:
+                        default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
 
-                return {
-                    'value': {'my_change_ids': default_data}
-                }
-            else:
-                obj = self.env['funenc_xa_station.car_line'].search([])[0]
-                inst_ids = obj.preparedness_ids
-                default_data = []
-                for inst_id in inst_ids:
-                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+                    return {
+                        'value': {'my_change_ids': default_data}
+                    }
+                else:
+                    obj = self.env['funenc_xa_station.car_line'].search([])[0]
+                    inst_ids = obj.preparedness_ids
+                    default_data = []
+                    for inst_id in inst_ids:
+                        default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
 
-                return {
-                    'value': {'my_change_ids': default_data}
-                }
+                    return {
+                        'value': {'my_change_ids': default_data}
+                    }
+            except:
+                raise ValidationError('请检查系统配置中的预设交接班是否配置')
         else:
             return
 
@@ -528,6 +549,10 @@ class production_change_shifts(models.Model):
              ('state', '=', 'take_over_from')],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
              'take_over_from_time'])  # 已接班
+        for change_shifts_id in change_shifts_ids:
+            change_shifts_id['take_over_from_user_id'] = change_shifts_id.get('take_over_from_user_id')[1] if change_shifts_id.get('take_over_from_user_id') else ''
+        for change_shifts_id_id in take_over_from_ids:
+            change_shifts_id_id['take_over_from_user_id'] = change_shifts_id_id.get('take_over_from_user_id')[1] if change_shifts_id_id.get('take_over_from_user_id') else ''
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
         jb_form = self.get_form_id()
         return {

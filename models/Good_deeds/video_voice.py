@@ -51,7 +51,7 @@ class VideoVoice(models.Model):
     def image_button_act(self):
         load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
         return {
-            'name': '视屏文件',
+            'name': '文件',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -67,7 +67,7 @@ class VideoVoice(models.Model):
     def load_file(self):
         load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
         return {
-            'name': '视屏文件',
+            'name': '文件',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
