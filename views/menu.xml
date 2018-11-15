@@ -615,16 +615,25 @@
 
         <!--暂时-->
 
-		<record model="ir.actions.act_window" id="xa_station_scheduling_action_2">
-          <field name="name">班次管理</field>
-          <field name="res_model">funenc_xa_station.arrange_order</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
-		<record model="ir.actions.act_window" id="xa_station_scheduling_action_3">
-          <field name="name">班组管理</field>
-          <field name="res_model">funenc_xa_station.class_group</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<record model="ir.actions.server" id="xa_station_scheduling_action_2">
+			<field name="name">班次管理</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_arrange_order"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="xa_station_scheduling_action_3">
+			<field name="name">班组管理</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_class_group"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+
 		<record model="ir.actions.client" id="xa_station_scheduling_action_4">
           <field name="name">机动人员管理</field>
           <field name="tag">funenc_xa_motorized_users</field>
@@ -634,11 +643,15 @@
           <!--<field name="res_model">funenc_xa_station.conflict_rule</field>-->
 		  <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
-		<record model="ir.actions.act_window" id="xa_station_scheduling_action_6">
-          <field name="name">排班规则管理</field>
-          <field name="res_model">funenc_xa_station.arrange_class_manage</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+
+		<record model="ir.actions.server" id="xa_station_scheduling_action_6">
+			<field name="name">排班规则管理</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_arrange_class_manage"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
 
 
           <menuitem id="xa_station_scheduling_1" name="排班设置"
