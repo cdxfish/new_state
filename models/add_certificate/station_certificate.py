@@ -15,6 +15,13 @@ class AddStationCertificate(models.Model):
     station_agent_phone = fields.Integer(string='站长电话')
     load_file_test= fields.Many2many('ir.attachment','station_certificate_ir_attachment_rel','ir_attachment_id',
                                    'station_id', string='图片上传')
+    certificate_image_browse = fields.Selection([('one','显示图片'),('zero','不显示图片')],default='zero')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('load_file_test')[0][2]:
+            vals['certificate_image_browse'] = 'one'
+        return super(AddStationCertificate,self).create(vals)
 
     @get_domain
     @api.model

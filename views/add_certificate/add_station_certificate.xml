@@ -43,6 +43,7 @@
                             <!--<field  name="station_agent"></field>-->
                             <!--<field  name="station_agent_phone"></field>-->
                             <widget  string="操作"  name="treebtns"  template="add_certificate"/>
+                            <field name="certificate_image_browse" invisible="1"></field>
                         </tree>
                     </field>
             </record>
@@ -94,7 +95,7 @@
                 <form edit="0">
                     <sheet>
                         <group>
-                         <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
+                         <field name="load_file_test" widget="one2many_image_read_widget" string="证件照片">
                                 <tree>
                                     <field name="datas_fname"/>
                                 </tree>

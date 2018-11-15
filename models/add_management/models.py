@@ -23,6 +23,7 @@ class xian_metro(models.Model):
     operation_time = fields.Datetime(string='操作时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     url = fields.Char(string='url')
     release_time = fields.Date(string='发布实施日期')
+    rule_regulations_browse = fields.Selection([('one','内容显示'),('zero','内容不显示')],default='zero')
 
     # 自动获取操作人的姓名
     @api.model
@@ -71,6 +72,7 @@ class xian_metro(models.Model):
                 'funenc_xa_station', file_name, base64.b64decode(file_binary))
             params['url'] = url
             params['file_name'] = file_name
+            params['rule_regulations_browse'] = 'one'
         # url, key = self.env['qiniu_service.qiniu_upload_bucket'].upload_file(
         #     file_binary, 'pdf')
         # params['url'] = url

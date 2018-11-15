@@ -14,7 +14,9 @@
     <!--文件的显示按钮-->
     <t t-name="details_add__type">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="view_details" >查看详情</button>
+            <button class="layui-btn layui-btn-radius layui-btn-primary" type="object" name="view_details"
+                     t-if="widget.record.data.rule_regulations_browse == 'one'"
+            >查看详情</button>
         </div>
     </t>
 </templates>

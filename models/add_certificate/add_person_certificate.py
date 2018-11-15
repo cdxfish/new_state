@@ -33,6 +33,7 @@ class AddPersonCertificate(models.Model):
     relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段没有实际意义',default=_default_associated)
     station_certificate_to_conflict_rule = fields.One2many('conflict_rule_station_certificate_ref',
                                                            'station_certificate_id', string='')
+    person_certificate_browse = fields.Selection([('one','显示图片'),('zero','图片不显示')],default='zero')
 
     @get_domain
     @api.model
@@ -70,6 +71,8 @@ class AddPersonCertificate(models.Model):
     @api.model
     def create(self, vals):
         vals['relevance'] = vals['person_name']
+        if vals.get('load_file_test')[0][2]:
+            vals['person_certificate_browse']='one'
         return super(AddPersonCertificate, self).create(vals)
 
     #新增一条记录

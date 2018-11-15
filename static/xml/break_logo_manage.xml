@@ -18,6 +18,7 @@
    <t t-name="break_submit_button">
         <div class="layui-btn-group">
             <button type="object"  name="browse_image_button_act" class="layui-btn layui-btn-sm"
+                     t-if="widget.record.data.browse_image_invisible == 'one'"
             >查看图片</button>
         </div>
     </t>

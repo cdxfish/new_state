@@ -49,10 +49,11 @@
 				<form>
 					<div class="container-fluid">
 						<group>
+							<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" context="{'site_id':site_id}"/>
 							<field name="name" string="班组名称"/>                  <!---->
-							<field name="group_user_ids" string="班组人员" widget="many2many_tags" options="{'no_create':True}" domain="[('id','in',context.get('unselected_user_ids'))]" />
-                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
-                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" />
+							<field name="group_user_ids" string="班组人员" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  />
+
 						</group>
 					</div>
 				</form>
