@@ -3,6 +3,8 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 
+from ..get_domain import get_domain
+
 class ClassGroup(models.Model):
     '''
         班组管理
@@ -17,6 +19,22 @@ class ClassGroup(models.Model):
                                       'class_group_id', 'ding_talk_user_id', string='班组人员')
 
     # arrange_class_manage_ids =  fields.One2many('funenc_xa_station.arrange_class_manage', 'arrange_class_obj', string='排班规则对应')
+
+    @get_domain
+    @api.model
+    def init_data(self, domain):
+        context = {}
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_class_group_list').id
+        return {
+            'name': '操作说明',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.class_group",
+            "views": [[view_tree, "tree"]],
+            "domain": domain,
+            'target': 'current',
+            'context': context,
+        }
+
 
     @api.model
     def create(self, vals):

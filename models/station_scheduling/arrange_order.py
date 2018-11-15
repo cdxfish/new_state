@@ -3,7 +3,7 @@ import datetime
 
 import odoo.exceptions as msg
 from odoo import models, fields, api
-
+from ..get_domain import get_domain
 
 class arrange_order(models.Model):
     '''
@@ -27,6 +27,21 @@ class arrange_order(models.Model):
 
     order_to_arrange_ids = fields.One2many('arrange_order_to_arrange_class_manage', 'arrange_order_id',
                                            string='排班类型')
+
+    @get_domain
+    @api.model
+    def init_data(self,domain):
+        context = {}
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_arrange_order_list').id
+        return {
+            'name': '操作说明',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.arrange_order",
+            "views": [[view_tree, "tree"]],
+            "domain": domain,
+            'target': 'current',
+            'context': context,
+        }
 
     @api.model
     def default_start_work_time(self):

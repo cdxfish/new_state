@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api
 
+from ..get_domain import get_domain
+
 
 class ArrangeClassManage(models.Model):
     _name = 'funenc_xa_station.arrange_class_manage'
@@ -16,6 +18,21 @@ class ArrangeClassManage(models.Model):
 
     order_to_arrange_ids = fields.One2many('arrange_order_to_arrange_class_manage', 'arrange_class_manage_id',
                                            string='排班类型', required=True)
+
+    @get_domain
+    @api.model
+    def init_data(self, domain):
+        context = {}
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_arrange_class_manage_list').id
+        return {
+            'name': '排班规则管理',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.arrange_class_manage",
+            "views": [[view_tree, "tree"]],
+            "domain": domain,
+            'target': 'current',
+            'context': context,
+        }
 
     def _compute_name(self):
         for this in self:
