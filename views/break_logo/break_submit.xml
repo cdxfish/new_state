@@ -46,6 +46,7 @@
                     <field name="deal_results"></field>
                     <field name="deal_time"></field>
                     <widget name="treebtns" template="break_submit_operation" string="操作"></widget>
+                    <field name="browse_image_invisible" invisible="1"></field>
                 </tree>
             </field>
         </record>

@@ -54,6 +54,7 @@
                     <field name="two_recheck_money"></field>
                     <widget string="证件详情" name="treebtns" template="person_dateils"/>
                     <widget string="操作" name="treebtns" template="person_certificate"/>
+                    <field name="person_certificate_browse" invisible="1"></field>
                 </tree>
             </field>
         </record>

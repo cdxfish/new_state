@@ -55,6 +55,7 @@
                     <field name="note"></field>
                     <field name="write_person" string="填报人"></field>
                     <widget name="treebtns" template="belong_to_management_template" string="操作"></widget>
+                    <field name="browse_image_invisible" invisible="1"></field>
                 </tree>
             </field>
         </record>

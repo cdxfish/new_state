@@ -13,7 +13,9 @@
     <!--文件的显示按钮-->
     <t t-name="details_certificate">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object"  name="station_details" >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="station_details"
+                     t-if="widget.record.data.certificate_image_browse == 'one'"
+            >查看详情</button>
         </div>
     </t>
     	<!--修改与删除按钮和删除-->
@@ -44,7 +46,9 @@
     <!--文件的显示按钮-->
     <t t-name="person_dateils">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" type="object" name="person_details" >查看详情</button>
+            <button class="layui-btn layui-btn-sm" type="object" name="person_details"
+                     t-if="widget.record.data.person_certificate_browse == 'one'"
+            >查看详情</button>
         </div>
     </t>
 

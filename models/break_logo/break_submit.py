@@ -28,12 +28,11 @@ class BreakSubmit(models.Model):
     browse_image_invisible = fields.Selection([('one', '有图片'), ('zero', '没有图片')], string='显示还是隐藏图片', default='zero')
 
     #在创建的时候改变分数的正负数
-    # @api.model
-    # def create(self, vals):
-    #     if vals['load_file_test'][1]:
-    #         vals['browse_image_invisible'] = 'one'
-    #         return super(BreakSubmit, self).create(vals)
-    #     return super(BreakSubmit, self).create(vals)
+    @api.model
+    def create(self, vals):
+        if vals['load_file_test'][0][2]:
+            vals['browse_image_invisible'] = 'one'
+        return super(BreakSubmit, self).create(vals)
 
     # 创建一条新的记录
     def new_increase_record(self):

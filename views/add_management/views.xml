@@ -41,6 +41,7 @@
                     <field name="operation_time"></field>
                     <field name="release_time"></field>
                     <widget string="操作" name="treebtns" template="add_management_type"/>
+                    <field name="rule_regulations_browse" invisible="1"></field>
                 </tree>
             </field>
         </record>
@@ -74,13 +75,13 @@
                         <group name="group_top">
                             <group name="group_right">
                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
-                                <field name="profession_kind"></field>
+                                <field name="profession_kind" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rules_id"></field>
                                  <field name="release_time"></field>
                             </group>
                             <group name="group_left">
                                 <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" widget="many2many_tags"/>
-                                <field name="rank_kind"></field>
+                                <field name="rank_kind" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rules_name"></field>
                             </group>
                             <group name="group_bottom">
