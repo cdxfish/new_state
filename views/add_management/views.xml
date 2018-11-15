@@ -73,13 +73,13 @@
                     <sheet>
                         <group name="group_top">
                             <group name="group_right">
-                                <field name="line_id" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}"></field>
+                                <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                                 <field name="profession_kind"></field>
                                 <field name="rules_id"></field>
                                  <field name="release_time"></field>
                             </group>
                             <group name="group_left">
-                                <field name="site_id" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}" widget="many2many_tags"/>
+                                <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" widget="many2many_tags"/>
                                 <field name="rank_kind"></field>
                                 <field name="rules_name"></field>
                             </group>

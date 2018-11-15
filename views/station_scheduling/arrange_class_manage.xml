@@ -50,7 +50,7 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-                            <field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]"  options="{'no_create':True,'no_open':True}" readonly="1"/>
+                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" readonly="1"/>
                             <field name="site_id" string="站点"  options="{'no_create':True,'no_open':True}" context="{'site_id':site_id}" readonly="1"/>
 							<field name="name" string="名称" />
 							<field name="arrange_class_type" string="排班类型" widget="many2many_tags" domain="[('site_id','=',site_id)]"/>

@@ -43,8 +43,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
-                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"  context="{'site_id': site_id}"/>
+							<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"  context="{'site_id': site_id}"/>
 							<field name="key_no" string="钥匙编号"  options="{'no_open': True, 'no_create': True}" domain="[('is_borrow','=',1)]"/>
 							<field name="return_member" string="归还人" attrs="{'required':True}" domain="[('departments','=',site_id)]"/>
 							<field name="type" string="钥匙类型"/>
@@ -70,8 +70,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
-							<field name="line_id" string="线路" domain="[('department_hierarchy','=',2)]" options="{'no_create':True,'no_open':True}" />
-                            <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"  context="{'site_id': site_id}"/>
+							<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"  context="{'site_id': site_id}"/>
 							<field name="key_no" string="钥匙编号" domain="[('is_borrow','=',2),('site_id','=',site_id)]"/>
 							<field name="borrow_member" string="借用人" attrs="{'required':True}" domain="[('departments','in', site_id)]" options="{'no_create':True,'no_open':True}"/>
 							<field name="type" string="钥匙类型" readonly="1"/>
