@@ -4,6 +4,8 @@ from odoo import api,models,fields
 def get_domain(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
+        if self.env.user.id == 1:
+            return func(self, [], *args, **kwargs)
         ding_user = self.env.user.dingtalk_user
         ids = ding_user.user_property_departments.ids
 

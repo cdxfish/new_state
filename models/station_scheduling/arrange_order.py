@@ -34,7 +34,7 @@ class arrange_order(models.Model):
         context = {}
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_arrange_order_list').id
         return {
-            'name': '操作说明',
+            'name': '班次管理',
             "type": "ir.actions.act_window",
             "res_model": "funenc_xa_station.arrange_order",
             "views": [[view_tree, "tree"]],

@@ -26,7 +26,7 @@ class ClassGroup(models.Model):
         context = {}
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_class_group_list').id
         return {
-            'name': '操作说明',
+            'name': '班组管理',
             "type": "ir.actions.act_window",
             "res_model": "funenc_xa_station.class_group",
             "views": [[view_tree, "tree"]],
