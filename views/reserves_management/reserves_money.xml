@@ -33,7 +33,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
                           </div>
                        </div>
                     </div>

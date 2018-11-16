@@ -176,10 +176,10 @@
                     group="funenc_xa_station.train_plan_modify_button"
                     hidden="hidden"
             >修改</button>
-            <button class="layui-btn layui-btn-sm" type="object"  name="button_details"
-                    group="funenc_xa_station.train_plan_details_button"
-                    hidden="hidden"
-            >详情</button>
+            <!--<button class="layui-btn layui-btn-sm" type="object"  name="button_details"-->
+                    <!--group="funenc_xa_station.train_plan_details_button"-->
+                    <!--hidden="hidden"-->
+            <!--&gt;详情</button>-->
             <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
                     name="delete" confirm="您确定要删除吗？"
                     group="funenc_xa_station.train_plan_delete_button"
