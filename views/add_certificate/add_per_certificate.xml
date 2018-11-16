@@ -37,6 +37,8 @@
             <field name="arch" type="xml">
                 <tree create="0" class="noOpen" edit="0" search_ex_template="per_certificate_search_button">
                     <!--<field name="id" string="序号"></field>-->
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="name"></field>
                     <field name="line_id"></field>
                     <field name="site_id"></field>
@@ -88,6 +90,8 @@
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <sheet>
                         <group>
                             <div class="container-fluid">
@@ -99,7 +103,7 @@
                                       </div>
                                          <div class="col-md-8">
                                          <!--<label for="line_road" string="线路"/>-->
-                                         <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                         <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" />
                                       </div>
                                    </div>
                                    <div class="col-md-6">

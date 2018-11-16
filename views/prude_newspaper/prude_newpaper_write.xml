@@ -64,13 +64,15 @@
             <field name="model">funenc_xa_staion.prude_newpaper_write</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-3" style="padding-right: 0px">
                                  <label for="line_id" string="线路:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -259,13 +261,15 @@
             <field name="model">funenc_xa_staion.prude_newpaper_write</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-3" style="padding-right: 0px">
                                  <label for="line_id" string="线路:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="col-md-6">

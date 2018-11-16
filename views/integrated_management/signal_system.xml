@@ -6,6 +6,8 @@
             <field name="model">funenc_xa_station.signal_system</field>
             <field name="arch" type="xml">
                 <tree search_ex_template="signal_syatem_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" />
 					<field name="site_id" string="站点" />
                     <field name="signal_machine_ids" string="信号机位置编号"/>

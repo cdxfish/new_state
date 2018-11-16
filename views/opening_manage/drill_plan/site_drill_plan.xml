@@ -10,24 +10,21 @@
                 <tree limit="15" create="0">
                     <field name="drill_plan_id" string="演练项目"/>
                     <field name="release_time" string="发布时间"/>
-                    <field name="line_id" string="发布站点"/>
+                    <field name="line_id" string="发布站点" />
                     <field name="site_id" string="发布线路"/>
                     <widget string="操作" name="treebtns" template="edit"/>
-
                 </tree>
             </field>
         </record>
 
         <record model="ir.ui.view" id="funenc_xa_station_site_drill_plan_form">
-            <field name="name">funenc_xa_station_site_drill_plan_form</field>
-            <field name="model">funenc_xa_station.site_drill_plan</field>
             <field name="arch" type="xml">
                 <form>
                     <div class="container-fluid">
                         <group>
                             <field name="drill_project" string="演练项目" readonly="1"/>
                             <field name="release_time" string="发布时间" readonly="1"/>
-                            <field name="line_id" string="发布站点" readonly="1"/>
+                            <field name="line_id" string="发布站点" readonly="1" />
                             <field name="site_id" string="发布线路" readonly="1"/>
                         </group>
 
@@ -94,18 +91,14 @@
                                     <field name="rectification_time" string="整改填写时间"/>
                                     <field name="rectification_question" string="整改情况"/>
                                     <widget string="操作" name="treebtns" template="edit_rectification"/>
-
                                 </tree>
-
                             </field>
-
                         </group>
-
                         <group string="演练签到情况">
                             <field name="sign_in_ids">
                                 <tree class="noOpen">
                                     <field name="sign_in_time" string="签到时间"/>
-                                    <field name="line_id" string="线路"/>
+                                    <field name="line_id" string="线路" />
                                     <field name="site_id" string="站点"/>
                                     <field name="sign_user_id" string="姓名"/>
                                     <field name="jobnumber" string="工号"/>

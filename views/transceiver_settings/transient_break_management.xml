@@ -29,6 +29,8 @@
             <field name="model">funenc_xa_station.transient_break_management</field>
             <field name="arch" type="xml">
                 <tree create="0" class="noOpen" edit="0" search_ex_template="transient_break_management_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="transceiver_type"></field>
                     <field name="transceive_name"></field>
                     <field name="transceive_number"></field>
@@ -52,13 +54,15 @@
             <field name="model">funenc_xa_station.transient_break_management</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id" readonly="1"  required="1" options="{'no_create':True,'no_open':True}" />
+                             <field name="line_id" readonly="1"  required="1" options="{'no_create':True,'no_open':True}" domain="product_id_domain"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -152,13 +156,15 @@
             <field name="model">funenc_xa_station.transient_break_management</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id" readonly="1" options="{'no_create':True,'no_open':True}"  required="1"/>
+                             <field name="line_id" readonly="1" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
                           </div>
                        </div>
                        <div class="col-md-6">

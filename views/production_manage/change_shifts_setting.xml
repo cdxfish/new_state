@@ -237,6 +237,8 @@
             <field name="model">funenc_xa_station.special_card_preset</field>
             <field name="arch" type="xml">
                 <tree class="noOpen" search_ex_template="special_car_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>
                     <field name="card_number" string="特殊卡号"/>

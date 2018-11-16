@@ -212,7 +212,7 @@
                                     <field name="sign_in_user_ids" string="">
                                         <tree  class="noOpen">
                                             <field name="sign_in_time" string="签到时间"/>
-                                            <field name="line_id" string="所属线路"/>
+                                            <field name="line_id" string="所属线路" />
                                             <field name="site_id" string="站点名"/>
                                             <field name="user_id" string="姓名"/>
                                             <field name="jobnumber" string="工号"/>

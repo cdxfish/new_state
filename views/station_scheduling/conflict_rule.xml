@@ -19,8 +19,10 @@
 			<field name="model">funenc_xa_station.conflict_rule</field>
 			<field name="arch" type="xml">
 				<tree limit="15" create="0" class="noOpen">
+					<field name="product_id_domain" invisible="1"/>
+					<field name="product_site_id_domain" invisible="1"/>
 					<field name="conflict_rule_index" string="序号"/>
-                    <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
+                    <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"/>
                     <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" />
 					<field name="conflict_rule_content" string="内容"/>
                     <field name="conflict_rule" string="条件"/>
@@ -38,6 +40,8 @@
 				<form>
 					<div class="container-fluid">
 						<group>
+							                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
                             <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" />
 							<field name="conflict_rule_index" string="序号"/>
