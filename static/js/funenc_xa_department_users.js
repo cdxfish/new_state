@@ -18,7 +18,8 @@ odoo.define('funenc_xa_department_users', function (require) {
 
                                 tableData: [],
                                 multipleSelection: [],
-                                default_checked_keys:[]
+                                default_checked_keys:[],
+                                input:''
 
                 };
             },
@@ -52,6 +53,13 @@ odoo.define('funenc_xa_department_users', function (require) {
 
 
                             methods: {
+
+
+                               search() {
+
+                                    alert(self.vue_data.input)
+
+                                 },
 
                                handleEdit(index, row) {
 

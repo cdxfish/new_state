@@ -16,7 +16,8 @@ odoo.define('settings_user_property', function (require) {
                                                   children: 'children',
                                                   label: 'label'
                                                 },
-                                default_checked_keys:[]
+                                default_checked_keys:[],
+
                 };
 
                 if(record.params.params){
@@ -84,6 +85,7 @@ odoo.define('settings_user_property', function (require) {
                                     this.$refs.tree.setCheckedKeys([]);
 
                                  },
+
 
                             }
                         })
