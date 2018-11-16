@@ -140,11 +140,15 @@
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0">
-                    <field name="change_shifts_user_id" string="交班人"/>
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
                     <field name="change_shifts_time" string="交班时间"/>
-                    <field name="job_no" string="工号"/>
-                    <field name="position" string="职位"/>
+                    <field name="change_shifts_user_id" string="交班人"/>
+                    <field name="job_number_per" string="工号"/>
+                    <field name="take_over_from_user_id" string="接班人"></field>
+                    <field name="job_no" string="工号"></field>
                     <field name="state"  string="状态"/>
+                    <field name="position" string="交接班职位"/>
                     <widget string="操作" name="treebtns" template="station_detail"/>
                 </tree>
             </field>
@@ -464,35 +468,35 @@
                         <group>
                             <div class="row">
                                <div class="col-md-3">
-                                  <div class="col-md-4">
+                                  <div class="col-md-6">
                                      <label for="change_shifts_user_id" string="交班人"/>
                                   </div>
-                                 <div class="col-md-8">
-                                     <field name="change_shifts_user_id" style="width: 100%"/>
+                                 <div class="col-md-6">
+                                     <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
                                   </div>
                                </div>
                                <div class="col-md-3">
-                                  <div class="col-md-4">
+                                  <div class="col-md-6">
                                      <label for="change_shifts_time" string="交班时间"/>
                                   </div>
-                                     <div class="col-md-8">
-                                         <field name="change_shifts_time"/>
+                                     <div class="col-md-6">
+                                         <field name="change_shifts_time" readonly="1"/>
                                   </div>
                                </div>
                                 <div class="col-md-3">
-                                  <div class="col-md-4">
+                                  <div class="col-md-6">
                                      <label for="take_over_from_user_id" string="接班人"/>
                                   </div>
-                                     <div class="col-md-8">
-                                         <field name="take_over_from_user_id"/>
+                                     <div class="col-md-6">
+                                         <field name="take_over_from_user_id" readonly="1"/>
                                   </div>
                                </div>
                                 <div class="col-md-3">
-                                  <div class="col-md-4">
+                                  <div class="col-md-6">
                                      <label for="take_over_from_time" string="接班时间"/>
                                   </div>
-                                     <div class="col-md-8">
-                                         <field name="take_over_from_time"/>
+                                     <div class="col-md-6">
+                                         <field name="take_over_from_time" readonly="1"/>
                                   </div>
                                </div>
                             </div>
@@ -501,6 +505,26 @@
                             <!--<field name="take_over_from_user_id" string="接班人"></field>-->
                             <!--<field name="take_over_from_time"></field>-->
                         </group>
+                           <div class="row">
+                               <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="line_id" string="线路"/>
+                                  </div>
+                                 <div class="col-md-8">
+                                     <field name="line_id" style="width: 100%"
+                                                           options="{'no_create':True,'no_open':True}"  required="1"/>
+                                  </div>
+                               </div>
+                               <div class="col-md-3">
+                                  <div class="col-md-4">
+                                     <label for="site_id" string="站点"/>
+                                  </div>
+                                     <div class="col-md-8">
+                                         <field name="site_id"
+                                                options="{'no_create':True,'no_open':True}"  required="1"/>
+                                  </div>
+                               </div>
+                            </div>
                         <group string="基本内容">
                             <div class="container-fluid">
                                 <div class="row">

@@ -159,6 +159,7 @@ class production_change_shifts(models.Model):
                                         default=lambda self: self.default_production_state())  #
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='交班人',
                                             default=lambda self: self.default_user())
+    job_number_per = fields.Char(string='交班人工号',related='change_shifts_user_id.jobnumber')
     take_over_from_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='接班人')
     job_no = fields.Char("工号", related='take_over_from_user_id.jobnumber')
     position = fields.Text("职位", related='take_over_from_user_id.position')

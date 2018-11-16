@@ -586,13 +586,13 @@
 		<menuitem id="plan_menu_staffing_1" name="权限设置" sequence="4" icon="&#xe614;"
 		/>
 
-		<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="plan_menu_staffing_1"
-				  action="cdtct_dingtalk.account_manage_window"
-		/>
+		<!--<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="cdtct_dingtalk.menu_root"-->
+				  <!--action="cdtct_dingtalk.account_manage_window"-->
+		<!--/>-->
 
-		<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="plan_menu_staffing_1"
-				  action="cdtct_dingtalk.account_manage_window"
-		/>
+		<!--<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="cdtct_dingtalk.menu_root"-->
+				  <!--action="cdtct_dingtalk.account_manage_window"-->
+		<!--/>-->
 
 		<menuitem id="plan_menu_res_group_setting_1" name="角色组管理" parent="plan_menu_staffing_1"
 				  action="xa_res_group__action"
