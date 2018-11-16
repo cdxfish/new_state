@@ -4,6 +4,8 @@ from odoo import models, fields, api
 
 from ..get_domain import get_domain
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class ArrangeClassManage(models.Model):
     _name = 'funenc_xa_station.arrange_class_manage'
@@ -36,13 +38,17 @@ class ArrangeClassManage(models.Model):
 
     def _compute_name(self):
         for this in self:
+            logging.info('全部对象---',this)
             name = ''
             for i, order_to_arrange_id in enumerate(this.order_to_arrange_ids):
+                logging.info('单个对象---',order_to_arrange_id)
                 if i == 0:
-                    name = name + order_to_arrange_id.arrange_order_id.name
+                    logging.info('order_to_arrange_id.arrange_order_id', order_to_arrange_id.arrange_order_id)
+                    name = name + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id.arrange_order_id else ''
 
                 else:
-                    name = name + ',' + order_to_arrange_id.arrange_order_id.name
+                    logging.info('order_to_arrange_id.arrange_order_id', order_to_arrange_id.arrange_order_id)
+                    name = name + ',' + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id.arrange_order_id else ''
             this.name = name
 
     @api.model

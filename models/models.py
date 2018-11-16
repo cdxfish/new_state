@@ -2,15 +2,15 @@
 
 from odoo import models, fields, api
 import odoo.exceptions as msg
+
 import qrcode
-from PIL import Image
 import os
 import base64
-from odoo import http
 import socket, datetime
 import calendar
 from .get_domain import *
 
+import json
 
 class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
@@ -21,6 +21,28 @@ class fuenc_station(models.Model):
     line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路',
                               # default=lambda self: self.default_line_id()
                               )
+
+    product_id_domain = fields.Char(
+        compute="_compute_product_id_domain",
+        readonly=True,
+        store=False,
+    )
+
+    # product_site_id_domain = fields.Char(
+    #     compute="_compute_product_site_id_domain",
+    #     readonly=True,
+    #     store=False,
+    # )
+
+
+    @get_line_id_domain
+    @api.multi
+    @api.depends('line_id')
+    def _compute_product_id_domain(self,domain):
+        for rec in self:
+            rec.product_id_domain = json.dumps(
+                domain
+            )
 
     @get_line_id
     @api.model
