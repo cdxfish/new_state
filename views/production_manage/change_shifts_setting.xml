@@ -243,6 +243,7 @@
                     <field name="site_id" string="站点"></field>
                     <field name="card_number" string="特殊卡号"/>
                     <field name="remarks" string="备注"/>
+                    <widget string="操作" name="treebtns" template="change_shifts_setting_act"/>
                 </tree>
             </field>
         </record>
@@ -254,6 +255,10 @@
                 <form>
                     <sheet>
                         <group>
+                            <field name="product_id_domain" invisible="1"/>
+                            <field name="product_site_id_domain" invisible="1"/>
+                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}" required="1" domain="product_id_domain"/>
+                            <field name="site_id" string="站点"   options="{'no_create':True,'no_open':True}" context="{'site_id':site_id}" required="1" domain="product_site_id_domain"/>
                             <field name="card_number" string="特殊卡号"/>
                             <field name="remarks" string="备注"/>
                         </group>
