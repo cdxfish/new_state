@@ -60,7 +60,7 @@
                             <field name="end_work_time" string="下班时间" options="{'fmt_type':'time'}"/>
                             <!--<field name="end_time_select" string="下班日期" widget="radio"/>-->
                             <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
-                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"/>
+                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
 						</group>
 					</div>
 				</form>
