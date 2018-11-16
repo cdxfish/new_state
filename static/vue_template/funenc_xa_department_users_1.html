@@ -33,6 +33,8 @@
 					</div>
 					<el-row>
 						<el-button type="primary" size="small" @click="settings">设置人员属性</el-button>
+						<el-input v-model="input" placeholder="请输入内容姓名或者工号"></el-input>
+						<el-button type="primary" size="small" @click="search">搜索</el-button>
 					</el-row>
 					<div class="text item">
 						<template>

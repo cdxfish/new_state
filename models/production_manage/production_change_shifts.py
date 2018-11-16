@@ -2,6 +2,7 @@
 from odoo import models, fields, api
 import datetime
 from ..get_domain import get_domain
+from ..python_util import get_add_8th_str_time
 from odoo.exceptions import ValidationError
 
 from ..get_domain import get_line_id_domain
@@ -589,16 +590,28 @@ class production_change_shifts(models.Model):
             [('production_state', '=', position),
              ('change_shifts_user_id', '=', ding_user.id)],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'])  # 待接班
+             'take_over_from_time'],order='take_over_from_time desc')  # 待接班
         take_over_from_ids = self.search_read(
             [('take_over_from_user_id', '=', ding_user.id), ('production_state', '=', position),
              ('state', '=', 'take_over_from')],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'])  # 已接班
+             'take_over_from_time'],order='take_over_from_time desc')  # 已接班
         for change_shifts_id in change_shifts_ids:
             change_shifts_id['take_over_from_user_id'] = change_shifts_id.get('take_over_from_user_id')[1] if change_shifts_id.get('take_over_from_user_id') else ''
+            if change_shifts_id.get('change_shifts_time'):
+                change_shifts_id['change_shifts_time'] = get_add_8th_str_time(change_shifts_id['change_shifts_time'])
+
+            if change_shifts_id.get('take_over_from_time'):
+                change_shifts_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id['take_over_from_time'])
+
         for change_shifts_id_id in take_over_from_ids:
             change_shifts_id_id['take_over_from_user_id'] = change_shifts_id_id.get('take_over_from_user_id')[1] if change_shifts_id_id.get('take_over_from_user_id') else ''
+            if change_shifts_id_id.get('change_shifts_time'):
+                change_shifts_id_id['change_shifts_time'] = get_add_8th_str_time(change_shifts_id_id['change_shifts_time'])
+
+            if change_shifts_id_id.get('take_over_from_time'):
+                change_shifts_id_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id_id['take_over_from_time'])
+
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
         jb_form = self.get_form_id()
         return {

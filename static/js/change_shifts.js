@@ -50,7 +50,7 @@ odoo.define('change_shifts_clint', function (require) {
                 method: 'get_template_content',
                 kwargs: {
                     module_name: 'funenc_xa_station',
-                    template_name: 'test_demo'
+                    template_name: 'change_shifts'
                 }
             }).then(function (el) {
                 self.replaceElement($(el));
