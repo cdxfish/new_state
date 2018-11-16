@@ -39,10 +39,10 @@ class ArrangeClassManage(models.Model):
             name = ''
             for i, order_to_arrange_id in enumerate(this.order_to_arrange_ids):
                 if i == 0:
-                    name = name + order_to_arrange_id.arrange_order_id.name
+                    name = name + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id else ''
 
                 else:
-                    name = name + ',' + order_to_arrange_id.arrange_order_id.name
+                    name = name + ',' + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id else ''
             this.name = name
 
     @api.model

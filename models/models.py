@@ -28,6 +28,13 @@ class fuenc_station(models.Model):
         store=False,
     )
 
+    # product_site_id_domain = fields.Char(
+    #     compute="_compute_product_site_id_domain",
+    #     readonly=True,
+    #     store=False,
+    # )
+
+
     @get_line_id_domain
     @api.multi
     @api.depends('line_id')
@@ -70,7 +77,7 @@ class fuenc_station(models.Model):
     #             self.env.cr.execute(sql)
 
     @get_line_id_domain
-    @api.onchange('line_id','compute_base_context')
+    @api.onchange('line_id')
     def change_line_id(self, domain):
         if not self.line_id:
             return {
