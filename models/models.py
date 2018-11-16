@@ -28,12 +28,27 @@ class fuenc_station(models.Model):
         store=False,
     )
 
-    # product_site_id_domain = fields.Char(
-    #     compute="_compute_product_site_id_domain",
-    #     readonly=True,
-    #     store=False,
-    # )
+    product_site_id_domain = fields.Char(
+        compute="_compute_product_site_id_domain",
+        readonly=True,
+        store=False,
+    )
 
+    @api.multi
+    @api.depends('line_id')
+    def _compute_product_site_id_domain(self):
+        for rec in self:
+            line_id = rec.line_id
+
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments.ids
+            child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('parentid', '=', line_id.departmentId)]).ids
+            site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
+
+            rec.product_site_id_domain = json.dumps(
+                site_domain
+            )
 
     @get_line_id_domain
     @api.multi
