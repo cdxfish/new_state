@@ -323,10 +323,24 @@
 
 
                             </group>
+
+                            <group string="备品交接情况">
+                                 <field name="driving_my_change_ids" string="">
+                                    <tree editable="top" class="noOpen" create="0" delete="0">
+                                        <field name="name" string="备品名称" />
+                                        <field name="unit" string="单位" />
+                                        <field name="count" string="数量"/>
+                                        <field name="state" string="状态"/>
+                                        <field name="remarks" string="备注"/>
+                                    </tree>
+                                </field>
+                            </group>
+
                             <group string="票款收入">
                                 <field name="tmv_booking_income" string="本日TVM收入"/>
                                 <field name="other_tickets_income" string="其他票款收入"/>
                             </group>
+
                         </sheet>
                         <sheet>
                             <group string="行车有关事项交接">

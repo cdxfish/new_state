@@ -199,6 +199,10 @@ class production_change_shifts(models.Model):
                                                       string='运营前检查',
                                                       # default=lambda self: self.default_production()
                                                       )
+    driving_my_change_ids = fields.One2many('funenc_xa_station.preparedness_7',
+                                    'shifts_id', string='行车备品',
+                                    )
+
 
     check_project_ids = fields.One2many('funenc_xa_station.train_working_2', 'production_change_shifts1_id',
                                         string='运营前检查',
@@ -346,6 +350,28 @@ class production_change_shifts(models.Model):
     def compute_special_card_preset_no(self):
         for this in self:
             this.special_card_preset_no = len(this.special_card_preset_id.ids)
+
+
+
+    @api.onchange('driving_my_change_ids')
+    def onchange_driving_my_change_ids(self):
+        if not self.driving_my_change_ids:
+            try:
+                obj = self.env['funenc_xa_station.car_line'].search([])[0]
+                inst_ids = obj.preparedness_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+
+                return {
+                    'value': {'driving_my_change_ids': default_data}
+                }
+
+            except:
+                raise ValidationError('请检查系统配置中的预设交接班是否配置')
+        else:
+            return
+
 
     @api.onchange('my_change_ids')
     def onchange_my_change_ids(self):
@@ -643,6 +669,19 @@ class preparedness_6(models.Model):
     remarks = fields.Text(string='备注')
     list_situation = fields.Char(string='清单情况')
     exceptional_situation = fields.Char(string='异常情况')
+
+class preparedness_7(models.Model):
+    _name = 'funenc_xa_station.preparedness_7'
+    _description = u'备品交接班中间表'
+
+    shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
+    name = fields.Char(string='备品名称')
+    save_name = fields.Char('')
+    unit = fields.Char(string='单位')
+    save_unit = fields.Char('')
+    count = fields.Integer(string='数量')
+    state = fields.Selection(selection=[('fine', '良好'), ('abnormity', '异常')], default="fine")
+    remarks = fields.Char(string='备注')
 
 
 class check_project_to_production_change_shifts(models.Model):
