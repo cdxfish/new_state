@@ -48,7 +48,6 @@ def get_line_id_domain(func):
 
     return wrapper
 
-
 def get_line_id(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):

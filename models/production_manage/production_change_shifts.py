@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
 from ..get_domain import get_domain
 from odoo.exceptions import ValidationError
+
+from ..get_domain import get_line_id_domain
 
 KEY = [('station_master', '站长'),
        ('train_working', '行车'),
@@ -539,8 +540,9 @@ class production_change_shifts(models.Model):
 
         return position
 
+    @get_line_id_domain
     @api.model
-    def get_change_shifts_data(self):
+    def get_change_shifts_data(self,line_id_domain):
 
         position = self.get_position()
         user_dic = {
@@ -557,12 +559,29 @@ class production_change_shifts(models.Model):
             }
 
         ding_user = self.env.user.dingtalk_user
-        department = ding_user.departments[0]
-        domain = [('site_id', '=', department.id), ('production_state', '=', position),
+        department_ids = ding_user.user_property_departments
+        domain = [('site_id', 'in', department_ids.ids), ('production_state', '=', position),
                   ('change_shifts_user_id', '!=', ding_user.id), ('state', '=', 'change_shifts')]
+
+        line_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(line_id_domain)
+        line_name = '' # 所属线路名
+        for i,line in enumerate(line_ids):
+            if i == 0:
+                line_name = line_name + line.name
+            else:
+                line_name = line_name + ',' + line.name
+
+        department_name = ''  # 站点名
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                if not department_name:
+                    department_name = department_name + department_id.name
+                else:
+                    department_name = department_name + ',' + department_id.name
+
         user_dic['name'] = ding_user.name
-        user_dic['line_id'] = ding_user.line_id.name
-        user_dic['department_name'] = ding_user.department_name
+        user_dic['line_id'] = line_name
+        user_dic['department_name'] = department_name
         user_dic['jobnumber'] = ding_user.jobnumber
         user_dic['position'] = ding_user.position
         # ('state', 'in', ['change_shifts', 'draft']),
