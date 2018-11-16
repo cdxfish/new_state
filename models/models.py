@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 import odoo.exceptions as msg
+
 import qrcode
 import os
 import base64
@@ -21,7 +22,20 @@ class fuenc_station(models.Model):
                               # default=lambda self: self.default_line_id()
                               )
 
+    product_id_domain = fields.Char(
+        compute="_compute_product_id_domain",
+        readonly=True,
+        store=False,
+    )
 
+    @get_line_id_domain
+    @api.multi
+    @api.depends('line_id')
+    def _compute_product_id_domain(self,domain):
+        for rec in self:
+            rec.product_id_domain = json.dumps(
+                domain
+            )
 
     @get_line_id
     @api.model
