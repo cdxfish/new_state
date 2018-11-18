@@ -63,7 +63,9 @@
                                         </tree>
                                     </field>
                                     <field name="training_plan_place" string="培训地点" required="1"/>
-                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"
+                                                 domain="[('department_hierarchy','=',3)]"
+                                    />
                                 </group>
                                 <group>
                                     <field name="training_plan_type" string="培训类型" required="1"/>

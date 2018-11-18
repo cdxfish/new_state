@@ -35,8 +35,9 @@
 				<form>
 					<div class="container-fluid">
 						<group>
+							<field name="product_departments_domain" invisible="1"/>
                             <field name="store_house_department_id" string="仓库所属部门"  options="{'no_create':True}"
-								   readonly="1"
+								domain="product_departments_domain"
 							/>
                             <field name="name" string="仓库名称"/>
                         </group>

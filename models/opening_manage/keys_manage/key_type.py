@@ -9,8 +9,8 @@ class KeyType(models.Model):
 	_inherit = 'fuenc_station.station_base'
 	
 	name = fields.Char(string='钥匙类型', required=True)
-	prent_id = fields.Many2one('funenc.xa.station.key.type', string='父耗材分类')
-	child_ids = fields.One2many('funenc.xa.station.key.type', 'prent_id', string='子耗材分类')
+	prent_id = fields.Many2one('funenc.xa.station.key.type', string='父钥匙分类')
+	child_ids = fields.One2many('funenc.xa.station.key.type', 'prent_id', string='子钥匙分类')
 	remarks = fields.Text(string='备注')
 
 	

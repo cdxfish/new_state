@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import odoo.exceptions as msg
 from odoo import models, fields, api
 
 from ..get_domain import get_domain
 
+import json
 
 class consumables_inventory(models.Model):
     _name = 'funenc_xa_station.consumables_inventory'
@@ -20,6 +20,7 @@ class consumables_inventory(models.Model):
     outgoing_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='个人姓名')
     inventory_export = fields.Integer(string='库存数量')
     department_name = fields.Char(string='部门名称')
+
 
     @api.model
     def create_consumables_inventory(self):
@@ -117,4 +118,25 @@ class consumables_inventory(models.Model):
             "views": [[view_form, "form"]],
             'target': 'new',
             'context': context
+        }
+
+    @api.model
+    def init_data(self):
+        if self.env.user.id == 1:
+            domain = []
+        else:
+            ding_user = self.env.user.dingtalk_user
+            ids = ding_user.user_property_departments.ids
+            domain = [('inventory_department_id','=',ids)]
+
+        context = dict(self.env.context or {})
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_inventory_list').id
+        return {
+            'name': '出库',
+            "type": "ir.actions.act_window",
+            "res_model": "funenc_xa_station.consumables_inventory",
+            "views": [[view_tree, "tree"]],
+            'target': 'current',
+            'context': context,
+            'domain':domain
         }
