@@ -63,7 +63,7 @@ odoo.define('change_shifts_clint', function (require) {
                     methods: {
                         shift_shift: function(){
                             // 交班创建
-                            console.log(self.vue_data.jb_form)
+//                            console.log(self.vue_data.jb_form)
                             self.do_action({
                                                 name: '\u521b\u5efa',
                                                 type: 'ir.actions.act_window',
@@ -107,6 +107,33 @@ odoo.define('change_shifts_clint', function (require) {
 			                                    res_id: row['id']
                                             });
 
+
+                        },
+
+                        handleDelete(index,row) {
+                            self._rpc({
+                                        model: 'funenc_xa_station.production_change_shifts',
+                                        method: 'handle_delete',
+                                        kwargs:{id_delete:row.id}
+                                    }).then(function (data) {
+                                            if(data){
+                                            self.vue_data.change_shifts_ids.splice(index, 1);
+                                            }
+                                });
+
+                        },
+
+                    handleDelete_1(index,row) {
+//                    console.log('999999',row);
+                            self._rpc({
+                                        model: 'funenc_xa_station.production_change_shifts',
+                                        method: 'handle_delete_1',
+                                        kwargs:{id_delete:row.id}
+                                    }).then(function (data) {
+                                            if(data){
+                                            self.vue_data.take_over_from_ids.splice(index, 1);
+                                            }
+                                });
 
                         },
 

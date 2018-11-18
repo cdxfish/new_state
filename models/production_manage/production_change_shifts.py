@@ -675,6 +675,20 @@ class production_change_shifts(models.Model):
         #     'res_id': self.id
         # }
 
+    @api.model
+    def handle_delete(self,id_delete):
+        # print(id_delete)
+        data = self.env['funenc_xa_station.production_change_shifts'].search([('id','=',id_delete)]).unlink()
+        return data
+
+    @api.model
+    def handle_delete_1(self,id_delete):
+        data = self.env['funenc_xa_station.production_change_shifts'].search([('id', '=', id_delete)]).unlink()
+        # print(id_delete)
+        return data
+
+
+
 
 class put_question(models.Model):
     _name = 'funenc_xa_station.put_question'

@@ -34,6 +34,9 @@
 								<el-button
 								  size="mini"
 								  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                <el-button
+								  size="mini"
+								  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
 							  </template>
                     </el-table-column>
 
@@ -49,7 +52,7 @@
                     </el-table-column>
                     <el-table-column prop="take_over_from_user_id" label="接班人" min-width="180">
                     </el-table-column>
-                    <el-table-column prop="job_no" label="工号">
+                    <el-table-column prop="job_no" label="工号" min-width="180">
                     </el-table-column>
                     <el-table-column prop="take_over_from_time" label="接班时间" min-width="180">
                     </el-table-column>
@@ -58,6 +61,9 @@
 								<el-button
 								  size="mini"
 								  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                <el-button
+								  size="mini"
+								  @click="handleDelete_1(scope.$index, scope.row)">删除</el-button>
 							  </template>
 
                     </el-table-column>
