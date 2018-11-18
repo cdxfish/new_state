@@ -194,6 +194,25 @@
             >删除</button>
         </div>
     </t>
+
+    <t t-name="widget_training_edit_delete">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" type="object"  name="edit"
+                    group="funenc_xa_station.train_plan_modify_button"
+                    hidden="hidden"
+            >修改</button>
+            <button class="layui-btn layui-btn-sm" type="object"  name="button_details"
+                    group="funenc_xa_station.train_plan_details_button"
+                    hidden="hidden"
+            >详情</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" type="object"
+                    name="delete" confirm="您确定要删除吗？"
+                    group="funenc_xa_station.train_plan_delete_button"
+                    hidden="hidden"
+            >删除</button>
+        </div>
+    </t>
+
     <!--演练计划-->
     <t t-name="plan_widget_edit_delete">
         <div class="layui-btn-group">

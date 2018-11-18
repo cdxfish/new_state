@@ -29,7 +29,7 @@
                     <field name="training_plan_mode" string="培训形式"/>
                     <field name="remarks" string="备注"/>
                     <field name="state" string="状态"/>
-                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                    <widget string="操作" name="treebtns" template="widget_training_edit_delete"/>
                 </tree>
             </field>
         </record>
