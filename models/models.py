@@ -691,6 +691,51 @@ class UserInherit(models.Model):
                 }
 
     @api.model
+    def get_user_by_name_or_no(self,name_or_no):
+        '''
+         根据姓名或者工号查询用户
+        :return: 用户列表
+        '''
+
+        user_list = self.search(['|',('name','ilike',name_or_no),('jobnumber','ilike',name_or_no)])
+        show_user_list = []
+        for user in user_list:
+
+            user_dic = {
+                'id': user.id,
+                'jobnumber': user.jobnumber,
+                'name': user.name,
+                'line_name': user.line_id.name if user.line_id else '',
+                'branch_department': '',
+                'department_name': user.department_name ,
+                'position': user.position,
+                'tel': user.tel
+            }
+
+            if user.departments:
+                # 分部
+                department = user.departments[0]
+                if  department.department_hierarchy == 1:
+                    user_dic['branch_department'] = department.name
+                elif department.department_hierarchy == 1:
+                    user_dic['branch_department'] = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department.parentid)]).name
+                else:
+                    parent_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department.parentid)])
+
+                    user_dic['branch_department'] = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', parent_id.parentid)]).name
+
+            else:
+                user_dic['branch_department'] = ''
+
+            show_user_list.append(user_dic)
+
+
+        return show_user_list
+
+    @api.model
     def get_user_property_by_user_id(self, user_id):
         user = self.browse(user_id)
         user_property_departments = user.user_property_departments.ids
