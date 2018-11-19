@@ -423,6 +423,7 @@ class generate_qr(models.Model):
                         'res_id': obj.id,
                         'target': 'current',
                     }
+
                 else:
                     work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
@@ -434,6 +435,15 @@ class generate_qr(models.Model):
                         'add_date': datetime.datetime.now()
 
                     })
+
+                    return {
+                        'name': '上下班打卡',
+                        'type': 'ir.actions.act_window',
+                        "views": [[view_form, "form"]],
+                        'res_model': 'funenc_xa_station.generate_qr',
+                        'res_id': obj.id,
+                        'target': 'current',
+                    }
             else:
 
                 work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
@@ -443,8 +453,20 @@ class generate_qr(models.Model):
                 self.create({
                     'work_qr': work_b64,
                     'off_work_qr': off_work_b64,
-                    'add_date': datetime.datetime.now()
+                    'add_date': datetime.datetime.now(),
+                    'line_id': self.env.user.dingtalk_user.line_id.id,
+                    'site_id': self.env.user.dingtalk_user.departments[0].id,
                 })
+
+            return {
+                'name': '上下班打卡',
+                'type': 'ir.actions.act_window',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc_xa_station.generate_qr',
+                'res_id': obj.id,
+                'target': 'current',
+            }
+
 
     def create_qrcode_1(self, add_data, file_name):
 

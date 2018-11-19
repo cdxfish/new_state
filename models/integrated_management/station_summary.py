@@ -31,6 +31,7 @@ class StationSummary(models.Model):
     turnout_ids = fields.One2many('funenc_xa_station.turnout', 'line_turnout_id', string='道岔')
     liaison_station_ids = fields.One2many('funenc_xa_station.liaison_station', 'line_turnout_id', string='联络站基本信息')
     operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路')
+    signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine','station_summary_id', string='信号机位置')
 
     # 消防逃生图
     exit_maps = fields.One2many('funenc_xa_station.station_exit','station_summary_id',string='消防逃生图')

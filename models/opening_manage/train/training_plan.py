@@ -20,7 +20,7 @@ class training_plan(models.Model):
     training_plan_place = fields.Char(string='培训地点')
     training_plan_time = fields.One2many('funenc_xa_station.select_datetime', 'training_plan_id', string='培训时间')
     lecturer = fields.Char(string='授课人')
-    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')])
+    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')],default="site")
     remarks = fields.Char(string='备注')
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'training_plan_department_rel_2',
                                         'training_plan_id', 'department_id', string='参与站点',
