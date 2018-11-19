@@ -123,17 +123,7 @@ class PrudeNewpaperWrite(models.Model):
             self.env['funenc_xa_station.prude_newspaper'].sudo().create(va_value)
         self.env['funenc_xa_staion.prude_newpaper_write'].search([]).unlink()
 
-        view_form = self.env.ref('funenc_xa_station.prude_newspaper_tree_view').id
-        return {
-            'name': '生产日报',
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'domain': [('create_uid', '=', self.env.user.id)],
-            "views": [[view_form, "tree"]],
-            'res_model': 'funenc_xa_station.prude_newspaper',
-            'context': self.env.context,
-        }
+        return  self.env['funenc_xa_station.prude_newspaper'].get_day_plan_publish_action()
 
     #新创建一条记录
     def information_daynewpaper_write(self):

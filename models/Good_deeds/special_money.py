@@ -23,9 +23,9 @@ class SpecialMoney(models.Model):
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')
     event_type = fields.Selection([("deal","事务处理 "),('money','非及时退款')],string='事件类型')
-    event_details = fields.Text(string='事件详情')
+    event_details = fields.Text(string='事件详情',required=True)
     survey_situation = fields.Text(string='调查情况')
-    involving_money = fields.Integer(string='涉及金额')
+    involving_money = fields.Integer(string='涉及金额',required=True)
     passengers_name = fields.Char(string='乘客姓名')
     passengers_phone = fields.Char(string='乘客电话')
     passengers_ID = fields.Char(string='乘客身份证')
@@ -36,7 +36,7 @@ class SpecialMoney(models.Model):
     write_time = fields.Datetime(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
     audit_flow = fields.Char(string='审核流程')
-    apply_why = fields.Text(string='申请原因')
+    apply_why = fields.Text(string='申请原因',required=True)
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
     # load_file_test = fields.Many2many('ir.attachment','good_special_ir_attachment_rel',
     #                                      'attachment_id','meeting_dateils_id', string='图片上传')
@@ -210,7 +210,7 @@ class SpecialMoney(models.Model):
         return {
             "type": "ir.actions.act_url",
             'res_id': self.id,
-            "url": '/funenc_xa_station/special_money_xlsx?id=%s'%(id_id),
+            "url": '/funenc_xa_station/special_money_word?id=%s'%(id_id),
             "target": "new",
         }
 

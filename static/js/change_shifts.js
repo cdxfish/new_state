@@ -111,29 +111,52 @@ odoo.define('change_shifts_clint', function (require) {
                         },
 
                         handleDelete(index,row) {
-                            self._rpc({
-                                        model: 'funenc_xa_station.production_change_shifts',
-                                        method: 'handle_delete',
-                                        kwargs:{id_delete:row.id}
-                                    }).then(function (data) {
-                                            if(data){
-                                            self.vue_data.change_shifts_ids.splice(index, 1);
-                                            }
-                                });
+                                    this.$confirm('是否要删除本条记录?', '提示', {
+                                      confirmButtonText: '确定',
+                                      cancelButtonText: '取消',
+                                      type: 'warning'
+                                    }).then(() => {
+                                        self._rpc({
+                                                    model: 'funenc_xa_station.production_change_shifts',
+                                                    method: 'handle_delete',
+                                                    kwargs:{id_delete:row.id}
+                                                }).then(function (data) {
+                                                        if(data){
+                                                        self.vue_data.change_shifts_ids.splice(index, 1);
+                                                        }
+                                            });
+                                    }).catch(() => {
+                                      this.$message({
+                                        type: 'info',
+                                        message: '已取消删除'
+                                      });
+                                    });
 
                         },
 
                     handleDelete_1(index,row) {
-//                    console.log('999999',row);
-                            self._rpc({
-                                        model: 'funenc_xa_station.production_change_shifts',
-                                        method: 'handle_delete_1',
-                                        kwargs:{id_delete:row.id}
-                                    }).then(function (data) {
-                                            if(data){
-                                            self.vue_data.take_over_from_ids.splice(index, 1);
-                                            }
-                                });
+
+                                this.$confirm('是否要删除本条记录?', '提示', {
+                                      confirmButtonText: '确定',
+                                      cancelButtonText: '取消',
+                                      type: 'warning'
+                                    }).then(() => {
+                                        self._rpc({
+                                                    model: 'funenc_xa_station.production_change_shifts',
+                                                    method: 'handle_delete_1',
+                                                    kwargs:{id_delete:row.id}
+                                                }).then(function (data) {
+                                                        if(data){
+                                                        self.vue_data.take_over_from_ids.splice(index, 1);
+                                                        }
+                                            });
+                                    }).catch(() => {
+                                      this.$message({
+                                        type: 'info',
+                                        message: '已取消删除'
+                                      });
+                                    });
+
 
                         },
 
