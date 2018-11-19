@@ -19,10 +19,14 @@
             <field name="model">funenc_xa_station.sheduling_record</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0">
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                           />
+                          domain="product_id_domain"/>
                     <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                           />
+                            domain="product_site_id_domain"/>
                     <field name="class_group_id" string="班组"/>
                     <field name="user_id" string="排班人员"/>
                     <field name="arrange_order_id" string="班次"/>
@@ -39,10 +43,12 @@
                 <form>
                     <div class="container-fluid">
                     <group>
+                                            <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                         <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                               />
+                               domain="product_id_domain"/>
                         <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                               />
+                               domain="product_site_id_domain"/>
                         <field name="class_group_id" string="班组"/>
                         <field name="user_id" string="排班人员"/>
                         <field name="arrange_order_id" string="班次"/>

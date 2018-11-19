@@ -5,6 +5,8 @@
             <field name="model">funenc_xa_station.prude_newspaper</field>
             <field name="arch" type="xml">
                 <tree create="0" edit="0" class="noOpen" search_ex_template="product_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"></field>
                     <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"></field>
                     <field name="event_stype"></field>
@@ -49,13 +51,15 @@
             <field name="model">funenc_xa_station.prude_newspaper</field>
             <field name="arch" type="xml">
                 <form edit="0" create="0" class="noOpen">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-3" style="padding-right: 0px">
                                  <label for="line_id" string="线路:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" readonly="1" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="col-md-6">

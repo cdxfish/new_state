@@ -20,6 +20,8 @@
 			<field name="model">funenc_xa_station.change_shifts</field>
 			<field name="arch" type="xml">
 				<tree limit="15" class="noOpen" search_ex_template="change_shifts_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
                     <field name="site_id" string="站点" domain="[('department_hierarchy','=',3)]"
                            options="{'no_create':True,'no_open':True}"  context="{'site_id':site_id}"/>
@@ -55,12 +57,14 @@
                             <field name="state" widget="statusbar"/>
                         </header>
 						<group>
+                                                <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" string="线路"
                                    options="{'no_create':True,'no_open':True}"
-                                   />
+                                   domain="product_id_domain"/>
                             <field name="site_id" string="站点"
                                    options="{'no_create':True,'no_open':True}"
-                                    context="{'site_id':site_id}"/>
+                                    context="{'site_id':site_id}" domain="product_site_id_domain"/>
                             <field name="application_user_id" string="申请人"
                                    domain="[('departments','=',site_id)]"
                                    options="{'no_create':True,'no_open':True}"
@@ -88,10 +92,12 @@
 			<field name="model">funenc_xa_station.change_shifts_time</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                           />
+                           domain="product_id_domain"/>
                     <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                           />
+                           domain="product_site_id_domain"/>
                     <field name="context" string="内容"/>
                     <field name="time" string="时间"/>
                 </tree>
@@ -105,10 +111,12 @@
 				<form>
 					<div class="container-fluid">
 						<group>
+                                                <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                                   />
+                                   domain="product_id_domain"/>
                             <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                                   />
+                                   domain="product_site_id_domain"/>
                             <field name="context" string="内容"/>
                             <field name="time" string="时间"/>
 						</group>

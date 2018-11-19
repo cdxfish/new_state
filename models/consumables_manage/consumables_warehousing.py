@@ -2,13 +2,15 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
 
+import json
 
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_warehousing'
     _description = u'耗材入库'
 
     consumables_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='入库部门',
-                                                default=lambda self: self.default_consumables_department_id())
+                                                # default=lambda self: self.default_consumables_department_id()
+                                                )
     consumables_type_id = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称', required=True)
     store_house_id = fields.Many2one('funenc_xa_station.store_house', string='入库名称', required=True)
     warehousing_count = fields.Integer(string='入库数量', required=True)
@@ -17,6 +19,26 @@ class StoreHouse(models.Model):
     warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='领用部门')
     outgoing_user = fields.Char(string='采购人')
     consumables_warehousing_date = fields.Date(string='入库时间')
+
+    product_departments_domain = fields.Char(
+        compute="_compute_product_departments_domain",
+        readonly=True,
+        store=False,
+    )
+
+    @api.multi
+    @api.depends('consumables_department_id')
+    def _compute_product_departments_domain(self):
+        if self.env.user.id == 1:
+            domain = []
+        else:
+            departments_ids = self.env.user.dingtalk_user.user_property_departments.ids
+            domain = [('id', 'in', departments_ids)]
+
+        for rec in self:
+            rec.product_departments_domain = json.dumps(
+                domain
+            )
 
     @api.model
     def create_consumables_warehousing(self):

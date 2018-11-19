@@ -77,17 +77,14 @@ class StationSummary(models.Model):
             ]).ids
         else:
             ding_user = self.env.user.dingtalk_user
-            department_id = ding_user.departments[0]
-            if department_id.department_hierarchy == 1:
-                site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([
-                    ('department_hierarchy', '=', 3)
-                ]).ids
-            elif department_id.department_hierarchy == 2:
-                site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    [('parentid', '=', department_id.departmentId)]).ids
-            else:
+            department_ids = ding_user.user_property_departments
+            site_ids = []
+            for department_id in department_ids:
+                if department_id.department_hierarchy == 3:
+                    site_ids.append(department_id.id)
+            if len(site_ids) == 1:
                 view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
-                res_id = self.search([('site_id', '=', department_id.id)])
+                res_id = self.search([('site_id', '=', site_ids[0])])
                 return {
                     'name': '借用记录',
                     "type": "ir.actions.act_window",
@@ -95,6 +92,7 @@ class StationSummary(models.Model):
                     "views": [[view_form, "form"]],
                     'res_id': res_id.id or None
                 }
+
         view_list = self.env.ref('funenc_xa_station.site_station_detail').id
         return {
             'name': '车站详情',

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
 from ..get_domain import get_domain
+from ..python_util import get_add_8th_str_time
 from odoo.exceptions import ValidationError
+
+from ..get_domain import get_line_id_domain
 
 KEY = [('station_master', '站长'),
        ('train_working', '行车'),
@@ -159,6 +161,7 @@ class production_change_shifts(models.Model):
                                         default=lambda self: self.default_production_state())  #
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='交班人',
                                             default=lambda self: self.default_user())
+    job_number_per = fields.Char(string='交班人工号',related='change_shifts_user_id.jobnumber')
     take_over_from_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='接班人')
     job_no = fields.Char("工号", related='take_over_from_user_id.jobnumber')
     position = fields.Text("职位", related='take_over_from_user_id.position')
@@ -198,6 +201,10 @@ class production_change_shifts(models.Model):
                                                       string='运营前检查',
                                                       # default=lambda self: self.default_production()
                                                       )
+    driving_my_change_ids = fields.One2many('funenc_xa_station.preparedness_7',
+                                    'shifts_id', string='行车备品',
+                                    )
+
 
     check_project_ids = fields.One2many('funenc_xa_station.train_working_2', 'production_change_shifts1_id',
                                         string='运营前检查',
@@ -345,6 +352,28 @@ class production_change_shifts(models.Model):
     def compute_special_card_preset_no(self):
         for this in self:
             this.special_card_preset_no = len(this.special_card_preset_id.ids)
+
+
+
+    @api.onchange('driving_my_change_ids')
+    def onchange_driving_my_change_ids(self):
+        if not self.driving_my_change_ids:
+            try:
+                obj = self.env['funenc_xa_station.car_line'].search([])[0]
+                inst_ids = obj.preparedness_ids
+                default_data = []
+                for inst_id in inst_ids:
+                    default_data.append((0, 0, {'name': inst_id.preparedness_name, 'unit': inst_id.unit}))
+
+                return {
+                    'value': {'driving_my_change_ids': default_data}
+                }
+
+            except:
+                raise ValidationError('请检查系统配置中的预设交接班是否配置')
+        else:
+            return
+
 
     @api.onchange('my_change_ids')
     def onchange_my_change_ids(self):
@@ -512,8 +541,9 @@ class production_change_shifts(models.Model):
 
         return position
 
+    @get_line_id_domain
     @api.model
-    def get_change_shifts_data(self):
+    def get_change_shifts_data(self,line_id_domain):
 
         position = self.get_position()
         user_dic = {
@@ -530,12 +560,29 @@ class production_change_shifts(models.Model):
             }
 
         ding_user = self.env.user.dingtalk_user
-        department = ding_user.departments[0]
-        domain = [('site_id', '=', department.id), ('production_state', '=', position),
+        department_ids = ding_user.user_property_departments
+        domain = [('site_id', 'in', department_ids.ids), ('production_state', '=', position),
                   ('change_shifts_user_id', '!=', ding_user.id), ('state', '=', 'change_shifts')]
+
+        line_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(line_id_domain)
+        line_name = '' # 所属线路名
+        for i,line in enumerate(line_ids):
+            if i == 0:
+                line_name = line_name + line.name
+            else:
+                line_name = line_name + ',' + line.name
+
+        department_name = ''  # 站点名
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                if not department_name:
+                    department_name = department_name + department_id.name
+                else:
+                    department_name = department_name + ',' + department_id.name
+
         user_dic['name'] = ding_user.name
-        user_dic['line_id'] = ding_user.line_id.name
-        user_dic['department_name'] = ding_user.department_name
+        user_dic['line_id'] = line_name
+        user_dic['department_name'] = department_name
         user_dic['jobnumber'] = ding_user.jobnumber
         user_dic['position'] = ding_user.position
         # ('state', 'in', ['change_shifts', 'draft']),
@@ -543,16 +590,28 @@ class production_change_shifts(models.Model):
             [('production_state', '=', position),
              ('change_shifts_user_id', '=', ding_user.id)],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'])  # 待接班
+             'take_over_from_time'],order='take_over_from_time desc')  # 待接班
         take_over_from_ids = self.search_read(
             [('take_over_from_user_id', '=', ding_user.id), ('production_state', '=', position),
              ('state', '=', 'take_over_from')],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'])  # 已接班
+             'take_over_from_time'],order='take_over_from_time desc')  # 已接班
         for change_shifts_id in change_shifts_ids:
             change_shifts_id['take_over_from_user_id'] = change_shifts_id.get('take_over_from_user_id')[1] if change_shifts_id.get('take_over_from_user_id') else ''
+            if change_shifts_id.get('change_shifts_time'):
+                change_shifts_id['change_shifts_time'] = get_add_8th_str_time(change_shifts_id['change_shifts_time'])
+
+            if change_shifts_id.get('take_over_from_time'):
+                change_shifts_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id['take_over_from_time'])
+
         for change_shifts_id_id in take_over_from_ids:
             change_shifts_id_id['take_over_from_user_id'] = change_shifts_id_id.get('take_over_from_user_id')[1] if change_shifts_id_id.get('take_over_from_user_id') else ''
+            if change_shifts_id_id.get('change_shifts_time'):
+                change_shifts_id_id['change_shifts_time'] = get_add_8th_str_time(change_shifts_id_id['change_shifts_time'])
+
+            if change_shifts_id_id.get('take_over_from_time'):
+                change_shifts_id_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id_id['take_over_from_time'])
+
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
         jb_form = self.get_form_id()
         return {
@@ -616,6 +675,20 @@ class production_change_shifts(models.Model):
         #     'res_id': self.id
         # }
 
+    @api.model
+    def handle_delete(self,id_delete):
+        # print(id_delete)
+        data = self.env['funenc_xa_station.production_change_shifts'].search([('id','=',id_delete)]).unlink()
+        return data
+
+    @api.model
+    def handle_delete_1(self,id_delete):
+        data = self.env['funenc_xa_station.production_change_shifts'].search([('id', '=', id_delete)]).unlink()
+        # print(id_delete)
+        return data
+
+
+
 
 class put_question(models.Model):
     _name = 'funenc_xa_station.put_question'
@@ -642,6 +715,19 @@ class preparedness_6(models.Model):
     remarks = fields.Text(string='备注')
     list_situation = fields.Char(string='清单情况')
     exceptional_situation = fields.Char(string='异常情况')
+
+class preparedness_7(models.Model):
+    _name = 'funenc_xa_station.preparedness_7'
+    _description = u'备品交接班中间表'
+
+    shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
+    name = fields.Char(string='备品名称')
+    save_name = fields.Char('')
+    unit = fields.Char(string='单位')
+    save_unit = fields.Char('')
+    count = fields.Integer(string='数量')
+    state = fields.Selection(selection=[('fine', '良好'), ('abnormity', '异常')], default="fine")
+    remarks = fields.Char(string='备注')
 
 
 class check_project_to_production_change_shifts(models.Model):

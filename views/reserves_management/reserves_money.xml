@@ -15,13 +15,17 @@
             <field name="model">funenc_xa_station.reserver_management</field>
             <field name="arch" type="xml">
                 <form>
+                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
                        <div class="col-md-6">
                           <div class="col-md-4">
                              <label for="line_id" string="线路"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -29,7 +33,7 @@
                              <label for="site_id" string="站点"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
                           </div>
                        </div>
                     </div>

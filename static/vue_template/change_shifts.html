@@ -1,10 +1,12 @@
 <div id="app">
     <el-row type="flex" style="margin-bottom: 20px">
-        姓名:{{user.name}}
-        线路:{{user.line_id}}
-        站点:{{user.department_name}}
-        工号:{{user.jobnumber}}
-        岗位：{{user.position}}
+
+        <el-col :span="4">姓名:{{user.name}}</el-col>
+        <el-col :span="4">线路:{{user.line_id}}</el-col>
+        <el-col :span="4">站点:{{user.department_name}}</el-col>
+        <el-col :span="4">工号:{{user.jobnumber}}</el-col>
+        <el-col :span="4">岗位：{{user.position}}</el-col>
+
     </el-row>
 
     <el-row style="margin-bottom: 20px">
@@ -32,6 +34,9 @@
 								<el-button
 								  size="mini"
 								  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                <el-button
+								  size="mini"
+								  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
 							  </template>
                     </el-table-column>
 
@@ -47,7 +52,7 @@
                     </el-table-column>
                     <el-table-column prop="take_over_from_user_id" label="接班人" min-width="180">
                     </el-table-column>
-                    <el-table-column prop="job_no" label="工号">
+                    <el-table-column prop="job_no" label="工号" min-width="180">
                     </el-table-column>
                     <el-table-column prop="take_over_from_time" label="接班时间" min-width="180">
                     </el-table-column>
@@ -56,6 +61,9 @@
 								<el-button
 								  size="mini"
 								  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                <el-button
+								  size="mini"
+								  @click="handleDelete_1(scope.$index, scope.row)">删除</el-button>
 							  </template>
 
                     </el-table-column>

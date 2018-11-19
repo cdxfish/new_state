@@ -7,8 +7,10 @@ class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
     _description = u'耗材出库'
 
-    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门', default=lambda
-        self: self.default_department_id())
+    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门',
+                                    # default=lambda
+                                    # self: self.default_department_id()
+                                    )
     delivery_storage_department = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='出库申请部门')
     consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
     consumables_count = fields.Integer(string='出库数量')
@@ -121,16 +123,26 @@ class delivery_storage(models.Model):
             store_house_id.inventory_count = store_house_id.inventory_count - store_house_id.sel_inventory_count
 
     def delivery_storage_save1(self):
-        context =dict(self.env.context or {})
-        self.is_delivery = 'yes'
-        self.delivery_storage_date = datetime.datetime.now()
+
+        apply_id = self.env.context.get('apply_id')
         consumables_inventory =self.env['funenc_xa_station.consumables_inventory'].search(
             [('inventory_department_id', '=', self.department_id.id),
              ('consumables_type', '=', self.consumables_type.id)])
-        consumables_inventory.inventory_count = consumables_inventory.inventory_count - self.consumables_count
+        if consumables_inventory:
+            count = consumables_inventory.inventory_count - self.consumables_count
+            if count>=0:
+                consumables_inventory.inventory_count = count
+                consumables_apply = self.env['funenc_xa_station.consumables_apply'].browse(apply_id)
+                consumables_apply.state = '已处理'
+            else:
+                raise msg.Warning('库存不够')
 
-        # if  self.delivery_storage_department:
-        #     self.env['funenc_xa_station.consumables_apply'].browse(int(context.get('apply_id')))
+
+        else:
+            raise msg.Warning('未找到相应库存')
+
+        self.is_delivery = 'yes'
+        self.delivery_storage_date = datetime.datetime.now()
 
 
 

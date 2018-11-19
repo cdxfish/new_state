@@ -16,10 +16,8 @@ class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
 
     site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点',
-                              # default=lambda self: self.default_site_id()
                               )
     line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路',
-                              # default=lambda self: self.default_line_id()
                               )
 
     product_id_domain = fields.Char(
@@ -28,12 +26,27 @@ class fuenc_station(models.Model):
         store=False,
     )
 
-    # product_site_id_domain = fields.Char(
-    #     compute="_compute_product_site_id_domain",
-    #     readonly=True,
-    #     store=False,
-    # )
+    product_site_id_domain = fields.Char(
+        compute="_compute_product_site_id_domain",
+        readonly=True,
+        store=False,
+    )
 
+    @api.multi
+    @api.depends('line_id')
+    def _compute_product_site_id_domain(self):
+        for rec in self:
+            line_id = rec.line_id
+
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments.ids
+            child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('parentid', '=', line_id.departmentId)]).ids
+            site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
+
+            rec.product_site_id_domain = json.dumps(
+                site_domain
+            )
 
     @get_line_id_domain
     @api.multi
@@ -43,38 +56,6 @@ class fuenc_station(models.Model):
             rec.product_id_domain = json.dumps(
                 domain
             )
-
-    @get_line_id
-    @api.model
-    def default_line_id(self, line_id):
-
-        return line_id
-
-    @get_site_id
-    @api.model
-    def default_site_id(self, site_id):
-
-        return site_id
-
-    # @api.constrains('site_id', 'line_id')
-    # def compute_site_and_line(self):
-    #     if self.env.user.id == 1:
-    #         if not self.line_id:
-    #             raise msg.Warning('线路不能为空')
-    #
-    #         if not self.site_id:
-    #             raise msg.Warning('车站不能为空')
-    #     else:
-    #         ding_user = self.env.user.dingtalk_user[0]
-    #         department = ding_user.departments[0]
-    #         if department.department_hierarchy == 3:
-    #             model = self._table
-    #
-    #             site_id = self.env.user.dingtalk_user.departments[0].id
-    #             line_id = self.env.user.dingtalk_user.line_id.id
-    #             #   不用orm  因为会递归回调
-    #             sql = 'update {} set site_id = {}, line_id = {} where id = {}'.format(model, site_id, line_id, self.id)
-    #             self.env.cr.execute(sql)
 
     @get_line_id_domain
     @api.onchange('line_id')
@@ -674,6 +655,51 @@ class UserInherit(models.Model):
 
         return {'department_tree': department_tree
                 }
+
+    @api.model
+    def get_user_by_name_or_no(self,name_or_no):
+        '''
+         根据姓名或者工号查询用户
+        :return: 用户列表
+        '''
+
+        user_list = self.search(['|',('name','ilike',name_or_no),('jobnumber','ilike',name_or_no)])
+        show_user_list = []
+        for user in user_list:
+
+            user_dic = {
+                'id': user.id,
+                'jobnumber': user.jobnumber,
+                'name': user.name,
+                'line_name': user.line_id.name if user.line_id else '',
+                'branch_department': '',
+                'department_name': user.department_name ,
+                'position': user.position,
+                'tel': user.tel
+            }
+
+            if user.departments:
+                # 分部
+                department = user.departments[0]
+                if  department.department_hierarchy == 1:
+                    user_dic['branch_department'] = department.name
+                elif department.department_hierarchy == 1:
+                    user_dic['branch_department'] = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department.parentid)]).name
+                else:
+                    parent_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department.parentid)])
+
+                    user_dic['branch_department'] = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', parent_id.parentid)]).name
+
+            else:
+                user_dic['branch_department'] = ''
+
+            show_user_list.append(user_dic)
+
+
+        return show_user_list
 
     @api.model
     def get_user_property_by_user_id(self, user_id):

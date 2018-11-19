@@ -33,6 +33,8 @@
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
                 <tree create="0" edit="0" class="noOpen" search_ex_template="transceiver_seeting_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="id" string="序号"></field>
                     <field name="transient_type"></field>
                     <field name="transient_name"></field>
@@ -53,7 +55,9 @@
                 <form creata="0" edit="0" class="noOpen">
                     <sheet>
                         <group>
-                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="product_id_domain" invisible="1"/>
+                            <field name="product_site_id_domain" invisible="1"/>
+                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                             <field name="transient_type" widget="cascader_widget"></field>
                             <field name="transient_name"></field>
@@ -70,6 +74,8 @@
             <field name="model">funenc_xa_station.transceiver_settings</field>
             <field name="arch" type="xml">
                 <form creata="0" edit="0" class="noOpen">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                         <div class="row">
                            <div class="col-md-6">
                               <div class="col-md-4">

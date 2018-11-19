@@ -48,7 +48,6 @@ def get_line_id_domain(func):
 
     return wrapper
 
-
 def get_line_id(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
@@ -67,12 +66,21 @@ def get_line_id(func):
     return wrapper
 
 
-def get_site_id(func):
+def get_site_ids(func):
+    '''
+    :param func:
+    :return:  返回用户所在属性 list 站点id
+    '''
+
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
         ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments.ids
+        department_ids = ding_user.user_property_departments
+        site_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                site_ids.append(department_id.id)
 
-        return func(self, department_ids[0] if department_ids else None, *args, **kwargs)
+        return func(self, site_ids, *args, **kwargs)
 
     return wrapper

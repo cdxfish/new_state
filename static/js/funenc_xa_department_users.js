@@ -18,7 +18,8 @@ odoo.define('funenc_xa_department_users', function (require) {
 
                                 tableData: [],
                                 multipleSelection: [],
-                                default_checked_keys:[]
+                                default_checked_keys:[],
+                                input:''
 
                 };
             },
@@ -52,6 +53,24 @@ odoo.define('funenc_xa_department_users', function (require) {
 
 
                             methods: {
+
+
+                               search() {
+                                   // 搜索
+                                   if (self.vue_data.input){
+                                       self._rpc({
+                                                  model: 'cdtct_dingtalk.cdtct_dingtalk_users',
+                                                  method:'get_user_by_name_or_no',
+                                                  kwargs: {'name_or_no':self.vue_data.input}
+                                                }).then(function(get_data){
+                                                  self.vue_data.tableData=get_data;
+                                                });
+
+
+                                            }
+                                   },
+
+
 
                                handleEdit(index, row) {
 

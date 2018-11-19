@@ -2,15 +2,21 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 from ..get_domain import get_domain
 
+import json
+
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_apply'
     _description = u'耗材申请'
 
-    to_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标部门', default=lambda
-        self: self.default_to_department_id())
+    to_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标部门',
+        #                                default=lambda
+        # self: self.default_to_department_id()
+                                       )
     to_parent_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标父部门')
-    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门', default=lambda
-        self: self.default_department_id())
+    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门',
+        #                             default=lambda
+        # self: self.default_department_id()
+                                    )
     consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材名称', required=True)
     consumables_count = fields.Integer(string='申请数量')
     is_apply = fields.Selection(string='是否已开始申请', selection=[('yes', '是'), ('no', '否')],default="no")
@@ -20,6 +26,67 @@ class StoreHouse(models.Model):
     manage_time = fields.Datetime('处理时间')
 
     storage_id = fields.Integer(string='耗材出库id')
+
+    product_departments_domain = fields.Char(
+        compute="_compute_product_departments_domain",
+        readonly=True,
+        store=False,
+    )
+
+    @api.multi
+    @api.depends('department_id')
+    def _compute_product_departments_domain(self):
+        if self.env.user.id == 1:
+            domain = []
+        else:
+            departments_ids = self.env.user.dingtalk_user.user_property_departments.ids
+            domain = [('id', 'in', departments_ids)]
+
+        for rec in self:
+            rec.product_departments_domain = json.dumps(
+                domain
+            )
+
+    @api.onchange('department_id')
+    def onchange_department_id(self):
+        if not self.department_id:
+            return
+
+        department_id = self.department_id
+        parent_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+            [('departmentId', '=', department_id.parentid)]).id
+        return {
+            'domain': {
+                'to_department_id': [('id','=',parent_id)]
+            }
+            ,
+            'value': {
+                'to_department_id': parent_id
+            }
+        }
+
+    @api.model
+    def init_data(self):
+        if self.env.user.id == 1:
+            domain = [('state','=','未处理')]
+        else:
+            ding_user = self.env.user.dingtalk_user
+            ids = ding_user.user_property_departments.ids
+            domain = [('state','=','未处理'),('to_department_id','in',ids)]
+
+
+        context = dict(self.env.context or {})
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_apply_list').id
+        return {
+            'name': '耗材申请列表',
+            'type': 'ir.actions.act_window',
+            'res_model': 'funenc_xa_station.consumables_apply',
+            'context': context,
+            'target': 'current',
+            "views": [[view_tree, "tree"]],
+            'domain':domain,
+        }
+
 
     @api.model
     def create_consumables_apply(self):
@@ -68,6 +135,7 @@ class StoreHouse(models.Model):
 
     def default_to_department_id(self):
         if self.env.user.id != 1:
+
             department_id = self.env.user.dingtalk_user.departments[0]
             parent_department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                 [('departmentId', '=', department_id.parentid)])

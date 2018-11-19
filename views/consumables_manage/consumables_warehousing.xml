@@ -41,11 +41,12 @@
                     <div class="container-fluid">
                         <group>
                             <!--attrs="{'readonly':[('is_admin','!=',1)]}"-->
+                            <field name="product_departments_domain" invisible="1"/>
                             <field name="consumables_department_id" string="部门"
                                    options="{'no_create':True,'no_open':True}"
-                                   readonly="1"
+                                   domain="product_departments_domain"
                                    context="{'consumables_department_id':consumables_department_id}"/>
-                            <field name="consumables_type_id" string="耗材名称" widget="cascader_widget"/>
+                            <field name="consumables_type_id" string="耗材名称" widget="cascader_widget" />
                             <field name="store_house_id" string="库房名称"
                                    domain="[('store_house_department_id','=',consumables_department_id)]"/>
                             <field name="warehousing_count" string="入库数量"/>

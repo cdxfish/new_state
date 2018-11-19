@@ -331,4 +331,22 @@ class special_card_preset(models.Model):
 
     production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
 
+    def change_shifts_edit(self):
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_special_card_preset_form').id
+        return {
+            'name': '交接班-车站特殊卡预设',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.special_card_preset',
+            'context': self.env.context,
+            'res_id':self.id,
+            'flags': {'initial_mode': 'edit'},
+            'target':'new',
+        }
+
+    def change_shifts_delete(self):
+        self.unlink()
+
 

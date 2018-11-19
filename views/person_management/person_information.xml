@@ -542,6 +542,8 @@
                     <div class="text-center ">
                         <field name="certificate_info">
                             <tree>
+                                <field name="product_id_domain" invisible="1"/>
+                                <field name="product_site_id_domain" invisible="1"/>
                                 <field name="id" string="序号"></field>
                                 <field name="name"></field>
                                 <field name="line_id"></field>
@@ -569,6 +571,8 @@
                     <div class="text-center ">
                         <field name="transfer_info">
                             <tree>
+                                <field name="product_id_domain" invisible="1"/>
+                                <field name="product_site_id_domain" invisible="1"/>
                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                                 <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                                 <field name="station"></field>
@@ -588,6 +592,8 @@
                     <div class="text-center ">
                         <field name="check_info">
                             <tree>
+                                <field name="product_id_domain" invisible="1"/>
+                                <field name="product_site_id_domain" invisible="1"/>
                                 <field name="line_id"></field>
                                 <field name="site_id"></field>
                                 <field name="job_number"></field>
@@ -614,6 +620,8 @@
                     <div class="text-center ">
                         <field name="award_info">
                             <tree>
+                                <field name="product_id_domain" invisible="1"/>
+                                <field name="product_site_id_domain" invisible="1"/>
                                 <field name="line_id"></field>
                                 <field name="site_id"></field>
                                 <field name="jobnumber"></field>

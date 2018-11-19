@@ -262,17 +262,29 @@
         </record>
 
 
-		<record model="ir.actions.act_window" id="xa_station_consumables_apply_action">
-          <field name="name">耗材申请</field>
-          <field name="res_model">funenc_xa_station.consumables_apply</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<!--<record model="ir.actions.act_window" id="xa_station_consumables_apply_action">-->
+          <!--<field name="name">耗材申请</field>-->
+          <!--<field name="res_model">funenc_xa_station.consumables_apply</field>-->
+		  <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
-		<record model="ir.actions.act_window" id="xa_station_consumables_inventory_action">
-          <field name="name">耗材库存</field>
-          <field name="res_model">funenc_xa_station.consumables_inventory</field>
-		  <field name="view_mode">tree,form</field>
-        </record>
+		<record model="ir.actions.server" id="xa_station_consumables_apply_action">
+			<field name="name">耗材申请</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_consumables_apply"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="xa_station_consumables_inventory_action">
+			<field name="name">耗材库存</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_consumables_inventory"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
 
 		<record model="ir.actions.act_window" id="xa_station_production_change_shifts_action">
           <field name="name">交接班</field>
@@ -586,13 +598,13 @@
 		<menuitem id="plan_menu_staffing_1" name="权限设置" sequence="4" icon="&#xe614;"
 		/>
 
-		<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="plan_menu_staffing_1"
-				  action="cdtct_dingtalk.account_manage_window"
-		/>
+		<!--<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="cdtct_dingtalk.menu_root"-->
+				  <!--action="cdtct_dingtalk.account_manage_window"-->
+		<!--/>-->
 
-		<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="plan_menu_staffing_1"
-				  action="cdtct_dingtalk.account_manage_window"
-		/>
+		<!--<menuitem id="plan_menu_user_setting_1" name="账号管理" parent="cdtct_dingtalk.menu_root"-->
+				  <!--action="cdtct_dingtalk.account_manage_window"-->
+		<!--/>-->
 
 		<menuitem id="plan_menu_res_group_setting_1" name="角色组管理" parent="plan_menu_staffing_1"
 				  action="xa_res_group__action"

@@ -34,6 +34,8 @@
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
                 <tree edit="0" create="0" class="noOpen" search_ex_template="meet_details_search_button">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"></field>
                     <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"></field>
                     <field name="meeting_theme" widget="text" options="{'max_width': '200px'}"></field>
@@ -54,7 +56,9 @@
                 <form creata="0" edit="0" class="noOpen" delete="0">
                     <sheet>
                         <group>
-                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="product_id_domain" invisible="1"/>
+                            <field name="product_site_id_domain" invisible="1"/>
+                            <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
                             <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
                             <field name="meeting_time"></field>
                             <field name="meeting_site"></field>
@@ -86,9 +90,13 @@
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
                     <form creata="0" edit="0" class="noOpen" delete="0">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <div>
                         <h1>基本信息</h1>
                     </div>
+                                            <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                    <div class="container-fluid">
                         <div class="row">
                            <div class="layui-col-sm6">
@@ -96,7 +104,7 @@
                                  <label for="line_id" string="线路："/>
                               </div>
                              <div class="layui-col-sm8">
-                                 <field name="line_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                                 <field name="line_id" readonly="1" options="{'no_create': True, 'no_open': True}" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="layui-col-sm6">

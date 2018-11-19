@@ -29,7 +29,7 @@
                     <field name="training_plan_mode" string="培训形式"/>
                     <field name="remarks" string="备注"/>
                     <field name="state" string="状态"/>
-                    <widget string="操作" name="treebtns" template="widget_edit_delete"/>
+                    <widget string="操作" name="treebtns" template="widget_training_edit_delete"/>
                 </tree>
             </field>
         </record>
@@ -63,7 +63,9 @@
                                         </tree>
                                     </field>
                                     <field name="training_plan_place" string="培训地点" required="1"/>
-                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"
+                                                 domain="[('department_hierarchy','=',3)]"
+                                    />
                                 </group>
                                 <group>
                                     <field name="training_plan_type" string="培训类型" required="1"/>
@@ -212,7 +214,7 @@
                                     <field name="sign_in_user_ids" string="">
                                         <tree  class="noOpen">
                                             <field name="sign_in_time" string="签到时间"/>
-                                            <field name="line_id" string="所属线路"/>
+                                            <field name="line_id" string="所属线路" />
                                             <field name="site_id" string="站点名"/>
                                             <field name="user_id" string="姓名"/>
                                             <field name="jobnumber" string="工号"/>

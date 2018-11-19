@@ -2,19 +2,19 @@
 <odoo>
     <data>
 
-        <record model="ir.actions.server" id="create_delivery_storage_button">
-            <field name="name">创建耗材出库</field>
-            <field name="state">code</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_funenc_xa_station_delivery_storage"/>
-            <field name="condition">True</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_delivery_storage"/>
-            <field name="binding_type">action_button</field>
-            <field name="binding_action">耗材申请</field>
-            <field name="code">
-                action = model.create_delivery_storage()
-            </field>
-        </record>
+        <!--<record model="ir.actions.server" id="create_delivery_storage_button">-->
+            <!--<field name="name">创建耗材出库</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_funenc_xa_station_delivery_storage"/>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="binding_model_id" ref="model_funenc_xa_station_delivery_storage"/>-->
+            <!--<field name="binding_type">action_button</field>-->
+            <!--<field name="binding_action">耗材申请</field>-->
+            <!--<field name="code">-->
+                <!--action = model.create_delivery_storage()-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.ui.view" id="funenc_xa_station_delivery_storage_list">
             <field name="name">funenc_xa_station_delivery_storage_list</field>
@@ -30,7 +30,7 @@
                     <field name="outgoing_way" string="出库对象"/>
 
                     <field name="is_delivery" invisible="1" />
-                    <widget string="操作" name="treebtns" template="delivery_storage_widget_edit_delete"/>
+                    <!--<widget string="操作" name="treebtns" template="delivery_storage_widget_edit_delete"/>-->
                 </tree>
             </field>
         </record>
@@ -85,10 +85,11 @@
                 <form>
                     <div class="container-fluid">
                         <group>
+                            <field name="department_id" string="当前部门" context="{'department_id':department_id}" readonly="1"/>
                             <field name="delivery_storage_department" string="申请部门" readonly="1" />
-                            <field name="consumables_type" string="耗材名称" widget="cascader_widget" readonly="1"/>
+                            <field name="consumables_type" string="耗材名称"  readonly="1"/>
                             <field name="consumables_count" string="出库数量"/>
-                            <field name="store_house_id" string="出库库房" />
+                            <field name="store_house_id" string="出库库房"  required="1" domain="[('inventory_department_id','=',department_id)]"/>
                         </group>
                         <footer>
                             <button name='delivery_storage_save1'

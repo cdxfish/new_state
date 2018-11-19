@@ -1,15 +1,39 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
-
+import json
 
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.store_house'
     _description = u'仓库管理'
 
     store_house_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='仓库所属部门',
-                                                default=lambda
-                                                    self: self.default_store_house_department_id())
+                                                # default=lambda
+                                                #     self: self.default_store_house_department_id()
+                                                )
     name = fields.Char('仓库名称', required=True)
+
+    product_departments_domain = fields.Char(
+        compute="_compute_product_departments_domain",
+        readonly=True,
+        store=False,
+    )
+
+    @api.multi
+    @api.depends('name')
+    def _compute_product_departments_domain(self):
+        if self.env.user.id == 1:
+            domain = []
+        else:
+            departments_ids = self.env.user.dingtalk_user.user_property_departments.ids
+            domain = [('id','in',departments_ids)]
+
+        for rec in self:
+            rec.product_departments_domain = json.dumps(
+                domain
+            )
+
+
+
 
     @api.model
     def default_store_house_department_id(self):
