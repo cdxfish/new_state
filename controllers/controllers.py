@@ -9,16 +9,42 @@ _logger = logging.getLogger(__name__)
 
 class FuencStation(http.Controller):
 
-    @http.route('/funenc_xa_station/redirect/check_collect', type='http', auth='none')
+    @http.route('/funenc_xa_station/redirect/check_collect', type='http', auth='none',cors='*')
     def redirect_check_collect(self,**kw):
-        print('check_collect_redirect')
-        if kw.get('type') == 'work':
+        user_id = int(kw.get('user_id'))
+        site_id = int(kw.get('site_id'))
 
-            return http.local_redirect(
-                '/funenc_xa_station/static/html/get_work_code.html?site_id={}'.format(kw.get('site_id')))
+        if kw.get('type') == 'work':
+            arrange_order_id = http.request.env['funenc_xa_station.sheduling_record'].sudo().search(
+                [('site_id', '=', site_id),
+                 ('user_id', '=', user_id),
+                 ('sheduling_date', '=', datetime.datetime.now())])
+            values = {
+                      # 'line_id': user_id.line_id.id,
+                      'site_id': site_id,
+                      'time': datetime.datetime.now(),
+                      'user_id': user_id,
+                      'arrange_order_id': arrange_order_id.id,
+                      'clock_site': site_id,
+                      'clock_start_time': datetime.datetime.now(),
+                      'is_overtime': 'no'
+                      }
+            http.request.env['fuenc_station.clock_record'].sudo().create(values)
+
         else:
-            return http.local_redirect(
-                '/funenc_xa_station/static/html/get_off_work_code.html?site_id={}'.format(kw.get('site_id')))
+            clock_records = http.request.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
+                                                                                     order='id desc')
+            lens = len(clock_records)
+            if clock_records:
+                clock_record = clock_records[lens-1]
+                if clock_record.clock_end_time:
+                    return '请先上班打卡'
+                else:
+                    clock_record.clock_end_time = datetime.datetime.now()
+            else:
+                return '请先上班打卡'
+
+        return True
 
     @http.route('/funenc_xa_station/check_collect', type='http', auth='none')
     def check_collect(self, **kw):
@@ -42,7 +68,7 @@ class FuencStation(http.Controller):
                       }
             http.request.env['fuenc_station.clock_record'].sudo().create(values)
         except Exception as e:
-            print(e)
+            return "失败"
 
         return "打卡成功"
 
@@ -223,3 +249,10 @@ class FuencStation(http.Controller):
             return '<h1>签到失败</h1>'
 
         return '<h1>签到成功</h1>'
+
+
+    def get_user_by_id(self,id):
+
+        user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search([('id','=',id)])
+
+        return user

@@ -223,7 +223,7 @@
             <field name="name">车站人员列表</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_department</field>
             <field name="arch" type="xml">
-                <tree search_ex_template="station_staffing_search_button">
+                <tree search_ex_template="station_staffing_search_button" create="0" class="noOpen">
                     <!--<field name="line_id" string="线路" />-->
                     <field name="name" string="站点"/>
                     <field name="count_user" string="人员数量"/>

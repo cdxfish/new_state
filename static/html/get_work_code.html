@@ -18,14 +18,12 @@
     </body>
 
     <script>
-        alert('1')
         var strUrl = window.location.href;
         var arrUrl = strUrl.split("/");
         var strPage = arrUrl[arrUrl.length-1];
         //获取数值
         var id=strPage.replace(/[^0-9]/ig,"");
         dd.ready(function() {
-            alert(3);
             dd.runtime.permission.requestAuthCode({
                 corpId: "ding4484e57b2688826335c2f4657eb6378f",
                 onSuccess: function(result) {
@@ -35,6 +33,5 @@
                 onFail : function(err) {}
             });
         });
-        alert('2');
     </script>
 </html>

@@ -22,7 +22,12 @@
                 <tree limit="15" create="0" class="noOpen" search_ex_template="training_plan_search_button">
                     <field name="training_plan_project" string="培训项目"/>
                     <field name="training_plan_type" string="培训类型"/>
-                    <field name="training_plan_time" string="培训时间"/>
+                    <field name="training_plan_time" string="培训时间">
+                        <tree class="noOpen" editable="top">
+                            <field name="name" string="培训开始时间"/>
+                            <field name="end_time" string="培训结束时间"/>
+                        </tree>
+                    </field>
                     <field name="training_plan_place" string="培训地点"/>
                     <field name="training_plan_major" string="培训专业"/>
                     <field name="lecturer" string="授课人"/>
@@ -57,11 +62,6 @@
                                 <group>
                                     <field name="state" invisible="1"/>
                                     <field name="training_plan_project" string="培训项目" required="1"/>
-                                    <field name="training_plan_time" string="培训时间" required="1">
-                                        <tree editable="top" class="noOpen">
-                                            <field name="name" string="培训时间"/>
-                                        </tree>
-                                    </field>
                                     <field name="training_plan_place" string="培训地点" required="1"/>
                                     <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"
                                                  domain="[('department_hierarchy','=',3)]"
@@ -78,6 +78,12 @@
                                     <field name="remarks" string="备注"/>
                                 </group>
                                 <group>
+                                    <field name="training_plan_time" string="培训时间" required="1">
+                                        <tree editable="top" class="noOpen">
+                                            <field name="name" string="培训开始时间"/>
+                                             <field name="end_time" string="培训结束时间"/>
+                                        </tree>
+                                    </field>
                                     <field name="training_plan_qr" string="二维码" widget="image" readonly="1"/>
                                 </group>
                             </group>
