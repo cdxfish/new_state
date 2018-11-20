@@ -19,6 +19,7 @@ class FuencStation(http.Controller):
         else:
             return http.local_redirect(
                 '/funenc_xa_station/static/html/get_off_work_code.html?site_id={}'.format(kw.get('site_id')))
+
     @http.route('/funenc_xa_station/check_collect', type='http', auth='none')
     def check_collect(self, **kw):
         try:
@@ -81,6 +82,7 @@ class FuencStation(http.Controller):
     def training_plan_local_redirect_1(self, **kw):
         print('redirect')
         # &t=%s % int(round(time.time()))
+        print('/funenc_xa_station/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
 
         return http.local_redirect(
             '/funenc_xa_station/static/html/get_code.html?training_plan_id={}'.format(kw.get('training_plan_id')))
@@ -168,11 +170,10 @@ class FuencStation(http.Controller):
 
     @http.route('/controllers/drill_plan/punch_the_clock', type='http', auth='none')
     def training_plan_local_redirect(self, **kw):
-        print('redirect')
         # &t=%s % int(round(time.time()))
-
+        print('/funenc_xa_station/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
         return http.local_redirect(
-            '/funenc_xa_station/static/html/get_drill_plan_code.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
+            '/funenc_xa_station/static/html/test.html?drill_plan_id={}'.format(kw.get('drill_plan_id')))
 
     @http.route('/funenc_xa_station/get_code', type='http', auth='none')
     def get_code_1(self, **kw):

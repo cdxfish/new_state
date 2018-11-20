@@ -25,7 +25,7 @@
                     <field name="change_shifts_time" string="交班时间"/>
                     <field name="job_no" string="工号"/>
                     <field name="position" string="职位"/>
-                    <field name="state"  string="状态"/>
+                    <field name="state" string="状态"/>
                     <widget string="操作" name="treebtns" template="station_detail"/>
                 </tree>
             </field>
@@ -84,9 +84,9 @@
                             <group string="备品交接">
                                 <field name="my_change_ids" string="">
                                     <tree editable="top" class="noOpen" create="0">
-                                        <field name="name" string="备品名称" />
-                                         <field name="save_name" string="备品名称" invisible="1"/>
-                                        <field name="unit" string="单位" />
+                                        <field name="name" string="备品名称"/>
+                                        <field name="save_name" string="备品名称" invisible="1"/>
+                                        <field name="unit" string="单位"/>
                                         <field name="save_unit" string="单位" invisible="1"/>
                                         <field name="count" string="数量"/>
                                         <field name="state" string="状态"/>
@@ -104,7 +104,7 @@
                             </group>
                         </sheet>
                         <footer>
-                             <button name='production_change_shifts_save'
+                            <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
@@ -118,13 +118,13 @@
                                     attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
 
                             />
-                             <button name='take_over'
+                            <button name='take_over'
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
 
-                             />
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -147,9 +147,10 @@
                     <field name="change_shifts_time" string="交班时间"/>
                     <field name="change_shifts_user_id" string="交班人"/>
                     <field name="job_number_per" string="工号"/>
+                    <field name="take_over_from_time" string="接班时间"/>
                     <field name="take_over_from_user_id" string="接班人"></field>
                     <field name="job_no" string="工号"></field>
-                    <field name="state"  string="状态"/>
+                    <field name="state" string="状态"/>
                     <field name="position" string="交接班职位"/>
                     <widget string="操作" name="treebtns" template="station_detail"/>
                 </tree>
@@ -161,68 +162,70 @@
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
                 <form>
-                                     <group>
-                            <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_user_id" string="交班人"/>
-                                  </div>
-                                 <div class="col-md-6">
-                                     <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_time" string="交班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="change_shifts_time" readonly="1"/>
-                                  </div>
-                               </div>
-                                <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_user_id" string="接班人"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_user_id" readonly="1"/>
-                                  </div>
-                               </div>
-                                <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_time" string="接班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_time" readonly="1"/>
-                                  </div>
-                               </div>
+                    <group>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="change_shifts_user_id" string="交班人"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
+                                </div>
                             </div>
-                            <!--<field name="change_shifts_user_id" string="交班人"></field>-->
-                            <!--<field name="change_shifts_time"></field>-->
-                            <!--<field name="take_over_from_user_id" string="接班人"></field>-->
-                            <!--<field name="take_over_from_time"></field>-->
-                        </group>
-                                            <field name="product_id_domain" invisible="1"/>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="change_shifts_time" string="交班时间"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="change_shifts_time" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="take_over_from_user_id" string="接班人"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="take_over_from_user_id" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="take_over_from_time" string="接班时间"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="take_over_from_time" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<field name="change_shifts_user_id" string="交班人"></field>-->
+                        <!--<field name="change_shifts_time"></field>-->
+                        <!--<field name="take_over_from_user_id" string="接班人"></field>-->
+                        <!--<field name="take_over_from_time"></field>-->
+                    </group>
+                    <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
-                           <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="line_id" string="线路"/>
-                                  </div>
-                                 <div class="col-md-8">
-                                     <field name="line_id" style="width: 100%"
-                                                           options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="site_id" string="站点"/>
-                                  </div>
-                                     <div class="col-md-8">
-                                         <field name="site_id"
-                                                options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
-                                  </div>
-                               </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="line_id" string="线路"/>
                             </div>
+                            <div class="col-md-8">
+                                <field name="line_id" style="width: 100%"
+                                       options="{'no_create':True,'no_open':True}" required="1"
+                                       domain="product_id_domain"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="site_id" string="站点"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="site_id"
+                                       options="{'no_create':True,'no_open':True}" required="1"
+                                       domain="product_site_id_domain"/>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container-fluid">
                         <sheet>
                             <div>
@@ -231,22 +234,22 @@
                                 </p>
                                 <br/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3  col-sm-6  col-xs-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                            <div class="col-md-8  col-sm-6  col-xs-12">
-                                                <field name="change_shifts_user_id" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-3  col-sm-6  col-xs-12">-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="form-group">-->
+                                            <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>-->
+                                            <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                                <!--<field name="change_shifts_user_id"/>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <group string="运营前检查">
                                 <field name="check_project_ids" string="">
                                     <tree editable="top" class="noOpen">
-                                        <field name="context" string="运营前检查项目" />
+                                        <field name="context" string="运营前检查项目"/>
                                         <field name="check_situation" string="检查情况"/>
                                         <field name="check_time" string="检查时间"/>
                                     </tree>
@@ -257,7 +260,7 @@
                             <group string="今日工作重点记录">
                                 <field name="focus_of_work" string=""/>
                             </group>
-                            <group string="挡板其他工作记录">
+                            <group string="当班其他工作记录">
                                 <field name="other_work_record" string=""/>
                             </group>
                             <group string="车站客运情况">
@@ -387,10 +390,10 @@
                             </group>
 
                             <group string="备品交接情况">
-                                 <field name="driving_my_change_ids" string="">
+                                <field name="driving_my_change_ids" string="">
                                     <tree editable="top" class="noOpen" create="0" delete="0">
-                                        <field name="name" string="备品名称" />
-                                        <field name="unit" string="单位" />
+                                        <field name="name" string="备品名称"/>
+                                        <field name="unit" string="单位"/>
                                         <field name="count" string="数量"/>
                                         <field name="state" string="状态"/>
                                         <field name="remarks" string="备注"/>
@@ -418,7 +421,7 @@
                             </group>
                         </sheet>
                         <footer>
-                              <button name='production_change_shifts_save'
+                            <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
@@ -432,13 +435,13 @@
                                     attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
 
                             />
-                             <button name='take_over'
+                            <button name='take_over'
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
 
-                             />
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -457,7 +460,7 @@
                     <field name="change_shifts_time" string="交班时间"/>
                     <field name="job_no" string="工号"/>
                     <field name="position" string="职位"/>
-                    <field name="state"  string="状态"/>
+                    <field name="state" string="状态"/>
                     <widget string="操作" name="treebtns" template="station_detail"/>
                 </tree>
             </field>
@@ -469,68 +472,70 @@
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
                 <form>
-                                     <group>
-                            <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_user_id" string="交班人"/>
-                                  </div>
-                                 <div class="col-md-6">
-                                     <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_time" string="交班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="change_shifts_time" readonly="1"/>
-                                  </div>
-                               </div>
-                                <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_user_id" string="接班人"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_user_id" readonly="1"/>
-                                  </div>
-                               </div>
-                                <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_time" string="接班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_time" readonly="1"/>
-                                  </div>
-                               </div>
+                    <group>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="change_shifts_user_id" string="交班人"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
+                                </div>
                             </div>
-                            <!--<field name="change_shifts_user_id" string="交班人"></field>-->
-                            <!--<field name="change_shifts_time"></field>-->
-                            <!--<field name="take_over_from_user_id" string="接班人"></field>-->
-                            <!--<field name="take_over_from_time"></field>-->
-                        </group>
-                                            <field name="product_id_domain" invisible="1"/>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="change_shifts_time" string="交班时间"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="change_shifts_time" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="take_over_from_user_id" string="接班人"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="take_over_from_user_id" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label for="take_over_from_time" string="接班时间"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <field name="take_over_from_time" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<field name="change_shifts_user_id" string="交班人"></field>-->
+                        <!--<field name="change_shifts_time"></field>-->
+                        <!--<field name="take_over_from_user_id" string="接班人"></field>-->
+                        <!--<field name="take_over_from_time"></field>-->
+                    </group>
+                    <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
-                           <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="line_id" string="线路"/>
-                                  </div>
-                                 <div class="col-md-8">
-                                     <field name="line_id" style="width: 100%"
-                                                           options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="site_id" string="站点"/>
-                                  </div>
-                                     <div class="col-md-8">
-                                         <field name="site_id"
-                                                options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
-                                  </div>
-                               </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="line_id" string="线路"/>
                             </div>
+                            <div class="col-md-8">
+                                <field name="line_id" style="width: 100%"
+                                       options="{'no_create':True,'no_open':True}" required="1"
+                                       domain="product_id_domain"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="site_id" string="站点"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="site_id"
+                                       options="{'no_create':True,'no_open':True}" required="1"
+                                       domain="product_site_id_domain"/>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container-fluid">
                         <sheet>
                             <div>
@@ -546,8 +551,8 @@
                             <group string="备品交接">
                                 <field name="preparedness_1_ids" string="">
                                     <tree editable="top" class="noOpen">
-                                        <field name="preparedness_name" string="备品名称" />
-                                        <field name="unit" string="单位" />
+                                        <field name="preparedness_name" string="备品名称"/>
+                                        <field name="unit" string="单位"/>
                                         <field name="list_situation" string="清单情况"/>
                                         <field name="error_name" string="异常情况"/>
                                         <field name="explain" string="说明"/>
@@ -556,12 +561,12 @@
                                     </tree>
                                 </field>
                                 <field name="production_state" invisible="1"/>
-                                 <field name="state" invisible="1"/>
+                                <field name="state" invisible="1"/>
 
                             </group>
                         </sheet>
                         <footer>
-                              <button name='production_change_shifts_save'
+                            <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
@@ -575,13 +580,13 @@
                                     attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
 
                             />
-                             <button name='take_over'
+                            <button name='take_over'
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
 
-                             />
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>
@@ -598,7 +603,7 @@
             <field name="model">funenc_xa_station.production_change_shifts</field>
             <field name="arch" type="xml">
                 <form>
-                                        <field name="product_id_domain" invisible="1"/>
+                    <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
                     <div class="container-fluid">
                         <div>
@@ -609,66 +614,68 @@
                         </div>
                         <group>
                             <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_user_id" string="交班人"/>
-                                  </div>
-                                 <div class="col-md-6">
-                                     <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="change_shifts_time" string="交班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="change_shifts_time" readonly="1"/>
-                                  </div>
-                               </div>
                                 <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_user_id" string="接班人"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_user_id" readonly="1"/>
-                                  </div>
-                               </div>
+                                    <div class="col-md-6">
+                                        <label for="change_shifts_user_id" string="交班人"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
-                                  <div class="col-md-6">
-                                     <label for="take_over_from_time" string="接班时间"/>
-                                  </div>
-                                     <div class="col-md-6">
-                                         <field name="take_over_from_time" readonly="1"/>
-                                  </div>
-                               </div>
+                                    <div class="col-md-6">
+                                        <label for="change_shifts_time" string="交班时间"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="change_shifts_time" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="take_over_from_user_id" string="接班人"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="take_over_from_user_id" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="take_over_from_time" string="接班时间"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="take_over_from_time" readonly="1"/>
+                                    </div>
+                                </div>
                             </div>
                             <!--<field name="change_shifts_user_id" string="交班人"></field>-->
                             <!--<field name="change_shifts_time"></field>-->
                             <!--<field name="take_over_from_user_id" string="接班人"></field>-->
                             <!--<field name="take_over_from_time"></field>-->
                         </group>
-                                            <field name="product_id_domain" invisible="1"/>
-                    <field name="product_site_id_domain" invisible="1"/>
-                           <div class="row">
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="line_id" string="线路"/>
-                                  </div>
-                                 <div class="col-md-8">
-                                     <field name="line_id" style="width: 100%"
-                                                           options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
-                                  </div>
-                               </div>
-                               <div class="col-md-3">
-                                  <div class="col-md-4">
-                                     <label for="site_id" string="站点"/>
-                                  </div>
-                                     <div class="col-md-8">
-                                         <field name="site_id"
-                                                options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
-                                  </div>
-                               </div>
+                        <field name="product_id_domain" invisible="1"/>
+                        <field name="product_site_id_domain" invisible="1"/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <label for="line_id" string="线路"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <field name="line_id" style="width: 100%"
+                                           options="{'no_create':True,'no_open':True}" required="1"
+                                           domain="product_id_domain"/>
+                                </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <label for="site_id" string="站点"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <field name="site_id"
+                                           options="{'no_create':True,'no_open':True}" required="1"
+                                           domain="product_site_id_domain"/>
+                                </div>
+                            </div>
+                        </div>
                         <group string="基本内容">
                             <div class="container-fluid">
                                 <div class="row">
@@ -687,7 +694,9 @@
                                             <div class="form-group">
                                                 <span class="widget-label  col-md-4  col-sm-6  col-xs-12">特殊卡号:</span>
                                                 <div class="col-md-8  col-sm-6  col-xs-12">
-                                                    <field name="special_card_preset_id" string="特殊卡号" widget="many2many_tags" options="{'no_create':True,'no_open':True}"></field>
+                                                    <field name="special_card_preset_id" string="特殊卡号"
+                                                           widget="many2many_tags"
+                                                           options="{'no_create':True,'no_open':True}"></field>
                                                 </div>
                                             </div>
                                         </div>
@@ -745,7 +754,7 @@
                         <group string="票务备品">
                             <field name="preparedness_2_ids" string="">
                                 <tree editable="top" create="0" class="noOpen">
-                                    <field name="name" string="备品名称" />
+                                    <field name="name" string="备品名称"/>
                                     <field name="increase" string="本班增加/减少数"/>
                                     <field name="balance" string="本班结存"/>
                                     <field name="damage" string="损坏数量"/>
@@ -796,14 +805,14 @@
                         <group string="备用金配出">
                             <field name="spare_gold_ids" string="">
                                 <tree class="noOpen" editable="top">
-                                    <field name="obj" />
-                                    <field name="match_out" />
-                                    <field name="coin" />
-                                    <field name="be_on_duty" />
-                                    <field name="station_master" />
-                                    <field name="recovery" />
-                                    <field name="recovery_coin" />
-                                    <field name="depot" />
+                                    <field name="obj"/>
+                                    <field name="match_out"/>
+                                    <field name="coin"/>
+                                    <field name="be_on_duty"/>
+                                    <field name="station_master"/>
+                                    <field name="recovery"/>
+                                    <field name="recovery_coin"/>
+                                    <field name="depot"/>
 
                                 </tree>
                             </field>
@@ -811,7 +820,7 @@
                         <group string="车票使用情况">
                             <field name="prefabricate_ticket_type_2_ids" string="">
                                 <tree editable="top" class="noOpen" create="0">
-                                    <field name="name" string="票种" />
+                                    <field name="name" string="票种"/>
                                     <field name="settlement" string="上班结存"/>
                                     <field name="call_out" string="调出本站"/>
                                     <field name="turn_over" string="上交车票"/>
@@ -828,11 +837,11 @@
                         <group string="特殊工作卡借用记录">
                             <field string="" name="special_card_preset_ids">
                                 <tree editable="top" class="noOpen">
-                                    <field name="card_number" string="借出卡号" />
-                                    <field name="user_id" string="借用人" />
-                                    <field name="borrow_time" string="借用时间" />
-                                    <field name="return_user_id" string="归还人" />
-                                    <field name="return_time" string="归还时间" />
+                                    <field name="card_number" string="借出卡号"/>
+                                    <field name="user_id" string="借用人"/>
+                                    <field name="borrow_time" string="借用时间"/>
+                                    <field name="return_user_id" string="归还人"/>
+                                    <field name="return_time" string="归还时间"/>
                                 </tree>
                             </field>
                         </group>
@@ -840,33 +849,33 @@
                         <group string="票务钥匙情况">
                             <field string="" name="ticketing_key_type_2_ids">
                                 <tree create="0" class="noOpen" editable="top">
-                                    <field name="name" string="钥匙名称" />
-                                    <field name="number" string="随身携带数量" />
-                                    <field name="cabinet" string="票柜存放数量" />
-                                    <field name="spare" string="备用数量" />
+                                    <field name="name" string="钥匙名称"/>
+                                    <field name="number" string="随身携带数量"/>
+                                    <field name="cabinet" string="票柜存放数量"/>
+                                    <field name="spare" string="备用数量"/>
                                 </tree>
                             </field>
                         </group>
                         <group string="库包/尾箱交接">
                             <field string="" name="tail_box_ids">
-                                <tree  class="noOpen" editable="top">
-                                    <field name="tail_box"  />
-                                    <field name="no" />
-                                    <field name="count" />
-                                    <field name="time" />
-                                    <field name="tail_box_no"  />
-                                    <field name="tail_box_count" />
-                                    <field name="number" />
-                                    <field name="other" />
+                                <tree class="noOpen" editable="top">
+                                    <field name="tail_box"/>
+                                    <field name="no"/>
+                                    <field name="count"/>
+                                    <field name="time"/>
+                                    <field name="tail_box_no"/>
+                                    <field name="tail_box_count"/>
+                                    <field name="number"/>
+                                    <field name="other"/>
                                 </tree>
                             </field>
                         </group>
                         <group>
-                            <field string="备注" name="remarks" />
+                            <field string="备注" name="remarks"/>
                             <field name="state" invisible="1"/>
                         </group>
                         <footer>
-                             <button name='production_change_shifts_save'
+                            <button name='production_change_shifts_save'
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
@@ -880,13 +889,13 @@
                                     attrs="{'invisible':[('state','in',['change_shifts','take_over_from'])]}"
 
                             />
-                             <button name='take_over'
+                            <button name='take_over'
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                     attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
 
-                             />
+                            />
                             <button string='取消'
                                     class='btn-default'
                                     special='cancel'/>

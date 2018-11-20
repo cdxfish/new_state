@@ -31,6 +31,7 @@ class StationSummary(models.Model):
     turnout_ids = fields.One2many('funenc_xa_station.turnout', 'line_turnout_id', string='道岔')
     liaison_station_ids = fields.One2many('funenc_xa_station.liaison_station', 'line_turnout_id', string='联络站基本信息')
     operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路')
+    signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine','station_summary_id', string='信号机位置')
 
     # 消防逃生图
     exit_maps = fields.One2many('funenc_xa_station.station_exit','station_summary_id',string='消防逃生图')
@@ -38,38 +39,13 @@ class StationSummary(models.Model):
     # 车站设备
     station_equipment_ids = fields.One2many('funenc_xa_station.station_equipment','station_summary_id',string='车站设备')
 
-    # station_detail_act = fields.Selection([('one','显示'),('zero','不显示')],string='车站详情显示还是不显示',default='zero')
-    # ground_traffic_act = fields.Selection([('one','显示'),('zero','不显示')],string='地面交通显示还是不显示',default='zero')
-    # Civil_engineering_structure = fields.Selection([('one','显示'),('zero','不显示')],string='土建结构显示还是不显示',default='zero')
-    # line_switch = fields.Selection([('one','显示'),('zero','不显示')],string='线路道岔显示还是不显示',default='zero')
-    # station_equiment = fields.Selection([('one','显示'),('zero','不显示')],string='车站设备显示还是不显示',default='zero')
-    # person_configuration = fields.Selection([('one','显示'),('zero','不显示')],string='人员配置显示还是不显示',default='zero')
-    # Fire_escape_plan = fields.Selection([('one','显示'),('zero','不显示')],string='消防逃生图显示还是不显示',default='zero')
+    # 人员配置
+    station_summary_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'station_summary_ding_user_rel_10_20',
+                                           'station_summary_id', 'ding_user_id', string='人员配置')
+
 
     @api.model
     def init_data(self):
-        # station_detail_act = self.user_has_groups('funenc_xa_station.table_station_detail')
-        # if station_detail_act:
-        #     self.write({'station_detail_act': 'one'})
-        # ground_traffic_act = self.user_has_groups('funenc_xa_station.table_ground_traffic')
-        # if ground_traffic_act:
-        #     self.write({'ground_traffic_act': 'one'})
-        # civil_engineering_structure = self.user_has_groups('funenc_xa_station.table_civil_construction')
-        # if civil_engineering_structure:
-        #     self.write({'civil_engineering_structure': 'one'})
-        # line_switch = self.user_has_groups('funenc_xa_station.table_line_and_turnout')
-        # if line_switch:
-        #     self.write({'line_switch': 'one'})
-        # station_equiment = self.user_has_groups('funenc_xa_station.table_station_equipment')
-        # if station_equiment:
-        #     self.write({'station_equiment': 'one'})
-        # person_configuration = self.user_has_groups('funenc_xa_station.table_staffing')
-        # if person_configuration:
-        #     self.write({'person_configuration': 'one'})
-        # Fire_escape_plan = self.user_has_groups('funenc_xa_station.table_fire_escape')
-        # if Fire_escape_plan:
-        #     self.write({'Fire_escape_plan': 'one'})
-        # print(self.search_read(),'ooooooooooooooooooooooooooooooooo')
 
         if self.env.user.id == 1:
             site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([
@@ -83,14 +59,50 @@ class StationSummary(models.Model):
                 if department_id.department_hierarchy == 3:
                     site_ids.append(department_id.id)
             if len(site_ids) == 1:
+                self_department_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(site_ids[0])
+                site_users = self_department_id.department_property_users.ids
                 view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
-                res_id = self.search([('site_id', '=', site_ids[0])])
+                res_id = self.search_read([('site_id', '=', site_ids[0])],['id'])
+                sql_data = []
+                if res_id:
+                    # 有车站详情
+                    station_summary_id = res_id[0].get('id')
+
+
+                else:
+                    # 无车站详情
+                    department_obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(site_ids[0])
+                    line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId','=',department_obj.parentid)]
+                    ).id
+                    obj = self.create(
+                        {'line_id': line_id,
+                         'site_id': site_ids[0],
+                         }
+                    )
+                    obj_read = obj.read(['id'])
+                    station_summary_id = obj_read[0].get('id')
+                # 车站人员
+                for site_user_id in site_users:
+                    user_data = []  # (station_summary_id,ding_user_id)
+                    user_data.append(station_summary_id)
+                    user_data.append(site_user_id)
+                    sql_data.append(tuple(user_data))
+                del_sql = "delete from station_summary_ding_user_rel_10_20 " \
+                          "where station_summary_id = {}" \
+                    .format(station_summary_id)
+                self.env.cr.execute(del_sql)
+                if str(sql_data)[1:-1]:
+                    insert_sql = "insert into station_summary_ding_user_rel_10_20(station_summary_id,ding_user_id)" \
+                                 "values{}".format(str(sql_data)[1:-1])
+                    self.env.cr.execute(insert_sql)
+
                 return {
-                    'name': '借用记录',
+                    'name': '车站详情',
                     "type": "ir.actions.act_window",
                     "res_model": "funenc_xa_station.station_summary",
                     "views": [[view_form, "form"]],
-                    'res_id': res_id.id or None
+                    'res_id':station_summary_id
                 }
 
         view_list = self.env.ref('funenc_xa_station.site_station_detail').id
