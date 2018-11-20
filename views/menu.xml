@@ -1073,5 +1073,12 @@
 				  action="xa_station_change_shifts_time_action" sequence="13"
 		/>
 
+   <menuitem name="部门管理" id="cdtct_dingtalk.menu_dingtalk_department_manage" parent="funenc_xa_station.plan_menu_staffing_1"
+              action="cdtct_dingtalk.department_manage_window"/>
+
+    <!-- 帐号管理 -->
+    <menuitem name="员工管理" id="cdtct_dingtalk.menu_dingtalk_users_manage" parent="funenc_xa_station.plan_menu_staffing_1"
+              action="cdtct_dingtalk.users_manage_window"/>
+
 	</data>
 </odoo>
