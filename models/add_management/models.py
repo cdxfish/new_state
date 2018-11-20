@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import requests
 import urllib
 import base64
+import os
 
 
 class xian_metro(models.Model):
@@ -66,6 +68,10 @@ class xian_metro(models.Model):
     @api.model
     def create(self, params):
         file_binary = params['details']
+        file = os.path.splitext(params.get('file_name'))
+        filename,type = file
+        if type != '.pdf':
+            raise ValidationError('上传的文件需要时pdf文件，请重新改选择')
         file_name = params.get('file_name', self.file_name)
         if file_binary:
             url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
@@ -89,15 +95,19 @@ class xian_metro(models.Model):
             }
 
     def file_kind_load(self):
-        view_form = self.env.ref('funenc_xa_station.add_operation_form_test').id
+        # view_form = self.env.ref('funenc_xa_station.add_operation_form_test').id
+        # return {
+        #     'name': '新增规范',
+        #     'type': 'ir.actions.act_window',
+        #     "views": [[view_form, "form"]],
+        #     'res_model': 'xian_metro.xian_metro',
+        #     'res_id': self.id,
+        #     'flags': {'initial_mode': 'readonly'},
+        #     'target': 'new',
+        # }
         return {
-            'name': '新增规范',
-            'type': 'ir.actions.act_window',
-            "views": [[view_form, "form"]],
-            'res_model': 'xian_metro.xian_metro',
-            'res_id': self.id,
-            'flags': {'initial_mode': 'readonly'},
-            'target': 'new',
+            'type':'ir.actions.act_url',
+            'url':'/funenc_xa_station/test_test?id=%d'%self.id,
         }
 
     @api.model

@@ -18,3 +18,4 @@ from . import break_logo_manage_excel
 from . import special_money_xlsx
 from . import belong_to_manage_import
 from . import transient_break_managemet_import
+from . import test_test

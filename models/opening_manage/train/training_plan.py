@@ -126,7 +126,8 @@ class training_plan(models.Model):
                      'training_effect_id': training_effect_id
                      }
                 )
-
+        else:
+            training_plan_id
         self = training_plan_id
         self.create_qrcode()
 
@@ -206,7 +207,8 @@ class SelectDatetime(models.Model):
 
     _name = 'funenc_xa_station.select_datetime'
 
-    name = fields.Datetime(string='培训时间')
+    name = fields.Datetime(string='培训开始时间')
+    end_time =fields.Datetime(string='培训结束时间')
     training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训计划相关')
 
 

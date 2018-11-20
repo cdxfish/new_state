@@ -229,3 +229,13 @@ class SpecialMoney(models.Model):
             'target': 'new',
         }
 
+    def download_image_button(self):
+        id_id = self.id
+        return {
+            "type": "ir.actions.act_url",
+            'res_id': self.id,
+            "url": '/funenc_xa_station/test_test?id=%s'%(id_id),
+            "target": "new",
+        }
+
+
