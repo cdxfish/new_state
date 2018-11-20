@@ -31,6 +31,8 @@ class FuencStation(http.Controller):
                       }
             http.request.env['fuenc_station.clock_record'].sudo().create(values)
 
+            return '上班打卡成功'
+
         else:
             clock_records = http.request.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
                                                                                      order='id desc')
@@ -41,10 +43,10 @@ class FuencStation(http.Controller):
                     return '请先上班打卡'
                 else:
                     clock_record.clock_end_time = datetime.datetime.now()
+                    return '下班打卡成功'
             else:
                 return '请先上班打卡'
 
-        return True
 
     @http.route('/funenc_xa_station/check_collect', type='http', auth='none')
     def check_collect(self, **kw):
