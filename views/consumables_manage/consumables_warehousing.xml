@@ -69,5 +69,14 @@
                 </form>
             </field>
         </record>
+
+		<record model="ir.actions.server" id="funenc_xa_station_consumables_warehousing_server">
+			<field name="name">耗材入库</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_consumables_warehousing"/>
+			<field name="code">
+				action = model.get_day_plan_publish_action()
+			</field>
+		</record>
     </data>
 </odoo>
