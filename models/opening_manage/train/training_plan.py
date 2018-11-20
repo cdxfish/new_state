@@ -20,7 +20,7 @@ class training_plan(models.Model):
     training_plan_place = fields.Char(string='培训地点')
     training_plan_time = fields.One2many('funenc_xa_station.select_datetime', 'training_plan_id', string='培训时间')
     lecturer = fields.Char(string='授课人')
-    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')])
+    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')],default="site")
     remarks = fields.Char(string='备注')
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'training_plan_department_rel_2',
                                         'training_plan_id', 'department_id', string='参与站点',
@@ -131,6 +131,36 @@ class training_plan(models.Model):
         self.create_qrcode()
 
         return training_plan_id
+
+    # @api.model
+    # def create(self, vals):
+    #
+    #     training_plan_id = super(training_plan, self).create(vals)
+    #
+    #     if training_plan_id.training_plan_type == 'concentrate':
+    #         # 集中培训培训情况预设
+    #         concentrate_training_situations = self.env['funenc_xa_station.concentrate_training_situation'].search(
+    #             []).ids
+    #         for concentrate_training_situation in concentrate_training_situations:
+    #             self.env['funenc_xa_station.training_to_situation'].create(
+    #                 {'training_plan_id': training_plan_id.id,
+    #                  'project_id': concentrate_training_situation
+    #                  }
+    #             )
+    #
+    #         # 集中培训培训效果预设
+    #         training_effect_ids = self.env['funenc_xa_station.training_effect'].search([]).ids
+    #         for training_effect_id in training_effect_ids:
+    #             self.env['funenc_xa_station.training_effect_to_training_plan'].create(
+    #                 {'training_plan_id': training_plan_id.id,
+    #                  'training_effect_id': training_effect_id
+    #                  }
+    #             )
+    #
+    #     self = training_plan_id
+    #     self.create_qrcode()
+    #
+    #     return training_plan_id
 
     def button_details(self):
         context = dict(self.env.context or {})

@@ -149,6 +149,17 @@
                                         <field name="purpose" string="用途"/>
                                     </tree>
                                 </field>
+
+                                <field name="signal_machine_ids" string="信号机位置">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="signal_machine_no" string="编号"/>
+                                        <field name="purpose" string="用途"/>
+                                        <field name="position_distance" string="位置里程"/>
+                                        <field name="type" string="类型"/>
+                                        <field name="excursus" string="附记"/>
+                                    </tree>
+                                </field>
+
                             </group>
 
                         </page>
@@ -167,6 +178,22 @@
 
                         </page>
                         <page string="人员配置">
+                            <group>
+                                <field name="station_summary_ids" string="">
+                                    <tree delete="0">
+                                        <field name="jobnumber" string="工号"/>
+                                        <!--<field name="line_id" string="所属线路"/>-->
+                                        <!--<field name="site_id" string="所属车站"/>-->
+                                        <field name="name" string="姓名"/>
+                                        <field name="mobile" string="电话号码"/>
+                                        <field name="position" string="岗位"/>
+                                        <field name="certificate_status" string="证书情况"/>
+                                        <!--<field name="cdtct_dingtalk.jobnumber" string="岗位"/>-->
+
+                                    </tree>
+
+                                </field>
+                            </group>
 
                         </page>
                         <page string="消防逃生图">
@@ -193,18 +220,18 @@
         </record>
 
         <record model="ir.ui.view" id="site_station_detail">
-			<field name="name">车站人员列表</field>
-			<field name="model">cdtct_dingtalk.cdtct_dingtalk_department</field>
-			<field name="arch" type="xml">
-				<tree search_ex_template="station_staffing_search_button">
-					<!--<field name="line_id" string="线路" />-->
-					<field name="name" string="站点" />
-					<field name="count_user" string="人员数量"/>
-                     <widget string="操作" name="treebtns" template="station_detail"/>
+            <field name="name">车站人员列表</field>
+            <field name="model">cdtct_dingtalk.cdtct_dingtalk_department</field>
+            <field name="arch" type="xml">
+                <tree search_ex_template="station_staffing_search_button">
+                    <!--<field name="line_id" string="线路" />-->
+                    <field name="name" string="站点"/>
+                    <field name="count_user" string="人员数量"/>
+                    <widget string="操作" name="treebtns" template="station_detail"/>
 
-				</tree>
-			</field>
-		</record>
+                </tree>
+            </field>
+        </record>
 
 
     </data>

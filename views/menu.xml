@@ -25,7 +25,7 @@
 
 
 		<record model="ir.actions.server" id="funenc_station_index_action">
-			<field name="name">网站首页</field>
+			<field name="name">上下班打卡</field>
 			<field name ="state">code</field>
 			<field name="model_id" ref="model_funenc_xa_station_generate_qr"/>
 			<field name="code">

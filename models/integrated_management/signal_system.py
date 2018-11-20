@@ -22,3 +22,5 @@ class SignalMachine(models.Model):
     excursus = fields.Char(string='附记')
 
     signal_system_id = fields.Many2one('funenc_xa_station.signal_system')
+    station_summary_id = fields.Many2one('funenc_xa_station.station_summary',string='')
+

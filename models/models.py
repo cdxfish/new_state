@@ -423,6 +423,7 @@ class generate_qr(models.Model):
                         'res_id': obj.id,
                         'target': 'current',
                     }
+
                 else:
                     work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
@@ -434,6 +435,15 @@ class generate_qr(models.Model):
                         'add_date': datetime.datetime.now()
 
                     })
+
+                    return {
+                        'name': '上下班打卡',
+                        'type': 'ir.actions.act_window',
+                        "views": [[view_form, "form"]],
+                        'res_model': 'funenc_xa_station.generate_qr',
+                        'res_id': obj.id,
+                        'target': 'current',
+                    }
             else:
 
                 work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
@@ -443,8 +453,20 @@ class generate_qr(models.Model):
                 self.create({
                     'work_qr': work_b64,
                     'off_work_qr': off_work_b64,
-                    'add_date': datetime.datetime.now()
+                    'add_date': datetime.datetime.now(),
+                    'line_id': self.env.user.dingtalk_user.line_id.id,
+                    'site_id': self.env.user.dingtalk_user.departments[0].id,
                 })
+
+            return {
+                'name': '上下班打卡',
+                'type': 'ir.actions.act_window',
+                "views": [[view_form, "form"]],
+                'res_model': 'funenc_xa_station.generate_qr',
+                'res_id': obj.id,
+                'target': 'current',
+            }
+
 
     def create_qrcode_1(self, add_data, file_name):
 
@@ -475,6 +497,7 @@ class inherit_department(models.Model):
     def station_detail(self):
         view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
         res_id = self.env['funenc_xa_station.station_summary'].search([('site_id', '=', self.id)])
+        site_users = self.department_property_users.ids
         dic = {
             'name': '车站详情',
             'type': 'ir.actions.act_window',
@@ -482,16 +505,48 @@ class inherit_department(models.Model):
             "views": [[view_form, "form"]],
             'context': self.env.context,
             'target': 'current',
-            'res_id': res_id[0].id if res_id else None
+
         }
+        if res_id:
+            station_summary_id = res_id.read(['id'])[0].get('id')
+            dic['res_id'] = station_summary_id
+
+        else:
+            line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('departmentId', '=', self.parentid)]
+            ).id
+            obj = self.env['funenc_xa_station.station_summary'].create(
+                {'line_id': line_id,
+                 'site_id': self.id
+                 }
+            )
+            station_summary_id = obj.read(['id'])[0].get('id')
+            dic['res_id'] = station_summary_id
+
+        # 车站人员
+        sql_data = []
+        for site_user_id in site_users:
+            user_data = []  # (station_summary_id,ding_user_id)
+            user_data.append(station_summary_id)
+            user_data.append(site_user_id)
+            sql_data.append(tuple(user_data))
+
+        del_sql = "delete from station_summary_ding_user_rel_10_20 " \
+                  "where station_summary_id = {}" \
+            .format(station_summary_id)
+        self.env.cr.execute(del_sql)
+        if str(sql_data)[1:-1]:
+            insert_sql = "insert into station_summary_ding_user_rel_10_20(station_summary_id,ding_user_id)" \
+                         "values{}".format(str(sql_data)[1:-1])
+            self.env.cr.execute(insert_sql)
+        # end 车站人员
 
         return dic
 
     def _compute_count_user(self):
         for this in self:
-            if this.department_hierarchy == 3:
-                print(this.users.ids)
-                this.count_user = len(this.users.ids)
+
+            this.count_user = len(this.department_property_users.ids)
 
     @api.model
     def get_xa_departments(self):
