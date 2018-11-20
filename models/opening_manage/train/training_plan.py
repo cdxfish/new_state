@@ -132,6 +132,36 @@ class training_plan(models.Model):
 
         return training_plan_id
 
+    # @api.model
+    # def create(self, vals):
+    #
+    #     training_plan_id = super(training_plan, self).create(vals)
+    #
+    #     if training_plan_id.training_plan_type == 'concentrate':
+    #         # 集中培训培训情况预设
+    #         concentrate_training_situations = self.env['funenc_xa_station.concentrate_training_situation'].search(
+    #             []).ids
+    #         for concentrate_training_situation in concentrate_training_situations:
+    #             self.env['funenc_xa_station.training_to_situation'].create(
+    #                 {'training_plan_id': training_plan_id.id,
+    #                  'project_id': concentrate_training_situation
+    #                  }
+    #             )
+    #
+    #         # 集中培训培训效果预设
+    #         training_effect_ids = self.env['funenc_xa_station.training_effect'].search([]).ids
+    #         for training_effect_id in training_effect_ids:
+    #             self.env['funenc_xa_station.training_effect_to_training_plan'].create(
+    #                 {'training_plan_id': training_plan_id.id,
+    #                  'training_effect_id': training_effect_id
+    #                  }
+    #             )
+    #
+    #     self = training_plan_id
+    #     self.create_qrcode()
+    #
+    #     return training_plan_id
+
     def button_details(self):
         context = dict(self.env.context or {})
         if self.training_plan_type == 'site':

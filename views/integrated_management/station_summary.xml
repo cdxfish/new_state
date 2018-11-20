@@ -178,6 +178,22 @@
 
                         </page>
                         <page string="人员配置">
+                            <group>
+                                <field name="station_summary_ids" string="">
+                                    <tree delete="0">
+                                        <field name="jobnumber" string="工号"/>
+                                        <!--<field name="line_id" string="所属线路"/>-->
+                                        <!--<field name="site_id" string="所属车站"/>-->
+                                        <field name="name" string="姓名"/>
+                                        <field name="mobile" string="电话号码"/>
+                                        <field name="position" string="岗位"/>
+                                        <field name="certificate_status" string="证书情况"/>
+                                        <!--<field name="cdtct_dingtalk.jobnumber" string="岗位"/>-->
+
+                                    </tree>
+
+                                </field>
+                            </group>
 
                         </page>
                         <page string="消防逃生图">
