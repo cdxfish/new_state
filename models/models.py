@@ -468,7 +468,7 @@ class generate_qr(models.Model):
             }
 
 
-    def create_qrcode_1(self, add_data, file_name):
+    def create_qrcode_1(self,add_data,file_name):
 
         '''
         二维码生成
@@ -546,7 +546,7 @@ class inherit_department(models.Model):
     def _compute_count_user(self):
         for this in self:
 
-            this.count_user = len(this.department_property_users.ids)
+            this.count_user = len(this.users.ids)
 
     @api.model
     def get_xa_departments(self):

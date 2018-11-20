@@ -23,6 +23,11 @@
 
 		<menuitem  name="系统配置" id="system_configuration" sequence="5" icon="&#xe614;"></menuitem>
 
+		<!--系统配置-->
+        <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="5" icon="&#xe614;" />
+		<menuitem id="plan_menu_staffing_1" name="权限设置" sequence="4" icon="&#xe614;"
+		/>
+
 
 		<record model="ir.actions.server" id="funenc_station_index_action">
 			<field name="name">上下班打卡</field>
@@ -593,10 +598,6 @@
 
 
 
-		<!--系统配置-->
-        <menuitem id="plan_menu_system_conf_1" name="系统配置" sequence="5" icon="&#xe614;" />
-		<menuitem id="plan_menu_staffing_1" name="权限设置" sequence="4" icon="&#xe614;"
-		/>
 
 		<!--<menuitem id="plan_menu_enterprise_setting_1" name="企业账号设置" parent="cdtct_dingtalk.menu_root"-->
 				  <!--action="cdtct_dingtalk.account_manage_window"-->
@@ -1071,6 +1072,13 @@
 				  parent="system_configuration" groups="system_review_management_index_library_date"
 				  action="xa_station_change_shifts_time_action" sequence="13"
 		/>
+
+   <menuitem name="部门管理" id="cdtct_dingtalk.menu_dingtalk_department_manage" parent="funenc_xa_station.plan_menu_staffing_1"
+              action="cdtct_dingtalk.department_manage_window"/>
+
+    <!-- 帐号管理 -->
+    <menuitem name="员工管理" id="cdtct_dingtalk.menu_dingtalk_users_manage" parent="funenc_xa_station.plan_menu_staffing_1"
+              action="cdtct_dingtalk.users_manage_window"/>
 
 	</data>
 </odoo>
