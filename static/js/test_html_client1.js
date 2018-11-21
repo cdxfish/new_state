@@ -13,27 +13,30 @@ odoo.define('test_html_client', function (require) {
                 this.vue_data = {
                     height: '800px',
                     month: '',
-                    lines: '',
-                    sites: '',
                     arrange_orders: [],
                     days: ['9月2日', '9月3日', '9月4日', '9月5日', '9月6日', '9月7日'],
                     // shift_value里字典的个数需要与days的元素个数相对应
                     day_table_data: [],
 
                     total_table_data: [],
-                }
-    ;
+                    line_options:[{'id':1,'name':2}],
+                    site_options:[],
+                    lines:'',
+                    sites:'',
+                };
             },
-    willStart: function(){
-            var self = this;
-            return self._rpc({
-                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                method: 'get_line_id',
-            }).then(function(data){
-                self.vue_data.lines = data
-            })
-
-        },
+//    willStart: function(){
+//            var self = this;
+//            return self._rpc({
+//                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+//                method: 'get_line_id',
+//            }).then(function(data){
+//                alert(data)
+//                console.log(data)
+//                self.vue_data.lines = data
+//            })
+//
+//        },
             start: function () {
                 var self = this;
                 setTimeout(function () {
@@ -48,20 +51,20 @@ odoo.define('test_html_client', function (require) {
                             data() {
                                 return self.vue_data
                             },
-//                            mounted() {
-//                                var that = this;
-//                                var height = window.innerHeight - 20;
-//                                that.height = "padding:40px 80px;height: " + height + "px;";
-//                                self._rpc({
-//                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-//                                    method: 'get_line_id',
-//                                }).then(function(data){
-//                                    self.vue_data.lines = data
-//                                })
-//
-//
-//
-//                            },
+                            mounted() {
+                                var that = this;
+                                var height = window.innerHeight - 20;
+                                that.height = "padding:40px 80px;height: " + height + "px;";
+                                self._rpc({
+                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                                    method: 'get_line_id',
+                                }).then(function(data){
+                                    self.vue_data.lines = data
+                                })
+
+
+
+                            },
                             methods: {
                                 //线路change事件
                             selectLine(val) {
