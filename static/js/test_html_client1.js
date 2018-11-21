@@ -73,7 +73,7 @@ odoo.define('test_html_client', function (require) {
                                     method: 'get_sites',
                                     kwargs: {line_id: val}
                                 }).then(function(data){
-                                    self.vue_data.sites = data
+                                    self.vue_data.site_options = data
                                 })
                             },
                             //查询事件
