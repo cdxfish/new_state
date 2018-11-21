@@ -87,7 +87,7 @@ class consumables_inventory(models.Model):
         return {
             'name': '耗材入库',
             'type': 'ir.actions.act_window',
-            'domain':domain,
+            # 'domain':domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.consumables_warehousing',
             "top_widget": "multi_action_tab",

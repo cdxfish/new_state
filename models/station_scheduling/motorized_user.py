@@ -45,7 +45,7 @@ class UserInherit(models.Model):
                         centrality_user_id['certificate_status'] = '正常'
                     else:
                         centrality_user_id['certificate_status'] = '丢失'
-                person_second_ids = self.env['person_management.person_second'].search_read([('line_road', '=', line_id)],['user_id'])
+                person_second_ids = self.env['person_management.person_second'].search_read([('line_id', '=', line_id)],['user_id'])
 
                 person_second_user_ids = self.search_read([ ('id','in', [person_second_id.get('user_id') for person_second_id in person_second_ids]) ])
                 for person_second_user_id in person_second_user_ids:

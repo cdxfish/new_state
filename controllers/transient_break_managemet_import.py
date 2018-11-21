@@ -27,7 +27,7 @@ class CheckRecord(http.Controller):
         if len(records) > 0:
             for record in records:
                 if record.transceiver_type:
-                    worksheet.write(row, 0, record.transceiver_type)
+                    worksheet.write(row, 0, record.transceiver_type.consumables_type)
                 else:
                     worksheet.write(row, 0, '')
                 if record.transceive_name:
@@ -39,11 +39,11 @@ class CheckRecord(http.Controller):
                 else:
                     worksheet.write(row, 2, "")
                 if record.line_id:
-                    worksheet.write(row, 3, record.line_id)
+                    worksheet.write(row, 3, record.line_id.name)
                 else:
                     worksheet.write(row, 3, "")
                 if record.site_id:
-                    worksheet.write(row, 4, record.site_id)
+                    worksheet.write(row, 4, record.site_id.name)
                 else:
                     worksheet.write(row, 4, "")
                 if record.post:

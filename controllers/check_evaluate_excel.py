@@ -18,13 +18,13 @@ class CheckRecord(http.Controller):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作
         rdbook = xlrd.open_workbook(path + 'check_evaluta.xls')
-        print(rdbook)
+        # print(rdbook)
         # 复制模板
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         name = '考评指标' + str(int(round(time.time() * 1000))) + str(random.randint(1, 1000)) + '.xls'
         file = path + 'check_record.xls'
-        print(file)
+        # print(file)
         wtbook.save(file)
         with open(file, 'rb') as f:
             data = f.read()
