@@ -11,7 +11,7 @@ import calendar
 from .get_domain import *
 
 import json
-from .get_domain import get_line_id_domain
+from .get_domain import get_line_ids
 
 class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
@@ -581,13 +581,24 @@ class inherit_department(models.Model):
         except  Exception:
             return []
 
-    @get_line_id_domain
     @api.model
-    def get_line_id(self,domain):
+    def get_line_id(self):
         if self.env.user.id == 1:
             return self.search_read([('department_hierarchy', '=', 2)], ['id', 'name'])
         else:
-            return domain
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments
+            line_ids = []
+            for department_id in department_ids:
+                if department_id.department_hierarchy == 3:
+                    obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department_id.parentid)])
+
+                    line_ids.append({
+                        'id':obj.id,
+                        'name':obj.name
+                    })
+            return line_ids
 
     # @api.model
     # def get_sites(self, line_id):

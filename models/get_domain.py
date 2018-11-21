@@ -84,3 +84,20 @@ def get_site_ids(func):
         return func(self, site_ids, *args, **kwargs)
 
     return wrapper
+
+def get_line_ids(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments
+        line_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('departmentId', '=', department_id.parentid)]).id
+
+                line_ids.append(id)
+
+        return func(self,  line_ids, *args, **kwargs)
+
+    return wrapper
