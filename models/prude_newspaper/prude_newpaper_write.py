@@ -34,7 +34,8 @@ class PrudeNewpaperWrite(models.Model):
     seven_money = fields.Char(string='7元')
     eight_money = fields.Char(string='8元')
     equipment_name = fields.Char(string='设备名称')
-    equipment_count = fields.Char(string='设备编号',_sql_constraints = [ ('check_uniq_cph', 'unique(equipment_count)', '编号已经存在！')])
+    equipment_count = fields.Char(string='设备编号')
+    _sql_constraints = [('check_uniq_cph', 'unique(equipment_count)', '编号已经存在！')]
     brenk_time = fields.Datetime(string='故障时间')
     brenk_repair_time = fields.Datetime(string='故障报修时间')
     brenk_state = fields.Text(string='故障情况')
