@@ -2,33 +2,45 @@
 <odoo>
 	<data>
 
+		<record model="ir.actions.server" id="xa_station_leave_list_action_id">
+			<field name="name">新增请假</field>
+			<field name="state">code</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_funenc_xa_station_leave"/>
+			<field name="condition">True</field>
+			<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>
+			<field name="binding_type">action_button</field>
+			<field name="binding_action">请假列表</field>
+			<field name="code">
+				 action = model.create_record()
+			</field>
+		</record>
+
 		<!--<record model="ir.actions.server" id="xa_station_leave_list_action">-->
-			<!--<field name="name">新增请假</field>-->
-			<!--<field name="state">code</field>-->
-			<!--<field name="type">ir.actions.server</field>-->
-			<!--<field name="model_id" ref="model_funenc_xa_station_leave"/>-->
-			<!--<field name="condition">True</field>-->
+		    <!--<field name="name">请假列表</field>-->
+		    <!--<field name="type">ir.actions.server</field>-->
+		    <!--<field name="res_model">funenc_xa_station.leave</field>-->
+		    <!--<field name="model_id" ref="model_funenc_xa_station_leave"/>-->
+		    <!--<field name="condition">True</field>-->
+		    <!--<field name="state">code</field>-->
+			<!--<field name="binding_action">考勤管理</field>-->
 			<!--<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>-->
-			<!--<field name="binding_type">action_button</field>-->
-			<!--<field name="binding_action">请假列表</field>-->
-			<!--<field name="code">-->
-				 <!--action = model.create_leave()-->
-			<!--</field>-->
+		    <!--<field name="code">-->
+		        <!--action = model.get_day_plan_publish_action()-->
+		    <!--</field>-->
 		<!--</record>-->
 
-		<record model="ir.actions.server" id="xa_station_leave_list_action">
-		    <field name="name">请假列表</field>
-		    <field name="type">ir.actions.server</field>
-		    <field name="res_model">funenc_xa_station.leave</field>
-		    <field name="model_id" ref="model_funenc_xa_station_leave"/>
-		    <field name="condition">True</field>
-		    <field name="state">code</field>
-			<field name="binding_action">考勤管理</field>
-			<field name="binding_model_id" ref="model_funenc_xa_station_leave"/>
-		    <field name="code">
-		        action = model.get_day_plan_publish_action()
-		    </field>
-		</record>
+	<record model="ir.actions.server" id="xa_station_leave_list_action">
+            <field name="name">请假列表</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">funenc_xa_station.leave</field>
+            <field name="model_id" ref="model_funenc_xa_station_leave"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
 
 
 
@@ -36,7 +48,7 @@
 			<field name="name">funenc_xa_station_leave_list</field>
 			<field name="model">funenc_xa_station.leave</field>
 			<field name="arch" type="xml">
-				<tree limit="15"  class="noOpen"  search_ex_template="leave_search_button">
+				<tree limit="15"  class="noOpen"  search_ex_template="leave_search_button" create="0">
 					<field name="product_id_domain" invisible="1"/>
 					<field name="product_site_id_domain" invisible="1"/>
 					<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
@@ -78,15 +90,15 @@
 							<field name="application_time" string="申请时间" />
 							<field name="approve_user" string="审批人" domain="[('departments','=',site_id)]" options="{'no_create':True,'no_open':True}"/>
 						</group>
-						<footer>
-						<!--<button name='save'-->
-						        <!--string='确定'-->
+						<!--<footer>-->
+						<!--<button name='save_record'-->
+						        <!--string='保存'-->
 						        <!--class='btn-primary'-->
 						        <!--type='object'/>-->
-						<!--<button string='取消'-->
+						<!--<button string='放弃'-->
 						        <!--class='btn-default'-->
 						        <!--special='cancel'/>-->
-					</footer>
+					<!--</footer>-->
 					</div>
 				</form>
 			</field>
