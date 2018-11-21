@@ -598,6 +598,7 @@ class inherit_department(models.Model):
                         'id':obj.id,
                         'name':obj.name
                     })
+
             return line_ids
 
     # @api.model
