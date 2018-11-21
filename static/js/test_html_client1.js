@@ -24,16 +24,16 @@ odoo.define('test_html_client', function (require) {
                 }
     ;
             },
-//    willStart: function(){
-//            var self = this;
-//            return self._rpc({
-//                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-//                method: 'get_line_id',
-//            }).then(function(data){
-//                self.vue_data.lines = data
-//            })
-//
-//        },
+    willStart: function(){
+            var self = this;
+            return self._rpc({
+                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                method: 'get_line_id',
+            }).then(function(data){
+                self.vue_data.lines = data
+            })
+
+        },
             start: function () {
                 var self = this;
                 setTimeout(function () {
@@ -48,20 +48,20 @@ odoo.define('test_html_client', function (require) {
                             data() {
                                 return self.vue_data
                             },
-                            mounted() {
-                                var that = this;
-                                var height = window.innerHeight - 20;
-                                that.height = "padding:40px 80px;height: " + height + "px;";
-                                self._rpc({
-                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                                    method: 'get_line_id',
-                                }).then(function(data){
-                                    self.vue_data.lines = data
-                                })
-
-
-
-                            },
+//                            mounted() {
+//                                var that = this;
+//                                var height = window.innerHeight - 20;
+//                                that.height = "padding:40px 80px;height: " + height + "px;";
+//                                self._rpc({
+//                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+//                                    method: 'get_line_id',
+//                                }).then(function(data){
+//                                    self.vue_data.lines = data
+//                                })
+//
+//
+//
+//                            },
                             methods: {
                                 //线路change事件
                             selectLine(val) {

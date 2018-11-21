@@ -481,9 +481,9 @@ class ShedulingManage(models.Model):
                                                                                       ('is_certificate', '=', 2)
                                                                                       ], ['save_conflict_rule'],
                                                                                      order='conflict_rule_index asc')
-        class_interval = conflict_rule_dics[0].get('save_conflict_rule')  # 版与班之间的间隔 >= h
-        rest_day = conflict_rule_dics[1].get('save_conflict_rule')  # 每人连续休息时间 <= d
-        night_shift = conflict_rule_dics[2].get('save_conflict_rule')  # 第二天必须排休  1d
+        class_interval = conflict_rule_dics[0].get('save_conflict_rule') if conflict_rule_dics else '' # 版与班之间的间隔 >= h
+        rest_day = conflict_rule_dics[1].get('save_conflict_rule') if conflict_rule_dics else '' # 每人连续休息时间 <= d
+        night_shift = conflict_rule_dics[2].get('save_conflict_rule') if  conflict_rule_dics else ''# 第二天必须排休  1d
 
         show_position = self.line_id.name + '-' + self.site_id.name
         show_sheduling_time = self.show_sheduling_time
