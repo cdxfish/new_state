@@ -24,7 +24,7 @@ class FuencStation(http.Controller):
                       'site_id': site_id,
                       'time': datetime.datetime.now(),
                       'user_id': user_id,
-                      'arrange_order_id': arrange_order_id.id,
+                      'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
                       'clock_site': site_id,
                       'clock_start_time': datetime.datetime.now(),
                       'is_overtime': 'no'
@@ -35,7 +35,7 @@ class FuencStation(http.Controller):
 
         else:
             clock_records = http.request.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
-                                                                                     order='id desc')
+                                                                                         order='id desc')
             lens = len(clock_records)
             if clock_records:
                 clock_record = clock_records[lens-1]
@@ -258,3 +258,8 @@ class FuencStation(http.Controller):
         user = http.request.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search([('id','=',id)])
 
         return user
+
+    @http.route('/app_index', type='http', auth='none', cors='*')
+    def app_index(self, **kw):
+        return http.local_redirect(
+            '/funenc_xa_station/static/static/index.html')
