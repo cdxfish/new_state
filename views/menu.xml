@@ -202,11 +202,6 @@
                     {'tabs':
                         [
 					   {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
-					   {
 						   'title': '打卡记录',
 						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
 						   'group' : 'funenc_xa_station.table_card_record',
@@ -215,6 +210,11 @@
 						   'title': '加班记录',
 						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
 						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+					  {
+						   'title': '请假记录',
+						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
                         ]
                     }
@@ -477,11 +477,7 @@
 		   	<field name="top_widget_options">
                     {'tabs':
                         [
-					   {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
+
 					   {
 						   'title': '打卡记录',
 						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
@@ -491,6 +487,11 @@
 						   'title': '加班记录',
 						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
 						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+					   {
+						   'title': '请假记录',
+						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
                         ]
                     }
@@ -510,11 +511,7 @@
 		   	<field name="top_widget_options">
                     {'tabs':
                         [
-					   {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
+
 					   {
 						   'title': '打卡记录',
 						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
@@ -524,6 +521,11 @@
 						   'title': '加班记录',
 						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
 						   'group' : 'funenc_xa_station.table_overtime_record',
+						   },
+					   {
+						   'title': '请假记录',
+						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
+						   'group' : 'funenc_xa_station.table_leave_record',
 						   },
                         ]
                     }

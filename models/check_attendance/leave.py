@@ -144,3 +144,20 @@ class Leave(models.Model):
                 'time': time_day,
                 'user_id': leave_user_id
             })
+
+    def create_record(self):
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_leave_form').id
+        return {
+            'name': '新建请假',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.leave',
+            'context': self.env.context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+        }
+
+    def save_record(self):
+        pass
