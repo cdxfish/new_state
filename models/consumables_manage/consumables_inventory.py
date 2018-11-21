@@ -80,13 +80,14 @@ class consumables_inventory(models.Model):
             'target': 'new',
             'context': context
         }
-
+    @get_domain
     @api.multi
-    def crkjl(self):
+    def crkjl(self,domain):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_warehousing_list').id
         return {
             'name': '耗材入库',
             'type': 'ir.actions.act_window',
+            # 'domain':domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.consumables_warehousing',
             "top_widget": "multi_action_tab",
@@ -95,12 +96,12 @@ class consumables_inventory(models.Model):
                                       [
                                           {
                                               'title': '耗材入库',
-                                              'action' : 'funenc_xa_station.xa_station_consumables_apply_action',
-                                              'group' : 'funenc_xa_station.consumables_management_consumables_storage',
+                                              'action' : 'funenc_xa_station.funenc_xa_station_consumables_warehousing_server',
                                               },
                                           {
                                               'title': '耗材出库',
                                               'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
+                                              
                                               },
                                       ]
                                   }''',

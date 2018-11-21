@@ -128,4 +128,4 @@ class ImportManagement(models.Model):
             self.env['evaluate_import'].search([]).unlink()
 
         except:
-            raise ValidationError('文件正确，可能是考核指标错误')
+            raise ValidationError('文件内容不正确，检查考核项目是否存在，考核指标是否在选择的范围内')

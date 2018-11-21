@@ -1,7 +1,7 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
-
+from ..get_domain import get_domain
 import json
 
 class StoreHouse(models.Model):
@@ -99,3 +99,29 @@ class StoreHouse(models.Model):
                       }
 
             self.env['funenc_xa_station.consumables_inventory'].create(values)
+    @get_domain
+    @api.multi
+    def get_day_plan_publish_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_warehousing_list').id
+        return {
+            'name': '耗材入库',
+            'type': 'ir.actions.act_window',
+            'domain': domain,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'funenc_xa_station.consumables_warehousing',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                                          [
+                                              {
+                                                  'title': '耗材入库',
+                                                  'action' : 'funenc_xa_station.funenc_xa_station_consumables_warehousing_server',
+                                                  },
+                                              {
+                                                  'title': '耗材出库',
+                                                  'action2':  'funenc_xa_station.xa_station_consumables_delivery_storage',
+                                                  },
+                                          ]
+                                      }''',
+            'context': self.env.context,
+        }

@@ -546,7 +546,7 @@ class inherit_department(models.Model):
     def _compute_count_user(self):
         for this in self:
 
-            this.count_user = len(this.users.ids)
+            this.count_user = len(this.department_property_users.ids)
 
     @api.model
     def get_xa_departments(self):

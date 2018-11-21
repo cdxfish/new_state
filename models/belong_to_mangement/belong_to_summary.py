@@ -21,7 +21,6 @@ class BelongToSummary(models.Model):
         mouth = datetime.datetime.now()
         print(mouth)
 
-
     @api.model
     def belong_to_method(self):
         self.env.user.name
@@ -34,7 +33,6 @@ class BelongToSummary(models.Model):
         return line
 
     @api.model
-
     def add_count_site(self):
         site = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy', '=', 3)],
                                                                                ['id', 'name'])
@@ -54,7 +52,7 @@ class BelongToSummary(models.Model):
         pass
 
     @api.model
-    def search_date_record_now(self,date,line,site,person_id):
+    def search_date_record_now(self, date, line, site, person_id):
         if not person_id:
             date = date[:10]
             d = datetime.datetime.strptime(date, '%Y-%m-%d')

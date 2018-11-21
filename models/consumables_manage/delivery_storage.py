@@ -1,6 +1,7 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
+from ..get_domain import get_domain
 
 
 class delivery_storage(models.Model):
@@ -29,13 +30,14 @@ class delivery_storage(models.Model):
     # def consumables_count(self):
     #     self.consumables_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)
 
+    @get_domain
     @api.multi
-    def get_day_plan_publish_action(self):
+    def get_day_plan_publish_action(self,domain):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_list').id
         return {
-            'name': '耗材入库',
+            'name': '耗材出库',
             'type': 'ir.actions.act_window',
-            # 'domain': domain,
+            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.delivery_storage',
             "top_widget": "multi_action_tab",
@@ -44,8 +46,7 @@ class delivery_storage(models.Model):
                                           [
                                               {
                                                   'title': '耗材入库',
-                                                  'action' : 'funenc_xa_station.xa_station_consumables_delivery_storage',
-                                                  'group' : 'funenc_xa_station.consumables_management_consumables_storage',
+                                                  'action' : 'funenc_xa_station.funenc_xa_station_consumables_warehousing_server',
                                                   },
                                               {
                                                   'title': '耗材出库',
