@@ -127,7 +127,8 @@ class training_plan(models.Model):
                      }
                 )
         else:
-            training_plan_id
+            # training_plan_id
+            pass
         self = training_plan_id
         self.create_qrcode()
 
