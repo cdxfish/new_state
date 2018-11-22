@@ -4,7 +4,7 @@
 from odoo import api, models, fields
 import base64
 import xlrd
-
+from odoo.exceptions import ValidationError
 from datetime import datetime, date, time
 from xlrd import xldate_as_tuple
 from odoo import models, fields, api
@@ -21,12 +21,13 @@ class ImportManagement(models.Model):
     def import_xls_bill(self):
         try:
             records = self.env['import.management'].search([]).sorted(key=lambda r: r.c_time, reverse=False)
-            print(records[-1].xls_file)
             data = xlrd.open_workbook(file_contents=base64.decodebytes(records[0].xls_file))
-        except IOError as err:
-            print('异常: ' + err)
-        except ConnectionError as err:
-            print('异常:' + err)
+        # except IOError as err:
+        #     print('异常: ' + err)
+        # except ConnectionError as err:
+        #     print('异常:' + err)
+        except:
+            raise ValidationError('请检查是否选择了导入文件')
         else:
             if len(records) == 0:
                 start = 1
@@ -94,5 +95,5 @@ class ImportManagement(models.Model):
             self.env['import.management'].search([]).unlink()
 
 
-        except ConnectionError as err:
-            print(err)
+        except:
+           raise ValidationError('请检查是否选择了导入文件')
