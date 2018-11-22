@@ -5,7 +5,7 @@ import requests, datetime, time
 import logging
 
 _logger = logging.getLogger(__name__)
-
+import time
 
 class FuencStation(http.Controller):
 
@@ -261,5 +261,7 @@ class FuencStation(http.Controller):
 
     @http.route('/app_index', type='http', auth='none', cors='*')
     def app_index(self, **kw):
+        time_1 = round(time.time())
         return http.local_redirect(
-            '/funenc_xa_station/static/static/index.html')
+
+            '/funenc_xa_station/static/static/index.html?t={}'.format(time_1))
