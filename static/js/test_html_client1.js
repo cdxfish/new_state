@@ -25,18 +25,17 @@ odoo.define('test_html_client', function (require) {
                     sites:'',
                 };
             },
-//    willStart: function(){
-//            var self = this;
-//            return self._rpc({
-//                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-//                method: 'get_line_id',
-//            }).then(function(data){
-//                alert(data)
-//                console.log(data)
-//                self.vue_data.lines = data
-//            })
-//
-//        },
+            willStart: function(){
+                    var self = this;
+                    return self._rpc({
+                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                        method: 'get_line_id',
+                    }).then(function(data){
+                        console.log(data)
+                        self.vue_data.line_options = data
+                    });
+
+                },
             start: function () {
                 var self = this;
                 setTimeout(function () {
@@ -51,20 +50,20 @@ odoo.define('test_html_client', function (require) {
                             data() {
                                 return self.vue_data
                             },
-                            mounted() {
-                                var that = this;
-                                var height = window.innerHeight - 20;
-                                that.height = "padding:40px 80px;height: " + height + "px;";
-                                self._rpc({
-                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                                    method: 'get_line_id',
-                                }).then(function(data){
-                                    self.vue_data.lines = data
-                                })
+//                            mounted() {
+//                                var that = this;
+//                                var height = window.innerHeight - 20;
+//                                that.height = "padding:40px 80px;height: " + height + "px;";
+//                                self._rpc({
+//                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+//                                    method: 'get_line_id',
+//                                }).then(function(data){
+//                                    self.vue_data.line_options = data
+//                                })
 
 
 
-                            },
+//                            },
                             methods: {
                                 //线路change事件
                             selectLine(val) {
@@ -73,7 +72,7 @@ odoo.define('test_html_client', function (require) {
                                     method: 'get_sites',
                                     kwargs: {line_id: val}
                                 }).then(function(data){
-                                    self.vue_data.sites = data
+                                    self.vue_data.site_options = data
                                 })
                             },
                             //查询事件

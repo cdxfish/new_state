@@ -14,7 +14,7 @@
                 <span style="font-size: 13px">线路：</span>
                 <el-select v-model="line_options" @change="selectLine" filterable placeholder="请选择线路" size="small">
                     <el-option
-                            v-for="item in lines"
+                            v-for="item in line_options"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id">
@@ -25,7 +25,7 @@
                 <span style="font-size: 13px">站点：</span>
                 <el-select v-model="site_options" filterable placeholder="请选择站点" size="small">
                     <el-option
-                            v-for="item in sites"
+                            v-for="item in site_options"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id">
