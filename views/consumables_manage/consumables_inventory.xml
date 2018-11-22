@@ -67,7 +67,7 @@
             <field name="arch" type="xml" >
                 <tree limit="15" create="0" search_ex_template="consumables_search_button_button">
                     <field name="inventory_department_id" string="库存部门"/>
-                    <field name="consumables_type" string="耗材类型"/>
+                    <field name="consumables_type" string="耗材名称"/>
                     <field name="store_house" string="库房位置"/>
                     <field name="inventory_count" string="库存数量"/>
                     <widget string="操作" name="treebtns" template="consumables_out_edit"/>

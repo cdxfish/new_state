@@ -519,7 +519,7 @@ class generate_qr(models.Model):
                 'domain': [('site_id', 'in', site_ids)],
             }
         else:
-            raise Warning('你未在 权限管理/部门管理设置人员属性')
+            raise Warning('你未在 权限管理/部门管理 设置人员属性')
 
 
     def create_qrcode_1(self,add_data,file_name):

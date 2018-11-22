@@ -1,21 +1,37 @@
 import odoo.exceptions as msg
 from odoo import models, fields, api
 import datetime
-from ..get_domain import get_domain
+from ..get_domain import get_site_ids
 
 
 class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
     _description = u'耗材出库'
 
+    def _default_associated(self):
+        if self._context.get('department_id', False):
+            return self._context['department_id']
+
+    def _default_consumables_type(self):
+        if self._context.get('consumables_type', False):
+            return self._context['consumables_type']
+
+    def _default_store_house_id(self):
+        if self._context.get('store_house_id', False):
+            return self._context['store_house_id']
+
     department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='部门',
-                                    # default=lambda
-                                    # self: self.default_department_id()
+                                    default=lambda
+                                    self: self._default_associated()
                                     )
     delivery_storage_department = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='出库申请部门')
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称',
+                                       default=lambda self: self._default_consumables_type()
+                                       )
     consumables_count = fields.Integer(string='出库数量')
-    store_house_id = fields.Many2one('funenc_xa_station.consumables_inventory', string='库房名称')
+    store_house_id = fields.Many2one('funenc_xa_station.store_house', string='库房名称',
+                                     default=lambda self:self._default_store_house_id()
+                                     )
     store_house_ids = fields.One2many('funenc_xa_station.delivery_storage_to_consumables_inventory',
                                       'delivery_storage_id', string='出库仓库')
     is_delivery = fields.Selection(selection=[('yes', '已出库'), ('no', '未出库')], default="no")
@@ -30,14 +46,14 @@ class delivery_storage(models.Model):
     # def consumables_count(self):
     #     self.consumables_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)
 
-    @get_domain
+    @get_site_ids
     @api.multi
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self,site_ids):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_list').id
         return {
             'name': '耗材出库',
             'type': 'ir.actions.act_window',
-            'domain': domain,
+            'domain': [('department_id','in',site_ids)],
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.delivery_storage',
             "top_widget": "multi_action_tab",
@@ -110,6 +126,8 @@ class delivery_storage(models.Model):
     def consumables_export_search_button(self):
         pass
 
+    # def
+
     def delivery_storage_save(self):
         sel_inventory_count = sum(store_house_id.sel_inventory_count for store_house_id in self.store_house_ids)  # 出库数量
         self.is_delivery = 'yes'
@@ -141,6 +159,20 @@ class delivery_storage(models.Model):
 
         else:
             raise msg.Warning('未找到相应库存')
+
+        self.is_delivery = 'yes'
+        self.delivery_storage_date = datetime.datetime.now()
+
+    def self_storage_save(self):
+
+        apply_id = self.env.context.get('apply_id')
+        consumables_inventory =self.env['funenc_xa_station.consumables_inventory'].browse(apply_id)
+        if consumables_inventory:
+            count = consumables_inventory.inventory_count - self.consumables_count
+            if count>=0:
+                consumables_inventory.inventory_count = count
+            else:
+                raise msg.Warning('库存不够')
 
         self.is_delivery = 'yes'
         self.delivery_storage_date = datetime.datetime.now()
