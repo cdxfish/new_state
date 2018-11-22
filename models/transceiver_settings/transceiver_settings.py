@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields
 from datetime import datetime
+from odoo.exceptions import ValidationError
 
 class TransceiverSettings(models.Model):
     _name = 'funenc_xa_station.transceiver_settings'
@@ -11,26 +12,55 @@ class TransceiverSettings(models.Model):
     transient_type = fields.Many2one('funenc_xa_station.consumables_type',string='工器具类型')
     transient_name = fields.Char(string='工器具名称' )
     transient_number = fields.Char(string='工器具编号')
-    _sql_constraints = [('check_uniq_cph', 'unique(transient_number)', '编号已经存在！')]
     post = fields.Char(string='位置')
     state = fields.Selection([('one','正常'),('zero','故障')],string='状态',default='one')
     break_descrip = fields.Text(string='故障描述')
     load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_transceiver_attachment_rel',
                                      'attachment_id', 'meeting_dateils_id', string='图片上传')
 
+    @api.model
+    def create(self, vals):
+        number = vals.get('transient_number')
+        record = self.env['funenc_xa_station.transceiver_settings'].search([('transient_number','=',number)])
+        if record:
+            raise ValidationError('当前站点已经存在改工器具编号，请从新输入')
+        return super(TransceiverSettings,self).create(vals)
 
-    # @api.model
-    # def create(self, vals):
-    #     re_id = vals.get('transient_type')
+
+
+    # 用来获取工器具类型的值和id
+    # def get_value(self):
+    #     global lis
     #     lis = []
+    #     res_id = self.transient_type.consumables_type
+    #     lis.append(res_id)
+    #     parent_id = self.transient_type.prent_id.id
+    #     return self.get_parent(res_id,parent_id)
+
+    # #用来获取工器具类型所有的值和id
+    # def get_parent(self,res_id,parent_id):
     #     record = self.env['funenc_xa_station.consumables_type'].search_read(
-    #         [('id', '=', re_id)], ['consumables_type', 'prent_id'])
+    #       [('id', '=', parent_id)], ['consumables_type', 'prent_id'])
     #     if record[0]['consumables_type']:
-    #         lis.append(record[0]['consumables_type'])
-    #         re_id = record[0]['prent_id']
-    #         return self.create()
+    #       lis.append(record[0]['consumables_type'])
+    #     if record[0]['prent_id']:
+    #         res_id = record[0]['consumables_type']
+    #         parent_id = record[0]['prent_id'][0]
+    #         return self.get_parent(res_id,parent_id)
     #     else:
     #         print(lis)
+    #         lis.reverse()
+    #         liss = lis
+    #         print(liss)
+    #         print('/'.join(liss))
+    #         self.transient_name = '/'.join(liss)
+
+
+
+
+
+
+
 
 
     # 创建一条新的记录

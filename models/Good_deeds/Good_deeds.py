@@ -51,6 +51,7 @@ class GoodDeeds(models.Model):
         return {
             'name': '好人好事',
             'type': 'ir.actions.act_window',
+            'clear_breadcrumbs': True,
             'view_type': 'form',
             'view_mode': 'form',
             'domain':domain,
