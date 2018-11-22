@@ -107,8 +107,7 @@ class MainModel(models.Model):
        self.env['cdtct_dingtalk.cdtct_dingtalk_account'].search([])[0].sync_dingtalk()
 
     def import_xls_bill(self):
-        self.env['import.management'].search([])[0].import_xls_bill()
-
+        self.env['import.management'].import_xls_bill()
     #新增持证信息
     def new_increase_cerfiticase_infor(self):
         view_form = self.env.ref('funenc_xa_station.person_certificate_form').id

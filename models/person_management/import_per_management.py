@@ -4,7 +4,7 @@
 from odoo import api, models, fields
 import base64
 import xlrd
-
+from odoo.exceptions import ValidationError
 from datetime import datetime, date, time
 from xlrd import xldate_as_tuple
 from odoo import models, fields, api
@@ -21,19 +21,20 @@ class ImportManagement(models.Model):
     def import_xls_bill(self):
         try:
             records = self.env['import.management'].search([]).sorted(key=lambda r: r.c_time, reverse=False)
-            print(records[0].xls_file)
             data = xlrd.open_workbook(file_contents=base64.decodebytes(records[0].xls_file))
-        except IOError as err:
-            print('异常: ' + err)
-        except ConnectionError as err:
-            print('异常:' + err)
+        # except IOError as err:
+        #     print('异常: ' + err)
+        # except ConnectionError as err:
+        #     print('异常:' + err)
+        except:
+            raise ValidationError('请检查是否选择了导入文件')
         else:
             if len(records) == 0:
                 start = 1
             else:
                 # start = records[0].count + 1
                 start = records[0].count + 1
-            sheet_data = data.sheet_by_name('Sheet1')
+            sheet_data = data.sheet_by_name(data.sheet_names()[0])
             cols5 = sheet_data.col_values(5)
             end = sheet_data.nrows
 
@@ -80,14 +81,19 @@ class ImportManagement(models.Model):
             for i, item in enumerate(one_sheet_content):
                 # staff_basic_information=self.env['person.management.sys'].sudo().create(item)
                 # staff_business_information=self.env['employee.business.information'].sudo().create(
-                    # {'department': item['department']}
+                #     {'department': item['department']}
                 # )
                 # print('====')
                 if str(item['jobnumber']) in lpl:
 
                     self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber', '=', item['jobnumber'])])\
                         .sudo().write(item)
+                else:
+                    self.env['cdtct_dingtalk.cdtct_dingtalk_users']\
+                        .sudo().create(item)
                     # 'insert into cdtct_dingtalk_cdtct_dingtalk_users （id）values (1),(2),(3)'
+            self.env['import.management'].search([]).unlink()
 
-        except ConnectionError as err:
-            print(err)
+
+        except:
+           raise ValidationError('请检查是否选择了导入文件')

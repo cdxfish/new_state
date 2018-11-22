@@ -44,18 +44,38 @@ class training_plan(models.Model):
     # 签到
     sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id', string='集中签到')
 
+
+    @api.model
+    def save_training_plan(self,**kw):
+        # line_id = user.line_id.id
+        # site_id = user.departments[0].id
+        # #  打卡
+        # personnel_situation = http.request.env['funenc_xa_station.personnel_situation'].sudo().create({
+        #     'training_plan_id': training_plan_id,
+        #     'sign_in_time': current_time,
+        #     'user_id': user.id
+        # })
+        #
+        # training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search(
+        #     [('id', '=', training_plan_id)])
+        # site_training_results = http.request.env[
+        #     'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
+        #                                                               ('training_plan_id', '=',
+        #                                                                training_plan_id)])
+        pass
+
     def create_qrcode(self):
         '''
         二维码生成
         '''
-        # file = os.path.dirname(os.path.dirname(__file__))
-        # qr_file = os.path.dirname(os.path.dirname(file))
-        # 获取本机计算机名称
-        hostname = socket.gethostname()
-        # 获取本机ip
-        ip = socket.gethostbyname(hostname)
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
-        qr.add_data('http://{}:8069/controllers/training_plan/punch_the_clock?training_plan_id={}'.format(ip, self.id))
+        add_data = {
+            'model': 'funenc_xa_station.training_plan',
+            'training_plan_id':self.id,
+            'func':'save_training_plan',
+
+        }
+        qr.add_data(add_data)
         img = qr.make_image()
         file_name = "punch_the_clock_{}.png".format(self.id)
         img.save(file_name)
@@ -127,8 +147,15 @@ class training_plan(models.Model):
                      }
                 )
         else:
-            # training_plan_id
-            pass
+            for partake_site_id in training_plan_id.partake_site_ids:
+                line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('departmentId','=',partake_site_id.parentid)]).id
+                self.env['funenc_xa_station.site_training_results'].create(
+                    {
+                        'line_id': line_id,
+                        'site_id': partake_site_id.id,
+                        'training_plan_id': training_plan_id.id
+                    }
+                )
         self = training_plan_id
         self.create_qrcode()
 
@@ -181,7 +208,7 @@ class training_plan(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
-            'target': 'current',
+            'target': 'new',
             "views": [[view_form, "form"]],
         }
 

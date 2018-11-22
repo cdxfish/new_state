@@ -6,12 +6,13 @@ import odoo.exceptions as msg
 import qrcode
 import os
 import base64
-import socket, datetime
+import datetime
 import calendar
 from .get_domain import *
+import time
 
 import json
-from .get_domain import get_line_ids
+
 
 class fuenc_station(models.Model):
     _name = 'fuenc_station.station_base'
@@ -430,55 +431,39 @@ class generate_qr(models.Model):
                 'target': 'new',
             }
 
-        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
+
+        start_time = time.time()
         ding_user = self.env.user.dingtalk_user[0]
-        department = ding_user.departments[0]
+        department_ids = ding_user.user_property_departments
         str_now_date = datetime.datetime.now().strftime('%Y-%m-%d')
-        if department.department_hierarchy == 3:
+        site_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                site_ids.append(department_id.id)
+        file = os.path.dirname(os.path.dirname(__file__))
+        for site_id in site_ids:
 
-            obj = self.search([('site_id', '=', department.id)])
-            # # 获取本机计算机名称
-            # hostname = socket.gethostname()
-            # # 获取本机ip
-            # ip = socket.gethostbyname(hostname)
+            obj = self.search([('site_id', '=', site_id)])
 
-            file = os.path.dirname(os.path.dirname(__file__))
-
-            # work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
                                                                                                                   # department.id)
-            # print(work_add_data)
             work_add_data = {
                 'model': 'fuenc_station.clock_record',
                 'func': 'save_clock_record',
                 'type':'work',
-                'department_id':department.id
+                'department_id':site_id
             }
             work_file_name = file + "work_{}.png".format(str_now_date[:10])
-            # off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(
-            #     ip,
-            #     department.id)
             off_work_add_data ={
                 'model': 'fuenc_station.clock_record',
                 'func': 'save_clock_record',
                 'type': 'off_work',
-                'department_id': department.id
+                'department_id': site_id
             }
             off_work_name = file + "off_work_{}.png".format(str_now_date[:10])
 
             if obj:
 
-                if obj.add_date == str_now_date:
-
-                    return {
-                        'name': '上下班打卡',
-                        'type': 'ir.actions.act_window',
-                        "views": [[view_form, "form"]],
-                        'res_model': 'funenc_xa_station.generate_qr',
-                        'res_id': obj.id,
-                        'target': 'current',
-                    }
-
-                else:
+                if obj.add_date != str_now_date:
                     work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
                     off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
@@ -490,36 +475,51 @@ class generate_qr(models.Model):
 
                     })
 
-                    return {
-                        'name': '上下班打卡',
-                        'type': 'ir.actions.act_window',
-                        "views": [[view_form, "form"]],
-                        'res_model': 'funenc_xa_station.generate_qr',
-                        'res_id': obj.id,
-                        'target': 'current',
-                    }
             else:
 
                 work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
                 off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
 
+                department_obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(site_id)
+                line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('departmentId', '=', department_obj.parentid)]).id
+
                 self.create({
                     'work_qr': work_b64,
                     'off_work_qr': off_work_b64,
                     'add_date': datetime.datetime.now(),
-                    'line_id': self.env.user.dingtalk_user.line_id.id,
-                    'site_id': self.env.user.dingtalk_user.departments[0].id,
+                    'line_id': line_id,
+                    'site_id': site_id,
                 })
-
+        end_time = time.time()
+        print(end_time-start_time)
+        lens = len(site_ids)
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_list').id
+        if lens == 1:
+            res_id = self.search([('site_id','=',site_ids[0])]).id
             return {
                 'name': '上下班打卡',
                 'type': 'ir.actions.act_window',
                 "views": [[view_form, "form"]],
                 'res_model': 'funenc_xa_station.generate_qr',
-                'res_id': obj.id,
+                'res_id': res_id,
                 'target': 'current',
             }
+        elif lens> 1:
+            context['group_by']= 'line_id'
+            return {
+                'name': '上下班打卡',
+                'type': 'ir.actions.act_window',
+                "views": [[view_tree, 'tree'], [view_form, "form"]],
+                'res_model': 'funenc_xa_station.generate_qr',
+                'target': 'current',
+                'domain': [('site_id', 'in', site_ids)],
+            }
+        else:
+            raise Warning('你未在 权限管理/部门管理 设置人员属性')
 
 
     def create_qrcode_1(self,add_data,file_name):

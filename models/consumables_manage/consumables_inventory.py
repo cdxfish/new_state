@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
-from ..get_domain import get_domain
+from ..get_domain import get_site_ids
 
 import json
 
@@ -80,14 +80,14 @@ class consumables_inventory(models.Model):
             'target': 'new',
             'context': context
         }
-    @get_domain
+    @get_site_ids
     @api.multi
-    def crkjl(self,domain):
+    def crkjl(self,site_ids):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_consumables_warehousing_list').id
         return {
             'name': '耗材入库',
             'type': 'ir.actions.act_window',
-            # 'domain':domain,
+            'domain':[('consumables_department_id','=',site_ids)],
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.consumables_warehousing',
             "top_widget": "multi_action_tab",
@@ -111,6 +111,10 @@ class consumables_inventory(models.Model):
     # 出库编辑按钮
     def out(self):
         context = dict(self.env.context or {})
+        context['apply_id'] = self.id
+        context['department_id'] = self.inventory_department_id.id
+        context['consumables_type'] = self.consumables_type.id
+        context['store_house_id'] = self.store_house.id
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_delivery_storage_form').id
         return {
             'name': '出库',
@@ -118,7 +122,7 @@ class consumables_inventory(models.Model):
             "res_model": "funenc_xa_station.delivery_storage",
             "views": [[view_form, "form"]],
             'target': 'new',
-            'context': context
+            'context': context,
         }
 
     @api.model
