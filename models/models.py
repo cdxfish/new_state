@@ -105,6 +105,47 @@ class StationIndex(models.Model):
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
 
+
+
+    @api.model
+    def save_clock_record(self,**kw):
+        site_id = kw.get('department_id')
+        user_id = kw.get('user_id')
+        if kw.get('type') == 'work':
+            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].sudo().search(
+                [('site_id', '=', site_id),
+                 ('user_id', '=', user_id),
+                 ('sheduling_date', '=', datetime.datetime.now())])
+            values = {
+                      # 'line_id': user_id.line_id.id,
+                      'site_id': site_id,
+                      'time': datetime.datetime.now(),
+                      'user_id': user_id,
+                      'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
+                      'clock_site': site_id,
+                      'clock_start_time': datetime.datetime.now(),
+                      'is_overtime': 'no'
+                      }
+            self.env['fuenc_station.clock_record'].sudo().create(values)
+
+            return '上班打卡成功'
+
+        else:
+            clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
+                                                                                         order='id desc')
+            lens = len(clock_records)
+            if clock_records:
+                clock_record = clock_records[lens-1]
+                if clock_record.clock_end_time:
+                    return '请先上班打卡'
+                else:
+                    clock_record.clock_end_time = datetime.datetime.now()
+                    return '下班打卡成功'
+            else:
+                return '请先上班打卡'
+
+
+
     @api.model
     def create_clock_record(self):
         context = dict(self.env.context or {})
@@ -396,20 +437,32 @@ class generate_qr(models.Model):
         if department.department_hierarchy == 3:
 
             obj = self.search([('site_id', '=', department.id)])
-            # 获取本机计算机名称
-            hostname = socket.gethostname()
-            # 获取本机ip
-            ip = socket.gethostbyname(hostname)
+            # # 获取本机计算机名称
+            # hostname = socket.gethostname()
+            # # 获取本机ip
+            # ip = socket.gethostbyname(hostname)
 
             file = os.path.dirname(os.path.dirname(__file__))
 
-            work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
-                                                                                                                  department.id)
-            print(work_add_data)
+            # work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=work'.format(ip,
+                                                                                                                  # department.id)
+            # print(work_add_data)
+            work_add_data = {
+                'model': 'fuenc_station.clock_record',
+                'func': 'save_clock_record',
+                'type':'work',
+                'department_id':department.id
+            }
             work_file_name = file + "work_{}.png".format(str_now_date[:10])
-            off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(
-                ip,
-                department.id)
+            # off_work_add_data = 'http://{}:8069/funenc_xa_station/redirect/check_collect?site_id={}&type=off_work'.format(
+            #     ip,
+            #     department.id)
+            off_work_add_data ={
+                'model': 'fuenc_station.clock_record',
+                'func': 'save_clock_record',
+                'type': 'off_work',
+                'department_id': department.id
+            }
             off_work_name = file + "off_work_{}.png".format(str_now_date[:10])
 
             if obj:
@@ -548,6 +601,7 @@ class inherit_department(models.Model):
         for this in self:
 
             this.count_user = len(this.department_property_users.ids)
+
 
     @api.model
     def get_xa_departments(self):
