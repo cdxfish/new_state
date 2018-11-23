@@ -48,26 +48,28 @@
                     </header>
                     <sheet>
                         <!--<div class="oe_button_box" name="button_box">-->
-                            <!--&lt;!&ndash;<button type="object" name="button_details" class="oe_stat_button"&ndash;&gt;-->
-                                    <!--&lt;!&ndash;icon="fa-pencil-square-o"&ndash;&gt;-->
-                                    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                                <!--&lt;!&ndash;&lt;!&ndash;attrs="{'invisible':[('state', '=','not_started')]}"&ndash;&gt;&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span>培训详情</span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;&lt;!&ndash;<field string="培训详情" name="configuration_count" widget="statinfo" />&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button type="object" name="button_details" class="oe_stat_button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;icon="fa-pencil-square-o"&ndash;&gt;-->
+                        <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;attrs="{'invisible':[('state', '=','not_started')]}"&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span>培训详情</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<field string="培训详情" name="configuration_count" widget="statinfo" />&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
                         <!--</div>-->
 
                         <div class="container-fluid">
-                             <group>
-                                    <field name="training_plan_qr" string="二维码" widget="image" options="{'size': [120, 120]}" readonly="1"/>
-                                </group>
+                            <group>
+                                <field name="training_plan_qr" string="二维码" widget="image"
+                                       options="{'size': [120, 120]}" readonly="1"/>
+                            </group>
                             <group>
                                 <group>
                                     <field name="state" invisible="1"/>
                                     <field name="training_plan_project" string="培训项目" required="1"/>
                                     <field name="training_plan_place" string="培训地点" required="1"/>
-                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags" options="{'no_create':True,'no_open':True}"  required="1"
-                                                 domain="[('department_hierarchy','=',3)]"
+                                    <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
+                                           options="{'no_create':True,'no_open':True}" required="1"
+                                           domain="[('department_hierarchy','=',3)]"
                                     />
                                 </group>
                                 <group>
@@ -82,14 +84,14 @@
                                 </group>
 
                             </group>
-                             <group>
-                                    <field name="training_plan_time" string="培训时间" required="1">
-                                        <tree editable="top" class="noOpen">
-                                            <field name="name" string="培训开始时间"/>
-                                             <field name="end_time" string="培训结束时间"/>
-                                        </tree>
-                                    </field>
-                                </group>
+                            <group>
+                                <field name="training_plan_time" string="培训时间" required="1">
+                                    <tree editable="top" class="noOpen">
+                                        <field name="name" string="培训开始时间"/>
+                                        <field name="end_time" string="培训结束时间"/>
+                                    </tree>
+                                </field>
+                            </group>
                             <!--<footer>-->
                             <!--<button name='training_plan_save'-->
                             <!--string='确定'-->
@@ -119,8 +121,9 @@
                                     <field name="participate_unit" string="参培单位" readonly="1"/>
                                     <field name="training_plan_major" string="培训专业" readonly="1"/>
                                     <field name="training_plan_time" string="培训时间" readonly="1">
-                                        <tree editable="top" class="noOpen">
-                                            <field name="name"/>
+                                        <tree class="noOpen" editable="top">
+                                            <field name="name" string="培训开始时间" />
+                                            <field name="end_time" string="培训结束时间" />
                                         </tree>
                                     </field>
                                     <field name="training_plan_type" string="培训类型" readonly="1"/>
@@ -140,24 +143,15 @@
                             </group>
                             <group string="培训成果">
                                 <field name="site_training_results_ids" string="">
-                                    <tree create="0">
+                                    <tree create="0" class="noOpen">
                                         <field name="line_id" string="线路"/>
                                         <field name="site_id" string="站点"/>
                                         <field name="course_hours" string="培训课时"/>
                                         <field name="training_person_time" string="培训人次"/>
-                                        <field name="percent_of_pass" string="培训合格率"/>
-                                        <field name="training_content" string="培训内容"/>
-                                        <field name="training_evaluate" string="培训评价"/>
-                                        <field name="user_ids" string="人员问题">
-                                           <!--<tree editable="top" class="noOpen">-->
-                                               <!--<field name="line_id" string="线路"/>-->
-                                               <!--<field name="site_id" string="站点"/>-->
-                                               <!--<field name="line_id" string="线路"/>-->
-                                               <!--<field name="line_id" string="线路"/>-->
-                                               <!--<field name="line_id" string="线路"/>-->
-
-                                           <!--</tree>-->
-                                        </field>
+                                        <field name="state" string="状态" />
+                                        <field name="fill_in_user" string="填写人" />
+                                        <field name="add_time" string="填写时间"/>
+                                        <widget string="查看" name="treebtns" template="site_training_widget"/>
                                     </tree>
                                 </field>
 
@@ -182,8 +176,9 @@
                                     <field name="participate_unit" string="参培单位" readonly="1"/>
                                     <field name="training_plan_major" string="培训专业" readonly="1"/>
                                     <field name="training_plan_time" string="培训时间" readonly="1">
-                                        <tree editable="top" class="noOpen">
-                                            <field name="name"/>
+                                        <tree class="noOpen" editable="top">
+                                            <field name="name" string="培训开始时间" />
+                                            <field name="end_time" string="培训结束时间" />
                                         </tree>
                                     </field>
                                     <field name="training_plan_type" string="培训类型" readonly="1"/>
@@ -221,9 +216,9 @@
                                 </page>
                                 <page string="培训签到表">
                                     <field name="sign_in_user_ids" string="">
-                                        <tree  class="noOpen">
+                                        <tree class="noOpen">
                                             <field name="sign_in_time" string="签到时间"/>
-                                            <field name="line_id" string="所属线路" />
+                                            <field name="line_id" string="所属线路"/>
                                             <field name="site_id" string="站点名"/>
                                             <field name="user_id" string="姓名"/>
                                             <field name="jobnumber" string="工号"/>
@@ -233,6 +228,81 @@
 
                             </notebook>
 
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--培训主要内容-->
+        <record model="ir.ui.view" id="site_training_results_primary_coverage">
+            <field name="name">site_training_results_primary_coverage</field>
+            <field name="model">funenc_xa_station.site_training_results</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <sheet>
+                        <div class="container-fluid">
+                                <group>
+                                    <field name="training_content"/>
+                                </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--总结评价-->
+        <record model="ir.ui.view" id="site_training_results_evaluate">
+            <field name="name">site_training_results_evaluate</field>
+            <field name="model">funenc_xa_station.site_training_results</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <sheet>
+                        <div class="container-fluid">
+                                <group>
+                                    <field name="training_evaluate" string="总结评价"/>
+                                </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--问题及整改-->
+        <record model="ir.ui.view" id="site_training_results_rectification">
+            <field name="name">site_training_results_rectification</field>
+            <field name="model">funenc_xa_station.site_training_results</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <sheet>
+                        <div class="container-fluid">
+                                <group>
+                                    <field name="questions"/>
+                                </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--人员签到-->
+        <record model="ir.ui.view" id="site_training_results_user_situation">
+            <field name="name">site_training_results_user_situation</field>
+            <field name="model">funenc_xa_station.site_training_results</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <sheet>
+                        <div class="container-fluid">
+                                <group>
+                                    <field name="user_ids">
+                                        <tree create="0" delete="0" class="noOpen">
+                                            <field name="user_id" string="姓名" readonly="1"/>
+                                            <field name="sign_in_time" string="签到时间" readonly="1"/>
+                                            <field name="training_result" string="培训结果" />
+                                        </tree>
+
+                                    </field>
+                                </group>
                         </div>
                     </sheet>
                 </form>
@@ -270,16 +340,16 @@
 
 
         <record model="ir.actions.server" id="xa_station_training_plan_action">
-        <field name="name">训练计划</field>
-        <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_funenc_xa_station_training_plan"/>
-        <field name="condition">True</field>
-        <field name="state">code</field>
-        <field name="code">
-            action = model.return_domain_list()
-            <!--action = model.return_act_window('训练计划', 'funenc_xa_station.training_plan',-->
-            <!--'funenc_xa_station.funenc_xa_station_training_plan_list', 'funenc_xa_station.funenc_xa_station_training_plan_form')-->
-        </field>
+            <field name="name">训练计划</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_training_plan"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.return_domain_list()
+                <!--action = model.return_act_window('训练计划', 'funenc_xa_station.training_plan',-->
+                <!--'funenc_xa_station.funenc_xa_station_training_plan_list', 'funenc_xa_station.funenc_xa_station_training_plan_form')-->
+            </field>
         </record>
         <record model="ir.actions.act_window" id="xa_station_site_training_results_action">
             <field name="name">培训汇总</field>
@@ -288,11 +358,13 @@
         </record>
 
         <menuitem id="xa_station_training_plan_menu" name="培训计划"
-                  action="xa_station_training_plan_action" groups="system_cultivate_plan" parent="opening_manage" sequence="5"
+                  action="xa_station_training_plan_action" groups="system_cultivate_plan" parent="opening_manage"
+                  sequence="5"
         />
 
         <menuitem id="xa_station_training_plan_1" name="培训汇总"
-                  action="xa_station_site_training_results_action" groups="system_cultivate_total" parent="opening_manage" sequence="6"
+                  action="xa_station_site_training_results_action" groups="system_cultivate_total"
+                  parent="opening_manage" sequence="6"
         />
 
     </data>
