@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record model="ir.module.category" id="module_category_fuenc">
             <field name="name">生产管理系统</field>
         </record>
@@ -291,6 +291,18 @@
 
         <record model="res.groups" id="system_position">
             <field name="name">角色组管理设置</field>
+            <field name="sequence">44</field>
+            <field name="category_id" ref="module_category_jurisdiction"/>
+        </record>
+
+        <record model="res.groups" id="parment_management_button">
+            <field name="name">部门管理</field>
+            <field name="sequence">44</field>
+            <field name="category_id" ref="module_category_jurisdiction"/>
+        </record>
+
+        <record model="res.groups" id="employees_management_button">
+            <field name="name">员工管理</field>
             <field name="sequence">44</field>
             <field name="category_id" ref="module_category_jurisdiction"/>
         </record>

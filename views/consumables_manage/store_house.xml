@@ -45,5 +45,12 @@
 				</form>
 			</field>
 		</record>
+
+		<record id="store_house_menuitem" model="ir.actions.act_window">
+			<field name="name">创建仓库</field>
+			<field name="res_model">funenc_xa_station.store_house</field>
+			<field name="view_mode">tree,form</field>
+
+		</record>
     </data>
 </odoo>

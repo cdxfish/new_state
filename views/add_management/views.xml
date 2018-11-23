@@ -34,8 +34,8 @@
                     <field name="rank_kind"></field>
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
-                    <field name="line_id" options="{'max_width': '200px'}"></field>
-                    <field name="site_id" options="{'max_width': '200px'}"></field>
+                    <field name="line_id_default" ></field>
+                    <field name="site_id_default" ></field>
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
@@ -74,13 +74,15 @@
                     <sheet>
                         <group name="group_top">
                             <group name="group_right">
-                                <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                                <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="[('department_hierarchy','=',2)]"
+                                widget="many2many_tags">
+                                </field>
                                 <field name="profession_kind" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rules_id"></field>
-                                 <field name="release_time"></field>
+                                <field name="release_time"></field>
                             </group>
                             <group name="group_left">
-                                <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" widget="many2many_tags"/>
+                                <field name="site_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]" widget="many2many_tags"/>
                                 <field name="rank_kind" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rules_name"></field>
                             </group>
