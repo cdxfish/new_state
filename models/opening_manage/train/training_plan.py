@@ -71,6 +71,7 @@ class training_plan(models.Model):
                         site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
                         personnel_situation_id.site_training_results_id = site_training_results_id.id
                         return '签到成功'
+                return '你并不在此站点训练的站点人员'
 
         else:
             raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
