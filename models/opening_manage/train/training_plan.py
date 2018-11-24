@@ -51,8 +51,7 @@ class training_plan(models.Model):
     @get_line_site_id
     @api.model
     def save_training_plan(self,line_site_id,**kw):
-        _logger.info('第一个参数{}'.format(line_site_id))
-        _logger.info('第二个参数{}'.format(kw))
+        _logger.info('kw={}'.format(kw))
         if line_site_id:
             user_id = kw.get('user_id')
             line_id,site_id = line_site_id
@@ -71,6 +70,8 @@ class training_plan(models.Model):
                     if site_training_results_id.site_id.id == site_id:
                         site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
                         personnel_situation_id.site_training_results_id = site_training_results_id.id
+                        return '签到成功'
+
         else:
             raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
 

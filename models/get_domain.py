@@ -1,4 +1,6 @@
 import functools
+import logging
+_logger = logging.getLogger(__name__)
 
 def get_domain(func):
     @functools.wraps(func)
@@ -82,10 +84,13 @@ def get_line_site_id(func):
 
                 line_ids.append(id)
         line_id = line_ids[0] if line_ids else None
+        _logger.info('line_id={}'.format(line_id))
         department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(line_id)
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', department.departmentId)]).ids
+        _logger.info('child_department_ids={}'.format(child_department_ids))
         site_ids = list(set(department_ids) & set(child_department_ids))
+        _logger.info('site_ids={}'.format(site_ids))
         line_site_id = (line_id,site_ids[0] if site_ids else None)
 
         return func(self, line_site_id, *args, **kwargs)
