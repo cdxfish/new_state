@@ -75,7 +75,7 @@ def get_line_site_id(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
         ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments.ids
+        department_ids = ding_user.user_property_departments
         _logger.info('user_property_departments={}'.format(department_ids))
         line_ids = []
         for department_id in department_ids:
@@ -90,7 +90,7 @@ def get_line_site_id(func):
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', department.departmentId)]).ids
         _logger.info('child_department_ids={}'.format(child_department_ids))
-        site_ids = list(set(department_ids) & set(child_department_ids))
+        site_ids = list(set(department_ids.ids) & set(child_department_ids))
         _logger.info('site_ids={}'.format(site_ids))
         line_site_id = (line_id,site_ids[0] if site_ids else None)
 
