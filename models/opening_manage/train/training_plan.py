@@ -65,6 +65,7 @@ class training_plan(models.Model):
                 'site_id': site_id
             })
             type = kw.get('type')
+            _logger.info('type={}'.format(type))
             if type != 'concentrate':
                 site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
                 logging.info('site_training_results_ids={}'.format(site_training_results_ids))
@@ -78,6 +79,7 @@ class training_plan(models.Model):
                         return '签到成功'
                 return '你并不在此站点训练的站点人员'
             else:
+                _logger.info('qiandao')
                 return '签到成功'
 
         else:
