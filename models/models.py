@@ -78,7 +78,7 @@ class fuenc_station(models.Model):
                               }
                 }
             else:
-                raise Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
+                raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
 
         # 根据人员属性过滤
         line_id = self.line_id

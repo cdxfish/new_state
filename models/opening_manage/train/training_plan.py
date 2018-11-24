@@ -7,6 +7,10 @@ import os
 import base64
 import datetime
 
+from ...get_domain import get_line_site_id
+
+import logging
+_logger = logging.getLogger(__name__)
 class training_plan(models.Model):
     _name = 'funenc_xa_station.training_plan'
     _description = u'培训计划'
@@ -44,31 +48,30 @@ class training_plan(models.Model):
     # 签到
     sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id', string='集中签到')
 
-
+    @get_line_site_id
     @api.model
-    def save_training_plan(self,**kw):
-        user_id = kw.get('user_id')
-        training_plan_id = kw.get('training_plan_id')
-        type = kw.get('type')
-        # line_id = user_id.line_id.id
-        # site_id = user_id.departments[0].id
-        # #  打卡
-        # personnel_situation = self.env['funenc_xa_station.personnel_situation'].sudo().create({
-        #     'training_plan_id': training_plan_id,
-        #     'sign_in_time': datetime.datetime.now(),
-        #     'user_id': user_id
-        # })
-        #
-        # training_plan = self.env['funenc_xa_station.training_plan'].sudo().search(
-        #     [('id', '=', training_plan_id)])
-        # site_training_results = self.env[
-        #     'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
-        #                                                               ('training_plan_id', '=',
-        #                                                                training_plan_id)])
-        if type == 'concentrate':
-            pass
+    def save_training_plan(self,line_site_id,**kw):
+        _logger.info('第一个参数',line_site_id)
+        _logger.info('第二个参数',kw)
+        if line_site_id:
+            user_id = kw.get('user_id')
+            line_id,site_id = line_site_id
+            training_plan_id = kw.get('training_plan_id').site_training_results_ids
+            personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
+                'training_plan_id': training_plan_id,
+                'sign_in_time': datetime.datetime.now(),
+                'user_id': user_id,
+                'line_id': line_id,
+                'site_id': site_id
+            })
+            type = kw.get('type')
+            if type == 'site':
+                site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
+                for site_training_results_id in site_training_results_ids:
+                    if site_training_results_id.site_id.id == site_id:
+                        site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
+                        personnel_situation_id.site_training_results_id = site_training_results_id.id
 
-        pass
 
     def create_qrcode(self):
         '''
