@@ -3,10 +3,14 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 import qrcode
 
-import os, socket
+import os
 import base64
+import datetime
 
+from ...get_domain import get_line_site_id
 
+import logging
+_logger = logging.getLogger(__name__)
 class training_plan(models.Model):
     _name = 'funenc_xa_station.training_plan'
     _description = u'培训计划'
@@ -44,25 +48,30 @@ class training_plan(models.Model):
     # 签到
     sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id', string='集中签到')
 
-
+    @get_line_site_id
     @api.model
-    def save_training_plan(self,**kw):
-        # line_id = user.line_id.id
-        # site_id = user.departments[0].id
-        # #  打卡
-        # personnel_situation = http.request.env['funenc_xa_station.personnel_situation'].sudo().create({
-        #     'training_plan_id': training_plan_id,
-        #     'sign_in_time': current_time,
-        #     'user_id': user.id
-        # })
-        #
-        # training_plan = http.request.env['funenc_xa_station.training_plan'].sudo().search(
-        #     [('id', '=', training_plan_id)])
-        # site_training_results = http.request.env[
-        #     'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
-        #                                                               ('training_plan_id', '=',
-        #                                                                training_plan_id)])
-        pass
+    def save_training_plan(self,line_site_id,**kw):
+        _logger.info('第一个参数',line_site_id)
+        _logger.info('第二个参数',kw)
+        if line_site_id:
+            user_id = kw.get('user_id')
+            line_id,site_id = line_site_id
+            training_plan_id = kw.get('training_plan_id').site_training_results_ids
+            personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
+                'training_plan_id': training_plan_id,
+                'sign_in_time': datetime.datetime.now(),
+                'user_id': user_id,
+                'line_id': line_id,
+                'site_id': site_id
+            })
+            type = kw.get('type')
+            if type == 'site':
+                site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
+                for site_training_results_id in site_training_results_ids:
+                    if site_training_results_id.site_id.id == site_id:
+                        site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
+                        personnel_situation_id.site_training_results_id = site_training_results_id.id
+
 
     def create_qrcode(self):
         '''
@@ -73,6 +82,7 @@ class training_plan(models.Model):
             'model': 'funenc_xa_station.training_plan',
             'training_plan_id':self.id,
             'func':'save_training_plan',
+            'type': self.training_plan_type
 
         }
         qr.add_data(add_data)
@@ -161,35 +171,6 @@ class training_plan(models.Model):
 
         return training_plan_id
 
-    # @api.model
-    # def create(self, vals):
-    #
-    #     training_plan_id = super(training_plan, self).create(vals)
-    #
-    #     if training_plan_id.training_plan_type == 'concentrate':
-    #         # 集中培训培训情况预设
-    #         concentrate_training_situations = self.env['funenc_xa_station.concentrate_training_situation'].search(
-    #             []).ids
-    #         for concentrate_training_situation in concentrate_training_situations:
-    #             self.env['funenc_xa_station.training_to_situation'].create(
-    #                 {'training_plan_id': training_plan_id.id,
-    #                  'project_id': concentrate_training_situation
-    #                  }
-    #             )
-    #
-    #         # 集中培训培训效果预设
-    #         training_effect_ids = self.env['funenc_xa_station.training_effect'].search([]).ids
-    #         for training_effect_id in training_effect_ids:
-    #             self.env['funenc_xa_station.training_effect_to_training_plan'].create(
-    #                 {'training_plan_id': training_plan_id.id,
-    #                  'training_effect_id': training_effect_id
-    #                  }
-    #             )
-    #
-    #     self = training_plan_id
-    #     self.create_qrcode()
-    #
-    #     return training_plan_id
 
     def button_details(self):
         context = dict(self.env.context or {})
@@ -208,7 +189,7 @@ class training_plan(models.Model):
             'context': context,
             'flags': {'initial_mode': 'edit'},
             'res_id': self.id,
-            'target': 'new',
+            'target': 'current',
             "views": [[view_form, "form"]],
         }
 
@@ -253,10 +234,83 @@ class site_training_results(models.Model):
     training_content = fields.Text(string='培训内容')
     training_evaluate = fields.Text(string='培训评价')
     questions = fields.Text(string='问题及整改')
-
+    state = fields.Selection(selection=[('fill_in','已填写'),('no_fill_in','未填写')],default="no_fill_in")
+    fill_in_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='填写人')
+    add_time= fields.Datetime(string='填写时间')
+    is_fill = fields.Integer('是否已填写')  # 1 已填写
     ####
     training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训计划')
     user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'site_training_results_id', string='人员情况')
+
+    @api.multi
+    def write(self, vals):
+        if self.is_fill !=1:
+            vals['state'] = 'fill_in'
+            vals['fill_in_user'] = self.env.user.dingtalk_user.id
+            vals['is_fill'] = 1
+            vals['add_time'] = datetime.datetime.now()
+
+        return super(site_training_results,self).write(vals)
+
+    def primary_coverage(self):
+        # 培训主要内容
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.site_training_results_primary_coverage').id
+        return {
+            'name': '培训主要内容',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.site_training_results',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+            'res_id': self.id
+        }
+
+    def evaluate(self):
+        # 总结评价
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.site_training_results_evaluate').id
+        return {
+            'name': '培训主要内容',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.site_training_results',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+            'res_id': self.id
+        }
+
+    def rectification(self):
+        # 问题及整改
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.site_training_results_rectification').id
+        return {
+            'name': '培训主要内容',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.site_training_results',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+            'res_id': self.id
+        }
+
+    def user_situation(self):
+        # 人员培训情况
+        context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.site_training_results_user_situation').id
+        return {
+            'name': '培训主要内容',
+            'type': 'ir.actions.act_window',
+            "views": [[view_form, "form"]],
+            'res_model': 'funenc_xa_station.site_training_results',
+            'context': context,
+            'flags': {'initial_mode': 'edit'},
+            'target': 'new',
+            'res_id': self.id
+        }
 
 
 class PersonnelSituation(models.Model):
@@ -267,7 +321,7 @@ class PersonnelSituation(models.Model):
 
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
     sign_in_time = fields.Datetime(string='签到时间')
-    training_result = fields.Selection(string='培训结果', selection=[('qualified', '合格'), ('unqualified', '不合格')])
+    training_result = fields.Selection(string='培训结果', selection=[('qualified', '合格'), ('unqualified', '不合格')],default="qualified")
     line_id = fields.Many2one(related='user_id.line_id', string='所属线路')
     site_id = fields.Char(related='user_id.department_name', string='站点名')
     jobnumber = fields.Char(related='user_id.jobnumber')

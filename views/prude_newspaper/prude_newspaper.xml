@@ -78,7 +78,7 @@
                                  <label for="event_stype" string="事件类型:"/>
                               </div>
                              <div class="col-md-9">
-                                 <field name="event_stype" readonly="1"/>
+                                 <field name="event_stype" readonly="1" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">

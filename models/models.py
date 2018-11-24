@@ -59,19 +59,30 @@ class fuenc_station(models.Model):
                 domain
             )
 
+    @get_line_id
     @get_line_id_domain
     @api.onchange('line_id')
-    def change_line_id(self, domain):
+    def change_line_id(self,domain,line_id):
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments.ids
         if not self.line_id:
-            return {
-                'domain': {'line_id': domain
-                           }
-            }
+            if line_id:
+                department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(line_id)
+                child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('parentid', '=', department.departmentId)]).ids
+                site_ids = list(set(department_ids) & set(child_department_ids))
+                return {
+                    'domain': {'line_id': domain},
+                    'value': {'line_id': line_id,
+                              'site_id': site_ids[0] if site_ids else None
+                              }
+                }
+            else:
+                raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
 
         # 根据人员属性过滤
         line_id = self.line_id
-        ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments.ids
+
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', line_id.departmentId)]).ids
         site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]

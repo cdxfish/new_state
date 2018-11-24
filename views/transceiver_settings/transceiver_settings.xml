@@ -82,7 +82,7 @@
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id" readonly="1"/>
+                                 <field name="line_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -90,7 +90,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id" readonly="1"/>
+                                     <field name="site_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                         </div>
@@ -101,7 +101,7 @@
                                  <label for="transient_type" string="工器具类型"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="transient_type" readonly="1"/>
+                                 <field name="transient_type" readonly="1" options="{'no_create':True,'no_open':True}"/>
                               </div>
                            </div>
                            <div class="col-md-6">

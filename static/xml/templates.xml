@@ -9,6 +9,23 @@
         </div>
     </t>
 
+    <!--演练计划站点演练按钮-->
+    <t t-name="site_training_widget">
+        <div>
+            <button type="object" name="primary_coverage"  class="layui-btn layui-btn-sm">
+                培训主要内容
+            </button>
+             <button type="object" name="evaluate"  class="layui-btn layui-btn-sm">
+                总结评价
+            </button>
+             <button type="object" name="rectification"  class="layui-btn layui-btn-sm">
+                问题及整改
+            </button>
+             <button type="object" name="user_situation"  class="layui-btn layui-btn-sm">
+                人员培训情况
+            </button>
+        </div>
+    </t>
 
 
     <t t-name="consumables_apply_edit_delete">

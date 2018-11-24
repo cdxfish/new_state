@@ -1060,6 +1060,10 @@
 			  action="xa_station_consumables_type_action" sequence="10"
 			  groups="system_consumables_management_type"
 	/>
+	<menuitem id="store_house_mune" name="仓库预设-设置"
+			  parent="system_configuration"
+			  action="store_house_menuitem" sequence="11"
+	/>
 
 	<!--<menuitem id="station_scheduling_settings" name="排班管理-排班设置"-->
 				  <!--parent="system_configuration" action="xa_scheduling_settings" sequence="11"-->
@@ -1075,11 +1079,16 @@
 				  action="xa_station_change_shifts_time_action" sequence="13"
 		/>
 
-   <menuitem name="部门管理" id="cdtct_dingtalk.menu_dingtalk_department_manage" parent="funenc_xa_station.plan_menu_staffing_1"
-              action="cdtct_dingtalk.department_manage_window"/>
+   <menuitem name="部门管理" id="cdtct_dingtalk.menu_dingtalk_department_manage"
+			 groups="parment_management_button"
+			 parent="funenc_xa_station.plan_menu_staffing_1"
+		     action="cdtct_dingtalk.department_manage_window"/>
+
+
 
     <!-- 帐号管理 -->
     <menuitem name="员工管理" id="cdtct_dingtalk.menu_dingtalk_users_manage" parent="funenc_xa_station.plan_menu_staffing_1"
+			  groups="employees_management_button"
               action="cdtct_dingtalk.users_manage_window"/>
 
 	</data>

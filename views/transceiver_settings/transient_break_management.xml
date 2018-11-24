@@ -80,7 +80,7 @@
                              <label for="transceiver_type" string="工器具类型"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="transceiver_type" readonly="1"/>
+                             <field name="transceiver_type" readonly="1" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -182,7 +182,7 @@
                              <label for="transceiver_type" string="工器具类型"/>
                           </div>
                          <div class="col-md-8">
-                             <field name="transceiver_type" readonly="1"/>
+                             <field name="transceiver_type" readonly="1" options="{'no_create':True,'no_open':True}"/>
                           </div>
                        </div>
                        <div class="col-md-6">
