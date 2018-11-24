@@ -75,7 +75,7 @@ def get_line_site_id(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
         ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments
+        department_ids = ding_user.user_property_departments.ids
         _logger.info('user_property_departments={}'.format(department_ids))
         line_ids = []
         for department_id in department_ids:
