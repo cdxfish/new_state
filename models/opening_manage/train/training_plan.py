@@ -57,6 +57,7 @@ class training_plan(models.Model):
             user_id = kw.get('user_id')
             line_id,site_id = line_site_id
             training_plan_id = kw.get('training_plan_id')
+            _logger.info('进入穿件')
             personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
                 'training_plan_id': training_plan_id,
                 'sign_in_time': datetime.datetime.now(),
@@ -83,7 +84,7 @@ class training_plan(models.Model):
                 return '签到成功'
 
         else:
-            raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
+            return '此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置'
 
 
     def create_qrcode(self):
