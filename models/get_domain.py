@@ -76,7 +76,6 @@ def get_line_site_id(func):
     def wrapper(self, *args, **kwargs):
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments
-        _logger.info('user_property_departments={}'.format(department_ids))
         line_ids = []
         for department_id in department_ids:
             if department_id.department_hierarchy == 3:
@@ -85,13 +84,10 @@ def get_line_site_id(func):
 
                 line_ids.append(id)
         line_id = line_ids[0] if line_ids else None
-        _logger.info('line_id={}'.format(line_id))
         department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(line_id)
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', department.departmentId)]).ids
-        _logger.info('child_department_ids={}'.format(child_department_ids))
         site_ids = list(set(department_ids.ids) & set(child_department_ids))
-        _logger.info('site_ids={}'.format(site_ids))
         line_site_id = (line_id,site_ids[0] if site_ids else None)
 
         return func(self, line_site_id, *args, **kwargs)
