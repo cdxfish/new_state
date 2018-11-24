@@ -64,7 +64,7 @@ class training_plan(models.Model):
                 'site_id': site_id
             })
             type = kw.get('type')
-            if type == 'site':
+            if type != 'concentrate':
                 site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
                 for site_training_results_id in site_training_results_ids:
                     if site_training_results_id.site_id.id == site_id:
