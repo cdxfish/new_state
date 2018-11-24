@@ -53,39 +53,39 @@ class training_plan(models.Model):
     def save_training_plan(self,line_site_id,**kw):
         _logger.info('line_site_id={}'.format(line_site_id))
         _logger.info('kw={}'.format(kw))
-        if line_site_id:
-            user_id = kw.get('user_id')
-            line_id,site_id = line_site_id
-            training_plan_id = kw.get('training_plan_id')
-            _logger.info('jinru')
-            personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
-                'training_plan_id': training_plan_id,
-                'sign_in_time': datetime.datetime.now(),
-                'user_id': user_id,
-                'line_id': line_id,
-                'site_id': site_id
-            })
-            type = kw.get('type')
-            _logger.info('type={}'.format(type))
-            if type != 'concentrate':
-                site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
-                logging.info('site_training_results_ids={}'.format(site_training_results_ids))
-                for site_training_results_id in site_training_results_ids:
-                    if site_training_results_id.site_id.id == site_id:
-                        logging.info('#####################')
-                        site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
-                        logging.info('training_person_time={}'.format(site_training_results_id.training_person_time))
-                        personnel_situation_id.site_training_results_id = site_training_results_id.id
-                        logging.info('personnel_situation_id.site_training_results_id={}'.format(personnel_situation_id.site_training_results_id))
-                        return '签到成功'
-                return '你并不在此站点训练的站点人员'
-            else:
-                _logger.info('qiandao')
-                return '签到成功'
-
+        # if line_site_id:
+        user_id = kw.get('user_id')
+        line_id,site_id = line_site_id
+        training_plan_id = kw.get('training_plan_id')
+        _logger.info('jinru')
+        personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
+            'training_plan_id': training_plan_id,
+            'sign_in_time': datetime.datetime.now(),
+            'user_id': user_id,
+            'line_id': line_id,
+            'site_id': site_id
+        })
+        type = kw.get('type')
+        _logger.info('type={}'.format(type))
+        if type != 'concentrate':
+            site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
+            logging.info('site_training_results_ids={}'.format(site_training_results_ids))
+            for site_training_results_id in site_training_results_ids:
+                if site_training_results_id.site_id.id == site_id:
+                    logging.info('#####################')
+                    site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
+                    logging.info('training_person_time={}'.format(site_training_results_id.training_person_time))
+                    personnel_situation_id.site_training_results_id = site_training_results_id.id
+                    logging.info('personnel_situation_id.site_training_results_id={}'.format(personnel_situation_id.site_training_results_id))
+                    return '签到成功'
+            return '你并不在此站点训练的站点人员'
         else:
-            _logger.info('xxxxxx')
-            return '此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置'
+            _logger.info('qiandao')
+            return '签到成功'
+
+        # else:
+        #     _logger.info('xxxxxx')
+        #     return '此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置'
 
 
     def create_qrcode(self):
