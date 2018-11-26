@@ -54,8 +54,8 @@
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field name="is_release" invisible="1"/>
-                            <field name="line_id" string="线路" attrs="{'readonly':[('is_release','=',1)]}"/>
-                            <field name="site_id" string="站点" attrs="{'readonly':[('is_release','=',1)]}"/>
+                            <field name="line_id" string="线路" attrs="{'readonly':[('is_release','=',1)]}" options="{'no_create':True,'no_open':True}"/>
+                            <field name="site_id" string="站点" attrs="{'readonly':[('is_release','=',1)]}" options="{'no_create':True,'no_open':True}"/>
                             <field name="drill_project" string="演练项目" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_time" string="演练时间" attrs="{'readonly':[('is_release','=',1)]}"/>
                             <field name="drill_plan" string="演练方案" widget="many2many_binary"
