@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record model="ir.module.category" id="module_category_fuenc">
             <field name="name">生产管理系统</field>
         </record>
@@ -311,6 +311,97 @@
         <record model="ir.module.category" id="module_category_custom_groups">
             <field name="name">自定义角色组</field>
         </record>
+        <!--职位角色组-->
+        <record model="res.groups" id="module_position_manager_100">
+            <field name="name">经理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_deputy_manager_102">
+            <field name="name">副经理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+         <record model="res.groups" id="module_position_personnel_administration_assistant_103">
+            <field name="name">人事管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+         <record model="res.groups" id="module_position_transport_administration_assistant_104">
+            <field name="name">运输管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+         <!--<record model="res.groups" id="module_position_transport_administration_assistant_105">-->
+            <!--<field name="name">运输管理助理</field>-->
+            <!--<field name="category_id" ref="module_category_custom_groups"/>-->
+        <!--</record>-->
+
+        <record model="res.groups" id="module_position_technological development_assistant_106">
+            <field name="name">技术开发助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_integrated_management_assistant_107">
+            <field name="name">综合管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_security_administration_host_108">
+            <field name="name">安全管理主办</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_deputy_director_109">
+            <field name="name">副主任</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_security_administration_assistant_110">
+            <field name="name">安全管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_security_ticketing_assistant_111">
+            <field name="name">票务管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_training_management_assistant_112">
+            <field name="name">培训管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <!--<record model="res.groups" id="module_position_training_management_assistant_113">-->
+            <!--<field name="name">培训管理助理</field>-->
+            <!--<field name="category_id" ref="module_category_custom_groups"/>-->
+        <!--</record>-->
+
+        <record model="res.groups" id="module_position_be_on_duty_site_114">
+            <field name="name">值班站长</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_stationmaster_115">
+            <field name="name">站长</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_stationmaster_assistant_116">
+            <field name="name">站长助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_depot_118">
+            <field name="name">站务员</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="module_position_undetermined_position_119">
+            <field name="name">未定岗</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <!--end职位角色组-->
     </data>
 </odoo>
 
