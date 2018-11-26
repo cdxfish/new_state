@@ -83,10 +83,8 @@ class CheckCollect(models.Model):
         #     record['comment_count'] = count
         #     record['mouth_grade'] = 100 + sure_grede
         #     list_temp.append(record)
-        #
-        # return list_temp
 
-            return
+        return
 
     @api.model
     def search_record_method(self, date,line,site,person_id):
@@ -136,4 +134,31 @@ class CheckCollect(models.Model):
 
 
         return [record.get(key) for key in record]
+
+    @api.model
+    def get_line_self(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.name
+        return ids
+
+
 

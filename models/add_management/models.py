@@ -27,25 +27,25 @@ class xian_metro(models.Model):
     release_time = fields.Date(string='发布实施日期')
     rule_regulations_browse = fields.Selection([('one','内容显示'),('zero','内容不显示')],default='zero')
     line_id_default = fields.Char(string='线路')
-    site_id_default = fields.Char(string='线路')
+    # site_id_default = fields.Char(string='线路')
 
-    @api.onchange('line_id')
-    def change_line_id(self):
-        lis = []
-        if not self.line_id:
-            self.site_id = ''
-        else:
-            line_id = self.line_id
-            for i in line_id:
-                lis.append(i.departmentId)
-
-            child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                [('parentid', 'in', lis)]).ids
-            site_domain = [('id', 'in', list(set(child_department_ids)))]
-
-            return {'domain': {'site_id': site_domain,
-                               }
-                    }
+    # @api.onchange('line_id')
+    # def change_line_id(self):
+    #     lis = []
+    #     if not self.line_id:
+    #         self.site_id = ''
+    #     else:
+    #         line_id = self.line_id
+    #         for i in line_id:
+    #             lis.append(i.departmentId)
+    #
+    #         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+    #             [('parentid', 'in', lis)]).ids
+    #         site_domain = [('id', 'in', list(set(child_department_ids)))]
+    #
+    #         return {'domain': {'site_id': site_domain,
+    #                            }
+    #                 }
 
 
 
@@ -61,7 +61,7 @@ class xian_metro(models.Model):
                 line_ids.append(id)
 
         return line_ids
-        print(line_ids)
+        # print(line_ids)
 
     # 自动获取操作人的姓名
     @api.model
@@ -112,12 +112,12 @@ class xian_metro(models.Model):
                 lis_line.append(char_line.name)
         params['line_id_default'] = "/".join(lis_line)
         print(params['line_id_default'])
-        for i_site in params.get('site_id'):
-            for site in i_site[2]:
-                char_line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('id', '=', site)])
-                lis_site.append(char_line.name)
-        params['site_id_default'] = "/".join(lis_site)
-        print(lis_site)
+        # for i_site in params.get('site_id'):
+        #     for site in i_site[2]:
+        #         char_line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('id', '=', site)])
+        #         lis_site.append(char_line.name)
+        # params['site_id_default'] = "/".join(lis_site)
+        # print(lis_site)
         file = os.path.splitext(params.get('file_name'))
         filename,type = file
         # if type != '.pdf':
@@ -167,4 +167,24 @@ class xian_metro(models.Model):
             xian['profession_kind'] =  xian['profession_kind'][1]
 
         return xian_metro
+
+    def get_day_plan_publish_action(self):
+        view_form = self.env.ref('funenc_xa_station.add_operation_tree').id
+        line_search = self.search([])
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        print(line_search)
+        domain = [("line_id", "in", ding_user.ids)]
+
+
+        return {
+            'name': '规章制度',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain':domain,
+            "views": [[view_form, "tree"]],
+            'res_model': 'xian_metro.xian_metro',
+            'context': self.env.context,
+        }
 
