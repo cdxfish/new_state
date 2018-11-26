@@ -1,5 +1,6 @@
 import functools
-from odoo import api,models,fields
+import logging
+_logger = logging.getLogger(__name__)
 
 def get_domain(func):
     @functools.wraps(func)
@@ -65,6 +66,34 @@ def get_line_id(func):
 
     return wrapper
 
+def get_line_site_id(func):
+    '''
+    获取用户默认线路和站点
+    :param func:
+    :return: (line_id,site_id)
+    '''
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments
+        line_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('departmentId', '=', department_id.parentid)]).id
+
+                line_ids.append(id)
+        line_id = line_ids[0] if line_ids else None
+        department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(line_id)
+        child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+            [('parentid', '=', department.departmentId)]).ids
+        site_ids = list(set(department_ids.ids) & set(child_department_ids))
+        line_site_id = (line_id,site_ids[0] if site_ids else None)
+
+        return func(self, line_site_id, *args, **kwargs)
+
+
+    return wrapper
 
 def get_site_ids(func):
     '''

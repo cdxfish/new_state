@@ -7,6 +7,10 @@ import os
 import base64
 import datetime
 
+from ...get_domain import get_line_site_id
+
+import logging
+_logger = logging.getLogger(__name__)
 class training_plan(models.Model):
     _name = 'funenc_xa_station.training_plan'
     _description = u'培训计划'
@@ -44,31 +48,40 @@ class training_plan(models.Model):
     # 签到
     sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id', string='集中签到')
 
-
+    @get_line_site_id
     @api.model
-    def save_training_plan(self,**kw):
-        user_id = kw.get('user_id')
-        training_plan_id = kw.get('training_plan_id')
-        type = kw.get('type')
-        # line_id = user_id.line_id.id
-        # site_id = user_id.departments[0].id
-        # #  打卡
-        # personnel_situation = self.env['funenc_xa_station.personnel_situation'].sudo().create({
-        #     'training_plan_id': training_plan_id,
-        #     'sign_in_time': datetime.datetime.now(),
-        #     'user_id': user_id
-        # })
-        #
-        # training_plan = self.env['funenc_xa_station.training_plan'].sudo().search(
-        #     [('id', '=', training_plan_id)])
-        # site_training_results = self.env[
-        #     'funenc_xa_station.site_training_results'].sudo().search([('site_id', '=', site_id),
-        #                                                               ('training_plan_id', '=',
-        #                                                                training_plan_id)])
-        if type == 'concentrate':
-            pass
+    def save_training_plan(self,line_site_id,**kw):
 
-        pass
+        if line_site_id:
+            line_id,site_id = line_site_id
+            user_id = kw.get('user_id')
+            training_plan_id = kw.get('training_plan_id')
+            personnel_situation_id = self.env['funenc_xa_station.personnel_situation'].sudo().create({
+                'training_plan_id': training_plan_id,
+                'sign_in_time': datetime.datetime.now(),
+                'user_id': user_id,
+                'line_id': line_id,
+                'site_id': site_id
+            })
+            # 'training_result'
+            type = kw.get('type')
+            if type != 'concentrate':
+                site_training_results_ids = self.browse(training_plan_id).site_training_results_ids
+                for site_training_results_id in site_training_results_ids:
+                    if site_training_results_id.site_id.id == site_id:
+                        logging.info('#####################')
+                        site_training_results_id.training_person_time = site_training_results_id.training_person_time + 1
+                        logging.info('training_person_time={}'.format(site_training_results_id.training_person_time))
+                        personnel_situation_id.site_training_results_id = site_training_results_id.id
+                        logging.info('personnel_situation_id.site_training_results_id={}'.format(personnel_situation_id.site_training_results_id))
+                        return '签到成功'
+                return '你并不在此站点训练的站点人员'
+            else:
+                return '签到成功'
+
+        else:
+            return '此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置'
+
 
     def create_qrcode(self):
         '''
@@ -227,7 +240,7 @@ class site_training_results(models.Model):
 
     course_hours = fields.Char(string='培训课时')
     training_person_time = fields.Integer(string='培训人次')
-    percent_of_pass = fields.Float(string='培训合格率')
+    percent_of_pass = fields.Float(string='培训合格率',compute='_compute_percent_of_pass')
     training_content = fields.Text(string='培训内容')
     training_evaluate = fields.Text(string='培训评价')
     questions = fields.Text(string='问题及整改')
@@ -237,11 +250,23 @@ class site_training_results(models.Model):
     is_fill = fields.Integer('是否已填写')  # 1 已填写
     ####
     training_plan_id = fields.Many2one('funenc_xa_station.training_plan', string='培训计划')
-    user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'site_training_results_id', string='人员情况')
+    user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'site_training_results_id', string='人员情况',ondelete='set null')
 
+
+    def _compute_percent_of_pass(self):
+        for this in self:
+            count = 0
+            lens = len(this.user_ids)
+            for user_id in  this.user_ids:
+                if user_id.training_result == 'qualified':
+                    count = count + 1
+            if count> 0:
+                this.percent_of_pass = (count/lens) * 100
+            else:
+                this.percent_of_pass = 0.00
     @api.multi
     def write(self, vals):
-        if self.is_fill !=1:
+        if self.is_fill !=1 and not vals.get('training_person_time'):
             vals['state'] = 'fill_in'
             vals['fill_in_user'] = self.env.user.dingtalk_user.id
             vals['is_fill'] = 1
@@ -318,9 +343,9 @@ class PersonnelSituation(models.Model):
 
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
     sign_in_time = fields.Datetime(string='签到时间')
-    training_result = fields.Selection(string='培训结果', selection=[('qualified', '合格'), ('unqualified', '不合格')],default="qualified")
-    line_id = fields.Many2one(related='user_id.line_id', string='所属线路')
-    site_id = fields.Char(related='user_id.department_name', string='站点名')
+    training_result = fields.Selection(string='培训结果', selection=[('qualified', '合格'), ('unqualified', '不合格')],default="unqualified")
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='所属线路')
+    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点名')
     jobnumber = fields.Char(related='user_id.jobnumber')
 
     # 培训关联
@@ -329,19 +354,23 @@ class PersonnelSituation(models.Model):
     ### 站点培训关联
     site_training_results_id = fields.Many2one('funenc_xa_station.site_training_results', string='站点培训关联')
 
-    @api.constrains('training_result')
-    def compute_percent_of_pass(self):
-        '''
-        合格率
-        :return:
-        '''
-        site_training_results_ids = self.site_training_results_id.user_ids  # 集中培训结果  签到先关人员
-        pass_number = len([site_training_results_id.id for site_training_results_id in site_training_results_ids if
-                           site_training_results_id == 'qualified'])  # 合格人数
-        if pass_number:
-            self.site_training_results_id.percent_of_pass = (pass_number / len(site_training_results_ids)) * 100
-        else:
-            self.site_training_results_id.percent_of_pass = 0
+    # @api.constrains('training_result')
+    # def compute_percent_of_pass(self):
+    #     '''
+    #     合格率
+    #     :return:
+    #     '''
+    #     site_training_results_ids = self.site_training_results_id.user_ids  # 集中培训结果  签到先关人员
+    #     pass_number = len([site_training_results_id.id for site_training_results_id in site_training_results_ids if
+    #                        site_training_results_id == 'qualified'])  # 合格人数
+    #     pass_number = 0
+    #     for site_training_results_id in site_training_results_ids:
+    #         if site_training_results_id == 'qualified':
+    #             pass_number = pass_number + 1
+    #     if pass_number:
+    #         self.site_training_results_id.percent_of_pass = (pass_number / len(site_training_results_ids)) * 100
+    #     else:
+    #         self.site_training_results_id.percent_of_pass = 0
 
 
 class training_plan_to_situation(models.Model):

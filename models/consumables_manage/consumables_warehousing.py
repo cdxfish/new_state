@@ -16,8 +16,8 @@ class StoreHouse(models.Model):
     warehousing_count = fields.Integer(string='入库数量', required=True)
     warehousing_parent = fields.Selection(selection=[('purchase', '采购'), ('organize', '领用')], string='采购方式',
                                           default='organize')
-    warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='领用部门')
-    outgoing_user = fields.Char(string='采购人')
+    warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='领用人')
+    outgoing_user = fields.Char(string='采购部门')
     consumables_warehousing_date = fields.Date(string='入库时间')
 
     product_departments_domain = fields.Char(

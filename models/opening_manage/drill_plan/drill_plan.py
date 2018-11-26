@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-import functools
-
-import odoo.exceptions as msg
 from odoo import models, fields, api
 
-import datetime, time, os, socket
+import datetime, time, os
 import qrcode
 import base64
 
+from ...get_domain import get_line_site_id
 
 class drill_plan(models.Model):
     _name = 'funenc_xa_station.drill_plan'
@@ -32,13 +30,13 @@ class drill_plan(models.Model):
     drill_plan_qr = fields.Binary(string='二维码')
 
     # 演练结果
-    drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果')
+    drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果',ondelete='set null')
 
     # 人员签到
-    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况')
+    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况',ondelete='set null')
 
     #站点演练
-    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='') #  子
+    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='',ondelete='set null') #  子
 
     @api.model
     def create(self, vals):
@@ -141,25 +139,62 @@ class drill_plan(models.Model):
             sql = 'insert into funenc_xa_station_site_drill_plan(drill_plan_id,create_uid,position) values{}'.format(str(insert_id)[1:-1])
             self.env.cr.execute(sql)
 
+    @get_line_site_id
+    @api.model
+    def save_drill_plan(self,get_line_site_id,**kw):
+        line_id,site_id = get_line_site_id
+        user_id = kw.get('user_id')
+        drill_plan_id = kw.get('drill_plan_id')
+        if line_id and site_id :
+            # 生成签到
+            check_in = self.env['funenc_xa_station.drill_plan_sign_in'].sudo().search(
+                [('sign_user_id', '=', user_id), ('drill_plan_sign_in_id', '=', drill_plan_id)])
 
+            if check_in:
+                return '你已签到'
 
+            # 签到人员统计
+            drill_plan = self.env['funenc_xa_station.drill_plan'].sudo().search(
+                [('id', '=', drill_plan_id)])
 
+            if site_id in drill_plan.partake_site_ids.ids:
 
+                obj = self.env['funenc_xa_station.drill_plan_sign_in'].sudo().create({
+                    'sign_in_time': datetime.datetime.now(),
+                    'sign_user_id': user_id,
+                    'drill_plan_sign_in_id': drill_plan_id,
+                    'line_id': line_id,
+                    'site_id': site_id
+
+                })
+
+                for drill_result_id in drill_plan.drill_result_ids:
+                    if drill_result_id.site_id.id == site_id:
+                        # 统计
+                        drill_result_id.people_number = drill_result_id.people_number + 1
+
+                for site_drill_plan_id in drill_plan.site_drill_plan_ids:
+                    if site_drill_plan_id.position.id == site_id:
+                        # 人员签到和站点关联
+                        obj.write({'site_drill_plan_id': site_drill_plan_id.id})
+                return '签到成功'
+            else:
+                return '你不属于演练签到人员'
+        else:
+            return '此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置'
 
     def create_qrcode(self):
         '''
         二维码生成
         '''
-        # file = os.path.dirname(os.path.dirname(__file__))
-        # qr_file = os.path.dirname(os.path.dirname(file))
-        # 获取本机计算机名称
-        hostname = socket.gethostname()
-        # 获取本机ip
-        ip = socket.gethostbyname(hostname)
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4, )
-        qr.add_data('http://{}:8069/controllers/drill_plan/punch_the_clock?drill_plan_id={}'.format(ip, self.id))
+        add_data = {
+            'model':'funenc_xa_station.drill_plan',
+            'func': 'save_drill_plan',
+            'drill_plan_id': self.id
+        }
+        qr.add_data(add_data)
         img = qr.make_image()
-        # file_name = qr_file + "/static/images/drill_plan_{}.png".format(self.id)
         file_name ="drill_plan_{}.png".format(self.id)
 
         img.save(file_name)
@@ -225,8 +260,8 @@ class drill_plan_sign_in(models.Model):
 
     sign_in_time = fields.Datetime(string='签到时间')
     sign_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')
-    line_id = fields.Many2one(related='sign_user_id.line_id', string='线路')
-    site_id = fields.Many2many(related='sign_user_id.departments', string='站点')
+    line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='线路')
+    site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='站点')
     jobnumber = fields.Char(related='sign_user_id.jobnumber', string="工号")
     position = fields.Text(related='sign_user_id.position', string="职位")
 

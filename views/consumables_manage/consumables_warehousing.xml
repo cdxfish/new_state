@@ -51,9 +51,9 @@
                                    domain="[('store_house_department_id','=',consumables_department_id)]"/>
                             <field name="warehousing_count" string="入库数量"/>
                             <field name="warehousing_parent" string="采购来源"/>
-                            <field name="warehousing_department_id" string="采购部门" options="{'no_create':True}"
+                            <field name="warehousing_department_id" string="采购人" options="{'no_create':True}"
                                    attrs="{'invisible':[('warehousing_parent','!=','purchase')]}"/>
-                            <field name="outgoing_user" string="领用人" attrs="{'invisible':[('warehousing_parent','!=','organize')]}"/>
+                            <field name="outgoing_user" string="领用部门" attrs="{'invisible':[('warehousing_parent','!=','organize')]}"/>
 
                         </group>
                         <footer>
