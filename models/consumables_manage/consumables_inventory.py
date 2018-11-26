@@ -3,8 +3,6 @@ from odoo import models, fields, api
 
 from ..get_domain import get_site_ids
 
-import json
-
 class consumables_inventory(models.Model):
     _name = 'funenc_xa_station.consumables_inventory'
     _description = u'耗材库存'
