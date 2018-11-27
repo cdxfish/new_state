@@ -12,7 +12,7 @@ from .get_domain import *
 import time
 
 import json
-import xlrd
+import xlrd,xlwt
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -850,6 +850,10 @@ class ImportGroupUser(models.Model):
         return obj
 
     def save(self):
+        '''
+        导入职位角色组人员  没用try  让异常暴露出来
+        :return:
+        '''
 
         data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
 
@@ -872,24 +876,64 @@ class ImportGroupUser(models.Model):
                 '站长': self.env.ref('funenc_xa_station.module_position_stationmaster_115'),
                 '站长助理': self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116'),
                 '站务员': self.env.ref('funenc_xa_station.module_position_depot_118'),
-                '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
                 '未定岗': self.env.ref('funenc_xa_station.module_position_undetermined_position_119'),
+                '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
+                '质量与计划管理主办': self.env.ref('funenc_xa_station.module_position_quality_host_120'),
+                '副部长': self.env.ref('funenc_xa_station.position_undersecretary_121'),
+                '主任': self.env.ref('funenc_xa_station.position_director_122'),
+                '人事管理主办': self.env.ref('funenc_xa_station.position_personnel_matters_123'),
+                '票务管理主办': self.env.ref('funenc_xa_station.position_ticket_business_host_124'),
+                '服务管理助理': self.env.ref('funenc_xa_station.position_service_assistant_125'),
+                '生产调度': self.env.ref('funenc_xa_station.position_dispatch_126'),
+                '运输技术助理': self.env.ref('funenc_xa_station.position_general_manager_127'),
+                '综合管理员': self.env.ref('funenc_xa_station.position_integrated_management_128'),
+                '综合管助理': self.env.ref('funenc_xa_station.position_integrated_management_assistant_129'),
+                '计划统计助理': self.env.ref('funenc_xa_station.position_statistics_assistant_130'),
+                '党工团干事': self.env.ref('funenc_xa_station.position_party_secretary_131'),
+                '综合管理主办': self.env.ref('funenc_xa_station.position_comprehensive_management_132'),
+
             }
 
             lines = sheet_data.nrows
+            import_fail_job_numbers = []
             for i in range(lines):
                 if i > 0:
-                    line =sheet1.row_values(i)
-                    job_number = '{}00{}'.format(line[0],line[1:-1])  # 工号
-                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)]).id
-                    # _logger.info('ding_user_id={}'.format(ding_user_id))
-                    position = line[2]
-                    print(i)
-                    print(position)
-                    self_position = position_map[position]
-                    if ding_user_id:
-                        self_position.users =[(0,0,{'uid':ding_user_id})]
 
+                    line =sheet1.row_values(i)
+                    job_number = '{}00{}'.format(line[0][0],line[0][1:])  # 工号
+                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)])
+                    res_user_id = ding_user_id.user.id
+                    position = line[2]
+                    print('i=',i)
+                    self_position = position_map[position]
+                    if res_user_id:
+                        if res_user_id not in self_position.users.ids:
+                            ins_sql = "insert into res_groups_users_rel(gid,uid) " \
+                                         "values({},{})" \
+                                .format(self_position.id, res_user_id)
+                            self.env.cr.execute(ins_sql)
+                    else:
+
+                        print('gh=', line[0])
+                        print('user_name=',line[1])
+                        print('job_number=', job_number)
+                        print('res_user_id=', res_user_id)
+                        print('ding_user=',ding_user_id)
+                        print('职位=', position)
+                        import_fail_job_numbers.append((line[0],line[1],line[2]))
+            _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
+            _logger.info('count={}'.format(len(import_fail_job_numbers)))
+            # 钉钉未设置人员
+            # f = xlwt.Workbook()
+            # sheet1 = f.add_sheet('钉钉未设置人员', cell_overwrite_ok=True)
+            # row0 = ["工号", "姓名", "职位"]
+            # for k in range(0, len(row0)):
+            #     sheet1.write(0, k, row0[k])
+            # for j,import_fail_job_number in enumerate(import_fail_job_numbers):
+            #     for l,value in enumerate(import_fail_job_number):
+            #         sheet1.write(j+1, l, value)
+            #
+            # f.save('二分部钉钉未设置人员.xls')
         self.unlink()
 
 
