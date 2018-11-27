@@ -69,25 +69,32 @@ class CheckCollect(models.Model):
 
     @api.model
     def check_record_method(self):
-        # data = self.env['funenc_xa_station.check_record'].search([]).mapped('job_number')
-        # data1 = set(data)
-        # data2 = list(data1)
-        # list_temp = []
-        #
-        # for i, item in enumerate(data2):
-        #
-        #     count = self.env['funenc_xa_station.check_record'].search_count([('job_number','=',item)])
-        #     record = self.env['funenc_xa_station.check_record'].search_read([('job_number','=',item)])[0]
-        #     grade = self.env['funenc_xa_station.check_record'].search_read([('job_number', '=', item)])
-        #     sure_grede = sum(record1.get('sure_grede') for record1 in grade)
-        #     record['comment_count'] = count
-        #     record['mouth_grade'] = 100 + sure_grede
-        #     list_temp.append(record)
-        #
-        # return list_temp
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        startTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
+        record = {}
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        date_time = self.env['funenc_xa_station.check_record'].search_read([('site_id','=',ids)])
+        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
 
-            return
+        for list1 in date_list:
+            record[list1.get('job_number')] = list1
+        # count  得分
+        for list2 in record:
+            i = 0
+            fs = 0
+            for list3 in date_list:
+                if list2 == list3.get('job_number'):
+                    i = i +1
+                    fs = fs + list3.get('sure_grede')
+            record[list2].update({'comment_count':i})
+            record[list2].update({'mouth_grade': fs + 100})
+            record[list2].update({'line_id':list3.get('line_id')[1]})
+            record[list2].update({'site_id':list3.get('site_id')[1]})
+            record[list2].update({'staff':list3.get('staff')[1]})
 
+        return [record.get(key) for key in record]
     @api.model
     def search_record_method(self, date,line,site,person_id):
 
@@ -136,4 +143,31 @@ class CheckCollect(models.Model):
 
 
         return [record.get(key) for key in record]
+
+    @api.model
+    def get_line_self(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.name
+        return ids
+
+
 

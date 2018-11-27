@@ -31,7 +31,7 @@ class SpecialMoneyXlsx(http.Controller):
         worksheet.write(0,0,'线路')
         worksheet.write(0,1,'站点')
         worksheet.write(0,2,'位置')
-        worksheet.write(0,3,'申请原因')
+        worksheet.write(0,3,'申请时间')
         worksheet.write(0,4,'故障描述')
         worksheet.merge_range(0,5,0,8,'故障图片')
         worksheet.write(0,9,'状态')
@@ -47,6 +47,23 @@ class SpecialMoneyXlsx(http.Controller):
         #创建一个列表来存放图片
         lis = []
         for re in record:
+            if not re.line_id.name:
+                re.line_id.name = ''
+            if not re.site_id.name:
+                re.site_id.name = ''
+            if not re.position:
+                re.position = ''
+            if not re.apply_time:
+                re.apply_time = ''
+            if not re.break_details:
+                re.break_details = ''
+            if not re.repair_time:
+                repair_time = ''
+            elif re.repair_time:
+                repair_time = re.repair_time
+            if not re.repair_manufacturer:
+                re.repair_manufacturer = ''
+
 
             #获取故障图片的编码吗
             brfore_image = re.before_break_img
@@ -55,44 +72,61 @@ class SpecialMoneyXlsx(http.Controller):
             after_image = re.after_break_img
 
             # 解码故障图片
-            brefor_image_path = APP_DIR + '/static/excel/' + str(random.randint(1, 1000000000))+'.png'
-            imgdata = base64.b64decode(brfore_image)
-            file = open(brefor_image_path, 'wb')
-            file.write(imgdata)
-            file.close()
+            if brfore_image:
+
+                # 将xlsx表创建内容
+                brefor_image_path = APP_DIR + '/static/excel/' + str(random.randint(1, 1000000000))+'.png'
+                imgdata = base64.b64decode(brfore_image)
+                file = open(brefor_image_path, 'wb')
+                file.write(imgdata)
+                file.close()
+                worksheet.merge_range(column, 0, row + 14, 0, re.line_id.name)
+                worksheet.merge_range(column, 1, row + 14, 1, re.site_id.name)
+                worksheet.merge_range(column, 2, row + 14, 2, re.position)
+                worksheet.merge_range(column, 3, row + 14, 3, re.apply_time)
+                worksheet.merge_range(column, 4, row + 14, 4, re.break_details)
+                worksheet.merge_range(column, 5, row + 14, 8, '')
+                worksheet.insert_image(column, 5, brefor_image_path, {'x_scale': 0.2, 'y_scale': 0.3})
+            else:
+
+                # 将xlsx表创建内容
+                worksheet.merge_range(column, 0, row + 14, 0, re.line_id.name)
+                worksheet.merge_range(column, 1, row + 14, 1, re.site_id.name)
+                worksheet.merge_range(column, 2, row + 14, 2, re.position)
+                worksheet.merge_range(column, 3, row + 14, 3, re.apply_time)
+                worksheet.merge_range(column, 4, row + 14, 4, re.break_details)
+                worksheet.merge_range(column, 5, row + 14, 8, '')
+                worksheet.insert_image(column, 5, brefor_image_path, {'x_scale': 0.2, 'y_scale': 0.3})
 
             #解码修复后的图片
-            after_image_path = APP_DIR + '/static/excel/' + str(random.randint(1, 10000000000))+'.png'
-            imgdata = base64.b64decode(after_image)
-            file = open(after_image_path, 'wb')
-            file.write(imgdata)
-            file.close()
-
-            #将xlsx表创建内容
-            worksheet.merge_range(column,0,row+14,0,re.line_id.name)
-            worksheet.merge_range(column,1,row+14,1,re.site_id.name)
-            worksheet.merge_range(column,2,row+14,2,re.position)
-            worksheet.merge_range(column,3,row+14,3,re.apply_time)
-            worksheet.merge_range(column,4,row+14,4,re.break_details)
-            worksheet.merge_range(column,5,row+14,8,'')
-            worksheet.insert_image(column, 5, brefor_image_path, {'x_scale': 0.2, 'y_scale': 0.3})
-
-            #图片存放到列表
-            lis.append(brefor_image_path)
-
             #将审核状态转化成为汉字
             if re.state =='one':
                 state = '已修复'
             else:
                 state = '未修复'
-            worksheet.merge_range(column,9,row+14,9,state)
-            worksheet.merge_range(column,10,row+14,10,re.repair_time)
-            worksheet.merge_range(column,11,row+14,11,re.repair_manufacturer)
-            worksheet.merge_range(column,12,row+14,15,'')
-            worksheet.insert_image(column,12,after_image_path,{'x_scale': 0.2, 'y_scale': 0.3})
+            if after_image:
+                after_image_path = APP_DIR + '/static/excel/' + str(random.randint(1, 10000000000))+'.png'
+                imgdata = base64.b64decode(after_image)
+                file = open(after_image_path, 'wb')
+                file.write(imgdata)
+                file.close()
+                lis.append(brefor_image_path)
+                lis.append(after_image_path)
 
-            # 图片存放到列表
-            lis.append(after_image_path)
+                # 将xlsx表创建内容
+                worksheet.merge_range(column, 9, row + 14, 9, state)
+                worksheet.merge_range(column, 10, row + 14, 10, repair_time)
+                worksheet.merge_range(column, 11, row + 14, 11, re.repair_manufacturer)
+                worksheet.merge_range(column, 12, row + 14, 15, '')
+                worksheet.insert_image(column, 12, after_image_path, {'x_scale': 0.2, 'y_scale': 0.3})
+            else:
+
+                # 将xlsx表创建内容
+                worksheet.merge_range(column, 9, row + 14, 9, state)
+                worksheet.merge_range(column, 10, row + 14, 10, repair_time)
+                worksheet.merge_range(column, 11, row + 14, 11, re.repair_manufacturer)
+                worksheet.merge_range(column, 12, row + 14, 15, '')
+
             row += 15
             column += 15
 

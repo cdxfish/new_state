@@ -14,12 +14,24 @@ odoo.define('funenc_xa_check', function (require) {
             var self = this;
             this._super.apply(this, arguments)
             self.group_id = action.context.group_id
-
+            self.date_date =new Date();
+            self._rpc({
+                model: 'funenc_xa_station.check_collect',
+                method: 'get_line_self'
+            }).then(function (data) {
+                self.line_self = data
+            });
+            self._rpc({
+                model: 'funenc_xa_station.check_collect',
+                method: 'get_site_self'
+            }).then(function (data) {
+                self.site_self = data
+            });
             self._rpc({
                 model: 'funenc_xa_station.check_collect',
                 method: 'get_group_2'
             }).then(function (data) {
-                console.log(data);
+//                console.log(data);
                 if (data) {
                     self.data_2 = true;
                 } else {
@@ -40,7 +52,7 @@ odoo.define('funenc_xa_check', function (require) {
                 model: 'funenc_xa_station.check_collect',
                 method: 'get_group_1'
             }).then(function (data) {
-                console.log(data);
+//                console.log(data);
                 if (data) {
                     self.data_1 = true;
                 } else {
@@ -53,7 +65,7 @@ odoo.define('funenc_xa_check', function (require) {
                 model: 'funenc_xa_station.check_collect',
                 method: 'get_group_3'
             }).then(function (data) {
-                console.log(data);
+//                console.log(data);
                 if (data) {
                     self.data_3 = true;
                 } else {
@@ -66,7 +78,7 @@ odoo.define('funenc_xa_check', function (require) {
                 model: 'funenc_xa_station.check_collect',
                 method: 'get_group_4'
             }).then(function (data) {
-                console.log(data);
+//                console.log(data);
                 if (data) {
                     self.data_4 = true;
                 } else {
@@ -113,13 +125,14 @@ odoo.define('funenc_xa_check', function (require) {
                             show_2: self.data_2,
                             show_3: self.data_3,
                             show_4: self.data_4,
-                            linei: '',
-                            site: '',
+                            linei: self.line_self,
+                            site: self.site_self,
                             lines: self.user_line,
                             sites: '',
                             person: '',
-                            datetime: '时间选择',
+                            datetime:self.date_date,
                             input: '',
+                            newdate:'',
 
                         };
                     },

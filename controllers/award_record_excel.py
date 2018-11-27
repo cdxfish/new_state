@@ -8,7 +8,6 @@ from odoo import http
 from odoo.http import request
 import logging
 import base64
-
 APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 

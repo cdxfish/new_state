@@ -26,7 +26,7 @@
       <record model="res.groups" id="module_ticket_business">
             <field name="name">票亭岗</field>
             <field name="category_id" ref="module_position11"/>
-        </record>
+        </record>z
 
     </data>
 </odoo>

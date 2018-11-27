@@ -12,6 +12,9 @@ from .get_domain import *
 import time
 
 import json
+import xlrd
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class fuenc_station(models.Model):
@@ -832,3 +835,63 @@ class UserInherit(models.Model):
         user_property_departments = user.user_property_departments.ids
 
         return user_property_departments
+
+
+class ImportGroupUser(models.Model):
+    _name = 'import_group_user'
+    _description = '导入角色组成员'
+
+    xls_file = fields.Binary('导入的xlsx文件')
+
+    @api.model
+    def create(self, vals):
+        obj = super(ImportGroupUser,self).create(vals)
+
+        return obj
+
+    def save(self):
+
+        data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
+
+        sheet_data = data.sheet_by_name(data.sheet_names()[0])
+        sheet1 = data.sheet_by_index(0)
+        if sheet_data:
+            position_map = {
+                '经理': self.env.ref('funenc_xa_station.module_position_manager_100'),
+                '副经理':self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
+                '人事管理助理': self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103'),
+                '运输管理助理': self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104'),
+                '技术开发助理': self.env.ref('funenc_xa_station.module_position_technological development_assistant_106'),
+                '综合管理助理': self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107'),
+                '安全管理主办': self.env.ref('funenc_xa_station.module_position_security_administration_host_108'),
+                '副主任': self.env.ref('funenc_xa_station.module_position_deputy_director_109'),
+                '安全管理助理': self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110'),
+                '票务管理助理': self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111'),
+                '培训管理助理': self.env.ref('funenc_xa_station.module_position_training_management_assistant_112'),
+                '值班站长': self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114'),
+                '站长': self.env.ref('funenc_xa_station.module_position_stationmaster_115'),
+                '站长助理': self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116'),
+                '站务员': self.env.ref('funenc_xa_station.module_position_depot_118'),
+                '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
+                '未定岗': self.env.ref('funenc_xa_station.module_position_undetermined_position_119'),
+            }
+
+            lines = sheet_data.nrows
+            for i in range(lines):
+                if i > 0:
+                    line =sheet1.row_values(i)
+                    job_number = '{}00{}'.format(line[0],line[1:-1])  # 工号
+                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)]).id
+                    _logger.info('ding_user_id={}'.format(ding_user_id))
+                    position = line[2]
+                    print(position)
+                    self_position = position_map[position]
+                    if ding_user_id:
+                        self_position.users =[(0,0,{'uid':ding_user_id})]
+
+        self.unlink()
+
+
+
+
+

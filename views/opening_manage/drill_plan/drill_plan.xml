@@ -93,6 +93,7 @@
                 <form>
                     <div class="container-fluid">
                         <group>
+                        <group>
                             <field name="drill_project" string="演练项目" readonly="1"/>
                             <field name="drill_time" string="演练时间" readonly="1"/>
                             <field name="drill_plan" string="演练方案" widget="many2many_binary" readonly="1"/>
@@ -100,6 +101,10 @@
                             <field name="state" string="状态" readonly="1"/>
                             <field name="partake_site_ids" string="参与站点" widget="many2many_tags"
                                    options="{'no_create':True,'no_open':True}" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="drill_plan_qr" string="二维码" widget="image"/>
+                        </group>
                         </group>
                         <group string="演练结果">
                             <field name="drill_result_ids" readonly="1">
@@ -116,9 +121,7 @@
                             </field>
 
                         </group>
-                        <group>
-                            <field name="drill_plan_qr" string="二维码" widget="image"/>
-                        </group>
+
                     </div>
                 </form>
             </field>

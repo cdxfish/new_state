@@ -12,8 +12,29 @@ odoo.define('funenc_xa_award', function (require) {
     dom_id: 'funenc_xa_award' + construct_id++,
     init: function (parent, action) {
       var self = this;
+      self.new_date_self = new Date()
       this._super.apply(this, arguments)
       self.group_id = action.context.group_id
+
+      self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_line_self_data'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+         self.line_data_self = data;
+        };
+      });
+
+      self._rpc({
+            model:'funenc_xa_station.award_collect',
+            method:'get_site_self_data'
+      }).then(function(data){
+      console.log(data);
+        if(data ){
+         self.line_data_self = data;
+        };
+      });
 
        self._rpc({
             model:'funenc_xa_station.award_collect',
@@ -91,7 +112,6 @@ odoo.define('funenc_xa_award', function (require) {
                     data() {
                        return {
                                 tableData:self.user_data,
-                                datetime:'时间选择',
                                 activeIndex:'1',
                                 tabValue:'',
                                 show_1:self.data_1,
@@ -103,7 +123,7 @@ odoo.define('funenc_xa_award', function (require) {
                                 lines: self.user_line,
                                 sites: '',
                                 person: '',
-                                datetime: '时间选择',
+                                datetime: self.new_date_self,
                                 input: '',
 
                        };

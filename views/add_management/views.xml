@@ -16,6 +16,18 @@
             </field>
         </record>
 
+        <record model="ir.actions.server" id="operation_act_id">
+            <field name="name">规章制度</field>
+            <field name="type">ir.actions.server</field>
+            <field name="res_model">xian_metro.xian_metro</field>
+            <field name="model_id" ref="model_xian_metro_xian_metro"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_day_plan_publish_action()
+            </field>
+        </record>
+
         <record id="hr_attendance_action_kiosk_mode" model="ir.actions.client">
             <field name="name">Attendances</field>
             <field name="tag">hr_attendance_kiosk_mode</field>
@@ -35,7 +47,7 @@
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
                     <field name="line_id_default" ></field>
-                    <field name="site_id_default" ></field>
+                    <!--<field name="site_id_default" ></field>-->
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
@@ -58,7 +70,7 @@
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
                     <field name="line_id"></field>
-                    <field name="site_id"></field>
+                    <!--<field name="site_id"></field>-->
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
                 </search>
@@ -82,12 +94,12 @@
                                 <field name="release_time"></field>
                             </group>
                             <group name="group_left">
-                                <field name="site_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]" widget="many2many_tags"/>
+                                <!--<field name="site_id" options="{'no_create':True,'no_open':True}" domain="[('department_hierarchy','=',3)]" widget="many2many_tags"/>-->
                                 <field name="rank_kind" options="{'no_create':True,'no_open':True}"></field>
                                 <field name="rules_name"></field>
                             </group>
                             <group name="group_bottom">
-                                <field name="details" filename="file_name" max_upload_kb="10240000"></field>
+                                <field name="details" filename="file_name" max_upload_kb="10240000" required="1"></field>
                                 <field name="file_name" invisible="1"/>
                             </group>
                         </group>
@@ -109,27 +121,6 @@
                     </sheet>
                 </form>
             </field>
-        </record>
-        <record id="operation_act_id" model="ir.actions.act_window">
-            <field name="name">专业分类</field>
-            <field name="name">新增规章制度</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">xian_metro.xian_metro</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,kanban,form</field>
-            <field name="view_id" ref="add_operation_form"/>
-        </record>
-        <record id="operation_act_tree" model="ir.actions.act_window.view">
-            <field eval="1" name="sequence"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="add_operation_tree"/>
-            <field name="act_window_id" ref="operation_act_id"/>
-        </record>
-        <record id="operation_act_form" model="ir.actions.act_window.view">
-            <field eval="2" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="add_operation_form"/>
-            <field name="act_window_id" ref="operation_act_id"/>
         </record>
     </data>
 </odoo>

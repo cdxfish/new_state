@@ -14,9 +14,22 @@ odoo.define('belong_to_management', function (require) {
             var self = this;
             this._super.apply(this, arguments);
             self.group_id = action.context.group_id;
+            self.date_self = new Date();
             self.user_data = [];
             self.user_line = [];
             self.user_site = [];   // 部门初始化变量
+            self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'get_line_self_data'
+            }).then(function (data) {
+                    self.line_data = data;
+            });
+            self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'get_site_self_data'
+            }).then(function (data) {
+                    self.site_data = data;
+            });
             if (self.group_id) {
                 self.is_update = true
             }
@@ -29,15 +42,20 @@ odoo.define('belong_to_management', function (require) {
                 model: 'funenc_xa_station.belong_to_summary',
                 method: 'belong_to_method'
 
-            }), self._rpc({
+            }),
+            self._rpc({
                 model: 'funenc_xa_station.belong_to_summary',
                 method: 'add_count_line'
 
-            }), self._rpc({
+            }),
+
+            self._rpc({
                 model: 'funenc_xa_station.belong_to_summary',
                 method: 'add_count_site'
 
-            }), this._rpc({
+            }),
+
+            this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'belong_to_management'}
@@ -51,12 +69,12 @@ odoo.define('belong_to_management', function (require) {
                     data() {
                         return {
                             tableData: self.user_data,
-                            linei: '',
-                            site: '',
+                            linei: self.line_data,
+                            site: self.site_data,
                             lines: self.user_line,
-                            sites: '',
+                            sites: self.user_site,
                             person: '',
-                            datetime: '时间选择',
+                            datetime: self.date_self,
                             input: '',
 
                         };
@@ -184,7 +202,7 @@ odoo.define('belong_to_management', function (require) {
 
                         import_excel_belong_to_management() {
                             if (this.tableData) {
-                                var url = '/funenc_xa_station/belong_to_management_import';
+                                var url = '/funenc_xa_station/belong_to_management_summary';
                                 var params = {"reserves": this.tableData};
                                 var params1 = JSON.stringify(params);
                                 var oReq = new XMLHttpRequest();

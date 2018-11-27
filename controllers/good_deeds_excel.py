@@ -39,7 +39,7 @@ class CheckRecord(http.Controller):
                 else:
                     worksheet.write(row, 2, "")
                 if record.type:
-                    worksheet.write(row, 3, record.type)
+                    worksheet.write(row, 3, record.type.good_type)
                 else:
                     worksheet.write(row, 3, "")
                 if record.open_time:

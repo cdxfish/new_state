@@ -23,8 +23,37 @@ class BelongToSummary(models.Model):
 
     @api.model
     def belong_to_method(self):
-        self.env.user.name
-        return
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        startTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
+        record = {}
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        date_time = self.env['funenc_xa_station.belong_to_management'].search_read([('site_id','=',ids)])
+        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
+        for list1 in date_list:
+            record[list1.get('post_check')] = list1
+        for list2 in record:
+            i = 0
+            fs = 0
+            for list3 in date_list:
+                if list2 == list3.get('post_check'):
+                    i = i + 1
+                    fs = fs + list3.get('check_score')
+            record[list2].update({'check_count': i})
+            record[list2].update({'mouth_score': fs + 100})
+            record[list2].update({'summary_score': 100})
+            record[list2].update({'line_id': list3.get('line_id')[1]})
+            record[list2].update({'site_id': list3.get('site_id')[1]})
+        record_list = [record.get(key) for key in record]
+        for ii in record_list:
+            if ii['post_check'] == 'guard':
+                ii['post_check'] = '保安'
+            if ii['post_check'] == 'check':
+                ii['post_check'] = '安检'
+            if ii['post_check'] == 'clean':
+                ii['post_check'] = '保洁'
+        return record_list
 
     @api.model
     def add_count_line(self):
@@ -155,6 +184,31 @@ class BelongToSummary(models.Model):
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
         }
+
+    @api.model
+    def get_line_self_data(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self_data(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        return ids
 
 
 

@@ -45,22 +45,31 @@ class AwardCollect(models.Model):
 
     @api.model
     def award_record_method(self):
-        # data = self.env['funenc_xa_station.award_record'].search([]).mapped('jobnumber')
-        # data1 = set(data)
-        # data2 = list(data1)
-        # list_temp = []
-        #
-        # for i, item in enumerate(data2):
-        #
-        #     count = self.env['funenc_xa_station.award_record'].search_count([('jobnumber','=',item)])
-        #     record = self.env['funenc_xa_station.award_record'].search_read([('jobnumber','=',item)])[0]
-        #     grade = self.env['funenc_xa_station.award_record'].search_read([('jobnumber', '=', item)])
-        #     sure_grede = sum(record1.get('award_money') for record1 in grade)
-        #     record['comment_count'] = count
-        #     record['award_money'] = sure_grede
-        #     list_temp.append(record)
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        startTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
+        record = {}
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        date_time = self.env['funenc_xa_station.award_record'].search_read([('site_id','=',ids)])
+        date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
+        for list1 in date_list:
+            record[list1.get('jobnumber')] = list1
+        # count  得分
+        for list2 in record:
+            i = 0
+            fs = 0
+            for list3 in date_list:
+                if list2 == list3.get('jobnumber'):
+                    i = i + 1
+                    fs = fs + list3.get('award_money')
+            record[list2].update({'comment_count': i})
+            record[list2].update({'award_money': fs})
+            record[list2].update({'line_id': list3.get('line_id')[1]})
+            record[list2].update({'site_id': list3.get('site_id')[1]})
+            record[list2].update({'staff': list3.get('staff')[1]})
 
-        return
+        return [record.get(key) for key in record]
 
     @api.model
     def search_award_method(self, date,line,site,person_id):
@@ -142,3 +151,29 @@ class AwardCollect(models.Model):
             return self.user_has_groups('funenc_xa_station.table_reward_total')
         else:
             return
+
+    @api.model
+    def get_line_self_data(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self_data(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.name
+        return ids
+
