@@ -882,8 +882,9 @@ class ImportGroupUser(models.Model):
                     line =sheet1.row_values(i)
                     job_number = '{}00{}'.format(line[0],line[1:-1])  # 工号
                     ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)]).id
-                    _logger.info('ding_user_id={}'.format(ding_user_id))
+                    # _logger.info('ding_user_id={}'.format(ding_user_id))
                     position = line[2]
+                    print(i)
                     print(position)
                     self_position = position_map[position]
                     if ding_user_id:
