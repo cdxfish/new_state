@@ -371,10 +371,10 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
-        <!--<record model="res.groups" id="module_position_training_management_assistant_113">-->
-            <!--<field name="name">培训管理助理</field>-->
-            <!--<field name="category_id" ref="module_category_custom_groups"/>-->
-        <!--</record>-->
+        <record model="res.groups" id="module_position_training_management_assistant_113">
+            <field name="name">值班员</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
 
         <record model="res.groups" id="module_position_be_on_duty_site_114">
             <field name="name">值班站长</field>
