@@ -401,6 +401,78 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
+        <!--新-->
+
+        <record model="res.groups" id="module_position_quality_host_120">
+            <field name="name">质量与计划管理主办</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+
+        <record model="res.groups" id="position_undersecretary_121">
+            <field name="name">副部长</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_director_122">
+            <field name="name">主任</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_personnel_matters_123">
+            <field name="name">人事管理主办</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_ticket_business_host_124">
+            <field name="name">票务管理主办</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_service_assistant_125">
+            <field name="name">服务管理助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_dispatch_126">
+            <field name="name">生产调度</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_general_manager_127">
+            <field name="name">运输技术助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_general_manager_127">
+            <field name="name">运输技术助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_integrated_management_128">
+            <field name="name">综合管理员</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+         <record model="res.groups" id="position_integrated_management_assistant_129">
+            <field name="name">综合管助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_statistics_assistant_130">
+            <field name="name">计划统计助理</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+        <record model="res.groups" id="position_party_secretary_131">
+            <field name="name">党工团干事</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
+
+         <record model="res.groups" id="position_comprehensive_management_132">
+            <field name="name">综合管理主办</field>
+            <field name="category_id" ref="module_category_custom_groups"/>
+        </record>
         <!--end职位角色组-->
     </data>
 </odoo>
