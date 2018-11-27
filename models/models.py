@@ -12,6 +12,9 @@ from .get_domain import *
 import time
 
 import json
+import xlrd,xlwt
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class fuenc_station(models.Model):
@@ -832,3 +835,108 @@ class UserInherit(models.Model):
         user_property_departments = user.user_property_departments.ids
 
         return user_property_departments
+
+
+class ImportGroupUser(models.Model):
+    _name = 'import_group_user'
+    _description = '导入角色组成员'
+
+    xls_file = fields.Binary('导入的xlsx文件')
+
+    @api.model
+    def create(self, vals):
+        obj = super(ImportGroupUser,self).create(vals)
+
+        return obj
+
+    def save(self):
+        '''
+        导入职位角色组人员  没用try  让异常暴露出来
+        :return:
+        '''
+
+        data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
+
+        sheet_data = data.sheet_by_name(data.sheet_names()[0])
+        sheet1 = data.sheet_by_index(0)
+        if sheet_data:
+            position_map = {
+                '经理': self.env.ref('funenc_xa_station.module_position_manager_100'),
+                '副经理':self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
+                '人事管理助理': self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103'),
+                '运输管理助理': self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104'),
+                '技术开发助理': self.env.ref('funenc_xa_station.module_position_technological development_assistant_106'),
+                '综合管理助理': self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107'),
+                '安全管理主办': self.env.ref('funenc_xa_station.module_position_security_administration_host_108'),
+                '副主任': self.env.ref('funenc_xa_station.module_position_deputy_director_109'),
+                '安全管理助理': self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110'),
+                '票务管理助理': self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111'),
+                '培训管理助理': self.env.ref('funenc_xa_station.module_position_training_management_assistant_112'),
+                '值班站长': self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114'),
+                '站长': self.env.ref('funenc_xa_station.module_position_stationmaster_115'),
+                '站长助理': self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116'),
+                '站务员': self.env.ref('funenc_xa_station.module_position_depot_118'),
+                '未定岗': self.env.ref('funenc_xa_station.module_position_undetermined_position_119'),
+                '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
+                '质量与计划管理主办': self.env.ref('funenc_xa_station.module_position_quality_host_120'),
+                '副部长': self.env.ref('funenc_xa_station.position_undersecretary_121'),
+                '主任': self.env.ref('funenc_xa_station.position_director_122'),
+                '人事管理主办': self.env.ref('funenc_xa_station.position_personnel_matters_123'),
+                '票务管理主办': self.env.ref('funenc_xa_station.position_ticket_business_host_124'),
+                '服务管理助理': self.env.ref('funenc_xa_station.position_service_assistant_125'),
+                '生产调度': self.env.ref('funenc_xa_station.position_dispatch_126'),
+                '运输技术助理': self.env.ref('funenc_xa_station.position_general_manager_127'),
+                '综合管理员': self.env.ref('funenc_xa_station.position_integrated_management_128'),
+                '综合管助理': self.env.ref('funenc_xa_station.position_integrated_management_assistant_129'),
+                '计划统计助理': self.env.ref('funenc_xa_station.position_statistics_assistant_130'),
+                '党工团干事': self.env.ref('funenc_xa_station.position_party_secretary_131'),
+                '综合管理主办': self.env.ref('funenc_xa_station.position_comprehensive_management_132'),
+
+            }
+
+            lines = sheet_data.nrows
+            import_fail_job_numbers = []
+            for i in range(lines):
+                if i > 0:
+
+                    line =sheet1.row_values(i)
+                    job_number = '{}00{}'.format(line[0][0],line[0][1:])  # 工号
+                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)])
+                    res_user_id = ding_user_id.user.id
+                    position = line[2]
+                    print('i=',i)
+                    self_position = position_map[position]
+                    if res_user_id:
+                        if res_user_id not in self_position.users.ids:
+                            ins_sql = "insert into res_groups_users_rel(gid,uid) " \
+                                         "values({},{})" \
+                                .format(self_position.id, res_user_id)
+                            self.env.cr.execute(ins_sql)
+                    else:
+
+                        print('gh=', line[0])
+                        print('user_name=',line[1])
+                        print('job_number=', job_number)
+                        print('res_user_id=', res_user_id)
+                        print('ding_user=',ding_user_id)
+                        print('职位=', position)
+                        import_fail_job_numbers.append((line[0],line[1],line[2]))
+            _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
+            _logger.info('count={}'.format(len(import_fail_job_numbers)))
+            # 钉钉未设置人员
+            # f = xlwt.Workbook()
+            # sheet1 = f.add_sheet('钉钉未设置人员', cell_overwrite_ok=True)
+            # row0 = ["工号", "姓名", "职位"]
+            # for k in range(0, len(row0)):
+            #     sheet1.write(0, k, row0[k])
+            # for j,import_fail_job_number in enumerate(import_fail_job_numbers):
+            #     for l,value in enumerate(import_fail_job_number):
+            #         sheet1.write(j+1, l, value)
+            #
+            # f.save('二分部钉钉未设置人员.xls')
+        self.unlink()
+
+
+
+
+

@@ -138,3 +138,17 @@ class PositionSettings(models.Model):
             super(models.Model, record).unlink()
 
         return True
+
+    @api.model
+    def import_position_user_button(self):
+            # context = dict(self.env.context or {})
+            view_form = self.env.ref('funenc_xa_station.import_position_user_form').id
+            return {
+                'name': '导入角色组成员',
+                "type": "ir.actions.act_window",
+                "res_model": "import_group_user",
+                "views": [[view_form, "form"]],
+                'target': 'new',
+                'context': {},
+            }
+
