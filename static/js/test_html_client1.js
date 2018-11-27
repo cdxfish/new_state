@@ -10,19 +10,24 @@ odoo.define('test_html_client', function (require) {
     var test_html_client = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
+
+                self = this;
+                var one_line = record.params.line_self
+                self.line_self = one_line;
+                self.line_data_self = record.params.site_domain;
                 this.vue_data = {
                     height: '800px',
-                    month: '',
+                    month: new Date(),
                     arrange_orders: [],
                     days: ['9月2日', '9月3日', '9月4日', '9月5日', '9月6日', '9月7日'],
                     // shift_value里字典的个数需要与days的元素个数相对应
                     day_table_data: [],
 
                     total_table_data: [],
-                    line_options:[{'id':1,'name':2}],
-                    site_options:[],
-                    lines:'',
-                    sites:'',
+                    line_options:self.line_self,
+                    site_options:self.line_data_self,
+                    lines:self.line_self,
+                    sites:self.line_data_self,
                 };
             },
             willStart: function(){
@@ -31,13 +36,12 @@ odoo.define('test_html_client', function (require) {
                         model: 'cdtct_dingtalk.cdtct_dingtalk_department',
                         method: 'get_line_id',
                     }).then(function(data){
-                        console.log(data)
                         self.vue_data.line_options = data
                     });
-
                 },
             start: function () {
                 var self = this;
+
                 setTimeout(function () {
                     self._rpc({
                         model: 'vue_template_manager.template_manage',
@@ -84,7 +88,6 @@ odoo.define('test_html_client', function (require) {
                                     method: 'get_cline_data',
                                     kwargs: {site_id:this.sites,start_time:this.month}
                                 }).then(function(data){
-                                    console.log(data)
                                     self.vue_data.days = data['days'];
                                     self.vue_data.day_table_data = data['day_table_data'];
                                     self.vue_data.total_table_data = data['total_table_data'];

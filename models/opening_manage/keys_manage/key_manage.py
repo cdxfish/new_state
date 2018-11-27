@@ -130,3 +130,56 @@ class KeyManage(models.Model):
                 # 'context': dict(self.env.context)
 
                 }
+
+    @api.model
+    def get_line_self_data(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self_data(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        return ids
+
+    @api.model
+    def search_site(self, date):
+        site_parent = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('id', '=', date)],
+                                                                                       ['departmentId'])
+        site_son = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read(
+            [('parentid', '=', site_parent[0]['departmentId'])], ['name'])
+
+        return site_son
+
+    @api.model
+    def add_count_line(self):
+        line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy', '=', 2)],
+                                                                               ['id', 'name'])
+        return line
+
+    @api.model
+    def add_count_site(self):
+        site = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('department_hierarchy', '=', 3)],
+                                                                               ['id', 'name'])
+        return site    \
+
+    @api.model
+    def get_key_type_data(self):
+        site = self.env['funenc.xa.station.key.type'].search_read([],['id', 'name'])
+        return site
+
+

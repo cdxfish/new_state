@@ -12,10 +12,22 @@ odoo.define('reserver_money', function (require) {
         dom_id: 'reserver_money' + construct_id++,
         init: function (parent, action) {
             var self = this;
-            this._super.apply(this, arguments)
-            self.group_id = action.context.group_id
-            self.user_data = []
-            self.user_line = []
+            this._super.apply(this, arguments);
+            self.group_id = action.context.group_id;
+            self._rpc({
+                model: 'funenc_xa_station.reserver_management',
+                method: 'get_line_self_data'
+            }).then(function (data) {
+                                    self.line_self = data;
+                                    });
+            self._rpc({
+                model: 'funenc_xa_station.reserver_management',
+                method: 'get_site_self_data'
+            }).then(function (data) {
+                                    self.site_self = data;
+                                    });
+            self.user_data = [];
+            self.user_line = [];
             self.user_site = [];   // 部门初始化变量
             if (self.group_id) {
                 self.is_update = true
@@ -50,10 +62,10 @@ odoo.define('reserver_money', function (require) {
                     data() {
                         return {
                             tableData: self.user_data,
-                            linei: '',
-                            site: '',
+                            linei: self.line_self,
+                            site: self.site_self,
                             lines: self.user_line,
-                            sites: '',
+                            sites: self.user_site,
 
                         };
                     },

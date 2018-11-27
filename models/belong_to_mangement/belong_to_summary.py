@@ -161,14 +161,22 @@ class BelongToSummary(models.Model):
 
     @api.model
     def search_details_button(self,date,line,site,person_id):
-        date = date[:10]
-        d = datetime.datetime.strptime(date, '%Y-%m-%d')
-        delta = datetime.timedelta(hours=24)
+        date_one = date[:10]
+        date_two = date[11:19]
+        date_main = date_one +' '+ date_two
+        d = datetime.datetime.strptime(date_main, '%Y-%m-%d %H:%M:%S')
+        delta = datetime.timedelta(hours=8)
         open_time = d + delta
 
+
+
+
         date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
-        date_new_one = datetime.datetime.strptime(date_new[:10], '%Y-%m-%d') + relativedelta(months=1)
-        date_new_two = date_new_one.strftime('%Y-%m-%d %H:%M:%S')
+        open_time = date_new[:7] + '-' + '01'
+        date_new_one = datetime.datetime.strptime(open_time[:10], '%Y-%m-%d') + relativedelta(months=0)
+        date_new_two = datetime.datetime.strptime(open_time[:10], '%Y-%m-%d') + relativedelta(months=1)
+        date_new_two_fu = datetime.timedelta(hours=-1)
+        date_end_new = date_new_two + date_new_two_fu
 
         # domain = self.env['funenc_xa_station.belong_to_management'].search([('line_id','=',line),('site_id','=',site)])
 
@@ -179,7 +187,7 @@ class BelongToSummary(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'domain': "[('line_id','=',%s),('site_id','=',%s),('check_time','>=','%s'),('check_time','<','%s')]"
-                      % (int(line), int(site),date_new,date_new_two),
+                      % (int(line), int(site),date_new_one,date_end_new),
             "views": [[view_tree, "list"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
@@ -208,6 +216,7 @@ class BelongToSummary(models.Model):
 
         ding_user = self.env.user.dingtalk_user
         ids = ding_user.user_property_departments.id
+        print(ids)
         return ids
 
 

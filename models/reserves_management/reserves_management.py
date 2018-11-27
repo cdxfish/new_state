@@ -38,8 +38,10 @@ class ReserverManagement(models.Model):
 
     @api.model
     def reserver_money_method(self):
-        # lol = self.env['funenc_xa_station.reserver_management'].search_read([])
-        return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',ids)])
+        return lol
 
 
     def test_btn_start(self):
@@ -122,3 +124,28 @@ class ReserverManagement(models.Model):
 
 
         return data
+
+    @api.model
+    def get_line_self_data(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self_data(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        return ids

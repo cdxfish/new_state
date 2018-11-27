@@ -176,7 +176,7 @@ class ShedulingManage(models.Model):
     #      排班开始  生成排班记录
     #     :return:
     #     '''
-    #     # if not self:
+    #     # if not self
     #     #     self = self.search([('id', '=', res_id)])
     #     # res_user = self.env.user
     #     # if res_user.id == 1:
@@ -909,6 +909,35 @@ class ShedulingManage(models.Model):
         except Exception:
             return {'message': '保存失败'}
 
+    def init_data(self):
+
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments
+        site_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                site_ids.append(department_id.id)
+
+        line_self = self.env.user.dingtalk_user.id
+        ding_user = self.env.user.dingtalk_user
+        site_self = ding_user.user_property_departments.id
+
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments
+        line_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('departmentId', '=', department_id.parentid)]).id
+                line_ids.append(id)
+        return {
+            'name': '排班汇总',
+            'type': 'ir.actions.client',
+            'tag': 'test_html_client',
+            'target': 'current',
+            'params': {'line_self': line_self,'site_self':site_ids}
+        }
+
 
 class ShedulingRecordr(models.Model):
     _name = 'funenc_xa_station.sheduling_record'
@@ -1006,3 +1035,31 @@ class ShedulingRecordr(models.Model):
             return True
         except Exception:
             return False
+
+    @api.model
+    def get_line_self_data(self):
+        '''
+        自动获取当前线路的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.ids
+        return self.env.user.dingtalk_user.id
+
+    @api.model
+    def get_site_self_data(self):
+        '''
+        自动获取当前站点的数据
+        :return:
+        '''
+        if self.env.user.id ==1:
+            return
+
+        ding_user = self.env.user.dingtalk_user
+        ids = ding_user.user_property_departments.id
+        print(ids)
+        return ids
+
+

@@ -747,10 +747,14 @@
 				  <!--action="funenc_xa_station.xa_station_sheduling_manage_1_action11111" groups="system_scheduling_management" sequence="8"-->
 		<!--/>-->
 
-		<record model="ir.actions.client" id="xa_station_sheduling_manage_1_action11111111111">
-          <field name="name">排班汇总</field>
-          <field name="tag">test_html_client</field>
-        </record>
+<record model="ir.actions.server" id="xa_station_sheduling_manage_1_action1111111111">
+			<field name="name">排班汇总</field>
+			<field name ="state">code</field>
+			<field name="model_id" ref="model_funenc_xa_station_sheduling_manage"/>
+			<field name="code">
+				action = model.init_data()
+			</field>
+		</record>
 
 		<record model="ir.actions.client" id="xa_station_punch_clock_client_action22">
           <field name="name">考勤汇总</field>
@@ -767,7 +771,7 @@
 
 		<menuitem id="xa_station_sheduling_manage11111111111" name="排班汇总"
 				  parent="funenc_station_integrated_manageme"
-				  action="funenc_xa_station.xa_station_sheduling_manage_1_action11111111111" sequence="8"
+				  action="funenc_xa_station.xa_station_sheduling_manage_1_action1111111111" sequence="8"
 		/>
 
 		<menuitem id="funenc_xa_station_check_attendance" name="考勤管理"
