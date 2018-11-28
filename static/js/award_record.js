@@ -32,7 +32,7 @@ odoo.define('funenc_xa_award', function (require) {
       }).then(function(data){
       console.log(data);
         if(data ){
-         self.line_data_self = data;
+         self.site_data_self = data;
         };
       });
 
@@ -118,8 +118,8 @@ odoo.define('funenc_xa_award', function (require) {
                                 show_2:self.data_2,
                                 show_3:self.data_3,
                                 show_4:self.data_4,
-                                linei: '',
-                                site: '',
+                                linei: self.line_data_self,
+                                site: self.site_data_self,
                                 lines: self.user_line,
                                 sites: '',
                                 person: '',

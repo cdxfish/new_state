@@ -26,17 +26,20 @@ class VideoVoice(models.Model):
     suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
     site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
     special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)
+    belong_management_imange = fields.Many2one('funenc_xa_station.belong_to_management',string='属地管理')
 
     @api.model
     def create(self, params):
         video_attachment = self.env['fuenc_xa_station.guests_hurt'].search([])
-        file_binary = params['video']
-        file_name = params.get('file_name', self.file_name)
-        if file_binary:
-            url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
-                'funenc_xa_station', file_name, base64.b64decode(file_binary))
-            params['url'] = url
-            params['file_name'] = file_name
+        if params.get('video'):
+            file_binary = params['video']
+            file_name = params.get('file_name', self.file_name)
+            if file_binary:
+                url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
+                    'funenc_xa_station', file_name, base64.b64decode(file_binary))
+                params['url'] = url
+                params['file_name'] = file_name
+            return super(VideoVoice, self).create(params)
         return super(VideoVoice, self).create(params)
 
     def view_details(self):

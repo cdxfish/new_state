@@ -3,6 +3,7 @@
 
 from odoo import api, models, fields
 from .. get_domain import get_domain
+from ast import literal_eval
 import odoo.exceptions as warning
 from dateutil.relativedelta import relativedelta
 
@@ -25,8 +26,7 @@ class BelongToManagement(models.Model):
     change_state = fields.Selection([('add', '加'), ('reduce', '减')], default='reduce')
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
-    load_file_test = fields.Many2many('ir.attachment', 'funenc_management_',
-                                      'attachment_id', 'meeting_dateils_id', string='图片上传')
+    load_file_test = fields.One2many('video_voice_model','belong_management_imange',string='图片上传')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
     browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片',default='zero')
 
@@ -37,9 +37,20 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-        if vals['load_file_test'][0][2]:
-            vals['browse_image_invisible'] = 'one'
-        return super(BelongToManagement, self).create(vals)
+        if vals.get('load_file_test') or vals.get('imgs') :
+                vals['browse_image_invisible'] = 'one'
+        create_vals = super(BelongToManagement, self).create(vals)
+        if create_vals.imgs:
+            imgs = literal_eval(create_vals.imgs)
+            for img in imgs:
+                self.env['video_voice_model'].create({
+                    'belong_management_imange':create_vals.id,
+                    'url': img['url']
+                })
+        return create_vals
+
+    def create_button(self):
+        print(self)
 
     @get_domain
     @api.model
