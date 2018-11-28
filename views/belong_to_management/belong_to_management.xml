@@ -176,16 +176,27 @@
                                 <label for="load_file_test" string="照片"/>
                             </div>
                             <div class="col-md-10">
-                                <field name="load_file_test" widget="many2many_binary">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
+                                <field name="load_file_test" widget="one2many_list">
+                                        <tree>
+                                            <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                            <field name="file_name" invisible="1"/>
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                    <field name="file_name" invisible="1"/>
+                                                </group>
+                                            </sheet>
+                                        </form>
                                 </field>
                             </div>
                         </div>
                     </div>
                 </form>
             </field>
+
+
         </record>
 
         <record model="ir.ui.view" id="browse_iamge_form">
@@ -199,10 +210,7 @@
                                 <label for="load_file_test" string="照片"/>
                             </div>
                             <div class="col-md-8">
-                                <field name="load_file_test" widget="one2many_image_read_widget">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
+                                <field name="load_file_test" widget="web_widget">
                                 </field>
                             </div>
                         </div>

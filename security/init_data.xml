@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <!--培训详情培训情况初始化数据-->
         <record model="funenc_xa_station.concentrate_training_situation" id="create_data_concentrate_training_situation">
             <field name="project">培训内容</field>

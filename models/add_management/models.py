@@ -6,7 +6,7 @@ import requests
 import urllib
 import base64
 import os
-
+from ..get_domain import get_line_ids
 
 class xian_metro(models.Model):
     _name = 'xian_metro.xian_metro'
@@ -111,13 +111,6 @@ class xian_metro(models.Model):
                 char_line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('id','=',line)])
                 lis_line.append(char_line.name)
         params['line_id_default'] = "/".join(lis_line)
-        print(params['line_id_default'])
-        # for i_site in params.get('site_id'):
-        #     for site in i_site[2]:
-        #         char_line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('id', '=', site)])
-        #         lis_site.append(char_line.name)
-        # params['site_id_default'] = "/".join(lis_site)
-        # print(lis_site)
         file = os.path.splitext(params.get('file_name'))
         filename,type = file
         # if type != '.pdf':
@@ -126,6 +119,8 @@ class xian_metro(models.Model):
         if file_binary:
             url = self.env['qiniu_service.qiniu_upload_bucket'].upload_data(
                 'funenc_xa_station', file_name, base64.b64decode(file_binary))
+            token = self.env['qiniu_service.qiniu_upload_bucket'].get_upload_token('funenc_xa_station')
+            print(token)
             params['url'] = url
             params['file_name'] = file_name
             params['rule_regulations_browse'] = 'one'
@@ -168,13 +163,14 @@ class xian_metro(models.Model):
 
         return xian_metro
 
-    def get_day_plan_publish_action(self):
+    @get_line_ids
+    def get_day_plan_publish_action(self,line_ids):
         view_form = self.env.ref('funenc_xa_station.add_operation_tree').id
         line_search = self.search([])
         ding_user = self.env.user.dingtalk_user
         ids = ding_user.user_property_departments.ids
         print(line_search)
-        domain = [("line_id", "in", ding_user.ids)]
+        domain = [("line_id", "in", line_ids)]
 
 
         return {
