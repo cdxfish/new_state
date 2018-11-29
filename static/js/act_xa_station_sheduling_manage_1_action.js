@@ -9,7 +9,6 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
 
     var act_xa_station_sheduling_manage_1_action = Widget.extend({
         init: function (parent, record, node) {
-            console.log(record.params.show_data)
             this._super(parent, record, node);
             this.vue_data=record.params.show_data;
 
@@ -45,7 +44,6 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
                     methods: {
                         save: function () {
                             var this_vue = this;
-                            console.log(self.vue_data);
 
                              self._rpc({
                                  model: 'funenc_xa_station.sheduling_manage',
@@ -60,7 +58,6 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
                         },
 
                         change_data: function($event,data){
-//                            console.log($event);
 
                         },
 

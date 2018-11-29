@@ -182,7 +182,7 @@ odoo.define('belong_to_management', function (require) {
 //                              },
 
 
-                            onchange_data: function(){
+                            onchange_data: function(index,row){
                                 if (vue.datetime != '时间选择'){
                                 self._rpc({
                                            model: 'funenc_xa_station.belong_to_summary',
@@ -190,7 +190,8 @@ odoo.define('belong_to_management', function (require) {
                                            kwargs: {date: vue.datetime,
                                                     line:vue.linei,
                                                     site:vue.site,
-                                                    person_id:vue.input}
+                                                    person_id:vue.input,
+                                                    post_check:row.post_check}
                                                 }).then(function(data){
                                                       self.do_action(data);
                                                     });

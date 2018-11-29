@@ -13,7 +13,6 @@ odoo.define("cascader_widget", function (require) {
 
     start: function (parent, action) {
       if (this.mode === 'edit') {
-        console.log('1212')
         var self = this;
         self._rpc({
           model: 'vue_template_manager.template_manage',
@@ -47,7 +46,6 @@ odoo.define("cascader_widget", function (require) {
                   this.options = vals
                 },
                 handleChange(value) {
-                  console.log(value[value.length - 1])
                   self._setValue(value[value.length - 1])
 
                 }

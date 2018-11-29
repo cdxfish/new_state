@@ -31,7 +31,6 @@ odoo.define('funenc_xa_department_users', function (require) {
                         model: 'cdtct_dingtalk.cdtct_dingtalk_users',
                         method: 'get_department_users',
                     }).then(function(data){
-                        console.log(data)
                         self.vue_data.departmentList = data
                     })
             },
@@ -43,7 +42,6 @@ odoo.define('funenc_xa_department_users', function (require) {
                         method: 'get_template_content',
                         kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_department_users_1'}
                     }).then(function (el) {
-                        console.log(el)
                         self.replaceElement($(el));
                         new Vue({
                             el: '#funenc_xa_department_users',

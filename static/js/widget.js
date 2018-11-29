@@ -11,10 +11,6 @@ odoo.define("one2many_image_read_widget", function(require) {
   var one2many_image_read_widget = AbstractField.extend({
 
     init: function(parent, name, record, options){
-        console.log(parent)
-        console.log(name)
-        console.log(record)
-        console.log(options)
         this._super(parent, name, record, options)
     },
 
@@ -42,8 +38,6 @@ odoo.define("one2many_image_read_widget", function(require) {
             domain: [['id', "in", img_id_list]]
           })
           .then(function(data) {
-//          console.log('二狗',img_id_list);
-//          console.log(/web/content/' + attachment.id + '?download=true);
             if (img_id_list) {
               var $el = $(
                 '<div class="one2many_image_read_widget" style="display: flex; flex-wrap: wrap; justify-content: flex-start"></div>'

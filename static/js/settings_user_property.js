@@ -63,8 +63,6 @@ odoo.define('settings_user_property', function (require) {
 
 
                                 save: function () {
-                                   console.log(this.$refs.tree.getCheckedKeys())
-                                   console.log(self.vue_data.selection_user_ids)
                                    return self._rpc({
                                         model: 'cdtct_dingtalk.cdtct_dingtalk_department',
                                         method: 'save_user_departments',

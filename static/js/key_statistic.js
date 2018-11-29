@@ -112,7 +112,6 @@ odoo.define('key_statistic', function (require) {
                         },
 
                         handleCurrentChange: function(){
-                            console.log(this.currentPage)
                         },
                         details: function(row){
                                    self._rpc({

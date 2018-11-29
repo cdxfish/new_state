@@ -20,7 +20,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_line_self_data'
       }).then(function(data){
-      console.log(data);
         if(data ){
          self.line_data_self = data;
         };
@@ -30,7 +29,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_site_self_data'
       }).then(function(data){
-      console.log(data);
         if(data ){
          self.site_data_self = data;
         };
@@ -40,7 +38,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_2'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_2 = true;
         }else{
@@ -52,7 +49,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_1'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_1 = true;
         }else{
@@ -82,7 +78,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_4'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_4 = true;
         }else{
@@ -189,7 +184,6 @@ odoo.define('funenc_xa_award', function (require) {
                                             model:'funenc_xa_station.check_record',
                                             method:'get_action',
                                          }).then(function(data){
-//                                            console.log(data);
                                             self.do_action(data);
                                             });
                                      }else if(that.tabValue==2){
@@ -197,7 +191,6 @@ odoo.define('funenc_xa_award', function (require) {
                                                     model:'funenc_xa_station.check_collect',
                                                     method:'get_action',
                                                  }).then(function(data){
-//                                                    console.log(data);
                                                     self.do_action(data);
                                                     });
                                             }

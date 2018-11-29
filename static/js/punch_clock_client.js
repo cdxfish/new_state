@@ -111,7 +111,6 @@ odoo.define('punch_clock_client', function (require) {
                                         method: 'get_sites',
                                         kwargs: {line_id: line_id}
                                     }).then(function(data){
-                                        console.log(data)
                                         self.vue_data.station_options = data
                                     })
 

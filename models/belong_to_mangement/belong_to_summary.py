@@ -160,7 +160,13 @@ class BelongToSummary(models.Model):
             return record_list
 
     @api.model
-    def search_details_button(self,date,line,site,person_id):
+    def search_details_button(self,date,line,site,person_id,post_check):
+        if post_check == '保安':
+            post_check_one = 'guard'
+        if post_check == '安检':
+            post_check_one = 'check'
+        if post_check == '保洁':
+            post_check_one = 'clean'
         date_one = date[:10]
         date_two = date[11:19]
         date_main = date_one +' '+ date_two
@@ -178,18 +184,17 @@ class BelongToSummary(models.Model):
         date_new_two_fu = datetime.timedelta(hours=-1)
         date_end_new = date_new_two + date_new_two_fu
 
-        # domain = self.env['funenc_xa_station.belong_to_management'].search([('line_id','=',line),('site_id','=',site)])
-
         view_tree = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
             'name': '属地汇总',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain': "[('line_id','=',%s),('site_id','=',%s),('check_time','>=','%s'),('check_time','<','%s')]"
-                      % (int(line), int(site),date_new_one,date_end_new),
-            "views": [[view_tree, "list"]],
             'res_model': 'funenc_xa_station.belong_to_management',
+            'domain': [('line_id','=',line),('site_id','=',site),('check_time','>=',date_new_one),
+                       ('check_time','<',date_end_new),('post_check','=',post_check_one)],
+
+            "views": [[view_tree, "list"]],
             'context': self.env.context,
         }
 
