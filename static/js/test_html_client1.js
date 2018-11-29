@@ -12,31 +12,35 @@ odoo.define('test_html_client', function (require) {
                 this._super(parent, record, node);
 
                 self = this;
-                var one_line = record.params.line_self
-                self.line_self = one_line;
-                self.line_data_self = record.params.site_domain;
                 this.vue_data = {
                     height: '800px',
                     month: new Date(),
                     arrange_orders: [],
-                    days: ['9月2日', '9月3日', '9月4日', '9月5日', '9月6日', '9月7日'],
+                    days: [],
                     // shift_value里字典的个数需要与days的元素个数相对应
                     day_table_data: [],
-
                     total_table_data: [],
-                    line_options:self.line_self,
-                    site_options:self.line_data_self,
-                    lines:self.line_self,
-                    sites:self.line_data_self,
+                    line_options:[],
+                    site_options:[],
+                    lines:'',
+                    sites:'',
                 };
             },
             willStart: function(){
                     var self = this;
                     return self._rpc({
                         model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                        method: 'get_line_id',
+                        method: 'get_default_sheduling_data',
                     }).then(function(data){
-                        self.vue_data.line_options = data
+                        console.log(data)
+                        self.vue_data.arrange_orders = data['arrange_orders'];
+                        self.vue_data.days = data['days'];
+                        self.vue_data.day_table_data = data['day_table_data'];
+                        self.vue_data.total_table_data = data['total_table_data'];
+                        self.vue_data.line_options = data['line_options'];
+                        self.vue_data.site_options = data['site_options'];
+                        self.vue_data.lines = data['default_line'];
+                        self.vue_data.sites = data['default_site'];
                     });
                 },
             start: function () {

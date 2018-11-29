@@ -662,32 +662,96 @@ class inherit_department(models.Model):
                     obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                         [('departmentId', '=', department_id.parentid)])
 
-                    line_ids.append({
-                        'id':obj.id,
-                        'name':obj.name
-                    })
+                    if {'id': obj.id, 'name': obj.name} not in line_ids:
+                        line_ids.append({
+                            'id': obj.id,
+                            'name': obj.name
+                        })
 
             return line_ids
 
-    # @api.model
-    # def get_sites(self, line_id):
-    #     if self.env.user.id == 1:
-    #         return self.search_read([('department_hierarchy', '=', 3)], ['id', 'name'])
-    #     else:
-    #         ding_user = self.env.user.dingtalk_user
-    #         department = ding_user.departments[0]
-    #
-    #         if department.department_hierarchy == 1 or department.department_hierarchy == 2:
-    #             department_id = self.browse(line_id).departmentId
-    #             return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
-    #         else:
-    #             return [{'id': ding_user.departments[0].id, 'name': ding_user.department_name}]
+    @api.model
+    def get_line_or_def_site(self):
+        '''
+         获取 默认站点 线路 和站点线路下拉数据
+        :return:  {'default_line': 默认线路,
+                'site_options': 权限可见站点,
+                'default_site': 默认站点,
+                'line_options':权限可见线路,
+                }
+        '''
+        ding_user = self.env.user.dingtalk_user
+        department_ids = ding_user.user_property_departments
+        site_obj_ids = []
+        line_obj_ids = []
+        for department_id in department_ids:
+            if department_id.department_hierarchy == 3:
+                site_obj_ids.append(department_id)
+                obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('departmentId', '=', department_id.parentid)])
+                if obj not in line_obj_ids:
+                    line_obj_ids.append(obj)
+        default_line = line_obj_ids[0] if line_obj_ids else None
+        child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+            [('parentid', '=', default_line.departmentId if default_line else None)])
+        site_ids = list(set(department_ids) & set(child_department_ids))
+        site_list_dic = []
+        for site_id in site_ids:
+            site_list_dic.append({
+                'id': site_id.id,
+                'name': site_id.name
+            })
+
+        default_site = site_list_dic[0].get('id') if site_list_dic else None
+        line_ids = []
+        for line_obj in line_obj_ids:
+            line_ids.append(
+                {'id':line_obj.id,
+                  'name': line_obj.name
+                 }
+            )
+
+        return {'default_line': default_line.id if default_line else '',
+                'site_options': site_list_dic,
+                'default_site': default_site,
+                'line_options':line_ids,
+                }
+
+    @api.model
+    def get_default_sheduling_data(self):
+        default_line_data = self.get_line_or_def_site()
+        start_time = datetime.datetime.now().strftime('%Y-%m-%d')
+        start_time = '{}-01'.format(start_time[:7])
+        year = start_time[:4]
+        month1 = start_time[5:7]
+        days = calendar.monthrange(int(year), int(month1))[1]
+        end_time = year + '-{}'.format(month1) + '-{}'.format(days)
+        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_line_data.get('default_site'), start_time,
+                                                                                          end_time)
+
+        return {'default_line': default_line_data.get('default_line'),
+                'site_options': default_line_data.get('site_options'),
+                'default_site': default_line_data.get('default_site'),
+                'line_options': default_line_data.get('line_options'),
+                'days': default_data.get('days', []),
+                'day_table_data': default_data.get('day_table_data', []),
+                'total_table_data': default_data.get('total_table_data', []),
+                'arrange_orders': default_data.get('arrange_orders', []),
+                }
 
     @api.model
     def get_sites(self, line_id):
         try:
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments.ids
             department_id = self.browse(int(line_id)).departmentId
-            return self.search_read([('parentid', '=', department_id)], ['id', 'name'])
+
+            child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('parentid', '=', department_id)]).ids
+            site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
+
+
+            return self.search_read(site_domain, ['id', 'name'])
         except Exception:
             return []
 

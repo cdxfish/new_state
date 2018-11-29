@@ -6,7 +6,7 @@ from odoo import models, fields, api
 import datetime
 import calendar
 from copy import deepcopy
-
+from ..get_domain import get_domain
 
 class ShedulingManage(models.Model):
     _name = 'funenc_xa_station.sheduling_manage'
@@ -36,6 +36,22 @@ class ShedulingManage(models.Model):
     show_arrange_order_name = fields.Text(string='班次')
     show_rule_name = fields.Char(string='排班规则', default='无')
     show_sheduling_time = fields.Char(string='排班时间')
+
+    @get_domain
+    @api.model
+    def domain_list(self,domain):
+        context = dict(self.env.context or {})
+        view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_sheduling_manage_list').id
+        return {
+            'name': '排班详情编辑',
+            'type': 'ir.actions.act_window',
+            'res_model': 'funenc_xa_station.sheduling_manage',
+            'context': context,
+            "views": [[view_tree, "tree"]],
+            'target': 'current',
+            'domain': domain
+        }
+
 
     @api.onchange('site_id')
     def onchange_site_id(self):
@@ -97,8 +113,8 @@ class ShedulingManage(models.Model):
             return {
                 'name': '创建排班',
                 'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'form',
+                'view_type': 'tree',
+                'view_mode': 'tree',
                 'res_model': 'funenc_xa_station.sheduling_manage',
                 'context': context,
                 # 'flags': {'initial_mode': 'edit'},
@@ -599,14 +615,15 @@ class ShedulingManage(models.Model):
     def get_cline_data(self, site_id, start_time):
         try:
             start_time = start_time[:10]
-            loc_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d') + datetime.timedelta(hours=24)
+            loc_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d') + datetime.timedelta(hours=8)
             month = loc_datetime.strftime('%Y-%m-%d')
             year = month[:4]
             month1 = month[5:7]
             days = calendar.monthrange(int(year), int(month1))[1]
             end_time = year + '-{}'.format(month1) + '-{}'.format(days)
+            start_time = '{}-01'.format(month[:7])
 
-            data = self.get_sheuling_list_1(site_id, loc_datetime.strftime('%Y-%m-%d'), end_time)
+            data = self.get_sheuling_list_1(site_id, start_time, end_time)
 
             return data
         except Exception:
@@ -911,31 +928,43 @@ class ShedulingManage(models.Model):
 
     def init_data(self):
 
-        ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments
-        site_ids = []
-        for department_id in department_ids:
-            if department_id.department_hierarchy == 3:
-                site_ids.append(department_id.id)
+        # ding_user = self.env.user.dingtalk_user
+        # department_ids = ding_user.user_property_departments
+        # site_obj_ids = []
+        # line_obj_ids = []
+        # for department_id in department_ids:
+        #     if department_id.department_hierarchy == 3:
+        #         site_obj_ids.append(department_id)
+        #         obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+        #             [('departmentId', '=', department_id.parentid)])
+        #
+        #         line_obj_ids.append(obj)
+        # default_line = line_obj_ids[0] if line_obj_ids else None
+        # child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+        #     [('parentid', '=', default_line.departmentId if default_line else None)])
+        # site_ids = list(set(department_ids) & set(child_department_ids))
+        # site_list_dic = []
+        # for site_id in site_ids:
+        #     site_list_dic.append({
+        #         'id':site_id.id,
+        #         'name':site_id.name
+        #     })
+        #
+        # default_site = site_list_dic[0].get('id') if site_list_dic else None
+        #
+        # start_time = datetime.datetime.now().strftime('%Y-%m-%d')
+        # start_time = '{}-01'.format(start_time[:7])
+        # year = start_time[:4]
+        # month1 = start_time[5:7]
+        # days = calendar.monthrange(int(year), int(month1))[1]
+        # end_time = year + '-{}'.format(month1) + '-{}'.format(days)
+        # default_data = self.get_sheuling_list_1(default_site,start_time,end_time)
 
-        line_self = self.env.user.dingtalk_user.id
-        ding_user = self.env.user.dingtalk_user
-        site_self = ding_user.user_property_departments.id
-
-        ding_user = self.env.user.dingtalk_user
-        department_ids = ding_user.user_property_departments
-        line_ids = []
-        for department_id in department_ids:
-            if department_id.department_hierarchy == 3:
-                id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    [('departmentId', '=', department_id.parentid)]).id
-                line_ids.append(id)
         return {
             'name': '排班汇总',
             'type': 'ir.actions.client',
             'tag': 'test_html_client',
             'target': 'current',
-            'params': {'line_self': line_self,'site_self':site_ids}
         }
 
 
