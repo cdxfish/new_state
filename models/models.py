@@ -672,6 +672,14 @@ class inherit_department(models.Model):
 
     @api.model
     def get_line_or_def_site(self):
+        '''
+         获取 默认站点 线路 和站点线路下拉数据
+        :return:  {'default_line': 默认线路,
+                'site_options': 权限可见站点,
+                'default_site': 默认站点,
+                'line_options':权限可见线路,
+                }
+        '''
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments
         site_obj_ids = []
@@ -695,14 +703,6 @@ class inherit_department(models.Model):
             })
 
         default_site = site_list_dic[0].get('id') if site_list_dic else None
-
-        start_time = datetime.datetime.now().strftime('%Y-%m-%d')
-        start_time = '{}-01'.format(start_time[:7])
-        year = start_time[:4]
-        month1 = start_time[5:7]
-        days = calendar.monthrange(int(year), int(month1))[1]
-        end_time = year + '-{}'.format(month1) + '-{}'.format(days)
-        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_site, start_time, end_time)
         line_ids = []
         for line_obj in line_obj_ids:
             line_ids.append(
@@ -715,10 +715,28 @@ class inherit_department(models.Model):
                 'site_options': site_list_dic,
                 'default_site': default_site,
                 'line_options':line_ids,
-                'days': default_data.get('days',[]),
-                'day_table_data': default_data.get('day_table_data',[]),
-                'total_table_data': default_data.get('total_table_data',[]),
-                'arrange_orders': default_data.get('arrange_orders',[]),
+                }
+
+    @api.model
+    def get_default_sheduling_data(self):
+        default_line_data = self.get_line_or_def_site()
+        start_time = datetime.datetime.now().strftime('%Y-%m-%d')
+        start_time = '{}-01'.format(start_time[:7])
+        year = start_time[:4]
+        month1 = start_time[5:7]
+        days = calendar.monthrange(int(year), int(month1))[1]
+        end_time = year + '-{}'.format(month1) + '-{}'.format(days)
+        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_line_data.get('default_site'), start_time,
+                                                                                          end_time)
+
+        return {'default_line': default_line_data.get('default_line'),
+                'site_options': default_line_data.get('site_options'),
+                'default_site': default_line_data.get('default_site'),
+                'line_options': default_line_data.get('line_options'),
+                'days': default_data.get('days', []),
+                'day_table_data': default_data.get('day_table_data', []),
+                'total_table_data': default_data.get('total_table_data', []),
+                'arrange_orders': default_data.get('arrange_orders', []),
                 }
 
     @api.model

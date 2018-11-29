@@ -30,7 +30,7 @@ odoo.define('test_html_client', function (require) {
                     var self = this;
                     return self._rpc({
                         model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                        method: 'get_line_or_def_site',
+                        method: 'get_default_sheduling_data',
                     }).then(function(data){
                         console.log(data)
                         self.vue_data.arrange_orders = data['arrange_orders'];
