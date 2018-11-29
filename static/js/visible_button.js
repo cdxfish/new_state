@@ -3,61 +3,86 @@ odoo.define('visible_button', function (require) {
     "use strict";
 
     var core = require('web.core');
-    var ListView = require('web.ListView');
-    var FormView = require('web.FormView');
-
-    ListView.include({
-
-        init: function () {
-            this._super.apply(this, arguments);
-            console.log('11',$('#id_1'))
-            $('#id_1').css('dispaly','none')
-        },
-
-//        render_buttons: function ($node) {
-//            var self = this;
-//            this._super($node);
-//            self.$buttons.find('#id_1').hide()
-//
-//            /*
-//             * 隐藏客户列表 创建按钮
-//             * */
-////            if (!tester_has_right && !region_customer_create) {
-////                self.$buttons.find('#res_partner_list').hide();
-////            }
-//
-//
-//
-//        },
-        start: function () {
-            var self = this;
-            self._super();
-            alert(33);
-//            var Users = new Model("res.users");
-//            Users.call('has_group', ['group_sobey.sale_sobey_leader']).done(function (has) {
-//                console.log("has_right: " + has);
-//                leader_has_right = has;
-//            });
+    var ListController = require('web.ListController');
+    var Sidebar = require('web.Sidebar');
+    var SidebarEx = require('layui_theme_sidebar_ext');
+    var searchExt = require('layui_theme.search_extend');
+    var _t = core._t;
 
 
-        }
-        ,
-    })
-    ;
-    FormView.include({
-        render_buttons: function ($node) {
-            var self = this;
-            this._super($node);
-            /*
-             * 隐藏现金流任务 创建按钮
-             * */
-            if (!tester_has_right && !cash_flow_management_create) {
-                self.$buttons.find('#cash_flow_mge_1').hide();
+   ListController.include({
+        sidebar_ext: undefined,
+        custom_tool_bars: [],
+        customSearch: undefined,
+        action_inited: false,
+
+
+
+        renderSidebar: function ($node) {
+            // 添加扩展按扭 屏蔽动作删除按钮
+            if (!this.sidebar_ext) {
+                this.sidebar_ext = new SidebarEx(this, {
+                    env: {
+                        context: this.model.get(this.handle, { raw: true }).getContext(),
+                        activeIds: this.getSelectedIds(),
+                        model: this.modelName,
+                    },
+                    actions: this.custom_tool_bars || []
+                });
+                this.sidebar_ext.appendTo($node);
             }
 
+            // 添加侧边栏
+            if (this.hasSidebar && !this.sidebar) {
+                var other = [{
+                    label: _t("Export"),
+                    callback: this._onExportData.bind(this)
+                }];
+
+                if (this.archiveEnabled) {
+                    other.push({
+                        label: _t("Archive"),
+                        callback: this._onToggleArchiveState.bind(this, true)
+                    });
+                    other.push({
+                        label: _t("Unarchive"),
+                        callback: this._onToggleArchiveState.bind(this, false)
+                    });
+                }
+
+//                if (this.is_action_enabled('delete')) {
+//                    other.push({
+//                        label: _t('Delete'),
+//                        callback: this._onDeleteSelectedRecords.bind(this)
+//                    });
+//                }
+
+                this.sidebar = new Sidebar(this, {
+                    editable: this.is_action_enabled('edit'),
+                    env: {
+                        context: this.model.get(this.handle, { raw: true }).getContext(),
+                        activeIds: this.getSelectedIds(),
+                        model: this.modelName,
+                    },
+                    actions: _.extend(this.toolbarActions.action || [].filter(function (action) {
+                        if (action.binding_type != "action_button" &&
+                            action.binding_type != "action_button_form" &&
+                            action.binding_type != "action_button_tree") {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }), { other: other }),
+                });
+
+                this.sidebar.appendTo($node);
+                this._toggleSidebar();
+            }
+
+        }
 
 
-        },
+
     });
 
 });

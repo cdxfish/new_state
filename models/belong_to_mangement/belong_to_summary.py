@@ -28,7 +28,7 @@ class BelongToSummary(models.Model):
         date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
         ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.id
+        ids = ding_user.user_property_departments.ids
         date_time = self.env['funenc_xa_station.belong_to_management'].search_read([('site_id','=',ids)])
         date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
         for list1 in date_list:
@@ -215,7 +215,7 @@ class BelongToSummary(models.Model):
             return
 
         ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.id
+        ids = ding_user.user_property_departments.ids
         print(ids)
         return ids
 
