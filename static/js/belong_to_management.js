@@ -18,21 +18,18 @@ odoo.define('belong_to_management', function (require) {
             self.user_data = [];
             self.user_line = [];
             self.user_site = [];   // 部门初始化变量
-            self._rpc({
-                model: 'funenc_xa_station.belong_to_summary',
-                method: 'get_line_self_data'
-            }).then(function (data) {
-                    self.line_data = data;
+        },
+
+        willStart: function(){
+            var self = this;
+            return self._rpc({
+                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                method: 'get_default_sheduling_data',
+            }).then(function(data){
+                  self.line_data = data.default_line;
+                  self.site_data = data.default_site;
+
             });
-            self._rpc({
-                model: 'funenc_xa_station.belong_to_summary',
-                method: 'get_site_self_data'
-            }).then(function (data) {
-                    self.site_data = data;
-            });
-            if (self.group_id) {
-                self.is_update = true
-            }
         },
 
         start: function () {

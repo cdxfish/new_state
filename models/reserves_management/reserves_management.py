@@ -38,9 +38,8 @@ class ReserverManagement(models.Model):
 
     @api.model
     def reserver_money_method(self):
-        ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.id
-        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',ids)])
+        ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_default_sheduling_data()
+        lol = self.env['funenc_xa_station.reserver_management'].search_read([('site_id','=',ids.get('default_site'))])
         return lol
 
 

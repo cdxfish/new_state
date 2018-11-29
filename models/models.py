@@ -213,6 +213,17 @@ class StationIndex(models.Model):
             'target': 'new',
         }
 
+
+    @api.model
+    def get_clock_record_date(self):
+        def_data = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_line_or_def_site()
+        line_id = def_data.get('default_line')
+        site_id = def_data.get('default_site')
+        line_options = def_data.get('line_options')
+        site_options = def_data.get('site_options')
+        return {'line_id':line_id,'site_id':site_id,'line_options':line_options,'site_options':site_options}
+
+
     @api.model
     def get_clock_record(self, start_time, site_id, user_id):
         # try:
