@@ -46,7 +46,6 @@ odoo.define('belong_to_management', function (require) {
             self._rpc({
                 model: 'funenc_xa_station.belong_to_summary',
                 method: 'add_count_line'
-
             }),
 
             self._rpc({

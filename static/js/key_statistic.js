@@ -13,6 +13,25 @@ odoo.define('key_statistic', function (require) {
         init: function (parent, action) {
             var self = this;
             this._super.apply(this, arguments);
+
+            self.line_self = 0 ;
+            self._rpc({
+                    model:'funenc.xa.station.key.manage',
+                    method: 'get_line_self_data'
+            }).then(function(data){
+                   self.line_self = data
+            });
+             self.line_self = 0 ;
+             self._rpc({
+                    model:'funenc.xa.station.key.manage',
+                    method: 'get_site_self_data'
+            }).then(function(data){
+                   self.site_self = data
+            });
+            self.user_line = [];
+            self.user_site = [];
+            self.key_type = [];
+
             self.group_id = action.context.group_id;
             self.key_data = { "result": [] };   // 声明钥匙统计变量
             self.key_views_ids = { "result": [] }; // 声明view 变量  用来 明确跳转
@@ -25,7 +44,20 @@ odoo.define('key_statistic', function (require) {
             $.when(self._rpc({
                 model: 'funenc.xa.station.key.manage',
                 method: 'get_statistic_key_data'
-            }), self._rpc({
+            }),
+            self._rpc({
+                model: 'funenc.xa.station.key.manage',
+                method: 'add_count_line'
+            }),
+            self._rpc({
+                model: 'funenc.xa.station.key.manage',
+                method: 'add_count_site'
+            }),
+            self._rpc({
+                model: 'funenc.xa.station.key.manage',
+                method: 'get_key_type_data'
+            }),
+            self._rpc({
                 model: 'funenc.xa.station.key.manage',
                 method: 'get_key_view_ids'
 
@@ -33,20 +65,24 @@ odoo.define('key_statistic', function (require) {
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: { module_name: 'funenc_xa_station', template_name: 'key_statistic' }
-            })).then(function (key_data, key_views_ids, res) {
+            })).then(function (key_data, user_line,user_site,key_type,key_views_ids, res) {
                 self.key_data = key_data;
+                self.user_line =user_line;
+                self.user_site =user_site;
+                self.key_type =key_type;
                 self.key_views_ids = key_views_ids;
                 self.replaceElement($(res));
-                new Vue({
+
+                var vue = new Vue({
                     el: '#funenc_xa_station',
                     data() {
                         return {
-                            line: '',
-                            lines: [],
-                            station: '',
-                            stations: [],
+                            line: self.line_self,
+                            lines: self.user_line,
+                            station: self.site_self,
+                            stations: self.user_site,
                             key: '',
-                            keys: [], 
+                            keys: self.key_type,
                             total: 130, // 数据总数，用于分页，默认20条记录每页
                             currentPage: 1, // 当前页数，默认1
                             tableData: self.key_data
@@ -58,6 +94,23 @@ odoo.define('key_statistic', function (require) {
                         onSubmit: function(){
 
                         },
+
+                        search_line_data: function (line_value) {
+
+                            if (vue.lines != '') {
+                                self._rpc({
+                                    model: 'funenc.xa.station.key.manage',
+                                    method: 'search_site',
+                                    kwargs: {date: line_value}
+                                }).then(function (data) {
+                                    vue.stations = data;
+                                });
+
+                            }
+                            ;
+
+                        },
+
                         handleCurrentChange: function(){
                             console.log(this.currentPage)
                         },

@@ -14,63 +14,33 @@ odoo.define('punch_clock_client', function (require) {
                     days: ['9-1', '9-2'],
                     sel_date: '',
                     sel_line: '',
-                    month: '',
+                    month: new Date(),
                     sel_station: '',
-                    line_options: [{
-                        value: '选项1',
-                        label: '黄金糕'
-                    }, {
-                        value: '选项2',
-                        label: '双皮奶'
-                    }, {
-                        value: '选项3',
-                        label: '蚵仔煎'
-                    }, {
-                        value: '选项4',
-                        label: '龙须面'
-                    }, {
-                        value: '选项5',
-                        label: '北京烤鸭'
-                    }],
+                    line_options: [],
 
-                    station_options: [{
-                        value: '选项1',
-                        label: '黄金糕'
-                    }, {
-                        value: '选项2',
-                        label: '双皮奶'
-                    }, {
-                        value: '选项3',
-                        label: '蚵仔煎'
-                    }, {
-                        value: '选项4',
-                        label: '龙须面'
-                    }, {
-                        value: '选项5',
-                        label: '北京烤鸭'
-                    }],
+                    station_options: [],
                     sel_user: '',
                     user_options: [],
                     loading: false,
                     attendance_table_data: '',
                     attendance_total_table_data: [{
-                        user_name: '张三',
-                        work_num: '92323',
-                        position: '站长',
-                        total_work_time: '23',
-                        no_work_time: '1',
-                        night_work_time: '3',
-                        add_work_time: '34',
-                        sick_leave: '1223',
-                        maternity_leave: '1',
-                        compassionate_leave: '23',
-                        year_leave: '55',
-                        marry_leave: '1242',
-                        maternited_leave: '55',
-                        nursing_leave: '10',
-                        funeral_leave: '98',
-                        job_injury_leave: '87',
-                        absenteeism: 76
+                        user_name: '',
+                        work_num: '',
+                        position: '',
+                        total_work_time: '',
+                        no_work_time: '',
+                        night_work_time: '',
+                        add_work_time: '',
+                        sick_leave: '',
+                        maternity_leave: '',
+                        compassionate_leave: '',
+                        year_leave: '',
+                        marry_leave: '',
+                        maternited_leave: '',
+                        nursing_leave: '',
+                        funeral_leave: '',
+                        job_injury_leave: '',
+                        absenteeism: ''
                     }]
                 };
             },

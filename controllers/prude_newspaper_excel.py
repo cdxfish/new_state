@@ -24,7 +24,9 @@ class CheckRecord(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['funenc_xa_station.prude_newspaper'].search([]) #获取当前线路的日报记录
+        ding_user = request.env.user.dingtalk_user
+        site = ding_user.user_property_departments.id
+        records = request.env['funenc_xa_station.prude_newspaper'].search([('site_id','=',site)]) #获取当前线路的日报记录
         if len(records) > 0:
             for record in records:
                 if record.line_id.name:

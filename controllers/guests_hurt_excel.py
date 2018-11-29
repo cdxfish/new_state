@@ -23,7 +23,9 @@ class GuestsHurt(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        records = request.env['fuenc_xa_station.guests_hurt'].search([])
+        ding_user = request.env.user.dingtalk_user
+        site = ding_user.user_property_departments.id
+        records = request.env['fuenc_xa_station.guests_hurt'].search([('site_id','=',site)])
         if len(records) > 0:
             for record in records:
                 if record.id:
