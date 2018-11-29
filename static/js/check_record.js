@@ -17,18 +17,6 @@ odoo.define('funenc_xa_check', function (require) {
             self.date_date =new Date();
             self._rpc({
                 model: 'funenc_xa_station.check_collect',
-                method: 'get_line_self'
-            }).then(function (data) {
-                self.line_self = data
-            });
-            self._rpc({
-                model: 'funenc_xa_station.check_collect',
-                method: 'get_site_self'
-            }).then(function (data) {
-                self.site_self = data
-            });
-            self._rpc({
-                model: 'funenc_xa_station.check_collect',
                 method: 'get_group_2'
             }).then(function (data) {
 //                console.log(data);
@@ -40,14 +28,7 @@ odoo.define('funenc_xa_check', function (require) {
                 ;
             });
             self.user_line = [];
-
-            self._rpc({
-                model: 'funenc_xa_station.award_collect',
-                method: 'add_count_line'
-            }).then(function (data) {
-                self.user_line =data
-            });
-
+            self.user_site = [];
             self._rpc({
                 model: 'funenc_xa_station.check_collect',
                 method: 'get_group_1'
@@ -99,19 +80,42 @@ odoo.define('funenc_xa_check', function (require) {
             self.replaceElement($el);
         },
 
+        willStart: function(){
+            var self = this;
+            return self._rpc({
+                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                method: 'get_default_sheduling_data',
+            }).then(function(data){
+                  self.line_self = data.default_line;
+                  self.site_self = data.default_site;
+            });
+        },
+
         start: function () {
             var self = this;
             $.when(self._rpc({
                 model: 'funenc_xa_station.check_collect',
                 method: 'check_record_method'
+            }),
+
+            self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'add_count_line'
+            }),
+
+            self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'add_count_site'
 
             }),
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_check'}
-            })).then(function (user_data, res) {
+            })).then(function (user_data,user_line, user_site, res) {
                 self.user_data = user_data;
+                self.user_line = user_line;
+                self.user_site = user_site;
                 self.replaceElement($(res));
                 var vue = new Vue({
                     el: '#funenc_xa_check',
@@ -128,7 +132,7 @@ odoo.define('funenc_xa_check', function (require) {
                             linei: self.line_self,
                             site: self.site_self,
                             lines: self.user_line,
-                            sites: '',
+                            sites: self.user_site,
                             person: '',
                             datetime:self.date_date,
                             input: '',
