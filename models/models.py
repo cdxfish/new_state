@@ -222,7 +222,7 @@ class StationIndex(models.Model):
         site_options = def_data.get('site_options')
         default_users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].pc_get_users_by_department_id(site_id)
         default_data = self.get_clock_record(
-            start_time=time.time()*1000,
+            start_time=time.time()*1000-2,
             line_id=line_id,
             site_id=site_id
         )
