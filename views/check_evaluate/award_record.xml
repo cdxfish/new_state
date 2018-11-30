@@ -76,7 +76,7 @@
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
-                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"></field>
                             <field name="award_target_kind" options="{'no_create':True,'no_open':True}"></field>
                             <field name="award_project" options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_project" options="{'no_create':True,'no_open':True}"></field>
@@ -109,7 +109,7 @@
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
-                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"></field>
                             <field name="award_target_kind"></field>
                             <field name="award_project" options="{'no_create':True,'no_open':True}"></field>
                             <field name="check_project"></field>
@@ -123,14 +123,5 @@
                 </form>
             </field>
         </record>
-
-
-        <!--<record model="ir.actions.act_window" id="award_record_act">-->
-            <!--<field name="name">奖励记录</field>-->
-            <!--<field name="res_model">funenc_xa_station.award_record</field>-->
-            <!--<field name="view_mode">tree,kanban,form</field>-->
-        <!--</record>-->
-
-        <!--<menuitem id="award_record_menu" name="奖励记录" action="award_record_act"></menuitem>-->
     </data>
 </odoo>

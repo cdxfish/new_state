@@ -40,9 +40,9 @@ class SpecialMoneyXlsx(http.Controller):
         worksheet.merge_range(0,12,0,15,'修复后照片')
 
         #获取当前的记录内容
-        ding_user = request.env.user.dingtalk_user
-        site = ding_user.user_property_departments.id
-        record = request.env['funenc_xa_station.break_log_manage'].search([('site_id','=',site)])
+        site = request.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_line_or_def_site()
+        site_id_self = [sites.get('id') for sites in site.get('site_options')]
+        record = request.env['funenc_xa_station.break_log_manage'].search([('site_id','=',site_id_self)])
         if record:
             row = 0
             column = 1
