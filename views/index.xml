@@ -14,10 +14,10 @@
         </record>
 
         <record model="ir.ui.view" id="funenc_xa_station_generate_qr_form">
-            <field name="name">funenc_xa_station_generate_qr_list</field>
+            <field name="name">funenc_xa_station_generate_qr_form</field>
             <field name="model">funenc_xa_station.generate_qr</field>
             <field name="arch" type="xml">
-                <form>
+                <form export="0" import="0">
 
                     <div class="container-fluid">
                         <div class="row">
@@ -27,7 +27,7 @@
                                         <span class="widget-label  col-md-4  col-sm-6  col-xs-12">上班二维码:
                                         </span>
                                         <div class="col-md-8  col-sm-6  col-xs-12">
-                                             <field name="work_qr" widget="image" options="{'size': [360, 360]}"/>
+                                             <field name="work_qr" widget="image" options="{'size': [360, 360]}" readonly="1"/>
                                         </div>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                         <span class="widget-label  col-md-4  col-sm-6  col-xs-12">下班二维码:
                                         </span>
                                         <div class="col-md-8  col-sm-6  col-xs-12">
-                                             <field name="off_work_qr" widget="image" options="{'size': [360, 360]}"/>
+                                             <field name="off_work_qr" widget="image" options="{'size': [360, 360]}" readonly="1"/>
                                         </div>
                                     </div>
                                 </div>

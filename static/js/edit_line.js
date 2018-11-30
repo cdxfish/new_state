@@ -10,7 +10,6 @@ odoo.define("chart_view", function(require) {
       this.replaceElement($el);
     },
     start: function() {
-      console.log("chart_view");
       var self = this;
       Vue.config.productionTip = false;
       Vue.nextTick(function() {

@@ -49,9 +49,8 @@ class AwardCollect(models.Model):
         startTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
-        ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.id
-        date_time = self.env['funenc_xa_station.award_record'].search_read([('site_id','=',ids)])
+        ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_default_sheduling_data()
+        date_time = self.env['funenc_xa_station.award_record'].search_read([('site_id','=',ids.get('default_site'))])
         date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
         for list1 in date_list:
             record[list1.get('jobnumber')] = list1

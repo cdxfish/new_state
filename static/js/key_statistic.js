@@ -13,21 +13,6 @@ odoo.define('key_statistic', function (require) {
         init: function (parent, action) {
             var self = this;
             this._super.apply(this, arguments);
-
-            self.line_self = 0 ;
-            self._rpc({
-                    model:'funenc.xa.station.key.manage',
-                    method: 'get_line_self_data'
-            }).then(function(data){
-                   self.line_self = data
-            });
-             self.line_self = 0 ;
-             self._rpc({
-                    model:'funenc.xa.station.key.manage',
-                    method: 'get_site_self_data'
-            }).then(function(data){
-                   self.site_self = data
-            });
             self.user_line = [];
             self.user_site = [];
             self.key_type = [];
@@ -39,6 +24,16 @@ odoo.define('key_statistic', function (require) {
                 self.is_update = true
             }
         },
+        willStart: function(){
+        var self = this;
+        return self._rpc({
+            model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+            method: 'get_default_sheduling_data',
+        }).then(function(data){
+            self.line_self = data.default_line;
+            self.site_self = data.default_site;
+        });
+    },
         start: function () {
             var self = this;
             $.when(self._rpc({
@@ -112,7 +107,6 @@ odoo.define('key_statistic', function (require) {
                         },
 
                         handleCurrentChange: function(){
-                            console.log(this.currentPage)
                         },
                         details: function(row){
                                    self._rpc({

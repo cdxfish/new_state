@@ -14,7 +14,6 @@ odoo.define("week_tree_btns_func", function (require) {
 		//查看流程
 		"click button.process": function (e) {
 			e.stopPropagation();
-			console.log("click button.process");
 		}
 	};
 });

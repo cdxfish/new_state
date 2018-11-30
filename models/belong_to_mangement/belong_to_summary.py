@@ -27,9 +27,8 @@ class BelongToSummary(models.Model):
         startTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         date_one = (startTime + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
         record = {}
-        ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.ids
-        date_time = self.env['funenc_xa_station.belong_to_management'].search_read([('site_id','=',ids)])
+        ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_default_sheduling_data()
+        date_time = self.env['funenc_xa_station.belong_to_management'].search_read([('site_id','=',ids.get('default_site'))])
         date_list = [check_record for check_record in date_time if check_record.get('check_time')[:7] == date_one[:7]]
         for list1 in date_list:
             record[list1.get('post_check')] = list1
@@ -85,7 +84,7 @@ class BelongToSummary(models.Model):
         if not person_id:
             date = date[:10]
             d = datetime.datetime.strptime(date, '%Y-%m-%d')
-            delta = datetime.timedelta(days=8)
+            delta = datetime.timedelta(hours=8)
             open_time = d + delta
             date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
             # print(date,line,site,person_id)
@@ -160,17 +159,19 @@ class BelongToSummary(models.Model):
             return record_list
 
     @api.model
-    def search_details_button(self,date,line,site,person_id):
+    def search_details_button(self,date,line,site,person_id,post_check):
+        if post_check == '保安':
+            post_check_one = 'guard'
+        if post_check == '安检':
+            post_check_one = 'check'
+        if post_check == '保洁':
+            post_check_one = 'clean'
         date_one = date[:10]
         date_two = date[11:19]
         date_main = date_one +' '+ date_two
         d = datetime.datetime.strptime(date_main, '%Y-%m-%d %H:%M:%S')
         delta = datetime.timedelta(hours=8)
         open_time = d + delta
-
-
-
-
         date_new = open_time.strftime('%Y-%m-%d %H:%M:%S')
         open_time = date_new[:7] + '-' + '01'
         date_new_one = datetime.datetime.strptime(open_time[:10], '%Y-%m-%d') + relativedelta(months=0)
@@ -178,18 +179,17 @@ class BelongToSummary(models.Model):
         date_new_two_fu = datetime.timedelta(hours=-1)
         date_end_new = date_new_two + date_new_two_fu
 
-        # domain = self.env['funenc_xa_station.belong_to_management'].search([('line_id','=',line),('site_id','=',site)])
-
         view_tree = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
             'name': '属地汇总',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain': "[('line_id','=',%s),('site_id','=',%s),('check_time','>=','%s'),('check_time','<','%s')]"
-                      % (int(line), int(site),date_new_one,date_end_new),
-            "views": [[view_tree, "list"]],
             'res_model': 'funenc_xa_station.belong_to_management',
+            'domain': [('line_id','=',line),('site_id','=',site),('check_time','>=',date_new_one),
+                       ('check_time','<',date_end_new),('post_check','=',post_check_one)],
+
+            "views": [[view_tree, "list"]],
             'context': self.env.context,
         }
 

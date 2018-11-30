@@ -33,7 +33,6 @@ odoo.define('change_shifts_clint', function (require) {
                         model: 'funenc_xa_station.production_change_shifts',
                         method: 'get_change_shifts_data'
                     }).then(function(data){
-                        console.log(data.jb_form)
                           self.vue_data.user=data.user
                           self.vue_data.change_shifts_ids = data.change_shifts_ids,
                           self.vue_data.take_over_from_ids = data.take_over_from_ids,
@@ -63,7 +62,6 @@ odoo.define('change_shifts_clint', function (require) {
                     methods: {
                         shift_shift: function(){
                             // 交班创建
-//                            console.log(self.vue_data.jb_form)
                             self.do_action({
                                                 name: '\u521b\u5efa',
                                                 type: 'ir.actions.act_window',
@@ -91,7 +89,6 @@ odoo.define('change_shifts_clint', function (require) {
                         },
 
                         handleClick(tab, event) {
-                            console.log(event);
                         },
 
 

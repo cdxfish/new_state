@@ -10,12 +10,13 @@ odoo.define('punch_clock_client', function (require) {
     var punch_clock_client = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
+
                 this.vue_data = {
                     days: ['9-1', '9-2'],
                     sel_date: '',
-                    sel_line: '',
+                    sel_line: self.self_line,
                     month: new Date(),
-                    sel_station: '',
+                    sel_station: self.self_site,
                     line_options: [],
 
                     station_options: [],
@@ -24,35 +25,38 @@ odoo.define('punch_clock_client', function (require) {
                     loading: false,
                     attendance_table_data: '',
                     attendance_total_table_data: [{
-                        user_name: '',
-                        work_num: '',
-                        position: '',
-                        total_work_time: '',
-                        no_work_time: '',
-                        night_work_time: '',
-                        add_work_time: '',
-                        sick_leave: '',
-                        maternity_leave: '',
-                        compassionate_leave: '',
-                        year_leave: '',
-                        marry_leave: '',
-                        maternited_leave: '',
-                        nursing_leave: '',
-                        funeral_leave: '',
-                        job_injury_leave: '',
-                        absenteeism: ''
+                    user_name: '',
+                    work_num: '',
+                    position: '',
+                    total_work_time: '',
+                    no_work_time: '',
+                    night_work_time: '',
+                    add_work_time: '',
+                    sick_leave: '',
+                    maternity_leave: '',
+                    compassionate_leave: '',
+                    year_leave: '',
+                    marry_leave: '',
+                    maternited_leave: '',
+                    nursing_leave: '',
+                    funeral_leave: '',
+                    job_injury_leave: '',
+                    absenteeism: ''
                     }]
                 };
             },
             willStart: function () {
 
                     var self= this;
-
                     return self._rpc({
-                        model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-                        method: 'get_line_id',
+                        model: 'fuenc_station.clock_record',
+                        method: 'get_clock_record_date',
                     }).then(function(data){
-                        self.vue_data.line_options = data
+                        self.self_line = data.line_id;
+                        self.self_site = data.site_id;
+                        self.line_options = data.line_options;
+                        self.site_options = data.site_options;
+
                     })
             },
             start: function () {
@@ -67,7 +71,38 @@ odoo.define('punch_clock_client', function (require) {
                         new Vue({
                             el: '#app',
                             data() {
-                                return self.vue_data
+                                return {
+                                    days: ['9-1', '9-2'],
+                                    sel_date: '',
+                                    sel_line: self.self_line,
+                                    month: new Date(),
+                                    sel_station: self.self_site,
+                                    line_options: self.line_options,
+                                    station_options: self.site_options,
+                                    sel_user: '',
+                                    user_options: [],
+                                    loading: false,
+                                    attendance_table_data: '',
+                                    attendance_total_table_data: [{
+                                    user_name: '',
+                                    work_num: '',
+                                    position: '',
+                                    total_work_time: '',
+                                    no_work_time: '',
+                                    night_work_time: '',
+                                    add_work_time: '',
+                                    sick_leave: '',
+                                    maternity_leave: '',
+                                    compassionate_leave: '',
+                                    year_leave: '',
+                                    marry_leave: '',
+                                    maternited_leave: '',
+                                    nursing_leave: '',
+                                    funeral_leave: '',
+                                    job_injury_leave: '',
+                                    absenteeism: ''
+                                    }]
+                                };
                             },
 
 //                            mounted() {

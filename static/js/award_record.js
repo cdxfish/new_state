@@ -12,35 +12,15 @@ odoo.define('funenc_xa_award', function (require) {
     dom_id: 'funenc_xa_award' + construct_id++,
     init: function (parent, action) {
       var self = this;
+      self.user_line = [];
+      self.user_site = [];   // 部门初始化变量
       self.new_date_self = new Date()
       this._super.apply(this, arguments)
       self.group_id = action.context.group_id
-
-      self._rpc({
-            model:'funenc_xa_station.award_collect',
-            method:'get_line_self_data'
-      }).then(function(data){
-      console.log(data);
-        if(data ){
-         self.line_data_self = data;
-        };
-      });
-
-      self._rpc({
-            model:'funenc_xa_station.award_collect',
-            method:'get_site_self_data'
-      }).then(function(data){
-      console.log(data);
-        if(data ){
-         self.site_data_self = data;
-        };
-      });
-
        self._rpc({
             model:'funenc_xa_station.award_collect',
             method:'get_group_2'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_2 = true;
         }else{
@@ -52,7 +32,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_1'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_1 = true;
         }else{
@@ -82,7 +61,6 @@ odoo.define('funenc_xa_award', function (require) {
             model:'funenc_xa_station.award_collect',
             method:'get_group_4'
       }).then(function(data){
-      console.log(data);
         if(data ){
             self.data_4 = true;
         }else{
@@ -95,17 +73,44 @@ odoo.define('funenc_xa_award', function (require) {
       }
     },
 
+        willStart: function(){
+            var self = this;
+            return self._rpc({
+                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                method: 'get_default_sheduling_data',
+            }).then(function(data){
+                  self.line_data_self = data.default_line;
+                  self.site_data_self = data.default_site;
+
+            });
+        },
+
     start: function () {
       var self = this;
       $.when(self._rpc({
           model: 'funenc_xa_station.award_collect',
           method:'award_record_method'
-        }), this._rpc({
+        }),
+
+        self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'add_count_line'
+            }),
+
+        self._rpc({
+                model: 'funenc_xa_station.belong_to_summary',
+                method: 'add_count_site'
+
+            }),
+
+        this._rpc({
           model: 'vue_template_manager.template_manage',
           method: 'get_template_content',
           kwargs: {module_name: 'funenc_xa_station', template_name: 'funenc_xa_award'}
-      })).then(function (user_data, res) {
+      })).then(function (user_data,user_line, user_site, res) {
           self.user_data = user_data;
+          self.user_line = user_line;
+          self.user_site = user_site;
           self.replaceElement($(res));
           var vue = new Vue({
                     el: '#funenc_xa_award',
@@ -189,7 +194,6 @@ odoo.define('funenc_xa_award', function (require) {
                                             model:'funenc_xa_station.check_record',
                                             method:'get_action',
                                          }).then(function(data){
-//                                            console.log(data);
                                             self.do_action(data);
                                             });
                                      }else if(that.tabValue==2){
@@ -197,7 +201,6 @@ odoo.define('funenc_xa_award', function (require) {
                                                     model:'funenc_xa_station.check_collect',
                                                     method:'get_action',
                                                  }).then(function(data){
-//                                                    console.log(data);
                                                     self.do_action(data);
                                                     });
                                             }

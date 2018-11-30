@@ -14,6 +14,9 @@ import time
 import json
 import xlrd,xlwt
 import logging
+import requests
+from .python_util import *
+
 _logger = logging.getLogger(__name__)
 
 
@@ -115,17 +118,17 @@ class StationIndex(models.Model):
     clock_end_time = fields.Datetime(string='下班打卡时间')
     work_time = fields.Float(string='工作时长(h)', compute='_compute_work_time', store=True)
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
-    overtime = fields.Float(string='加班时长', compute='_compute_work_time', store=True)
+    overtime = fields.Float(string='加班时长')
     festival_overtime = fields.Float(string='节假日加班时长')
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
-
 
 
     @api.model
     def save_clock_record(self,**kw):
         site_id = kw.get('department_id')
         user_id = kw.get('user_id')
+
         if kw.get('type') == 'work':
             arrange_order_id = self.env['funenc_xa_station.sheduling_record'].sudo().search(
                 [('site_id', '=', site_id),
@@ -154,11 +157,47 @@ class StationIndex(models.Model):
                 if clock_record.clock_end_time:
                     return '请先上班打卡'
                 else:
-                    clock_record.clock_end_time = datetime.datetime.now()
+                    work_time = get_time_difference_th(clock_record.clock_end_time,clock_record.clock_start_time)
+                    if work_time<=12:
+                        compute_work_time = work_time
+                        clock_record.work_time = compute_work_time
+                    else:
+                        compute_work_time = 12
+                        clock_record.work_time = compute_work_time
+                        clock_record.is_overtime = 'yes'
+                        clock_record.overtime = work_time - 12
+                    if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]: # 上下班打卡为一天
+                        flag = self.get_festival_and_holiday(clock_record.clock_end_time[:10])
+                        if flag:
+                            clock_record.festival_overtime = compute_work_time
+                    else:  # 上下班打卡不为一天
+                        morning_difference_th_1  = 0
+                        morning_difference_th_2 = 0
+                        if self.get_festival_and_holiday(clock_record.clock_start_time[:10]):
+                            morning_difference_th_1 = to_morning_difference_th(clock_record.clock_end_time[:10])
+                        if self.get_festival_and_holiday(clock_record.clock_end_time[:10]):
+                            morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
+                        clock_record.festival_overtime = morning_difference_th_1+ morning_difference_th_2
+
+
                     return '下班打卡成功'
             else:
                 return '请先上班打卡'
 
+    def get_festival_and_holiday(self,dtime):
+        # 判断节假日 参数 date  返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
+        url = "http://api.goseek.cn/Tools/holiday"  #
+        # 2017-11-11
+        str_date = dtime[:10]
+        date = '{}{}{}'.format(str_date[:4], str_date[5:7], str_date[8:10])
+        data = {
+            'date': date
+        }
+        request = requests.get(url, data).json()
+        if request.get('data') == 2:
+            return True
+        else:
+            return False
 
 
     @api.model
@@ -173,6 +212,17 @@ class StationIndex(models.Model):
             'context': context,
             'target': 'new',
         }
+
+
+    @api.model
+    def get_clock_record_date(self):
+        def_data = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_line_or_def_site()
+        line_id = def_data.get('default_line')
+        site_id = def_data.get('default_site')
+        line_options = def_data.get('line_options')
+        site_options = def_data.get('site_options')
+        return {'line_id':line_id,'site_id':site_id,'line_options':line_options,'site_options':site_options}
+
 
     @api.model
     def get_clock_record(self, start_time, site_id, user_id):
@@ -481,7 +531,7 @@ class generate_qr(models.Model):
                     work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
                     off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
-                    obj.write({
+                    obj.sudo().write({
 
                         'work_qr': work_b64,
                         'off_work_qr': off_work_b64,
@@ -499,7 +549,7 @@ class generate_qr(models.Model):
                 line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                     [('departmentId', '=', department_obj.parentid)]).id
 
-                self.create({
+                self.sudo().create({
                     'work_qr': work_b64,
                     'off_work_qr': off_work_b64,
                     'add_date': datetime.datetime.now(),
@@ -672,6 +722,14 @@ class inherit_department(models.Model):
 
     @api.model
     def get_line_or_def_site(self):
+        '''
+         获取 默认站点 线路 和站点线路下拉数据
+        :return:  {'default_line': 默认线路,
+                'site_options': 权限可见站点,
+                'default_site': 默认站点,
+                'line_options':权限可见线路,
+                }
+        '''
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments
         site_obj_ids = []
@@ -695,14 +753,6 @@ class inherit_department(models.Model):
             })
 
         default_site = site_list_dic[0].get('id') if site_list_dic else None
-
-        start_time = datetime.datetime.now().strftime('%Y-%m-%d')
-        start_time = '{}-01'.format(start_time[:7])
-        year = start_time[:4]
-        month1 = start_time[5:7]
-        days = calendar.monthrange(int(year), int(month1))[1]
-        end_time = year + '-{}'.format(month1) + '-{}'.format(days)
-        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_site, start_time, end_time)
         line_ids = []
         for line_obj in line_obj_ids:
             line_ids.append(
@@ -715,10 +765,28 @@ class inherit_department(models.Model):
                 'site_options': site_list_dic,
                 'default_site': default_site,
                 'line_options':line_ids,
-                'days': default_data.get('days',[]),
-                'day_table_data': default_data.get('day_table_data',[]),
-                'total_table_data': default_data.get('total_table_data',[]),
-                'arrange_orders': default_data.get('arrange_orders',[]),
+                }
+
+    @api.model
+    def get_default_sheduling_data(self):
+        default_line_data = self.get_line_or_def_site()
+        start_time = datetime.datetime.now().strftime('%Y-%m-%d')
+        start_time = '{}-01'.format(start_time[:7])
+        year = start_time[:4]
+        month1 = start_time[5:7]
+        days = calendar.monthrange(int(year), int(month1))[1]
+        end_time = year + '-{}'.format(month1) + '-{}'.format(days)
+        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_line_data.get('default_site'), start_time,
+                                                                                          end_time)
+
+        return {'default_line': default_line_data.get('default_line'),
+                'site_options': default_line_data.get('site_options'),
+                'default_site': default_line_data.get('default_site'),
+                'line_options': default_line_data.get('line_options'),
+                'days': default_data.get('days', []),
+                'day_table_data': default_data.get('day_table_data', []),
+                'total_table_data': default_data.get('total_table_data', []),
+                'arrange_orders': default_data.get('arrange_orders', []),
                 }
 
     @api.model

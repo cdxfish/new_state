@@ -14,24 +14,24 @@ odoo.define('reserver_money', function (require) {
             var self = this;
             this._super.apply(this, arguments);
             self.group_id = action.context.group_id;
-            self._rpc({
-                model: 'funenc_xa_station.reserver_management',
-                method: 'get_line_self_data'
-            }).then(function (data) {
-                                    self.line_self = data;
-                                    });
-            self._rpc({
-                model: 'funenc_xa_station.reserver_management',
-                method: 'get_site_self_data'
-            }).then(function (data) {
-                                    self.site_self = data;
-                                    });
             self.user_data = [];
             self.user_line = [];
             self.user_site = [];   // 部门初始化变量
             if (self.group_id) {
                 self.is_update = true
             }
+        },
+
+    willStart: function(){
+            var self = this;
+            return self._rpc({
+                model: 'cdtct_dingtalk.cdtct_dingtalk_department',
+                method: 'get_default_sheduling_data',
+            }).then(function(data){
+                  self.line_self = data.default_line;
+                  self.site_self = data.default_site;
+
+            });
         },
 
         start: function () {
