@@ -14,6 +14,9 @@ import time
 import json
 import xlrd,xlwt
 import logging
+import requests
+from .python_util import *
+
 _logger = logging.getLogger(__name__)
 
 
@@ -115,17 +118,17 @@ class StationIndex(models.Model):
     clock_end_time = fields.Datetime(string='下班打卡时间')
     work_time = fields.Float(string='工作时长(h)', compute='_compute_work_time', store=True)
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
-    overtime = fields.Float(string='加班时长', compute='_compute_work_time', store=True)
+    overtime = fields.Float(string='加班时长')
     festival_overtime = fields.Float(string='节假日加班时长')
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
-
 
 
     @api.model
     def save_clock_record(self,**kw):
         site_id = kw.get('department_id')
         user_id = kw.get('user_id')
+
         if kw.get('type') == 'work':
             arrange_order_id = self.env['funenc_xa_station.sheduling_record'].sudo().search(
                 [('site_id', '=', site_id),
@@ -154,11 +157,47 @@ class StationIndex(models.Model):
                 if clock_record.clock_end_time:
                     return '请先上班打卡'
                 else:
-                    clock_record.clock_end_time = datetime.datetime.now()
+                    work_time = get_time_difference_th(clock_record.clock_end_time,clock_record.clock_start_time)
+                    if work_time<=12:
+                        compute_work_time = work_time
+                        clock_record.work_time = compute_work_time
+                    else:
+                        compute_work_time = 12
+                        clock_record.work_time = compute_work_time
+                        clock_record.is_overtime = 'yes'
+                        clock_record.overtime = work_time - 12
+                    if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]: # 上下班打卡为一天
+                        flag = self.get_festival_and_holiday(clock_record.clock_end_time[:10])
+                        if flag:
+                            clock_record.festival_overtime = compute_work_time
+                    else:  # 上下班打卡不为一天
+                        morning_difference_th_1  = 0
+                        morning_difference_th_2 = 0
+                        if self.get_festival_and_holiday(clock_record.clock_start_time[:10]):
+                            morning_difference_th_1 = to_morning_difference_th(clock_record.clock_end_time[:10])
+                        if self.get_festival_and_holiday(clock_record.clock_end_time[:10]):
+                            morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
+                        clock_record.festival_overtime = morning_difference_th_1+ morning_difference_th_2
+
+
                     return '下班打卡成功'
             else:
                 return '请先上班打卡'
 
+    def get_festival_and_holiday(self,dtime):
+        # 判断节假日 参数 date  返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
+        url = "http://api.goseek.cn/Tools/holiday"  #
+        # 2017-11-11
+        str_date = dtime[:10]
+        date = '{}{}{}'.format(str_date[:4], str_date[5:7], str_date[8:10])
+        data = {
+            'date': date
+        }
+        request = requests.get(url, data).json()
+        if request.get('data') == 2:
+            return True
+        else:
+            return False
 
 
     @api.model
@@ -492,7 +531,7 @@ class generate_qr(models.Model):
                     work_b64 = self.create_qrcode_1(work_add_data, work_file_name)
 
                     off_work_b64 = self.create_qrcode_1(off_work_add_data, off_work_name)
-                    obj.write({
+                    obj.sudo().write({
 
                         'work_qr': work_b64,
                         'off_work_qr': off_work_b64,
@@ -510,7 +549,7 @@ class generate_qr(models.Model):
                 line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                     [('departmentId', '=', department_obj.parentid)]).id
 
-                self.create({
+                self.sudo().create({
                     'work_qr': work_b64,
                     'off_work_qr': off_work_b64,
                     'add_date': datetime.datetime.now(),
