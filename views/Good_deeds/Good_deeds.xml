@@ -72,7 +72,7 @@
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                 <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -80,7 +80,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"/>
+                                     <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
                               </div>
                            </div>
                         </div>
@@ -110,7 +110,7 @@
                                      <label for="type" string="事件类型"/>
                                   </div>
                                  <div class="col-md-8">
-                                     <field name="type"/>
+                                     <field name="type" options="{'no_create':True,'no_open':True}"/>
                                   </div>
                                </div>
                                <div class="col-md-6">
@@ -118,7 +118,7 @@
                                      <label for="related_person" string="相关人员"/>
                                   </div>
                                      <div class="col-md-8">
-                                         <field name="related_person" widget="many2many_tags">
+                                         <field name="related_person" widget="many2many_tags" options="{'no_create':True,'no_open':True}">
                                              <tree>
                                                  <field name="name" ></field>
                                              </tree>
@@ -348,16 +348,5 @@
                 </form>
             </field>
         </record>
-
-
-        <!--<record id="good_deeds_act" model="ir.actions.act_window">-->
-			<!--<field name="name">好人好事</field>-->
-			<!--<field name="res_model">fuenc_station.good_deeds</field>-->
-			<!--<field name="view_mode">tree,form</field>-->
-            <!--<field name="ref_view">good_deeds_tree</field>-->
-
-		<!--</record>-->
-
-        <!--<menuitem id="good_deeds_menu" name="好人好事" action="good_deeds_act"></menuitem>-->
     </data>
 </odoo>

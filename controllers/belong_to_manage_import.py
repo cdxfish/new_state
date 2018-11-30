@@ -22,9 +22,9 @@ class BelongToManageImport(http.Controller):
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
-        ding_user = request.env.user.dingtalk_user
-        site = ding_user.user_property_departments.id
-        records = request.env['funenc_xa_station.belong_to_management'].search([('site_id','=',site)])
+        site = request.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_line_or_def_site()
+        site_id_self = [sites.get('id') for sites in site.get('site_options')]
+        records = request.env['funenc_xa_station.belong_to_management'].search([('site_id','in',site_id_self)])
         if len(records) > 0:
             for record in records:
                 if record.line_id.name:
