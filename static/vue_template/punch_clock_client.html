@@ -22,7 +22,7 @@
                     <span>线路：</span>
                 </el-col>
                 <el-col :span="18">
-                    <el-select size="small" v-model="sel_line" placeholder="请选择" @change="select_line">
+                    <el-select size="small" v-model="sel_line" placeholder="请选择" filterable @change="select_line">
                         <el-option
                                 v-for="item in line_options"
                                 :key="item.id"
@@ -40,7 +40,7 @@
                     <span>归属站点：</span>
                 </el-col>
                 <el-col :span="15">
-                    <el-select size="small" v-model="sel_station" placeholder="请选择" @change="select_user">
+                    <el-select size="small" v-model="sel_station" filterable clearable placeholder="请选择" @change="select_user">
                         <el-option
                                 v-for="item in station_options"
                                 :key="item.id"
@@ -62,11 +62,9 @@
                             size="small"
                             v-model="sel_user"
                             filterable
-                            remote
-                            reserve-keyword
+                            clearable
                             placeholder="请输入关键词"
-                            :remote-method="remoteMethod"
-                            :loading="loading">
+                    >
                         <el-option
                                 v-for="item in user_options"
                                 :key="item.id"

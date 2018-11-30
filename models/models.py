@@ -179,7 +179,6 @@ class StationIndex(models.Model):
                             morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
                         clock_record.festival_overtime = morning_difference_th_1+ morning_difference_th_2
 
-
                     return '下班打卡成功'
             else:
                 return '请先上班打卡'
@@ -213,38 +212,60 @@ class StationIndex(models.Model):
             'target': 'new',
         }
 
-
     @api.model
     def get_clock_record_date(self):
+
         def_data = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].get_line_or_def_site()
         line_id = def_data.get('default_line')
         site_id = def_data.get('default_site')
         line_options = def_data.get('line_options')
         site_options = def_data.get('site_options')
-        return {'line_id':line_id,'site_id':site_id,'line_options':line_options,'site_options':site_options}
+        default_users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].pc_get_users_by_department_id(site_id)
+        default_data = self.get_clock_record(
+            start_time=time.time()*1000,
+            line_id=line_id,
+            site_id=site_id
+        )
+
+        return {'line_id': line_id, 'site_id': site_id, 'line_options': line_options, 'site_options': site_options,
+                'default_users': default_users,
+                'default_data':default_data
+                }
 
 
     @api.model
-    def get_clock_record(self, start_time, site_id, user_id):
+    def get_clock_record(self,**kw ):
         # try:
         #     pass
         # except Exception:
-        #     return []
-        start_time = start_time[:10]
-        loc_datetime = datetime.datetime.strptime(start_time, '%Y-%m-%d') + datetime.timedelta(hours=24)
+        #     return [] '%Y-%m-%d %H:%M:%S'
+        current_time = time.time()
+        start_time = kw.get('start_time')
+        start_time_second = float(start_time)/1000
+        date_time = datetime.datetime.fromtimestamp(start_time_second)
+        line_id = kw.get('line_id')
+        site_id = kw.get('site_id')
+        user_id = kw.get('user_id')
+
+        loc_datetime = date_time + datetime.timedelta(hours=8)
         month = loc_datetime.strftime('%Y-%m-%d')
         year = month[:4]
         month1 = month[5:7]
         day = calendar.monthrange(int(year), int(month1))[1]
         end_time = year + '-{}'.format(month1) + '-{}'.format(day)
+        start_month_str_time = year + '-{}'.format(month1) + '-01'
+        start_month = datetime.datetime.strptime(start_month_str_time,'%Y-%m-%d')
         end_datetime = datetime.datetime.strptime(end_time, '%Y-%m-%d')
         # datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S')
+        end_month_second = time.mktime(end_datetime.timetuple())
+        if (end_month_second+24*60*60-1) >=current_time:
+            end_datetime = datetime.datetime.fromtimestamp(current_time-24*60*60)
 
-        days = (end_datetime - loc_datetime).days + 1
+        days = (end_datetime - start_month).days + 1
 
         show_time_days = []  # 排班显示时间
         for day in range(days):
-            str_to_datetime = loc_datetime + datetime.timedelta(days=day)
+            str_to_datetime = start_month + datetime.timedelta(days=day)
             datetime_to_str = str_to_datetime.strftime('%Y-%m-%d')[5:11]
             if datetime_to_str == '0':
                 show_time_days.append(datetime_to_str[1:])
@@ -253,14 +274,21 @@ class StationIndex(models.Model):
 
         show_data = {}
         show_data['days'] = show_time_days
+        domain = [('id','<',1)]
+        if line_id and site_id and user_id:
+            domain = [('time', '>=', start_month_str_time), ('time', '<=', end_time), ('site_id', '=', site_id),
+                 ('user_id', '=', user_id)]
+        if line_id and site_id and not user_id:
+            domain = [('time', '>=', start_month_str_time), ('time', '<=', end_time), ('site_id', '=', site_id)]
+        if line_id and not site_id and not user_id:
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments.ids
+            if line_id in department_ids:
+                domain = [('time', '>=', start_month_str_time), ('time', '<=', end_time), ('line_id', '=', line_id)]
+            else:
+                domain = [('id', '<', 1)]
 
-        if user_id:
-            clock_records = self.search_read(
-                [('time', '>=', start_time), ('time', '<=', end_time), ('site_id', '=', site_id),
-                 ('user_id', '=', user_id)])
-        else:
-            clock_records = self.search_read(
-                [('time', '>=', start_time), ('time', '<=', end_time), ('site_id', '=', site_id)])
+        clock_records = self.search_read(domain)
 
         # 去重
         clock_record_ids = {}  # 以人物id为key构建的打卡记录
@@ -692,7 +720,7 @@ class inherit_department(models.Model):
     def pc_get_users_by_department_id(self, site_id):
         try:
             users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search_read(
-                [('departments', '=', int(site_id))]
+                [('user_property_departments', '=', int(site_id))]
                 , ['id', 'name'])
 
             return users

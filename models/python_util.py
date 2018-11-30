@@ -84,8 +84,4 @@ def today_morning_difference_th(dtime):
 
     difference_th = round((int_time1-int_time2)/ (60 * 60), 2)
 
-
     return difference_th
-
-
-print(today_morning_difference_th('2010-10-10 10:00:00'))

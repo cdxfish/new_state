@@ -10,17 +10,14 @@ odoo.define('punch_clock_client', function (require) {
     var punch_clock_client = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
-
+                self = this;
                 this.vue_data = {
                     days: ['9-1', '9-2'],
-                    sel_date: '',
-                    sel_line: self.self_line,
                     month: new Date(),
-                    sel_station: self.self_site,
                     line_options: [],
 
                     station_options: [],
-                    sel_user: '',
+                    sel_user: [],
                     user_options: [],
                     loading: false,
                     attendance_table_data: '',
@@ -52,10 +49,15 @@ odoo.define('punch_clock_client', function (require) {
                         model: 'fuenc_station.clock_record',
                         method: 'get_clock_record_date',
                     }).then(function(data){
-                        self.self_line = data.line_id;
-                        self.self_site = data.site_id;
-                        self.line_options = data.line_options;
-                        self.site_options = data.site_options;
+                        self.vue_data.line_options = data.line_options;
+                        self.vue_data.station_options = data.site_options;
+                        self.vue_data.sel_line = data.line_id;
+                        self.vue_data.sel_station = data.site_id;
+                        self.vue_data.user_options = data.default_users;
+                        self.vue_data.days = data.default_data.days;
+                        self.vue_data.attendance_table_data = data.default_data.attendance_table_data;
+                        self.vue_data.attendance_total_table_data = data.default_data.attendance_total_table_data;
+
 
                     })
             },
@@ -71,52 +73,9 @@ odoo.define('punch_clock_client', function (require) {
                         new Vue({
                             el: '#app',
                             data() {
-                                return {
-                                    days: ['9-1', '9-2'],
-                                    sel_date: '',
-                                    sel_line: self.self_line,
-                                    month: new Date(),
-                                    sel_station: self.self_site,
-                                    line_options: self.line_options,
-                                    station_options: self.site_options,
-                                    sel_user: '',
-                                    user_options: [],
-                                    loading: false,
-                                    attendance_table_data: '',
-                                    attendance_total_table_data: [{
-                                    user_name: '',
-                                    work_num: '',
-                                    position: '',
-                                    total_work_time: '',
-                                    no_work_time: '',
-                                    night_work_time: '',
-                                    add_work_time: '',
-                                    sick_leave: '',
-                                    maternity_leave: '',
-                                    compassionate_leave: '',
-                                    year_leave: '',
-                                    marry_leave: '',
-                                    maternited_leave: '',
-                                    nursing_leave: '',
-                                    funeral_leave: '',
-                                    job_injury_leave: '',
-                                    absenteeism: ''
-                                    }]
-                                };
-                            },
+                                return self.vue_data
 
-//                            mounted() {
-//                                var that = this;
-//                                var height = window.innerHeight - 20;
-//                                that.height = "padding:40px 80px;height: " + height + "px;";
-//                                that._rpc({
-//                                    model: 'cdtct_dingtalk.cdtct_dingtalk_department',
-//                                    method: 'get_line_id',
-//                                }).then(function(data){
-//                                    that.vue_data.lines = data
-//                                })
-//
-//                            },
+                            },
 
                             methods: {
                                 remoteMethod(query) {
@@ -146,7 +105,6 @@ odoo.define('punch_clock_client', function (require) {
                                         method: 'get_sites',
                                         kwargs: {line_id: line_id}
                                     }).then(function(data){
-                                        console.log(data)
                                         self.vue_data.station_options = data
                                     })
 
@@ -159,28 +117,26 @@ odoo.define('punch_clock_client', function (require) {
                                         method: 'pc_get_users_by_department_id',
                                         kwargs: {site_id: site_id}
                                     }).then(function(data){
-                                        console.log(data)
                                         self.vue_data.user_options = data
                                     })
 
                                 },
 
                                 search: function () {
-                                if (self.vue_data.month && self.vue_data.sel_station){
 
                                     self._rpc({
                                              model: 'fuenc_station.clock_record',
                                              method: 'get_clock_record',
-                                             kwargs: {start_time: self.vue_data.month,
+                                             kwargs: {start_time: self.vue_data.month.getTime(),
                                                       site_id: self.vue_data.sel_station,
-                                                      user_id: self.vue_data.sel_user
+                                                      user_id: self.vue_data.sel_user,
+                                                      line_id: self.vue_data.sel_line
                                              }
                                          }).then(function (data) {
                                              self.vue_data.days = data.days;
                                              self.vue_data.attendance_table_data = data.attendance_table_data;
                                              self.vue_data.attendance_total_table_data = data.attendance_total_table_data;
                                          })
-                                    }
 
 
                                 }
