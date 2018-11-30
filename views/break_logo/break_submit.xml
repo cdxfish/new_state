@@ -56,6 +56,8 @@
             <field name="model">funenc_xa_station.break_submit</field>
             <field name="arch" type="xml">
                 <form edit="0" create="0" class="noOpen">
+                    <field name="product_id_domain" invisible="1"/>
+                    <field name="product_site_id_domain" invisible="1"/>
                     <sheet>
                         <group>
                           <div class="row">
@@ -64,7 +66,7 @@
                                          <label for="line_id" string="线路："/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1">
+                                         <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain">
                                          </field>
                                     </div>
                                  </div>
@@ -75,7 +77,7 @@
                                          <label for="site_id" string="站点"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1">
+                                         <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain">
                                          </field>
                                     </div>
                                  </div>
@@ -190,7 +192,7 @@
                                          <label for="break_type" string="故障类型"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="break_type" readonly="1">
+                                         <field name="break_type" readonly="1" options="{'no_create':True,'no_open':True}">
                                          </field>
                                     </div>
                                  </div>
@@ -316,7 +318,7 @@
                                          <label for="break_type" string="故障类型" readonly="1"/>
                                       </div>
                                      <div class="col-md-9" >
-                                         <field name="break_type" readonly="1">
+                                         <field name="break_type" readonly="1" options="{'no_create':True,'no_open':True}">
                                          </field>
                                     </div>
                                  </div>

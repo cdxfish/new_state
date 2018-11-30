@@ -58,7 +58,7 @@
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
-                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"></field>
                             <field name="transient_type" widget="cascader_widget"></field>
                             <field name="transient_name"></field>
                             <field name="transient_number"></field>
@@ -82,7 +82,7 @@
                                  <label for="line_id" string="线路"/>
                               </div>
                              <div class="col-md-8">
-                                 <field name="line_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                                 <field name="line_id" readonly="1" options="{'no_create':True,'no_open':True}" domain="product_id_domain"/>
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -90,7 +90,7 @@
                                  <label for="site_id" string="站点"/>
                               </div>
                                  <div class="col-md-8">
-                                     <field name="site_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                                     <field name="site_id" readonly="1" options="{'no_create':True,'no_open':True}" domain="product_site_id_domain"/>
                               </div>
                            </div>
                         </div>
@@ -183,12 +183,6 @@
                 </form>
             </field>
         </record>
-
-        <!--<record id="transceiver_settings_act" model="ir.actions.act_window">-->
-            <!--<field name="name">工器具使用列表</field>-->
-            <!--<field name="res_model">funenc_xa_station.transceiver_settings</field>-->
-            <!--<field name="view_mode">tree,form</field>-->
-        <!--</record>-->
 
         <menuitem id="transceiver_settings_menu" name="工器具使用列表" action="transceiver_settings_act" parent=""></menuitem>
 

@@ -10,7 +10,6 @@ odoo.define('punch_clock_client', function (require) {
     var punch_clock_client = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
-
                 this.vue_data = {
                     days: ['9-1', '9-2'],
                     sel_date: '',
