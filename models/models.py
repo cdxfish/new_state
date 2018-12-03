@@ -116,7 +116,7 @@ class StationIndex(models.Model):
     clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点')
     clock_start_time = fields.Datetime(string='上班打卡时间')
     clock_end_time = fields.Datetime(string='下班打卡时间')
-    work_time = fields.Float(string='工作时长(h)', compute='_compute_work_time', store=True)
+    work_time = fields.Float(string='工作时长(h)')
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
     overtime = fields.Float(string='加班时长')
     festival_overtime = fields.Float(string='节假日加班时长')
@@ -438,22 +438,22 @@ class StationIndex(models.Model):
 
         return show_data
 
-    def _compute_work_time(self):
-        for this in self:
-            if this.clock_start_time:
-                start_time = datetime.datetime.strptime(this.clock_start_time,
-                                                        '%Y-%m-%d %H:%M:%S')
-                if this.clock_end_time:
-                    end_time = datetime.datetime.strptime(this.clock_end_time, '%Y-%m-%d %H:%M:%S')
-                    work_time = round((end_time - start_time).seconds / (60 * 60), 2)
-                    this.work_time = work_time if work_time <= 12 else 12
-
-                    if work_time > 12:
-                        this.overtime = work_time - 12
-                    else:
-                        this.overtime = 0
-                else:
-                    this.work_time = 0
+    # def _compute_work_time(self):
+    #     for this in self:
+    #         if this.clock_start_time:
+    #             start_time = datetime.datetime.strptime(this.clock_start_time,
+    #                                                     '%Y-%m-%d %H:%M:%S')
+    #             if this.clock_end_time:
+    #                 end_time = datetime.datetime.strptime(this.clock_end_time, '%Y-%m-%d %H:%M:%S')
+    #                 work_time = round((end_time - start_time).seconds / (60 * 60), 2)
+    #                 this.work_time = work_time if work_time <= 12 else 12
+    #
+    #                 if work_time > 12:
+    #                     this.overtime = work_time - 12
+    #                 else:
+    #                     this.overtime = 0
+    #             else:
+    #                 this.work_time = 0
 
     @api.model
     def get_month_clock_record(self, month):

@@ -152,3 +152,15 @@ class PositionSettings(models.Model):
                 'context': {},
             }
 
+    def act_group_users(self):
+        view_form = self.env.ref('funenc_xa_station.funenc_xa_station_group_form').id
+        return {
+            'name': '角色组成员',
+            "type": "ir.actions.act_window",
+            "res_model": "res.groups",
+            "views": [[view_form, "form"]],
+            'target': 'new',
+            'context': {},
+            'res_id': self.id
+        }
+

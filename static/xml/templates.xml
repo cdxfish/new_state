@@ -766,4 +766,37 @@
         </div>
     </t>
 
+    <!--权限组人员搜索-->
+    <!-- 计划搜索 -->
+	<t t-name="group_user_search">
+		<div>
+			<label class="search_label col-md-1 col-sm-2 col-xs-12">姓名:</label>
+			<div class="col-md-3 col-sm-6 col-xs-12">
+				<input class="user_name o_field_char o_field_widget o_input" style="width:100%"/>
+			</div>
+			<div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:5px;">
+				<button type="button" class="btn btn-default do_search">
+					搜索
+				</button>
+			</div>
+		</div>
+	</t>
+
+	<!-- 自定义搜索区域 -->
+	<t t-name="X2ManyControlPanelEx">
+		<div class="container-fluid">
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<div class="custom_search_area"/>
+			</div>
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<div class="o_x2m_control_panel">
+					<div class="o_cp_buttons"/>
+					<div class="o_cp_pager"/>
+				</div>
+			</div>
+		</div>
+	</t>
+
+    <!--end权限组人员搜索-->
+
 </templates>

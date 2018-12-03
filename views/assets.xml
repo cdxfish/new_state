@@ -31,8 +31,8 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/settings_user_property.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/compute_domain.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/web_widget.js"/>
-
-
+                <script type="text/javascript" src="/funenc_xa_station/static/js/user_custom_search.js"/>
+                 <script type="text/javascript" src="/funenc_xa_station/static/js/many2many_searchable.js"/>
 
             </xpath>
         </template>
