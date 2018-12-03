@@ -150,11 +150,11 @@ class StationIndex(models.Model):
 
         else:
             clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
-                                                                                         order='id desc')
+                                                                                         order='id asc')
             lens = len(clock_records)
             if clock_records:
                 clock_record = clock_records[lens-1]
-                if clock_record.clock_end_time:
+                if not clock_record.clock_start_time:
                     return '请先上班打卡'
                 else:
                     clock_record.clock_end_time = datetime.datetime.now()
