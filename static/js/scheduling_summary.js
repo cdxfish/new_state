@@ -1,13 +1,13 @@
 /**
  * Created by artorias on 2018/10/29.
  */
-odoo.define('test_html_client', function (require) {
+odoo.define('scheduling_summary', function (require) {
     'use strict';
 
     var Widget = require('web.Widget');
     var core = require('web.core');
 
-    var test_html_client = Widget.extend({
+    var scheduling_summary = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
 
@@ -50,7 +50,7 @@ odoo.define('test_html_client', function (require) {
                     self._rpc({
                         model: 'vue_template_manager.template_manage',
                         method: 'get_template_content',
-                        kwargs: {module_name: 'funenc_xa_station', template_name: 'test_html1'}
+                        kwargs: {module_name: 'funenc_xa_station', template_name: 'scheduling_summary'}
                     }).then(function (el) {
                         self.replaceElement($(el));
                         new Vue({
@@ -108,7 +108,7 @@ odoo.define('test_html_client', function (require) {
             }
         })
     ;
-    core.action_registry.add('test_html_client', test_html_client);
-    return {test_html_client: test_html_client}
+    core.action_registry.add('scheduling_summary', scheduling_summary);
+    return {scheduling_summary: scheduling_summary}
 })
 ;

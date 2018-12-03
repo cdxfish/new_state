@@ -963,7 +963,7 @@ class ShedulingManage(models.Model):
         return {
             'name': '排班汇总',
             'type': 'ir.actions.client',
-            'tag': 'test_html_client',
+            'tag': 'scheduling_summary',
             'target': 'current',
         }
 
