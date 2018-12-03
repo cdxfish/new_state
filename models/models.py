@@ -158,8 +158,8 @@ class StationIndex(models.Model):
                     return '请先上班打卡'
                 else:
                     clock_record.clock_end_time = datetime.datetime.now()
-                    work_time = get_time_difference_th(clock_record.clock_end_time,clock_record.clock_start_time)
-                    if work_time<=12:
+                    work_time = get_time_difference_th(clock_record.clock_start_time,clock_record.clock_end_time)
+                    if work_time <= 12:
                         compute_work_time = work_time
                         clock_record.work_time = compute_work_time
                     else:
