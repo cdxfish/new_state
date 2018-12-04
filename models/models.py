@@ -84,7 +84,17 @@ class fuenc_station(models.Model):
                               }
                 }
             else:
-                raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
+                if self.env.user.id == 1:
+                    return {
+                        'domain': {'line_id': [('department_hierarchy','=',2)],
+                                   }
+                    }
+                return {
+                    'domain': {'line_id': [('id','<',1)],
+                               'site_id': [('id', '<', 1)]
+                               },
+                }
+                # raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
 
         # 根据人员属性过滤
         line_id = self.line_id
@@ -92,6 +102,12 @@ class fuenc_station(models.Model):
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', line_id.departmentId)]).ids
         site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
+
+        if self.env.user.id == 1:
+            return {'domain': {'site_id': [('id', 'in', child_department_ids)],
+                           'line_id': [('department_hierarchy','=',2)]
+                           }
+                }
 
         return {'domain': {'site_id': site_domain,
                            'line_id': domain
