@@ -64,5 +64,11 @@
             <field name="name">演练过程记录</field>
         </record>
 
+        <!--换班申请时间设置-->
+        <record model="funenc_xa_station.change_shifts_time" id="change_shifts_time">
+            <field name="context">换班需提前申请时间（天)</field>
+            <field name="time">1</field>
+        </record>
+
     </data>
 </odoo>
