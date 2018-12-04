@@ -36,6 +36,7 @@ odoo.define("multi_action_tab", function (require) {
             this.action_manager = action_manager
             this.action_descript = action_descript
             this.action_id = action_descript.context.params.action;
+//            clear_breadcrumbs = {clear_breadcrumbs: true};
 //            alert(widget_type)
             if (widget_type == 'top') {
                 this.options = pyeval.eval('context',
@@ -70,10 +71,12 @@ odoo.define("multi_action_tab", function (require) {
                     element.on('tab(' + self.tab_id + ")", function (data) {
                         var tab = $(this);
                         if (tab.attr('action')) {
-                            self.do_action(tab.attr('action'))
+                            self.do_action(tab.attr('action'),{clear_breadcrumbs: true}),
+                            console.log(tab.attr('action'),'66666')
 
                         } else if (tab.attr('action2')) {
-                            self.do_action(tab.attr('action2'))
+                            self.do_action(tab.attr('action2'),{clear_breadcrumbs: true})
+                            console.log(tab.attr('action2'),'66666')
 
 //          console.log("domains:"+JSON.stringify(tab.domains))
 //
