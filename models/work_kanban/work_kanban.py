@@ -18,6 +18,9 @@ class work_kanban(models.Model):
                                           'work_kanban_id', 'ding_user_id', string='任务接收人', required=True)
     task_start_time = fields.Datetime(string='任务开始时间', required=True)
     task_end_time = fields.Datetime(string='任务结束时间', required=True)
+    # ir.attachment
+    send_task_attachment = fields.Many2many('ir.attachment','send_task_attachment_rel_12_5','send_task_id','ir_attachment_id',string='发送任务附件')
+    receive_task_attachment = fields.Many2many('ir.attachment','receive_task_attachment_rel_12_5','receive_task_id','ir_attachment_id',string='接收任务附件')
     task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')],
                                      required=True)
     task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True)
@@ -102,7 +105,7 @@ class work_kanban(models.Model):
     def work_kanban_save(self):
         dic = self.read(
             ['originator_time', 'task_send_user_ids', 'task_start_time', 'task_end_time',
-             'task_priority', 'task_originator_id',
+             'task_priority', 'task_originator_id','send_task_attachment',
              'task_type_id', 'task_describe', 'task_state'
              ])
         if dic:
@@ -127,7 +130,9 @@ class work_kanban(models.Model):
                 copy_value['task_send_user_id'] = user.id
                 copy_value['receive_task_state'] = 'receive_state'
 
-                self.create(copy_value)
+                obj = self.create(copy_value)
+                if copy_value.get('send_task_attachment'):
+                    obj.send_task_attachment = copy_value.get('send_task_attachment')
         self.is_send = 1
 
     def check_task_complete(self):
