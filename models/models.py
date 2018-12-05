@@ -529,17 +529,9 @@ class generate_qr(models.Model):
     add_date = fields.Date(string='今天二维码时间')
 
     def init_data(self):
-        if self.env.user.id == 1:
-            return {
-                'name': '钥匙创建',
-                'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'form',
-                'res_model': 'funenc.xa.station.key.detail',
-                'context': self.env.context,
-                'target': 'new',
-            }
 
+        if self.env.user.id == 1:
+            return
 
         start_time = time.time()
         ding_user = self.env.user.dingtalk_user[0]
@@ -628,7 +620,8 @@ class generate_qr(models.Model):
                 'domain': [('site_id', 'in', site_ids)],
             }
         else:
-            raise Warning('你未在 权限管理/部门管理 设置人员属性')
+            return
+            # raise Warning('你未在 权限管理/部门管理 设置人员属性')
 
 
     def create_qrcode_1(self,add_data,file_name):

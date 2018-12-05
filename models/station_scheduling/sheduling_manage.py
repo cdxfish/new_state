@@ -37,6 +37,14 @@ class ShedulingManage(models.Model):
     show_rule_name = fields.Char(string='排班规则', default='无')
     show_sheduling_time = fields.Char(string='排班时间')
 
+    is_save = fields.Integer(string='是否保存')  # 1已保存
+
+    @api.model
+    def create(self, vals):
+        vals['is_save'] = 1
+
+        return super(ShedulingManage,self).create(vals)
+
     @get_domain
     @api.model
     def domain_list(self,domain):
