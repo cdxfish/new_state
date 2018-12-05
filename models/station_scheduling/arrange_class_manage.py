@@ -38,16 +38,12 @@ class ArrangeClassManage(models.Model):
 
     def _compute_name(self):
         for this in self:
-            logging.info('全部对象---',this)
             name = ''
             for i, order_to_arrange_id in enumerate(this.order_to_arrange_ids):
-                logging.info('单个对象---',order_to_arrange_id)
                 if i == 0:
-                    logging.info('order_to_arrange_id.arrange_order_id', order_to_arrange_id.arrange_order_id)
                     name = name + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id.arrange_order_id else ''
 
                 else:
-                    logging.info('order_to_arrange_id.arrange_order_id', order_to_arrange_id.arrange_order_id)
                     name = name + ',' + order_to_arrange_id.arrange_order_id.name if order_to_arrange_id.arrange_order_id else ''
             this.name = name
 
@@ -83,8 +79,20 @@ class ArrangeClassManage(models.Model):
 
 
 class ArrangeOrderToArrangeClassManage(models.Model):
+    '''
+     为什么要采取自定义中间表因为班次可以重复选择
+    '''
     _name = 'arrange_order_to_arrange_class_manage'
     _description = '班次和排班规则中间表'
 
     arrange_class_manage_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='排班规则')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='排班班次')
+
+    @api.onchange('arrange_order_id')
+    def onchange_arrange_order_id(self):
+
+        site_id= self.arrange_class_manage_id.site_id.id
+
+        return {
+            'domain':{'arrange_order_id': [('site_id','=',site_id)]}
+        }

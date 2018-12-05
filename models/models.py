@@ -84,7 +84,17 @@ class fuenc_station(models.Model):
                               }
                 }
             else:
-                raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
+                if self.env.user.id == 1:
+                    return {
+                        'domain': {'line_id': [('department_hierarchy','=',2)],
+                                   }
+                    }
+                return {
+                    'domain': {'line_id': [('id','<',1)],
+                               'site_id': [('id', '<', 1)]
+                               },
+                }
+                # raise msg.Warning('此人员并无人员属性,请联系管理员在：权限设置/部门管理 下设置')
 
         # 根据人员属性过滤
         line_id = self.line_id
@@ -92,6 +102,12 @@ class fuenc_station(models.Model):
         child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
             [('parentid', '=', line_id.departmentId)]).ids
         site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
+
+        if self.env.user.id == 1:
+            return {'domain': {'site_id': [('id', 'in', child_department_ids)],
+                           'line_id': [('department_hierarchy','=',2)]
+                           }
+                }
 
         return {'domain': {'site_id': site_domain,
                            'line_id': domain
@@ -116,7 +132,7 @@ class StationIndex(models.Model):
     clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点')
     clock_start_time = fields.Datetime(string='上班打卡时间')
     clock_end_time = fields.Datetime(string='下班打卡时间')
-    work_time = fields.Float(string='工作时长(h)', compute='_compute_work_time', store=True)
+    work_time = fields.Float(string='工作时长(h)')
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
     overtime = fields.Float(string='加班时长')
     festival_overtime = fields.Float(string='节假日加班时长')
@@ -438,22 +454,22 @@ class StationIndex(models.Model):
 
         return show_data
 
-    def _compute_work_time(self):
-        for this in self:
-            if this.clock_start_time:
-                start_time = datetime.datetime.strptime(this.clock_start_time,
-                                                        '%Y-%m-%d %H:%M:%S')
-                if this.clock_end_time:
-                    end_time = datetime.datetime.strptime(this.clock_end_time, '%Y-%m-%d %H:%M:%S')
-                    work_time = round((end_time - start_time).seconds / (60 * 60), 2)
-                    this.work_time = work_time if work_time <= 12 else 12
-
-                    if work_time > 12:
-                        this.overtime = work_time - 12
-                    else:
-                        this.overtime = 0
-                else:
-                    this.work_time = 0
+    # def _compute_work_time(self):
+    #     for this in self:
+    #         if this.clock_start_time:
+    #             start_time = datetime.datetime.strptime(this.clock_start_time,
+    #                                                     '%Y-%m-%d %H:%M:%S')
+    #             if this.clock_end_time:
+    #                 end_time = datetime.datetime.strptime(this.clock_end_time, '%Y-%m-%d %H:%M:%S')
+    #                 work_time = round((end_time - start_time).seconds / (60 * 60), 2)
+    #                 this.work_time = work_time if work_time <= 12 else 12
+    #
+    #                 if work_time > 12:
+    #                     this.overtime = work_time - 12
+    #                 else:
+    #                     this.overtime = 0
+    #             else:
+    #                 this.work_time = 0
 
     @api.model
     def get_month_clock_record(self, month):
@@ -513,17 +529,9 @@ class generate_qr(models.Model):
     add_date = fields.Date(string='今天二维码时间')
 
     def init_data(self):
-        if self.env.user.id == 1:
-            return {
-                'name': '钥匙创建',
-                'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'form',
-                'res_model': 'funenc.xa.station.key.detail',
-                'context': self.env.context,
-                'target': 'new',
-            }
 
+        if self.env.user.id == 1:
+            return
 
         start_time = time.time()
         ding_user = self.env.user.dingtalk_user[0]
@@ -612,7 +620,8 @@ class generate_qr(models.Model):
                 'domain': [('site_id', 'in', site_ids)],
             }
         else:
-            raise Warning('你未在 权限管理/部门管理 设置人员属性')
+            return
+            # raise Warning('你未在 权限管理/部门管理 设置人员属性')
 
 
     def create_qrcode_1(self,add_data,file_name):

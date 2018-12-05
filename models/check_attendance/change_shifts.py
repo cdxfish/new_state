@@ -241,7 +241,7 @@ class ChangeShifts(models.Model):
 class ChangeShiftsTime(models.Model):
     _name = 'funenc_xa_station.change_shifts_time'
     _description = '换班时间间隔'
-    _inherit = 'fuenc_station.station_base'
+    # _inherit = 'fuenc_station.station_base'
 
     context = fields.Char('内容')
     time = fields.Integer(string='天')
@@ -256,16 +256,5 @@ class ChangeShiftsTime(models.Model):
             'context': context,
             'target': 'current',
         }
-        if self.env.user.id != 1:
-            ding_user = self.env.user.dingtalk_user[0]
-            department = ding_user.departments[0]
-            obj = self.search([('site_id', '=', department.id)])
-            if not obj:
-                self.create({'site_id': department.id,
-                             'line_id': ding_user.line_id.id,
-                             'context': '换班需提前申请时间（天）',
-                             'time': 1
-                             })
-                dic['domain'] = [('site_id', '=', department.id)]
 
         return dic

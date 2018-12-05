@@ -11,6 +11,7 @@ odoo.define('act_xa_station_sheduling_manage_1_action', function (require) {
         init: function (parent, record, node) {
             this._super(parent, record, node);
             this.vue_data=record.params.show_data;
+            console.log(record.params.show_data)
 
         },
 

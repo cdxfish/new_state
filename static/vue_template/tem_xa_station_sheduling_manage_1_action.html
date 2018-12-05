@@ -1,4 +1,14 @@
 <div id="app">
+    <el-row type="flex" align="middle" >
+        当前位置：{{show_position}}
+    </el-row>
+    <el-row type="flex" align="middle" >
+        排班时间：{{show_date}}
+    </el-row>
+     <el-row type="flex" align="middle" >
+        班次：{{show_arrange_orders}}
+    </el-row>
+
     <el-row type="flex" align="middle" justify="end">
         <el-button type="primary" size="mini" @click="save">保存</el-button>
     </el-row>

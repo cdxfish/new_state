@@ -92,12 +92,12 @@
 			<field name="model">funenc_xa_station.change_shifts_time</field>
 			<field name="arch" type="xml">
 				<tree limit="15">
-                    <field name="product_id_domain" invisible="1"/>
-                    <field name="product_site_id_domain" invisible="1"/>
-                    <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                           domain="product_id_domain"/>
-                    <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                           domain="product_site_id_domain"/>
+                    <!--<field name="product_id_domain" invisible="1"/>-->
+                    <!--<field name="product_site_id_domain" invisible="1"/>-->
+                    <!--<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"-->
+                           <!--domain="product_id_domain"/>-->
+                    <!--<field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"-->
+                           <!--domain="product_site_id_domain"/>-->
                     <field name="context" string="内容"/>
                     <field name="time" string="时间"/>
                 </tree>
@@ -109,17 +109,17 @@
 			<field name="model">funenc_xa_station.change_shifts_time</field>
 			<field name="arch" type="xml">
 				<form>
-					<div class="container-fluid">
-						<group>
-                                                <field name="product_id_domain" invisible="1"/>
-                    <field name="product_site_id_domain" invisible="1"/>
-                            <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"
-                                   domain="product_id_domain"/>
-                            <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1"
-                                   domain="product_site_id_domain"/>
-                            <field name="context" string="内容"/>
+                    <div class="container-fluid">
+                        <group>
+                            <!--<field name="product_id_domain" invisible="1"/>-->
+                            <!--<field name="product_site_id_domain" invisible="1"/>-->
+                            <!--<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}" required="1"-->
+                                   <!--domain="product_id_domain"/>-->
+                            <!--<field name="site_id" string="站点" options="{'no_create':True,'no_open':True}" required="1"-->
+                                   <!--domain="product_site_id_domain"/>-->
+                            <field name="context" string="内容" readonly="1"/>
                             <field name="time" string="时间"/>
-						</group>
+                        </group>
 					</div>
 				</form>
 			</field>

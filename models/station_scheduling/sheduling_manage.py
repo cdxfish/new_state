@@ -37,6 +37,14 @@ class ShedulingManage(models.Model):
     show_rule_name = fields.Char(string='排班规则', default='无')
     show_sheduling_time = fields.Char(string='排班时间')
 
+    is_save = fields.Integer(string='是否保存')  # 1已保存
+
+    @api.model
+    def create(self, vals):
+        vals['is_save'] = 1
+
+        return super(ShedulingManage,self).create(vals)
+
     @get_domain
     @api.model
     def domain_list(self,domain):
@@ -113,8 +121,8 @@ class ShedulingManage(models.Model):
             return {
                 'name': '创建排班',
                 'type': 'ir.actions.act_window',
-                'view_type': 'tree',
-                'view_mode': 'tree',
+                'view_type': 'form',
+                'view_mode': 'form',
                 'res_model': 'funenc_xa_station.sheduling_manage',
                 'context': context,
                 # 'flags': {'initial_mode': 'edit'},
@@ -771,6 +779,19 @@ class ShedulingManage(models.Model):
 
         show_data['shift_options'] = shift_options
         show_data['arrange_orders'] = arrange_orders
+
+        show_data['show_position'] = self.line_id.name + '--' + self.site_id.name
+        show_data['show_date'] = start_time[:10] + '至' + end_time[:10]
+        show_arrange_orders = self.env['funenc_xa_station.arrange_order'].search([('site_id', '=', site_id)])
+        tmp_arrange_orders = ''
+        for y, show_arrange_order in enumerate(show_arrange_orders):
+            if y == 0:
+                tmp_arrange_orders = tmp_arrange_orders + show_arrange_order.name +"("+(show_arrange_order.time[
+                                                          :-4] if show_arrange_order.time else '') +')'
+            else:
+                tmp_arrange_orders = tmp_arrange_orders + ',' + show_arrange_order.name +"("+(show_arrange_order.time[
+                                                          :-4] if show_arrange_order.time else '') +')'
+        show_data['show_arrange_orders'] = tmp_arrange_orders
 
         return show_data
 
