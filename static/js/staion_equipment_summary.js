@@ -14,11 +14,17 @@ odoo.define('staion_equipment_summary', function (require) {
             var self = this;
 
             $.when(
+                    self._rpc({
+                        model: 'funenc_xa_station.good_deeds_summary',
+                        method: 'get_department',
+                    }),
+
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'staion_equipment_summary'}
-            })).then(function (res) {
+            })).then(function (init_department,res) {
+                self.init_department = init_department;
                 self.replaceElement($(res));
                 var vue = new Vue({
                     el: '#staion_equipment_summary',
@@ -26,7 +32,7 @@ odoo.define('staion_equipment_summary', function (require) {
                         return {
                             tableData: '',
                             department:'',
-                            departments:'',
+                            departments:self.init_department,
                             line:"",
                             site: '',
                             lines: '',
@@ -39,6 +45,25 @@ odoo.define('staion_equipment_summary', function (require) {
                     },
 
                     methods: {
+                        get_line: function(department_value){
+                                self._rpc({
+                                     model:'funenc_xa_station.good_deeds_summary',
+                                     method:'get_line',
+                                     kwargs: {date:department_value},
+                                }).then(function(data){
+                                        vue.lines = data;
+                                });
+                        },
+
+                        get_site: function(department_value){
+                                self._rpc({
+                                     model:'funenc_xa_station.good_deeds_summary',
+                                     method:'get_site',
+                                     kwargs: {date:department_value},
+                                }).then(function(data){
+                                        vue.sites = data;
+                                });
+                        },
                         import_excel_belong_to_management() {
                             if (this.tableData) {
                                 var url = '/funenc_xa_station/belong_to_management_summary';

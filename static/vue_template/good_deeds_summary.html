@@ -7,7 +7,7 @@
             <div class="block">
                 <el-form :inline="true" class="demo-form-inline">
                     <el-form-item>
-                        <el-select v-model="department" size="small" placeholder="部门">
+                        <el-select v-model="department" size="small" placeholder="部门" @change="get_line">
                             <el-option
                                     v-for="item in departments"
                                     :key="item.id"
@@ -18,7 +18,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="line" size="small" placeholder="分部">
+                        <el-select v-model="line" size="small" placeholder="分部" @change="get_site">
                             <el-option
                                     v-for="item in lines"
                                     :key="item.id"
