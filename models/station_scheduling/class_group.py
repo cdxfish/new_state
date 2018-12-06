@@ -133,7 +133,7 @@ class ClassGroup(models.Model):
 
     def unselected_user_ids(self, site_id):
         # 班组可选人员过滤
-        department_sql = 'select user_id from cdtct_dingtalk_user_department_rel where department_id = {}'.format(
+        department_sql = 'select ding_user_id as user_id from dingtalk_users_to_departments where department_id = {}'.format(
             site_id)
         self.env.cr.execute(department_sql)
         department_user_ids = [department_user_id.get('user_id') for department_user_id in self.env.cr.dictfetchall()]
@@ -144,7 +144,7 @@ class ClassGroup(models.Model):
             select_user_ids = self.env.cr.dictfetchall()
         elif len(department_user_ids) == 1:
             sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where ding_talk_user_id = {}".format(
-                tuple(department_user_ids[0]))
+                department_user_ids[0])
             self.env.cr.execute(sel_sql)
             select_user_ids = self.env.cr.dictfetchall()
         else:

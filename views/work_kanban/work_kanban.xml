@@ -91,6 +91,7 @@
                                 <field name="task_priority" string="优先级"/>
                                 <field name="task_type_id" string="任务类型"/>
                                 <field name="task_describe" string="任务描述"/>
+                                <field name="send_task_attachment" string="发起任务的附件" widget="many2many_binary"/>
                                 <field name="task_state" string="任务状态" invisible="1"/>
                                 <field name="task_type" invisible="1"/>
                                 <!--<field name="task_feedback" string="任务反馈" attrs="{'invisible':[('task_type','=','receive_task')]}"/>-->
@@ -147,6 +148,7 @@
                                 <field name="task_type_id" string="任务类型"/>
                                 <field name="task_describe" string="任务描述"/>
                                 <field name="task_state" string="任务状态" readonly="1"/>
+                                <field name="send_task_attachment" string="发起任务的附件" widget="many2many_binary"/>
                                 <field name="task_type" invisible="1"/>
                                 <field name="receive_task_state" invisible="1"/>
                                 <field name="is_send" invisible="1"/>
@@ -159,6 +161,7 @@
                                                    options="{'no_create':True,'no_open':True}"/>
                                             <field name="completed_time" string="完成时间"/>
                                             <field name="task_feedback" string="任务反馈" />
+                                            <field name="receive_task_attachment" string="接收任务附件" widget="many2many_binary"/>
                                         </tree>
                                     </field>
                                 </page>
@@ -224,12 +227,14 @@
                                 <field name="task_type_id" string="任务类型" readonly="1"/>
                                 <field name="task_describe" string="任务描述" readonly="1"/>
                                 <field name="receive_task_state" string="任务状态" readonly="1"/>
+                                <field name="send_task_attachment" string="附件" readonly="1" widget="many2many_binary"/>
                                 <field name="task_type" invisible="1"/>
                                 <field name="receive_task_state" invisible="1"/>
 
                             </group>
                             <group string="任务反馈" attrs="{'invisible':[('task_type','=','send_task')]}">
                                  <field name="task_feedback" />
+                                 <field name="receive_task_attachment" string="接收任务附件" widget="many2many_binary"/>
                             </group>
                         </sheet>
                         <footer>

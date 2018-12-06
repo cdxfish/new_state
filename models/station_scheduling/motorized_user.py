@@ -87,7 +87,7 @@ class UserInherit(models.Model):
 
     @api.model
     def get_motorized_users_by_site_id(self,site_id):
-        #  机动人员过滤
+        #  机动人员过滤   已按组织架构修改
 
         department_id = site_id
         class_groups = self.env['funenc_xa_station.class_group'].search([('site_id', '=', department_id)])
@@ -97,7 +97,7 @@ class UserInherit(models.Model):
                 centrality_motorized_user_ids.append(user_id.id)
 
         site_groups_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
-            [('departments', '=', department_id)]).ids
+            [('user_property_departments', '=', department_id)]).ids
         not_in_groups_user_ids = list(set(site_groups_user_ids) - set(centrality_motorized_user_ids))  # 未在组内人员
         centrality_user_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search_read(
             [('id', 'in', not_in_groups_user_ids)],['id'])
