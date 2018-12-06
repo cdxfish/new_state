@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.client" id="funenc_xa_station.consumables_summary_summary">
+          <field name="name">耗材汇总页面</field>
+          <field name="tag">consumables_summary</field>
+        </record>
+
+        <menuitem parent="statistical_analysis_mune" name="耗材汇总" id="consumables_summary_menu"
+                  action="funenc_xa_station.consumables_summary_summary"></menuitem>
+
+    </data>
+</odoo>

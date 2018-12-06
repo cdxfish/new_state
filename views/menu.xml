@@ -1098,5 +1098,7 @@
 			  groups="employees_management_button"
               action="cdtct_dingtalk.users_manage_window"/>
 
+	<menuitem name="统计分析" id="statistical_analysis_mune"></menuitem>
+
 	</data>
 </odoo>

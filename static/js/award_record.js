@@ -87,7 +87,8 @@ odoo.define('funenc_xa_award', function (require) {
 
     start: function () {
       var self = this;
-      $.when(self._rpc({
+      $.when(
+        self._rpc({
           model: 'funenc_xa_station.award_collect',
           method:'award_record_method'
         }),

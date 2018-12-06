@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.client" id="funenc_xa_station.staion_equipment_summary">
+          <field name="name">车站汇总页面</field>
+          <field name="tag">staion_equipment_summary</field>
+        </record>
+
+        <menuitem parent="statistical_analysis_mune" name="车站设备汇总" id="staion_equipment_summary_menu"
+                  action="funenc_xa_station.staion_equipment_summary"></menuitem>
+
+    </data>
+</odoo>

@@ -116,6 +116,9 @@
         'views/opening_manage/train/training_plan.xml',
         'views/opening_manage/drill_plan/drill_plan.xml',
         'views/opening_manage/drill_plan/site_drill_plan.xml',
+        'views/Good_deeds/good_deeds_summary.xml',
+        'views/consumables_manage/consumables_summary.xml',
+        'views/integrated_management/station_equipment_summary.xml',
 
 
     ],
