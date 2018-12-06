@@ -22,7 +22,6 @@ odoo.define('good_deeds_summary', function (require) {
                         model: 'funenc_xa_station.good_deeds_summary',
                         method: 'get_department',
                     }),
-
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
@@ -66,6 +65,19 @@ odoo.define('good_deeds_summary', function (require) {
                                      kwargs: {date:department_value},
                                 }).then(function(data){
                                         vue.sites = data;
+                                });
+                        },
+
+                        search_record: function(department_value){
+                                self._rpc({
+                                     model:'funenc_xa_station.good_deeds_summary',
+                                     method:'search_record',
+                                     kwargs: {department:vue.department,
+                                              line:vue.line,
+                                              site:vue.site,
+                                              date_time:vue.datetime},
+                                }).then(function(data){
+                                        vue.tableData = data;
                                 });
                         },
 

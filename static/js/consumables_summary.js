@@ -14,6 +14,11 @@ odoo.define('consumables_summary', function (require) {
             var self = this;
 
             $.when(
+
+                self._rpc({
+                        model: 'funenc_xa_station.consymbles_summary',
+                        method: 'init_methods_action',
+                    }),
                 self._rpc({
                         model: 'funenc_xa_station.good_deeds_summary',
                         method: 'get_department',
@@ -22,14 +27,15 @@ odoo.define('consumables_summary', function (require) {
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'consumables_summary'}
-            })).then(function (init_department,res) {
+            })).then(function (init_data,init_department,res) {
+                self.init_data = init_data;
                 self.init_department = init_department;
                 self.replaceElement($(res));
                 var vue = new Vue({
                     el: '#consumables_summary',
                     data() {
                         return {
-                            tableData: '',
+                            tableData: self.init_data,
                             department:'',
                             departments:self.init_department,
                             line:"",
@@ -39,6 +45,9 @@ odoo.define('consumables_summary', function (require) {
                             datetime: self.date_self,
                             consumables_type:'',
                             consumables_types:"",
+                            selectedOptions:"",
+                            options:[],
+                            selectedOptions:'',
 
                         };
                     },

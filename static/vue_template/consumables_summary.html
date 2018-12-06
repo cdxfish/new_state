@@ -39,14 +39,11 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="consumables_type" size="small" placeholder="耗材类型(三级分类)">
-                            <el-option
-                                    v-for="item in consumables_types"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
-                            </el-option>
-                        </el-select>
+                      <el-cascader
+                        :options="options"
+                        v-model="selectedOptions"
+                        >
+                      </el-cascader>
                     </el-form-item>
                     <!--<el-form-item>-->
                             <!--<el-date-picker-->

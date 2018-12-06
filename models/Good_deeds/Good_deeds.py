@@ -15,7 +15,7 @@ class GoodDeeds(models.Model):
     _name = 'fuenc_station.good_deeds'
     _inherit = 'fuenc_station.station_base'
 
-    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型')
+    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型',required=True)
     open_time = fields.Datetime(string='发生时间')
     open_site =fields.Char(string='发生地点')
     related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员')

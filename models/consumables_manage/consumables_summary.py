@@ -8,7 +8,15 @@ class ConsumablesSummary(models.Model):
 
     @api.model
     def init_methods_action(self):
-        return
+        lis= []
+        record = self.env['funenc_xa_station.consumables_type'].search([])
+        for i in record:
+            dic = {}
+            dic['consumables_type'] = i.consumables_type
+            dic['inventory'] = len(record)
+            lis.append(dic)
+        return lis
+
 
     @api.model
     def get_department(self):
