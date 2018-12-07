@@ -7,7 +7,8 @@
         </record>
 
         <menuitem parent="statistical_analysis_mune" name="耗材汇总" id="consumables_summary_menu"
-                  action="funenc_xa_station.consumables_summary_summary"></menuitem>
+                  action="funenc_xa_station.consumables_summary_summary"
+                  groups="consumables_consummary_group_button"></menuitem>
 
     </data>
 </odoo>

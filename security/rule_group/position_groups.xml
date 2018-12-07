@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data noupdate="1">
+    <data>
 
       <record model="ir.module.category" id="module_position11">
             <field name="name">职位</field>
@@ -26,7 +26,29 @@
       <record model="res.groups" id="module_ticket_business">
             <field name="name">票亭岗</field>
             <field name="category_id" ref="module_position11"/>
-        </record>z
+        </record>
+
+        <record model="ir.module.category" id="statistical_analysis_button">
+            <field name="name">统计分析</field>
+        </record>
+
+        <record model="res.groups" id="good_deeds_group_button">
+            <field name="name">好人好事汇总</field>
+            <field name="sequence">43</field>
+            <field name="category_id" ref="statistical_analysis_button"/>
+        </record>
+
+        <record model="res.groups" id="consumables_consummary_group_button">
+            <field name="name">耗材汇总</field>
+            <field name="sequence">44</field>
+            <field name="category_id" ref="statistical_analysis_button"/>
+        </record>
+
+        <record model="res.groups" id="station_equipment_group_button">
+            <field name="name">车站设备汇总</field>
+            <field name="sequence">45</field>
+            <field name="category_id" ref="statistical_analysis_button"/>
+        </record>
 
     </data>
 </odoo>
