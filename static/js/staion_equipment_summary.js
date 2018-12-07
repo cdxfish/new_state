@@ -18,19 +18,29 @@ odoo.define('staion_equipment_summary', function (require) {
                         model: 'funenc_xa_station.good_deeds_summary',
                         method: 'get_department',
                     }),
+                    self._rpc({
+                        model: 'funenc_xa_station.station_equipment_summary',
+                        method: 'get_equipment_name',
+                    }),
+                    self._rpc({
+                        model: 'funenc_xa_station.station_equipment_summary',
+                        method: 'get_name_all',
+                    }),
 
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'staion_equipment_summary'}
-            })).then(function (init_department,res) {
+            })).then(function (init_department,all_record,all_name,res) {
                 self.init_department = init_department;
+                self.all_record = all_record;
+                self.all_name = all_name;
                 self.replaceElement($(res));
                 var vue = new Vue({
                     el: '#staion_equipment_summary',
                     data() {
                         return {
-                            tableData: '',
+                            tableData: self.all_record,
                             department:'',
                             departments:self.init_department,
                             line:"",
@@ -39,7 +49,7 @@ odoo.define('staion_equipment_summary', function (require) {
                             sites: '',
                             datetime: '',
                             equipment_name:'',
-                            equipment_names:'',
+                            equipment_names:self.all_name,
 
                         };
                     },
@@ -66,7 +76,7 @@ odoo.define('staion_equipment_summary', function (require) {
                         },
                         import_excel_belong_to_management() {
                             if (this.tableData) {
-                                var url = '/funenc_xa_station/belong_to_management_summary';
+                                var url = '/funenc_xa_station/station_equipment_summary';
                                 var params = {"reserves": this.tableData};
                                 var params1 = JSON.stringify(params);
                                 var oReq = new XMLHttpRequest();
@@ -81,7 +91,7 @@ odoo.define('staion_equipment_summary', function (require) {
                                         var evt = document.createEvent("HTMLEvents");
                                         evt.initEvent("click", false, false);
                                         // 设置文件名
-                                        a.download = '属地检查汇总' + (new Date()).getTime();
+                                        a.download = '车站设备汇总' + (new Date()).getTime();
                                         // 利用URL.createObjectURL()方法为a元素生成blob URL
                                         a.href = URL.createObjectURL(blob);
                                         a.click();
