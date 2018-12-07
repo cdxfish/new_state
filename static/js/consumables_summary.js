@@ -7,6 +7,7 @@ odoo.define('consumables_summary', function (require) {
     var consumables_summary = Widget.extend({
         init: function (parent, action) {
             var self = this;
+            self.caser_class = [];
             this._super.apply(this, arguments);
             self.date_self = new Date();
         },
@@ -16,20 +17,25 @@ odoo.define('consumables_summary', function (require) {
             $.when(
 
                 self._rpc({
-                        model: 'funenc_xa_station.consymbles_summary',
+                        model: 'funenc_xa_station.consumables_summary',
                         method: 'init_methods_action',
                     }),
                 self._rpc({
                         model: 'funenc_xa_station.good_deeds_summary',
                         method: 'get_department',
                     }),
+                self._rpc({
+                        model: 'funenc_xa_station.consumables_type',
+                        method: 'get_equipment_class',
+                    }),
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'consumables_summary'}
-            })).then(function (init_data,init_department,res) {
+            })).then(function (init_data,init_department,caser_class,res) {
                 self.init_data = init_data;
                 self.init_department = init_department;
+                self.caser_class = caser_class;
                 self.replaceElement($(res));
                 var vue = new Vue({
                     el: '#consumables_summary',
@@ -46,7 +52,7 @@ odoo.define('consumables_summary', function (require) {
                             consumables_type:'',
                             consumables_types:"",
                             selectedOptions:"",
-                            options:[],
+                            options:self.caser_class,
                             selectedOptions:'',
 
                         };
@@ -72,6 +78,20 @@ odoo.define('consumables_summary', function (require) {
                                         vue.sites = data;
                                 });
                         },
+
+                        search_record_consumables: function(department_value){
+                                self._rpc({
+                                     model:'funenc_xa_station.consumables_summary',
+                                     method:'search_record_consumables',
+                                     kwargs: {department:vue.department,
+                                              line:vue.line,
+                                              site:vue.site,
+                                              options:vue.options},
+                                }).then(function(data){
+                                        vue.tableData = data;
+                                });
+                        },
+
                         import_excel_belong_to_management() {
                             if (this.tableData) {
                                 var url = '/funenc_xa_station/belong_to_management_summary';

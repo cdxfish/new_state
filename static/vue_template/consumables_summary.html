@@ -41,6 +41,7 @@
                     <el-form-item>
                       <el-cascader
                         :options="options"
+                        change-on-select
                         v-model="selectedOptions"
                         >
                       </el-cascader>
@@ -57,7 +58,7 @@
                     <el-form-item>
 
                         <el-button
-                        type="primary" icon="el-icon-search" size="small">搜索
+                        type="primary" icon="el-icon-search" size="small" @click="search_record_consumables">搜索
                         </el-button>
                         <el-button type="primary" icon="el-icon-caret-bottom" size="small"
                                    >导出
