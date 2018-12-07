@@ -89,7 +89,7 @@ odoo.define('consumables_summary', function (require) {
                                      kwargs: {department:vue.department,
                                               line:vue.line,
                                               site:vue.site,
-                                              options:vue.consumables_type},
+                                              consumables_type:vue.consumables_type},
                                 }).then(function(data){
                                         vue.tableData = data;
                                 });

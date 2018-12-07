@@ -65,17 +65,74 @@ class ConsumablesSummary(models.Model):
 
     @api.model
     def search_record_consumables(self,**kw):
-        lis= []
-        if kw.get('department'):
-            dic_department_id = {1: kw.get('department')}  #部门
-        if kw.get('line'):
-            dic_line_id = {2: kw.get('line') } # 线路
-        if kw.get('site'):
-            dic_line_id = {3: kw.get('line')} # 站点
+        if kw:
+            lis= []
+            dic_department_id = {}
+            # 构建搜索domain
+            if kw.get('department'):
+                dic_department_id[1] = kw.get('department')  #部门
+            if kw.get('line'):
+                dic_department_id.clear()
+                dic_department_id[2] = kw.get('line')  # 线路
+            if kw.get('site'):
+                dic_department_id.clear()
+                dic_department_id[3] = kw.get('line') # 站点
+            if dic_department_id:
+                department_hierarchy = list(dic_department_id.keys())[0]
 
-        
+                if department_hierarchy == 1:
+                    department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[1])
+                    line_ids =self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department_tmp.parentid)])
+                    tmp_site_ids = []
+                    for line_id in line_ids:
+                        site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('departmentId', '=', line_id.parentid)])
+                        tmp_site_ids = tmp_site_ids +site_ids
 
-        record = self.env['funenc_xa_station.consumables_inventory'].search([('consumables_type','=',2)])
-        return lis
+                    domain_ids = [department_tmp.id] + line_ids.ids + tmp_site_ids
+                    domain = [('inventory_department_id', 'in', domain_ids)]
+                elif department_hierarchy == 2: #搜索为线路
+                    department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[2])
+                    site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department_tmp.parentid)]).ids
+                    domain_ids = [department_tmp.id] + site_ids
+                    domain = [('inventory_department_id', 'in', domain_ids)]
+                else: #搜索为站点
+
+                    domain_ids = [dic_department_id[2]]
+                    domain = [('inventory_department_id', 'in', domain_ids)]
+
+
+
+            else:
+                search_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('department_hierarchy', '=',3)]).id
+                domain = [('inventory_department_id','in',search_department_ids)]
+
+            if kw.get('consumables_type'):
+                consumables_type = kw.get('consumables_type')[len(kw.get('consumables_type'))-1]
+                domain.append(('consumables_type','=',consumables_type))
+
+            consumables_inventory_ids = self.env['funenc_xa_station.consumables_inventory'].search_read(domain,['consumables_type','inventory_count'])
+            # 构建 耗材类型数据
+            consumables_type_dic = {}
+            for consumables_inventory_id in consumables_inventory_ids:
+                consumables_type_dic[consumables_inventory_id.get('consumables_type')[0]] = consumables_inventory_id.get('consumables_type')[1]
+            table_data = []
+            for key in list(consumables_type_dic.keys()):
+                count = 0
+                for value in consumables_inventory_ids:
+                    if key == value.get('consumables_type')[0]:
+                        count = count + value.get('inventory_count')
+                table_data.append(
+                    {
+                        'consumables_type':consumables_type_dic[key],
+                        'inventory':count
+                    }
+                )
+            return table_data
+        else:
+            return []
 
 
