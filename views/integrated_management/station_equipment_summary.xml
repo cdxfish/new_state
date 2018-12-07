@@ -7,7 +7,8 @@
         </record>
 
         <menuitem parent="statistical_analysis_mune" name="车站设备汇总" id="staion_equipment_summary_menu"
-                  action="funenc_xa_station.staion_equipment_summary"></menuitem>
+                  action="funenc_xa_station.staion_equipment_summary"
+                  groups="station_equipment_group_button"></menuitem>
 
     </data>
 </odoo>
