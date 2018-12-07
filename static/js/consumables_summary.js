@@ -54,6 +54,7 @@ odoo.define('consumables_summary', function (require) {
                             selectedOptions:"",
                             options:self.caser_class,
                             selectedOptions:'',
+                            consumables_type: []
 
                         };
                     },
@@ -80,17 +81,26 @@ odoo.define('consumables_summary', function (require) {
                         },
 
                         search_record_consumables: function(department_value){
+                                console.log(vue.options)
+
                                 self._rpc({
                                      model:'funenc_xa_station.consumables_summary',
                                      method:'search_record_consumables',
                                      kwargs: {department:vue.department,
                                               line:vue.line,
                                               site:vue.site,
-                                              options:vue.options},
+                                              options:vue.consumables_type},
                                 }).then(function(data){
                                         vue.tableData = data;
                                 });
+
+
                         },
+
+                        handleChange(value) {
+                            console.log(value);
+                            vue.consumables_type = value
+                          },
 
                         import_excel_belong_to_management() {
                             if (this.tableData) {
