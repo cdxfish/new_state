@@ -18,7 +18,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="line" size="small" placeholder="分部" @change="get_site">
+                        <el-select v-model="line" size="small" clearable placeholder="分部" @change="get_site">
                             <el-option
                                     v-for="item in lines"
                                     :key="item.id"
@@ -29,7 +29,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="site" size="small" placeholder="站点">
+                        <el-select v-model="site" size="small" clearable placeholder="站点">
                             <el-option
                                     v-for="item in sites"
                                     :key="item.id"
@@ -41,20 +41,13 @@
                     <el-form-item>
                       <el-cascader
                         :options="options"
-                        change-on-select
+                        change-on-select="true"
                         v-model="selectedOptions"
+                        @change="handleChange"
+                        clearable
                         >
                       </el-cascader>
                     </el-form-item>
-                    <!--<el-form-item>-->
-                            <!--<el-date-picker-->
-                              <!--v-model="datetime"-->
-                              <!--type="daterange"-->
-                              <!--range-separator="至"-->
-                              <!--start-placeholder="开始日期"-->
-                              <!--end-placeholder="结束日期">-->
-                            <!--</el-date-picker>-->
-                    <!--</el-form-item>-->
                     <el-form-item>
 
                         <el-button
