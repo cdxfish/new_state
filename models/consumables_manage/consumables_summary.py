@@ -100,7 +100,7 @@ class ConsumablesSummary(models.Model):
                     domain = [('inventory_department_id', 'in', domain_ids)]
                 else: #搜索为站点
 
-                    domain_ids = [dic_department_id[2]]
+                    domain_ids = [dic_department_id[3]]
                     domain = [('inventory_department_id', 'in', domain_ids)]
 
 

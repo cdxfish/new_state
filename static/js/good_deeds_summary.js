@@ -8,7 +8,6 @@ odoo.define('good_deeds_summary', function (require) {
         init: function (parent, action) {
             var self = this;
             this._super.apply(this, arguments);
-            self.date_self = new Date();
         },
         start: function () {
             var self = this;
@@ -22,13 +21,18 @@ odoo.define('good_deeds_summary', function (require) {
                         model: 'funenc_xa_station.good_deeds_summary',
                         method: 'get_department',
                     }),
+                         self._rpc({
+                        model: 'funenc_xa_station.good_deeds_summary',
+                        method: 'get_good_deeds_types',
+                    }),
             this._rpc({
                 model: 'vue_template_manager.template_manage',
                 method: 'get_template_content',
                 kwargs: {module_name: 'funenc_xa_station', template_name: 'good_deeds_summary'}
-            })).then(function (init_data,init_department,res) {
+            })).then(function (init_data,init_department,inint_types,res) {
                 self.init_data = init_data;
                 self.init_department = init_department;
+                self.inint_types = inint_types;
                 console.log(self.init_department );
                 self.replaceElement($(res));
                 var vue = new Vue({
@@ -42,7 +46,9 @@ odoo.define('good_deeds_summary', function (require) {
                             site: self.site_data,
                             lines: '',
                             sites: self.user_site,
-                            datetime: self.date_self,
+                            datetime: '',
+                            good_type:'',
+                            good_types:self.inint_types,
 
                         };
                     },
@@ -75,6 +81,7 @@ odoo.define('good_deeds_summary', function (require) {
                                      kwargs: {department:vue.department,
                                               line:vue.line,
                                               site:vue.site,
+                                              good_type:vue.good_type,
                                               date_time:vue.datetime},
                                 }).then(function(data){
                                         vue.tableData = data;

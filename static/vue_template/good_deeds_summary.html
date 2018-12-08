@@ -39,6 +39,16 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
+                        <el-select v-model="good_type" size="small" placeholder="好人好事类型">
+                            <el-option
+                                    v-for="item in good_types"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
                             <el-date-picker
                               v-model="datetime"
                               type="daterange"
