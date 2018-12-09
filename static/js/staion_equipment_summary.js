@@ -66,6 +66,8 @@ odoo.define('staion_equipment_summary', function (require) {
                         },
 
                         get_site: function(department_value){
+                                if (department_value){
+
                                 self._rpc({
                                      model:'funenc_xa_station.good_deeds_summary',
                                      method:'get_site',
@@ -73,7 +75,22 @@ odoo.define('staion_equipment_summary', function (require) {
                                 }).then(function(data){
                                         vue.sites = data;
                                 });
+                                };
                         },
+
+                        search: function(department_value){
+                                self._rpc({
+                                     model:'funenc_xa_station.station_summary',
+                                     method:'clint_search'
+                                     kwargs: {department:vue.department,
+                                              line:vue.line,
+                                              site:vue.site,
+                                              equipment_name:vue.equipment_name},
+                                }).then(function(data){
+                                        vue.sites = data;
+                                });
+                        },
+
                         import_excel_belong_to_management() {
                             if (this.tableData) {
                                 var url = '/funenc_xa_station/station_equipment_summary';

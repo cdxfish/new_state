@@ -66,7 +66,6 @@ class ConsumablesSummary(models.Model):
     @api.model
     def search_record_consumables(self,**kw):
         if kw:
-            lis= []
             dic_department_id = {}
             # 构建搜索domain
             if kw.get('department'):
