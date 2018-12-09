@@ -76,18 +76,18 @@ class ConsumablesSummary(models.Model):
                 dic_department_id[2] = kw.get('line')  # 线路
             if kw.get('site'):
                 dic_department_id.clear()
-                dic_department_id[3] = kw.get('line') # 站点
+                dic_department_id[3] = kw.get('site') # 站点
             if dic_department_id:
                 department_hierarchy = list(dic_department_id.keys())[0]
 
                 if department_hierarchy == 1:
                     department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[1])
                     line_ids =self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                        [('departmentId', '=', department_tmp.parentid)])
+                        [('parentid', '=', department_tmp.departmentId)])
                     tmp_site_ids = []
                     for line_id in line_ids:
                         site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                            [('departmentId', '=', line_id.parentid)])
+                            [('parentid', '=', line_id.departmentId)]).ids
                         tmp_site_ids = tmp_site_ids +site_ids
 
                     domain_ids = [department_tmp.id] + line_ids.ids + tmp_site_ids
@@ -95,19 +95,19 @@ class ConsumablesSummary(models.Model):
                 elif department_hierarchy == 2: #搜索为线路
                     department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[2])
                     site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                        [('departmentId', '=', department_tmp.parentid)]).ids
+                        [('parentid', '=', department_tmp.departmentId)]).ids
                     domain_ids = [department_tmp.id] + site_ids
                     domain = [('inventory_department_id', 'in', domain_ids)]
                 else: #搜索为站点
 
-                    domain_ids = [dic_department_id[2]]
+                    domain_ids = [dic_department_id[3]]
                     domain = [('inventory_department_id', 'in', domain_ids)]
 
 
 
             else:
                 search_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    [('department_hierarchy', '=',3)]).id
+                    [('department_hierarchy', '=',3)]).ids
                 domain = [('inventory_department_id','in',search_department_ids)]
 
             if kw.get('consumables_type'):
