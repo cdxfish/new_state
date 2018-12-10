@@ -32,7 +32,7 @@ class BreakSubmit(models.Model):
     @api.model
     def create(self, vals):
         # if vals['load_file_test'][0][2]:
-        #     vals['browse_image_invisible'] = 'one'
+        vals['browse_image_invisible'] = 'one'
         vals['submit_time'] = datetime.now()
 
         return super(BreakSubmit, self).create(vals)

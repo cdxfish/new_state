@@ -144,6 +144,18 @@
                                       </div>
                                      <div class="col-md-9">
                                          <field name="load_file_test_1" >
+                                             <tree>
+                                                <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
+                                                <field name="file_name" invisible="1"/>
+                                            </tree>
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                        <field name="file_name" invisible="1"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
                                          </field>
                                     </div>
                                  </div>
@@ -245,6 +257,18 @@
                                       </div>
                                      <div class="col-md-10">
                                          <field name="load_file_test_1" readonly="1">
+                                             <tree>
+                                                <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
+                                                <field name="file_name" invisible="1"/>
+                                            </tree>
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                        <field name="file_name" invisible="1"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
                                          </field>
                                     </div>
                                  </div>
@@ -419,7 +443,7 @@
                                  <label for="load_file_test_1" string="照片："/>
                               </div>
                              <div class="col-md-10">
-                                 <field name="load_file_test_1">
+                                 <field name="load_file_test_1" widget="break_widget">
                                  </field>
                             </div>
                          </div>
