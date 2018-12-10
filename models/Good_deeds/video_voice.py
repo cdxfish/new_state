@@ -27,6 +27,7 @@ class VideoVoice(models.Model):
     site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
     special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)
     belong_management_imange = fields.Many2one('funenc_xa_station.belong_to_management',string='属地管理')
+    break_submit_image = fields.Many2one('funenc_xa_station.break_submit',string='故障提报图片')
 
     @api.model
     def create(self, params):

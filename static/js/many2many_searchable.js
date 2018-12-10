@@ -83,6 +83,7 @@ odoo.define('many2manySearchable', function (require) {
             }
 
             // 分页
+
             this.pager = new Pager(this, this.value.visible_ids.length, this.value.offset + 1, this.value.limit, {
                 single_page_hidden: true,
                 withAccessKey: false,

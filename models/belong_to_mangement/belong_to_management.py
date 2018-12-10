@@ -4,9 +4,8 @@
 from odoo import api, models, fields
 from .. get_domain import get_domain
 from ast import literal_eval
-import odoo.exceptions as warning
-from dateutil.relativedelta import relativedelta
-
+from ..python_util import get_add_8th_str_time
+import datetime
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
     _inherit = 'fuenc_station.station_base'
@@ -115,21 +114,11 @@ class BelongToManagement(models.Model):
     def delete_action(self):
         self.env['funenc_xa_station.belong_to_management'].search([('id', '=', self.id)]).unlink()
 
+    @get_domain
     @api.model
-    def get_belong_to_management(self):
+    def get_belong_to_management(self,domain):
 
-        ding_user = self.env.user.dingtalk_user
-        department = ding_user.departments[0]
-        if department.department_hierarchy == 1:
-            temps = self.search_read([], ['id', 'summary_score', 'note', 'post_check', 'check_time'])
-        elif department.department_hierarchy == 2:
-            ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                [('parentid', '=', department.departmentId)]).ids
-
-            temps = self.search_read([('site_id', 'in', ids)],
-                                     ['id', 'summary_score', 'note', 'post_check', 'check_time'])
-        else:
-            temps = self.search_read([('site_id', '=', department.id)],
+        temps = self.search_read(domain,
                                      ['id', 'summary_score', 'note', 'post_check', 'check_time'])
         for temp in temps:
             if temp.get('post_check') == 'guard':
@@ -140,6 +129,11 @@ class BelongToManagement(models.Model):
                 temp['post_check'] = '保洁'
             else:
                 temp['post_check'] = ''
+            if temp.get('check_time'):
+                temp['check_time'] = get_add_8th_str_time(temp.get('check_time'))
+            else:
+                temp['check_time'] = ''
+
         return temps
 
     @api.model
@@ -147,7 +141,7 @@ class BelongToManagement(models.Model):
         select_id = int(id) or -1
         belong_to_management = self.search_read([('id', '=', select_id)],
                                                 ['find_problem', 'check_state', 'note', 'post_check',
-                                                 'reference_according',
+                                                 'reference_according','imgs',
                                                  'summary_score', 'local_image', 'check_time', 'line_id', 'site_id'])[0]
         if belong_to_management.get('line_id') and belong_to_management.get('site_id'):
             belong_to_management['devicePosition'] = belong_to_management.get('line_id')[1] + '-' + \
@@ -165,13 +159,19 @@ class BelongToManagement(models.Model):
             else:
                 belong_to_management['post_check'] = ''
 
+        if belong_to_management.get('check_time'):
+            belong_to_management['check_time'] = get_add_8th_str_time(belong_to_management.get('check_time'))
+        else:
+            belong_to_management['check_time'] = ''
+
         return belong_to_management
 
     @api.model
     def save_belong_to_management(self, vals):
 
         try:
-            self.create(vals)
+            vals['check_time'] = datetime.datetime.now()
+            vals['summary_score'] = 100 + vals.get('check_score',0)
         except Exception:
             raise False
         return True
