@@ -112,6 +112,7 @@
         'views/work_kanban/task_type.xml',
         'views/integrated_management/station_summary.xml',
         'views/index.xml',
+        'views/login.xml',
         'views/menu.xml',
         'views/opening_manage/train/training_plan.xml',
         'views/opening_manage/drill_plan/drill_plan.xml',

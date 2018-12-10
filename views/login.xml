@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="extend_login" inherit_id="layui_theme.funenc_layui_theme_login">
+
+        <xpath expr="//div[@class='layadmin-user-login-box layadmin-user-login-header']" position="replace">
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <h2>
+                    西安站务管理系统
+                </h2>
+            </div>
+        </xpath>
+    </template>
+</odoo>
