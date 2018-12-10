@@ -335,5 +335,6 @@
             <field name="parent_id" ref="system_review_management"/>
             <field name="category_id" ref="module_evaluation_index_manage_interface_display"/>
         </record>
+        <!--统计分析-->
     </data>
 </odoo>

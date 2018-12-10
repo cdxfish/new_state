@@ -113,7 +113,8 @@
                                       </div>
                                      <div class="col-md-8">
                                          <!--<label for="station_site" string="站点"/>-->
-                                         <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"/>
+                                         <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1"
+                                                domain="product_site_id_domain"  context="{'site_id':site_id}"/>
                                       </div>
                                    </div>
                                 </div>
@@ -121,12 +122,13 @@
                                 <div class="row">
                                    <div class="col-md-6">
                                       <div class="col-md-4">
-                                         <label for="person_name" string="员工姓名"/>
+                                         <label for="person_name" string="员工姓名" />
                                          <!--<field name="person_name"/>-->
                                       </div>
                                      <div class="col-md-8">
                                          <!--<label for="person_name" string="员工姓名"/>-->
-                                         <field name="person_name"/>
+                                         <field name="person_name" domain="[('user_property_departments','=',site_id)]"
+                                                        options="{'no_create':True,'no_open':True}"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">

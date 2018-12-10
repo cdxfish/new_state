@@ -474,6 +474,7 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
         <!--end职位角色组-->
+
     </data>
 </odoo>
 

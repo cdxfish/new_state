@@ -4,3 +4,4 @@ from . import consumables_warehousing
 from . import consumables_apply
 from . import consumables_inventory
 from . import delivery_storage
+from . import consumables_summary

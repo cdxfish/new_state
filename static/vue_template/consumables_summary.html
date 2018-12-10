@@ -1,0 +1,74 @@
+<div id="consumables_summary">
+    <template>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <h4>耗材汇总</h4>
+            </div>
+            <div class="block">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item>
+                        <el-select v-model="department" size="small" placeholder="部门" @change="get_line">
+                            <el-option
+                                    v-for="item in departments"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="line" size="small" clearable placeholder="分部" @change="get_site">
+                            <el-option
+                                    v-for="item in lines"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="site" size="small" clearable placeholder="站点">
+                            <el-option
+                                    v-for="item in sites"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                      <el-cascader
+                        :options="options"
+                        change-on-select="true"
+                        v-model="selectedOptions"
+                        @change="handleChange"
+                        clearable
+                        >
+                      </el-cascader>
+                    </el-form-item>
+                    <el-form-item>
+
+                        <el-button
+                        type="primary" icon="el-icon-search" size="small" @click="search_record_consumables">搜索
+                        </el-button>
+                        <el-button type="primary" icon="el-icon-caret-bottom" size="small"
+                                   @click="import_excel_belong_to_management">导出
+                        </el-button>
+                    </el-form-item>
+
+                </el-form>
+            </div>
+            <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
+                <el-table-column prop="consumables_type" label="耗材类型">
+                </el-table-column>
+                <el-table-column prop="inventory" label="库存数">
+                </el-table-column>
+            </el-table>
+        </el-card>
+    </template>
+</div>
+
+
+

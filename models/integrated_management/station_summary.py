@@ -113,3 +113,110 @@ class StationSummary(models.Model):
             "views": [[view_list, "tree"]],
             "domain": [('id', 'in', site_ids)],
         }
+
+    @api.model
+    def clint_search(self,**kw):
+        '''
+        clint 搜索方法
+        :param kw:
+        :return:
+        '''
+        if kw:
+            dic_department_id = {}
+            # 构建搜索domain
+            if kw.get('department'):
+                dic_department_id[1] = kw.get('department')  #部门
+            if kw.get('line'):
+                dic_department_id.clear()
+                dic_department_id[2] = kw.get('line')  # 线路
+            if kw.get('site'):
+                dic_department_id.clear()
+                dic_department_id[3] = kw.get('site') # 站点
+            if dic_department_id:
+                department_hierarchy = list(dic_department_id.keys())[0]
+
+                if department_hierarchy == 1:
+                    department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[1])
+                    line_ids =self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('parentid', '=', department_tmp.departmentId)])
+                    tmp_site_ids = []
+                    for line_id in line_ids:
+                        site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('parentid', '=', line_id.departmentId)]).ids
+                        tmp_site_ids = tmp_site_ids +site_ids
+
+                    domain_ids = [department_tmp.id] + line_ids.ids + tmp_site_ids
+                    domain = [('site_id', 'in', domain_ids)]
+                elif department_hierarchy == 2: #搜索为线路
+                    department_tmp = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(dic_department_id[2])
+                    site_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('parentid', '=', department_tmp.departmentId)]).ids
+                    domain_ids = [department_tmp.id] + site_ids
+                    domain = [('site_id', 'in', domain_ids)]
+                else: #搜索为站点
+
+                    domain_ids = [dic_department_id[3]]
+                    domain = [('site_id', 'in', domain_ids)]
+
+
+
+            else:
+                search_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('department_hierarchy', '=',3)]).ids
+                domain = [('site_id','in',search_department_ids)]
+
+
+
+            station_summary_ids = self.search(domain).ids
+
+            station_equipments = self.env['funenc_xa_station.station_equipment'].search_read([('station_summary_id','in',station_summary_ids)],['id','count','name'])
+            if kw.get('equipment_name'):
+                equipment_name = kw.get('equipment_name')
+                table_data = []
+                count = 0
+                for station_equipment in station_equipments:
+                    if equipment_name == station_equipment.get('name'):
+                        count = count + station_equipment.get('count')
+                table_data.append({
+                    'equipment_fname': equipment_name,
+                    'equipment_count': count
+                })
+
+                return table_data
+
+
+            # 构建测站设备数据
+            station_equipment_dic = {}
+            for station_equipment in station_equipments:
+                station_equipment_dic[station_equipment.get('name')] = station_equipment
+            table_data = []
+            for key in station_equipment_dic:
+                count = 0
+                for station_equipment in station_equipments:
+                    if key == station_equipment.get('name'):
+                        count = count + station_equipment.get('count')
+                table_data.append({
+                    'equipment_fname':station_equipment_dic[key].get('name'),
+                    'equipment_count':count
+                }
+                )
+
+            return table_data
+        else:
+            return []
+
+    @api.model
+    def get_site_station_equipment(self,site_id):
+        station_summary_ids = self.search([('site_id','=',site_id)]) #
+        # 其实是唯一的
+        data = []
+        for station_summary_id in station_summary_ids:
+            station_equipment_ids = station_summary_id.station_equipment_ids
+            for station_equipment_id in station_equipment_ids:
+                data.append(
+                    {
+                        'id':station_equipment_id.id,
+                        'name': station_equipment_id.name
+                    }
+                )
+        return data

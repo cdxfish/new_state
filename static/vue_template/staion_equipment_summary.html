@@ -1,0 +1,83 @@
+<div id="staion_equipment_summary">
+    <template>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <h4>车站设备汇总</h4>
+            </div>
+            <div class="block">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item>
+                        <el-select v-model="department" size="small" placeholder="部门" @change="get_line" clearable>
+                            <el-option
+                                    v-for="item in departments"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="line" size="small" placeholder="分部" @change="get_site" clearable>
+                            <el-option
+                                    v-for="item in lines"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="site" size="small" placeholder="站点" clearable @change="change_site">
+                            <el-option
+                                    v-for="item in sites"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-select v-model="equipment_name" size="small" placeholder="设备名称" clearable>
+                            <el-option
+                                    v-for="item in equipment_names"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <!--<el-form-item>-->
+                            <!--<el-date-picker-->
+                              <!--v-model="datetime"-->
+                              <!--type="daterange"-->
+                              <!--range-separator="至"-->
+                              <!--start-placeholder="开始日期"-->
+                              <!--end-placeholder="结束日期">-->
+                            <!--</el-date-picker>-->
+                    <!--</el-form-item>-->
+                    <el-form-item>
+
+                        <el-button
+                        type="primary" icon="el-icon-search" size="small" @click="search">搜索
+                        </el-button>
+                        <el-button type="primary" icon="el-icon-caret-bottom" size="small"
+                                   @click="import_excel_belong_to_management">导出
+                        </el-button>
+                    </el-form-item>
+
+                </el-form>
+            </div>
+            <el-table :data="tableData" stripe style="width: 100%" :data="tableData" size="mini" border>
+                <el-table-column prop="equipment_fname" label="设备名称">
+                </el-table-column>
+                <el-table-column prop="equipment_count" label="设备数量">
+                </el-table-column>
+            </el-table>
+        </el-card>
+    </template>
+</div>
+
+
+

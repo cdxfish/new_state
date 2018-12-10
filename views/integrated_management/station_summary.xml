@@ -166,7 +166,7 @@
                         <page string="车站设备">
                             <group>
                                 <field name="station_equipment_ids">
-                                    <tree>
+                                    <tree editable="top" class="noOpen">
                                         <field name="name" string="设备名称"/>
                                         <field name="count" string="设备数量"/>
                                         <field name="position" string="设备位置"/>

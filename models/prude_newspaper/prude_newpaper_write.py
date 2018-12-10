@@ -4,6 +4,7 @@
 from odoo import api, models, fields, exceptions
 import datetime
 from ..get_domain import get_domain
+from odoo.exceptions import ValidationError
 
 
 key = [('enter_come', '边门进出情况')
@@ -38,7 +39,13 @@ class PrudeNewpaperWrite(models.Model):
     brenk_time = fields.Datetime(string='故障时间')
     brenk_repair_time = fields.Datetime(string='故障报修时间')
     brenk_state = fields.Text(string='故障情况')
-    ''''''
+
+    @api.onchange('brenk_repair_time','brenk_time')
+    def time_sure(self):
+        if self.brenk_time and self.brenk_repair_time:
+            if self.brenk_repair_time < self.brenk_time:
+                return {'value':{'brenk_time':None,'brenk_repair_time':None}}
+
 
     #自动获取登录人的姓名
     @api.model

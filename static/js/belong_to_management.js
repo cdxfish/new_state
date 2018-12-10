@@ -90,7 +90,7 @@ odoo.define('belong_to_management', function (require) {
                                 self._rpc({
                                     model: 'funenc_xa_station.belong_to_summary',
                                     method: 'search_site',
-                                    kwargs: {date: line_value}
+                                    kwargs: {date: line_value},
                                 }).then(function (data) {
                                     vue.sites = data;
                                 });

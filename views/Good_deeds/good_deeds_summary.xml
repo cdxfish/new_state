@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.client" id="funenc_xa_station.good_deeds_summary">
+          <field name="name">好人好事页面</field>
+          <field name="tag">good_deeds_summary</field>
+        </record>
+
+        <menuitem parent="statistical_analysis_mune" name="好人好事汇总" id="good_deeds_summary_menu"
+                  action="funenc_xa_station.good_deeds_summary"
+                  groups="good_deeds_group_button"></menuitem>
+
+    </data>
+</odoo>

@@ -59,12 +59,12 @@
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field name="line_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_id_domain"></field>
-                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"></field>
+                            <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain" ontext="{'site_id':site_id}"></field>
                             <field name="meeting_time"></field>
                             <field name="meeting_site"></field>
                             <field name="compere"></field>
                             <field name="meeting_theme"></field>
-                            <field name="join_person" widget="many2many_tags" options="{'no_create':True,'no_open':True}"></field>
+                            <field name="join_person" widget="many2many_tags" options="{'no_create':True,'no_open':True}" domain="[('user_property_departments','=',site_id)]"></field>
                             <field name="meeting_content"></field>
                             <label for="load_file_test" string="图片附件"/>
                             <div class="x_panel form_sec">

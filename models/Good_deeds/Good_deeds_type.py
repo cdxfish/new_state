@@ -10,6 +10,8 @@ class GoodDeedsType(models.Model):
 
     good_type = fields.Char(string='好人好事类型')
     note = fields.Char(string='备注')
+    _sql_constraints = [('line_unique', 'UNIQUE(good_type)', "好人好事类型已经存在")]
+
 
     def onchange_typr_action(self):
 
