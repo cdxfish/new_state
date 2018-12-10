@@ -499,7 +499,7 @@ class StationIndex(models.Model):
             if clock_record.get('clock_start_time'):
                 dic['clockType'] = '上班打卡'
                 dic['id'] = clock_record.get('id')
-                dic['time'] = clock_record.get('clock_start_time')
+                dic['time'] = get_add_8th_str_time(clock_record.get('clock_start_time')) if clock_record.get('clock_start_time') else ''
                 dic['line_id'] = clock_record.get('line_id')[1]
                 dic['site_id'] = clock_record.get('site_id')[1]
             data.append(dic)
@@ -509,7 +509,7 @@ class StationIndex(models.Model):
             if clock_record.get('clock_end_time'):
                 dic1['clockType'] = '下班打卡'
                 dic1['id'] = clock_record.get('id')
-                dic1['time'] = clock_record.get('clock_end_time')
+                dic1['time'] = get_add_8th_str_time(clock_record.get('clock_end_time')) if clock_record.get('clock_end_time') else ''
                 dic1['line_id'] = clock_record.get('line_id')[1]
                 dic1['site_id'] = clock_record.get('site_id')[1]
             data.append(dic1)
@@ -736,7 +736,6 @@ class inherit_department(models.Model):
             return users
         except  Exception:
             return []
-
     @api.model
     def get_line_id(self):
         if self.env.user.id == 1:

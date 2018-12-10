@@ -3,6 +3,7 @@ import odoo.exceptions as msg
 from odoo import models, fields, api
 
 import datetime
+from ..python_util import get_add_8th_str_time
 
 
 class work_kanban(models.Model):
@@ -186,6 +187,10 @@ class work_kanban(models.Model):
 
             for kanban in kanban_list:
                 kanban['task_type_id'] = kanban.get('task_type_id')[1]
+                # if kanban.get('task_end_time'):
+                #     kanban['task_end_time'] = get_add_8th_str_time(kanban.get('task_end_time'))
+                # else:
+                #     kanban['task_end_time'] = ''
 
         return kanban_list
 
@@ -225,6 +230,18 @@ class work_kanban(models.Model):
                 kanban['task_type_id'] = kanban.get('task_type_id')[1]
             else:
                 kanban['task_type_id'] = None
+            if kanban.get('originator_time'):
+                kanban['originator_time'] = get_add_8th_str_time(kanban.get('originator_time'))
+            else:
+                kanban['originator_time'] = ''
+            if kanban.get('task_start_time'):
+                kanban['task_start_time'] = get_add_8th_str_time(kanban.get('task_start_time'))
+            else:
+                kanban['task_start_time'] = ''
+            if kanban.get('task_end_time'):
+                kanban['task_end_time'] = get_add_8th_str_time(kanban.get('task_end_time'))
+            else:
+                kanban['task_end_time'] = ''
 
             return kanban
         else:
