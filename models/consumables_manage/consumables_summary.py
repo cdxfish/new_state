@@ -106,7 +106,7 @@ class ConsumablesSummary(models.Model):
 
             else:
                 search_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    [('department_hierarchy', '=',3)]).ids
+                    []).ids
                 domain = [('inventory_department_id','in',search_department_ids)]
 
             if kw.get('consumables_type'):
@@ -130,6 +130,17 @@ class ConsumablesSummary(models.Model):
                         'inventory':count
                     }
                 )
+            #  搜索没有耗材类型时 数量应该显示为零
+            if not kw.get('consumables_type'):
+                all_consumables_type = self.env['funenc_xa_station.consumables_type'].search_read([],['id','consumables_type'])
+                tmp_consumables_type = set([consumables_type.get('id')for consumables_type in all_consumables_type]) & set(consumables_type_dic.keys())
+                for consumables_type in all_consumables_type:
+                    if consumables_type.get('id') in tmp_consumables_type:
+                        table_data.append({
+                            'consumables_type':consumables_type.get('consumables_type'),
+                            'inventory': 0
+                        }
+                        )
             return table_data
         else:
             return []

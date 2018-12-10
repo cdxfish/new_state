@@ -56,13 +56,16 @@ odoo.define('staion_equipment_summary', function (require) {
 
                     methods: {
                         get_line: function(department_value){
-                                self._rpc({
-                                     model:'funenc_xa_station.good_deeds_summary',
-                                     method:'get_line',
-                                     kwargs: {date:department_value},
-                                }).then(function(data){
-                                        vue.lines = data;
-                                });
+                                if (department_value){
+                                    self._rpc({
+                                         model:'funenc_xa_station.good_deeds_summary',
+                                         method:'get_line',
+                                         kwargs: {date:department_value},
+                                    }).then(function(data){
+                                            vue.lines = data;
+                                    });
+                                };
+
                         },
 
                         get_site: function(department_value){
@@ -78,16 +81,39 @@ odoo.define('staion_equipment_summary', function (require) {
                                 };
                         },
 
-                        search: function(department_value){
+                        change_site: function(department_value){
+                                if (vue.site){
+
                                 self._rpc({
                                      model:'funenc_xa_station.station_summary',
-                                     method:'clint_search'
-                                     kwargs: {department:vue.department,
+                                     method:'get_site_station_equipment',
+                                     kwargs: {site_id:vue.site},
+                                }).then(function(data){
+                                        vue.equipment_names = data;
+                                });
+                                };
+                        },
+
+                        search: function(department_value){
+                                var obj = {};
+                                for(var i =0;i<vue.equipment_names.length;i++){
+                                   if (vue.equipment_name==vue.equipment_names[i].id)
+                                     obj['name']=vue.equipment_names[i].name
+
+                                }
+                                console.log(obj)
+
+                                self._rpc({
+                                     model:'funenc_xa_station.station_summary',
+                                     method:'clint_search',
+                                     kwargs: {
+                                              department:vue.department,
                                               line:vue.line,
                                               site:vue.site,
-                                              equipment_name:vue.equipment_name},
+                                              equipment_name:obj.name
+                                              }
                                 }).then(function(data){
-                                        vue.sites = data;
+                                        vue.tableData = data;
                                 });
                         },
 
