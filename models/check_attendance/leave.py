@@ -132,7 +132,8 @@ class Leave(models.Model):
         # clock_records = self.env['fuenc_station.clock_record'].search(
         #     [('time', '>=', leave_start_time), ('time', '<=', leave_end_time), ('user_id', '=', leave_user_id)])
         time_days = []
-        
+
+       
         for day in range(days):
             str_to_datetime = start_datetime + datetime.timedelta(days=day)
             time_days.append(str_to_datetime)
