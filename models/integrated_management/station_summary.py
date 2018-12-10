@@ -166,17 +166,34 @@ class StationSummary(models.Model):
                 domain = [('site_id','in',search_department_ids)]
 
 
+
             station_summary_ids = self.search(domain).ids
-            station_equipments = self.nev['unenc_xa_station.station_equipment'].search_read([('station_summary_id','in',station_summary_ids)],['id','count','name'])
+
+            station_equipments = self.env['funenc_xa_station.station_equipment'].search_read([('station_summary_id','in',station_summary_ids)],['id','count','name'])
+            if kw.get('equipment_name'):
+                equipment_name = kw.get('equipment_name')
+                table_data = []
+                count = 0
+                for station_equipment in station_equipments:
+                    if equipment_name == station_equipment.get('name'):
+                        count = count + station_equipment.get('count')
+                table_data.append({
+                    'equipment_fname': equipment_name,
+                    'equipment_count': count
+                })
+
+                return table_data
+
+
             # 构建测站设备数据
             station_equipment_dic = {}
             for station_equipment in station_equipments:
-                station_equipment_dic[station_equipment.get('id')] = station_equipment
+                station_equipment_dic[station_equipment.get('name')] = station_equipment
             table_data = []
             for key in station_equipment_dic:
                 count = 0
                 for station_equipment in station_equipments:
-                    if key == station_equipment.get('id'):
+                    if key == station_equipment.get('name'):
                         count = count + station_equipment.get('count')
                 table_data.append({
                     'equipment_fname':station_equipment_dic[key].get('name'),
@@ -188,3 +205,18 @@ class StationSummary(models.Model):
         else:
             return []
 
+    @api.model
+    def get_site_station_equipment(self,site_id):
+        station_summary_ids = self.search([('site_id','=',site_id)]) #
+        # 其实是唯一的
+        data = []
+        for station_summary_id in station_summary_ids:
+            station_equipment_ids = station_summary_id.station_equipment_ids
+            for station_equipment_id in station_equipment_ids:
+                data.append(
+                    {
+                        'id':station_equipment_id.id,
+                        'name': station_equipment_id.name
+                    }
+                )
+        return data

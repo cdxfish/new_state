@@ -29,7 +29,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-select v-model="site" size="small" placeholder="站点" clearable>
+                        <el-select v-model="site" size="small" placeholder="站点" clearable @change="change_site">
                             <el-option
                                     v-for="item in sites"
                                     :key="item.id"
