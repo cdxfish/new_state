@@ -15,13 +15,13 @@ class MainModel(models.Model):
     # department = fields.Char(string='分部')
     # position = fields.Text(string='岗位')
     phone = fields.Char(string='联系电话')
-    certificate_info = fields.One2many('person.certificate','relevance',string='持证信息')
+    certificate_info = fields.One2many('person.certificate','relevance_staff',string='持证信息')
     #转岗信息
-    transfer_info = fields.One2many('persom_namagement.jobt_ranfer','relevance',string='转岗信息')
+    transfer_info = fields.One2many('persom_namagement.jobt_ranfer','relevance_ranfer',string='转岗信息')
     #考评记录
-    check_info = fields.One2many('funenc_xa_station.check_record','relevance',string='考评记录')
+    check_info = fields.One2many('funenc_xa_station.check_record','relevance_check',string='考评记录')
     #奖励制度
-    award_info = fields.One2many('funenc_xa_station.award_record','relevance',string='奖励记录')
+    award_info = fields.One2many('funenc_xa_station.award_record','relevance_award',string='奖励记录')
 
     # staff_number = fields.Char(string='员工工号',compute='onchange_name_sta',readonly=True)
     # name_name = fields.Char(string='姓名',compute='onchange_name_sta',readonly=True)

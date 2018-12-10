@@ -20,7 +20,7 @@
             <field name="name">funenc_xa_station_change_shifts_list</field>
             <field name="model">funenc_xa_station.change_shifts</field>
             <field name="arch" type="xml">
-                <tree limit="15" class="noOpen" search_ex_template="change_shifts_search_button">
+                <tree limit="15"  search_ex_template="change_shifts_search_button" create="0">
                     <field name="line_id" string="线路"
                     />
                     <field name="site_id" string="站点"

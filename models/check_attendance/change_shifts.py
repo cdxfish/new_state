@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 import odoo.exceptions as msg
 import datetime
-from ..get_domain import get_domain
+from ..get_domain import *
 
 KEY = [('send', '待确认'),
        ('refuse', '已拒绝'),
@@ -99,9 +99,9 @@ class ChangeShifts(models.Model):
 
         #   换班
         change_shifts_group = self.change_shifts_group_1.arrange_order_id.id  # 换班班次
-        change_user_id = self.change_shifts_group_1.user.id
+        change_user_id = self.change_shifts_group_1.user_id.id
         personal_change_shifts = self.personal_change_shifts_1.arrange_order_id.id  # 个人班次
-        personal_user_id = self.personal_change_shifts_1.user.id
+        personal_user_id = self.personal_change_shifts_1.user_id.id
         self.change_shifts_group_1.arrange_order_id = personal_change_shifts
         self.change_shifts_group_1.user_id = change_user_id
         self.personal_change_shifts_1.arrange_order_id = change_shifts_group
@@ -116,10 +116,11 @@ class ChangeShifts(models.Model):
         self.state = 'reject'
         self.reject_time = datetime.datetime.now()
 
+    @get_line_site_id
     @api.model
-    def save_change_shifts(self, **kw):
+    def save_change_shifts(self,line_site_id ,**kw):
         try:
-
+            line_id ,site_id = line_site_id
             ding_user = self.env.user.dingtalk_user
             personal_change_shifts_1 = kw.get('personal_change_shifts_1')
             sheduling_record = self.env['funenc_xa_station.sheduling_record'].search(
@@ -127,6 +128,8 @@ class ChangeShifts(models.Model):
             if sheduling_record:
                 kw['application_user_id'] = ding_user.id
                 kw['state'] = 'send'
+                kw['line_id'] = line_id
+                kw['site_id'] = site_id
                 kw['change_shifts_time'] = sheduling_record.sheduling_date or ''
                 kw['application_time'] = datetime.datetime.now()
                 self.create(kw)

@@ -140,13 +140,22 @@
                               <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-3">
-                                         <label for="load_file_test" string="照片："/>
+                                         <label for="load_file_test_1" string="照片："/>
                                       </div>
                                      <div class="col-md-9">
-                                         <field name="load_file_test" widget="many2many_binary">
-                                            <tree>
-                                                <field name="datas_fname"/>
+                                         <field name="load_file_test_1" >
+                                             <tree>
+                                                <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
+                                                <field name="file_name" invisible="1"/>
                                             </tree>
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                        <field name="file_name" invisible="1"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
                                          </field>
                                     </div>
                                  </div>
@@ -244,13 +253,22 @@
                               <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-2">
-                                         <label for="load_file_test" string="照片："/>
+                                         <label for="load_file_test_1" string="照片："/>
                                       </div>
                                      <div class="col-md-10">
-                                         <field name="load_file_test" widget="one2many_image_read_widget" readonly="1">
-                                            <tree>
-                                                <field name="datas_fname"/>
+                                         <field name="load_file_test_1" readonly="1">
+                                             <tree>
+                                                <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
+                                                <field name="file_name" invisible="1"/>
                                             </tree>
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
+                                                        <field name="file_name" invisible="1"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
                                          </field>
                                     </div>
                                  </div>
@@ -370,10 +388,10 @@
                               <div class="row">
                                    <div class="col-md-12">
                                       <div class="col-md-3">
-                                         <label for="load_file_test" string="照片："/>
+                                         <label for="load_file_test_1" string="照片："/>
                                       </div>
                                      <div class="col-md-9">
-                                         <field name="load_file_test" widget="many2many_binary" readonly="1"/>
+                                         <field name="load_file_test_1"  readonly="1"/>
                                             <!--<tree>-->
                                                 <!--<field name="name" dafault="image" invisible="1"></field>-->
                                                 <!--<field name="datas_fname"/>-->
@@ -422,13 +440,10 @@
                     <div class="row">
                            <div class="col-md-12">
                               <div class="col-md-2">
-                                 <label for="load_file_test" string="照片："/>
+                                 <label for="load_file_test_1" string="照片："/>
                               </div>
                              <div class="col-md-10">
-                                 <field name="load_file_test" widget="one2many_image_read_widget">
-                                    <tree>
-                                        <field name="datas_fname"/>
-                                    </tree>
+                                 <field name="load_file_test_1" widget="break_widget">
                                  </field>
                             </div>
                          </div>
