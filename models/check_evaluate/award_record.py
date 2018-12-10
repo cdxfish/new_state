@@ -26,7 +26,7 @@ class AwardRecord(models.Model):
     award_record_add = fields.One2many('funenc_xa_station.award_record_add','associated',string='新增责任人员')
     award_money = fields.Float(string='奖励金额')
     award_degree = fields.Integer(string='奖励次数',default=1)
-    relevance = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段')
+    relevance_award = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段')
 
     #在修改奖励指标类的时候返回奖励项目
     @api.onchange('award_target_kind')
@@ -208,7 +208,7 @@ class AwardRecord(models.Model):
                 super(AwardRecord, self).create(key)
 
         #用来和人员信息表关联
-        vals['relevance'] = vals['staff']
+        vals['relevance_award'] = vals['staff']
         return super(AwardRecord, self).create(vals)
 
     @api.model

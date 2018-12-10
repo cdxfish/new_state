@@ -179,7 +179,7 @@ class StationSummary(models.Model):
                     if key == station_equipment.get('id'):
                         count = count + station_equipment.get('count')
                 table_data.append({
-                    'equipment_fname':station_equipment_dic[key].get('name')
+                    'equipment_fname':station_equipment_dic[key].get('name'),
                     'equipment_count':count
                 }
                 )

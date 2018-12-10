@@ -7,9 +7,11 @@
             <field name="arch" type="xml">
             <form>
                 <group create="0" edit="0">
-                <field name="line_id" string="所属部门"></field>
-                <field name="site_id" string="所属线网"></field>
-                <field name="station"></field>
+                <field name="line_id" string="所属部门" domain="[('department_hierarchy', '=', 1)]"
+                       options="{'no_create':True,'no_open':True}"></field>
+                <field name="site_id" string="所属线网"
+                       options="{'no_create':True,'no_open':True}"></field>
+                <field name="station" options="{'no_create':True,'no_open':True}"></field>
                 <field name="site_post"></field>
                 <field name="site_time"></field>
                 <field name="site_file"></field>

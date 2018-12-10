@@ -81,7 +81,7 @@ odoo.define('staion_equipment_summary', function (require) {
                         search: function(department_value){
                                 self._rpc({
                                      model:'funenc_xa_station.station_summary',
-                                     method:'clint_search'
+                                     method:'clint_search',
                                      kwargs: {department:vue.department,
                                               line:vue.line,
                                               site:vue.site,

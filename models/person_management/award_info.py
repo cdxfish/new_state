@@ -13,4 +13,4 @@ class AwardInfo(models.Model):
     incident_description = fields.Char(string='事件描述')
     check_person = fields.Char(string='考评人')
     check_time = fields.Datetime(string='考评时间')
-    relevance = fields.Many2one('main.information',string='关联字段没有实际意义')
+    # relevance = fields.Many2one('main.information',string='关联字段没有实际意义')
