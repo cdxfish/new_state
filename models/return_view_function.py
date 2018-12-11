@@ -28,7 +28,7 @@ class ReturnViewFunction(models.AbstractModel):
     def return_tab_with_group(self, tab_data, action_id):
         self._cr.execute('''SELECT module, name FROM ir_model_data WHERE 
         (module = 'funenc_xa_station' AND model = 'ir.actions.server' AND res_id = %s) OR
-        (module = 'funenc_xa_station' AND model = 'ir.actions.act_window' AND res_id = %s)''' % (action_id, action_id))
+        (module = 'funenc_xa_station' AND model = 'ir.actions.act_window' AND res_id = %s)''' % (action_id, action_id ))
         results = self._cr.fetchall()
         for tab in tab_data:
             if len(results) == 0:

@@ -126,8 +126,8 @@ odoo.define('funenc_xa_award', function (require) {
                                 show_4:self.data_4,
                                 linei: self.line_data_self,
                                 site: self.site_data_self,
-                                lines: self.user_line,
-                                sites: '',
+                                lines: self.user_line ,
+                                sites: self.user_site,
                                 person: '',
                                 datetime: self.new_date_self,
                                 input: '',
@@ -214,7 +214,7 @@ odoo.define('funenc_xa_award', function (require) {
                                                 });
                                      }else if(that.tabValue==4){
                                                  self._rpc({
-                                                    model:'funenc_xa_station.check_collect',
+                                                    model:'funenc_xa_station.award_collect',
                                                     method:'get_action',
                                                  }).then(function(data){
 //                                                    console.log(data);

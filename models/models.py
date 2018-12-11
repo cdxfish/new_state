@@ -707,22 +707,32 @@ class inherit_department(models.Model):
 
     @api.model
     def get_xa_departments(self):
-        departments = self.sudo().search_read([], ['departmentId', 'name', 'parentid'])
+        departments = self.sudo().search_read([], ['departmentId', 'name', 'parentid','department_hierarchy'])
         dic = {}
+        dic['root_department'] = 1
+        departments.append({
+            'departmentId': 1,
+            'name': '根部门',
+            'parentid': 0
+        })
+        for department in departments:
+            if department.get('department_hierarchy') == 1:
+                department['parentid'] = 1
         dic['departments'] = departments
-        dic['root_department'] = self.search_read([('department_hierarchy', '=', 1)],
-                                                  ['departmentId', 'name', 'parentid'])[0].get('departmentId')
 
         return dic
 
     @api.model
     def get_users_by_department_id(self, departmentid):
-        users = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].sudo().search_read([('departments', '=', departmentid)]
-                                                                                   , ['id', 'jobnumber', 'name',
+        users = self.browse(departmentid).department_property_users.read(['id', 'jobnumber', 'name',
                                                                                       'departments', 'avatar',
                                                                                       'position'])
+        # users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].sudo().search_read([('department_property_users', '=', departmentid)]
+        #                                                                            , ['id', 'jobnumber', 'name',
+        #                                                                               'departments', 'avatar',
+        #                                                                               'position'])
         for user in users:
-            user['departmentId'] = user.get('departments')[0]
+            user['departmentId'] = user.get('departments')[0] if user.get('departments') else None
 
         return users
 

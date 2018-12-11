@@ -176,7 +176,7 @@ odoo.define('funenc_xa_check', function (require) {
 //                          tab页面的跳转功能
                         handleSelect: function () {
                             var that = this;
-//                                                        console.log(that.tabValue);
+//                            console.log(that.tabValue，'34343');
                             if (that.tabValue == 2) {
                                 self._rpc({
                                     model: 'funenc_xa_station.check_collect',

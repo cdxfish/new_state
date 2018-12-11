@@ -26,7 +26,7 @@ class JobTransfer(models.Model):
     @api.onchange('line_id')
     def _get_line(self):
         if  not self.line_id:
-            return
+            return {'domain':{'site_id':[('id','in',[])],'station':[('id','in',[])]},'value':''}
         lis = []
         department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search_read([('id', '=',self.line_id.id)],
                                                                                           ['departmentId'])
