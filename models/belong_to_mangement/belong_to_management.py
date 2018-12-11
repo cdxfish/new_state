@@ -172,6 +172,7 @@ class BelongToManagement(models.Model):
         try:
             vals['check_time'] = datetime.datetime.now()
             vals['summary_score'] = 100 + vals.get('check_score',0)
+            self.create(vals)
         except Exception:
             raise False
         return True
