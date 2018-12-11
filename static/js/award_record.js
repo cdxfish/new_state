@@ -128,7 +128,7 @@ odoo.define('funenc_xa_award', function (require) {
                                 linei: self.line_data_self,
                                 site: self.site_data_self,
                                 lines: self.user_line ,
-                                sites: self.site_data_self,
+                                sites: self.user_site,
                                 person: '',
                                 datetime: self.new_date_self,
                                 input: '',
