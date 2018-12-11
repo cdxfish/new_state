@@ -81,7 +81,6 @@ odoo.define('funenc_xa_award', function (require) {
             }).then(function(data){
                   self.line_data_self = data.default_line;
                   self.site_data_self = data.default_site;
-                  console.log('123,',self.line_data_self,'345',self.site_data_self)
 
             });
         },
@@ -191,7 +190,6 @@ odoo.define('funenc_xa_award', function (require) {
 //                          tab页面的跳转功能
                            handleSelect: function(){
                                     var that =this;
-                                    console.log('tabValue',this.tabValue)
                                     if(that.tabValue==1){
                                         self._rpc({
                                             model:'funenc_xa_station.check_record',
@@ -216,7 +214,7 @@ odoo.define('funenc_xa_award', function (require) {
                                                 });
                                      }else if(that.tabValue==4){
                                                  self._rpc({
-                                                    model:'funenc_xa_station.check_collect',
+                                                    model:'funenc_xa_station.award_collect',
                                                     method:'get_action',
                                                  }).then(function(data){
 //                                                    console.log(data);
