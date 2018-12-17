@@ -44,6 +44,17 @@
             <field name="binding_group">funenc_xa_station.new_production_newpaper_export_button</field>
             <field name="url">/funenc_xa_station/prude_newspaper</field>
             <field name="target">new</field>
+        </record>    ﻿
+
+        <record model="ir.actions.act_url" id="prude_newspaper_url_cookies">
+            <field name="name">去除cookies</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_prude_newspaper"/>
+            <field name="binding_xml_id">guests_hurt_tree</field>
+            <field name="binding_type">action_button</field>
+            <field name="binding_group">funenc_xa_station.new_production_newpaper_export_button</field>
+            <field name="url">/funenc_xa_station/cookies</field>
+            <field name="target">new</field>
         </record>
 
         <record id="prude_newspaper_form_view" model="ir.ui.view">
