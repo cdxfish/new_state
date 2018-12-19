@@ -266,7 +266,7 @@
                             <group string="车站客运情况">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日进/出站客运量:
@@ -277,7 +277,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日TVM售票数量:
@@ -288,7 +288,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">纪念票出售数量:
@@ -299,7 +299,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-7  col-xs-12">
+                                        <!--<div class="col-md-3  col-sm-7  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-7  col-xs-12">开边门次数:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-7  col-xs-12">-->
+                                                        <!--<field name="number_of_opening_door"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-sm-7  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-7  col-xs-12">开边门次数:
@@ -310,10 +324,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">硬币库存量:
@@ -324,7 +335,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">增票库存:
@@ -335,7 +346,32 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-6  col-xs-12">
+                                        <!--<div class="col-md-3  col-sm-6  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日客伤数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                                        <!--<field name="day_number_of_guest_injuries"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-3  col-sm-7  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-7  col-xs-12">本日投诉数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-7  col-xs-12">-->
+                                                        <!--<field name="number_of_complaints_today"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日客伤数量:
@@ -346,7 +382,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3  col-sm-7  col-xs-12">
+                                        <div class="col-md-4  col-sm-7  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-7  col-xs-12">本日投诉数量:
@@ -357,10 +393,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6  col-sm-6  col-xs-12">
+                                        <div class="col-md-4  col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">
@@ -372,7 +405,55 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6  col-xs-12">
+                                        <!--<div class="col-md-6 col-sm-6  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">好人好数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                                        <!--<field name="good_people_good_deeds"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                   <div class="row">
+                                        <!--<div class="col-md-4  col-sm-6  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">本日客伤数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                                        <!--<field name="day_number_of_guest_injuries"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-4  col-sm-7  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-7  col-xs-12">本日投诉数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-7  col-xs-12">-->
+                                                        <!--<field name="number_of_complaints_today"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-4  col-sm-6  col-xs-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<span class="widget-label  col-md-4  col-sm-6  col-xs-12">-->
+                                                        <!--本日感谢信/锦旗数量:-->
+                                                    <!--</span>-->
+                                                    <!--<div class="col-md-8  col-sm-6  col-xs-12">-->
+                                                        <!--<field name="gratitude_number"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="col-md-4 col-sm-6  col-xs-12">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <span class="widget-label  col-md-4  col-sm-6  col-xs-12">好人好数量:
@@ -384,6 +465,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
 
