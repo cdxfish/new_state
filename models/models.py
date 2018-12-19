@@ -1082,17 +1082,22 @@ class ImportGroupUser(models.Model):
                                 self.env.cr.execute(ins_sql_load)
                         else:
                             res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                                [('name', '=', no_res_line_id_load)])
-                            select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                                         'and department_id={}'.format(res_user_id_loas,res_line_name.id)
-                            cr = self._cr
-                            cr.execute(select_sql)
-                            record = cr.fetchall()
-                            if not record:
-                                ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                                          "values({},{})" \
-                                    .format(res_user_id_loas, res_line_name.id)
-                                self.env.cr.execute(ins_sql_load)
+                                [('name', '=', line[5])])
+                            if res_line_name:
+                                res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                    [('parentid', '=', res_line_name.departmentId)])
+                                for i in res_line_name_ids.ids:
+
+                                    select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                                 'and department_id={}'.format(res_user_id_loas,i)
+                                    cr = self._cr
+                                    cr.execute(select_sql)
+                                    record = cr.fetchall()
+                                    if not record:
+                                        ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                                  "values({},{})" \
+                                            .format(res_user_id_loas, i )
+                                        self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
                     position = line[7]
                     print('i=',i)
