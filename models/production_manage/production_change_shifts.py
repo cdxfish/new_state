@@ -217,7 +217,7 @@ class production_change_shifts(models.Model):
     def onchange_check_project_ids(self):
         # 预设行车
         try:
-            if not self.preparedness_1_ids:
+            if not self.check_project_ids:
                 obj = self.env['funenc_xa_station.car_line'].search([])[0]
                 inst_ids = obj.check_project_ids
                 default_data = []
