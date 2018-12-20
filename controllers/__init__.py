@@ -23,3 +23,4 @@ from . import belong_management_summart
 from . import export_good_deeds
 from . import station_equipment_sumarry
 from . import consumables_sumarry
+from . import close_cookies

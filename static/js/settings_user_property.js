@@ -7,6 +7,7 @@ odoo.define('settings_user_property', function (require) {
     var settings_user_property = Widget.extend({
             init: function (parent, record, node) {
                 this._super(parent, record, node);
+                console.log(record);
                 this.vue_data = {
                                 departmentList:[],
                                 // 选中的人员

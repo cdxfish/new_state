@@ -44,7 +44,7 @@
             <field name="binding_group">funenc_xa_station.new_production_newpaper_export_button</field>
             <field name="url">/funenc_xa_station/prude_newspaper</field>
             <field name="target">new</field>
-        </record>
+        </record>    ﻿
 
         <record id="prude_newspaper_form_view" model="ir.ui.view">
             <field name="name">生产日报</field>

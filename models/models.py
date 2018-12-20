@@ -1059,12 +1059,47 @@ class ImportGroupUser(models.Model):
             import_fail_job_numbers = []
             for i in range(lines):
                 if i > 0:
-
+                    # 用来预设人员属性
                     line =sheet1.row_values(i)
-                    job_number = '{}00{}'.format(line[0][0],line[0][1:])  # 工号
+                    job_number = '{}00{}'.format(line[1][0],line[1][1:])  # 工号
                     ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)])
+                    res_user_id_loas = ding_user_id.id #获取角色的id
+                    res_line_id_load = line[6] #获取角色的部门
+                    no_res_line_id_load = ding_user_id.department_name # 如果 excel 不存在部门就用之前的
+                    if res_user_id_loas:
+                        res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('name', '=', res_line_id_load)])
+                        if res_line_name.id:
+                            select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                         'and department_id={}'.format(res_user_id_loas,res_line_name.id)
+                            cr = self._cr
+                            cr.execute(select_sql)
+                            record = cr.fetchall()
+                            if not record:
+                                ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                          "values({},{})" \
+                                    .format(res_user_id_loas, res_line_name.id)
+                                self.env.cr.execute(ins_sql_load)
+                        else:
+                            res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                [('name', '=', line[5])])
+                            if res_line_name:
+                                res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                    [('parentid', '=', res_line_name.departmentId)])
+                                for i in res_line_name_ids.ids:
+
+                                    select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                                 'and department_id={}'.format(res_user_id_loas,i)
+                                    cr = self._cr
+                                    cr.execute(select_sql)
+                                    record = cr.fetchall()
+                                    if not record:
+                                        ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                                  "values({},{})" \
+                                            .format(res_user_id_loas, i )
+                                        self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
-                    position = line[2]
+                    position = line[7]
                     print('i=',i)
                     self_position = position_map[position]
                     if res_user_id:
@@ -1075,13 +1110,13 @@ class ImportGroupUser(models.Model):
                             self.env.cr.execute(ins_sql)
                     else:
 
-                        print('gh=', line[0])
-                        print('user_name=',line[1])
+                        print('gh=', line[1])
+                        print('user_name=',line[2])
                         print('job_number=', job_number)
                         print('res_user_id=', res_user_id)
                         print('ding_user=',ding_user_id)
                         print('职位=', position)
-                        import_fail_job_numbers.append((line[0],line[1],line[2]))
+                        import_fail_job_numbers.append((line[1],line[2],line[7]))
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
             # 钉钉未设置人员
@@ -1096,6 +1131,37 @@ class ImportGroupUser(models.Model):
             #
             # f.save('二分部钉钉未设置人员.xls')
         self.unlink()
+
+    # def download_save(self):
+    #     data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
+    #
+    #     sheet_data = data.sheet_by_name(data.sheet_names()[0])
+    #     sheet1 = data.sheet_by_index(0)
+    #     if sheet_data:
+    #         lines = sheet_data.nrows
+    #         import_fail_job_numbers = []
+    #         for i in range(40):
+    #             if i > 0:
+    #
+    #                 line = sheet1.row_values(i)
+    #                 job_number = '{}00{}'.format(line[1][0], line[1][1:])  # 工号
+    #                 ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
+    #                     [('jobnumber', '=', job_number)])
+    #                 res_user_id_loas = ding_user_id.id
+    #                 res_line_id_load = ding_user_id.department_name
+    #                 res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('name','=',res_line_id_load)])
+    #                 if res_user_id_loas:
+    #                     select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+    #                                  'and department_id={}'.format(res_user_id_loas,res_line_name.id)
+    #                     cr = self._cr
+    #                     cr.execute(select_sql)
+    #                     record = cr.fetchall()
+    #                     if not record:
+    #                         ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+    #                                   "values({},{})" \
+    #                             .format(res_user_id_loas, res_line_name.id)
+    #                         self.env.cr.execute(ins_sql_load)
+    #     self.unlink()
 
 
 
