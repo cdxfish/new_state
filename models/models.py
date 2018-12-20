@@ -1063,21 +1063,41 @@ class ImportGroupUser(models.Model):
                     line =sheet1.row_values(i)
                     job_number = '{}00{}'.format(line[1][0],line[1][1:])  # 工号
                     ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)])
-                    res_user_id_loas = ding_user_id.id
-                    res_line_id_load = ding_user_id.department_name
-                    res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('name','=',res_line_id_load)])
+                    res_user_id_loas = ding_user_id.id #获取角色的id
+                    res_line_id_load = line[6] #获取角色的部门
+                    no_res_line_id_load = ding_user_id.department_name # 如果 excel 不存在部门就用之前的
                     if res_user_id_loas:
-                        select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                                     'and department_id={}'.format(res_user_id_loas,res_line_name.id)
-                        cr = self._cr
-                        cr.execute(select_sql)
-                        record = cr.fetchall()
-                        if not record:
-                            ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                                      "values({},{})" \
-                                .format(res_user_id_loas, res_line_name.id)
-                            self.env.cr.execute(ins_sql_load)
+                        res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('name', '=', res_line_id_load)])
+                        if res_line_name.id:
+                            select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                         'and department_id={}'.format(res_user_id_loas,res_line_name.id)
+                            cr = self._cr
+                            cr.execute(select_sql)
+                            record = cr.fetchall()
+                            if not record:
+                                ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                          "values({},{})" \
+                                    .format(res_user_id_loas, res_line_name.id)
+                                self.env.cr.execute(ins_sql_load)
+                        else:
+                            res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                [('name', '=', line[5])])
+                            if res_line_name:
+                                res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                    [('parentid', '=', res_line_name.departmentId)])
+                                for i in res_line_name_ids.ids:
 
+                                    select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                                 'and department_id={}'.format(res_user_id_loas,i)
+                                    cr = self._cr
+                                    cr.execute(select_sql)
+                                    record = cr.fetchall()
+                                    if not record:
+                                        ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                                  "values({},{})" \
+                                            .format(res_user_id_loas, i )
+                                        self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
                     position = line[7]
                     print('i=',i)
