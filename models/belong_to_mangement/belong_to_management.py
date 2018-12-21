@@ -36,7 +36,7 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-        if vals.get('load_file_test') or vals.get('imgs') :
+        if vals.get('load_file_test') or literal_eval(vals.get('imgs')) :
                 vals['browse_image_invisible'] = 'one'
         create_vals = super(BelongToManagement, self).create(vals)
         if create_vals.imgs:
