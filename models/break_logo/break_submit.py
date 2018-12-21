@@ -31,9 +31,9 @@ class BreakSubmit(models.Model):
     #在创建的时候改变分数的正负数
     @api.model
     def create(self, vals):
-        # if vals['load_file_test'][0][2]:
-        vals['browse_image_invisible'] = 'one'
-        vals['submit_time'] = datetime.now()
+        if vals.get('load_file_test_1') or vals.get('url'):
+            vals['browse_image_invisible'] = 'one'
+            vals['submit_time'] = datetime.now()
 
         return super(BreakSubmit, self).create(vals)
 
@@ -174,7 +174,7 @@ class BreakSubmit(models.Model):
 
         except Exception:
 
-            return  False
+            return False
 
         return True
 
