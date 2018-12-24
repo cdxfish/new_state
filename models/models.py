@@ -12,7 +12,7 @@ from .get_domain import *
 import time
 
 import json
-import xlrd,xlwt
+import xlrd, xlwt
 import logging
 import requests
 from .python_util import *
@@ -59,7 +59,7 @@ class fuenc_station(models.Model):
     @get_line_id_domain
     @api.multi
     @api.depends('line_id')
-    def _compute_product_id_domain(self,domain):
+    def _compute_product_id_domain(self, domain):
         for rec in self:
             rec.product_id_domain = json.dumps(
                 domain
@@ -68,7 +68,7 @@ class fuenc_station(models.Model):
     @get_line_id
     @get_line_id_domain
     @api.onchange('line_id')
-    def change_line_id(self,domain,line_id):
+    def change_line_id(self, domain, line_id):
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments.ids
         if not self.line_id:
@@ -86,11 +86,11 @@ class fuenc_station(models.Model):
             else:
                 if self.env.user.id == 1:
                     return {
-                        'domain': {'line_id': [('department_hierarchy','=',2)],
+                        'domain': {'line_id': [('department_hierarchy', '=', 2)],
                                    }
                     }
                 return {
-                    'domain': {'line_id': [('id','<',1)],
+                    'domain': {'line_id': [('id', '<', 1)],
                                'site_id': [('id', '<', 1)]
                                },
                 }
@@ -105,9 +105,9 @@ class fuenc_station(models.Model):
 
         if self.env.user.id == 1:
             return {'domain': {'site_id': [('id', 'in', child_department_ids)],
-                           'line_id': [('department_hierarchy','=',2)]
-                           }
-                }
+                               'line_id': [('department_hierarchy', '=', 2)]
+                               }
+                    }
 
         return {'domain': {'site_id': site_domain,
                            'line_id': domain
@@ -139,9 +139,8 @@ class StationIndex(models.Model):
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
 
-
     @api.model
-    def save_clock_record(self,**kw):
+    def save_clock_record(self, **kw):
         site_id = kw.get('department_id')
         user_id = kw.get('user_id')
 
@@ -151,30 +150,30 @@ class StationIndex(models.Model):
                  ('user_id', '=', user_id),
                  ('sheduling_date', '=', datetime.datetime.now())])
             values = {
-                      # 'line_id': user_id.line_id.id,
-                      'site_id': site_id,
-                      'time': datetime.datetime.now(),
-                      'user_id': user_id,
-                      'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
-                      'clock_site': site_id,
-                      'clock_start_time': datetime.datetime.now(),
-                      'is_overtime': 'no'
-                      }
+                # 'line_id': user_id.line_id.id,
+                'site_id': site_id,
+                'time': datetime.datetime.now(),
+                'user_id': user_id,
+                'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
+                'clock_site': site_id,
+                'clock_start_time': datetime.datetime.now(),
+                'is_overtime': 'no'
+            }
             self.env['fuenc_station.clock_record'].sudo().create(values)
 
             return '上班打卡成功'
 
         else:
             clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
-                                                                                         order='id asc')
+                                                                                 order='id asc')
             lens = len(clock_records)
             if clock_records:
-                clock_record = clock_records[lens-1]
+                clock_record = clock_records[lens - 1]
                 if not clock_record.clock_start_time:
                     return '请先上班打卡'
                 else:
                     clock_record.clock_end_time = datetime.datetime.now()
-                    work_time = get_time_difference_th(clock_record.clock_start_time,clock_record.clock_end_time)
+                    work_time = get_time_difference_th(clock_record.clock_start_time, clock_record.clock_end_time)
                     if work_time <= 12:
                         compute_work_time = work_time
                         clock_record.work_time = compute_work_time
@@ -183,24 +182,24 @@ class StationIndex(models.Model):
                         clock_record.work_time = compute_work_time
                         clock_record.is_overtime = 'yes'
                         clock_record.overtime = work_time - 12
-                    if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]: # 上下班打卡为一天
+                    if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]:  # 上下班打卡为一天
                         flag = self.get_festival_and_holiday(clock_record.clock_end_time[:10])
                         if flag:
                             clock_record.festival_overtime = compute_work_time
                     else:  # 上下班打卡不为一天
-                        morning_difference_th_1  = 0
+                        morning_difference_th_1 = 0
                         morning_difference_th_2 = 0
                         if self.get_festival_and_holiday(clock_record.clock_start_time[:10]):
                             morning_difference_th_1 = to_morning_difference_th(clock_record.clock_end_time[:10])
                         if self.get_festival_and_holiday(clock_record.clock_end_time[:10]):
                             morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
-                        clock_record.festival_overtime = morning_difference_th_1+ morning_difference_th_2
+                        clock_record.festival_overtime = morning_difference_th_1 + morning_difference_th_2
 
                     return '下班打卡成功'
             else:
                 return '请先上班打卡'
 
-    def get_festival_and_holiday(self,dtime):
+    def get_festival_and_holiday(self, dtime):
         # 判断节假日 参数 date  返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
         url = "http://api.goseek.cn/Tools/holiday"  #
         # 2017-11-11
@@ -214,7 +213,6 @@ class StationIndex(models.Model):
             return True
         else:
             return False
-
 
     @api.model
     def create_clock_record(self):
@@ -239,26 +237,25 @@ class StationIndex(models.Model):
         site_options = def_data.get('site_options')
         default_users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].pc_get_users_by_department_id(site_id)
         default_data = self.get_clock_record(
-            start_time=time.time()*1000-2,
+            start_time=time.time() * 1000 - 2,
             line_id=line_id,
             site_id=site_id
         )
 
         return {'line_id': line_id, 'site_id': site_id, 'line_options': line_options, 'site_options': site_options,
                 'default_users': default_users,
-                'default_data':default_data
+                'default_data': default_data
                 }
 
-
     @api.model
-    def get_clock_record(self,**kw ):
+    def get_clock_record(self, **kw):
         # try:
         #     pass
         # except Exception:
         #     return [] '%Y-%m-%d %H:%M:%S'
         current_time = time.time()
         start_time = kw.get('start_time')
-        start_time_second = float(start_time)/1000
+        start_time_second = float(start_time) / 1000
         date_time = datetime.datetime.fromtimestamp(start_time_second)
         line_id = kw.get('line_id')
         site_id = kw.get('site_id')
@@ -271,12 +268,12 @@ class StationIndex(models.Model):
         day = calendar.monthrange(int(year), int(month1))[1]
         end_time = year + '-{}'.format(month1) + '-{}'.format(day)
         start_month_str_time = year + '-{}'.format(month1) + '-01'
-        start_month = datetime.datetime.strptime(start_month_str_time,'%Y-%m-%d')
+        start_month = datetime.datetime.strptime(start_month_str_time, '%Y-%m-%d')
         end_datetime = datetime.datetime.strptime(end_time, '%Y-%m-%d')
         # datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S')
         end_month_second = time.mktime(end_datetime.timetuple())
-        if (end_month_second+24*60*60-1) >=current_time:
-            end_datetime = datetime.datetime.fromtimestamp(current_time-24*60*60)
+        if (end_month_second + 24 * 60 * 60 - 1) >= current_time:
+            end_datetime = datetime.datetime.fromtimestamp(current_time - 24 * 60 * 60)
 
         days = (end_datetime - start_month).days + 1
 
@@ -291,10 +288,10 @@ class StationIndex(models.Model):
 
         show_data = {}
         show_data['days'] = show_time_days
-        domain = [('id','<',1)]
+        domain = [('id', '<', 1)]
         if line_id and site_id and user_id:
             domain = [('time', '>=', start_month_str_time), ('time', '<=', end_time), ('site_id', '=', site_id),
-                 ('user_id', '=', user_id)]
+                      ('user_id', '=', user_id)]
         if line_id and site_id and not user_id:
             domain = [('time', '>=', start_month_str_time), ('time', '<=', end_time), ('site_id', '=', site_id)]
         if line_id and not site_id and not user_id:
@@ -499,9 +496,10 @@ class StationIndex(models.Model):
             if clock_record.get('clock_start_time'):
                 dic['clockType'] = '上班打卡'
                 dic['id'] = clock_record.get('id')
-                dic['time'] = get_add_8th_str_time(clock_record.get('clock_start_time')) if clock_record.get('clock_start_time') else ''
-                dic['line_id'] = clock_record.get('line_id')[1]
-                dic['site_id'] = clock_record.get('site_id')[1]
+                dic['time'] = get_add_8th_str_time(clock_record.get('clock_start_time')) if clock_record.get(
+                    'clock_start_time') else ''
+                dic['line_id'] = clock_record.get('line_id')[1] if clock_record.get('line_id') else ''
+                dic['site_id'] = clock_record.get('site_id')[1] if clock_record.get('site_id') else ''
             data.append(dic)
 
         for clock_record in clock_records:
@@ -509,9 +507,10 @@ class StationIndex(models.Model):
             if clock_record.get('clock_end_time'):
                 dic1['clockType'] = '下班打卡'
                 dic1['id'] = clock_record.get('id')
-                dic1['time'] = get_add_8th_str_time(clock_record.get('clock_end_time')) if clock_record.get('clock_end_time') else ''
-                dic1['line_id'] = clock_record.get('line_id')[1]
-                dic1['site_id'] = clock_record.get('site_id')[1]
+                dic1['time'] = get_add_8th_str_time(clock_record.get('clock_end_time')) if clock_record.get(
+                    'clock_end_time') else ''
+                dic1['line_id'] = clock_record.get('line_id')[1] if clock_record.get('line_id') else ''
+                dic1['site_id'] = clock_record.get('site_id')[1] if clock_record.get('site_id') else ''
             data.append(dic1)
 
         return data
@@ -546,15 +545,15 @@ class generate_qr(models.Model):
 
             obj = self.search([('site_id', '=', site_id)])
 
-                                                                                                                  # department.id)
+            # department.id)
             work_add_data = {
                 'model': 'fuenc_station.clock_record',
                 'func': 'save_clock_record',
-                'type':'work',
-                'department_id':site_id
+                'type': 'work',
+                'department_id': site_id
             }
             work_file_name = file + "work_{}.png".format(str_now_date[:10])
-            off_work_add_data ={
+            off_work_add_data = {
                 'model': 'fuenc_station.clock_record',
                 'func': 'save_clock_record',
                 'type': 'off_work',
@@ -594,13 +593,13 @@ class generate_qr(models.Model):
                     'site_id': site_id,
                 })
         end_time = time.time()
-        print(end_time-start_time)
+        print(end_time - start_time)
         lens = len(site_ids)
         context = dict(self.env.context or {})
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_form').id
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_generate_qr_list').id
         if lens == 1:
-            res_id = self.search([('site_id','=',site_ids[0])]).id
+            res_id = self.search([('site_id', '=', site_ids[0])]).id
             return {
                 'name': '上下班打卡',
                 'type': 'ir.actions.act_window',
@@ -609,8 +608,8 @@ class generate_qr(models.Model):
                 'res_id': res_id,
                 'target': 'current',
             }
-        elif lens> 1:
-            context['group_by']= 'line_id'
+        elif lens > 1:
+            context['group_by'] = 'line_id'
             return {
                 'name': '上下班打卡',
                 'type': 'ir.actions.act_window',
@@ -623,8 +622,7 @@ class generate_qr(models.Model):
             return
             # raise Warning('你未在 权限管理/部门管理 设置人员属性')
 
-
-    def create_qrcode_1(self,add_data,file_name):
+    def create_qrcode_1(self, add_data, file_name):
 
         '''
         二维码生成
@@ -701,13 +699,11 @@ class inherit_department(models.Model):
 
     def _compute_count_user(self):
         for this in self:
-
             this.count_user = len(this.department_property_users.ids)
-
 
     @api.model
     def get_xa_departments(self):
-        departments = self.sudo().search_read([], ['departmentId', 'name', 'parentid','department_hierarchy'])
+        departments = self.sudo().search_read([], ['departmentId', 'name', 'parentid', 'department_hierarchy'])
         dic = {}
         dic['root_department'] = 1
         departments.append({
@@ -725,8 +721,8 @@ class inherit_department(models.Model):
     @api.model
     def get_users_by_department_id(self, departmentid):
         users = self.browse(departmentid).department_property_users.read(['id', 'jobnumber', 'name',
-                                                                                      'departments', 'avatar',
-                                                                                      'position'])
+                                                                          'departments', 'avatar',
+                                                                          'position'])
         # users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].sudo().search_read([('department_property_users', '=', departmentid)]
         #                                                                            , ['id', 'jobnumber', 'name',
         #                                                                               'departments', 'avatar',
@@ -746,6 +742,7 @@ class inherit_department(models.Model):
             return users
         except  Exception:
             return []
+
     @api.model
     def get_line_id(self):
         if self.env.user.id == 1:
@@ -803,15 +800,15 @@ class inherit_department(models.Model):
         line_ids = []
         for line_obj in line_obj_ids:
             line_ids.append(
-                {'id':line_obj.id,
-                  'name': line_obj.name
+                {'id': line_obj.id,
+                 'name': line_obj.name
                  }
             )
 
         return {'default_line': default_line.id if default_line else '',
                 'site_options': site_list_dic,
                 'default_site': default_site,
-                'line_options':line_ids,
+                'line_options': line_ids,
                 }
 
     @api.model
@@ -823,8 +820,9 @@ class inherit_department(models.Model):
         month1 = start_time[5:7]
         days = calendar.monthrange(int(year), int(month1))[1]
         end_time = year + '-{}'.format(month1) + '-{}'.format(days)
-        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(default_line_data.get('default_site'), start_time,
-                                                                                          end_time)
+        default_data = self.env['funenc_xa_station.sheduling_manage'].get_sheuling_list_1(
+            default_line_data.get('default_site'), start_time,
+            end_time)
 
         return {'default_line': default_line_data.get('default_line'),
                 'site_options': default_line_data.get('site_options'),
@@ -846,7 +844,6 @@ class inherit_department(models.Model):
             child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                 [('parentid', '=', department_id)]).ids
             site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
-
 
             return self.search_read(site_domain, ['id', 'name'])
         except Exception:
@@ -946,13 +943,13 @@ class UserInherit(models.Model):
                 }
 
     @api.model
-    def get_user_by_name_or_no(self,name_or_no):
+    def get_user_by_name_or_no(self, name_or_no):
         '''
          根据姓名或者工号查询用户
         :return: 用户列表
         '''
 
-        user_list = self.search(['|',('name','ilike',name_or_no),('jobnumber','ilike',name_or_no)])
+        user_list = self.search(['|', ('name', 'ilike', name_or_no), ('jobnumber', 'ilike', name_or_no)])
         show_user_list = []
         for user in user_list:
 
@@ -962,7 +959,7 @@ class UserInherit(models.Model):
                 'name': user.name,
                 'line_name': user.line_id.name if user.line_id else '',
                 'branch_department': '',
-                'department_name': user.department_name ,
+                'department_name': user.department_name,
                 'position': user.position,
                 'tel': user.tel
             }
@@ -970,7 +967,7 @@ class UserInherit(models.Model):
             if user.departments:
                 # 分部
                 department = user.departments[0]
-                if  department.department_hierarchy == 1:
+                if department.department_hierarchy == 1:
                     user_dic['branch_department'] = department.name
                 elif department.department_hierarchy == 1:
                     user_dic['branch_department'] = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
@@ -986,7 +983,6 @@ class UserInherit(models.Model):
                 user_dic['branch_department'] = ''
 
             show_user_list.append(user_dic)
-
 
         return show_user_list
 
@@ -1006,7 +1002,7 @@ class ImportGroupUser(models.Model):
 
     @api.model
     def create(self, vals):
-        obj = super(ImportGroupUser,self).create(vals)
+        obj = super(ImportGroupUser, self).create(vals)
 
         return obj
 
@@ -1023,7 +1019,7 @@ class ImportGroupUser(models.Model):
         if sheet_data:
             position_map = {
                 '经理': self.env.ref('funenc_xa_station.module_position_manager_100'),
-                '副经理':self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
+                '副经理': self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
                 '人事管理助理': self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103'),
                 '运输管理助理': self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104'),
                 '技术开发助理': self.env.ref('funenc_xa_station.module_position_technological development_assistant_106'),
@@ -1060,24 +1056,25 @@ class ImportGroupUser(models.Model):
             for i in range(lines):
                 if i > 0:
                     # 用来预设人员属性
-                    line =sheet1.row_values(i)
-                    job_number = '{}00{}'.format(line[1][0],line[1][1:])  # 工号
-                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search([('jobnumber','=',job_number)])
-                    res_user_id_loas = ding_user_id.id #获取角色的id
-                    res_line_id_load = line[6] #获取角色的部门
-                    no_res_line_id_load = ding_user_id.department_name # 如果 excel 不存在部门就用之前的
+                    line = sheet1.row_values(i)
+                    job_number = '{}00{}'.format(line[1][0], line[1][1:])  # 工号
+                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
+                        [('jobnumber', '=', job_number)])
+                    res_user_id_loas = ding_user_id.id  # 获取角色的id
+                    res_line_id_load = line[6]  # 获取角色的部门
+                    no_res_line_id_load = ding_user_id.department_name  # 如果 excel 不存在部门就用之前的
                     if res_user_id_loas:
                         res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
                             [('name', '=', res_line_id_load)])
                         if res_line_name.id:
                             select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                                         'and department_id={}'.format(res_user_id_loas,res_line_name.id)
+                                         'and department_id={}'.format(res_user_id_loas, res_line_name.id)
                             cr = self._cr
                             cr.execute(select_sql)
                             record = cr.fetchall()
                             if not record:
                                 ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                                          "values({},{})" \
+                                               "values({},{})" \
                                     .format(res_user_id_loas, res_line_name.id)
                                 self.env.cr.execute(ins_sql_load)
                         else:
@@ -1089,34 +1086,34 @@ class ImportGroupUser(models.Model):
                                 for i in res_line_name_ids.ids:
 
                                     select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                                                 'and department_id={}'.format(res_user_id_loas,i)
+                                                 'and department_id={}'.format(res_user_id_loas, i)
                                     cr = self._cr
                                     cr.execute(select_sql)
                                     record = cr.fetchall()
                                     if not record:
                                         ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                                                  "values({},{})" \
-                                            .format(res_user_id_loas, i )
+                                                       "values({},{})" \
+                                            .format(res_user_id_loas, i)
                                         self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
                     position = line[7]
-                    print('i=',i)
+                    print('i=', i)
                     self_position = position_map[position]
                     if res_user_id:
                         if res_user_id not in self_position.users.ids:
                             ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-                                         "values({},{})" \
+                                      "values({},{})" \
                                 .format(self_position.id, res_user_id)
                             self.env.cr.execute(ins_sql)
                     else:
 
                         print('gh=', line[1])
-                        print('user_name=',line[2])
+                        print('user_name=', line[2])
                         print('job_number=', job_number)
                         print('res_user_id=', res_user_id)
-                        print('ding_user=',ding_user_id)
+                        print('ding_user=', ding_user_id)
                         print('职位=', position)
-                        import_fail_job_numbers.append((line[1],line[2],line[7]))
+                        import_fail_job_numbers.append((line[1], line[2], line[7]))
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
             # 钉钉未设置人员
@@ -1162,8 +1159,3 @@ class ImportGroupUser(models.Model):
     #                             .format(res_user_id_loas, res_line_name.id)
     #                         self.env.cr.execute(ins_sql_load)
     #     self.unlink()
-
-
-
-
-
