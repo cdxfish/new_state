@@ -476,14 +476,15 @@ class StationIndex(models.Model):
             days = calendar.monthrange(int(year), int(month1))[1]
             select_date = year + '-{}'.format(month1) + '-{}'.format(days)
             ding_user = self.env.user.dingtalk_user
+            # '&',
+            # ('clock_end_time', '>=', month),
+            # ('clock_end_time', '<=', select_date)
             clock_records = self.search_read(
-                ['|', ('user_id', '=', ding_user.id),
+                ['&', ('user_id', '=', ding_user.id),
                  '&',
                  ('clock_start_time', '>=', month),
                  ('clock_start_time', '<=', select_date),
-                 '&',
-                 ('clock_start_time', '>=', month),
-                 ('clock_start_time', '<=', select_date)
+
 
                  ],
                 ['id', 'line_id', 'site_id', 'clock_start_time', 'clock_end_time'])
