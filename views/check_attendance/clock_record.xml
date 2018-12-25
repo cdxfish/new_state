@@ -65,17 +65,18 @@
 				<form>
                     <group>
                         <field name="time" string="日期"/>
-                        <field name="line_id" string="线路"/>
-                        <field name="site_id" string="站点" />
-                        <field name="user_id" string="员工"/>
-                        <field name="jobnumber" string="工号" />
-                        <field name="position" string="职位" />
-                        <field name="arrange_order_id" string="班次"/>
+                        <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"/>
+                        <field name="site_id" string="站点" context="{'site_id':site_id}" options="{'no_create':True,'no_open':True}"/>
+                        <field name="user_id" string="员工" options="{'no_create':True,'no_open':True}"/>
+                        <field name="jobnumber" string="工号" readonly="1"/>
+                        <field name="position" string="职位" readonly="1"/>
+                        <field name="arrange_order_id" string="班次" domoain="[('site_id','=',site_id)]"/>
                         <field name="time_length" string="计划时长"/>
-                        <field name="clock_site" string="打卡站点"/>
+                        <field name="clock_site" string="打卡站点" domoain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                         <field name="clock_start_time" string="上班打卡时间"/>
                         <field name="clock_end_time" string="下班打卡时间"/>
                         <field name="work_time" string="工作时长(h)"/>
+                        <field name="overtime" string="加班时长" />
                     </group>
                 </form>
 			</field>

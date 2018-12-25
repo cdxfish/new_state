@@ -139,6 +139,25 @@ class StationIndex(models.Model):
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
 
+    @api.onchange('clock_start_time','clock_end_time')
+    def save_overtime(self):
+        if self.clock_start_time and self.clock_end_time:
+            work_time = get_time_difference_th(self.clock_start_time, self.clock_end_time)
+            if work_time <= 12:
+                return {
+                    'value':{
+                        'work_time': work_time
+                    }
+                }
+            else:
+                return {
+                    'value': {
+                        'work_time': 12,
+                        'is_overtime':'yes',
+                        'overtime':work_time - 12
+                    }
+                }
+
     def new_increate_record_button(self):
         view_tree = self.env.ref('funenc_xa_station.fuenc_station_overtime_record_form').id
         return {
