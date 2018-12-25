@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields
 
+import time
+
 class ErrorModel(models.Model):
     _name = 'funenc_xa_station.error_model'
     _description = u'错误显示模型'
@@ -11,5 +13,7 @@ class ErrorModel(models.Model):
     def default_error_content(self):
         if self._context.get('error_content', False):
             return self._context['error_content']
+
+
 
 
