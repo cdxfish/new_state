@@ -21,7 +21,25 @@
             <field name="name">per_management_tree</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
-                <tree class="noOpen" create="0" edit="0" search_ex_template="per_management_summary_search_button">
+                <tree create="0" edit="0" search_ex_template="per_management_summary_search_button">
+                    <field name="jobnumber"></field>
+                    <field name="name"></field>
+                    <field name="gender"></field>
+                    <field name="nation"></field>
+                    <field name="politics_status"></field>
+                    <field name="department"></field>
+                    <field name="position"></field>
+                    <field name="phone"></field>
+                    <widget string="操作" name="treebtns" template="person_info_management"/>
+                </tree>
+            </field>
+        </record>
+
+            <record id="per_management_tree_noopen" model="ir.ui.view">
+            <field name="name">per_management_tree</field>
+            <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
+            <field name="arch" type="xml">
+                <tree create="0"  class="noOpen" edit="0" search_ex_template="per_management_summary_search_button">
                     <field name="jobnumber"></field>
                     <field name="name"></field>
                     <field name="gender"></field>
@@ -40,7 +58,7 @@
             <field name="res_model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.per_management_tree')}),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.per_management_tree_noopen')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.person_information_form')})]">
             </field>
         </record>
