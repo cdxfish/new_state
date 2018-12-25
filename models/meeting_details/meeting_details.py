@@ -9,7 +9,7 @@ class MeetingDateils(models.Model):
     _name = 'funenc_xa_station.meeting_dateils'
     _inherit = 'fuenc_station.station_base'
 
-    meeting_theme = fields.Char(string='会议主题',required=True)
+    meeting_theme = fields.Char(string='会议主题')
     meeting_time = fields.Datetime(string='会议时间')
     # start_meet = fields.Datetime(string='会议开始时间',required=True)
     compere = fields.Char(string='主持人',required=True)
