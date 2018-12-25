@@ -75,8 +75,8 @@
                         <field name="clock_site" string="打卡站点" domoain="[('department_hierarchy','=',3)]" options="{'no_create':True,'no_open':True}"/>
                         <field name="clock_start_time" string="上班打卡时间"/>
                         <field name="clock_end_time" string="下班打卡时间"/>
-                        <field name="work_time" string="工作时长(h)"/>
-                        <field name="overtime" string="加班时长" />
+                        <field name="work_time" string="工作时长(h)" invisible="1"/>
+                        <field name="overtime" string="加班时长" invisible="1"/>
                     </group>
                 </form>
 			</field>
