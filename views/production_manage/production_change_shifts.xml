@@ -72,13 +72,24 @@
                             </group>
                             <group string="会议记录">
                                 <field name="meeting_ids" string="">
-                                    <tree editable="top" class="noOpen">
+                                    <!--editable="top" class="noOpen"-->
+                                    <tree >
                                         <field name="meeting_time" string="会议时间"/>
                                         <field name="meeting_site" string="会议地点"/>
                                         <field name="compere" string="主持人"/>
-                                        <field name="join_person" string="参会人员"/>
+                                        <field name="join_person" string="参会人员" widget="many2many_tags"/>
                                         <field name="meeting_content" string="会议内容"/>
                                     </tree>
+                                    <form>
+                                        <group>
+                                            <field name="meeting_time" string="会议时间"/>
+                                            <field name="meeting_site" string="会议地点"/>
+                                            <field name="compere" string="主持人"/>
+                                            <field name="join_person" string="参会人员" widget="many2many_tags"
+                                                   options="{'no_create':True,'no_open':True}"/>
+                                            <field name="meeting_content" string="会议内容"/>
+                                        </group>
+                                    </form>
                                 </field>
                             </group>
                             <group string="备品交接">
