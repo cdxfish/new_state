@@ -139,8 +139,6 @@ class StationIndex(models.Model):
     is_leave = fields.Integer(string='是否是请假', default=0)  # 1为请假
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
 
-
-
     def new_increate_record_button(self):
         view_tree = self.env.ref('funenc_xa_station.fuenc_station_overtime_record_form').id
         return {
@@ -202,9 +200,9 @@ class StationIndex(models.Model):
     def xa_station_overtime_list_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.fuenc_station_overtime_record_list').id
         if self.env.user.id ==1:
-            domain_id = []
+            domain_id = [('work_time','>',0)]
         else:
-            domain_id = [['user_id','=',self.env.user.dingtalk_user.id]]
+            domain_id = [('user_id','=',self.env.user.dingtalk_user.id),('work_time','>',0)]
         return {
             'name': '加班记录',
             'type': 'ir.actions.act_window',
