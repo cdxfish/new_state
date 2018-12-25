@@ -140,6 +140,102 @@ class StationIndex(models.Model):
     show_value = fields.Char(string='统计显示')  # 用于统计显示请假类型
 
 
+    def new_increate_record_button(self):
+        view_tree = self.env.ref('funenc_xa_station.fuenc_station_overtime_record_form').id
+        return {
+            'name': '打卡记录',
+            ''
+            'type': 'ir.actions.act_window',
+            'clear_breadcrumbs': True,
+            'view_type': 'form',
+            'view_mode': 'form',
+            "views": [[view_tree, "form"]],
+            'res_model': 'fuenc_station.clock_record',
+            'context': self.env.context,
+            'target':'new',
+        }
+
+    @get_domain
+    @api.model
+    def xa_station_clock_list_action(self,domain):
+        view_tree = self.env.ref('funenc_xa_station.fuenc_station_clock_record_list').id
+        if self.env.user.id ==1:
+            domain_id = []
+        else:
+            domain_id = [['user_id','=',self.env.user.dingtalk_user.id]]
+        return {
+            'name': '打卡记录',
+            'type': 'ir.actions.act_window',
+            'clear_breadcrumbs': True,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'binding_key': 'fuenc_station_clock_record_list',
+            'domain':domain_id,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'fuenc_station.clock_record',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                         [
+                             {'title': '打卡记录',
+                             'action':  'funenc_xa_station.xa_station_clock_list_action',
+                             'group':'funenc_xa_station.table_card_record',
+                             },
+                             {
+                                 'title': '加班记录',
+                                 'action2' : 'funenc_xa_station.xa_station_overtime_list_action',
+                                 'group' : 'funenc_xa_station.table_overtime_record',
+                                 },
+                             {
+                                 'title': '请假记录',
+                                 'action2':  'funenc_xa_station.xa_station_leave_list_action',
+                                 'group' : 'funenc_xa_station.table_leave_record',
+                                 },
+                         ]
+                     }''',
+            'context': self.env.context,
+        }
+
+    @get_domain
+    @api.model
+    def xa_station_overtime_list_action(self, domain):
+        view_tree = self.env.ref('funenc_xa_station.fuenc_station_overtime_record_list').id
+        if self.env.user.id ==1:
+            domain_id = []
+        else:
+            domain_id = [['user_id','=',self.env.user.dingtalk_user.id]]
+        return {
+            'name': '加班记录',
+            'type': 'ir.actions.act_window',
+            'clear_breadcrumbs': True,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'domain': domain_id,
+            "views": [[view_tree, "tree"]],
+            'res_model': 'fuenc_station.clock_record',
+            "top_widget": "multi_action_tab",
+            "top_widget_key": "driver_manage_tab",
+            "top_widget_options": '''{'tabs':
+                            [
+                                {'title': '打卡记录',
+                                'action':  'funenc_xa_station.xa_station_clock_list_action',
+                                'group':'funenc_xa_station.table_card_record',
+                                },
+                                {
+                                    'title': '加班记录',
+                                    'action2' : 'funenc_xa_station.xa_station_overtime_list_action',
+                                    'group' : 'funenc_xa_station.table_overtime_record',
+                                    },
+                                {
+                                    'title': '请假记录',
+                                    'action2':  'funenc_xa_station.xa_station_leave_list_action',
+                                    'group' : 'funenc_xa_station.table_leave_record',
+                                    },
+                            ]
+                        }''',
+            'context': self.env.context,
+        }
+
     @api.model
     def save_clock_record(self,**kw):
         site_id = kw.get('department_id')

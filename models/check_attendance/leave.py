@@ -47,34 +47,37 @@ class Leave(models.Model):
     @get_domain
     def get_day_plan_publish_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.funenc_xa_station_leave_list').id
+        if self.env.user.id ==1:
+            domain_id = []
+        else:
+            domain_id = [['leave_user_id','=',self.env.user.dingtalk_user.id]]
         return {
             'name': '请假记录',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain': domain,
+            'domain': domain_id,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.leave',
             "top_widget": "multi_action_tab",
             "top_widget_key": "driver_manage_tab",
             "top_widget_options": '''{'tabs':
-                           [
-                               {
-                                   'title': '请假记录',
-                                   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-                                   'group' : 'funenc_xa_station.table_leave_record',
-                               },
-                               {
-                                   'title': '打卡记录',
-                                   'action2':  'funenc_xa_station.xa_station_clock_list_action',
-                                   'group' : 'funenc_xa_station.table_card_record',
-                               },
-                              {
-                                   'title': '加班记录',
-                                   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
-                                   'group' : 'funenc_xa_station.table_overtime_record',
-                               },
-                           ]
+                            [
+                                {'title': '打卡记录',
+                                'action':  'funenc_xa_station.xa_station_clock_list_action',
+                                'group':'funenc_xa_station.table_card_record',
+                                },
+                                {
+                                    'title': '加班记录',
+                                    'action2' : 'funenc_xa_station.xa_station_overtime_list_action',
+                                    'group' : 'funenc_xa_station.table_overtime_record',
+                                    },
+                                {
+                                    'title': '请假记录',
+                                    'action2':  'funenc_xa_station.xa_station_leave_list_action',
+                                    'group' : 'funenc_xa_station.table_leave_record',
+                                    },
+                            ]
                        }''',
             'context': self.env.context,
         }

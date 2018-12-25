@@ -58,5 +58,28 @@
 			</field>
 		</record>
 
+        <record model="ir.ui.view" id="fuenc_station_overtime_record_form">
+			<field name="name">fuenc_station_clock_record_list</field>
+			<field name="model">fuenc_station.clock_record</field>
+			<field name="arch" type="xml">
+				<form>
+                    <group>
+                        <field name="time" string="日期"/>
+                        <field name="line_id" string="线路"/>
+                        <field name="site_id" string="站点" />
+                        <field name="user_id" string="员工"/>
+                        <field name="jobnumber" string="工号" />
+                        <field name="position" string="职位" />
+                        <field name="arrange_order_id" string="班次"/>
+                        <field name="time_length" string="计划时长"/>
+                        <field name="clock_site" string="打卡站点"/>
+                        <field name="clock_start_time" string="上班打卡时间"/>
+                        <field name="clock_end_time" string="下班打卡时间"/>
+                        <field name="work_time" string="工作时长(h)"/>
+                    </group>
+                </form>
+			</field>
+		</record>
+
     </data>
 </odoo>

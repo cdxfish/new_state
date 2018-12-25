@@ -192,34 +192,34 @@
                 </field>
         </record>
 
-		<record model="ir.actions.act_window" id="xa_station_leave_list_action">
-          <field name="name">请假列表</field>
-          <field name="res_model">funenc_xa_station.leave</field>
-		  <field name="view_mode">tree,form</field>
-			<field name="top_widget">multi_action_tab</field>
-			<field name="top_widget_key">driver_manage_tab</field>
-		   	<field name="top_widget_options">
-                    {'tabs':
-                        [
-					   {
-						   'title': '打卡记录',
-						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
-						   'group' : 'funenc_xa_station.table_card_record',
-						   },
-					  {
-						   'title': '加班记录',
-						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
-						   'group' : 'funenc_xa_station.table_overtime_record',
-						   },
-					  {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
-                        ]
-                    }
-			</field>
-        </record>
+		<!--<record model="ir.actions.act_window" id="xa_station_leave_list_action">-->
+          <!--<field name="name">请假列表</field>-->
+          <!--<field name="res_model">funenc_xa_station.leave</field>-->
+		  <!--<field name="view_mode">tree,form</field>-->
+			<!--<field name="top_widget">multi_action_tab</field>-->
+			<!--<field name="top_widget_key">driver_manage_tab</field>-->
+		   	<!--<field name="top_widget_options">-->
+                    <!--{'tabs':-->
+                        <!--[-->
+					   <!--{-->
+						   <!--'title': '打卡记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_clock_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_card_record',-->
+						   <!--},-->
+					  <!--{-->
+						   <!--'title': '加班记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_overtime_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_overtime_record',-->
+						   <!--},-->
+					  <!--{-->
+						   <!--'title': '请假记录',-->
+						   <!--'action2' : 'funenc_xa_station.xa_station_leave_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_leave_record',-->
+						   <!--},-->
+                        <!--]-->
+                    <!--}-->
+			<!--</field>-->
+        <!--</record>-->
 
 		<record model="ir.actions.act_window" id="xa_station_sheduling_manage_list_action">
           <field name="name">排班列表</field>
@@ -464,73 +464,114 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="xa_station_clock_list_action">
+        <!--<record model="ir.actions.act_window" id="xa_station_clock_list_action">-->
+            <!--<field name="name">打卡记录</field>-->
+            <!--<field name="res_model">fuenc_station.clock_record</field>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('fuenc_station_clock_record_list')}),-->
+            <!--]">-->
+            <!--</field>-->
+			<!--<field name="top_widget">multi_action_tab</field>-->
+			<!--<field name="top_widget_key">driver_manage_tab</field>-->
+		   	<!--<field name="top_widget_options">-->
+                    <!--{'tabs':-->
+                        <!--[-->
+
+					   <!--{-->
+						   <!--'title': '打卡记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_clock_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_card_record',-->
+						   <!--},-->
+					  <!--{-->
+						   <!--'title': '加班记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_overtime_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_overtime_record',-->
+						   <!--},-->
+					   <!--{-->
+						   <!--'title': '请假记录',-->
+						   <!--'action2' : 'funenc_xa_station.xa_station_leave_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_leave_record',-->
+						   <!--},-->
+                        <!--]-->
+                    <!--}-->
+			<!--</field>-->
+        <!--</record>-->
+
+		<record model="ir.actions.server" id="xa_station_clock_list_action_button">
+            <field name="name">新增</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fuenc_station_clock_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_fuenc_station_clock_record"/>
+            <field name="binding_type">action_button</field>
+			<field name="binding_target_key">fuenc_station_clock_record_list</field>
+            <field name="binding_action">打卡记录</field>
+			<field name="view_id">fuenc_station_clock_record_list</field>
+            <field name="code">
+                action = model.new_increate_record_button()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="xa_station_clock_list_action">
             <field name="name">打卡记录</field>
+            <field name="type">ir.actions.server</field>
             <field name="res_model">fuenc_station.clock_record</field>
-            <field name="view_mode">tree</field>
-            <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('fuenc_station_clock_record_list')}),
-            ]">
+            <field name="model_id" ref="model_fuenc_station_clock_record"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.xa_station_clock_list_action()
             </field>
-			<field name="top_widget">multi_action_tab</field>
-			<field name="top_widget_key">driver_manage_tab</field>
-		   	<field name="top_widget_options">
-                    {'tabs':
-                        [
-
-					   {
-						   'title': '打卡记录',
-						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
-						   'group' : 'funenc_xa_station.table_card_record',
-						   },
-					  {
-						   'title': '加班记录',
-						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
-						   'group' : 'funenc_xa_station.table_overtime_record',
-						   },
-					   {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
-                        ]
-                    }
-			</field>
         </record>
-        <record model="ir.actions.act_window" id="xa_station_overtime_list_action">
+
+		<record model="ir.actions.server" id="xa_station_overtime_list_action">
             <field name="name">加班记录</field>
+            <field name="type">ir.actions.server</field>
             <field name="res_model">fuenc_station.clock_record</field>
-            <field name="view_mode">tree</field>
-            <field name="domain">[('is_overtime','=','yes')]</field>
-            <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.fuenc_station_overtime_record_list')}),
-            ]">
+            <field name="model_id" ref="model_fuenc_station_clock_record"/>
+            <field name="condition">True</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.xa_station_overtime_list_action()
             </field>
-			<field name="top_widget">multi_action_tab</field>
-			<field name="top_widget_key">driver_manage_tab</field>
-		   	<field name="top_widget_options">
-                    {'tabs':
-                        [
-
-					   {
-						   'title': '打卡记录',
-						   'action2':  'funenc_xa_station.xa_station_clock_list_action',
-						   'group' : 'funenc_xa_station.table_card_record',
-						   },
-					  {
-						   'title': '加班记录',
-						   'action2':  'funenc_xa_station.xa_station_overtime_list_action',
-						   'group' : 'funenc_xa_station.table_overtime_record',
-						   },
-					   {
-						   'title': '请假记录',
-						   'action2' : 'funenc_xa_station.xa_station_leave_list_action',
-						   'group' : 'funenc_xa_station.table_leave_record',
-						   },
-                        ]
-                    }
-			</field>
         </record>
+
+        <!--<record model="ir.actions.act_window" id="xa_station_overtime_list_action">-->
+            <!--<field name="name">加班记录</field>-->
+            <!--<field name="res_model">fuenc_station.clock_record</field>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--<field name="domain">[('is_overtime','=','yes')]</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+            <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.fuenc_station_overtime_record_list')}),-->
+            <!--]">-->
+            <!--</field>-->
+			<!--<field name="top_widget">multi_action_tab</field>-->
+			<!--<field name="top_widget_key">driver_manage_tab</field>-->
+		   	<!--<field name="top_widget_options">-->
+                    <!--{'tabs':-->
+                        <!--[-->
+
+					   <!--{-->
+						   <!--'title': '打卡记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_clock_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_card_record',-->
+						   <!--},-->
+					  <!--{-->
+						   <!--'title': '加班记录',-->
+						   <!--'action2':  'funenc_xa_station.xa_station_overtime_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_overtime_record',-->
+						   <!--},-->
+					   <!--{-->
+						   <!--'title': '请假记录',-->
+						   <!--'action2' : 'funenc_xa_station.xa_station_leave_list_action',-->
+						   <!--'group' : 'funenc_xa_station.table_leave_record',-->
+						   <!--},-->
+                        <!--]-->
+                    <!--}-->
+			<!--</field>-->
+        <!--</record>-->
 
 		<!--<record model="ir.actions.act_window" id="xa_station_conflict_rule_action">-->
           <!--<field name="name">冲突规则管理</field>-->
