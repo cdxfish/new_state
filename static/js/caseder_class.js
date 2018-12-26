@@ -47,7 +47,6 @@ odoo.define("cascader_widget", function (require) {
                 },
                 handleChange(value) {
                   self._setValue(value[value.length - 1])
-
                 }
               }
             })
