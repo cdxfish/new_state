@@ -24,3 +24,4 @@ from . import transceiver_settings
 from . import integrated_management
 from . import get_domain
 from . import return_view_function
+from . import update_ding_user_task
