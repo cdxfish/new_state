@@ -1218,10 +1218,19 @@ class ImportGroupUser(models.Model):
                     self_position = position_map[position]
                     if res_user_id:
                         if res_user_id not in self_position.users.ids:
+                            del_sql = "delete from res_groups_users_rel where uid = {}".format(
+                                res_user_id
+                            )
+                            self.env.cr.execute(del_sql)
                             ins_sql = "insert into res_groups_users_rel(gid,uid) " \
                                       "values({},{})" \
                                 .format(self_position.id, res_user_id)
                             self.env.cr.execute(ins_sql)
+                        else:
+                            del_sql = "delete from res_groups_users_rel where uid = {}".format(
+                                res_user_id
+                            )
+                            self.env.cr.execute(del_sql)
                     else:
 
                         print('gh=', line[1])
