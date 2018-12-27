@@ -9,4 +9,3 @@ class update_ding_user_task(models.Model):
     @api.model
     def update_ding_user_task(self):
         self.env['cdtct_dingtalk.cdtct_dingtalk_account'].search([])[0].sync_dingtalk()
-        print('111')

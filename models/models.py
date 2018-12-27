@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-import odoo.exceptions as msg
 
 import qrcode
 import os
@@ -1167,6 +1166,40 @@ class ImportGroupUser(models.Model):
                 '综合管理主办': self.env.ref('funenc_xa_station.position_comprehensive_management_132'),
 
             }
+            # 相同职位人员
+            users_group = {
+                self.env.ref('funenc_xa_station.module_position_manager_100').id: [],
+                self.env.ref('funenc_xa_station.module_position_deputy_manager_102').id: [],
+                self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103').id: [],
+                self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104').id: [],
+                self.env.ref('funenc_xa_station.module_position_technological development_assistant_106').id: [],
+                self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_administration_host_108').id: [],
+                self.env.ref('funenc_xa_station.module_position_deputy_director_109').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111').id: [],
+                self.env.ref('funenc_xa_station.module_position_training_management_assistant_112').id: [],
+                self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114').id: [],
+                self.env.ref('funenc_xa_station.module_position_stationmaster_115').id: [],
+                self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116').id: [],
+                self.env.ref('funenc_xa_station.module_position_depot_118').id: [],
+                self.env.ref('funenc_xa_station.module_position_undetermined_position_119').id: [],
+                self.env.ref('funenc_xa_station.module_position_training_management_assistant_113').id: [],
+                self.env.ref('funenc_xa_station.module_position_quality_host_120').id: [],
+                self.env.ref('funenc_xa_station.position_undersecretary_121').id: [],
+                self.env.ref('funenc_xa_station.position_director_122').id: [],
+                self.env.ref('funenc_xa_station.position_personnel_matters_123').id: [],
+                self.env.ref('funenc_xa_station.position_ticket_business_host_124').id: [],
+                self.env.ref('funenc_xa_station.position_service_assistant_125').id: [],
+                self.env.ref('funenc_xa_station.position_dispatch_126').id: [],
+                self.env.ref('funenc_xa_station.position_general_manager_127').id: [],
+                self.env.ref('funenc_xa_station.position_integrated_management_128').id: [],
+                self.env.ref('funenc_xa_station.position_integrated_management_assistant_129').id: [],
+                self.env.ref('funenc_xa_station.position_statistics_assistant_130').id: [],
+                self.env.ref('funenc_xa_station.position_party_secretary_131').id: [],
+                self.env.ref('funenc_xa_station.position_comprehensive_management_132').id: [],
+            }
+            print(users_group)
 
             lines = sheet_data.nrows
             import_fail_job_numbers = []
@@ -1216,32 +1249,37 @@ class ImportGroupUser(models.Model):
                     position = line[7]
                     print('i=', i)
                     self_position = position_map[position]
-                    if res_user_id:
-                        if res_user_id not in self_position.users.ids:
-                            del_sql = "delete from res_groups_users_rel where uid = {}".format(
-                                res_user_id
-                            )
-                            self.env.cr.execute(del_sql)
-                            ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-                                      "values({},{})" \
-                                .format(self_position.id, res_user_id)
-                            self.env.cr.execute(ins_sql)
-                        else:
-                            del_sql = "delete from res_groups_users_rel where uid = {}".format(
-                                res_user_id
-                            )
-                            self.env.cr.execute(del_sql)
-                    else:
 
-                        print('gh=', line[1])
-                        print('user_name=', line[2])
-                        print('job_number=', job_number)
-                        print('res_user_id=', res_user_id)
-                        print('ding_user=', ding_user_id)
-                        print('职位=', position)
+
+                    if res_user_id:
+                        del_sql = "delete from res_groups_users_rel where uid = {}".format(
+                            res_user_id
+                        )
+                        self.env.cr.execute(del_sql)
+                        users_group[self_position.id].append(res_user_id)
+
+                        # if res_user_id not in self_position.users.ids:
+                            # ins_sql = "insert into res_groups_users_rel(gid,uid) " \
+                            #           "values({},{})" \
+                            #     .format(self_position.id, res_user_id)
+                            # self.env.cr.execute(ins_sql)
+                        # self_position.users = [(6,0,[res_user_id])]
+
+                    else:
+                        #
+                        # print('gh=', line[1])
+                        # print('user_name=', line[2])
+                        # print('job_number=', job_number)
+                        # print('res_user_id=', res_user_id)
+                        # print('ding_user=', ding_user_id)
+                        # print('职位=', position)
                         import_fail_job_numbers.append((line[1], line[2], line[7]))
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
+            for group_id in users_group:
+                print(group_id)
+                group = self.env['res.groups'].browse(group_id)
+                group.users = [(6,0,users_group[group_id])]
             # 钉钉未设置人员
             # f = xlwt.Workbook()
             # sheet1 = f.add_sheet('钉钉未设置人员', cell_overwrite_ok=True)
