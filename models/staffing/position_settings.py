@@ -101,9 +101,22 @@ class PositionSettings(models.Model):
                 records = self.env['res.groups'].browse(group_id)
                 users_ids = list(set(records.users.ids).difference(
                     set(del_group_user_map[group_id])))
-                records.write({
-                    'users': [(6, 0, users_ids)]
-                })
+                # records.write({
+                #     'users': [(6, 0, users_ids)]
+                # })
+
+                # 避免无线回调write 方法
+                lens = len(users_ids)
+                if lens > 1:
+                    del_sql = "delete from res_groups_users_rel where uid in {} and gid ={}".format(
+                        tuple(users_ids),group_id
+                    )
+                    self.env.cr.execute(del_sql)
+                elif lens ==1:
+                    del_sql = "delete from res_groups_users_rel where uid = {} and gid ={}".format(
+                        users_ids[0],group_id
+                    )
+                    self.env.cr.execute(del_sql)
 
     @api.multi
     def write(self, vals):
