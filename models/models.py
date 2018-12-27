@@ -1258,11 +1258,11 @@ class ImportGroupUser(models.Model):
                         self.env.cr.execute(del_sql)
                         users_group[self_position.id].append(res_user_id)
 
-                        # if res_user_id not in self_position.users.ids:
-                            # ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-                            #           "values({},{})" \
-                            #     .format(self_position.id, res_user_id)
-                            # self.env.cr.execute(ins_sql)
+                        if res_user_id not in self_position.users.ids:
+                            ins_sql = "insert into res_groups_users_rel(gid,uid) " \
+                                      "values({},{})" \
+                                .format(self_position.id, res_user_id)
+                            self.env.cr.execute(ins_sql)
                         # self_position.users = [(6,0,[res_user_id])]
 
                     else:
@@ -1277,7 +1277,7 @@ class ImportGroupUser(models.Model):
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
             for group_id in users_group:
-                print(group_id)
+                _logger.info('group_id={}'.format(group_id))
                 group = self.env['res.groups'].browse(group_id)
                 group.users = [(6,0,users_group[group_id])]
             # 钉钉未设置人员
