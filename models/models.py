@@ -1199,7 +1199,6 @@ class ImportGroupUser(models.Model):
                 self.env.ref('funenc_xa_station.position_party_secretary_131').id: [],
                 self.env.ref('funenc_xa_station.position_comprehensive_management_132').id: [],
             }
-            print(users_group)
 
             lines = sheet_data.nrows
             import_fail_job_numbers = []
@@ -1247,17 +1246,15 @@ class ImportGroupUser(models.Model):
                                         self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
                     position = line[7]
-                    print('i=', i)
                     self_position = position_map[position]
-
-
                     if res_user_id:
                         del_sql = "delete from res_groups_users_rel where uid = {}".format(
                             res_user_id
                         )
                         self.env.cr.execute(del_sql)
-                        users_group[self_position.id].append(res_user_id)
 
+                        users_group[self_position.id].append(res_user_id)
+                        print(self_position.id)
                         if res_user_id not in self_position.users.ids:
                             ins_sql = "insert into res_groups_users_rel(gid,uid) " \
                                       "values({},{})" \
@@ -1276,10 +1273,12 @@ class ImportGroupUser(models.Model):
                         import_fail_job_numbers.append((line[1], line[2], line[7]))
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
+            print(users_group)
             for group_id in users_group:
                 _logger.info('group_id={}'.format(group_id))
-                group = self.env['res.groups'].browse(group_id)
-                group.users = [(6,0,users_group[group_id])]
+                if users_group[group_id]:
+                    group = self.env['res.groups'].browse(group_id)
+                    group.users = [(6,0,users_group[group_id])]
             # 钉钉未设置人员
             # f = xlwt.Workbook()
             # sheet1 = f.add_sheet('钉钉未设置人员', cell_overwrite_ok=True)
