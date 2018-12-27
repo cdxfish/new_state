@@ -1254,7 +1254,7 @@ class ImportGroupUser(models.Model):
                         self.env.cr.execute(del_sql)
 
                         users_group[self_position.id].append(res_user_id)
-                        print(self_position.id)
+                        print('职位=',str(users_group[self_position.id]))
                         if res_user_id not in self_position.users.ids:
                             ins_sql = "insert into res_groups_users_rel(gid,uid) " \
                                       "values({},{})" \
