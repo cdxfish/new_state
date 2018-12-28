@@ -30,16 +30,17 @@ class production_change_shifts(models.Model):
 
     @api.model
     def default_production_state(self):
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
+
+        if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             # 值班站长
             return 'station_master'
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
+        elif self.env.user.has_group('funenc_xa_station.table_car_station_people'):
             # 行车
             return 'train_working'
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
+        elif self.env.user.has_group('funenc_xa_station.table_passenger_duty_people'):
             # 客运
             return 'passenger_transport'
-        elif self.env.user.has_group('funenc_xa_station.module_depot'):
+        elif self.env.user.has_group('funenc_xa_station.table_station_attendant'):
             # 站务
             return 'station_service'
         else:
@@ -48,7 +49,7 @@ class production_change_shifts(models.Model):
 
     @api.model
     def get_views(self):
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
+        if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             list_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')
             form_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form')
             domain = [('production_state', '=', 'station_master')]
@@ -58,7 +59,7 @@ class production_change_shifts(models.Model):
                 'form_views': form_views,
                 'domain': domain
             }
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
+        elif self.env.user.has_group('funenc_xa_station.table_car_station_people'):
             # 行车
             list_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list')
             form_views = self.env.ref('funenc_xa_station.production_change_train_working_shifts_form11')
@@ -68,7 +69,8 @@ class production_change_shifts(models.Model):
                 'form_views': form_views,
                 'domain': domain
             }
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
+        # 客运
+        elif self.env.user.has_group('funenc_xa_station.table_passenger_duty_people'):
             list_views = self.env.ref('funenc_xa_station._production_change_shifts_list')
             form_views = self.env.ref('funenc_xa_station.station_service_form')
             domain = [('production_state', '=', 'station_service')]
@@ -77,6 +79,7 @@ class production_change_shifts(models.Model):
                 'form_views': form_views,
                 'domain': domain
             }
+        # 站台岗
         elif self.env.user.has_group('funenc_xa_station.module_depot'):
             list_views = self.env.ref('funenc_xa_station._production_change_shifts_list')
             form_views = self.env.ref('funenc_xa_station.passenger_transport_train_working_shifts_form11')
@@ -416,7 +419,7 @@ class production_change_shifts(models.Model):
     def create_production_change_shifts(self):
         context = dict(self.env.context or {})
 
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
+        if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             # 值班站长
             view_form = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form').id
             return {
@@ -428,7 +431,7 @@ class production_change_shifts(models.Model):
                 'target': 'new',
                 'flags': {'initial_mode': 'edit'},
             }
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
+        elif self.env.user.has_group('funenc_xa_station.table_car_station_people'):
             # 行车
             view_form = self.env.ref('funenc_xa_station.production_change_train_working_shifts_form11').id
             return {
@@ -440,7 +443,7 @@ class production_change_shifts(models.Model):
                 'target': 'new',
                 'flags': {'initial_mode': 'edit'},
             }
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
+        elif self.env.user.has_group('funenc_xa_station.table_passenger_duty_people'):
             # 客运
             view_form = self.env.ref('funenc_xa_station.passenger_transport_train_working_shifts_form11').id
             return {
@@ -452,7 +455,7 @@ class production_change_shifts(models.Model):
                 'target': 'new',
                 'flags': {'initial_mode': 'edit'},
             }
-        elif self.env.user.has_group('funenc_xa_station.module_depot'):
+        elif self.env.user.has_group('funenc_xa_station.table_station_attendant'):
             # 站务
             view_form = self.env.ref('funenc_xa_station.station_service_form').id
             return {
@@ -523,16 +526,16 @@ class production_change_shifts(models.Model):
             self.take_over_from_time = datetime.datetime.now()
 
     def get_position(self):
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
+        if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             # 值班站长
             position = 'station_master'
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
+        elif self.env.user.has_group('funenc_xa_station.table_car_station_people'):
             # 行车
             position = 'train_working'
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
+        elif self.env.user.has_group('funenc_xa_station.table_passenger_duty_people'):
             # 客运
             position = 'passenger_transport'
-        elif self.env.user.has_group('funenc_xa_station.module_depot'):
+        elif self.env.user.has_group('funenc_xa_station.table_station_attendant'):
             # 站务
             position = 'station_service'
         else:
@@ -631,16 +634,16 @@ class production_change_shifts(models.Model):
         return obj
 
     def get_form_id(self):
-        if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
+        if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             # 值班站长
             form_views = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_form').id
-        elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
+        elif self.env.user.has_group('funenc_xa_station.table_car_station_people'):
             # 行车
             form_views = self.env.ref('funenc_xa_station.production_change_train_working_shifts_form11').id
-        elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
+        elif self.env.user.has_group('funenc_xa_station.table_passenger_duty_people'):
             # 客运
             form_views = self.env.ref('funenc_xa_station.passenger_transport_train_working_shifts_form11').id
-        elif self.env.user.has_group('funenc_xa_station.module_depot'):
+        elif self.env.user.has_group('funenc_xa_station.table_station_attendant'):
             form_views = self.env.ref('funenc_xa_station.station_service_form').id
         else:
             # 票务
