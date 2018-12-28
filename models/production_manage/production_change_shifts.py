@@ -31,6 +31,7 @@ class production_change_shifts(models.Model):
     @api.model
     def default_production_state(self):
 
+
         if self.env.user.has_group('funenc_xa_station.table_station_agent'):
             # 值班站长
             return 'station_master'
