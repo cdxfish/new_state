@@ -1127,181 +1127,152 @@ class ImportGroupUser(models.Model):
         导入职位角色组人员  没用try  让异常暴露出来
         :return:
         '''
-        users = self.env['res.users'].search([]).ids
-        for res_user_id in users:
-            select_sql = 'select 1 from res_groups_users_rel where gid=1 and uid ={}'.format(res_user_id)
-            self.env.cr.execute(select_sql)
-            a = self.env.cr.dictfetchall()
 
-            if not a:
-                ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-                          "values({},{})" \
-                    .format(1, res_user_id)
-                self.env.cr.execute(ins_sql)
+        data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
 
-        # data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
-        #
-        # sheet_data = data.sheet_by_name(data.sheet_names()[0])
-        # sheet1 = data.sheet_by_index(0)
-        # if sheet_data:
-        #     position_map = {
-        #         '经理': self.env.ref('funenc_xa_station.module_position_manager_100'),
-        #         '副经理': self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
-        #         '人事管理助理': self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103'),
-        #         '运输管理助理': self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104'),
-        #         '技术开发助理': self.env.ref('funenc_xa_station.module_position_technological development_assistant_106'),
-        #         '综合管理助理': self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107'),
-        #         '安全管理主办': self.env.ref('funenc_xa_station.module_position_security_administration_host_108'),
-        #         '副主任': self.env.ref('funenc_xa_station.module_position_deputy_director_109'),
-        #         '安全管理助理': self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110'),
-        #         '票务管理助理': self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111'),
-        #         '培训管理助理': self.env.ref('funenc_xa_station.module_position_training_management_assistant_112'),
-        #         '值班站长': self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114'),
-        #         '站长': self.env.ref('funenc_xa_station.module_position_stationmaster_115'),
-        #         '站长助理': self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116'),
-        #         '站务员': self.env.ref('funenc_xa_station.module_position_depot_118'),
-        #         '未定岗': self.env.ref('funenc_xa_station.module_position_undetermined_position_119'),
-        #         '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
-        #         '质量与计划管理主办': self.env.ref('funenc_xa_station.module_position_quality_host_120'),
-        #         '副部长': self.env.ref('funenc_xa_station.position_undersecretary_121'),
-        #         '主任': self.env.ref('funenc_xa_station.position_director_122'),
-        #         '人事管理主办': self.env.ref('funenc_xa_station.position_personnel_matters_123'),
-        #         '票务管理主办': self.env.ref('funenc_xa_station.position_ticket_business_host_124'),
-        #         '服务管理助理': self.env.ref('funenc_xa_station.position_service_assistant_125'),
-        #         '生产调度': self.env.ref('funenc_xa_station.position_dispatch_126'),
-        #         '运输技术助理': self.env.ref('funenc_xa_station.position_general_manager_127'),
-        #         '综合管理员': self.env.ref('funenc_xa_station.position_integrated_management_128'),
-        #         '综合管助理': self.env.ref('funenc_xa_station.position_integrated_management_assistant_129'),
-        #         '计划统计助理': self.env.ref('funenc_xa_station.position_statistics_assistant_130'),
-        #         '党工团干事': self.env.ref('funenc_xa_station.position_party_secretary_131'),
-        #         '综合管理主办': self.env.ref('funenc_xa_station.position_comprehensive_management_132'),
-        #
-        #     }
-        #     # 相同职位人员
-        #     users_group = {
-        #         self.env.ref('funenc_xa_station.module_position_manager_100').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_deputy_manager_102').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_technological development_assistant_106').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_security_administration_host_108').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_deputy_director_109').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_training_management_assistant_112').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_stationmaster_115').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_depot_118').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_undetermined_position_119').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_training_management_assistant_113').id: [],
-        #         self.env.ref('funenc_xa_station.module_position_quality_host_120').id: [],
-        #         self.env.ref('funenc_xa_station.position_undersecretary_121').id: [],
-        #         self.env.ref('funenc_xa_station.position_director_122').id: [],
-        #         self.env.ref('funenc_xa_station.position_personnel_matters_123').id: [],
-        #         self.env.ref('funenc_xa_station.position_ticket_business_host_124').id: [],
-        #         self.env.ref('funenc_xa_station.position_service_assistant_125').id: [],
-        #         self.env.ref('funenc_xa_station.position_dispatch_126').id: [],
-        #         self.env.ref('funenc_xa_station.position_general_manager_127').id: [],
-        #         self.env.ref('funenc_xa_station.position_integrated_management_128').id: [],
-        #         self.env.ref('funenc_xa_station.position_integrated_management_assistant_129').id: [],
-        #         self.env.ref('funenc_xa_station.position_statistics_assistant_130').id: [],
-        #         self.env.ref('funenc_xa_station.position_party_secretary_131').id: [],
-        #         self.env.ref('funenc_xa_station.position_comprehensive_management_132').id: [],
-        #     }
-        #
-        #     lines = sheet_data.nrows
-        #     import_fail_job_numbers = []
-        #     for i in range(lines):
-        #         if i > 0:
-        #             # 用来预设人员属性
-        #             line = sheet1.row_values(i)
-        #             job_number = '{}00{}'.format(line[1][0], line[1][1:])  # 工号
-        #             ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
-        #                 [('jobnumber', '=', job_number)])
-        #             res_user_id_loas = ding_user_id.id  # 获取角色的id
-        #             res_line_id_load = line[6]  # 获取角色的部门
-        #             # no_res_line_id_load = ding_user_id.department_name  # 如果 excel 不存在部门就用之前的
-        #             # if res_user_id_loas:
-        #             #     res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-        #             #         [('name', '=', res_line_id_load)])
-        #             #     if res_line_name.id:
-        #             #         select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-        #             #                      'and department_id={}'.format(res_user_id_loas, res_line_name.id)
-        #             #         cr = self._cr
-        #             #         cr.execute(select_sql)
-        #             #         record = cr.fetchall()
-        #             #         if not record:
-        #             #             ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-        #             #                            "values({},{})" \
-        #             #                 .format(res_user_id_loas, res_line_name.id)
-        #             #             self.env.cr.execute(ins_sql_load)
-        #             #     else:
-        #             #         res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-        #             #             [('name', '=', line[5])])
-        #             #         if res_line_name:
-        #             #             res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-        #             #                 [('parentid', '=', res_line_name.departmentId)])
-        #             #             for i in res_line_name_ids.ids:
-        #             #
-        #             #                 select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-        #             #                              'and department_id={}'.format(res_user_id_loas, i)
-        #             #                 cr = self._cr
-        #             #                 cr.execute(select_sql)
-        #             #                 record = cr.fetchall()
-        #             #                 if not record:
-        #             #                     ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-        #             #                                    "values({},{})" \
-        #             #                         .format(res_user_id_loas, i)
-        #             #                     self.env.cr.execute(ins_sql_load)
-        #             res_user_id = ding_user_id.user.id
-        #             position = line[7]
-        #             self_position = position_map[position]
-        #             if res_user_id:
-        #                 select_sql = 'select 1 from res_groups_users_rel where gid=1 and uid ={}'.format(res_user_id)
-        #                 self.env.cr.execute(select_sql)
-        #                 a =self.env.cr.dictfetchall()
-        #                 print(a)
-        #
-        #                 if not a:
-        #
-        #
-        #                     ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-        #                                       "values({},{})" \
-        #                             .format(1, res_user_id)
-        #                     self.env.cr.execute(ins_sql)
-        #                 # del_sql = "delete from res_groups_users_rel where uid = {}".format(
-        #                 #     res_user_id
-        #                 # )
-        #                 # self.env.cr.execute(del_sql)
-        #
-        #                 # users_group[self_position.id].append(res_user_id)
-        #                 # print('职位=',str(users_group[self_position.id]))
-        #                 # if res_user_id not in self_position.users.ids:
-        #                 #     ins_sql = "insert into res_groups_users_rel(gid,uid) " \
-        #                 #               "values({},{})" \
-        #                 #         .format(self_position.id, res_user_id)
-        #                 #     self.env.cr.execute(ins_sql)
-        #                 # self_position.users = [(6,0,[res_user_id])]
-        #
-        #             else:
-        #                 #
-        #                 # print('gh=', line[1])
-        #                 # print('user_name=', line[2])
-        #                 # print('job_number=', job_number)
-        #                 # print('res_user_id=', res_user_id)
-        #                 # print('ding_user=', ding_user_id)
-        #                 # print('职位=', position)
-        #                 import_fail_job_numbers.append((line[1], line[2], line[7]))
-        #     _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
-        #     _logger.info('count={}'.format(len(import_fail_job_numbers)))
-            # print(users_group)
-            # for group_id in users_group:
-            #     _logger.info('group_id={}'.format(group_id))
-            #     if users_group[group_id]:
-            #         group = self.env['res.groups'].browse(group_id)
-            #         group.users = [(6,0,users_group[group_id])]
+        sheet_data = data.sheet_by_name(data.sheet_names()[0])
+        sheet1 = data.sheet_by_index(0)
+        if sheet_data:
+            position_map = {
+                '经理': self.env.ref('funenc_xa_station.module_position_manager_100'),
+                '副经理': self.env.ref('funenc_xa_station.module_position_deputy_manager_102'),
+                '人事管理助理': self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103'),
+                '运输管理助理': self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104'),
+                '技术开发助理': self.env.ref('funenc_xa_station.module_position_technological development_assistant_106'),
+                '综合管理助理': self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107'),
+                '安全管理主办': self.env.ref('funenc_xa_station.module_position_security_administration_host_108'),
+                '副主任': self.env.ref('funenc_xa_station.module_position_deputy_director_109'),
+                '安全管理助理': self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110'),
+                '票务管理助理': self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111'),
+                '培训管理助理': self.env.ref('funenc_xa_station.module_position_training_management_assistant_112'),
+                '值班站长': self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114'),
+                '站长': self.env.ref('funenc_xa_station.module_position_stationmaster_115'),
+                '站长助理': self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116'),
+                '站务员': self.env.ref('funenc_xa_station.module_position_depot_118'),
+                '未定岗': self.env.ref('funenc_xa_station.module_position_undetermined_position_119'),
+                '值班员': self.env.ref('funenc_xa_station.module_position_training_management_assistant_113'),
+                '质量与计划管理主办': self.env.ref('funenc_xa_station.module_position_quality_host_120'),
+                '副部长': self.env.ref('funenc_xa_station.position_undersecretary_121'),
+                '主任': self.env.ref('funenc_xa_station.position_director_122'),
+                '人事管理主办': self.env.ref('funenc_xa_station.position_personnel_matters_123'),
+                '票务管理主办': self.env.ref('funenc_xa_station.position_ticket_business_host_124'),
+                '服务管理助理': self.env.ref('funenc_xa_station.position_service_assistant_125'),
+                '生产调度': self.env.ref('funenc_xa_station.position_dispatch_126'),
+                '运输技术助理': self.env.ref('funenc_xa_station.position_general_manager_127'),
+                '综合管理员': self.env.ref('funenc_xa_station.position_integrated_management_128'),
+                '综合管助理': self.env.ref('funenc_xa_station.position_integrated_management_assistant_129'),
+                '计划统计助理': self.env.ref('funenc_xa_station.position_statistics_assistant_130'),
+                '党工团干事': self.env.ref('funenc_xa_station.position_party_secretary_131'),
+                '综合管理主办': self.env.ref('funenc_xa_station.position_comprehensive_management_132'),
+
+            }
+            # 相同职位人员
+            users_group = {
+                self.env.ref('funenc_xa_station.module_position_manager_100').id: [],
+                self.env.ref('funenc_xa_station.module_position_deputy_manager_102').id: [],
+                self.env.ref('funenc_xa_station.module_position_personnel_administration_assistant_103').id: [],
+                self.env.ref('funenc_xa_station.module_position_transport_administration_assistant_104').id: [],
+                self.env.ref('funenc_xa_station.module_position_technological development_assistant_106').id: [],
+                self.env.ref('funenc_xa_station.module_position_integrated_management_assistant_107').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_administration_host_108').id: [],
+                self.env.ref('funenc_xa_station.module_position_deputy_director_109').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_administration_assistant_110').id: [],
+                self.env.ref('funenc_xa_station.module_position_security_ticketing_assistant_111').id: [],
+                self.env.ref('funenc_xa_station.module_position_training_management_assistant_112').id: [],
+                self.env.ref('funenc_xa_station.module_position_be_on_duty_site_114').id: [],
+                self.env.ref('funenc_xa_station.module_position_stationmaster_115').id: [],
+                self.env.ref('funenc_xa_station.module_position_stationmaster_assistant_116').id: [],
+                self.env.ref('funenc_xa_station.module_position_depot_118').id: [],
+                self.env.ref('funenc_xa_station.module_position_undetermined_position_119').id: [],
+                self.env.ref('funenc_xa_station.module_position_training_management_assistant_113').id: [],
+                self.env.ref('funenc_xa_station.module_position_quality_host_120').id: [],
+                self.env.ref('funenc_xa_station.position_undersecretary_121').id: [],
+                self.env.ref('funenc_xa_station.position_director_122').id: [],
+                self.env.ref('funenc_xa_station.position_personnel_matters_123').id: [],
+                self.env.ref('funenc_xa_station.position_ticket_business_host_124').id: [],
+                self.env.ref('funenc_xa_station.position_service_assistant_125').id: [],
+                self.env.ref('funenc_xa_station.position_dispatch_126').id: [],
+                self.env.ref('funenc_xa_station.position_general_manager_127').id: [],
+                self.env.ref('funenc_xa_station.position_integrated_management_128').id: [],
+                self.env.ref('funenc_xa_station.position_integrated_management_assistant_129').id: [],
+                self.env.ref('funenc_xa_station.position_statistics_assistant_130').id: [],
+                self.env.ref('funenc_xa_station.position_party_secretary_131').id: [],
+                self.env.ref('funenc_xa_station.position_comprehensive_management_132').id: [],
+            }
+
+            lines = sheet_data.nrows
+            import_fail_job_numbers = []
+            for i in range(lines):
+                if i > 0:
+                    # 用来预设人员属性
+                    line = sheet1.row_values(i)
+                    job_number = '{}00{}'.format(line[1][0], line[1][1:])  # 工号
+                    ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
+                        [('jobnumber', '=', job_number)])
+                    res_user_id_loas = ding_user_id.id  # 获取角色的id
+                    res_line_id_load = line[6]  # 获取角色的部门
+                    no_res_line_id_load = ding_user_id.department_name  # 如果 excel 不存在部门就用之前的
+                    if res_user_id_loas:
+                        res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('name', '=', res_line_id_load)])
+                        if res_line_name.id:
+                            select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                         'and department_id={}'.format(res_user_id_loas, res_line_name.id)
+                            cr = self._cr
+                            cr.execute(select_sql)
+                            record = cr.fetchall()
+                            if not record:
+                                ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                               "values({},{})" \
+                                    .format(res_user_id_loas, res_line_name.id)
+                                self.env.cr.execute(ins_sql_load)
+                        else:
+                            res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                [('name', '=', line[5])])
+                            if res_line_name:
+                                res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                                    [('parentid', '=', res_line_name.departmentId)])
+                                for i in res_line_name_ids.ids:
+
+                                    select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
+                                                 'and department_id={}'.format(res_user_id_loas, i)
+                                    cr = self._cr
+                                    cr.execute(select_sql)
+                                    record = cr.fetchall()
+                                    if not record:
+                                        ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                                       "values({},{})" \
+                                            .format(res_user_id_loas, i)
+                                        self.env.cr.execute(ins_sql_load)
+                    res_user_id = ding_user_id.user.id
+                    position = line[7]
+                    self_position = position_map[position]
+                    if res_user_id:
+                        users_group[self_position.id].append(res_user_id)
+                        if res_user_id not in self_position.users.ids:
+                            ins_sql = "insert into res_groups_users_rel(gid,uid) " \
+                                      "values({},{})" \
+                                .format(self_position.id, res_user_id)
+                            self.env.cr.execute(ins_sql)
+                        self_position.users = [(6,0,[res_user_id])]
+
+                    else:
+                        #
+                        # print('gh=', line[1])
+                        # print('user_name=', line[2])
+                        # print('job_number=', job_number)
+                        # print('res_user_id=', res_user_id)
+                        # print('ding_user=', ding_user_id)
+                        # print('职位=', position)
+                        import_fail_job_numbers.append((line[1], line[2], line[7]))
+            _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
+            _logger.info('count={}'.format(len(import_fail_job_numbers)))
+            print(users_group)
+            for group_id in users_group:
+                _logger.info('group_id={}'.format(group_id))
+                if users_group[group_id]:
+                    group = self.env['res.groups'].browse(group_id)
+                    group.users = [(6,0,users_group[group_id])]
             # 钉钉未设置人员
             # f = xlwt.Workbook()
             # sheet1 = f.add_sheet('钉钉未设置人员', cell_overwrite_ok=True)

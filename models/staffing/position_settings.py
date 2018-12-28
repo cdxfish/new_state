@@ -96,27 +96,24 @@ class PositionSettings(models.Model):
             for del_group_id in deal_cur_groups_ids:
                 del_group_user_map[del_group_id] = list(
                     set(del_group_user_map[del_group_id]).difference(set(cur_group_users)))
-        for group_id in del_group_user_map:
-            if del_group_user_map[group_id]:
-                records = self.env['res.groups'].browse(group_id)
-                users_ids = list(set(records.users.ids).difference(
-                    set(del_group_user_map[group_id])))
-                # records.write({
-                #     'users': [(6, 0, users_ids)]
-                # })
+                # 创建sql语句
+                sql = '''DELETE FROM res_groups_users_rel WHERE'''
+                num = 0
+                for gid in del_group_user_map:
+                    if len(del_group_user_map[gid]) > 1:
+                        join_word = '''''' if num == 0 else ''' or'''
+                        sql = sql + join_word + ''' (gid = {} AND uid IN {})'''.format(gid, str(
+                            tuple(del_group_user_map[gid])))
+                        num += 1
+                    elif len(del_group_user_map[gid]) == 1:
+                        join_word = '''''' if num == 0 else ''' or'''
+                        sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
+                        num += 1
+                if num > 0:
+                    self._cr.execute(sql)
+        return
 
-                # 避免无线回调write 方法
-                lens = len(users_ids)
-                if lens > 1:
-                    del_sql = "delete from res_groups_users_rel where uid in {} and gid ={}".format(
-                        tuple(users_ids),group_id
-                    )
-                    self.env.cr.execute(del_sql)
-                elif lens ==1:
-                    del_sql = "delete from res_groups_users_rel where uid = {} and gid ={}".format(
-                        users_ids[0],group_id
-                    )
-                    self.env.cr.execute(del_sql)
+
 
     @api.multi
     def write(self, vals):
@@ -142,15 +139,12 @@ class PositionSettings(models.Model):
     @api.multi
     def unlink(self):
         '''
-        当前组的子组中人的删除处理：
-        若其他组的子组中包含该子组，且当前组的子组中包含的人被被包含在该子组中，则不能删除，否则，删除
-        '''
-        for record in self:
-            del_groups_ids = record.implied_ids.ids  # 需要删除的分组的
-            self.del_group_users(record.id, del_groups_ids, record.users.ids)
-            super(models.Model, record).unlink()
-
-        return True
+                当前组的子组中人的删除处理：
+                若其他组的子组中包含该子组，且当前组的子组中包含的人被被包含在该子组中，则不能删除，否则，删除
+         '''
+        del_groups_ids = self.implied_ids.ids  # 需要删除的分组的
+        self.del_group_users(self.id, del_groups_ids, self.users.ids)
+        return super(models.Model, self).unlink()
 
     @api.model
     def import_position_user_button(self):
