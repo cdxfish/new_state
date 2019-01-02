@@ -4,10 +4,10 @@ from collections import defaultdict
 from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
-CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
+CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive','module_position11',
                     'module_category_people', 'module_category_setting', 'module_category_jurisdiction','statistical_analysis_button']
 CACHE_LIST = []
-# ,'module_position11'
+
 import logging
 _logger = logging.getLogger(__name__)
 
