@@ -376,6 +376,7 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
+        
         <record model="res.groups" id="module_position_be_on_duty_site_114">
             <field name="name">职位值班站长</field>
             <field name="category_id" ref="module_category_custom_groups"/>
