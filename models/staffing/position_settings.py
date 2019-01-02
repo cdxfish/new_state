@@ -96,21 +96,22 @@ class PositionSettings(models.Model):
             for del_group_id in deal_cur_groups_ids:
                 del_group_user_map[del_group_id] = list(
                     set(del_group_user_map[del_group_id]).difference(set(cur_group_users)))
-                # 创建sql语句
-                sql = '''DELETE FROM res_groups_users_rel WHERE'''
-                num = 0
-                for gid in del_group_user_map:
-                    if len(del_group_user_map[gid]) > 1:
-                        join_word = '''''' if num == 0 else ''' or'''
-                        sql = sql + join_word + ''' (gid = {} AND uid IN {})'''.format(gid, str(
-                            tuple(del_group_user_map[gid])))
-                        num += 1
-                    elif len(del_group_user_map[gid]) == 1:
-                        join_word = '''''' if num == 0 else ''' or'''
-                        sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
-                        num += 1
-                if num > 0:
-                    self._cr.execute(sql)
+        # 创建sql语句
+        sql = '''DELETE FROM res_groups_users_rel WHERE'''
+        num = 0
+        for gid in del_group_user_map:
+            if len(del_group_user_map[gid]) > 1:
+                join_word = '''''' if num == 0 else ''' or'''
+                sql = sql + join_word + ''' (gid = {} AND uid IN {})'''.format(gid, str(
+                    tuple(del_group_user_map[gid])))
+                num += 1
+            elif len(del_group_user_map[gid]) == 1:
+                join_word = '''''' if num == 0 else ''' or'''
+                sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
+                num += 1
+        if num > 0:
+            print(1111)
+            self._cr.execute(sql)
         return
 
 
