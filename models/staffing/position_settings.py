@@ -8,6 +8,8 @@ CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_cate
                     'module_category_people', 'module_category_setting', 'module_category_jurisdiction','statistical_analysis_button']
 CACHE_LIST = []
 # ,'module_position11'
+import logging
+_logger = logging.getLogger(__name__)
 
 class PositionSettings(models.Model):
     _inherit = 'res.groups'
@@ -110,7 +112,7 @@ class PositionSettings(models.Model):
                 sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
                 num += 1
         if num > 0:
-            print(1111)
+            logging.info(123123)
             self._cr.execute(sql)
         return
 
