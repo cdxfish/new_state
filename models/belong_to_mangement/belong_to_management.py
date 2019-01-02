@@ -10,7 +10,7 @@ class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
     _inherit = 'fuenc_station.station_base'
 
-    post_check = fields.Selection([('guard', '保安'), ('check', '安检'), ('clean', '保洁')], string='岗位检查')
+    post_check = fields.Selection([('guard', '保安'),       ('check', '安检'), ('clean', '保洁')], string='岗位检查')
     check_time = fields.Datetime(string='检测时间')
     check_state = fields.Text(string='检测情况')
     find_problem = fields.Text(string='发现问题')
@@ -36,7 +36,7 @@ class BelongToManagement(models.Model):
             vals['check_score'] = abs(vals.get('check_score'))
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
-            
+
         if vals.get('load_file_test') or vals.get('imgs') :
 
                 vals['browse_image_invisible'] = 'one'
