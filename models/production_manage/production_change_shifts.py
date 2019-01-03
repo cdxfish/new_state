@@ -217,6 +217,21 @@ class production_change_shifts(models.Model):
 
     preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态')  # 备品状态
 
+    is_take_over_from = fields.Integer(string='是否可接班',compute='_compute_is_take_over_from') # 用于接班按钮显示 1为显示
+
+    def _compute_is_take_over_from(self):
+        if self.env.user.id ==1:
+            for this in self:
+                this.is_take_over_from = 1
+        else:
+            ding_user_id = self.env.user.dingtalk_user.id
+            for this in self:
+                if this.state == 'change_shifts'  :
+                    if this.change_shifts_user_id.id == ding_user_id:
+                        this.is_take_over_from = 0
+                    else:
+                        this.is_take_over_from = 1
+
     @api.onchange('check_project_ids')
     def onchange_check_project_ids(self):
         # 预设行车
@@ -497,7 +512,10 @@ class production_change_shifts(models.Model):
         }
 
     def delete(self):
-        self.unlink()
+        if self.state == 'draft':
+            self.unlink()
+        else:
+            return False
 
     def production_change_shifts_save(self):
         return {
@@ -525,6 +543,12 @@ class production_change_shifts(models.Model):
             self.state = 'take_over_from'  # 已接班
             self.take_over_from_user_id = self.env.user.dingtalk_user.id
             self.take_over_from_time = datetime.datetime.now()
+            return {
+                'name': '交接班',
+                'type': 'ir.actions.client',
+                'tag': 'change_shifts_clint',
+                'target': 'current'
+            }
 
     def get_position(self):
         if self.env.user.has_group('funenc_xa_station.module_cstatio_nmaster'):
@@ -681,17 +705,11 @@ class production_change_shifts(models.Model):
 
     @api.model
     def handle_delete(self,id_delete):
-        # print(id_delete)
-        data = self.env['funenc_xa_station.production_change_shifts'].search([('id','=',id_delete)]).unlink()
-        return data
-
-    @api.model
-    def handle_delete_1(self,id_delete):
-        data = self.env['funenc_xa_station.production_change_shifts'].search([('id', '=', id_delete)]).unlink()
-        # print(id_delete)
-        return data
-
-
+        obj = self.search([('id', '=', id_delete)])
+        if obj.state == 'draft' or self.env.user.id ==1:
+            return obj.unlink()
+        else:
+            return False
 
 
 class put_question(models.Model):
