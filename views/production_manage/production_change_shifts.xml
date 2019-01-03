@@ -60,7 +60,7 @@
                                         <label for="change_shifts_time" string="交班时间"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <field name="change_shifts_time"/>
+                                        <field name="change_shifts_time" readonly="1"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -68,7 +68,7 @@
                                         <label for="take_over_from_user_id" string="接班人"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <field name="take_over_from_user_id" />
+                                        <field name="take_over_from_user_id" readonly="1"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -76,7 +76,7 @@
                                         <label for="take_over_from_time" string="接班时间"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <field name="take_over_from_time" />
+                                        <field name="take_over_from_time" readonly="1"/>
                                     </div>
                                 </div>
                             </div>
@@ -167,9 +167,9 @@
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
+                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
 
                             />
-                            <!--attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"-->
                             <button name='submit'
                                     string='立即交班'
                                     class='btn-primary'
