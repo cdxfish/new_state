@@ -8,9 +8,6 @@ CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_cate
                     'module_category_people', 'module_category_setting', 'module_category_jurisdiction','statistical_analysis_button']
 CACHE_LIST = []
 
-import logging
-_logger = logging.getLogger(__name__)
-
 class PositionSettings(models.Model):
     _inherit = 'res.groups'
     _description = '职位设置'

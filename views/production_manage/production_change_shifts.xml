@@ -44,18 +44,66 @@
                                 </p>
                                 <br/>
                             </div>
+                            <field name="product_id_domain" invisible="1"/>
+                            <field name="product_site_id_domain" invisible="1"/>
                             <div class="row">
-                                <div class="col-md-3  col-sm-6  col-xs-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <span class="widget-label  col-md-4  col-sm-6  col-xs-12">交班人:</span>
-                                            <div class="col-md-8  col-sm-6  col-xs-12">
-                                                <field name="change_shifts_user_id" readonly="1"/>
-                                            </div>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="change_shifts_user_id" string="交班人"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="change_shifts_user_id" style="width: 100%" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="change_shifts_time" string="交班时间"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="change_shifts_time"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="take_over_from_user_id" string="接班人"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="take_over_from_user_id" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <label for="take_over_from_time" string="接班时间"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="take_over_from_time" />
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label for="line_id" string="线路"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <field name="line_id" style="width: 100%"
+                                               options="{'no_create':True,'no_open':True}" required="1"
+                                               domain="product_id_domain"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label for="site_id" string="站点"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <field name="site_id"
+                                               options="{'no_create':True,'no_open':True}" required="1"
+                                               domain="product_site_id_domain"/>
+                                    </div>
+                                </div>
+                            </div>
+
                         </sheet>
                         <sheet>
                             <group string="安全预想">
@@ -119,9 +167,9 @@
                                     string='保存草稿'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"
 
                             />
+                            <!--attrs="{'invisible':[('state', 'in',['change_shifts','take_over_from'])]}"-->
                             <button name='submit'
                                     string='立即交班'
                                     class='btn-primary'
