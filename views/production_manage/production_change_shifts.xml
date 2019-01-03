@@ -161,6 +161,7 @@
                                 <field name="production_state" invisible="1"/>
                                 <field name="state" invisible="1"/>
                             </group>
+                            <field name="is_take_over_from" invisible="1"/>
                         </sheet>
                         <footer>
                             <button name='production_change_shifts_save'
@@ -181,7 +182,7 @@
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('is_take_over_from','!=',1)]}"
 
                             />
                             <button string='取消'
@@ -560,6 +561,7 @@
                                 <field name="state" invisible="1"/>
 
                             </group>
+                            <field name="is_take_over_from" invisible="1"/>
                         </sheet>
                         <footer>
                             <button name='production_change_shifts_save'
@@ -580,7 +582,7 @@
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('is_take_over_from','!=',1)]}"
 
                             />
                             <button string='取消'
@@ -705,6 +707,7 @@
                                 <field name="state" invisible="1"/>
 
                             </group>
+                            <field name="is_take_over_from" invisible="1"/>
                         </sheet>
                         <footer>
                             <button name='production_change_shifts_save'
@@ -725,7 +728,7 @@
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('is_take_over_from','!=',1)]}"
 
                             />
                             <button string='取消'
@@ -1015,6 +1018,7 @@
                             <field string="备注" name="remarks"/>
                             <field name="state" invisible="1"/>
                         </group>
+                        <field name="is_take_over_from" invisible="1"/>
                         <footer>
                             <button name='production_change_shifts_save'
                                     string='保存草稿'
@@ -1034,7 +1038,7 @@
                                     string='接班'
                                     class='btn-primary'
                                     type='object'
-                                    attrs="{'invisible':[('state','not in',['change_shifts'])]}"
+                                    attrs="{'invisible':[('is_take_over_from','!=',1)]}"
 
                             />
                             <button string='取消'
