@@ -169,7 +169,7 @@
                                                </div>
                                                <div class="col-md-3">
                                                   <div class="col-md-4">
-                                                     <label for="idcar" string="生份证"/>
+                                                     <label for="idcar" string="身份证"/>
                                                      <!--<field name="idcar"/>-->
                                                   </div>
                                                  <div class="col-md-8">

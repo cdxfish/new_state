@@ -28,7 +28,7 @@ class SpecialMoney(models.Model):
     involving_money = fields.Integer(string='涉及金额',required=True)
     passengers_name = fields.Char(string='乘客姓名')
     passengers_phone = fields.Char(string='乘客电话')
-    passengers_ID = fields.Char(string='乘客生份证')
+    passengers_ID = fields.Char(string='乘客身份证')
     deal_person = fields.Char(string='处理人员')
     webmaster = fields.Char(string='站长')
     deputy_director = fields.Char(string='分部主任')
@@ -40,7 +40,7 @@ class SpecialMoney(models.Model):
     deal_result = fields.Selection(key,string='处理结果',default='one_audit')
     # load_file_test = fields.Many2many('ir.attachment','good_special_ir_attachment_rel',
     #                                      'attachment_id','meeting_dateils_id', string='图片上传')
-    load_file_test = fields.Binary(string='生份证照片')
+    load_file_test = fields.Binary(string='身份证照片')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
     special_attrchment_deal = fields.One2many('video_voice_model','special_money_act',string='附件处理结果')

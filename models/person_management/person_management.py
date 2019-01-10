@@ -28,7 +28,7 @@ class MainModel(models.Model):
     gender = fields.Char(string='性别')
     nation = fields.Char(string='民族')
     birth = fields.Date(string='出生日期')
-    idcar = fields.Char(string='生份证号码')
+    idcar = fields.Char(string='身份证号码')
     phone = fields.Char(string='联系电话')
     politics_status = fields.Char(string='政治面貌')
     shoe_size = fields.Char(string='鞋码')
