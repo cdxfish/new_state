@@ -108,52 +108,36 @@ odoo.define('change_shifts_clint', function (require) {
                         },
 
                         handleDelete(index,row) {
-                                    this.$confirm('是否要删除本条记录?', '提示', {
-                                      confirmButtonText: '确定',
-                                      cancelButtonText: '取消',
-                                      type: 'warning'
-                                    }).then(() => {
-                                        self._rpc({
-                                                    model: 'funenc_xa_station.production_change_shifts',
-                                                    method: 'handle_delete',
-                                                    kwargs:{id_delete:row.id}
-                                                }).then(function (data) {
-                                                        if(data){
-                                                        self.vue_data.change_shifts_ids.splice(index, 1);
-                                                        }
-                                            });
-                                    }).catch(() => {
-                                      this.$message({
-                                        type: 'info',
-                                        message: '已取消删除'
-                                      });
-                                    });
+                            var this_vue = this;
+                            this.$confirm('是否要删除本条记录?', '提示', {
+                                confirmButtonText: '确定',
+                                cancelButtonText: '取消',
+                                type: 'warning'
+                            }).then(() = > {
+                                self._rpc({
+                                    model: 'funenc_xa_station.production_change_shifts',
+                                    method: 'handle_delete',
+                                    kwargs: {id_delete: row.id}
+                                }).then(function (data) {
+                                    if (data) {
+                                        self.vue_data.change_shifts_ids.splice(index, 1);
+                                    } else {
+                                        this_vue.$message({
+                                            message: '只能删除草稿状态下的交接班',
+                                            type: 'warning'
+                                        });
+                                    }
 
-                        },
 
-                    handleDelete_1(index,row) {
-
-                                this.$confirm('是否要删除本条记录?', '提示', {
-                                      confirmButtonText: '确定',
-                                      cancelButtonText: '取消',
-                                      type: 'warning'
-                                    }).then(() => {
-                                        self._rpc({
-                                                    model: 'funenc_xa_station.production_change_shifts',
-                                                    method: 'handle_delete_1',
-                                                    kwargs:{id_delete:row.id}
-                                                }).then(function (data) {
-                                                        if(data){
-                                                        self.vue_data.take_over_from_ids.splice(index, 1);
-                                                        }
-                                            });
-                                    }).catch(() => {
-                                      this.$message({
-                                        type: 'info',
-                                        message: '已取消删除'
-                                      });
-                                    });
-
+                                });
+                        }).
+                            catch(() = > {
+                                this.$message({
+                                    type: 'info',
+                                    message: '已取消删除'
+                                });
+                        })
+                            ;
 
                         },
 

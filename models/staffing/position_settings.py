@@ -4,10 +4,9 @@ from collections import defaultdict
 from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
-CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
+CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive','module_position11',
                     'module_category_people', 'module_category_setting', 'module_category_jurisdiction','statistical_analysis_button']
 CACHE_LIST = []
-# ,'module_position11'
 
 class PositionSettings(models.Model):
     _inherit = 'res.groups'
@@ -96,21 +95,22 @@ class PositionSettings(models.Model):
             for del_group_id in deal_cur_groups_ids:
                 del_group_user_map[del_group_id] = list(
                     set(del_group_user_map[del_group_id]).difference(set(cur_group_users)))
-                # 创建sql语句
-                sql = '''DELETE FROM res_groups_users_rel WHERE'''
-                num = 0
-                for gid in del_group_user_map:
-                    if len(del_group_user_map[gid]) > 1:
-                        join_word = '''''' if num == 0 else ''' or'''
-                        sql = sql + join_word + ''' (gid = {} AND uid IN {})'''.format(gid, str(
-                            tuple(del_group_user_map[gid])))
-                        num += 1
-                    elif len(del_group_user_map[gid]) == 1:
-                        join_word = '''''' if num == 0 else ''' or'''
-                        sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
-                        num += 1
-                if num > 0:
-                    self._cr.execute(sql)
+        # 创建sql语句
+        sql = '''DELETE FROM res_groups_users_rel WHERE'''
+        num = 0
+        for gid in del_group_user_map:
+            if len(del_group_user_map[gid]) > 1:
+                join_word = '''''' if num == 0 else ''' or'''
+                sql = sql + join_word + ''' (gid = {} AND uid IN {})'''.format(gid, str(
+                    tuple(del_group_user_map[gid])))
+                num += 1
+            elif len(del_group_user_map[gid]) == 1:
+                join_word = '''''' if num == 0 else ''' or'''
+                sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
+                num += 1
+        if num > 0:
+            logging.info(123123)
+            self._cr.execute(sql)
         return
 
 
