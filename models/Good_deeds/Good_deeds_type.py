@@ -8,7 +8,7 @@ class GoodDeedsType(models.Model):
     _name = 'funenc_xa_station.good_deeds_type'
     _rec_name = 'good_type'
 
-    good_type = fields.Char(string='好人好事类型')
+    good_type = fields.Char(string='好人好事类型', required=True)
     note = fields.Char(string='备注')
     _sql_constraints = [('line_unique', 'UNIQUE(good_type)', "好人好事类型已经存在")]
 
