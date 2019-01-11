@@ -4,7 +4,7 @@
             <field name="name"></field>
             <field name="model">evaluate_import</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="xls_file"></field>
                 </tree>
             </field>

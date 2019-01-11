@@ -35,7 +35,7 @@
             <field name="name">人员证件管理</field>
             <field name="model">person.certificate</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen" edit="0" search_ex_template="per_certificate_search_button">
+                <tree create="0" class="noOpen" edit="0" search_ex_template="per_certificate_search_button" limit="15">
                     <!--<field name="id" string="序号"></field>-->
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
@@ -297,7 +297,7 @@
                                          <!--<label for="certificate_money" string="上传证件照片"/>-->
                                          <div class="x_panel form_sec">
                                             <field name="load_file_test" widget="many2many_binary">
-                                                <tree>
+                                                <tree limit="15">
                                                     <field name="datas_fname"/>
                                                 </tree>
                                             </field>
@@ -322,7 +322,7 @@
                         <group string="点击对应的文件名进入下载">
                             <div class="x_panel form_sec">
                                 <field name="load_file_test" widget="one2many_binary">
-                                    <tree>
+                                    <tree limit="15">
                                         <field name="datas_fname"/>
                                     </tree>
                                 </field>
@@ -341,7 +341,7 @@
                     <sheet>
                         <group>
                             <field name="load_file_test" widget="one2many_image_read_widget" string="上传证件照片">
-                                <tree>
+                                <tree limit="15">
                                     <field name="datas_fname"/>
                                 </tree>
                             </field>

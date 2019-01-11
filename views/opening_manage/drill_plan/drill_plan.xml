@@ -108,7 +108,7 @@
                         </group>
                         <group string="演练结果">
                             <field name="drill_result_ids" readonly="1">
-                                <tree class="noOpen">
+                                <tree class="noOpen" limit="15">
                                     <field name="line_id" string="线路" readonly="1"/>
                                     <field name="site_id" string="站点" readonly="1"/>
                                     <field name="people_number" string="参与人次" readonly="1"/>

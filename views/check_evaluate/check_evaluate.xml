@@ -86,7 +86,7 @@
             <field name="name">check_evaluate_tree</field>
             <field name="model">funenc_xa_station.check_standard</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" limit="15">
                     <field name="check_standard"></field>
                     <field name="problem_kind"></field>
                     <field name="check_project"></field>

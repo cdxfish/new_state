@@ -14,7 +14,7 @@
             <field name="name">生产日报类型设置</field>
             <field name="model">funenc_xa_station.prude_newpaper_type</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="prude_event_type"></field>
                     <field name="note"></field>
                     <widget name="treebtns" template="prude_newpaper_type_action"

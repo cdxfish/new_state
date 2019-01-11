@@ -23,7 +23,7 @@
             <field name="name">model_funenc_xa_station_key_manage</field>
             <field name="model">xian_metro.professional</field>
             <field name="arch" type="xml">
-                <tree class="noOpen" create="0">
+                <tree class="noOpen" create="0" limit="15">
                     <field name="professional_kind"></field>
                     <field name="note"></field>
                     <widget string="操作" name="treebtns" template="add_major_type"/>

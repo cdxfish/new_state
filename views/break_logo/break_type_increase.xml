@@ -4,7 +4,7 @@
             <field name="name">故障类型设置</field>
             <field name="model">funenc_xa_staion.break_type_increase</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="break_type"></field>
                     <field name="note"></field>
                     <widget name="treebtns" template="break_type_increase_button"></widget>

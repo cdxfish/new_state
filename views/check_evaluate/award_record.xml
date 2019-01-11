@@ -46,7 +46,7 @@
             <field name="name">award_record</field>
             <field name="model">funenc_xa_station.award_record</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" class="noOpen" search_ex_template="award_record_search_button">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="award_record_search_button" limit="15">
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id"></field>
@@ -86,7 +86,7 @@
                             <field name="award_money"></field>
                             <field name="incident_describe"></field>
                             <field name="award_record_add" context="{'connection_id':'award_project'}">
-                                <tree editable="top" class="noOpen">
+                                <tree editable="top" class="noOpen" limit="15">
                                     <field name="staff" options="{'no_create':True,'no_open':True}"></field>
                                     <field name="jobnumber"></field>
                                     <field name="award_money"></field>

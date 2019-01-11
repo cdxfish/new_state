@@ -21,7 +21,7 @@
             <field name="name">per_management_tree</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" search_ex_template="per_management_summary_search_button">
+                <tree create="0" edit="0" search_ex_template="per_management_summary_search_button" limit="15">
                     <field name="jobnumber"></field>
                     <field name="name"></field>
                     <field name="gender"></field>
@@ -39,7 +39,7 @@
             <field name="name">per_management_tree</field>
             <field name="model">cdtct_dingtalk.cdtct_dingtalk_users</field>
             <field name="arch" type="xml">
-                <tree create="0"  class="noOpen" edit="0" search_ex_template="per_management_summary_search_button">
+                <tree create="0"  class="noOpen" edit="0" search_ex_template="per_management_summary_search_button" limit="15">
                     <field name="jobnumber"></field>
                     <field name="name"></field>
                     <field name="gender"></field>

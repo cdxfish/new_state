@@ -5,7 +5,7 @@
             <field name="name">import_file</field>
             <field name="model">import.management</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="xls_file"></field>
                 </tree>
             </field>

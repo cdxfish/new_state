@@ -33,7 +33,7 @@
                         <group string="演练情况">
 
                             <field name="site_drill_plan_to_drill_situation_ids" string="">
-                                <tree delete="0" editable="top" create="0" class="noOpen">
+                                <tree delete="0" editable="top" create="0" class="noOpen" limit="15">
                                     <field name="drill_situation_id" string="演练情况" readonly="1"/>
                                     <field name="describe" string="描述"/>
                                 </tree>
@@ -48,7 +48,7 @@
                               </div>
                              <div class="col-md-10">
                                  <field name="load_file_test" widget="many2many_binary">
-                                    <tree>
+                                    <tree limit="15">
                                         <field name="datas_fname"/>
                                     </tree>
                                 </field>
@@ -62,7 +62,7 @@
                                   </div>
                                  <div class="col-md-3">
                                     <field name="site_drill_video">
-                                        <tree>
+                                        <tree limit="15">
                                             <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                             <field name="file_name" invisible="1"/>
                                             <!--<widget  name="treebtns" template="guests_hurt_button" string="操作"/>-->
@@ -83,7 +83,7 @@
                         <group string="意见及整改">
                             <field name="proposal_rectification_ids">
 
-                                <tree editable="top" class="noOpen">
+                                <tree editable="top" class="noOpen" limit="15">
                                     <field name="proposal_user_id" string="意见填写人"/>
                                     <field name="jobnumber" string="工号"/>
                                     <field name="proposal_time" string="意见填写时间"/>
@@ -98,7 +98,7 @@
                         </group>
                         <group string="演练签到情况">
                             <field name="sign_in_ids">
-                                <tree class="noOpen">
+                                <tree class="noOpen" limit="15">
                                     <field name="sign_in_time" string="签到时间"/>
                                     <field name="line_id" string="线路" />
                                     <field name="site_id" string="站点"/>

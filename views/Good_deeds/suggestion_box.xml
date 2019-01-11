@@ -44,7 +44,7 @@
             <field name="name">乘客意见箱</field>
             <field name="model">funenc_xa_station.suggestion_box</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" search_ex_template="suggestion_box_search_button">
+                <tree create="0" edit="0" search_ex_template="suggestion_box_search_button" limit="15">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>
@@ -239,7 +239,7 @@
                           </div>
                          <div class="col-md-3">
                             <field name="video_attachment">
-                                <tree>
+                                <tree limit="15">
                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                     <field name="file_name" invisible="1"/>
                                     <!--<widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>-->
@@ -264,7 +264,7 @@
                           </div>
                          <div class="col-md-3">
                             <field name="audio_attachment">
-                                <tree>
+                                <tree limit="15">
                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                     <field name="file_name" invisible="1"/>
                                     <!--<widget  name="treebtns" template="guests_hurt_button_play" string="操作"/>-->
@@ -456,7 +456,7 @@
                           </div>
                          <div class="col-md-3">
                              <field name="load_file_test" widget="one2many_image_read_widget">
-                                <tree>
+                                <tree limit="15">
                                     <field name="datas_fname"/>
                                 </tree>
                             </field>
@@ -471,7 +471,7 @@
                           </div>
                          <div class="col-md-3">
                             <field name="video_attachment">
-                                <tree>
+                                <tree limit="15">
                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                     <field name="file_name" invisible="1"/>
                                     <widget  name="treebtns" template="video_suggest_button_play" string="操作"/>
@@ -496,7 +496,7 @@
                           </div>
                          <div class="col-md-3">
                             <field name="audio_attachment">
-                                <tree>
+                                <tree limit="15">
                                     <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                     <field name="file_name" invisible="1"/>
                                     <widget  name="treebtns" template="video_suggest_button_play" string="操作"/>

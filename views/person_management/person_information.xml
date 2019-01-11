@@ -541,7 +541,7 @@
                     <widget  name="treebtns" template="new_increase_cerfiticase_information" string="操作"/>
                     <div class="text-center ">
                         <field name="certificate_info">
-                            <tree>
+                            <tree limit="15">
                                 <field name="product_id_domain" invisible="1"/>
                                 <field name="product_site_id_domain" invisible="1"/>
                                 <field name="id" string="序号"></field>
@@ -570,7 +570,7 @@
                     <widget  name="treebtns" template="new_increase_jobt_ranfer_information" string="操作"/>
                     <div class="text-center ">
                         <field name="transfer_info">
-                            <tree>
+                            <tree limit="15">
                                 <!--<field name="product_id_domain" invisible="1"/>-->
                                 <!--<field name="product_site_id_domain" invisible="1"/>-->
                                 <field name="line_id" required="1"></field>
@@ -591,7 +591,7 @@
                          </div>
                     <div class="text-center ">
                         <field name="check_info">
-                            <tree>
+                            <tree limit="15">
                                 <field name="product_id_domain" invisible="1"/>
                                 <field name="product_site_id_domain" invisible="1"/>
                                 <field name="line_id"></field>
