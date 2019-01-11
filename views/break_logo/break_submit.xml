@@ -32,7 +32,7 @@
             <field name="name">故障提报</field>
             <field name="model">funenc_xa_station.break_submit</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" class="noOpen" search_ex_template="break_submit_search_button">
+                <tree create="0" edit="0" class="noOpen" search_ex_template="break_submit_search_button" limit="15">
                     <field name="line_id"></field>
                     <field name="site_id" ></field>
                     <field name="break_describe"></field>
@@ -144,7 +144,7 @@
                                       </div>
                                      <div class="col-md-9">
                                          <field name="load_file_test_1" >
-                                             <tree>
+                                             <tree limit="15">
                                                 <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
                                                 <field name="file_name" invisible="1"/>
                                             </tree>
@@ -257,7 +257,7 @@
                                       </div>
                                      <div class="col-md-10">
                                          <field name="load_file_test_1" readonly="1">
-                                             <tree>
+                                             <tree limit="15">
                                                 <field name="video" filename="file_name" max_upload_kb="10240000" ></field>
                                                 <field name="file_name" invisible="1"/>
                                             </tree>

@@ -34,7 +34,7 @@
             <field name="name">second_tee</field>
             <field name="model">person_management.person_second</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" limit="15">
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
                     <field name="person_number"></field>

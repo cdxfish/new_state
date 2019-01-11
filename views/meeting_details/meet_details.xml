@@ -33,7 +33,7 @@
             <field name="name">会议记录</field>
             <field name="model">funenc_xa_station.meeting_dateils</field>
             <field name="arch" type="xml">
-                <tree edit="0" create="0" class="noOpen" search_ex_template="meet_details_search_button">
+                <tree edit="0" create="0" class="noOpen" search_ex_template="meet_details_search_button" limit="15">
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
                     <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"></field>
@@ -73,7 +73,7 @@
                             </div>
                             <label for="files_accessory" string="文件附件"/>
                             <div class="x_panel form_sec">
-                                <field name="files_accessory" widget="many2many_binary">
+                                <field name="files_accessory" widget="many2many_binary" limit="15">
                                     <tree>
                                         <field name="datas_fname"/>
                                     </tree>
@@ -197,7 +197,7 @@
                               </div>
                              <div class="layui-col-sm10">
                                  <field name="load_file_test" widget="one2many_image_read_widget">
-                                     <tree>
+                                     <tree limit="15">
                                         <field name="datas_fname"/>
                                     </tree>
                                  </field>
@@ -211,7 +211,7 @@
                               </div>
                              <div class="layui-col-sm2">
                                  <field name="files_accessory" widget="one2many_binary">
-                                    <tree>
+                                    <tree limit="15">
                                         <field name="datas_fname"/>
                                     </tree>
                                  </field>

@@ -4,7 +4,7 @@
             <field name="name">award_standard_import_tree</field>
             <field name="model">award_import</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="xls_file"></field>
                 </tree>
             </field>

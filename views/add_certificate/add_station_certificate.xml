@@ -32,7 +32,7 @@
                     <field  name="name">车站证件管理</field>
                     <field  name="model">station.certificate</field>
                     <field  name="arch"  type="xml">
-                        <tree  create="0" class="noOpen" search_ex_template="station_certificate_search_button">
+                        <tree  create="0" class="noOpen" search_ex_template="station_certificate_search_button" limit="15">
                             <field name="product_id_domain" invisible="1"/>
                             <field name="product_site_id_domain" invisible="1"/>
                             <field  name="id"  string="序号"></field>
@@ -83,7 +83,7 @@
                                     <field  name="certificate_number"></field>
                                     <field name="site_id" options="{'no_create':True,'no_open':True}"  required="1" domain="product_site_id_domain"></field>
                                     <field name="certificate_time"></field>
-                                     <field name="load_file_test" widget="many2many_binary" string="上传证件照片">
+                                     <field name="load_file_test" widget="many2many_binary" string="上传证件照片" limit="15">
                                             <tree>
                                                 <field name="datas_fname"/>
                                             </tree>
@@ -102,7 +102,7 @@
                     <sheet>
                         <group>
                          <field name="load_file_test" widget="one2many_image_read_widget" string="证件照片">
-                                <tree>
+                                <tree limit="15">
                                     <field name="datas_fname"/>
                                 </tree>
                           </field>
@@ -121,7 +121,7 @@
                         <group name="group_bottom" string="点击对应的文件名进入下载">
                                 <div class="x_panel form_sec">
                                     <field name="load_file_test" widget="one2many_binary">
-                                     <tree>
+                                     <tree limit="15">
                                         <field name="datas_fname" />
                                      </tree>
                                     </field>

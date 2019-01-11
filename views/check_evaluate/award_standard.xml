@@ -89,7 +89,7 @@
             <field name="name">award_standard</field>
             <field name="model" >funenc_xa_station.award_standard</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <tree create="0" limit="15">
                     <field name="award_standard_kind"></field>
                     <field name="award_project"></field>
                     <field name="check_project"></field>

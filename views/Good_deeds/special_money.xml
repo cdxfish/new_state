@@ -54,7 +54,7 @@
             <field name="name">特殊储备金</field>
             <field name="model">funenc_xa_station.special_money</field>
             <field name="arch" type="xml">
-                <tree create="0" class="noOpen" edit="0" search_ex_template="special_money_search_button">
+                <tree create="0" class="noOpen" edit="0" search_ex_template="special_money_search_button" limit="15">
                     <field name="id" string="序号"></field>
                     <field name="line_id" string="线路"></field>
                     <field name="site_id" string="站点"></field>
@@ -487,7 +487,7 @@
                               </div>
                              <div class="col-md-3">
                                 <field name="special_attrchment_deal" readonly="1">
-                                    <tree>
+                                    <tree limit="15">
                                         <field name="video" filename="file_name" max_upload_kb="10240000"></field>
                                         <field name="file_name" invisible="1"/>
                                         <widget  name="treebtns" template="special_money_attarchment_file" string="操作"/>

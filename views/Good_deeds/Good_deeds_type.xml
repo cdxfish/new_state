@@ -5,7 +5,7 @@
             <field name="name">好人好事类型设置</field>
             <field name="model">funenc_xa_station.good_deeds_type</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree limit="15">
                     <field name="good_type"></field>
                     <field name="note"></field>
                     <widget string="操作" name="treebtns" template="special_money_type_button" />
