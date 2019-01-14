@@ -219,6 +219,15 @@ class production_change_shifts(models.Model):
 
     is_take_over_from = fields.Integer(string='是否可接班',compute='_compute_is_take_over_from') # 用于接班按钮显示 1为显示
 
+    @api.constrains('meeting_ids')
+    def constrains_constrains(self):
+        line_id = self.line_id.id
+        site_id = self.site_id.id
+        meeting_ids =self.meeting_ids
+        for meeting_id in meeting_ids:
+            meeting_id.line_id = line_id
+            meeting_id.site_id = site_id
+
     def _compute_is_take_over_from(self):
         if self.env.user.id ==1:
             for this in self:
