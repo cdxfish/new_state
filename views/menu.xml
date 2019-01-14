@@ -1141,5 +1141,12 @@
 
 	<menuitem name="统计分析" id="statistical_analysis_mune" icon="&#xe62d;"></menuitem>
 
+	<!--屏蔽讨论-->
+	<menuitem name="讨论" id="mail.mail_channel_menu_root_chat" icon="&#xe62d;"
+	action="mail.mail_channel_action_client_chat" web_icon="mail,static/description/iocn.png"
+			  active="false"
+	></menuitem>
+
+
 	</data>
 </odoo>
