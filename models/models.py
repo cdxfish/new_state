@@ -70,6 +70,7 @@ class fuenc_station(models.Model):
     def change_line_id(self, domain, line_id):
         ding_user = self.env.user.dingtalk_user
         department_ids = ding_user.user_property_departments.ids
+        #创建时触发
         if not self.line_id:
             if line_id:
                 department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(line_id)
@@ -83,7 +84,7 @@ class fuenc_station(models.Model):
                               }
                 }
             else:
-                if self.env.user.id == 1:
+                if self.user_has_groups('base.group_system'):
                     return {
                         'domain': {'line_id': [('department_hierarchy', '=', 2)],
                                    }
@@ -102,7 +103,7 @@ class fuenc_station(models.Model):
             [('parentid', '=', line_id.departmentId)]).ids
         site_domain = [('id', 'in', list(set(department_ids) & set(child_department_ids)))]
 
-        if self.env.user.id == 1:
+        if self.user_has_groups('base.group_system'):
             return {'domain': {'site_id': [('id', 'in', child_department_ids)],
                                'line_id': [('department_hierarchy', '=', 2)]
                                }
@@ -645,7 +646,7 @@ class generate_qr(models.Model):
 
     def init_data(self):
 
-        if self.env.user.id == 1:
+        if self.env.user.has_group('base.group_system'):
             return
 
         start_time = time.time()

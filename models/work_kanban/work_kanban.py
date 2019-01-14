@@ -11,31 +11,32 @@ class work_kanban(models.Model):
     _description = u'工作看板'
     _rec_name = 'task_originator_id'
     # _inherit = 'fuenc_station.station_base'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     task_originator_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='任务发起人', readonly=True,
-                                         default=lambda self: self.default_task_originator_id())
-    originator_time = fields.Datetime(string='发起时间', required=True)
+                                         default=lambda self: self.default_task_originator_id(), track_visibility='onchange')
+    originator_time = fields.Datetime(string='发起时间', required=True, track_visibility='onchange')
     task_send_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'work_kanban_user_rel_1',
-                                          'work_kanban_id', 'ding_user_id', string='任务接收人', required=True)
-    task_start_time = fields.Datetime(string='任务开始时间', required=True)
-    task_end_time = fields.Datetime(string='任务结束时间', required=True)
+                                          'work_kanban_id', 'ding_user_id', string='任务接收人', required=True, track_visibility='onchange')
+    task_start_time = fields.Datetime(string='任务开始时间', required=True, track_visibility='onchange')
+    task_end_time = fields.Datetime(string='任务结束时间', required=True, track_visibility='onchange')
     # ir.attachment
-    send_task_attachment = fields.Many2many('ir.attachment','send_task_attachment_rel_12_5','send_task_id','ir_attachment_id',string='发送任务附件')
-    receive_task_attachment = fields.Many2many('ir.attachment','receive_task_attachment_rel_12_5','receive_task_id','ir_attachment_id',string='接收任务附件')
+    send_task_attachment = fields.Many2many('ir.attachment','send_task_attachment_rel_12_5','send_task_id','ir_attachment_id',string='发送任务附件', track_visibility='onchange')
+    receive_task_attachment = fields.Many2many('ir.attachment','receive_task_attachment_rel_12_5','receive_task_id','ir_attachment_id',string='接收任务附件', track_visibility='onchange')
     task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')],
-                                     required=True)
-    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True)
+                                     required=True, track_visibility='onchange')
+    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True, track_visibility='onchange')
     task_type = fields.Selection(selection=[('send_task', '发起的任务'), ('receive_task', '收到的任务')],
-                                 default="send_task")  # 区分接收的任务还是发送的任务分类
+                                 default="send_task", track_visibility='onchange')  # 区分接收的任务还是发送的任务分类
     is_send = fields.Integer(string='任务是否发送')
-    task_describe = fields.Char(string='任务描述')
+    task_describe = fields.Char(string='任务描述', track_visibility='onchange')
     task_state = fields.Selection(selection=[('completed', '完成'), ('not_completed', '未完成')],
                                   default="not_completed")  # 发送任务状态
 
     ####
     parent_id = fields.Many2one('funenc_xa_station.work_kanban', string='发起任务')
     child_ids = fields.One2many('funenc_xa_station.work_kanban', 'parent_id', string='接收任务情况')
-    task_feedback = fields.Char(string='任务反馈')
+    task_feedback = fields.Char(string='任务反馈', track_visibility='onchange')
     receive_task_state = fields.Selection(selection=[('receive_state', '未完成'), ('completed', '已完成')])  # 接收任务状态
     completed_time = fields.Datetime(string='接收任务完成时间')
     task_send_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='完成任务接收人')  # 完成任务接收人
