@@ -5,6 +5,7 @@ _logger = logging.getLogger(__name__)
 def get_domain(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
+        
         if self.user_has_groups('base.group_system'):
             return func(self, [], *args, **kwargs)
         ding_user = self.env.user.dingtalk_user
