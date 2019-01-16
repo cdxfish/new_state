@@ -14,6 +14,7 @@ key = [('one_audit','待初审'),
 class GoodDeeds(models.Model):
     _name = 'fuenc_station.good_deeds'
     _inherit = 'fuenc_station.station_base'
+    _order = 'open_time desc'
 
     type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型',required=True)
     open_time = fields.Datetime(string='发生时间')

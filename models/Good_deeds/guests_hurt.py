@@ -16,6 +16,7 @@ key = [('one_audit','待初审'),
 class GuestsHurt(models.Model):
     _name = 'fuenc_xa_station.guests_hurt'
     _inherit = 'fuenc_station.station_base'
+    _order = 'open_time desc'
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')

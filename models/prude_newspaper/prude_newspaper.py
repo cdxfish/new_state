@@ -16,6 +16,8 @@ key=[('enter_come','边门进出情况')
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
     _inherit = 'fuenc_station.station_base'
+    _order = 'open_time desc'
+
     event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True)
     event_stype_name = fields.Char(string='事件类型名称',compute='_compute_event_stype_name')
     event_content = fields.Text(string='事件内容')

@@ -19,6 +19,7 @@ class production_change_shifts(models.Model):
     _name = 'funenc_xa_station.production_change_shifts'
     _inherit = 'fuenc_station.station_base'
     _description = u'生产管理交接班'
+    _order = 'change_shifts_time desc'
 
     @api.model
     def default_user(self):

@@ -13,6 +13,7 @@ key = [('one_audit','待初审'),
 class SuggestionBox(models.Model):
     _inherit = 'fuenc_station.station_base'
     _name = 'funenc_xa_station.suggestion_box'
+    _order = 'open_time desc'
 
     open_time = fields.Datetime(string='发生时间')
     open_site = fields.Char(string='发生地点')

@@ -15,6 +15,7 @@ key = [('one_audit','待初审'),
 class SpecialMoney(models.Model):
     _name = 'funenc_xa_station.special_money'
     _inherit = 'fuenc_station.station_base'
+    _order = 'open_time desc'
 
     def _default_associated(self):
         if self._context.get('active_id', False):

@@ -15,6 +15,7 @@ class training_plan(models.Model):
     _name = 'funenc_xa_station.training_plan'
     _description = u'培训计划'
     _rec_name = 'training_plan_project'
+    _order = 'id desc'
 
     training_plan_project = fields.Char(string='培训项目')
     leaser_time = fields.Datetime(string='发布日期')

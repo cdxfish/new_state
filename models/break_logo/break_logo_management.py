@@ -8,6 +8,7 @@ from datetime import datetime
 class BreakLogManage(models.Model):
     _name = 'funenc_xa_station.break_log_manage'
     _inherit = 'fuenc_station.station_base'
+    _order = 'apply_time desc'
 
     position = fields.Char(string='位置')
     apply_time =fields.Date(string='申请时间',default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))

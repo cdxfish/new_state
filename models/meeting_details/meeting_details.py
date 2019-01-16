@@ -8,6 +8,8 @@ from ..get_domain import get_domain
 class MeetingDateils(models.Model):
     _name = 'funenc_xa_station.meeting_dateils'
     _inherit = ['fuenc_station.station_base','mail.thread','mail.activity.mixin']
+    _rec_name = 'meeting_theme'
+    _order = 'meeting_time desc'
 
     meeting_theme = fields.Char(string='会议主题', track_visibility='onchange')
     meeting_time = fields.Datetime(string='会议时间', track_visibility='onchange')
