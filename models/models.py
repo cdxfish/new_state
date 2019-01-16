@@ -628,7 +628,7 @@ class StationIndex(models.Model):
                     'clock_end_time') else ''
                 dic1['line_id'] = clock_record.get('line_id')[1] if clock_record.get('line_id') else ''
                 dic1['site_id'] = clock_record.get('site_id')[1] if clock_record.get('site_id') else ''
-            data.append(dic1)
+                data.append(dic1)
 
         return data
 
