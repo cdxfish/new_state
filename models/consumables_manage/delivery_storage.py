@@ -7,6 +7,7 @@ from ..get_domain import get_site_ids
 class delivery_storage(models.Model):
     _name = 'funenc_xa_station.delivery_storage'
     _description = u'耗材出库'
+    _order = 'id desc'
 
     def _default_associated(self):
         if self._context.get('department_id', False):

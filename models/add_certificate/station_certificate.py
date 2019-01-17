@@ -4,6 +4,7 @@ from ..get_domain import get_domain
 class AddStationCertificate(models.Model):
     _name = 'station.certificate'
     _inherit = 'fuenc_station.station_base'
+    _order = 'certificate_time desc'
 
     name = fields.Char(string='证件名称')
     # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')

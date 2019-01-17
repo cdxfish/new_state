@@ -12,6 +12,7 @@ class ShedulingManage(models.Model):
     _name = 'funenc_xa_station.sheduling_manage'
     _description = '排班管理'
     _inherit = 'fuenc_station.station_base'
+    _order = 'id desc'
 
     sheduling_start_time = fields.Date(string='开始时间', required=True)
     sheduling_end_time = fields.Date(string='结束时间', required=True)

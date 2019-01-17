@@ -12,6 +12,8 @@ class work_kanban(models.Model):
     _rec_name = 'task_originator_id'
     # _inherit = 'fuenc_station.station_base'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'originator_time desc'
+
 
     task_originator_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='任务发起人', readonly=True,
                                          default=lambda self: self.default_task_originator_id(), track_visibility='onchange')

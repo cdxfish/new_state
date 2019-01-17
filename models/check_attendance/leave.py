@@ -11,6 +11,7 @@ class Leave(models.Model):
     _name = 'funenc_xa_station.leave'
     _description = '请假模型'
     _inherit = 'fuenc_station.station_base'
+    _order = 'leave_start_time desc'
 
     KEY = [('sick_leave', '病假'),
            ('maternity_leave', '孕假'),

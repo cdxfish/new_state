@@ -9,6 +9,7 @@ import datetime
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
     _inherit = 'fuenc_station.station_base'
+    _order = 'check_time desc'
 
     post_check = fields.Selection([('guard', '保安'),       ('check', '安检'), ('clean', '保洁')], string='岗位检查')
     check_time = fields.Datetime(string='检测时间')

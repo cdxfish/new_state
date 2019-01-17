@@ -9,7 +9,10 @@ import os
 from ..get_domain import get_line_ids
 
 class xian_metro(models.Model):
+
     _name = 'xian_metro.xian_metro'
+    _order = 'id desc'
+
     # _inherit = 'fuenc_station.station_base'
     line_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department','line_id_site_id_ref','line_id','site_id',string='线路',)
     site_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'xian_metro_site_id_rel','xian_metro_id','site_id',string='站点')

@@ -12,6 +12,7 @@ class drill_plan(models.Model):
     _description = u'演练计划'
     _inherit = 'fuenc_station.station_base'
     _rec_name = 'drill_project'
+    _order = 'drill_time desc'
 
     drill_project = fields.Char(string='演练项目', required=True)
     drill_time = fields.Date(string='演练时间', required=True)

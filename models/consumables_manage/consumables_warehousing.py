@@ -7,6 +7,7 @@ import json
 class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_warehousing'
     _description = u'耗材入库'
+    _order = 'id desc'
 
     consumables_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='入库部门',
                                                 # default=lambda self: self.default_consumables_department_id()
