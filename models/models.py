@@ -770,6 +770,13 @@ class inherit_department(models.Model):
         view_form = self.env.ref('funenc_xa_station.statio_summary_form').id
         res_id = self.env['funenc_xa_station.station_summary'].search([('site_id', '=', self.id)])
         site_users = self.department_property_users.ids
+        # 在本站的人才显示
+        for department_property_user in self.department_property_users:
+            self_departments = department_property_user.user_property_departments
+            for self_department in self_departments:
+                if self_department.department_hierarchy != 3:
+                    site_users.remove(department_property_user.id)
+                    break
         dic = {
             'name': '车站详情',
             'type': 'ir.actions.act_window',
@@ -817,7 +824,15 @@ class inherit_department(models.Model):
 
     def _compute_count_user(self):
         for this in self:
-            this.count_user = len(this.department_property_users.ids)
+            department_property_users = this.department_property_users
+            count = len(this.department_property_users.ids)
+            for department_property_user in department_property_users: # 用户的部门属性
+                self_departments = department_property_user.user_property_departments
+                for self_department in self_departments:
+                    if self_department.department_hierarchy != 3:
+                        count = count - 1
+                        break
+            this.count_user = count
 
     @api.model
     def get_xa_departments(self):
