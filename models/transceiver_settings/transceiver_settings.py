@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class TransceiverSettings(models.Model):
     _name = 'funenc_xa_station.transceiver_settings'
     _inherit = 'fuenc_station.station_base'
+    _order = 'id desc'
 
     transient_type = fields.Many2one('funenc_xa_station.consumables_type',string='工器具类型')
     transient_name = fields.Char(string='工器具名称' )

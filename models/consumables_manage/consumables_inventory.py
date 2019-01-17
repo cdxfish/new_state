@@ -7,6 +7,8 @@ class consumables_inventory(models.Model):
     _name = 'funenc_xa_station.consumables_inventory'
     _description = u'耗材库存'
     _rec_name = 'store_house'
+    _order = 'id desc'
+
     inventory_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='库存部门')
     consumables_type = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称')
     store_house = fields.Many2one('funenc_xa_station.store_house', string='库房位置')

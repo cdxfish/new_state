@@ -122,6 +122,7 @@ class StationIndex(models.Model):
     _name = 'fuenc_station.clock_record'
     _description = '打卡记录'
     _inherit = 'fuenc_station.station_base'
+    _order = 'time desc'
 
     time = fields.Date(string='日期')
     user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='员工', required=True)
@@ -1211,70 +1212,68 @@ class ImportGroupUser(models.Model):
                     job_number = line[1]  # 工号
                     ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
                         [('jobnumber', '=', job_number)])
-                    # res_user_id_loas = ding_user_id.id  # 获取角色的id
-                    # res_line_id_load = line[5]  # 获取角色的部门
-                    # no_res_line_id_load = ding_user_id.department_name  # 如果 excel 不存在部门就用之前的
-                    # if res_user_id_loas:
-                    #     res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    #         [('name', '=', res_line_id_load)])
-                    #     if res_line_name.id:
-                    #         select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                    #                      'and department_id={}'.format(res_user_id_loas, res_line_name.id)
-                    #         cr = self._cr
-                    #         cr.execute(select_sql)
-                    #         record = cr.fetchall()
-                    #         if not record:
-                    #             ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                    #                            "values({},{})" \
-                    #                 .format(res_user_id_loas, res_line_name.id)
-                    #             self.env.cr.execute(ins_sql_load)
-                    #     else:
-                    #         res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    #             [('name', '=', line[5])])
-                    #         if res_line_name:
-                    #             res_line_name_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-                    #                 [('parentid', '=', res_line_name.departmentId)])
-                    #             for i in res_line_name_ids.ids:
-                    #
-                    #                 select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-                    #                              'and department_id={}'.format(res_user_id_loas, i)
-                    #                 cr = self._cr
-                    #                 cr.execute(select_sql)
-                    #                 record = cr.fetchall()
-                    #                 if not record:
-                    #                     ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-                    #                                    "values({},{})" \
-                    #                         .format(res_user_id_loas, i)
-                    #                     self.env.cr.execute(ins_sql_load)
                     res_user_id = ding_user_id.user.id
                     position = line[5]
                     self_position = position_map[position]
                     if res_user_id:
 
-                        # 在规定组中添加不在删除
-                        if res_user_id not in self_position.users.ids:
+                        # 在规定组中添加,不在删除
+                        tmp_groups = users_group.keys()
+                        if tmp_groups:
+                            if len(tmp_groups) > 1:
+
+                                del_sql = "DELETE FROM res_groups_users_rel" \
+                                          " where uid ={} and gid in {}".format(res_user_id, tuple(tmp_groups))
+                                self.env.cr.execute(del_sql)
+                            else:
+                                del_sql = "DELETE FROM res_groups_users_rel " \
+                                          " where uid ={} and gid = {}".format(res_user_id, tmp_groups[0])
+                                self.env.cr.execute(del_sql)
+                        # 组内有哪些人，没用orm是因为有缓存
+                        this_group_id  = self_position.id
+                        sel_sql = "SELECT uid FROM res_groups_users_rel where gid={}".format(this_group_id)
+                        self.env.cr.execute(sel_sql)
+                        dicts = self.env.cr.dictfetchall()
+                        group_users_ids =[dic.get('uid')for dic in dicts]
+
+                        if res_user_id not in group_users_ids:
+
+                            # print('i={},zw={}'.format(i,position))
                             ins_sql = "insert into res_groups_users_rel(gid,uid) " \
                                       "values({},{})" \
                                 .format(self_position.id, res_user_id)
                             self.env.cr.execute(ins_sql)
-                        else:
-                            tmp_groups = users_group.values()
-                            del_sql  = "DELETE FROM res_groups_users_rel" \
-                                      "where uid ={} and gid in {}".format(res_user_id,tuple(tmp_groups))
-                            self.env.cr.execute(del_sql)
-
-                        # self_position.users = [(6,0,[res_user_id])]
 
                     else:
-                        import_fail_job_numbers.append((line[1], line[2], line[7]))
+                        import_fail_job_numbers.append((line[1], line[2], line[5]))
+
+
+                    # 用户所在站点
+                    department_name = line[4]  # 获取角色的部门
+                    if ding_user_id:
+                        print(department_name)
+                        department_obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                            [('name', '=', department_name)])  # 部门对象
+                        if department_obj:
+                            # 删除人员部门属性
+                            del_sql = "delete from dingtalk_users_to_departments " \
+                                      "where ding_user_id = {}" \
+                                .format(ding_user_id.id)
+                            self.env.cr.execute(del_sql)
+                            select_sql = 'select 1 from dingtalk_users_to_departments where ding_user_id={} ' \
+                                         'and department_id={}'.format(ding_user_id.id, department_obj.id)
+                            cr = self._cr
+                            cr.execute(select_sql)
+                            record = cr.fetchall()
+                            if not record:
+                                ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
+                                               "values({},{})" \
+                                    .format(ding_user_id.id, department_obj.id)
+                                self.env.cr.execute(ins_sql_load)
+
             _logger.info('import_fail_job_numbers={}'.format(import_fail_job_numbers))
             _logger.info('count={}'.format(len(import_fail_job_numbers)))
-            print(users_group)
-            for group_id in users_group:
-                _logger.info('group_id={}'.format(group_id))
-                if users_group[group_id]:
-                    group = self.env['res.groups'].browse(group_id)
-                    group.users = [(6,0,users_group[group_id])]
+
         self.unlink()
 
     # def save(self):
@@ -1441,33 +1440,3 @@ class ImportGroupUser(models.Model):
     #         # f.save('二分部钉钉未设置人员.xls')
     #     self.unlink()
 
-    # def download_save(self):
-    #     data = xlrd.open_workbook(file_contents=base64.decodebytes(self.xls_file))
-    #
-    #     sheet_data = data.sheet_by_name(data.sheet_names()[0])
-    #     sheet1 = data.sheet_by_index(0)
-    #     if sheet_data:
-    #         lines = sheet_data.nrows
-    #         import_fail_job_numbers = []
-    #         for i in range(40):
-    #             if i > 0:
-    #
-    #                 line = sheet1.row_values(i)
-    #                 job_number = '{}00{}'.format(line[1][0], line[1][1:])  # 工号
-    #                 ding_user_id = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search(
-    #                     [('jobnumber', '=', job_number)])
-    #                 res_user_id_loas = ding_user_id.id
-    #                 res_line_id_load = ding_user_id.department_name
-    #                 res_line_name = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('name','=',res_line_id_load)])
-    #                 if res_user_id_loas:
-    #                     select_sql = 'select * from dingtalk_users_to_departments where ding_user_id={} ' \
-    #                                  'and department_id={}'.format(res_user_id_loas,res_line_name.id)
-    #                     cr = self._cr
-    #                     cr.execute(select_sql)
-    #                     record = cr.fetchall()
-    #                     if not record:
-    #                         ins_sql_load = "insert into dingtalk_users_to_departments(ding_user_id,department_id) " \
-    #                                   "values({},{})" \
-    #                             .format(res_user_id_loas, res_line_name.id)
-    #                         self.env.cr.execute(ins_sql_load)
-    #     self.unlink()

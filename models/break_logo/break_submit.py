@@ -11,8 +11,8 @@ from ast import literal_eval
 
 class BreakSubmit(models.Model):
     _name = 'funenc_xa_station.break_submit'
-    _order = 'change_shifts_time desc'
-    _inherit = 'fuenc_station.deal_time'
+    _inherit = 'fuenc_station.station_base'
+    _order = 'submit_time desc'
 
     break_describe = fields.Char(string='故障描述')
     local_image = fields.Binary(string='现场图片')

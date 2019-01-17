@@ -11,6 +11,7 @@ import threading
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
     _inherit = 'fuenc_station.station_base'
+    _order = 'check_time desc'
 
     key = [('check_parment', '考核分部（室）分值')
         , ('relate_per_score', '相关负责人考核分值')

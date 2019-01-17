@@ -8,6 +8,7 @@ from ..get_domain import get_domain
 class AwardRecord(models.Model):
     _name = 'funenc_xa_station.award_record'
     _inherit = 'fuenc_station.station_base'
+    _order = 'check_time desc'
 
 
     # line_road = fields.Char(string='线路')
@@ -15,7 +16,6 @@ class AwardRecord(models.Model):
     jobnumber = fields.Char(related='staff.jobnumber',string='工号', readonly=True)
     staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
     position = fields.Text(related='staff.position',string='职位')
-    award_money = fields.Char(string='奖励金额')
     award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类',required=True)
     award_project = fields.Many2one('award_award_project',string='奖励项目',required=True)
     check_project = fields.Many2one('award_check_project',string='考核项目',required=True)

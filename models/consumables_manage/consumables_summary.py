@@ -6,6 +6,7 @@ from odoo import api, fields, models
 class ConsumablesSummary(models.Model):
 
     _name = 'funenc_xa_station.consumables_summary'
+    _order = 'id desc'
 
     @api.model
     def init_methods_action(self):
