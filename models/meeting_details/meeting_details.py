@@ -10,6 +10,7 @@ class MeetingDateils(models.Model):
     _inherit = ['fuenc_station.station_base','mail.thread','mail.activity.mixin']
     _rec_name = 'meeting_theme'
     _order = 'meeting_time desc'
+    _description = '会议记录'
 
     meeting_theme = fields.Char(string='会议主题', track_visibility='onchange')
     meeting_time = fields.Datetime(string='会议时间', track_visibility='onchange')

@@ -120,7 +120,8 @@
         'views/Good_deeds/good_deeds_summary.xml',
         'views/consumables_manage/consumables_summary.xml',
         'views/integrated_management/station_equipment_summary.xml',
-        'views/update_ding_user_task.xml'
+        'views/update_ding_user_task.xml',
+        'views/operation_log.xml'
 
 
     ],

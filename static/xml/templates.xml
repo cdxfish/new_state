@@ -9,6 +9,15 @@
         </div>
     </t>
 
+    <!---->
+    <t t-name="operation_log_detail">
+        <div>
+            <button type="object" name="detail"  class="layui-btn layui-btn-sm">
+                查看
+            </button>
+        </div>
+    </t>
+
     <!--演练计划站点演练按钮-->
     <t t-name="site_training_widget">
         <div>
