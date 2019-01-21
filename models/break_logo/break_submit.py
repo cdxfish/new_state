@@ -11,20 +11,22 @@ from ast import literal_eval
 
 class BreakSubmit(models.Model):
     _name = 'funenc_xa_station.break_submit'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'submit_time desc'
+    _description = '故障列表'
+    _rec_name = 'break_describe'
 
-    break_describe = fields.Char(string='故障描述')
-    local_image = fields.Binary(string='现场图片')
-    equipment_name = fields.Char(string='设备名称')
-    equipment_number = fields.Char(string='设备编码')
-    equipment_post = fields.Char(string='设备位置')
-    break_type = fields.Many2one('funenc_xa_staion.break_type_increase', string='故障类型')
-    submit_time = fields.Datetime(string='提报时间')
-    deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况',default='zero')
-    deal_results = fields.Char(string='处理结果')
-    deal_time = fields.Datetime(string='处理时间')
-    load_file_test_1 = fields.One2many('video_voice_model','break_submit_image',string='图片')
+    break_describe = fields.Char(string='故障描述', track_visibility='onchange')
+    local_image = fields.Binary(string='现场图片', track_visibility='onchange')
+    equipment_name = fields.Char(string='设备名称', track_visibility='onchange')
+    equipment_number = fields.Char(string='设备编码', track_visibility='onchange')
+    equipment_post = fields.Char(string='设备位置', track_visibility='onchange')
+    break_type = fields.Many2one('funenc_xa_staion.break_type_increase', string='故障类型', track_visibility='onchange')
+    submit_time = fields.Datetime(string='提报时间', track_visibility='onchange')
+    deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况',default='zero', track_visibility='onchange')
+    deal_results = fields.Char(string='处理结果', track_visibility='onchange')
+    deal_time = fields.Datetime(string='处理时间', track_visibility='onchange')
+    load_file_test_1 = fields.One2many('video_voice_model','break_submit_image',string='图片', track_visibility='onchange')
     url = fields.Char(string='七牛路径')  # app 上传路径 自己转换
     browse_image_invisible = fields.Selection([('one', '有图片'), ('zero', '没有图片')], string='显示还是隐藏图片', default='zero')
 

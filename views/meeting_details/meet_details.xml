@@ -63,7 +63,7 @@
                             <field name="meeting_time"></field>
                             <field name="meeting_site"></field>
                             <field name="compere"></field>
-                            <field name="meeting_theme"></field>
+                            <field name="meeting_theme" required="1"></field>
                             <field name="join_person" widget="many2many_tags" options="{'no_create':True,'no_open':True}" domain="[('user_property_departments','=',site_id)]" />
                             <field name="meeting_content"></field>
                             <label for="load_file_test" string="图片附件"/>

@@ -8,25 +8,27 @@ from ..python_util import get_add_8th_str_time
 import datetime
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base','mail.thread', 'mail.activity.mixin']
     _order = 'check_time desc'
+    _description = '属地管理'
+    _rec_name = 'write_person'
 
-    post_check = fields.Selection([('guard', '保安'),       ('check', '安检'), ('clean', '保洁')], string='岗位检查')
-    check_time = fields.Datetime(string='检测时间')
-    check_state = fields.Text(string='检测情况')
-    find_problem = fields.Text(string='发现问题')
-    reference_according = fields.Char(string='参考依据')
-    local_image = fields.Binary(string='现场照片')
-    check_score = fields.Float(string='考核分值',)
-    note = fields.Char(string='备注')
+    post_check = fields.Selection([('guard', '保安'),('check', '安检'), ('clean', '保洁')], string='岗位检查', track_visibility='onchange')
+    check_time = fields.Datetime(string='检测时间', track_visibility='onchange')
+    check_state = fields.Text(string='检测情况', track_visibility='onchange')
+    find_problem = fields.Text(string='发现问题', track_visibility='onchange')
+    reference_according = fields.Char(string='参考依据', track_visibility='onchange')
+    local_image = fields.Binary(string='现场照片', track_visibility='onchange')
+    check_score = fields.Float(string='考核分值', track_visibility='onchange')
+    note = fields.Char(string='备注', track_visibility='onchange')
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char(string='填报人',
                                default=lambda self: self.default_name_id())
-    job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
+    job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id(), track_visibility='onchange')
     change_state = fields.Selection([('add', '加'), ('reduce', '减')], default='reduce')
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
-    load_file_test = fields.One2many('video_voice_model','belong_management_imange',string='图片上传')
+    load_file_test = fields.One2many('video_voice_model','belong_management_imange',string='图片上传', track_visibility='onchange')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
     browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片',default='zero')
 

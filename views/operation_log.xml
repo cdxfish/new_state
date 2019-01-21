@@ -8,7 +8,9 @@
             <field name="model">mail.message</field>
             <field name="arch" type="xml">
                 <tree limit="15" create="0" class="noOpen">
-                    <field name="body" string="名称"/>
+                    <field name="create_uid" string="姓名"/>
+                    <field name="body" string="动作"/>
+                    <field name="record_name" string="记录"/>
                     <field name="create_date" string="时间"/>
                     <widget string="操作" name="treebtns" template="operation_log_detail" />
                 </tree>
@@ -22,10 +24,8 @@
                 <form>
                     <div class="container-fluid">
                         <group>
-                            <field name="id" string="id"/>
-                            <!--<field name="create_date" string="时间"/>-->
-                            <div class="oe_chatter">
-                                <field name="message_ids" widget="mail_thread"/>
+                            <div>
+                                <field name="message_ids" widget="my_mail_thread"/>
                             </div>
                         </group>
                     </div>
@@ -42,7 +42,7 @@
             (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.operation_log_list')})]">
             </field>
           <field name="domain">
-              [('body','!=','')]
+              [('body','!=',''),('body','!=','操作日志 创建'),('id','!=',1)]
           </field>
           <field name="limit">15</field>
         </record>

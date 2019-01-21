@@ -16,6 +16,8 @@ key = [('enter_come', '边门进出情况')
 class PrudeNewpaperWrite(models.Model):
     _name = 'funenc_xa_staion.prude_newpaper_write'
     _inherit = ['fuenc_station.station_base','mail.thread','mail.activity.mixin']
+    _rec_name = 'event_stype'
+    _description = '生产日报事件类型'
 
 
     event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True,track_visibility='onchange')

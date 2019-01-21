@@ -4,12 +4,13 @@ from ..get_domain import get_domain
 class AddPersonCertificate(models.Model):
     _name = 'person.certificate'
     _inherit = 'fuenc_station.station_base'
+    _description = ''
 
     def _default_associated(self):
         if self._context.get('active_id', False):
             return self._context['active_id']
 
-    name = fields.Char(string='证件名称')
+    name = fields.Char(string='证件名称',track_visibility='onchange')
     # line_road = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='线路')
     # station_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
     person_name = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='姓名')

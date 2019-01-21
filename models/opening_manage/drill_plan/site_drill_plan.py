@@ -9,6 +9,7 @@ class site_drill_plan(models.Model):
     _name = 'funenc_xa_station.site_drill_plan'
     _description = u'站点演练详情'
     _rec_name = 'position'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # 基本信息
     drill_plan_id = fields.Many2one('funenc_xa_station.drill_plan', string='演练计划')  # 父

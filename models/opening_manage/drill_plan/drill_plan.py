@@ -10,34 +10,34 @@ from ...get_domain import get_line_site_id
 class drill_plan(models.Model):
     _name = 'funenc_xa_station.drill_plan'
     _description = u'演练计划'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base','mail.thread', 'mail.activity.mixin']
     _rec_name = 'drill_project'
     _order = 'drill_time desc'
 
-    drill_project = fields.Char(string='演练项目', required=True)
-    drill_time = fields.Date(string='演练时间', required=True)
+    drill_project = fields.Char(string='演练项目', required=True, track_visibility='onchange')
+    drill_time = fields.Date(string='演练时间', required=True, track_visibility='onchange')
     drill_plan = fields.Many2many('ir.attachment', 'drill_plan_ir_attachment_rel_1', 'drill_plan_id',
-                                  'ir_attachment_id', string='演练方案')
-    drill_hierarchy = fields.Char(string='演练层级', required=True)
+                                  'ir_attachment_id', string='演练方案', track_visibility='onchange')
+    drill_hierarchy = fields.Char(string='演练层级', required=True, track_visibility='onchange')
     state = fields.Selection(selection=[('not_started', '未开始'), ('underway', '进行中'), ('end', '已结束')],
                              default="not_started"
                              , compute='_compute_state'
                              )
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'drill_plan_ding_department_rel_1',
                                         'drill_plan_id', 'ding_department_id', string='参与站点',
-                                        domain=[('department_hierarchy', '=', 3)],required=True)
-    is_release = fields.Integer(string='是否已经发布')
-    release_time = fields.Datetime(string='发布时间')
+                                        domain=[('department_hierarchy', '=', 3)],required=True, track_visibility='onchange')
+    is_release = fields.Integer(string='是否已经发布', track_visibility='onchange')
+    release_time = fields.Datetime(string='发布时间', track_visibility='onchange')
     drill_plan_qr = fields.Binary(string='二维码')
 
     # 演练结果
-    drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果',ondelete='set null')
+    drill_result_ids = fields.One2many('funenc_xa_station.drill_result', 'drill_plan_id', string='演练结果',ondelete='set null', track_visibility='onchange')
 
     # 人员签到
-    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况',ondelete='set null')
+    sign_in_ids = fields.One2many('funenc_xa_station.drill_plan_sign_in', 'drill_plan_sign_in_id', string='人员签到情况',ondelete='set null', track_visibility='onchange')
 
     #站点演练
-    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='',ondelete='set null') #  子
+    site_drill_plan_ids = fields.One2many('funenc_xa_station.site_drill_plan','drill_plan_id',string='',ondelete='set null', track_visibility='onchange') #  子
 
     @api.model
     def create(self, vals):

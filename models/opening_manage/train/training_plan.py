@@ -16,35 +16,36 @@ class training_plan(models.Model):
     _description = u'培训计划'
     _rec_name = 'training_plan_project'
     _order = 'id desc'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    training_plan_project = fields.Char(string='培训项目')
-    leaser_time = fields.Datetime(string='发布日期')
-    participate_unit = fields.Char(string='参培单位')
-    training_plan_mode = fields.Char(string='培训形式')
-    training_plan_major = fields.Char(string='培训专业')
-    training_plan_place = fields.Char(string='培训地点')
-    training_plan_time = fields.One2many('funenc_xa_station.select_datetime', 'training_plan_id', string='培训时间')
-    lecturer = fields.Char(string='授课人')
-    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')],default="site")
-    remarks = fields.Char(string='备注')
+    training_plan_project = fields.Char(string='培训项目', track_visibility='onchange')
+    leaser_time = fields.Datetime(string='发布日期', track_visibility='onchange')
+    participate_unit = fields.Char(string='参培单位', track_visibility='onchange')
+    training_plan_mode = fields.Char(string='培训形式', track_visibility='onchange')
+    training_plan_major = fields.Char(string='培训专业', track_visibility='onchange')
+    training_plan_place = fields.Char(string='培训地点', track_visibility='onchange')
+    training_plan_time = fields.One2many('funenc_xa_station.select_datetime', 'training_plan_id', string='培训时间', track_visibility='onchange')
+    lecturer = fields.Char(string='授课人', track_visibility='onchange')
+    training_plan_type = fields.Selection(selection=[('site', '站点培训'), ('concentrate', '集中培训')],default="site", track_visibility='onchange')
+    remarks = fields.Char(string='备注', track_visibility='onchange')
     partake_site_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'training_plan_department_rel_2',
                                         'training_plan_id', 'department_id', string='参与站点',
-                                        doamin=[('department_hierarchy', '=', 3)])
+                                        doamin=[('department_hierarchy', '=', 3)], track_visibility='onchange')
     training_plan_qr = fields.Binary(string='培训二维码')
     state = fields.Selection(selection=[('not_started', '未开始'), ('underway', '正在进行'), ('finished', '已结束')],
                              default="not_started")
 
     #  站点培训成果
     site_training_results_ids = fields.One2many('funenc_xa_station.site_training_results', 'training_plan_id',
-                                                string='培训成果')
+                                                string='培训成果', track_visibility='onchange')
 
     # 集中培训 培训成果
     training_plan_to_situation_ids = fields.One2many('funenc_xa_station.training_to_situation', 'training_plan_id',
-                                                     string='培训情况'
+                                                     string='培训情况', track_visibility='onchange'
                                                      )
     # 集中培训效果评价
     training_effect_to_training_plan_ids = fields.One2many('funenc_xa_station.training_effect_to_training_plan',
-                                                           'training_plan_id', string='')
+                                                           'training_plan_id', string='', track_visibility='onchange')
 
     # 签到
     sign_in_user_ids = fields.One2many('funenc_xa_station.personnel_situation', 'training_plan_id', string='集中签到')

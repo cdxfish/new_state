@@ -27,7 +27,7 @@ class work_kanban(models.Model):
     receive_task_attachment = fields.Many2many('ir.attachment','receive_task_attachment_rel_12_5','receive_task_id','ir_attachment_id',string='接收任务附件', track_visibility='onchange')
     task_priority = fields.Selection(selection=[('priority', '高'), ('intermediate', '中'), ('elementary', '低')],
                                      required=True, track_visibility='onchange')
-    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True, track_visibility='onchange')
+    task_type_id = fields.Many2one('funenc_xa_station.task_type', string='任务类型', required=True)
     task_type = fields.Selection(selection=[('send_task', '发起的任务'), ('receive_task', '收到的任务')],
                                  default="send_task", track_visibility='onchange')  # 区分接收的任务还是发送的任务分类
     is_send = fields.Integer(string='任务是否发送')
