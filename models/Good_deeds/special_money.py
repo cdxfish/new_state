@@ -13,6 +13,7 @@ key = [('one_audit','待初审'),
 
 
 class SpecialMoney(models.Model):
+
     _name = 'funenc_xa_station.special_money'
     _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'open_time desc'
@@ -46,7 +47,7 @@ class SpecialMoney(models.Model):
     load_file_test = fields.Binary(string='身份证照片', track_visibility='onchange')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
-    special_attrchment_deal = fields.One2many('video_voice_model','special_money_act',string='附件处理结果', track_visibility='onchange')
+    special_attrchment_deal = fields.One2many('video_voice_1_model','special_money_act',string='附件处理结果', track_visibility='onchange')
     url = fields.Char(string='url')
 
     @api.model
