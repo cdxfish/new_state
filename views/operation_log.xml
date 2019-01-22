@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="operation_log_list">
+            <field name="name">funenc_xa_station_operation_log_list</field>
+            <field name="model">mail.message</field>
+            <field name="arch" type="xml">
+                <tree limit="15" create="0" class="noOpen">
+                    <field name="create_uid" string="姓名"/>
+                    <field name="body" string="动作"/>
+                    <field name="record_name" string="记录"/>
+                    <field name="create_date" string="时间"/>
+                    <widget string="操作" name="treebtns" template="operation_log_detail" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funenc_xa_station_operation_log_form">
+            <field name="name">funenc_xa_station_operation_log_form</field>
+            <field name="model">funenc_xa_station.operation_log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container-fluid">
+                        <group>
+                            <div>
+                                <field name="message_ids" widget="my_mail_thread"/>
+                            </div>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="funenc_xa_station.funenc_xa_station_operation_log_action">
+          <field name="name">操作日志</field>
+          <field name="res_model">mail.message</field>
+		  <field name="view_mode">tree</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.operation_log_list')})]">
+            </field>
+          <field name="domain">
+              [('body','!=',''),('body','!=','操作日志 创建'),('id','!=',1)]
+          </field>
+          <field name="limit">15</field>
+        </record>
+
+        <menuitem name="操作日志" id="operation_log_menu" icon="&#xe62d;" />
+        <menuitem name="操作日志" id="operation_log_action" parent="operation_log_menu" action="funenc_xa_station.funenc_xa_station_operation_log_action"/>
+
+
+    </data>
+</odoo>

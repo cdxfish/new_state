@@ -39,6 +39,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/break_widget.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/close_cookies.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/slose_cookies_git.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/my_mail_thread.js"/>
 
             </xpath>
         </template>

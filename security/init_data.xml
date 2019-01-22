@@ -70,5 +70,10 @@
             <field name="time">1</field>
         </record>
 
+        <!--操作日志初始化-->
+        <record model="funenc_xa_station.operation_log" id="create_operation_log">
+            <field name="name">操作日志</field>
+        </record>
+
     </data>
 </odoo>

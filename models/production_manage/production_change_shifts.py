@@ -17,9 +17,10 @@ KEY = [('station_master', '站长'),
 
 class production_change_shifts(models.Model):
     _name = 'funenc_xa_station.production_change_shifts'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _description = u'生产管理交接班'
     _order = 'change_shifts_time desc'
+    _rec_name = 'change_shifts_user_id'
 
     @api.model
     def default_user(self):
@@ -156,67 +157,67 @@ class production_change_shifts(models.Model):
             raise ValidationError('请检查系统配置中的预设交接班是否配置')
 
     ticketing_key_type_2_ids = fields.One2many('funenc_xa_station.ticketing_key_type_2', 'production_change_shifts_id',
-                                               string='票务钥匙使用情况')
+                                               string='票务钥匙使用情况', track_visibility='onchange')
 
     prefabricate_ticket_type_2_ids = fields.One2many('funenc_xa_station.prefabricate_ticket_type_2',
-                                                     'production_change_shifts_id', string='车票使用情况')
-    preparedness_2_ids = fields.One2many('funenc_xa_station.preparedness_2', 'production_change_shifts_id')
+                                                     'production_change_shifts_id', string='车票使用情况', track_visibility='onchange')
+    preparedness_2_ids = fields.One2many('funenc_xa_station.preparedness_2', 'production_change_shifts_id', track_visibility='onchange')
 
     production_state = fields.Selection(selection=KEY, string='记录状态',
                                         default=lambda self: self.default_production_state())  #
     change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='交班人',
-                                            default=lambda self: self.default_user())
+                                            default=lambda self: self.default_user(), track_visibility='onchange')
     job_number_per = fields.Char(string='交班人工号',related='change_shifts_user_id.jobnumber')
-    take_over_from_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='接班人')
+    take_over_from_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', stirng='接班人', track_visibility='onchange')
     job_no = fields.Char("工号", related='take_over_from_user_id.jobnumber')
     position = fields.Text("职位", related='take_over_from_user_id.position')
-    on_duty_time = fields.Datetime(string='当班时间')
-    change_shifts_time = fields.Datetime(string='交班时间')
+    on_duty_time = fields.Datetime(string='当班时间', track_visibility='onchange')
+    change_shifts_time = fields.Datetime(string='交班时间', track_visibility='onchange')
     #####
-    take_over_from_time = fields.Datetime(string='接班时间')
+    take_over_from_time = fields.Datetime(string='接班时间', track_visibility='onchange')
     state = fields.Selection(selection=[('draft', '草稿'), ('change_shifts', '待接班'), ('take_over_from', '已接班')],
                              default="draft")
 
     # 值班站长
     # 工作情况字段
-    anticipation_security = fields.Text(string='安全预想')
-    before_on_duty = fields.Text(string='班前情况')
-    put_question_ids = fields.One2many('funenc_xa_station.put_question', 'production_change_shifts_id', string='班前提问')
-    meeting_ids = fields.One2many("funenc_xa_station.meeting_dateils", 'shifts_id', string='会议记录')
+    anticipation_security = fields.Text(string='安全预想', track_visibility='onchange')
+    before_on_duty = fields.Text(string='班前情况', track_visibility='onchange')
+    put_question_ids = fields.One2many('funenc_xa_station.put_question', 'production_change_shifts_id', string='班前提问', track_visibility='onchange')
+    meeting_ids = fields.One2many("funenc_xa_station.meeting_dateils", 'shifts_id', string='会议记录', track_visibility='onchange')
     my_change_ids = fields.One2many('funenc_xa_station.preparedness_6',
-                                    'shifts_id', string='备品',
+                                    'shifts_id', string='备品', track_visibility='onchange'
                                     )
 
     ## 票务和站务备品
     preparedness_1_ids = fields.One2many('funenc_xa_station.preparedness_1', 'production_change_shifts_id',
-                                         string='票务和站务备品')
+                                         string='票务和站务备品', track_visibility='onchange')
 
     # 班中工
-    complete_task = fields.Text(stirng='当前工作完成情况')
-    equipment_problem = fields.Text(string='设备设施存在的问题')
-    handover = fields.Text(string='交接事项')
-    after_work = fields.Text(string='班后总结')
+    complete_task = fields.Text(stirng='当前工作完成情况', track_visibility='onchange')
+    equipment_problem = fields.Text(string='设备设施存在的问题', track_visibility='onchange')
+    handover = fields.Text(string='交接事项', track_visibility='onchange')
+    after_work = fields.Text(string='班后总结', track_visibility='onchange')
 
-    focus_of_handover = fields.Text(string='交接重点')
+    focus_of_handover = fields.Text(string='交接重点', track_visibility='onchange')
 
     # 行车值班员
     in_the_rough = fields.Text(string='未完成')
     production_to_train_working_ids = fields.One2many('funenc_xa_station.check_project_to_production_change_shifts',
                                                       'production_change_shifts_id',
-                                                      string='运营前检查',
+                                                      string='运营前检查', track_visibility='onchange'
                                                       # default=lambda self: self.default_production()
                                                       )
     driving_my_change_ids = fields.One2many('funenc_xa_station.preparedness_7',
-                                    'shifts_id', string='行车备品',
+                                    'shifts_id', string='行车备品', track_visibility='onchange'
                                     )
 
 
     check_project_ids = fields.One2many('funenc_xa_station.train_working_2', 'production_change_shifts1_id',
-                                        string='运营前检查',
+                                        string='运营前检查', track_visibility='onchange'
                                         # default=lambda self:self.default_check_project_ids()
                                         )
 
-    preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态')  # 备品状态
+    preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态', track_visibility='onchange')  # 备品状态
 
     is_take_over_from = fields.Integer(string='是否可接班',compute='_compute_is_take_over_from') # 用于接班按钮显示 1为显示
 

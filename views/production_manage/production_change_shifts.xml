@@ -190,6 +190,9 @@
                                     special='cancel'/>
                         </footer>
                     </div>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -563,6 +566,9 @@
                             </group>
                             <field name="is_take_over_from" invisible="1"/>
                         </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                         <footer>
                             <button name='production_change_shifts_save'
                                     string='保存草稿'
@@ -655,6 +661,9 @@
                         <!--<field name="take_over_from_user_id" string="接班人"></field>-->
                         <!--<field name="take_over_from_time"></field>-->
                     </group>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
                     <div class="row">
@@ -1018,6 +1027,9 @@
                             <field string="备注" name="remarks"/>
                             <field name="state" invisible="1"/>
                         </group>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                         <field name="is_take_over_from" invisible="1"/>
                         <footer>
                             <button name='production_change_shifts_save'

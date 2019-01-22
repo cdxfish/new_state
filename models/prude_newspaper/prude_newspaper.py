@@ -15,32 +15,34 @@ key=[('enter_come','边门进出情况')
 
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
-    _inherit = 'fuenc_station.station_base'
     _order = 'open_time desc'
+    _description = '生产日报'
+    _rec_name = 'event_content_create'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
 
-    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True)
-    event_stype_name = fields.Char(string='事件类型名称',compute='_compute_event_stype_name')
-    event_content = fields.Text(string='事件内容')
-    event_content_create = fields.Text(string='事件内容')
-    open_time = fields.Datetime(string='发生时间')
-    write_time = fields.Datetime(string='提交时间')
-    write_name = fields.Char(string='填报人')
-    iobnumber = fields.Char(string='工号')
-    Enter_person_count =fields.Integer(string='进边门人数')
-    come_person_count = fields.Integer(string='出边门人数')
-    two_money =fields.Char(string='2元')
-    three_money = fields.Char(string='3元')
-    four_money = fields.Char(string='4元')
-    five_money =fields.Char(string='5元')
-    six_money =fields.Char(string='6元')
-    seven_money = fields.Char(string='7元')
-    eight_money = fields.Char(string='8元')
-    equipment_name = fields.Char(string='设备名称')
-    equipment_count = fields.Char(string='设备编号')
-    brenk_time = fields.Datetime(string='故障时间')
-    brenk_repair_time = fields.Datetime(string='故障报修时间')
-    brenk_state = fields.Text(string='故障情况')
-    c_type = fields.Char(string='区分')
+    event_stype = fields.Many2one('funenc_xa_station.prude_newpaper_type',string='事件类型',required=True, track_visibility='onchange')
+    event_stype_name = fields.Char(string='事件类型名称',compute='_compute_event_stype_name', track_visibility='onchange')
+    event_content = fields.Text(string='事件内容', track_visibility='onchange')
+    event_content_create = fields.Text(string='事件内容', track_visibility='onchange')
+    open_time = fields.Datetime(string='发生时间', track_visibility='onchange')
+    write_time = fields.Datetime(string='提交时间', track_visibility='onchange')
+    write_name = fields.Char(string='填报人', track_visibility='onchange')
+    iobnumber = fields.Char(string='工号', track_visibility='onchange')
+    Enter_person_count =fields.Integer(string='进边门人数', track_visibility='onchange')
+    come_person_count = fields.Integer(string='出边门人数', track_visibility='onchange')
+    two_money =fields.Char(string='2元', track_visibility='onchange')
+    three_money = fields.Char(string='3元', track_visibility='onchange')
+    four_money = fields.Char(string='4元', track_visibility='onchange')
+    five_money =fields.Char(string='5元', track_visibility='onchange')
+    six_money =fields.Char(string='6元', track_visibility='onchange')
+    seven_money = fields.Char(string='7元', track_visibility='onchange')
+    eight_money = fields.Char(string='8元', track_visibility='onchange')
+    equipment_name = fields.Char(string='设备名称', track_visibility='onchange')
+    equipment_count = fields.Char(string='设备编号', track_visibility='onchange')
+    brenk_time = fields.Datetime(string='故障时间', track_visibility='onchange')
+    brenk_repair_time = fields.Datetime(string='故障报修时间', track_visibility='onchange')
+    brenk_state = fields.Text(string='故障情况', track_visibility='onchange')
+    c_type = fields.Char(string='区分', track_visibility='onchange')
 
     #关联页面的显示效果
     @api.one
