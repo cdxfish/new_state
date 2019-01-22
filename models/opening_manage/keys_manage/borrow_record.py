@@ -7,21 +7,23 @@ import odoo.exceptions as msg
 
 class BorrowRecord(models.Model):
     _name = 'funenc.xa.station.borrow.record'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
+    _rec_name = 'key_no'
+    _description = '钥匙借用'
 
-    key_no = fields.Many2one('funenc.xa.station.key.detail',string='钥匙编号')
+    key_no = fields.Many2one('funenc.xa.station.key.detail',string='钥匙编号', track_visibility='onchange')
     # line = fields.Many2one(related='key_no.line_id',string='线路')
-    type = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型',related='key_no.key_type_id')
+    type = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型',related='key_no.key_type_id', track_visibility='onchange')
     # station = fields.Many2one(related='key_no.site_id',string='归属站点')
     name = fields.Char(related='key_no.name',string='钥匙名称')
     position = fields.Char(related='key_no.key_position',string='对应位置')
-    borrow_time = fields.Datetime(string='借用时间')
-    borrow_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用操作人')
-    borrow_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用人')
-    return_time = fields.Datetime(string='归还时间')
-    return_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='归还操作人')
+    borrow_time = fields.Datetime(string='借用时间', track_visibility='onchange')
+    borrow_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用操作人', track_visibility='onchange')
+    borrow_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='借用人', track_visibility='onchange')
+    return_time = fields.Datetime(string='归还时间', track_visibility='onchange')
+    return_operate_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='归还操作人', track_visibility='onchange')
     return_member = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',
-                                     string='归还人')
+                                     string='归还人', track_visibility='onchange')
     state = fields.Selection(selection=[('yes','借出'),('no','归还')],default='yes',string='状态')
     del_ids = fields.Integer(string='删除id')
 

@@ -11,6 +11,7 @@ from odoo import models, fields, api
 
 
 class preparedness(models.Model):
+
     _name = 'funenc_xa_station.preparedness'
     _description = u'备品'
     _rec_name = 'preparedness_name'
@@ -161,8 +162,10 @@ class ticketing_key_type_2(models.Model):
 
 
 class station_master(models.Model):
+
     _name = 'funenc_xa_station.station_master'
     _description = u'预设值班站长'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     preparedness_ids = fields.One2many('funenc_xa_station.preparedness', 'station_master_id', string='备品交接')
 
@@ -317,19 +320,19 @@ class passenger_transport(models.Model):
 class special_card_preset(models.Model):
     _name = 'funenc_xa_station.special_card_preset'
     _description = u'特殊卡预设'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _rec_name = 'card_number'
 
-    card_number = fields.Char(string='特殊卡号', required=True)
-    remarks = fields.Char(string='备注')
+    card_number = fields.Char(string='特殊卡号', required=True, track_visibility='onchange')
+    remarks = fields.Char(string='备注', track_visibility='onchange')
 
     #
-    user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='借用人')
-    borrow_time = fields.Datetime('借用时间')
-    return_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='归还人')
-    return_time = fields.Datetime(string='归还人')
+    user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='借用人', track_visibility='onchange')
+    borrow_time = fields.Datetime('借用时间', track_visibility='onchange')
+    return_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='归还人', track_visibility='onchange')
+    return_time = fields.Datetime(string='归还时间', track_visibility='onchange')
 
-    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班')
+    production_change_shifts_id = fields.Many2one('funenc_xa_station.production_change_shifts', string='交接班', track_visibility='onchange')
 
     def change_shifts_edit(self):
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_special_card_preset_form').id

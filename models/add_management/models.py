@@ -12,22 +12,25 @@ class xian_metro(models.Model):
 
     _name = 'xian_metro.xian_metro'
     _order = 'id desc'
+    _rec_name = 'rules_name'
+    _description = '规章制度'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # _inherit = 'fuenc_station.station_base'
-    line_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department','line_id_site_id_ref','line_id','site_id',string='线路',)
-    site_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'xian_metro_site_id_rel','xian_metro_id','site_id',string='站点')
-    profession_kind = fields.Many2one('xian_metro.professional', string='专业分类')
-    rank_kind = fields.Many2one('add_class.add_class', string='级别分类')
-    rules_id = fields.Char(string='规章编号')
-    rules_name = fields.Char(string='规章名称')
+    line_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department','line_id_site_id_ref','line_id','site_id',string='线路', track_visibility='onchange')
+    site_id = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_department', 'xian_metro_site_id_rel','xian_metro_id','site_id',string='站点', track_visibility='onchange')
+    profession_kind = fields.Many2one('xian_metro.professional', string='专业分类', track_visibility='onchange')
+    rank_kind = fields.Many2one('add_class.add_class', string='级别分类', track_visibility='onchange')
+    rules_id = fields.Char(string='规章编号', track_visibility='onchange')
+    rules_name = fields.Char(string='规章名称', track_visibility='onchange')
     # load_line = fields.Selection([('one', '一号线'), ('two', '二号线'), ('three', '三号线')], string='线路', default='one')
     # station_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='站点')
-    details = fields.Binary(string='内容')
+    details = fields.Binary(string='内容', track_visibility='onchange')
     file_name = fields.Char(string="File Name")
-    operation_peison = fields.Char(string='操作人',default=lambda self: self.default_person_id())
-    operation_time = fields.Datetime(string='操作时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    operation_peison = fields.Char(string='操作人',default=lambda self: self.default_person_id(), track_visibility='onchange')
+    operation_time = fields.Datetime(string='操作时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), track_visibility='onchange')
     url = fields.Char(string='url')
-    release_time = fields.Date(string='发布实施日期')
+    release_time = fields.Date(string='发布实施日期', track_visibility='onchange')
     rule_regulations_browse = fields.Selection([('one','内容显示'),('zero','内容不显示')],default='zero')
     line_id_default = fields.Char(string='线路')
     # site_id_default = fields.Char(string='线路')

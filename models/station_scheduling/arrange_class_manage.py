@@ -8,18 +8,19 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class ArrangeClassManage(models.Model):
+
     _name = 'funenc_xa_station.arrange_class_manage'
     _description = u'排班规则管理'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string='名称', compute='_compute_name')
+    name = fields.Char(string='名称', compute='_compute_name', track_visibility='onchange')
 
     obj_selection = fields.Selection(selection=[('arrange_class', '班组'), ('motorized', '机动人员')],
-                                     default="arrange_class")  # 班组对象
-    remarks = fields.Text(string='备注')
+                                     default="arrange_class", track_visibility='onchange')  # 班组对象
+    remarks = fields.Text(string='备注', track_visibility='onchange')
 
     order_to_arrange_ids = fields.One2many('arrange_order_to_arrange_class_manage', 'arrange_class_manage_id',
-                                           string='排班类型', required=True)
+                                           string='排班类型', required=True, track_visibility='onchange')
 
     @get_domain
     @api.model

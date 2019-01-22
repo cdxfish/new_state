@@ -14,37 +14,39 @@ key = [('one_audit','待初审'),
 
 class SpecialMoney(models.Model):
     _name = 'funenc_xa_station.special_money'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'open_time desc'
+    _rec_name = 'open_site'
+    _description = '特殊储备金'
 
     def _default_associated(self):
         if self._context.get('active_id', False):
             return self._context['active_id']
 
-    open_time = fields.Datetime(string='发生时间')
-    open_site = fields.Char(string='发生地点')
-    event_type = fields.Selection([("deal","事务处理 "),('money','非及时退款')],string='事件类型')
-    event_details = fields.Text(string='事件详情',required=True)
-    survey_situation = fields.Text(string='调查情况')
-    involving_money = fields.Integer(string='涉及金额',required=True)
-    passengers_name = fields.Char(string='乘客姓名')
-    passengers_phone = fields.Char(string='乘客电话')
-    passengers_ID = fields.Char(string='乘客身份证')
-    deal_person = fields.Char(string='处理人员')
-    webmaster = fields.Char(string='站长')
-    deputy_director = fields.Char(string='分部主任')
-    main_director = fields.Char(string='部门领导')
-    write_time = fields.Datetime(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
-    audit_flow = fields.Char(string='审核流程')
-    apply_why = fields.Text(string='申请原因',required=True)
-    deal_result = fields.Selection(key,string='处理结果',default='one_audit')
+    open_time = fields.Datetime(string='发生时间', track_visibility='onchange')
+    open_site = fields.Char(string='发生地点', track_visibility='onchange')
+    event_type = fields.Selection([("deal","事务处理 "),('money','非及时退款')],string='事件类型', track_visibility='onchange')
+    event_details = fields.Text(string='事件详情',required=True, track_visibility='onchange')
+    survey_situation = fields.Text(string='调查情况', track_visibility='onchange')
+    involving_money = fields.Integer(string='涉及金额',required=True, track_visibility='onchange')
+    passengers_name = fields.Char(string='乘客姓名', track_visibility='onchange')
+    passengers_phone = fields.Char(string='乘客电话', track_visibility='onchange')
+    passengers_ID = fields.Char(string='乘客身份证', track_visibility='onchange')
+    deal_person = fields.Char(string='处理人员', track_visibility='onchange')
+    webmaster = fields.Char(string='站长', track_visibility='onchange')
+    deputy_director = fields.Char(string='分部主任', track_visibility='onchange')
+    main_director = fields.Char(string='部门领导', track_visibility='onchange')
+    write_time = fields.Datetime(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), track_visibility='onchange')
+    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id(), track_visibility='onchange')
+    audit_flow = fields.Char(string='审核流程', track_visibility='onchange')
+    apply_why = fields.Text(string='申请原因',required=True, track_visibility='onchange')
+    deal_result = fields.Selection(key,string='处理结果',default='one_audit', track_visibility='onchange')
     # load_file_test = fields.Many2many('ir.attachment','good_special_ir_attachment_rel',
     #                                      'attachment_id','meeting_dateils_id', string='图片上传')
-    load_file_test = fields.Binary(string='身份证照片')
+    load_file_test = fields.Binary(string='身份证照片', track_visibility='onchange')
     file_name = fields.Char(str='File Name')
     deal_list_file = fields.Binary(string='')
-    special_attrchment_deal = fields.One2many('video_voice_model','special_money_act',string='附件处理结果')
+    special_attrchment_deal = fields.One2many('video_voice_model','special_money_act',string='附件处理结果', track_visibility='onchange')
     url = fields.Char(string='url')
 
     @api.model

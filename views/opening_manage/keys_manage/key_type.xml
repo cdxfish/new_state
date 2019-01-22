@@ -56,10 +56,13 @@
 							<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1" />
                             <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"  required="1" />
 							<field name="name" string="钥匙类型"/>
-							<field name="prent_id" string="父类型"></field>
+							<field name="prent_id" string="父类型" />
 							<field name="remarks" string="备注"/>
 						</group>
 					</div>
+					<div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
 				</form>
 			</field>
 		</record>

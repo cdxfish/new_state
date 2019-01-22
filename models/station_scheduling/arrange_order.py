@@ -11,17 +11,17 @@ class arrange_order(models.Model):
     '''
 
     _name = 'funenc_xa_station.arrange_order'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _description = u'班次管理'
     _order = 'sort asc'
 
-    name = fields.Char(string='班次名称', required= True)
-    time = fields.Char(string='班次时间')
-    work_time = fields.Char(string='工作时长')   # 用于显示
+    name = fields.Char(string='班次名称', required= True, track_visibility='onchange')
+    time = fields.Char(string='班次时间', track_visibility='onchange')
+    work_time = fields.Char(string='工作时长', track_visibility='onchange')   # 用于显示
     save_work_time = fields.Float(string='工作时长') #用于计算储存
-    start_work_time = fields.Datetime(string='上班时间', required= True, default= lambda self: self.default_start_work_time())
-    end_work_time = fields.Datetime(string='下班时间', required= True)
-    end_time_select = fields.Selection(string='下班日期',selection=[('same_day','当日'),('next_day','次日')],default='same_day')
+    start_work_time = fields.Datetime(string='上班时间', required= True, default= lambda self: self.default_start_work_time(), track_visibility='onchange')
+    end_work_time = fields.Datetime(string='下班时间', required= True, track_visibility='onchange')
+    end_time_select = fields.Selection(string='下班日期',selection=[('same_day','当日'),('next_day','次日')],default='same_day', track_visibility='onchange')
     sort = fields.Integer(string='排序', default=1)
     is_vacation = fields.Integer(string='是否是休班',default=0)
 

@@ -5,43 +5,44 @@ from odoo import  models, fields,api
 
 class StationSummary(models.Model):
     _name = 'funenc_xa_station.station_summary'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _rec_name = 'station_nature'
+    _description = '车站基本信息'
 
     # 车站详情
-    station_nature = fields.Text(string='车站性质')
-    station_position = fields.Text(string='车站位置')
+    station_nature = fields.Text(string='车站性质', track_visibility='onchange')
+    station_position = fields.Text(string='车站位置', track_visibility='onchange')
 
     station_exit_information = fields.One2many('funenc_xa_station.station_exit_information', 'station_id',
-                                               string='出口信息')
+                                               string='出口信息', track_visibility='onchange')
     station_map_images = fields.One2many('funenc_xa_station.station_map_images', 'station_detail_id', string='地面信息图',
-                                         required=True)
+                                         required=True, track_visibility='onchange')
 
     # 地面交通
-    ground_environment_ids = fields.One2many('funenc_xa_station.ground_environment', 'ground_traffic_id', string='地面环境')
-    bus_lines = fields.One2many('funenc_xa_station.bus_line', 'ground_traffic_id', string='交通线路表')
+    ground_environment_ids = fields.One2many('funenc_xa_station.ground_environment', 'ground_traffic_id', string='地面环境', track_visibility='onchange')
+    bus_lines = fields.One2many('funenc_xa_station.bus_line', 'ground_traffic_id', string='交通线路表', track_visibility='onchange')
 
     # 土建结构
     essential_information_ids = fields.One2many('funenc_xa_station.essential_information', 'civil_engineering_id',
-                                                string='基本信息')
-    private_channel_ids = fields.One2many('funenc_xa_station.private_channel', 'civil_engineering_id', string='专用通道信息')
+                                                string='基本信息', track_visibility='onchange')
+    private_channel_ids = fields.One2many('funenc_xa_station.private_channel', 'civil_engineering_id', string='专用通道信息', track_visibility='onchange')
 
     # 道岔
-    line_map_ids = fields.One2many('funenc_xa_station.line_map', 'line_turnout_id', string='车站线路平面图')
-    turnout_ids = fields.One2many('funenc_xa_station.turnout', 'line_turnout_id', string='道岔')
-    liaison_station_ids = fields.One2many('funenc_xa_station.liaison_station', 'line_turnout_id', string='联络站基本信息')
-    operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路')
-    signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine','station_summary_id', string='信号机位置')
+    line_map_ids = fields.One2many('funenc_xa_station.line_map', 'line_turnout_id', string='车站线路平面图', track_visibility='onchange')
+    turnout_ids = fields.One2many('funenc_xa_station.turnout', 'line_turnout_id', string='道岔', track_visibility='onchange')
+    liaison_station_ids = fields.One2many('funenc_xa_station.liaison_station', 'line_turnout_id', string='联络站基本信息', track_visibility='onchange')
+    operating_line_ids = fields.One2many('funenc_xa_station.operating_line', 'line_turnout_id', string='作业线路', track_visibility='onchange')
+    signal_machine_ids = fields.One2many('funenc_xa_station.signal_machine','station_summary_id', string='信号机位置', track_visibility='onchange')
 
     # 消防逃生图
-    exit_maps = fields.One2many('funenc_xa_station.station_exit','station_summary_id',string='消防逃生图')
+    exit_maps = fields.One2many('funenc_xa_station.station_exit','station_summary_id',string='消防逃生图', track_visibility='onchange')
 
     # 车站设备
-    station_equipment_ids = fields.One2many('funenc_xa_station.station_equipment','station_summary_id',string='车站设备')
+    station_equipment_ids = fields.One2many('funenc_xa_station.station_equipment','station_summary_id',string='车站设备', track_visibility='onchange')
 
     # 人员配置
     station_summary_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'station_summary_ding_user_rel_10_20',
-                                           'station_summary_id', 'ding_user_id', string='人员配置')
+                                           'station_summary_id', 'ding_user_id', string='人员配置', track_visibility='onchange')
 
 
     @api.model

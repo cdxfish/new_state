@@ -14,32 +14,33 @@ KEY = [('send', '待确认'),
 class ChangeShifts(models.Model):
     _name = 'funenc_xa_station.change_shifts'
     _description = '换班'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
+    _rec_name = 'application_user_id'
 
-    application_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='申请人')
-    jobnumber = fields.Char(related='application_user_id.jobnumber', string="工号")
-    position = fields.Text(related='application_user_id.position', string="职位")
-    application_time = fields.Datetime(string='申请时间')
-    change_shifts_time = fields.Datetime(string='换班时间')
-    personal_change_shifts = fields.Many2one('funenc_xa_station.arrange_order', string='个人班次')  # 个人班次
-    personal_change_shifts_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='个人班次')
+    application_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='申请人', track_visibility='onchange')
+    jobnumber = fields.Char(related='application_user_id.jobnumber', string="工号", track_visibility='onchange')
+    position = fields.Text(related='application_user_id.position', string="职位", track_visibility='onchange')
+    application_time = fields.Datetime(string='申请时间', track_visibility='onchange')
+    change_shifts_time = fields.Datetime(string='换班时间', track_visibility='onchange')
+    personal_change_shifts = fields.Many2one('funenc_xa_station.arrange_order', string='个人班次', track_visibility='onchange')  # 个人班次
+    personal_change_shifts_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='个人班次', track_visibility='onchange')
 
     # show_personal_change_shifts = fields.Char(string='显示个人班次')  #显示个人班次
 
-    change_shifts_group = fields.Many2one('funenc_xa_station.arrange_order', string='换班班次')  # 换班班次
-    change_shifts_group_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='换班班次')  # 换班班次
+    change_shifts_group = fields.Many2one('funenc_xa_station.arrange_order', string='换班班次', track_visibility='onchange')  # 换班班次
+    change_shifts_group_1 = fields.Many2one('funenc_xa_station.sheduling_record', string='换班班次', track_visibility='onchange')  # 换班班次
 
     # show_change_shifts_group = fields.Char(string='显示换班班次') # 显示换班班次
 
-    change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='换班对象')
-    change_shifts_jobnumber = fields.Char(related='change_shifts_user_id.jobnumber', string="工号")
-    is_agree = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='换班对象是否同意', default='no')
-    agree_time = fields.Datetime(string='同意时间')
-    is_approve = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='是否审批', default='no')
-    approve_time = fields.Datetime(string='审批时间')
-    reject_time = fields.Datetime(string='驳回时间')
-    reason = fields.Text(string='换班原因')
-    examine_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='审核人')
+    change_shifts_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='换班对象', track_visibility='onchange')
+    change_shifts_jobnumber = fields.Char(related='change_shifts_user_id.jobnumber', string="工号", track_visibility='onchange')
+    is_agree = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='换班对象是否同意', default='no', track_visibility='onchange')
+    agree_time = fields.Datetime(string='同意时间', track_visibility='onchange')
+    is_approve = fields.Selection(selection=[('yes', '是'), ('no', '否')], string='是否审批', default='no', track_visibility='onchange')
+    approve_time = fields.Datetime(string='审批时间', track_visibility='onchange')
+    reject_time = fields.Datetime(string='驳回时间', track_visibility='onchange')
+    reason = fields.Text(string='换班原因', track_visibility='onchange')
+    examine_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='审核人', track_visibility='onchange')
 
     # change_shifts_state = fields.Selection(selection=[('send', '发起的'), ('receive', '接收的')])
     #
@@ -242,12 +243,14 @@ class ChangeShifts(models.Model):
 
 
 class ChangeShiftsTime(models.Model):
+
     _name = 'funenc_xa_station.change_shifts_time'
     _description = '换班时间间隔'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     # _inherit = 'fuenc_station.station_base'
 
-    context = fields.Char('内容')
-    time = fields.Integer(string='天')
+    context = fields.Char('内容', track_visibility='onchange')
+    time = fields.Integer(string='天', track_visibility='onchange')
 
     def init_data(self):
         context = dict(self.env.context or {})

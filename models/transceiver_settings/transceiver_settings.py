@@ -7,17 +7,18 @@ from odoo.exceptions import ValidationError
 
 class TransceiverSettings(models.Model):
     _name = 'funenc_xa_station.transceiver_settings'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
+    _rec_name = 'transient_type'
 
-    transient_type = fields.Many2one('funenc_xa_station.consumables_type',string='工器具类型')
-    transient_name = fields.Char(string='工器具名称' )
-    transient_number = fields.Char(string='工器具编号')
-    post = fields.Char(string='位置')
+    transient_type = fields.Many2one('funenc_xa_station.consumables_type',string='工器具类型', track_visibility='onchange')
+    transient_name = fields.Char(string='工器具名称' , track_visibility='onchange')
+    transient_number = fields.Char(string='工器具编号', track_visibility='onchange')
+    post = fields.Char(string='位置', track_visibility='onchange')
     state = fields.Selection([('one','正常'),('zero','故障')],string='状态',default='one')
-    break_descrip = fields.Text(string='故障描述')
+    break_descrip = fields.Text(string='故障描述', track_visibility='onchange')
     load_file_test = fields.Many2many('ir.attachment', 'funenc_xa_transceiver_attachment_rel',
-                                     'attachment_id', 'meeting_dateils_id', string='图片上传')
+                                     'attachment_id', 'meeting_dateils_id', string='图片上传', track_visibility='onchange')
 
     @api.model
     def create(self, vals):

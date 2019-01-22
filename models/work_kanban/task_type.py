@@ -5,10 +5,12 @@ from odoo import models, fields, api
 
 class task_type(models.Model):
     _name = 'funenc_xa_station.task_type'
-    _description = u'任务类型'
+    _description = u'工作看板-任务类型'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'name'  # 其实默认是name字段
 
-    name = fields.Char(string='任务事件名称',required=True)
-    remarks = fields.Char(string='备注')
+    name = fields.Char(string='任务事件名称',required=True, track_visibility='onchange')
+    remarks = fields.Char(string='备注', track_visibility='onchange')
 
 
 

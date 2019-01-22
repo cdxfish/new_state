@@ -3,15 +3,18 @@ from odoo import models, fields, api
 import json
 
 class StoreHouse(models.Model):
+
     _name = 'funenc_xa_station.store_house'
     _description = u'仓库管理'
     _order = 'id desc'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    store_house_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='仓库所属部门',
+    store_house_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='仓库所属部门'
+                                                , track_visibility='onchange'
                                                 # default=lambda
                                                 #     self: self.default_store_house_department_id()
                                                 )
-    name = fields.Char('仓库名称', required=True)
+    name = fields.Char('仓库名称', required=True, track_visibility='onchange')
 
     product_departments_domain = fields.Char(
         compute="_compute_product_departments_domain",

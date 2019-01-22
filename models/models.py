@@ -121,18 +121,19 @@ class StationIndex(models.Model):
     '''
     _name = 'fuenc_station.clock_record'
     _description = '打卡记录'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'time desc'
+    _rec_name = 'user_id'
 
-    time = fields.Date(string='日期')
-    user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='员工', required=True)
-    jobnumber = fields.Char(related='user_id.jobnumber', string="工号")
-    position = fields.Text(related='user_id.position', string="职位")
-    arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次')
+    time = fields.Date(string='日期', track_visibility='onchange')
+    user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='员工', required=True, track_visibility='onchange')
+    jobnumber = fields.Char(related='user_id.jobnumber', string="工号", track_visibility='onchange')
+    position = fields.Text(related='user_id.position', string="职位", track_visibility='onchange')
+    arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='班次', track_visibility='onchange')
     time_length = fields.Float(related='arrange_order_id.save_work_time', string='计划时长(h)')
-    clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点')
-    clock_start_time = fields.Datetime(string='上班打卡时间')
-    clock_end_time = fields.Datetime(string='下班打卡时间')
+    clock_site = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='打卡站点', track_visibility='onchange')
+    clock_start_time = fields.Datetime(string='上班打卡时间', track_visibility='onchange')
+    clock_end_time = fields.Datetime(string='下班打卡时间', track_visibility='onchange')
     work_time = fields.Float(string='工作时长(h)')
     is_overtime = fields.Selection(selection=[('yes', '加班'), ('no', '正常')], default='no')
     overtime = fields.Float(string='加班时长')

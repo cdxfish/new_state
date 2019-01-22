@@ -491,6 +491,9 @@
                           </div>
                        </div>
                     </div>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
 
                     <h1>跟进记录</h1>
                     <widget  name="treebtns" template="follow_up_records_button" string="操作"/>

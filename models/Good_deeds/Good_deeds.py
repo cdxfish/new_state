@@ -12,23 +12,26 @@ key = [('one_audit','待初审'),
 
 
 class GoodDeeds(models.Model):
-    _name = 'fuenc_station.good_deeds'
-    _inherit = 'fuenc_station.station_base'
-    _order = 'open_time desc'
 
-    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型',required=True)
-    open_time = fields.Datetime(string='发生时间')
-    open_site =fields.Char(string='发生地点')
-    related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员')
+    _name = 'fuenc_station.good_deeds'
+    _order = 'open_time desc'
+    _description = '好人好事'
+    _rec_name = 'open_site'
+    _inherit = ['fuenc_station.station_base','mail.thread', 'mail.activity.mixin']
+
+    type = fields.Many2one('funenc_xa_station.good_deeds_type',string='类型',required=True, track_visibility='onchange')
+    open_time = fields.Datetime(string='发生时间', track_visibility='onchange')
+    open_site =fields.Char(string='发生地点', track_visibility='onchange')
+    related_person =fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users','good_deeds_cdtct_ding_rel',string='相关人员', track_visibility='onchange')
     # related_person =fields.One2many('fuenc_station.good_deeds','fu_related_person',string='相关人员')
-    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
-    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    audit_state = fields.Selection(key,string='审核状态',default='one_audit')
-    event_state = fields.Text(string='事件详情')
+    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id(), track_visibility='onchange')
+    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), track_visibility='onchange')
+    audit_state = fields.Selection(key,string='审核状态',default='one_audit', track_visibility='onchange')
+    event_state = fields.Text(string='事件详情', track_visibility='onchange')
     load_file_test = fields.Many2many('ir.attachment','good_deeds_ir_attachment_rel',
-                                         'attachment_id','meeting_dateils_id', string='图片上传')
+                                         'attachment_id','meeting_dateils_id', string='图片上传', track_visibility='onchange')
     audit_flow = fields.Char(string='审核流程')
-    mp_play_many = fields.One2many('video_voice_model' ,'good_deeds_play' ,string='视频附件')
+    mp_play_many = fields.One2many('video_voice_model' ,'good_deeds_play' ,string='视频附件', track_visibility='onchange')
 
     # 创建一条新的记录
     def new_increase_record(self):

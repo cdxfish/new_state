@@ -7,25 +7,27 @@ from ..get_domain import get_domain
 
 class AwardRecord(models.Model):
     _name = 'funenc_xa_station.award_record'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'check_time desc'
+    _rec_name = 'staff'
+    _description = '奖励记录'
 
 
     # line_road = fields.Char(string='线路')
     # station_site = fields.Char(string='站点')
-    jobnumber = fields.Char(related='staff.jobnumber',string='工号', readonly=True)
-    staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工')
-    position = fields.Text(related='staff.position',string='职位')
-    award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类',required=True)
-    award_project = fields.Many2one('award_award_project',string='奖励项目',required=True)
-    check_project = fields.Many2one('award_check_project',string='考核项目',required=True)
-    award_money_kind = fields.Char(string='参考奖励')
-    incident_describe = fields.Char(string='事件描述')
-    check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
-    check_time = fields.Datetime(string='考评时间',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    award_record_add = fields.One2many('funenc_xa_station.award_record_add','associated',string='新增责任人员')
-    award_money = fields.Float(string='奖励金额')
-    award_degree = fields.Integer(string='奖励次数',default=1)
+    jobnumber = fields.Char(related='staff.jobnumber',string='工号', readonly=True, track_visibility='onchange')
+    staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='员工', track_visibility='onchange')
+    position = fields.Text(related='staff.position',string='职位', track_visibility='onchange')
+    award_target_kind = fields.Many2one('award_standard_object',string='奖励指标类',required=True, track_visibility='onchange')
+    award_project = fields.Many2one('award_award_project',string='奖励项目',required=True, track_visibility='onchange')
+    check_project = fields.Many2one('award_check_project',string='考核项目',required=True, track_visibility='onchange')
+    award_money_kind = fields.Char(string='参考奖励', track_visibility='onchange')
+    incident_describe = fields.Char(string='事件描述', track_visibility='onchange')
+    check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id(), track_visibility='onchange')
+    check_time = fields.Datetime(string='考评时间',default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), track_visibility='onchange')
+    award_record_add = fields.One2many('funenc_xa_station.award_record_add','associated',string='新增责任人员', track_visibility='onchange')
+    award_money = fields.Float(string='奖励金额', track_visibility='onchange')
+    award_degree = fields.Integer(string='奖励次数',default=1, track_visibility='onchange')
     relevance_award = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段')
 
     #在修改奖励指标类的时候返回奖励项目

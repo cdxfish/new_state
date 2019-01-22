@@ -6,12 +6,13 @@ from odoo import models, fields, api
 class KeyType(models.Model):
 	_name = 'funenc.xa.station.key.type'
 	_rec_name = "name"
-	_inherit = 'fuenc_station.station_base'
+	_inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
+	_description = '钥匙管理钥匙类型'
 	
-	name = fields.Char(string='钥匙类型', required=True)
-	prent_id = fields.Many2one('funenc.xa.station.key.type', string='父钥匙分类')
+	name = fields.Char(string='钥匙类型', required=True, track_visibility='onchange')
+	prent_id = fields.Many2one('funenc.xa.station.key.type', string='父钥匙分类', track_visibility='onchange')
 	child_ids = fields.One2many('funenc.xa.station.key.type', 'prent_id', string='子钥匙分类')
-	remarks = fields.Text(string='备注')
+	remarks = fields.Text(string='备注', track_visibility='onchange')
 
 	
 	# 创建钥匙类型

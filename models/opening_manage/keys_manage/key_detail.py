@@ -16,18 +16,18 @@ class KeyDetail(models.Model):
     _name = 'funenc.xa.station.key.detail'
     _rec_name = 'key_no'
     _description = '钥匙详情'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string='钥匙名称', required=True)
-    remark = fields.Text(string='操作说明')
+    name = fields.Char(string='钥匙名称', required=True, track_visibility='onchange')
+    remark = fields.Text(string='操作说明', track_visibility='onchange')
     # line_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='选择线路', required=True)
     # ascription_site_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department',string='归属站点', required=True)
-    key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型', required=True)
-    key_no = fields.Text(string='钥匙编号', required=True)
+    key_type_id = fields.Many2one('funenc.xa.station.key.type', string='钥匙类型', required=True, track_visibility='onchange')
+    key_no = fields.Text(string='钥匙编号', required=True, track_visibility='onchange')
     only_key_no = fields.Char(string='钥匙唯一编号')  # 自动生成 线路id+站点id+钥匙编号   用来验证钥匙是否重复
-    key_position = fields.Char(string='对应位置')
-    state_now = fields.Selection(selection=KEY_STATES, string='当前状态', default='normal')
-    is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况', default='yes')
+    key_position = fields.Char(string='对应位置', track_visibility='onchange')
+    state_now = fields.Selection(selection=KEY_STATES, string='当前状态', default='normal', track_visibility='onchange')
+    is_main = fields.Selection(selection=[('yes', '主'), ('no', '备')], string='主备情况', default='yes', track_visibility='onchange')
     is_borrow = fields.Integer(string='是否在借用', default=2)
 
     # borrow_user_id = fields.Many2one('res.users',string='借用人')

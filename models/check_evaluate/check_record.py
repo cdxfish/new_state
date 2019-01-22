@@ -10,8 +10,10 @@ import threading
 
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'check_time desc'
+    _description = '考评记录'
+    _rec_name = 'staff'
 
     key = [('check_parment', '考核分部（室）分值')
         , ('relate_per_score', '相关负责人考核分值')
@@ -31,24 +33,24 @@ class CheckRecord(models.Model):
         ,('party','党务管理')
         ,('integrated','综合管理')]
 
-    job_number = fields.Char(related='staff.jobnumber', string='工号', readonly=True)
-    staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='考核人员')
-    position = fields.Text(related='staff.position', string='职位')
-    grade = fields.Float(string='参考分值', readonly=True)
+    job_number = fields.Char(related='staff.jobnumber', string='工号', readonly=True, track_visibility='onchange')
+    staff = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='考核人员', track_visibility='onchange')
+    position = fields.Text(related='staff.position', string='职位', track_visibility='onchange')
+    grade = fields.Float(string='参考分值', readonly=True, track_visibility='onchange')
     chose_grade = fields.Selection([('add', '加'), ('subtraction', '减')], string='评分', default='subtraction')
-    sure_grede = fields.Float(string='评分分值')
-    check_target = fields.Selection(key_record, string='考评指标',required=True)
-    problem_kind = fields.Many2one('problem_kind_record', string='问题类型',required=True)
-    check_kind = fields.Selection(key, string='考核类别')
-    check_project = fields.Many2one('check_project_record', string='考核项目')
-    incident_describe = fields.Text(string='事件描述')
-    check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id())
-    check_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id())
-    check_time = fields.Datetime(string='考评时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    sure_grede = fields.Float(string='评分分值', track_visibility='onchange')
+    check_target = fields.Selection(key_record, string='考评指标',required=True, track_visibility='onchange')
+    problem_kind = fields.Many2one('problem_kind_record', string='问题类型',required=True, track_visibility='onchange')
+    check_kind = fields.Selection(key, string='考核类别', track_visibility='onchange')
+    check_project = fields.Many2one('check_project_record', string='考核项目', track_visibility='onchange')
+    incident_describe = fields.Text(string='事件描述', track_visibility='onchange')
+    check_person = fields.Char(string='考评人', default=lambda self: self.default_person_id(), track_visibility='onchange')
+    check_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id(), track_visibility='onchange')
+    check_time = fields.Datetime(string='考评时间', default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), track_visibility='onchange')
     associated_add = fields.One2many('funenc_xa_station.check_record_add', 'associated', string='新增考评人员')
     all_score = fields.Float(string='总分值', default=100)
-    mouth_grade = fields.Float(string='本月评分')
-    grade_degree = fields.Float(string='考评次数', default=1)
+    mouth_grade = fields.Float(string='本月评分', track_visibility='onchange')
+    grade_degree = fields.Float(string='考评次数', default=1, track_visibility='onchange')
     relevance_check = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='关联字段')
 
     #根据考核指标的变化，从而变化问题类型

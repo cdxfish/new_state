@@ -56,6 +56,9 @@
                             <field name="outgoing_user" string="领用部门" attrs="{'invisible':[('warehousing_parent','!=','organize')]}"/>
 
                         </group>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                         <footer>
                             <button name='consumables_warehousing_save'
                                     string='确定入库'

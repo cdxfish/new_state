@@ -8,18 +8,20 @@ class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_warehousing'
     _description = u'耗材入库'
     _order = 'id desc'
+    _rec_name = 'consumables_department_id'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    consumables_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='入库部门',
+    consumables_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='入库部门', track_visibility='onchange',
                                                 # default=lambda self: self.default_consumables_department_id()
                                                 )
-    consumables_type_id = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称', required=True)
-    store_house_id = fields.Many2one('funenc_xa_station.store_house', string='入库名称', required=True)
-    warehousing_count = fields.Integer(string='入库数量', required=True)
+    consumables_type_id = fields.Many2one('funenc_xa_station.consumables_type', string='耗材名称', required=True, track_visibility='onchange')
+    store_house_id = fields.Many2one('funenc_xa_station.store_house', string='入库名称', required=True, track_visibility='onchange')
+    warehousing_count = fields.Integer(string='入库数量', required=True, track_visibility='onchange')
     warehousing_parent = fields.Selection(selection=[('purchase', '采购'), ('organize', '领用')], string='采购方式',
-                                          default='organize')
-    warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='领用人')
-    outgoing_user = fields.Char(string='采购部门')
-    consumables_warehousing_date = fields.Date(string='入库时间')
+                                          default='organize', track_visibility='onchange')
+    warehousing_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='领用人', track_visibility='onchange')
+    outgoing_user = fields.Char(string='采购部门', track_visibility='onchange')
+    consumables_warehousing_date = fields.Date(string='入库时间', track_visibility='onchange')
 
     product_departments_domain = fields.Char(
         compute="_compute_product_departments_domain",

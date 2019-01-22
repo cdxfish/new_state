@@ -91,6 +91,9 @@
                             <!--<field name="is_approve" string="是否审批"/>-->
                             <!--<field name="approve_time" string="审批时间"/>-->
                         </group>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                     </div>
                 </form>
             </field>
@@ -130,6 +133,9 @@
                             <field name="context" string="内容" readonly="1"/>
                             <field name="time" string="时间"/>
                         </group>
+                    </div>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
                     </div>
                 </form>
             </field>

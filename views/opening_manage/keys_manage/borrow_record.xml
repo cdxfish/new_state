@@ -54,6 +54,9 @@
 							<field name="position" string="对应位置" readonly="1"/>
 							<field name="borrow_member" string="借用人" readonly="1"/>
 							<field name="borrow_time" string="借用时间" readonly="1"/>
+							<div class="oe_chatter">
+								<field name="message_ids" widget="my_mail_thread"/>
+							</div>
 
 						</group>
 						<footer >
@@ -82,6 +85,9 @@
 							<field name="name" string="钥匙名称" readonly="1"/>
 							<field name="position" string="对应位置" readonly="1"/>
 						</group>
+						<div class="oe_chatter">
+							<field name="message_ids" widget="my_mail_thread"/>
+						</div>
 						<footer>
 							<button name='save'
 									string='保存'

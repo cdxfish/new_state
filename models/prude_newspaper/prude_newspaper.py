@@ -15,7 +15,7 @@ key=[('enter_come','边门进出情况')
 
 class PrudeNewspaper(models.Model):
     _name = 'funenc_xa_station.prude_newspaper'
-    _order = 'open_time desc'
+    _order = 'write_time desc'
     _description = '生产日报'
     _rec_name = 'event_content_create'
     _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']

@@ -12,7 +12,7 @@ class ClassGroup(models.Model):
     '''
 
     _name = 'funenc_xa_station.class_group'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _description = u'班组管理'
 
     name = fields.Char(string='班组名称', required=True)
