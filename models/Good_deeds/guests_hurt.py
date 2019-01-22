@@ -15,34 +15,36 @@ key = [('one_audit','待初审'),
 
 class GuestsHurt(models.Model):
     _name = 'fuenc_xa_station.guests_hurt'
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'open_time desc'
+    _rec_name = 'open_time'
+    _description = '好人好事'
 
-    open_time = fields.Datetime(string='发生时间')
-    open_site = fields.Char(string='发生地点')
-    write_person  = fields.Char(string='填报人',default=lambda self: self.default_person_id())
-    guests_name = fields.Char(string='乘客姓名')
-    guests_grede = fields.Selection([('man','男'),('woman','女')],string='乘客性别')
-    guests_age = fields.Char(string='乘客年龄')
-    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime("%Y-%m-%d"))
-    claim = fields.Selection([('one','是'),('zero','否')],string='是否索赔')
-    claim_money = fields.Integer(string='索赔金额')
-    event_details = fields.Text(string='事件详情')
-    equiment_details = fields.Text(string='设备状态')
-    claim_state = fields.Selection([('one','已赔付'),('zero','未赔付')],string='索赔状态',default='zero')
-    audit_state = fields.Selection(key,string='审核状态', default='one_audit')
-    audit_flow = fields.Char(string='审核流程')
-    guests_phone = fields.Char(string='乘客联系方式')
+    open_time = fields.Datetime(string='发生时间', track_visibility='onchange')
+    open_site = fields.Char(string='发生地点', track_visibility='onchange')
+    write_person  = fields.Char(string='填报人',default=lambda self: self.default_person_id(), track_visibility='onchange')
+    guests_name = fields.Char(string='乘客姓名', track_visibility='onchange')
+    guests_grede = fields.Selection([('man','男'),('woman','女')],string='乘客性别', track_visibility='onchange')
+    guests_age = fields.Char(string='乘客年龄', track_visibility='onchange')
+    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime("%Y-%m-%d"), track_visibility='onchange')
+    claim = fields.Selection([('one','是'),('zero','否')],string='是否索赔', track_visibility='onchange')
+    claim_money = fields.Integer(string='索赔金额', track_visibility='onchange')
+    event_details = fields.Text(string='事件详情', track_visibility='onchange')
+    equiment_details = fields.Text(string='设备状态', track_visibility='onchange')
+    claim_state = fields.Selection([('one','已赔付'),('zero','未赔付')],string='索赔状态',default='zero', track_visibility='onchange')
+    audit_state = fields.Selection(key,string='审核状态', default='one_audit', track_visibility='onchange')
+    audit_flow = fields.Char(string='审核流程', track_visibility='onchange')
+    guests_phone = fields.Char(string='乘客联系方式', track_visibility='onchange')
     responsibility_identification = fields.Selection([('self','乘客自身的原因'),
-                                                      ('subway','地铁原因'),('three_method','第三方原因')],string='责任方认定(初审)')
+                                                      ('subway','地铁原因'),('three_method','第三方原因')],string='责任方认定(初审)', track_visibility='onchange')
     load_file_test = fields.Many2many('ir.attachment','guests_hurt_ir_attachment_rel',
-                                         'attachment_id','guests_hurt_id', string='图片上传')
-    one_associated = fields.One2many('fuenc_xa_station.add_guests_hurt','associated',string='客人关联字段')
-    mp_play = fields.Binary(string='上传视屏')
-    file_name = fields.Char(string="File Name")
+                                         'attachment_id','guests_hurt_id', string='图片上传', track_visibility='onchange')
+    one_associated = fields.One2many('fuenc_xa_station.add_guests_hurt','associated',string='客人关联字段', track_visibility='onchange')
+    mp_play = fields.Binary(string='上传视频', track_visibility='onchange')
+    file_name = fields.Char(string="File Name", track_visibility='onchange')
     url = fields.Char(string='url')
-    mp_play_many = fields.One2many('video_voice_model','guests_mp_play_one',string='视频附件')
-    mp3_play_many = fields.One2many('video_voice_model','guests_mp3_play',string='视频附件')
+    mp_play_many = fields.One2many('video_voice_model','guests_mp_play_one',string='视频附件', track_visibility='onchange')
+    mp3_play_many = fields.One2many('video_voice_model','guests_mp3_play',string='视频附件', track_visibility='onchange')
 
     # 自动获取记录人的姓名
     @api.model

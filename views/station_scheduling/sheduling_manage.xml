@@ -74,6 +74,9 @@
 								<field name="is_save" invisible="1"/>
 							</group>
 						</group>
+						<div class="oe_chatter">
+							<field name="message_ids" widget="my_mail_thread"/>
+						</div>
 						<footer>
 							<button name='save' string='保存' class='btn-primary' type='object'
 									attrs="{'invisible':[('is_save', '=',1)]}"

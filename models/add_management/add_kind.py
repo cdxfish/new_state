@@ -4,11 +4,15 @@ from odoo import api, models, fields
 
 
 class Add_professional(models.Model):
-    _name = 'xian_metro.professional'
 
+    _name = 'xian_metro.professional'
     _rec_name = 'professional_kind'
-    professional_kind = fields.Char(string='专业类型')
-    note = fields.Char(string='备注')
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = '规章制度专业类型'
+
+
+    professional_kind = fields.Char(string='专业类型', track_visibility='onchange')
+    note = fields.Char(string='备注', track_visibility='onchange')
 
 
     @api.model

@@ -9,9 +9,10 @@ from ..get_domain import get_domain
 
 class Leave(models.Model):
     _name = 'funenc_xa_station.leave'
-    _description = '请假模型'
-    _inherit = 'fuenc_station.station_base'
+    _description = '请假记录'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'leave_start_time desc'
+    _rec_name = 'leave_user_id'
 
     KEY = [('sick_leave', '病假'),
            ('maternity_leave', '孕假'),
@@ -25,16 +26,16 @@ class Leave(models.Model):
            ('leave_office', '离职')
            ]
 
-    leave_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='请假人员', required=True)
-    jobnumber = fields.Char(related='leave_user_id.jobnumber', string="工号")
-    position = fields.Text(related='leave_user_id.position', string="职位")
-    leave_type = fields.Selection(selection=KEY, string='请假类型', required=True)
-    leave_start_time = fields.Datetime(string='请假开始时间', required=True)
-    leave_end_time = fields.Datetime(string='请假结束时间', required=True)
+    leave_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='请假人员', required=True, track_visibility='onchange')
+    jobnumber = fields.Char(related='leave_user_id.jobnumber', string="工号", track_visibility='onchange')
+    position = fields.Text(related='leave_user_id.position', string="职位", track_visibility='onchange')
+    leave_type = fields.Selection(selection=KEY, string='请假类型', required=True, track_visibility='onchange')
+    leave_start_time = fields.Datetime(string='请假开始时间', required=True, track_visibility='onchange')
+    leave_end_time = fields.Datetime(string='请假结束时间', required=True, track_visibility='onchange')
     leave_length = fields.Float(string='请假时长(h)', digits=(10000000, 2), compute='_compute_leave_length')
-    leave_reason = fields.Text(string='请假原因')
-    application_time = fields.Datetime(string='申请时间')
-    approve_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='审批人')
+    leave_reason = fields.Text(string='请假原因', track_visibility='onchange')
+    application_time = fields.Datetime(string='申请时间', track_visibility='onchange')
+    approve_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users', string='审批人', track_visibility='onchange')
 
     def _compute_leave_length(self):
         for this in self:

@@ -48,6 +48,9 @@
                             <field name="consumables_type" string="耗材类型" widget="cascader_widget"/>
                             <field name="consumables_count" string="申请数量"/>
                         </group>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                         <footer>
 						<button name='consumables_apply_save'
 						        string='确定'

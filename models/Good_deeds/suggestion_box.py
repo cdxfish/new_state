@@ -11,38 +11,40 @@ key = [('one_audit','待初审'),
        ('rejected','已驳回')]
 
 class SuggestionBox(models.Model):
-    _inherit = 'fuenc_station.station_base'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _name = 'funenc_xa_station.suggestion_box'
     _order = 'open_time desc'
+    _rec_name = 'open_site'
+    _description = '乘客意见箱'
 
-    open_time = fields.Datetime(string='发生时间')
-    open_site = fields.Char(string='发生地点')
-    suggestion_title = fields.Char(string='意见标题')
-    suggestion_details = fields.Text(string='意见详情')
-    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id())
-    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime("%Y-%m-%d"))
-    passengers_name = fields.Char(string='乘客姓名')
-    audit_state = fields.Selection(key,string='审核状态', default='one_audit')
-    event_type = fields.Char(string='事件类别')
-    passengers_phone = fields.Char(string='乘客电话')
-    main_parment = fields.Char(string='主办部门')
-    help_parment = fields.Char(string='协办部门')
-    deal_requirements = fields.Char(string='处理要求')
-    access_time = fields.Date(string='回访时间')
-    Satisfied = fields.Selection([('one','满意'),('zero','不满意')],string='乘客是否满意')
+    open_time = fields.Datetime(string='发生时间', track_visibility='onchange')
+    open_site = fields.Char(string='发生地点', track_visibility='onchange')
+    suggestion_title = fields.Char(string='意见标题', track_visibility='onchange')
+    suggestion_details = fields.Text(string='意见详情', track_visibility='onchange')
+    write_person = fields.Char(string='填报人',default=lambda self: self.default_person_id(), track_visibility='onchange')
+    write_time = fields.Date(string='填报时间',default=datetime.datetime.now().strftime("%Y-%m-%d"), track_visibility='onchange')
+    passengers_name = fields.Char(string='乘客姓名', track_visibility='onchange')
+    audit_state = fields.Selection(key,string='审核状态', default='one_audit', track_visibility='onchange')
+    event_type = fields.Char(string='事件类别', track_visibility='onchange')
+    passengers_phone = fields.Char(string='乘客电话', track_visibility='onchange')
+    main_parment = fields.Char(string='主办部门', track_visibility='onchange')
+    help_parment = fields.Char(string='协办部门', track_visibility='onchange')
+    deal_requirements = fields.Char(string='处理要求', track_visibility='onchange')
+    access_time = fields.Date(string='回访时间', track_visibility='onchange')
+    Satisfied = fields.Selection([('one','满意'),('zero','不满意')],string='乘客是否满意', track_visibility='onchange')
     load_file_test = fields.Many2many('ir.attachment','suggestion_box_ir_attachment_rel',
-                                         'attachment_id','meeting_dateils_id', string='图片上传')
-    video_attachment = fields.One2many('video_voice_model','suggest_box_video',string='视频附件')
-    audio_attachment = fields.One2many('video_voice_model','suggest_box_audio',string='音频附件')
-    recovery_time = fields.Datetime(string='回复时间')
-    recovery_person = fields.Char(string='回复人')
-    satisfied_person = fields.Selection([('one', '满意'), ('zero', '不满意')], string='乘客是否满意')#责任部门意见的乘客满意
-    survey_state = fields.Char(string='调查概况')
-    recovery_content = fields.Text(string='回复内容')
-    rectification_method = fields.Text(string='整改方法')
-    according_opinion = fields.Text(string='定则意见及依据')
-    duty_general = fields.Text(string='最终定性及定责')
-    audit_flow = fields.Char(string='审核流程')
+                                         'attachment_id','meeting_dateils_id', string='图片上传', track_visibility='onchange')
+    video_attachment = fields.One2many('video_voice_model','suggest_box_video',string='视频附件', track_visibility='onchange')
+    audio_attachment = fields.One2many('video_voice_model','suggest_box_audio',string='音频附件', track_visibility='onchange')
+    recovery_time = fields.Datetime(string='回复时间', track_visibility='onchange')
+    recovery_person = fields.Char(string='回复人', track_visibility='onchange')
+    satisfied_person = fields.Selection([('one', '满意'), ('zero', '不满意')], string='乘客是否满意', track_visibility='onchange')#责任部门意见的乘客满意
+    survey_state = fields.Char(string='调查概况', track_visibility='onchange')
+    recovery_content = fields.Text(string='回复内容', track_visibility='onchange')
+    rectification_method = fields.Text(string='整改方法', track_visibility='onchange')
+    according_opinion = fields.Text(string='定则意见及依据', track_visibility='onchange')
+    duty_general = fields.Text(string='最终定性及定责', track_visibility='onchange')
+    audit_flow = fields.Char(string='审核流程', track_visibility='onchange')
 
     #自动获取登录人的姓名
     @api.model

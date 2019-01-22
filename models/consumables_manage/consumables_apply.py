@@ -8,23 +8,25 @@ class StoreHouse(models.Model):
     _name = 'funenc_xa_station.consumables_apply'
     _description = u'耗材申请'
     _order = 'id desc'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'to_department_id'
 
-    to_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标部门',
+    to_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标部门', track_visibility='onchange',
         #                                default=lambda
         # self: self.default_to_department_id()
                                        )
-    to_parent_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标父部门')
-    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门',
+    to_parent_department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='目标父部门', track_visibility='onchange')
+    department_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_department', string='申请部门', track_visibility='onchange',
         #                             default=lambda
         # self: self.default_department_id()
                                     )
-    consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材名称', required=True)
-    consumables_count = fields.Integer(string='申请数量')
+    consumables_type = fields.Many2one('funenc_xa_station.consumables_type',string='耗材名称', required=True, track_visibility='onchange')
+    consumables_count = fields.Integer(string='申请数量', track_visibility='onchange')
     is_apply = fields.Selection(string='是否已开始申请', selection=[('yes', '是'), ('no', '否')],default="no")
-    apply_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='申请人')
-    state = fields.Selection(selection=[('已处理','已处理'),('未处理','未处理')],default="未处理")
-    manage_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='处理人')
-    manage_time = fields.Datetime('处理时间')
+    apply_user_id = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='申请人', track_visibility='onchange')
+    state = fields.Selection(selection=[('已处理','已处理'),('未处理','未处理')],default="未处理", track_visibility='onchange')
+    manage_user = fields.Many2one('cdtct_dingtalk.cdtct_dingtalk_users',string='处理人', track_visibility='onchange')
+    manage_time = fields.Datetime('处理时间', track_visibility='onchange')
 
     storage_id = fields.Integer(string='耗材出库id')
 

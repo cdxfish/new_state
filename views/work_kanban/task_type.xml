@@ -38,6 +38,9 @@
                             <field name="name" string="任务事件名称"/>
                             <field name="remarks" string="备注"/>
                         </group>
+                        <div class="oe_chatter">
+                            <field name="message_ids" widget="my_mail_thread"/>
+                        </div>
                         <footer>
                             <button name='task_type_save'
                                     string='确定'

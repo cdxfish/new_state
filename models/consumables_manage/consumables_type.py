@@ -8,9 +8,10 @@ class ConsumablesType(models.Model):
     _description = u'耗材分类'
     _rec_name = 'consumables_type'
     _order = 'id desc'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    consumables_type = fields.Char('耗材分类',required= True)
-    prent_id = fields.Many2one('funenc_xa_station.consumables_type',string='父耗材分类')
+    consumables_type = fields.Char('耗材分类',required= True, track_visibility='onchange')
+    prent_id = fields.Many2one('funenc_xa_station.consumables_type',string='父耗材分类', track_visibility='onchange')
     child_ids = fields.One2many('funenc_xa_station.consumables_type', 'prent_id', string='子耗材分类')
 
 

@@ -104,6 +104,9 @@
                             </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

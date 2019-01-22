@@ -5,11 +5,15 @@ from odoo import api, models, fields
 from ..get_domain import get_domain
 
 class PrudeNewpaper(models.Model):
+
     _name = 'funenc_xa_station.prude_newpaper_type'
     _rec_name = 'prude_event_type'
-    prude_event_type = fields.Char(string='生产事件类型')
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = '生产事件类型设置'
+
+    prude_event_type = fields.Char(string='生产事件类型', track_visibility='onchange')
     c_type=fields.Char(string='区分')
-    note = fields.Char(string='备注')
+    note = fields.Char(string='备注', track_visibility='onchange')
 
 
     def prude_newpaper_type_selete(self):
@@ -44,7 +48,7 @@ class PrudeNewpaper(models.Model):
                 self.env['funenc_xa_station.prude_newpaper_type'].sudo().create(i)
 
         return {
-            'name': '换班时间间隔设置',
+            'name': '生产事件设置',
             'type': 'ir.actions.act_window',
             "views": [[False, "tree"], [False, "form"]],
             # "domain": domain,

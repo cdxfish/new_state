@@ -51,6 +51,9 @@
 					<group>
 						<field name="is_main" string="主备情况" widget="radio"/>
 					</group>
+					<div class="oe_chatter">
+                        <field name="message_ids" widget="my_mail_thread"/>
+                    </div>
 
 					<footer>
 						<button name='key_detail_save'

@@ -7,9 +7,11 @@ from odoo import api,models,fields
 class GoodDeedsType(models.Model):
     _name = 'funenc_xa_station.good_deeds_type'
     _rec_name = 'good_type'
+    _description = '好人好事类型设置'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    good_type = fields.Char(string='好人好事类型', required=True)
-    note = fields.Char(string='备注')
+    good_type = fields.Char(string='好人好事类型', required=True, track_visibility='onchange')
+    note = fields.Char(string='备注', track_visibility='onchange')
     _sql_constraints = [('line_unique', 'UNIQUE(good_type)', "好人好事类型已经存在")]
 
 

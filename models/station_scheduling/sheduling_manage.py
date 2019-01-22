@@ -10,33 +10,34 @@ from ..get_domain import get_domain
 
 class ShedulingManage(models.Model):
     _name = 'funenc_xa_station.sheduling_manage'
-    _description = '排班管理'
-    _inherit = 'fuenc_station.station_base'
+    _description = '排班列表'
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
+    _rec_name = 'show_sheduling_time'
 
-    sheduling_start_time = fields.Date(string='开始时间', required=True)
-    sheduling_end_time = fields.Date(string='结束时间', required=True)
+    sheduling_start_time = fields.Date(string='开始时间', required=True, track_visibility='onchange')
+    sheduling_end_time = fields.Date(string='结束时间', required=True, track_visibility='onchange')
     class_group_ids = fields.Many2many('funenc_xa_station.class_group', 'sheduling_manage_class_group_2_ref',
-                                       'sheduling_manage_id', 'class_group_id', string='选择班组'
+                                       'sheduling_manage_id', 'class_group_id', string='选择班组', track_visibility='onchange'
                                        )
     arrange_order_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_2_ref',
-                                         'sheduling_manage_id', 'arrange_order_id', string='班组班次'
+                                         'sheduling_manage_id', 'arrange_order_id', string='班组班次', track_visibility='onchange'
                                          )
     motorized_user_ids = fields.Many2many('cdtct_dingtalk.cdtct_dingtalk_users', 'sheduling_manage_ding_user_6_ref',
-                                          'sheduling_manage_id', 'ding_user_id', string='机动人员选择'
+                                          'sheduling_manage_id', 'ding_user_id', string='机动人员选择', track_visibility='onchange'
                                           )
     motorized_ids = fields.Many2many('funenc_xa_station.arrange_order', 'sheduling_manage_arrange_order_3_ref',
-                                     'sheduling_manage_id', 'arrange_order_id', string='机动人员班次'
+                                     'sheduling_manage_id', 'arrange_order_id', string='机动人员班次', track_visibility='onchange'
                                      )
     sheduling_arrange_order_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='班组排班规则')
-    motorized_rule_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='机动人员排班规则')
-    current_rule = fields.Text(string='当前冲突规则', default=lambda self: self.default_current_rule())
+    motorized_rule_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='机动人员排班规则', track_visibility='onchange')
+    current_rule = fields.Text(string='当前冲突规则', default=lambda self: self.default_current_rule(), track_visibility='onchange')
 
     #  tree显示字段
     show_class_group_name = fields.Char(string='班组')
     show_arrange_order_name = fields.Text(string='班次')
     show_rule_name = fields.Char(string='排班规则', default='无')
-    show_sheduling_time = fields.Char(string='排班时间')
+    show_sheduling_time = fields.Char(string='排班时间', track_visibility='onchange')
 
     is_save = fields.Integer(string='是否保存')  # 1已保存
 
