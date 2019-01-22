@@ -101,7 +101,7 @@
             <field name="name">funenc_xa_station_change_shifts_time_list</field>
             <field name="model">funenc_xa_station.change_shifts_time</field>
             <field name="arch" type="xml">
-                <tree limit="15">
+                <tree limit="15" create="0">
                     <!--<field name="product_id_domain" invisible="1"/>-->
                     <!--<field name="product_site_id_domain" invisible="1"/>-->
                     <!--<field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"  required="1"-->
