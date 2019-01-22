@@ -10,10 +10,6 @@ import base64
 class VideoVoice(models.Model):
     _name = 'video_voice_model'
 
-    def _default_associated(self):
-        if self._context.get('active_id', False):
-            return self._context['active_id']
-
     video = fields.Binary(string='文件')
     file_name = fields.Char(string='File Name')
     url = fields.Char(string='url')
@@ -25,13 +21,11 @@ class VideoVoice(models.Model):
     suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱视屏附件')
     suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
     site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
-    special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)
     belong_management_imange = fields.Many2one('funenc_xa_station.belong_to_management',string='属地管理')
     break_submit_image = fields.Many2one('funenc_xa_station.break_submit',string='故障提报图片')
 
     @api.model
     def create(self, params):
-        video_attachment = self.env['fuenc_xa_station.guests_hurt'].search([])
         if params.get('video'):
             file_binary = params['video']
             file_name = params.get('file_name', self.file_name)
@@ -82,3 +76,15 @@ class VideoVoice(models.Model):
             'res_id': self.id,
             'target': 'new',
         }
+
+class VideoVoice1(models.Model):
+    _name = 'video_voice_1_model'
+
+    def _default_associated(self):
+        if self._context.get('active_id', False):
+            return self._context['active_id']
+
+    video = fields.Binary(string='文件')
+    file_name = fields.Char(string='File Name')
+    url = fields.Char(string='url')
+    special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)

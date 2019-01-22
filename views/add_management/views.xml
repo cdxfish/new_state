@@ -46,7 +46,7 @@
                     <field name="rank_kind"></field>
                     <field name="rules_id"></field>
                     <field name="rules_name"></field>
-                    <field name="line_id_default" ></field>
+                    <field name="line_id" widget="many2many_tags" />
                     <!--<field name="site_id_default" ></field>-->
                     <widget string="内容" name="treebtns" template="details_add__type"/>
                     <field name="operation_peison"></field>
@@ -67,9 +67,9 @@
                     <field name="id" string="序号"></field>
                     <field name="profession_kind"></field>
                     <field name="rank_kind"></field>
-                    <field name="rules_id"></field>
+                    <field name="rules_id" ></field>
                     <field name="rules_name"></field>
-                    <field name="line_id"></field>
+                    <field name="line_id" ></field>
                     <!--<field name="site_id"></field>-->
                     <field name="operation_peison"></field>
                     <field name="operation_time"></field>
@@ -99,7 +99,7 @@
                                 <field name="rules_name"></field>
                             </group>
                             <group name="group_bottom">
-                                <field name="details" filename="file_name" max_upload_kb="10240000" required="1"></field>
+                                <field name="details" filename="file_name" max_upload_kb="10240000" />
                                 <field name="file_name" invisible="1"/>
                             </group>
                         </group>

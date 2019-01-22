@@ -7,7 +7,24 @@ def get_domain(func):
     def wrapper(self, *args, **kwargs):
 
         if self.user_has_groups('base.group_system'):
-            return func(self, [], *args, **kwargs)
+            if self.env.user.id == 1:
+                return func(self, [], *args, **kwargs)
+            else:
+                if self.env.user.name == '客运一部':
+                    parent_department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('name', '=', '客运一部')])
+                else:
+                    # 客运二部账号
+                    parent_department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('name', '=', '客运二部')])
+                child_departments = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                    [('parentid', '=', parent_department.departmentId)])
+                site_ids = []
+                for child_department in child_departments:
+                    site_ids= site_ids +self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('parentid', '=', child_department.departmentId)]).ids
+                return func(self, [('site_id', 'in', site_ids)], *args, **kwargs)
+
         ding_user = self.env.user.dingtalk_user
         ids = ding_user.user_property_departments.ids
 

@@ -32,8 +32,6 @@ class xian_metro(models.Model):
     url = fields.Char(string='url')
     release_time = fields.Date(string='发布实施日期', track_visibility='onchange')
     rule_regulations_browse = fields.Selection([('one','内容显示'),('zero','内容不显示')],default='zero')
-    line_id_default = fields.Char(string='线路')
-    # site_id_default = fields.Char(string='线路')
 
     # @api.onchange('line_id')
     # def change_line_id(self):
@@ -110,15 +108,14 @@ class xian_metro(models.Model):
     @api.model
     def create(self, params):
         lis_line = []
-        lis_site =[]
+        # lis_site =[]
         file_binary = params['details']
         for i in params.get('line_id'):
             for line in i[2]:
                 char_line = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('id','=',line)])
                 lis_line.append(char_line.name)
-        params['line_id_default'] = "/".join(lis_line)
-        file = os.path.splitext(params.get('file_name'))
-        filename,type = file
+        # file = os.path.splitext(params.get('file_name'))
+        # filename,type = file
         # if type != '.pdf':
         #     raise ValidationError('上传的文件需要时pdf文件，请重新改选择')
         file_name = params.get('file_name', self.file_name)
@@ -169,21 +166,45 @@ class xian_metro(models.Model):
 
         return xian_metro
 
-    @get_line_ids
-    def get_day_plan_publish_action(self,line_ids):
-        view_form = self.env.ref('funenc_xa_station.add_operation_tree').id
-        line_search = self.search([])
-        ding_user = self.env.user.dingtalk_user
-        ids = ding_user.user_property_departments.ids
-        print(line_search)
-        domain = [("line_id", "in", line_ids)]
+    def get_day_plan_publish_action(self):
+        #  规章制度可见规则 admin 可见全部 站务一二分账号分别可见站务一二分部， 线路下面人员可见相关线路规章
+        if self.env.user.id == 1:
+            domain = []
+        elif self.user_has_groups('base.group_system'):
 
+            if self.env.user.name == '客运一部':
+                parent_department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('name', '=','客运一部')])
+            else:
+                # 客运二部账号
+                parent_department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search([('name', '=', '客运二部')])
+
+            child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('parentid', '=', parent_department.departmentId)]).ids
+            domain = [('line_id', 'in', child_department_ids)]
+
+        else:
+            # 根据人物属性获取domain
+            ding_user = self.env.user.dingtalk_user
+            department_ids = ding_user.user_property_departments
+            line_ids = []
+            for department_id in department_ids:
+                if department_id.department_hierarchy == 2:
+                    line_ids.append(department_id.id)
+
+                elif department_id.department_hierarchy == 3:
+                    id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                        [('departmentId', '=', department_id.parentid)]).id
+
+                    line_ids.append(id)
+
+
+            domain = [('line_id', 'in', list(set(line_ids)))]
+
+        view_form = self.env.ref('funenc_xa_station.add_operation_tree').id
 
         return {
             'name': '规章制度',
             'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
             'domain':domain,
             "views": [[view_form, "tree"]],
             'res_model': 'xian_metro.xian_metro',
