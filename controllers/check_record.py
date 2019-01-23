@@ -13,19 +13,19 @@ APP_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class CheckRecord(http.Controller):
+
     @http.route('/fuenc_xa_station/check_download', type='http', auth='public')
     def import_excel(self, **kw):
         path = APP_DIR + '/static/excel/'
         # 打开模板excel文件进行读写操作
         rdbook = xlrd.open_workbook(path + 'check_record.xls')
-        print(rdbook)
         # 复制模板
         wtbook = xcopy.copy(rdbook)
         worksheet = wtbook.get_sheet(0)
         row = 1
         records = request.env['funenc_xa_station.check_record'].search([])
         if len(records) > 0:
-            for record in records:
+           for record in records:
                 if record.line_id.name:
                     worksheet.write(row, 0, record.line_id.name)
                 else:
