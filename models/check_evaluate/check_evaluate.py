@@ -86,6 +86,7 @@ class CheckStandard(models.Model):
 
     @api.model
     def new_add_record(self):
+        a = 1
         return {
             'type':'ir.actions.act_window',
             'view_type':'form',

@@ -10,7 +10,7 @@ import threading
 
 class CheckRecord(models.Model):
     _name = 'funenc_xa_station.check_record'
-    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin','abstract.export_excel']
     _order = 'check_time desc'
     _description = '考评记录'
     _rec_name = 'staff'
@@ -262,6 +262,7 @@ class CheckRecord(models.Model):
     #     return {'type': 'ir.actions.act_window_close'}
     @api.model
     def new_add_record(self):
+        a= 1
         return {
             'type': 'ir.actions.act_window',
             'view_type': 'form',

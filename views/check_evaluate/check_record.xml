@@ -31,6 +31,22 @@
             </field>
         </record>
 
+        <record model="ir.actions.server" id="check_record_server_3333">
+            <field name="name">我的导出</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="condition">True</field>
+            <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
+            <field name="binding_type">action_button</field>
+            <field name="binding_action">考评记录</field>
+            <field name="binding_group">funenc_xa_station.table_evaluation_record</field>
+            <field name="code">
+                action = model.export_excel('funenc_xa_station.check_record_tree')
+            </field>
+        </record>
+
+
         <record model="ir.actions.act_url" id="check_record_execel">
             <field name="name">导出</field>
             <field name="type">ir.actions.act_url</field>
@@ -49,20 +65,20 @@
                 <tree create="0" edit="0" class="noOpen" search_ex_template="check_record_search_button">
                     <field name="product_id_domain" invisible="1"/>
                     <field name="product_site_id_domain" invisible="1"/>
-                    <field name="line_id"></field>
-                    <field name="site_id"></field>
-                    <field name="job_number"></field>
-                    <field name="staff" options="{'no_create':True,'no_open':True}"></field>
-                    <field name="position"></field>
-                    <field name="sure_grede"></field>
-                    <field name="check_target"></field>
-                    <field name="problem_kind"></field>
-                    <field name="check_kind"></field>
-                    <field name="check_project"></field>
-                    <field name="incident_describe"></field>
-                    <field name="check_person"></field>
-                    <field name="check_number"></field>
-                    <field name="check_time"></field>
+                    <field name="line_id" string="线路"/>
+                    <field name="site_id" string="站点"/>
+                    <field name="job_number" string="工号"/>
+                    <field name="staff" options="{'no_create':True,'no_open':True}" string="考核人员"/>
+                    <field name="position" string="职位"/>
+                    <field name="sure_grede" string="评分分值"/>
+                    <field name="check_target" string="考评指标"/>
+                    <field name="problem_kind" string="问题类型" />
+                    <field name="check_kind" string="考核类别" />
+                    <field name="check_project" string="考核项目"/>
+                    <field name="incident_describe" string="事件描述"/>
+                    <field name="check_person" string="考评人"/>
+                    <field name="check_number" string="工号"/>
+                    <field name="check_time" string="考评时间"/>
                     <widget  string="操作"  name="treebtns"  template="check_record_edit"/>
                 </tree>
             </field>
