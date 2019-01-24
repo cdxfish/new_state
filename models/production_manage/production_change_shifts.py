@@ -220,6 +220,7 @@ class production_change_shifts(models.Model):
     preparedness_state = fields.Selection(selection=[('正常', '正常'), ('异常', '异常')], default="正常", string='备品状态', track_visibility='onchange')  # 备品状态
 
     is_take_over_from = fields.Integer(string='是否可接班',compute='_compute_is_take_over_from') # 用于接班按钮显示 1为显示
+    xml_id = fields.Integer(string='视图xml_id') #  用于 clint判断进哪个页面
 
     @api.constrains('meeting_ids')
     def constrains_constrains(self):
@@ -629,12 +630,12 @@ class production_change_shifts(models.Model):
             [('production_state', '=', position),
              ('change_shifts_user_id', '=', ding_user.id)],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'],order='take_over_from_time desc')  # 待接班
+             'take_over_from_time','xml_id'],order='take_over_from_time desc')  # 待接班
         take_over_from_ids = self.search_read(
             [('take_over_from_user_id', '=', ding_user.id), ('production_state', '=', position),
              ('state', '=', 'take_over_from')],
             ['id', 'change_shifts_time', 'take_over_from_user_id', 'job_no',
-             'take_over_from_time'],order='take_over_from_time desc')  # 已接班
+             'take_over_from_time','xml_id'],order='take_over_from_time desc')  # 已接班
         for change_shifts_id in change_shifts_ids:
             change_shifts_id['take_over_from_user_id'] = change_shifts_id.get('take_over_from_user_id')[1] if change_shifts_id.get('take_over_from_user_id') else ''
             if change_shifts_id.get('change_shifts_time'):
@@ -652,18 +653,30 @@ class production_change_shifts(models.Model):
                 change_shifts_id_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id_id['take_over_from_time'])
 
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
-        jb_form = self.get_form_id()
+        # jb_form = self.get_form_id()
+        position = self.get_position()
+
         return {
             'change_shifts_ids': change_shifts_ids,
             'take_over_from_ids': take_over_from_ids,
             'user': user_dic,
             'domain': domain,
             'views': djb_tree,
-            'jb_form': jb_form
+            'position': position
         }
 
     @api.model
+    def get_job_form_xml_id(self,**kw):
+        xml_id = kw.get('xml_id')
+        view_xml_id = self.env.ref(xml_id).id
+
+        return view_xml_id
+
+    @api.model
     def create(self, vals):
+
+        if self._context.get('xml_id'):
+            vals['xml_id'] = self._context.get('xml_id')
 
         obj = super(production_change_shifts, self).create(vals)
 
