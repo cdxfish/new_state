@@ -32,7 +32,7 @@
         </record>
 
         <record model="ir.actions.server" id="check_record_server_3333">
-            <field name="name">我的导出</field>
+            <field name="name">导出</field>
             <field name="state">code</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_funenc_xa_station_check_record"/>
@@ -44,18 +44,6 @@
             <field name="code">
                 action = model.export_excel('funenc_xa_station.check_record_tree')
             </field>
-        </record>
-
-
-        <record model="ir.actions.act_url" id="check_record_execel">
-            <field name="name">导出</field>
-            <field name="type">ir.actions.act_url</field>
-            <field name="binding_model_id" ref="model_funenc_xa_station_check_record"/>
-            <field name="binding_xml_id">check_record_tree</field>
-            <field name="binding_type">action_button</field>
-            <field name="binding_group">funenc_xa_station.check_management_check_record_export</field>
-            <field name="url">/fuenc_xa_station/check_download</field>
-            <field name="target">new</field>
         </record>
 
         <record id="check_record_tree" model="ir.ui.view">

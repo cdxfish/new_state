@@ -25,6 +25,7 @@ class CheckRecord(http.Controller):
         response.headers["Content-Disposition"] = "attachment; filename={}". \
             format(name.encode().decode('latin-1'))
         os.remove(file)
+
         return response
 
 

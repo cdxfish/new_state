@@ -1519,10 +1519,6 @@ class ExportExcel(models.Model):
 
         f.save(file)
 
-        # os.remove(file)
-        module = self._module
-        parameter = '{}{}{}'.format(module,'/static/excel/',name)
-
         return {
             'name': '导出',
             "type": "ir.actions.act_url",
@@ -1530,5 +1526,5 @@ class ExportExcel(models.Model):
             'target': 'new',
             'context': self.env.context,
             # 'url':'/fuenc_xa_station/check_download?parameter={}&name={}'.format(parameter,name),
-            'url': '/fuenc_xa_station/check_download?file={}&name={}'.format(file, name)
+            'url': '/funenc_xa_station/abstract/export_excel?file={}&name={}'.format(file, name)
         }
