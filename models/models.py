@@ -9,6 +9,8 @@ import datetime
 import calendar
 from .get_domain import *
 import time
+import random
+from bs4 import BeautifulSoup
 
 import json
 import xlrd, xlwt
@@ -1455,3 +1457,74 @@ class ImportGroupUser(models.Model):
     #         #
     #         # f.save('二分部钉钉未设置人员.xls')
     #     self.unlink()
+
+from odoo.http import request
+
+class ExportExcel(models.Model):
+    _name = 'abstract.export_excel'
+
+    def export_excel(self,view_xml_id):
+
+        domain = self._context.get('active_domain')
+        model = self._context.get('active_model')
+        self_fields = self._fields
+        hasattr(self._fields['check_target'], 'selection')
+        xml_obj = self.env.ref(view_xml_id)
+        xml_doc = xml_obj.arch_db  # 表头xml
+        soup = BeautifulSoup(xml_doc, 'xml')
+        fields = soup.find_all('field')  #视图xml的string属性必须跟对应的model field的string对应，不然只能通过ir.model查询
+        filter_fields = []
+        for field in fields:
+            #  过滤不显示字段
+            if not field.get('invisible'):
+                filter_fields.append(field)
+
+        # 构建表头
+        f = xlwt.Workbook()
+        sheet1 = f.add_sheet('记录', cell_overwrite_ok=True)
+        select_fields = []
+        selection_fields = {} #  selection 字段
+
+        # 开始构建表头
+        for k,field in enumerate(filter_fields):
+            sheet1.write(0, k, field.get('string'))
+            field_name = field.get('name')
+            select_fields.append(field_name)
+            if hasattr(self_fields[field_name], 'selection'):
+                # 已字段 name 为key selection字典 为 value 的字典
+                selection_fields[field_name] = dict(self_fields[field_name].selection)
+
+
+        #构建记录
+        obj_list = self.env[model].search_read(domain,select_fields)
+        for j,obj in enumerate(obj_list):
+            for key in obj:
+                if key != 'id':
+                    index = select_fields.index(key)
+                    value = obj[key]
+                    if isinstance(value,tuple):
+                        # 关系字段取 string
+                        value = value[1] if value else ''
+                    if selection_fields.get(key):
+                        # selection 转换成想对应的值
+                        value = selection_fields.get(key).get(value)
+
+                    sheet1.write(j + 1, index, value if value else '')
+
+        APP_DIR = os.path.dirname(os.path.dirname(__file__))
+        path = APP_DIR + '/static/excel/'
+
+        name = str(int(round(time.time() * 1000))) + str(random.randint(1, 1000)) + '.xls'
+        file = path + name
+
+        f.save(file)
+
+        return {
+            'name': '导出',
+            "type": "ir.actions.act_url",
+            "res_model": "funenc_xa_station.check_record",
+            'target': 'new',
+            'context': self.env.context,
+            # 'url':'/fuenc_xa_station/check_download?parameter={}&name={}'.format(parameter,name),
+            'url': '/funenc_xa_station/abstract/export_excel?file={}&name={}'.format(file, name)
+        }
