@@ -20,7 +20,7 @@
 			<field name="name">fuenc_station_clock_record_list</field>
 			<field name="model">fuenc_station.clock_record</field>
 			<field name="arch" type="xml">
-				<tree limit="15" create="0" class="noOpen" search_ex_template="clock_search_button">
+				<tree limit="15" create="0" search_ex_template="clock_search_button">
                     <field name="time" string="日期"/>
                     <field name="line_id" string="线路"/>
                     <field name="site_id" string="站点" />

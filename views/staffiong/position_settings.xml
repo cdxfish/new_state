@@ -48,6 +48,23 @@
             </field>
         </record>
 
+        <!--默认搜索-->
+        <record model="ir.ui.view" id="res_groups_filter">
+            <field name="name">res_groups_search</field>
+            <field name="model">res.groups</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="默认"
+                           filter_domain="
+                           ['|',
+                           ('name','ilike',self),
+                           ('users','ilike',self)
+                           ]
+                           "/>
+                </search>
+            </field>
+        </record>
+
 
         <record id="funenc_xa_station_group_form" model="ir.ui.view">
             <field name="name">角色组</field>

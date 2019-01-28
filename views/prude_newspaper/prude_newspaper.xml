@@ -18,7 +18,7 @@
                     <widget name="treebtns" string='操作' template="prude_newpaper_action" />
                 </tree>
             </field>
-        </record>
+        </record>z
 
         <record model="ir.actions.server" id="prude_newspaper_button">
             <field name="name">日报填写</field>

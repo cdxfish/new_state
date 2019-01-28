@@ -40,6 +40,7 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/close_cookies.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/slose_cookies_git.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/my_mail_thread.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/selection_change_shifts.js"/>
 
             </xpath>
         </template>

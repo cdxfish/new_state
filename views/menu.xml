@@ -942,7 +942,7 @@
 		/>
 
 		<record model="ir.actions.client" id="funenc_xa_station.xa_station_xa_station_jjb1_action">
-          <field name="name">机动人员管理</field>
+          <field name="name">交接班</field>
           <field name="tag">change_shifts_clint</field>
         </record>
 		<menuitem id="xa_station_jjb1" name="交接班"
