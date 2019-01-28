@@ -17,7 +17,8 @@ odoo.define('change_shifts_clint', function (require) {
                 take_over_from_ids: [],
                 domain: [],
                 views: [],
-                position: ''
+                position: '',
+                job_form:''
 
             };
 
@@ -31,12 +32,15 @@ odoo.define('change_shifts_clint', function (require) {
                 model: 'funenc_xa_station.production_change_shifts',
                 method: 'get_change_shifts_data'
             }).then(function (data) {
+                console.log(data);
                 self.vue_data.user = data.user,
                     self.vue_data.change_shifts_ids = data.change_shifts_ids,
                     self.vue_data.take_over_from_ids = data.take_over_from_ids,
                     self.vue_data.domain = data.domain,
                     self.vue_data.views = data.views,
-                    self.vue_data.position = data.position
+                    self.vue_data.position = data.position,
+                    self.vue_data.job_form = data.job_form
+
 
             })
         },
@@ -60,22 +64,40 @@ odoo.define('change_shifts_clint', function (require) {
                     methods: {
                         shift_shift: function () {
                             // 交接班选择
-                            self.do_action({
-                                'name': '交接班选择',
-                                'type': 'ir.actions.client',
-                                'tag': 'selection_change_shifts_clint',
-                                'target': 'current',
-                                'params': {'position': self.vue_data.position}
+                            var position = self.vue_data.position;
+                            alert(self.vue_data.job_form);
+                            if (position == 'passenger_transport') {
+                                alert(1);
+                                self.do_action({
+                                    name: '\u521b\u5efa',
+                                    type: 'ir.actions.act_window',
+                                    res_model: 'funenc_xa_station.production_change_shifts',
+                                    views: [[self.vue_data.job_form, 'form']],
+                                    target: 'new'
+                                });
 
-                            });
+                            } else if (position == 'ticket_booth') {
+                                 alert(2);
+                                self.do_action({
+                                    name: '\u521b\u5efa',
+                                    type: 'ir.actions.act_window',
+                                    res_model: 'funenc_xa_station.production_change_shifts',
+                                    views: [[self.vue_data.job_form, 'form']],
+                                    target: 'new'
+                                });
 
-                            // self.do_action({
-                            //                     name: '\u521b\u5efa',
-                            //                     type: 'ir.actions.act_window',
-                            //                     res_model: 'funenc_xa_station.production_change_shifts',
-                            //                     views: [[self.vue_data.jb_form, 'form']],
-                            //                     target: 'new'
-                            //                 });
+                            } else {
+                                 alert(3);
+                                self.do_action({
+                                    'name': '交接班选择',
+                                    'type': 'ir.actions.client',
+                                    'tag': 'selection_change_shifts_clint',
+                                    'target': 'current',
+                                    'params': {'position': self.vue_data.position}
+
+                                });
+
+                            }
 
 
                         },

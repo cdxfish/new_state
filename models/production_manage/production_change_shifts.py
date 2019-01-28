@@ -567,13 +567,13 @@ class production_change_shifts(models.Model):
             # 值班站长
             position = 'station_master'
         elif self.env.user.has_group('funenc_xa_station.module_man_on_duty'):
-            # 行车
+            # 行车值班员
             position = 'train_working'
         elif self.env.user.has_group('funenc_xa_station.module_passenger_transport'):
             # 客运
             position = 'passenger_transport'
         elif self.env.user.has_group('funenc_xa_station.module_depot'):
-            # 站务
+            # 站台 站务
             position = 'station_service'
         else:
             # 票务
@@ -653,7 +653,7 @@ class production_change_shifts(models.Model):
                 change_shifts_id_id['take_over_from_time'] = get_add_8th_str_time(change_shifts_id_id['take_over_from_time'])
 
         djb_tree = self.env.ref('funenc_xa_station.funenc_xa_station_production_change_shifts_list').id
-        # jb_form = self.get_form_id()
+        job_form = self.get_form_id()
         position = self.get_position()
 
         return {
@@ -662,7 +662,8 @@ class production_change_shifts(models.Model):
             'user': user_dic,
             'domain': domain,
             'views': djb_tree,
-            'position': position
+            'position': position,
+            'job_form':job_form
         }
 
     @api.model

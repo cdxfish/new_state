@@ -109,7 +109,6 @@ class PositionSettings(models.Model):
                 sql = sql + join_word + ''' (gid = {} AND uid = {})'''.format(gid, del_group_user_map[gid][0])
                 num += 1
         if num > 0:
-            logging.info(123123)
             self._cr.execute(sql)
         return
 

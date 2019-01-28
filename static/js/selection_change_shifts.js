@@ -8,6 +8,7 @@ odoo.define('selection_change_shifts_clint', function (require) {
         init: function (parent, record, node) {
             this._super(parent, record, node);
             this.vue_data = {
+                // position: record.params.position
                 position: record.params.position
             };
 
@@ -26,6 +27,11 @@ odoo.define('selection_change_shifts_clint', function (require) {
                 self.replaceElement($(el));
                 new Vue({
                     el: '#app',
+                    mounted(){
+                        this.$refs.input1.value ='xxx';
+                        this.$refs.test.show = false;
+                        // console.log(this.$refs.input1.value ='xxx')
+                    },
                     data() {
                         return self.vue_data
                     },
@@ -54,6 +60,7 @@ odoo.define('selection_change_shifts_clint', function (require) {
 
 
                         },
+
 
                         train_working: function (xml_id) {
                             //行车值班员
