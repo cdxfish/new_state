@@ -65,9 +65,7 @@ odoo.define('change_shifts_clint', function (require) {
                         shift_shift: function () {
                             // 交接班选择
                             var position = self.vue_data.position;
-                            alert(self.vue_data.job_form);
                             if (position == 'passenger_transport') {
-                                alert(1);
                                 self.do_action({
                                     name: '\u521b\u5efa',
                                     type: 'ir.actions.act_window',
@@ -77,7 +75,6 @@ odoo.define('change_shifts_clint', function (require) {
                                 });
 
                             } else if (position == 'ticket_booth') {
-                                 alert(2);
                                 self.do_action({
                                     name: '\u521b\u5efa',
                                     type: 'ir.actions.act_window',
@@ -87,7 +84,6 @@ odoo.define('change_shifts_clint', function (require) {
                                 });
 
                             } else {
-                                 alert(3);
                                 self.do_action({
                                     'name': '交接班选择',
                                     'type': 'ir.actions.client',
