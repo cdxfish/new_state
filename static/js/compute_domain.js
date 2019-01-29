@@ -20,6 +20,7 @@ var wrapping_dict = py.type('wrapping_dict', null, {
         if (!(k in this._store)) {
             throw new Error("KeyError: '" + k + "'");
         }
+        console.log('kkkk=',k);
         return wrap(this._store[k]);
     },
     __getattr__: function (key) {

@@ -86,14 +86,16 @@ class ArrangeOrderToArrangeClassManage(models.Model):
     _name = 'arrange_order_to_arrange_class_manage'
     _description = '班次和排班规则中间表'
 
+    get_site_id = fields.Integer(
+        compute="_compute_site_id",
+        readonly=True,
+        store=False,
+    )
     arrange_class_manage_id = fields.Many2one('funenc_xa_station.arrange_class_manage', string='排班规则')
     arrange_order_id = fields.Many2one('funenc_xa_station.arrange_order', string='排班班次')
 
-    @api.onchange('arrange_order_id')
-    def onchange_arrange_order_id(self):
+    @api.depends('arrange_class_manage_id.site_id')
+    def _compute_site_id(self):
+        for this in self:
+            this.get_site_id = this.arrange_class_manage_id.site_id.id
 
-        site_id= self.arrange_class_manage_id.site_id.id
-
-        return {
-            'domain':{'arrange_order_id': [('site_id','=',site_id)]}
-        }
