@@ -36,7 +36,7 @@
 				<tree limit="15" create="0" class="noOpen">
 					<field name="product_id_domain" invisible="1"/>
 					<field name="product_site_id_domain" invisible="1"/>
-					 <field name="line_id" string="线路"/>
+					 <field name="line_id" string="线路" required="1"/>
                     <field name="site_id" string="站点"/>
 					<field name="name" string="班次名字"/>
 					<field name="time" string="班次时间"/>

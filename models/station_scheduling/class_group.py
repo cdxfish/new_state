@@ -52,7 +52,6 @@ class ClassGroup(models.Model):
     def class_group_edit(self):
         context = dict(self.env.context or {})
         unselected_user_ids = self.unselected_user_ids(self.site_id.id)
-        context['unselected_user_ids'] = unselected_user_ids
         return {
             'name': '班组详情编辑',
             'type': 'ir.actions.act_window',
@@ -81,74 +80,20 @@ class ClassGroup(models.Model):
     def class_group_delete(self):
         self.unlink()
 
-    # def unselected_user_ids(self):
-    #     # 班组可选人员过滤
-    #     res_user = self.env.user
-    #     if res_user.id == 1:
-    #         sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where 1=1"
-    #         self.env.cr.execute(sel_sql)
-    #         select_user_ids = self.env.cr.dictfetchall()
-    #         select_user_ids_list = [select_user_id.get('ding_talk_user_id') for select_user_id in select_user_ids]
-    #         user_ids_sql = "select id from cdtct_dingtalk_cdtct_dingtalk_users where 1=1"
-    #         self.env.cr.execute(user_ids_sql)
-    #         user_ids = self.env.cr.dictfetchall()
-    #         user_ids_list = [user_id.get('id') for user_id in  user_ids]
-    #
-    #         return list(set(user_ids_list) - set(select_user_ids_list))
-    #     else:
-    #         ding_user = self.env.user.dingtalk_user[0]
-    #         department_id = ding_user.departments[0]
-    #
-    #         if department_id.department_hierarchy == 1:
-    #             sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where 1=1"
-    #             self.env.cr.execute(sel_sql)
-    #             select_user_ids = self.env.cr.dictfetchall()
-    #             select_user_ids_list = [select_user_id.get('ding_talk_user_id') for select_user_id in select_user_ids]
-    #             user_ids_sql = "select id from cdtct_dingtalk_cdtct_dingtalk_users where 1=1"
-    #             self.env.cr.execute(user_ids_sql)
-    #             user_ids = self.env.cr.dictfetchall()
-    #             user_ids_list = [user_id.get('id') for user_id in user_ids]
-    #
-    #             return list(set(user_ids_list) - set(select_user_ids_list))
-    #         else:
-    #             if department_id.department_hierarchy == 3:
-    #                 department_sql = 'select user_id from cdtct_dingtalk_user_department_rel where department_id = {}'.format(department_id.id)
-    #                 self.env.cr.execute(department_sql)
-    #                 department_user_ids = [department_user_id.get('user_id') for department_user_id in self.env.cr.dictfetchall()]
-    #                 if len(department_user_ids) > 1:
-    #                     sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where ding_talk_user_id in {}".format(tuple(department_user_ids))
-    #                     self.env.cr.execute(sel_sql)
-    #                     select_user_ids = self.env.cr.dictfetchall()
-    #                 elif len(department_user_ids) == 1 :
-    #                     sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where ding_talk_user_id = {}".format(
-    #                         tuple(department_user_ids[0]))
-    #                     self.env.cr.execute(sel_sql)
-    #                     select_user_ids = self.env.cr.dictfetchall()
-    #                 else:
-    #                     select_user_ids = []
-    #                 select_user_ids_list = [select_user_id.get('ding_talk_user_id') for select_user_id in select_user_ids]
-    #                 return list(set(department_user_ids) - set(select_user_ids_list))
-    #             else:
-    #                 return []
-
     def unselected_user_ids(self, site_id):
         # 班组可选人员过滤
-        department_sql = 'select ding_user_id as user_id from dingtalk_users_to_departments where department_id = {}'.format(
-            site_id)
-        self.env.cr.execute(department_sql)
-        department_user_ids = [department_user_id.get('user_id') for department_user_id in self.env.cr.dictfetchall()]
-        if len(department_user_ids) > 1:
-            sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where ding_talk_user_id in {}".format(
-                tuple(department_user_ids))
-            self.env.cr.execute(sel_sql)
-            select_user_ids = self.env.cr.dictfetchall()
-        elif len(department_user_ids) == 1:
-            sel_sql = "select ding_talk_user_id from class_group_dingtalk_user_1_ref where ding_talk_user_id = {}".format(
-                department_user_ids[0])
-            self.env.cr.execute(sel_sql)
-            select_user_ids = self.env.cr.dictfetchall()
-        else:
-            select_user_ids = []
-        select_user_ids_list = [select_user_id.get('ding_talk_user_id') for select_user_id in select_user_ids]
+        department_property_users = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(site_id).department_property_users
+        pop_user_ids = []
+        tmp_department_user_ids = department_property_users.ids
+        for department_property_user in department_property_users:  # 用户的部门属性
+            self_departments = department_property_user.user_property_departments
+            for self_department in self_departments:
+                if self_department.department_hierarchy != 3:
+                    pop_user_ids.append(department_property_user.id)
+                    break
+        department_user_ids = list(set(tmp_department_user_ids) - set(pop_user_ids))
+        select_user_ids_list = []
+        for obj in self.search([('site_id', '=', site_id)]):
+            select_user_ids_list = select_user_ids_list + obj.group_user_ids.ids
 
         return list(set(department_user_ids) - set(select_user_ids_list))

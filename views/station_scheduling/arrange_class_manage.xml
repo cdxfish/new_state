@@ -58,12 +58,13 @@
                   <field name="product_site_id_domain" invisible="1"/>
                   <field name="name" invisible="1"/>
                   <field name="line_id" string="线路" options="{'no_create':True,'no_open':True}"
-                         domain="product_id_domain"/>
+                         domain="product_id_domain" required="1"/>
                   <field name="site_id" string="站点" options="{'no_create':True,'no_open':True}"
-                         domain="product_site_id_domain" context="{site_id:site_id}"/>
+                         domain="product_site_id_domain"  required="1"/>
                   <field name="order_to_arrange_ids" string="排班类型">
                     <tree editable="top" class="noOpen">
-                      <field name="arrange_order_id" string="班次" on_change=""/>
+                      <field name="get_site_id" context="{'get_site_id':get_site_id}" invisible="1"/>
+                      <field name="arrange_order_id" string="班次" domain="[('site_id','=',get_site_id)]" options="{'no_create':True,'no_open':True}"/>
                     </tree>
                   </field>
                   <field name="obj_selection" string="对象"/>

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import odoo.exceptions as msg
 from odoo import models, fields, api
 
-import datetime
+import datetime,json
 import calendar
 from copy import deepcopy
 from ..get_domain import get_domain
@@ -39,11 +38,24 @@ class ShedulingManage(models.Model):
     show_rule_name = fields.Char(string='排班规则', default='无')
     show_sheduling_time = fields.Char(string='排班时间', track_visibility='onchange')
 
-    is_save = fields.Integer(string='是否保存')  # 1已保存
+    motorized_user_ids_domain = fields.Char(
+        compute="_compute_motorized_user_ids_domain",
+        readonly=True,
+        store=False,
+    )
+
+    @api.multi
+    @api.depends('site_id')
+    def _compute_motorized_user_ids_domain(self):
+        for this in self:
+            ids = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users_by_site_id(this.site_id.id)
+            this.motorized_user_ids_domain = json.dumps(
+                [('id','in',ids)]
+            )
+
 
     @api.model
     def create(self, vals):
-        vals['is_save'] = 1
 
         return super(ShedulingManage,self).create(vals)
 
@@ -116,7 +128,6 @@ class ShedulingManage(models.Model):
     def sheduling_manage_create(self):
         res_user = self.env.user
         context = dict(self.env.context or {})
-        context['funenc_motorized_user_ids'] = None
 
         if res_user.id == 1:
 
@@ -146,7 +157,7 @@ class ShedulingManage(models.Model):
     def sheduling_manage_edit(self):
         context = dict(self.env.context or {})
         res_user = self.env.user
-        context['funenc_motorized_user_ids'] =  self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users_by_site_id(self.site_id.id)
+        # context['funenc_motorized_user_ids'] =  self.env['cdtct_dingtalk.cdtct_dingtalk_users'].get_motorized_users_by_site_id(self.site_id.id)
         if res_user.id == 1:
             return {
                 'name': '排班详情编辑',
@@ -174,7 +185,12 @@ class ShedulingManage(models.Model):
             }
 
     def sheduling_manage_delete(self):
+        site_id = self.site_id.id
+        start_time = self.sheduling_start_time
+        end_time =self.sheduling_end_time
         self.unlink()
+        self.env['funenc_xa_station.sheduling_record'].search(
+            [('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time), ('site_id', '=', site_id)]).unlink()
 
     def save(self):
         show_data = self.sheduling_start()
@@ -679,13 +695,6 @@ class ShedulingManage(models.Model):
             shift_value_ids = [obj.get('id') for obj in sheuling_data.get('shift_value')]
             for arrange_order in arrange_orders:
                 sheuling_data['total'].append(shift_value_ids.count(arrange_order.id))
-                # dic = {
-                #     'id': arrange_order.id,  # 班次id
-                #     'arrange_order_name': shift_value_ids.count(arrange_order.name),  # 班次名称
-                #     'count': shift_value_ids.count(arrange_order.id)  # 班次 数量
-                # }
-                #
-                # sheuling_data['total_table_data'].append(dic)
             show_data['total_table_data'] = sheuling_datas
 
         return show_data
@@ -764,7 +773,7 @@ class ShedulingManage(models.Model):
         # 机动
         motorizeds = self.env['funenc_xa_station.sheduling_record'].search_read(
             [('site_id', '=', site_id), ('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
-             ('order_type', '=', 'motorized_group')])
+             ('order_type', '=', 'motorized_group')],order='')
         show_data['motorized_group_table_data'] = self.get_data(motorizeds)
         show_data['total_group_table_data'] = self.total_group_table_data(sel_groups + motorizeds, show_time_days)
 
@@ -839,6 +848,8 @@ class ShedulingManage(models.Model):
                 user_dic = {}
 
             data.append(user_dic)
+            
+        data.sort(key=lambda k: k.get('group_name'))
 
         return data
 
@@ -883,6 +894,7 @@ class ShedulingManage(models.Model):
                 user_dic = {}
 
             data.append(user_dic)
+        data.sort(key=lambda k: k.get('group_name'))
 
         return data
 
@@ -916,11 +928,6 @@ class ShedulingManage(models.Model):
                 }
 
                 for compute_user in compute_users:
-                    # shift_value = {
-                    #     'shift': compute_user.get('arrange_order_id')[1] if compute_user.get(
-                    #         'arrange_order_id') else '',
-                    #     'sheduling_record_id': compute_user.get('id')
-                    # }
                     shift_value = compute_user.get('arrange_order_id')[1] if compute_user.get(
                         'arrange_order_id') else ''
                     user_dic['shift_value'].append(shift_value)
@@ -950,38 +957,6 @@ class ShedulingManage(models.Model):
             return {'message': '保存失败'}
 
     def init_data(self):
-
-        # ding_user = self.env.user.dingtalk_user
-        # department_ids = ding_user.user_property_departments
-        # site_obj_ids = []
-        # line_obj_ids = []
-        # for department_id in department_ids:
-        #     if department_id.department_hierarchy == 3:
-        #         site_obj_ids.append(department_id)
-        #         obj = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-        #             [('departmentId', '=', department_id.parentid)])
-        #
-        #         line_obj_ids.append(obj)
-        # default_line = line_obj_ids[0] if line_obj_ids else None
-        # child_department_ids = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
-        #     [('parentid', '=', default_line.departmentId if default_line else None)])
-        # site_ids = list(set(department_ids) & set(child_department_ids))
-        # site_list_dic = []
-        # for site_id in site_ids:
-        #     site_list_dic.append({
-        #         'id':site_id.id,
-        #         'name':site_id.name
-        #     })
-        #
-        # default_site = site_list_dic[0].get('id') if site_list_dic else None
-        #
-        # start_time = datetime.datetime.now().strftime('%Y-%m-%d')
-        # start_time = '{}-01'.format(start_time[:7])
-        # year = start_time[:4]
-        # month1 = start_time[5:7]
-        # days = calendar.monthrange(int(year), int(month1))[1]
-        # end_time = year + '-{}'.format(month1) + '-{}'.format(days)
-        # default_data = self.get_sheuling_list_1(default_site,start_time,end_time)
 
         return {
             'name': '排班汇总',
@@ -1111,7 +1086,6 @@ class ShedulingRecordr(models.Model):
 
         ding_user = self.env.user.dingtalk_user
         ids = ding_user.user_property_departments.id
-        print(ids)
         return ids
 
 
