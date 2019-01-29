@@ -24,7 +24,7 @@
                     <field name="change_shifts_user_id" string="交班人"/>
                     <field name="change_shifts_time" string="交班时间"/>
                     <field name="job_no" string="工号"/>
-                    <field name="position" string="职位"/>
+                    <field name="production_state" string="职位"/>
                     <field name="state" string="状态"/>
                     <widget string="操作" name="treebtns" template="station_detail"/>
                 </tree>

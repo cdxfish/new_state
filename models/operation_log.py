@@ -31,7 +31,6 @@ class operation_log(models.Model):
 class InheritMailMessage(models.Model):
     _inherit = 'mail.message'
 
-
     def detail(self):
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_operation_log_form').id
         operation_log = self.env['funenc_xa_station.operation_log'].search([])
@@ -54,18 +53,15 @@ class InheritMailMessage(models.Model):
     @api.multi
     def unlink(self):
         lens = len(self)
-        this = self[lens-1]  #日志为创建的记录
+        this = self[lens - 1]  # 日志为创建的记录
         model = this.model
-        del_ir_model = self.env['ir.model'].search([('model','=',model)])
+        del_ir_model = self.env['ir.model'].search([('model', '=', model)])
 
         self.sudo(this.create_uid).create(
             {
-                'body':'删除模型({})'.format(del_ir_model.name),
-                'record_name':this.record_name
+                'body': '删除模型({})'.format(del_ir_model.name),
+                'record_name': this.record_name
             }
         )
 
         return super(InheritMailMessage, self).unlink()
-
-
-
