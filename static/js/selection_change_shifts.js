@@ -28,9 +28,6 @@ odoo.define('selection_change_shifts_clint', function (require) {
                 new Vue({
                     el: '#app',
                     mounted(){
-                        this.$refs.input1.value ='xxx';
-                        this.$refs.test.show = false;
-                        // console.log(this.$refs.input1.value ='xxx')
                     },
                     data() {
                         return self.vue_data
@@ -101,7 +98,7 @@ odoo.define('selection_change_shifts_clint', function (require) {
                                     res_model: 'funenc_xa_station.production_change_shifts',
                                     views: [[view_xml_id, 'form']],
                                     target: 'new',
-                                    context: {'xml_id': view_xml_id}
+                                    context: {'xml_id': view_xml_id,'is_station_service':1}
                                 });
 
                             })

@@ -106,7 +106,8 @@ odoo.define('change_shifts_clint', function (require) {
                                 res_model: 'funenc_xa_station.production_change_shifts',
                                 views: [[self.vue_data.views, 'list']],
                                 target: 'new',
-                                domain: self.vue_data.domain
+                                domain: self.vue_data.domain,
+                                context: {'group_by':'production_state'}
                             });
 
 
