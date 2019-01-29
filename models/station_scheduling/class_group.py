@@ -91,8 +91,9 @@ class ClassGroup(models.Model):
                 if self_department.department_hierarchy != 3:
                     pop_user_ids.append(department_property_user.id)
                     break
-        print(pop_user_ids)
         department_user_ids = list(set(tmp_department_user_ids) - set(pop_user_ids))
-        select_user_ids_list =self.search([('site_id','=',site_id)]).ids
+        select_user_ids_list = []
+        for obj in self.search([('site_id', '=', site_id)]):
+            select_user_ids_list = select_user_ids_list + obj.group_user_ids.ids
 
         return list(set(department_user_ids) - set(select_user_ids_list))
