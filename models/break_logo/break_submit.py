@@ -35,7 +35,7 @@ class BreakSubmit(models.Model):
     def create(self, vals):
         if vals.get('load_file_test_1') or vals.get('url'):
             vals['browse_image_invisible'] = 'one'
-            vals['submit_time'] = datetime.now()
+        vals['submit_time'] = datetime.now()
 
         return super(BreakSubmit, self).create(vals)
 
