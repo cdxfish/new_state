@@ -179,25 +179,40 @@ class PrudeNewpaperWrite(models.Model):
     @api.one
     @api.depends('event_stype')
     def _event_content(self):
-        if self.event_stype.prude_event_type == '边门进出情况':
-            self.event_content = str('进边门人数')+str(self.Enter_person_count or '') +','+ str('出边门人数') + str(self.come_person_count)
+        date_8 = datetime.timedelta(hours=8)
+        if self.event_stype_name == '边门进出情况':
+            self.event_content = str('进边门人数') + str(self.Enter_person_count or '') + ',' + str('出边门人数') + str(
+                self.come_person_count or '')
+        elif self.event_stype_name == '票务、AFC故障及异常情况':
+            brank_time_8 = datetime.datetime.strptime(self.brenk_time, '%Y-%m-%d %H:%S:%M') + date_8
+            brank_time_8 = datetime.datetime.strftime(brank_time_8, '%Y-%m-%d %H:%S:%M')
+            brenk_repair_time_8 = str(datetime.datetime.strptime(self.brenk_repair_time, '%Y-%m-%d %H:%S:%M') + date_8)
+            brenk_repair_time_8 = datetime.datetime.strptime(brenk_repair_time_8, '%Y-%m-%d %H:%S:%M')
+            self.event_content = str('设备名称' or '') + ':' + str(self.equipment_name or '') \
+                                 + str('、故障时间：') + str(brank_time_8 or '') \
+                                 + str('、故障报修时间') + ':' + str(brenk_repair_time_8 or '') \
+                                 + '、' + str('故障情况') + ':' + str(self.brenk_state or '')
 
-        elif self.event_stype.prude_event_type == '票务、AFC故障及异常情况':
-            self.event_content = str('设备名称')+':'+str(self.equipment_name or '') + str('、故障时间：')+str(self.brenk_time or '') + \
-                str('、故障报修时间' or '')+':'+str(self.brenk_repair_time or '')+'、'+str('故障情况' or '')+':'+str(self.brenk_state or '')
+        elif self.event_stype_name == '日票、预制单程票售卖情况':
+            self.event_content = '2元' + ':' + str(self.two_money or '') \
+                                 + '、' + '3元' + ':' + str(self.three_money or '') \
+                                 + '、4元' + ':' + str(self.four_money or '') \
+                                 + '、5元' + ':' + str(self.five_money or '') \
+                                 + '、6元' + ':' + str(self.six_money or '') \
+                                 + '、7元' + ':' + str(self.seven_money or '') \
+                                 + '、8元' + ':' + str(self.eight_money or '')
 
-        elif self.event_stype.prude_event_type == '日票、预制单程票售卖情况':
-            self.event_content = '2元'+':'+str(self.two_money or 0)+'、'+'3元'+':'+str(self.three_money or 0)+'、4元'+':'\
-                                 +str(self.four_money or 0)+'、5元'+':'+str(self.five_money or 0)+'、6元'+':'+str(self.six_money or 0) \
-                                 +'、7元'+':'+str(self.seven_money or 0)+'、8元'+':'+str(self.eight_money or 0)
-
-        elif self.event_stype.prude_event_type == '其他设备故障情况':
-            self.event_content = '故障发时间：'+str(self.brenk_time or '')+'、故障报修时间:'+str(self.brenk_repair_time or '')\
-                                 +'、故障情况:' + str(self.brenk_state or '')
+        elif self.event_stype_name == '其他设备故障情况':
+            brenk_repair_time_8 = datetime.datetime.strptime(self.brenk_repair_time, '%Y-%m-%d %H:%S:%M') + date_8
+            brenk_repair_time_8 = datetime.datetime.strftime(brenk_repair_time_8, '%Y-%m-%d %H:%S:%M')
+            brenk_time_8 = datetime.datetime.strptime(self.brenk_time, '%Y-%m-%d %H:%S:%M') + date_8
+            brenk_time_8 = datetime.datetime.strftime(brenk_time_8, '%Y-%m-%d %H:%S:%M')
+            self.event_content = '故障发时间：' + str(brenk_time_8 or '') \
+                                 + '、故障报修时间:' + str(brenk_repair_time_8 or '') \
+                                 + '、故障情况:' + str(self.brenk_state or '')
 
         else:
             self.event_content = self.event_content_create
-
      #修改当前的记录将新的值负值给对应的字段
     def save_current_record(self):
         if self.event_stype_name == '边门进出情况':
