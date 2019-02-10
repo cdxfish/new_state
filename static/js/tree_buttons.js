@@ -135,7 +135,7 @@ odoo.define("treebtns", function (require) {
             }).then(function (data) {
                 self.$el.find('button').each(function () {
                     var btn_group = $(this).attr('group');
-                    if(btn_group && data[self.uid].indexOf(btn_group) !== -1){
+                    if(btn_group && data[self.uid] && data[self.uid].indexOf(btn_group) !== -1){
                         $(this).show()
                     }
                 })
