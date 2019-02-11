@@ -280,12 +280,12 @@ class StationIndex(models.Model):
                     'clock_start_time': datetime.datetime.now(),
                     'is_overtime': 'no'
                 }
-                self.env['fuenc_station.clock_record'].sudo().create(values)
+                self.env['fuenc_station.clock_record'].create(values)
 
                 return '上班打卡成功'
 
             else:
-                clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
+                clock_records = self.env['fuenc_station.clock_record'].search([('site_id', '=', site_id),('user_id','=',user_id)],
                                                                                      order='id asc')
                 lens = len(clock_records)
                 if clock_records:
