@@ -263,61 +263,69 @@ class StationIndex(models.Model):
     def save_clock_record(self, **kw):
         site_id = kw.get('department_id')
         user_id = kw.get('user_id')
+        try:
 
-        if kw.get('type') == 'work':
-            arrange_order_id = self.env['funenc_xa_station.sheduling_record'].sudo().search(
-                [('site_id', '=', site_id),
-                 ('user_id', '=', user_id),
-                 ('sheduling_date', '=', datetime.datetime.now())])
-            values = {
-                # 'line_id': user_id.line_id.id,
-                'site_id': site_id,
-                'time': datetime.datetime.now(),
-                'user_id': user_id,
-                'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
-                'clock_site': site_id,
-                'clock_start_time': datetime.datetime.now(),
-                'is_overtime': 'no'
-            }
-            self.env['fuenc_station.clock_record'].sudo().create(values)
+            if kw.get('type') == 'work':
+                arrange_order_id = self.env['funenc_xa_station.sheduling_record'].sudo().search(
+                    [('site_id', '=', site_id),
+                     ('user_id', '=', user_id),
+                     ('sheduling_date', '=', datetime.datetime.now())])
+                values = {
+                    # 'line_id': user_id.line_id.id,
+                    'site_id': site_id,
+                    'time': datetime.datetime.now(),
+                    'user_id': user_id,
+                    'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
+                    'clock_site': site_id,
+                    'clock_start_time': datetime.datetime.now(),
+                    'is_overtime': 'no'
+                }
+                self.env['fuenc_station.clock_record'].sudo().create(values)
 
-            return '上班打卡成功'
+                return '上班打卡成功'
 
-        else:
-            clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
-                                                                                 order='id asc')
-            lens = len(clock_records)
-            if clock_records:
-                clock_record = clock_records[lens - 1]
-                if not clock_record.clock_start_time:
-                    return '请先上班打卡'
-                else:
-                    clock_record.clock_end_time = datetime.datetime.now()
-                    work_time = get_time_difference_th(clock_record.clock_start_time, clock_record.clock_end_time)
-                    if work_time <= 12:
-                        compute_work_time = work_time
-                        clock_record.work_time = compute_work_time
-                    else:
-                        compute_work_time = 12
-                        clock_record.work_time = compute_work_time
-                        clock_record.is_overtime = 'yes'
-                        clock_record.overtime = work_time - 12
-                    if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]:  # 上下班打卡为一天
-                        flag = self.get_festival_and_holiday(clock_record.clock_end_time[:10])
-                        if flag:
-                            clock_record.festival_overtime = compute_work_time
-                    else:  # 上下班打卡不为一天
-                        morning_difference_th_1 = 0
-                        morning_difference_th_2 = 0
-                        if self.get_festival_and_holiday(clock_record.clock_start_time[:10]):
-                            morning_difference_th_1 = to_morning_difference_th(clock_record.clock_end_time[:10])
-                        if self.get_festival_and_holiday(clock_record.clock_end_time[:10]):
-                            morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
-                        clock_record.festival_overtime = morning_difference_th_1 + morning_difference_th_2
-
-                    return '下班打卡成功'
             else:
-                return '请先上班打卡'
+                clock_records = self.env['fuenc_station.clock_record'].sudo().search([('site_id', '=', site_id)],
+                                                                                     order='id asc')
+                lens = len(clock_records)
+                if clock_records:
+                    clock_record = clock_records[lens - 1]
+                    if not clock_record.clock_start_time:
+                        return '请先上班打卡'
+                    else:
+                        if not clock_record.clock_end_time:
+                            clock_record.clock_end_time = datetime.datetime.now()
+                            work_time = get_time_difference_th(clock_record.clock_start_time, clock_record.clock_end_time)
+                            if work_time <= 12:
+                                compute_work_time = work_time
+                                clock_record.work_time = compute_work_time
+                            else:
+                                compute_work_time = 12
+                                clock_record.work_time = compute_work_time
+                                clock_record.is_overtime = 'yes'
+                                clock_record.overtime = work_time - 12
+                            if clock_record.clock_end_time[:10] == clock_record.clock_start_time[:10]:  # 上下班打卡为一天
+                                flag = self.get_festival_and_holiday(clock_record.clock_end_time[:10])
+                                if flag:
+                                    clock_record.festival_overtime = compute_work_time
+                            else:  # 上下班打卡不为一天
+                                morning_difference_th_1 = 0
+                                morning_difference_th_2 = 0
+                                if self.get_festival_and_holiday(clock_record.clock_start_time[:10]):
+                                    morning_difference_th_1 = to_morning_difference_th(clock_record.clock_end_time[:10])
+                                if self.get_festival_and_holiday(clock_record.clock_end_time[:10]):
+                                    morning_difference_th_2 = today_morning_difference_th(clock_record.clock_end_time[:10])
+                                clock_record.festival_overtime = morning_difference_th_1 + morning_difference_th_2
+
+                            return '下班打卡成功'
+                        else:
+                            return '你已下班打卡,若要打卡请打上班卡'
+                else:
+                    return '请先上班打卡'
+        except Exception as E:
+            _logger.info('打卡失败，{}'.format(E))
+            return '打卡失败'
+
 
     def get_festival_and_holiday(self, dtime):
         # 判断节假日 参数 date  返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
