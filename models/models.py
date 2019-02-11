@@ -324,7 +324,7 @@ class StationIndex(models.Model):
                     return '请先上班打卡'
         except Exception as E:
             _logger.info('打卡失败，{}'.format(E))
-            return '打卡失败'
+            return '打卡失败，{}'.format(E)
 
 
     def get_festival_and_holiday(self, dtime):
