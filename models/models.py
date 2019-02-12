@@ -275,7 +275,7 @@ class StationIndex(models.Model):
                     'site_id': site_id,
                     'time': datetime.datetime.now(),
                     'user_id': user_id,
-                    'arrange_order_id': arrange_order_id.id if arrange_order_id else None,
+                    'arrange_order_id': arrange_order_id.arrange_order_id.id if arrange_order_id else None,
                     'clock_site': site_id,
                     'clock_start_time': datetime.datetime.now(),
                     'is_overtime': 'no'
