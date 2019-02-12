@@ -1,0 +1,5 @@
+pypinyin
+pdfkit
+pendulum
+pyexcel
+xpinyin
