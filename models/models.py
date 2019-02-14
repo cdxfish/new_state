@@ -1466,8 +1466,6 @@ class ImportGroupUser(models.Model):
     #         # f.save('二分部钉钉未设置人员.xls')
     #     self.unlink()
 
-from odoo.http import request
-
 class ExportExcel(models.Model):
     _name = 'abstract.export_excel'
 
@@ -1514,7 +1512,7 @@ class ExportExcel(models.Model):
                         # 关系字段取 string
                         value = value[1] if value else ''
                     if selection_fields.get(key):
-                        # selection 转换成想对应的值
+                        # selection 转换成相对应的值
                         value = selection_fields.get(key).get(value)
 
                     sheet1.write(j + 1, index, value if value else '')
@@ -1530,9 +1528,6 @@ class ExportExcel(models.Model):
         return {
             'name': '导出',
             "type": "ir.actions.act_url",
-            "res_model": "funenc_xa_station.check_record",
-            'target': 'new',
             'context': self.env.context,
-            # 'url':'/fuenc_xa_station/check_download?parameter={}&name={}'.format(parameter,name),
             'url': '/funenc_xa_station/abstract/export_excel?file={}&name={}'.format(file, name)
         }

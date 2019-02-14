@@ -70,6 +70,7 @@ odoo.define("treebtns", function (require) {
             this.record = record;
             this.attrs = node.attrs;
             this.template = this.attrs.template;
+            this.button_groups_data = parent.getParent().button_groups_data
             if (!this.template) {
                 console.log(
                     "the template for template widget is undfined, please set the template attrs"
@@ -129,18 +130,12 @@ odoo.define("treebtns", function (require) {
         start: function () {
             this._super();
             var self = this;
-            self._rpc({
-                model: 'funenc_xa_station.return.view.function',
-                method: 'get_groups_with_id'
-            }).then(function (data) {
-                self.$el.find('button').each(function () {
-                    var btn_group = $(this).attr('group');
-                    if(btn_group && data[self.uid] && data[self.uid].indexOf(btn_group) !== -1){
-                        $(this).show()
-                    }
-                })
+            self.$el.find('button').each(function () {
+                var btn_group = $(this).attr('group');
+                if(btn_group && self.button_groups_data[self.uid] && self.button_groups_data[self.uid].indexOf(btn_group) !== -1){
+                    $(this).show()
+                }
             });
-
             var serverbtns = [];
             var confirmBtns = [];
             self.$("button").each(function (index, item) {

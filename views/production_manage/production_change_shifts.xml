@@ -825,7 +825,10 @@
                                 <div class="col-md-8">
                                     <field name="site_id"
                                            options="{'no_create':True,'no_open':True}" required="1"
-                                           domain="product_site_id_domain"/>
+                                           domain="product_site_id_domain"
+                                           context="{'site_id':site_id}"
+
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -849,6 +852,7 @@
                                                 <div class="col-md-8  col-sm-6  col-xs-12">
                                                     <field name="special_card_preset_id" string="特殊卡号"
                                                            widget="many2many_tags"
+                                                           domain="[('site_id','=',site_id)]"
                                                            options="{'no_create':True,'no_open':True}"></field>
                                                 </div>
                                             </div>

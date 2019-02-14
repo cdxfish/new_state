@@ -141,8 +141,9 @@ class PositionSettings(models.Model):
                 当前组的子组中人的删除处理：
                 若其他组的子组中包含该子组，且当前组的子组中包含的人被被包含在该子组中，则不能删除，否则，删除
          '''
-        del_groups_ids = self.implied_ids.ids  # 需要删除的分组的
-        self.del_group_users(self.id, del_groups_ids, self.users.ids)
+        for record in self:
+            del_groups_ids = record.implied_ids.ids  # 需要删除的分组的
+            self.del_group_users(record.id, del_groups_ids, record.users.ids)
         return super(models.Model, self).unlink()
 
     @api.model
