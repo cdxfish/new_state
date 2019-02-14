@@ -18,6 +18,12 @@
             <field name="category_id" ref="module_category_fuenc"/>
         </record>
 
+        <record model="res.groups" id="system_change_Clock_in">
+            <field name="name">上下班打卡</field>
+            <field name="sequence">2</field>
+            <field name="category_id" ref="module_category_fuenc"/>
+        </record>
+
         <record model="res.groups" id="system_fuenc_site">
             <field name="name">生产日报</field>
             <field name="sequence">3</field>

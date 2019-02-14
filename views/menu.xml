@@ -866,6 +866,7 @@
 		<menuitem id="funenc_station_index" icon="&#xe628;" name="上下班打卡" sequence="4"
 				  parent="xa_station_production_manage_1"
 				  action="funenc_station_index_action"
+				  groups="system_work_kanban"
 		/>
 
 		<menuitem id="funenc_xa_station.xa_station_work_kanban_1" name="工作任务列表"
