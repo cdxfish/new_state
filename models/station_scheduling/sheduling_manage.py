@@ -1029,7 +1029,7 @@ class ShedulingRecordr(models.Model):
         else:
             ding_user = self.env.user.dingtalk_user
             department = ding_user.departments[0]
-            data = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search_read([('departments', '=', department.id)],
+            data = self.env['cdtct_dingtalk.cdtct_dingtalk_users'].search_read([('user_property_departments', '=', department.id)],
                                                                                ['id', 'name', 'jobnumber', 'avatar',
                                                                                 'position'])
 
