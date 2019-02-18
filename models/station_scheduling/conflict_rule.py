@@ -2,7 +2,7 @@
 
 import odoo.exceptions as msg
 from odoo import models, fields, api
-
+from ..get_domain import get_site_ids
 
 class ConflictRule(models.Model):
     _name = 'funenc_xa_station.conflict_rule'
@@ -20,25 +20,22 @@ class ConflictRule(models.Model):
     conflict_rule_to_station_certificate = fields.One2many('conflict_rule_station_certificate_ref', 'conflict_rule_id', string='')
 
 
-
+    @get_site_ids
     @api.model
-    def init_data(self):
+    def init_data(self,site_ids):
         # 其他权限组进来还没有判断
+        context = dict(self.env.context)
         if self.env.user.id == 1:
             return {
                 'name': '冲突规则',
                 'type': 'ir.actions.act_window',
                 "views": [[False, 'tree']],
                 'res_model': 'funenc_xa_station.conflict_rule',
-                'context': self.env.context,
+                'context': context,
                 'target': 'current',
             }
         #
-        department_id = self.env.user.dingtalk_user.departments[0]
-        site_id = department_id.id
-        line_id = self.env.user.dingtalk_user.line_id.id
-        if department_id.department_hierarchy == 3:
-            # 形如
+        for site_id in site_ids:     # 形如
             # values ={
             #     'line_id':
             #     'site_id':
@@ -49,26 +46,31 @@ class ConflictRule(models.Model):
             #     'conflict_rule_state': 'enable',
             #     'is_certificate': 2
             # }
+            department = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].browse(site_id)
+            line_id = self.env['cdtct_dingtalk.cdtct_dingtalk_department'].search(
+                [('departmentId', '=', department.parentid)]).id
+
             site_conflict_rule = self.search([('site_id', '=', site_id)])
             if not site_conflict_rule:
-
                 sel_sql = "insert into funenc_xa_station_conflict_rule(line_id,site_id,conflict_rule_index,conflict_rule_content," \
                           "conflict_rule,save_conflict_rule,conflict_rule_state,is_certificate) " \
                           "values({},{},1, '班与班之间的时间间隔≥', '12h',12, 'enable', 2),({},{},2, '每人纯休的连续时间≤', '2d',2, 'enable', 2)," \
                           "({},{},3, '夜班第2天必须排休', '2d',2, 'enable', 2),({},{},4, '每个班组必须具备证书', null, 0, 'enable', 1)".format(
-                          line_id,site_id,line_id,site_id,line_id,site_id,line_id,site_id
+                    line_id, site_id, line_id, site_id, line_id, site_id, line_id, site_id
                 )
                 self.env.cr.execute(sel_sql)
 
-            return {
-                'name': '冲突规则',
-                'type': 'ir.actions.act_window',
-                "views": [[False, 'tree']],
-                'res_model': 'funenc_xa_station.conflict_rule',
-                'context': self.env.context,
-                'target': 'current',
-                'domain': [('site_id','=', site_id)]
-            }
+
+        context['group_by'] = 'site_id'
+        return {
+            'name': '冲突规则',
+            'type': 'ir.actions.act_window',
+            "views": [[False, 'tree']],
+            'res_model': 'funenc_xa_station.conflict_rule',
+            'context': context,
+            'target': 'current',
+            'domain': [('site_id', 'in', site_ids)]
+        }
 
 
     def conflict_rule_enable(self):
