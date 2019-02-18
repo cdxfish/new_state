@@ -581,7 +581,7 @@ class ShedulingManage(models.Model):
                         data.append(group_id.id)
                         data.append(time_day)
                         data.append('order_group')
-                        data.append(8)
+                        data.append(8) # 无实意 站位 后面有需要在完成业务
                         data.append(tmp_class_order_ids[0])  # 班次
                         group_data.append(tuple(data))
                     tmp_class_order_ids = tmp_class_order_ids[1:] + [tmp_class_order_ids[0]]
@@ -614,7 +614,7 @@ class ShedulingManage(models.Model):
                     data.append(user_id)
                     data.append(time_day)
                     data.append('motorized_group')
-                    data.append(8)
+                    data.append(8) # 无实意 站位 后面有需要在完成业务
                     data.append(tmp_class_motorized_ids[0])  # 班次
                     motorized_data.append(tuple(data))
                     tmp_class_motorized_ids = tmp_class_motorized_ids[1:] + [tmp_class_motorized_ids[0]]
@@ -622,7 +622,9 @@ class ShedulingManage(models.Model):
                 iden_arrange_class_types = iden_arrange_class_types[1:] + [
                     iden_arrange_class_types[0]]
                 tmp_class_motorized_ids = iden_arrange_class_types
-
+        self.env['funenc_xa_station.sheduling_record'].search(
+            [('sheduling_date', '>=', start_time), ('sheduling_date', '<=', end_time),
+             ('site_id', '=', site_id)]).unlink()
         if str(group_data)[1:-1]:
             insert_sql = "insert into funenc_xa_station_sheduling_record(line_id,site_id,user_id,class_group_id,sheduling_date,order_type,work_time,arrange_order_id)" \
                          "values{}".format(str(group_data)[1:-1])
@@ -832,7 +834,6 @@ class ShedulingManage(models.Model):
                         'class_group_id') else '无',
                     'shift_value': []
                 }
-                print()
 
                 for day in days:
 
