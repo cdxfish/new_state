@@ -20,7 +20,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme', 'vue_template_manager','mail','qiniu_service'],
+    'depends': ['base', 'web', 'base_import', 'cdtct_dingtalk', 'layui_theme', 'vue_template_manager', 'mail',
+                'qiniu_service'],
 
     # always loaded
     'data': [
@@ -121,8 +122,9 @@
         'views/consumables_manage/consumables_summary.xml',
         'views/integrated_management/station_equipment_summary.xml',
         'views/update_ding_user_task.xml',
-        'views/operation_log.xml'
-
+        'views/operation_log.xml',
+        'views/patrol_model/patrol_node_setting.xml',
+        '/Users/wangliang666/odoo11/xa_station/funenc_xa_station/views/patrol_model/patrol_node.xml',
 
     ],
     # only loaded in demonstration mode

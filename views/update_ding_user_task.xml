@@ -13,5 +13,19 @@
             <field name="model_id" ref="model_funenc_xa_station_update_ding_user_task"/>
             <field name="code">model.update_ding_user_task()</field>
         </record>
+
+        <record id="patrol_date_cron" model="ir.cron">
+            <field name="name">巡更计划定时任务</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="nextcall" eval="(datetime.now().strftime('%Y-%m-%d 15:59:59'))"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field name="state">code</field>
+            <field ref="model_funenc_xa_station_patrol_node_record" name="model_id"/>
+            <field name="code">model.update_patrol_time()</field>
+        </record>
+
     </data>
 </odoo>

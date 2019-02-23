@@ -4,9 +4,12 @@ from collections import defaultdict
 from odoo import models, fields, api
 
 MODULE_NAME = 'funenc_xa_station'
-CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive','module_position11',
-                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction','statistical_analysis_button']
+CATEGORY_ID_LIST = ['module_category_fuenc', 'module_category_run', 'module_category_comprehensive',
+                    'module_position11',
+                    'module_category_people', 'module_category_setting', 'module_category_jurisdiction',
+                    'statistical_analysis_button', 'module_patrol_node_management']
 CACHE_LIST = []
+
 
 class PositionSettings(models.Model):
     _inherit = 'res.groups'
@@ -112,8 +115,6 @@ class PositionSettings(models.Model):
             self._cr.execute(sql)
         return
 
-
-
     @api.multi
     def write(self, vals):
         '''
@@ -148,16 +149,16 @@ class PositionSettings(models.Model):
 
     @api.model
     def import_position_user_button(self):
-            # context = dict(self.env.context or {})
-            view_form = self.env.ref('funenc_xa_station.import_position_user_form').id
-            return {
-                'name': '导入角色组成员',
-                "type": "ir.actions.act_window",
-                "res_model": "import_group_user",
-                "views": [[view_form, "form"]],
-                'target': 'new',
-                'context': {},
-            }
+        # context = dict(self.env.context or {})
+        view_form = self.env.ref('funenc_xa_station.import_position_user_form').id
+        return {
+            'name': '导入角色组成员',
+            "type": "ir.actions.act_window",
+            "res_model": "import_group_user",
+            "views": [[view_form, "form"]],
+            'target': 'new',
+            'context': {},
+        }
 
     def act_group_users(self):
         view_form = self.env.ref('funenc_xa_station.funenc_xa_station_group_form').id
@@ -170,4 +171,3 @@ class PositionSettings(models.Model):
             'context': {},
             'res_id': self.id
         }
-

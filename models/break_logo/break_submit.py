@@ -9,6 +9,7 @@ from ..get_domain import get_domain
 from ..python_util import get_add_8th_str_time
 from ast import literal_eval
 
+
 class BreakSubmit(models.Model):
     _name = 'funenc_xa_station.break_submit'
     _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
@@ -23,14 +24,16 @@ class BreakSubmit(models.Model):
     equipment_post = fields.Char(string='设备位置', track_visibility='onchange')
     break_type = fields.Many2one('funenc_xa_staion.break_type_increase', string='故障类型', track_visibility='onchange')
     submit_time = fields.Datetime(string='提报时间', track_visibility='onchange')
-    deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况',default='zero', track_visibility='onchange')
+    deal_situation = fields.Selection([('one', '已处理'), ('zero', '未处理')], string='处理情况', default='zero',
+                                      track_visibility='onchange')
     deal_results = fields.Char(string='处理结果', track_visibility='onchange')
     deal_time = fields.Datetime(string='处理时间', track_visibility='onchange')
-    load_file_test_1 = fields.One2many('video_voice_model','break_submit_image',string='图片', track_visibility='onchange')
+    load_file_test_1 = fields.One2many('video_voice_model', 'break_submit_image', string='图片',
+                                       track_visibility='onchange')
     url = fields.Char(string='七牛路径')  # app 上传路径 自己转换
     browse_image_invisible = fields.Selection([('one', '有图片'), ('zero', '没有图片')], string='显示还是隐藏图片', default='zero')
 
-    #在创建的时候改变分数的正负数
+    # 在创建的时候改变分数的正负数
     @api.model
     def create(self, vals):
         if vals.get('load_file_test_1') or vals.get('url'):
@@ -50,13 +53,13 @@ class BreakSubmit(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
-            'target':'new',
+            'target': 'new',
         }
 
     # 处理操作
     def deal_button_action(self):
 
-        self.write({'deal_situation':'one'})
+        self.write({'deal_situation': 'one'})
         view_form = self.env.ref('funenc_xa_station.break_submit_deal_form').id
         return {
             'name': '故障列表',
@@ -66,8 +69,8 @@ class BreakSubmit(models.Model):
             "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
-            'res_id':self.id,
-            'target':'new',
+            'res_id': self.id,
+            'target': 'new',
         }
 
     # 修改当前的一条记录
@@ -82,8 +85,8 @@ class BreakSubmit(models.Model):
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
             'flags': {'initial_mode': 'edit'},
-            'res_id':self.id,
-            'target':'new',
+            'res_id': self.id,
+            'target': 'new',
         }
 
     # 编辑当前的一条记录
@@ -98,10 +101,9 @@ class BreakSubmit(models.Model):
             'res_model': 'funenc_xa_station.break_submit',
             'flags': {'initial_mode': 'edit'},
             'context': self.env.context,
-            'res_id':self.id,
-            'target':'new',
+            'res_id': self.id,
+            'target': 'new',
         }
-
 
     # 删除当前的一条记录
     def break_delete_action(self):
@@ -109,7 +111,7 @@ class BreakSubmit(models.Model):
 
     @get_domain
     @api.model
-    def get_break_submit_list(self,domain):
+    def get_break_submit_list(self, domain):
         if self.env.user.id == 1:
             data = self.search_read([], ['id', 'break_describe', 'break_type', 'submit_time', 'deal_results'])
         else:
@@ -163,39 +165,32 @@ class BreakSubmit(models.Model):
 
     @api.model
     def save_break_submit(self, vals):
-
-        try:
-            obj = self.create(vals)
-            if vals.get('url'):
-                imgs = literal_eval(vals.get('url'))
-                for im in imgs:
-                    self.env['video_voice_model'].create({
-                        'break_submit_image':obj.id,
-                        'url':im['url']
-                    })
-
-        except Exception:
-
-            return False
-
+        obj = self.sudo().create(vals)
+        if vals.get('url'):
+            imgs = literal_eval(vals.get('url'))
+            for im in imgs:
+                self.env['video_voice_model'].create({
+                    'break_submit_image': obj.id,
+                    'url': im['url']
+                })
         return True
 
     @api.model
     @get_domain
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self, domain):
         view_tree = self.env.ref('funenc_xa_station.break_submit_tree').id
         return {
             'name': '证件名称',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain': domain,
             "views": [[view_tree, "tree"]],
             'res_model': 'funenc_xa_station.break_submit',
             'context': self.env.context,
         }
 
-    #浏览当前记录的图片
+    # 浏览当前记录的图片
     def browse_image_button_act(self):
         view_form = self.env.ref('funenc_xa_station.browse_image_button_submit_act').id
         return {

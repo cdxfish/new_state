@@ -2,18 +2,21 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-from .. get_domain import get_domain
+from ..get_domain import get_domain
 from ast import literal_eval
 from ..python_util import get_add_8th_str_time
 import datetime
+
+
 class BelongToManagement(models.Model):
     _name = 'funenc_xa_station.belong_to_management'
-    _inherit = ['fuenc_station.station_base','mail.thread', 'mail.activity.mixin']
+    _inherit = ['fuenc_station.station_base', 'mail.thread', 'mail.activity.mixin']
     _order = 'check_time desc'
     _description = '属地管理'
     _rec_name = 'write_person'
 
-    post_check = fields.Selection([('guard', '保安'),('check', '安检'), ('clean', '保洁')], string='岗位检查', track_visibility='onchange')
+    post_check = fields.Selection([('guard', '保安'), ('check', '安检'), ('clean', '保洁')], string='岗位检查',
+                                  track_visibility='onchange')
     check_time = fields.Datetime(string='检测时间', track_visibility='onchange')
     check_state = fields.Text(string='检测情况', track_visibility='onchange')
     find_problem = fields.Text(string='发现问题', track_visibility='onchange')
@@ -24,15 +27,17 @@ class BelongToManagement(models.Model):
     # write_person = fields.Char(string='填写人')
     write_person = fields.Char(string='填报人',
                                default=lambda self: self.default_name_id())
-    job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id(), track_visibility='onchange')
+    job_number = fields.Char(string='工号', default=lambda self: self.default_job_number_id(),
+                             track_visibility='onchange')
     change_state = fields.Selection([('add', '加'), ('reduce', '减')], default='reduce')
     summary_score = fields.Integer(string='总分值', default=100)
     check_count = fields.Integer(string='检查次数', default=1)
-    load_file_test = fields.One2many('video_voice_model','belong_management_imange',string='图片上传', track_visibility='onchange')
+    load_file_test = fields.One2many('video_voice_model', 'belong_management_imange', string='图片上传',
+                                     track_visibility='onchange')
     imgs = fields.Char('照片路径')  # 存的字典  自己转
-    browse_image_invisible = fields.Selection([('one','有图片'),('zero','没有图片')],string='显示还是隐藏图片',default='zero')
+    browse_image_invisible = fields.Selection([('one', '有图片'), ('zero', '没有图片')], string='显示还是隐藏图片', default='zero')
 
-    #在创建的时候改变分数的正负数
+    # 在创建的时候改变分数的正负数
     @api.model
     def create(self, vals):
         if vals.get('change_state') == 'add':
@@ -40,15 +45,14 @@ class BelongToManagement(models.Model):
         elif vals.get('change_state') == 'reduce':
             vals['check_score'] = -abs(vals.get('check_score'))
 
-        if vals.get('load_file_test') or vals.get('imgs') :
-
-                vals['browse_image_invisible'] = 'one'
+        if vals.get('load_file_test') or vals.get('imgs'):
+            vals['browse_image_invisible'] = 'one'
         create_vals = super(BelongToManagement, self).create(vals)
         if create_vals.imgs:
             imgs = literal_eval(create_vals.imgs)
             for img in imgs:
                 self.env['video_voice_model'].create({
-                    'belong_management_imange':create_vals.id,
+                    'belong_management_imange': create_vals.id,
                     'url': img['url']
                 })
         return create_vals
@@ -58,14 +62,14 @@ class BelongToManagement(models.Model):
 
     @get_domain
     @api.model
-    def get_day_plan_publish_action(self,domain):
+    def get_day_plan_publish_action(self, domain):
         view_form = self.env.ref('funenc_xa_station.belong_to_management_tree').id
         return {
             'name': '属地管理属地管理',
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'domain':domain,
+            'domain': domain,
             "views": [[view_form, "tree"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
@@ -85,7 +89,7 @@ class BelongToManagement(models.Model):
             return
         return self.env.user.dingtalk_user.jobnumber
 
-    #创建新记录
+    # 创建新记录
     @api.model
     def create_belong_to_action(self):
         # view_form = self.env.ref('funenc_xa_station.belong_to_management_form').id
@@ -97,7 +101,7 @@ class BelongToManagement(models.Model):
             # "views": [[view_form, "form"]],
             'res_model': 'funenc_xa_station.belong_to_management',
             'context': self.env.context,
-            'target':'new',
+            'target': 'new',
         }
 
     # 修改当前的记录
@@ -121,10 +125,10 @@ class BelongToManagement(models.Model):
 
     @get_domain
     @api.model
-    def get_belong_to_management(self,domain):
+    def get_belong_to_management(self, domain):
 
         temps = self.search_read(domain,
-                                     ['id', 'summary_score', 'note', 'post_check', 'check_time'])
+                                 ['id', 'summary_score', 'note', 'post_check', 'check_time'])
         for temp in temps:
             if temp.get('post_check') == 'guard':
                 temp['post_check'] = '保安'
@@ -146,7 +150,7 @@ class BelongToManagement(models.Model):
         select_id = int(id) or -1
         belong_to_management = self.search_read([('id', '=', select_id)],
                                                 ['find_problem', 'check_state', 'note', 'post_check',
-                                                 'reference_according','imgs',
+                                                 'reference_according', 'imgs',
                                                  'summary_score', 'local_image', 'check_time', 'line_id', 'site_id'])[0]
         if belong_to_management.get('line_id') and belong_to_management.get('site_id'):
             belong_to_management['devicePosition'] = belong_to_management.get('line_id')[1] + '-' + \
@@ -176,13 +180,14 @@ class BelongToManagement(models.Model):
 
         try:
             vals['check_time'] = datetime.datetime.now()
-            vals['summary_score'] = 100 + vals.get('check_score',0)
+            vals['summary_score'] = 100 + vals.get('check_score', 0)
             self.create(vals)
-        except Exception:
-            raise False
+        except Exception as e:
+            print(e)
+            return False
         return True
 
-    #查看现场图片
+    # 查看现场图片
     def browse_image_button_act(self):
         view_form = self.env.ref('funenc_xa_station.browse_iamge_form').id
         return {
@@ -197,5 +202,3 @@ class BelongToManagement(models.Model):
             'flags': {'initial_mode': 'readonly'},
             'target': 'new',
         }
-
-

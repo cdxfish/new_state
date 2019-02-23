@@ -18,7 +18,8 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/visible_button.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/group_config_client.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/many2many.js"/>
-                <script type="text/javascript" src="/funenc_xa_station/static/js/act_xa_station_sheduling_manage_1_action.js"/>
+                <script type="text/javascript"
+                        src="/funenc_xa_station/static/js/act_xa_station_sheduling_manage_1_action.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/scheduling_summary.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/punch_clock_client.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/caseder_class.js"/>
@@ -32,16 +33,16 @@
                 <script type="text/javascript" src="/funenc_xa_station/static/js/compute_domain.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/web_widget.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/user_custom_search.js"/>
-                 <script type="text/javascript" src="/funenc_xa_station/static/js/many2many_searchable.js"/>
-                 <script type="text/javascript" src="/funenc_xa_station/static/js/good_deeds_summary.js"/>
-                 <script type="text/javascript" src="/funenc_xa_station/static/js/consumables_summary.js"/>
-                 <script type="text/javascript" src="/funenc_xa_station/static/js/staion_equipment_summary.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/many2many_searchable.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/good_deeds_summary.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/consumables_summary.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/staion_equipment_summary.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/break_widget.js"/>
-                <script type="text/javascript" src="/funenc_xa_station/static/js/close_cookies.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/slose_cookies_git.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/my_mail_thread.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/selection_change_shifts.js"/>
                 <script type="text/javascript" src="/funenc_xa_station/static/js/inheritance_list_view.js"/>
+                <script type="text/javascript" src="/funenc_xa_station/static/js/patrol_widget.js"/>
 
             </xpath>
         </template>

@@ -1,0 +1,101 @@
+<?xml  version="1.0"  encoding="UTF-8"  ?>
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="patrol_node_setting_server">
+            <field name="name">新增节点</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_patrol_node_setting"/>
+            <field name="binding_model_id" ref="model_funenc_xa_station_patrol_node_setting"/>
+            <field name="binding_target_key">new_increate_node</field>
+            <field name="binding_type">action_button</field>
+            <field name="code">
+                action = model.new_increate_node()
+            </field>
+        </record>
+
+        <record id="patrol_node_setting_tree" model="ir.ui.view">
+            <field name="name">巡更节点设置</field>
+            <field name="model">funenc_xa_station.patrol_node_setting</field>
+            <field name="arch" type="xml">
+                <tree create="0" class="noOpen" limit="15">
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="create_time"></field>
+                    <field name="create_person"></field>
+                    <field name="node_name"></field>
+                    <field name="node_number"></field>
+                    <widget name="treebtns" template="patrol_node_setting_qr" string="二维码"></widget>
+                    <widget name="treebtns" template="patrol_node_setting_op" string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="patrol_node_tree_information_search_qr" model="ir.ui.view">
+            <field name="name">巡更节点设置</field>
+            <field name="model">funenc_xa_station.patrol_record_details</field>
+            <field name="arch" type="xml">
+                <tree create="0" class="noOpen" limit="15">
+                    <field name="name"></field>
+                    <field name="node_name"></field>
+                    <field name="patrol_time"></field>
+                    <widget name="treebtns" template="patrol_node_details_qr" string="二维码"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="patrol_node_setting_from" model="ir.ui.view">
+            <field name="name">巡更节点设置</field>
+            <field name="model">funenc_xa_station.patrol_node_setting</field>
+            <field name="arch" type="xml">
+                <form creata="0" edit="0" class="noOpen">
+                    <group>
+                        <field name="product_id_domain" invisible="1"/>
+                        <field name="product_site_id_domain" invisible="1"/>
+                        <field name="line_id" options="{'no_create':True,'no_open':True}" requird="true" domain="product_id_domain"></field>
+                        <field name="site_id" options="{'no_create':True,'no_open':True}" requird="true" domain="product_site_id_domain"></field>
+                        <field name="node_name"></field>
+                        <field name="node_number"></field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="patrol_node_setting_from_search_qr" model="ir.ui.view">
+            <field name="name">巡更节点设置</field>
+            <field name="model">funenc_xa_station.patrol_node_setting</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <label for="qr_code" string="二维码"/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="qr_code" widget="image" options="{&quot;size&quot;: [200, 200]}">
+                                </field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="patrol_node_setting_act" model="ir.actions.act_window">
+            <field name="name">巡更节点设置</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_key">new_increate_node</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('funenc_xa_station.patrol_node_setting_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('funenc_xa_station.patrol_node_setting_from')})]">
+            </field>
+            <field name="res_model">funenc_xa_station.patrol_node_setting</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="patrol_node_setting_menu_patent" name="电子巡更"></menuitem>
+        <menuitem id="patrol_node_setting_menu" action="patrol_node_setting_act" name="巡更节点设置"
+                  parent="patrol_node_setting_menu_patent" groups="patrol_node_setting_group"></menuitem>
+
+    </data>
+</odoo>

@@ -312,6 +312,24 @@
             <field name="sequence">44</field>
             <field name="category_id" ref="module_category_jurisdiction"/>
         </record>
+
+        <record model="ir.module.category" id="module_patrol_node_management">
+            <field name="name">电子巡更</field>
+        </record>
+
+        <record model="res.groups" id="patrol_node_setting_group">
+            <field name="name">巡更节点设置</field>
+            <field name="sequence">45</field>
+            <field name="category_id" ref="module_patrol_node_management"/>
+        </record>
+
+        <record model="res.groups" id="patrol_node_group">
+            <field name="name">巡更节点</field>
+            <field name="sequence">46</field>
+            <field name="category_id" ref="module_patrol_node_management"/>
+        </record>
+
+
         <!--添加该category下其他group-->
 
         <record model="ir.module.category" id="module_category_custom_groups">
@@ -327,19 +345,19 @@
             <field name="name">副经理</field>
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
-         <record model="res.groups" id="module_position_personnel_administration_assistant_103">
+        <record model="res.groups" id="module_position_personnel_administration_assistant_103">
             <field name="name">人事管理助理</field>
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
-         <record model="res.groups" id="module_position_transport_administration_assistant_104">
+        <record model="res.groups" id="module_position_transport_administration_assistant_104">
             <field name="name">运输管理助理</field>
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
-         <!--<record model="res.groups" id="module_position_transport_administration_assistant_105">-->
-            <!--<field name="name">运输管理助理</field>-->
-            <!--<field name="category_id" ref="module_category_custom_groups"/>-->
+        <!--<record model="res.groups" id="module_position_transport_administration_assistant_105">-->
+        <!--<field name="name">运输管理助理</field>-->
+        <!--<field name="category_id" ref="module_category_custom_groups"/>-->
         <!--</record>-->
 
         <record model="res.groups" id="module_position_technological development_assistant_106">
@@ -460,7 +478,7 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
-         <record model="res.groups" id="position_integrated_management_assistant_129">
+        <record model="res.groups" id="position_integrated_management_assistant_129">
             <field name="name">综合管助理</field>
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
@@ -475,7 +493,7 @@
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>
 
-         <record model="res.groups" id="position_comprehensive_management_132">
+        <record model="res.groups" id="position_comprehensive_management_132">
             <field name="name">综合管理主办</field>
             <field name="category_id" ref="module_category_custom_groups"/>
         </record>

@@ -1,0 +1,226 @@
+<?xml  version="1.0"  encoding="UTF-8"  ?>
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="patrol_node_server">
+            <field name="name">创建计划</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_funenc_xa_station_patrol_node"/>
+            <field name="binding_model_id" ref="model_funenc_xa_station_patrol_node"/>
+            <field name="binding_target_key">new_increate_node_plan</field>
+            <field name="binding_type">action_button</field>
+            <field name="code">
+                action = model.new_increate_node()
+            </field>
+        </record>
+
+        <record id="patrol_node__tree" model="ir.ui.view">
+            <field name="name">巡更节点</field>
+            <field name="model">funenc_xa_station.patrol_node</field>
+            <field name="arch" type="xml">
+                <tree create="0" class="noOpen" limit="15" search_ex_template="node_search_button">
+                    <field name="line_id"></field>
+                    <field name="site_id"></field>
+                    <field name="project_name"></field>
+                    <field name="create_name"></field>
+                    <field name="create_time"></field>
+                    <field name="node_order" widget="many2many_tags"></field>
+                    <field name="participants" widget="many2many_tags"></field>
+                    <field name="check_cycle"></field>
+                    <field name="page_check_start_time"></field>
+                    <field name="page_check_end_time"></field>
+                    <field name="state"></field>
+                    <widget name="treebtns" template="patrol_node_state" string="操作"></widget>
+                </tree>
+            </field>
+        </record>
+
+        <record id="patrol_node_from" model="ir.ui.view">
+            <field name="name">巡更节点</field>
+            <field name="model">funenc_xa_station.patrol_node</field>
+            <field name="arch" type="xml">
+                <form creata="0" edit="0" class="noOpen">
+                    <group>
+                        <field name="product_id_domain" invisible="1"/>
+                        <field name="product_site_id_domain" invisible="1"/>
+                        <field name="line_id" options="{'no_create':True,'no_open':True}" requird="true"
+                               domain="product_id_domain"></field>
+                        <field name="site_id" options="{'no_create':True,'no_open':True}" requird="true"
+                               domain="product_site_id_domain"></field>
+                        <field name="project_name"></field>
+                        <field name="node_order" widget="many2many_tags"></field>
+                        <field name="participants" widget="many2many_tags"></field>
+                        <field name="check_cycle" readonly="1"></field>
+                        <field name="check_start_time" options="{'fmt_type':'time'}"></field>
+                        <field name="check_end_time" options="{'fmt_type':'time'}"></field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="patrol_node_from_record" model="ir.ui.view">
+            <field name="name">巡更节点</field>
+            <field name="model">funenc_xa_station.patrol_node</field>
+            <field name="arch" type="xml">
+                <form creata="0" edit="0" class="noOpen">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="project_name" string="计划名称："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="project_name"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="create_name" string="创建人："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="create_name"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="create_time" string="创建时间："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="create_time" style="width: 100%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="check_cycle" string="检查周期："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="check_cycle"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="page_check_start_time" string="开始检查时间："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="page_check_start_time"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="page_check_end_time" string="截止检查时间："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="page_check_end_time"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="state" string="状态："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="state"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="line_id" string="线路："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="line_id" options="{'no_create':True,'no_open':True}" class="noOpen"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <label for="site_id" string="站点："/>
+                            </div>
+                            <div class="col-md-8">
+                                <field name="site_id" options="{'no_create':True,'no_open':True}" class="noOpen"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <label for="participants" string="参与人员："/>
+                            </div>
+                            <div class="col-md-10">
+                                <field name="participants" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <label for="node_order" string="节点顺序："/>
+                            </div>
+                            <div class="col-md-10">
+                                <field name="node_order">
+                                    <tree class="noOpen">
+                                        <field name="node_name"></field>
+                                        <widget name="treebtns" template="page_node_order_qr_details"
+                                                string="操作"></widget>
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <label for="node_record" string="巡更记录："/>
+                            </div>
+                            <div class="col-md-10">
+                                <field name="node_record">
+                                    <tree class="noOpen">
+                                        <field name="date"></field>
+                                        <field name="name"></field>
+                                        <field name="start_time"></field>
+                                        <field name="end_time"></field>
+                                        <field name="state"></field>
+                                        <widget name="treebtns" template="patrol_node_state_details"
+                                                string="操作"></widget>
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--查看详情图片-->
+        <record id="search_patrol_image_node_from" model="ir.ui.view">
+            <field name="name">巡更节点详情</field>
+            <field name="model">funenc_xa_station.patrol_record_details</field>
+            <field name="arch" type="xml">
+                <form creata="0" edit="0" class="noOpen">
+                    <group>
+                        <field name="desc"></field>
+                        <field name="node_name"></field>
+                        <field name="load_file_test" widget="patrol_widget" string="图片"></field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="patrol_node_act" model="ir.actions.act_window">
+            <field name="name">巡更节点</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_key">new_increate_node_plan</field>
+            <field name="res_model">funenc_xa_station.patrol_node</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="patrol_node_menu" action="patrol_node_act" name="巡更节点"
+                  parent="patrol_node_setting_menu_patent" groups="patrol_node_group"></menuitem>
+
+    </data>
+</odoo>

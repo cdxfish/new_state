@@ -26,3 +26,4 @@ from . import get_domain
 from . import return_view_function
 from . import update_ding_user_task
 from . import operation_log
+from . import patrol_model

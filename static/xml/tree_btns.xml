@@ -9,10 +9,12 @@
     </t>
     <t t-name="week_shangbao_btns">
         <div>
-            <button t-if="widget.record.data.week_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object" name="week_commit" class="week-commit btn btn-default">
+            <button t-if="widget.record.data.week_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object"
+                    name="week_commit" class="week-commit btn btn-default">
                 上报
             </button>
-            <button t-if="widget.record.data.week_btns.indexOf('发起会签') >= 0" type="object" name="week_sign" class="btn btn-default">
+            <button t-if="widget.record.data.week_btns.indexOf('发起会签') >= 0" type="object" name="week_sign"
+                    class="btn btn-default">
                 发起会签
             </button>
         </div>
@@ -20,10 +22,12 @@
 
     <t t-name="week_huiqian_btns">
         <div>
-            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定同意么？" type="object" name="week_allow" class="btn btn-default">
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定同意么？" type="object" name="week_allow"
+                    class="btn btn-default">
                 同意
             </button>
-            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定不同意么？" type="object" name="week_not_allow" class="btn btn-default">
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定不同意么？" type="object"
+                    name="week_not_allow" class="btn btn-default">
                 不同意
             </button>
         </div>
@@ -31,10 +35,12 @@
 
     <t t-name="week_shenpi_btns">
         <div>
-            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定通过么？" type="object" name="week_allow" class="btn btn-default">
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定通过么？" type="object" name="week_allow"
+                    class="btn btn-default">
                 通过
             </button>
-            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定驳回么？" type="object" name="week_not_allow" class="btn btn-default">
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您确定驳回么？" type="object" name="week_not_allow"
+                    class="btn btn-default">
                 驳回
             </button>
         </div>
@@ -42,7 +48,8 @@
 
     <t t-name="week_fabu_btns">
         <div>
-            <button t-if="widget.record.data.p_elec_area == false" confirm="您发布同意么？" type="object" name="test" class="btn btn-default">
+            <button t-if="widget.record.data.p_elec_area == false" confirm="您发布同意么？" type="object" name="test"
+                    class="btn btn-default">
                 发布
             </button>
         </div>
@@ -120,13 +127,16 @@
 
     <t t-name="month_report_btns">
         <div>
-            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign"
+                    class="btn btn-default">
                 发起会签
             </button>
-            <button t-if="widget.record.data.month_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object" name="month_report" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('上报') >= 0" confirm="您确定要上报么？" type="object"
+                    name="month_report" class="btn btn-default">
                 上报
             </button>
-            <button t-if="widget.record.data.month_btns.indexOf('发布') >= 0" confirm="您发布同意么？" type="object" name="month_publish" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('发布') >= 0" confirm="您发布同意么？" type="object"
+                    name="month_publish" class="btn btn-default">
                 发布
             </button>
         </div>
@@ -134,10 +144,12 @@
 
     <t t-name="month_sign_btns">
         <div>
-            <button t-if="widget.record.data.month_btns.indexOf('同意') >= 0" confirm="您确定同意么？" type="object" name="month_sign_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('同意') >= 0" confirm="您确定同意么？" type="object"
+                    name="month_sign_allow" class="btn btn-default">
                 同意
             </button>
-            <button t-if="widget.record.data.month_btns.indexOf('不同意') >= 0" confirm="您确定不同意么？" type="object" name="month_sign_not_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('不同意') >= 0" confirm="您确定不同意么？" type="object"
+                    name="month_sign_not_allow" class="btn btn-default">
                 不同意
             </button>
         </div>
@@ -145,13 +157,16 @@
 
     <t t-name="month_approve_btns">
         <div>
-            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('发起会签') >= 0" type="object" name="month_sign"
+                    class="btn btn-default">
                 发起会签
             </button>
-            <button t-if="widget.record.data.month_btns.indexOf('通过') >= 0" confirm="您确定通过么？" type="object" name="month_approve_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('通过') >= 0" confirm="您确定通过么？" type="object"
+                    name="month_approve_allow" class="btn btn-default">
                 通过
             </button>
-            <button t-if="widget.record.data.month_btns.indexOf('驳回') >= 0" confirm="您确定驳回么？" type="object" name="month_approve_not_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_btns.indexOf('驳回') >= 0" confirm="您确定驳回么？" type="object"
+                    name="month_approve_not_allow" class="btn btn-default">
                 驳回
             </button>
         </div>
@@ -170,19 +185,120 @@
 
     <t t-name="month_summary_btns">
         <div>
-            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发起会签') >= 0" confirm="您确定发起会签么？" type="object" name="month_summary_sign" class="btn btn-default">
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发起会签') >= 0" confirm="您确定发起会签么？"
+                    type="object" name="month_summary_sign" class="btn btn-default">
                 发起会签
             </button>
-            <button t-if="widget.record.data.month_summary_btns_str.indexOf('同意') >= 0" confirm="您确定同意么？" type="object" name="month_summary_sign_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('同意') >= 0" confirm="您确定同意么？" type="object"
+                    name="month_summary_sign_allow" class="btn btn-default">
                 同意
             </button>
-            <button t-if="widget.record.data.month_summary_btns_str.indexOf('不同意') >= 0" confirm="您确定不同意么？" type="object" name="month_summary_sign_not_allow" class="btn btn-default">
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('不同意') >= 0" confirm="您确定不同意么？"
+                    type="object" name="month_summary_sign_not_allow" class="btn btn-default">
                 不同意
             </button>
-            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发布') >= 0" confirm="您确定发布么？" type="object" name="month_summary_publish" class="btn btn-default">
+            <button t-if="widget.record.data.month_summary_btns_str.indexOf('发布') >= 0" confirm="您确定发布么？" type="object"
+                    name="month_summary_publish" class="btn btn-default">
                 发布
             </button>
         </div>
     </t>
+
+    <!--巡更节点的二维码查看-->
+    <t t-name="patrol_node_setting_qr">
+        <div>
+            <button type="object" name="search_qr_code" class="btn btn-default">
+                查看
+            </button>
+        </div>
+    </t>
+
+    <!--巡更节点的编辑删除-->
+    <t t-name="patrol_node_setting_op">
+        <div>
+            <button type="object" name="edit_record" class="btn btn-default">
+                编辑
+            </button>
+            <button type="object" name="delete_record" class="btn btn-default" confirm="你确定要删除本条记录吗？">
+                删除
+            </button>
+        </div>
+    </t>
+
+    <!--巡更节点-->
+    <t t-name="patrol_node_state">
+        <div>
+            <button type="object" name="detailed_record" class="btn btn-default">
+                详情
+            </button>
+            <button type="object" name="stop_project" class="btn btn-default" confirm="你确定要停用本计划？"
+                    t-if="widget.record.data.state=='normal'">
+                停用
+            </button>
+            <button type="object" name="start_project" class="btn btn-default" confirm="你确定要启用本计划？"
+                    t-if="widget.record.data.state=='stop'">
+                启用
+            </button>
+        </div>
+    </t>
+
+    <!--巡更节点详情-->
+    <t t-name="patrol_node_state_details">
+        <div>
+            <button type="object" name="detailed_record" class="btn btn-default">
+                巡更记录详情
+            </button>
+        </div>
+    </t>
+
+    <!--巡更节点详情-->
+    <t t-name="page_node_order_qr_details">
+        <div>
+            <button type="object" name="search_qr_code" class="btn btn-default">
+                查看二维码
+            </button>
+        </div>
+    </t>
+
+    <!--巡更节点详情查看二维码-->
+    <t t-name="patrol_node_details_qr">
+        <div>
+            <button type="object" name="search_qr_code" class="btn btn-default">
+                查看二维码
+            </button>
+        </div>
+    </t>
+
+    <t t-name="node_search_button">
+		<div class="form-inline custom_search_box">
+			<div class="container-fluid">
+				<div class="col-lg-3 " style="margin-bottom:5px; height:40px; line-height:40px;">
+					<div class="search_label" style="float:left;width:auto;">选择时间:</div>
+                    <div for="create_time" class="col-xs-8" style="float:left;"></div>
+				</div>
+                <div class="col-lg-3 " style="margin-bottom:5px; ; height:40px; line-height:40px;">
+					<span class="search_label" style="float:left;">线路:</span>
+                    <span for="line_id" class=" col-xs-8" style=""/>
+				</div>
+                <div class="col-lg-3 " style="margin-bottom:5px; ; height:40px; line-height:40px;">
+					<span class="search_label" style="float:left;">归属站点:</span>
+                    <span for="site_id" class=" col-xs-8" style=""/>
+				</div>
+                <div class="col-lg-2 " style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">人员:</span>
+                    <span for="create_name" class="col-xs-8"></span>
+                </div>
+                <div class="col-lg-2 " style="margin-bottom:5px; height:40px; line-height:40px;">
+                    <span class="search_label" style="float:left;">状态:</span>
+                    <span for="state" class="col-xs-8"></span>
+                </div>
+                <div class="col-md-4" style="margin-bottom:5px; height:40px; line-height:40px;">
+					<button type="button" class="btn btn-default search_extend_apply">
+						搜索
+					</button>
+				</div>
+			</div>
+		</div>
+	</t>
 
 </templates>

@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from odoo import api,models,fields
+from odoo import api, models, fields
 import requests
 import urllib
 import base64
+
 
 class VideoVoice(models.Model):
     _name = 'video_voice_model'
@@ -13,16 +14,17 @@ class VideoVoice(models.Model):
     video = fields.Binary(string='文件')
     file_name = fields.Char(string='File Name')
     url = fields.Char(string='url')
-    guests_mp_play_one = fields.Many2one('fuenc_xa_station.guests_hurt',string='客人受伤视频附件的附件')
-    guests_mp3_play = fields.Many2one('fuenc_xa_station.guests_hurt',string='客人受伤的录音附件')
-    add_guest_play_mp4 = fields.Many2one('fuenc_station.good_deeds',string='增加好人好事附件')
-    add_guest_play_mp3 = fields.Many2one('fuenc_station.good_deeds',string='增加好人好事录音附件')
-    good_deeds_play = fields.Many2one('fuenc_station.good_deeds',string='好人好事录音附件')
-    suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱视屏附件')
-    suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box',string='乘客意见箱音频附件')
-    site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan',string='站点演练详情视屏附件')
-    belong_management_imange = fields.Many2one('funenc_xa_station.belong_to_management',string='属地管理')
-    break_submit_image = fields.Many2one('funenc_xa_station.break_submit',string='故障提报图片')
+    guests_mp_play_one = fields.Many2one('fuenc_xa_station.guests_hurt', string='客人受伤视频附件的附件')
+    guests_mp3_play = fields.Many2one('fuenc_xa_station.guests_hurt', string='客人受伤的录音附件')
+    add_guest_play_mp4 = fields.Many2one('fuenc_station.good_deeds', string='增加好人好事附件')
+    add_guest_play_mp3 = fields.Many2one('fuenc_station.good_deeds', string='增加好人好事录音附件')
+    good_deeds_play = fields.Many2one('fuenc_station.good_deeds', string='好人好事录音附件')
+    suggest_box_video = fields.Many2one('funenc_xa_station.suggestion_box', string='乘客意见箱视屏附件')
+    suggest_box_audio = fields.Many2one('funenc_xa_station.suggestion_box', string='乘客意见箱音频附件')
+    site_drill_plan_audio = fields.Many2one('funenc_xa_station.site_drill_plan', string='站点演练详情视屏附件')
+    belong_management_imange = fields.Many2one('funenc_xa_station.belong_to_management', string='属地管理')
+    break_submit_image = fields.Many2one('funenc_xa_station.break_submit', string='故障提报图片')
+    patrol_node_imange = fields.Many2one('funenc_xa_station.patrol_record_details', string='巡更记录图片')
 
     @api.model
     def create(self, params):
@@ -61,7 +63,6 @@ class VideoVoice(models.Model):
             'target': 'new',
         }
 
-
     def load_file(self):
         load_file_form = self.env.ref('funenc_xa_station.video_voice_load').id
         return {
@@ -77,6 +78,7 @@ class VideoVoice(models.Model):
             'target': 'new',
         }
 
+
 class VideoVoice1(models.Model):
     _name = 'video_voice_1_model'
 
@@ -87,4 +89,5 @@ class VideoVoice1(models.Model):
     video = fields.Binary(string='文件')
     file_name = fields.Char(string='File Name')
     url = fields.Char(string='url')
-    special_money_act = fields.Many2one('funenc_xa_station.special_money',string='特殊赔偿金处理结果附件',default=_default_associated)
+    special_money_act = fields.Many2one('funenc_xa_station.special_money', string='特殊赔偿金处理结果附件',
+                                        default=_default_associated)

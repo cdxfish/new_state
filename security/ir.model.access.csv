@@ -151,3 +151,8 @@ funenc_xa_station_143,model_funenc_xa_station_change_shifts_time,model_funenc_xa
 funenc_xa_station_144,model_funenc_xa_station_personnel_situation,model_funenc_xa_station_personnel_situation,,1,1,1,0
 funenc_xa_station_145,model_funenc_xa_station_train_working_2,model_funenc_xa_station_train_working_2,,1,1,1,1
 funenc_xa_station_146,base.model.ir_module_category,base.model_ir_module_category,,1,1,1,1
+funenc_xa_station_147,funenc_xa_station.patrol_node,model_funenc_xa_station_patrol_node,,1,1,1,1
+funenc_xa_station_148,funenc_xa_station.patrol_node_record,model_funenc_xa_station_patrol_node_record,,1,1,1,1
+funenc_xa_station_149,funenc_xa_station.patrol_node_setting,model_funenc_xa_station_patrol_node_setting,,1,1,1,1
+funenc_xa_station_150,funenc_xa_station.patrol_record_details,model_funenc_xa_station_patrol_record_details,,1,1,1,1
+funenc_xa_station_151,mail.followers,mail.model_mail_followers,,1,1,1,1
