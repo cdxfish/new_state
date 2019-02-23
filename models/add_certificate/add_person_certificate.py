@@ -73,7 +73,7 @@ class AddPersonCertificate(models.Model):
     @api.model
     def create(self, vals):
         vals['relevance_staff'] = vals['person_name']
-        if vals.get('load_file_test')[0][2]:
+        if vals.get('load_file_test'):
             vals['person_certificate_browse']='one'
         return super(AddPersonCertificate, self).create(vals)
 
